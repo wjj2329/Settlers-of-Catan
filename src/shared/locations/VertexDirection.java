@@ -1,6 +1,6 @@
 package shared.locations;
 
-public enum VertexDirection
+public enum VertexDirection//comment
 {
 	West, NorthWest, NorthEast, East, SouthEast, SouthWest;
 	
