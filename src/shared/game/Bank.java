@@ -2,7 +2,7 @@ package shared.game;
 
 import java.util.ArrayList;
 
-/** A class to keep track of cards that the "Bank" has avaible and can 
+/** A class to keep track of cards that the "Bank" has available and can 
  * give to players
  * 
  * @author williamjones
