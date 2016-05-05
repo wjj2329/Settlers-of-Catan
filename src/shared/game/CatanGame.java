@@ -1,5 +1,6 @@
 package shared.game;
 
-public class CatanGame {
+public class CatanGame 
+{
 
 }
