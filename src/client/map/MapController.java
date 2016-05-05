@@ -9,7 +9,7 @@ import client.data.*;
 
 
 /**
- * hi mom
+ * hi mom!
  * Implementation for the map controller
  */
 public class MapController extends Controller implements IMapController {
