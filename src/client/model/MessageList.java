@@ -1,5 +1,8 @@
 package client.model;
 
-public class MessageList {
+import java.util.ArrayList;
 
+public class MessageList
+{
+ArrayList<MessageLine>lines;
 }

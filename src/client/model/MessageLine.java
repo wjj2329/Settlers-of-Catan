@@ -1,5 +1,8 @@
 package client.model;
 
-public class MessageLine {
+public class MessageLine 
+{
+	String message;
+	String source;
 
 }
