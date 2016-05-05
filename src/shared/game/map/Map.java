@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.Road;
+import shared.game.map.vertexobject.VertexObject;
 
 /**
  * @author Alex
@@ -32,11 +33,36 @@ public class Map
 	ArrayList<Road> roads = new ArrayList<>();
 	
 	/**
-	 * Default Map constructor.
+	 * settlements: List of all current settlements on map.
+	 * Dynamically updated.
 	 */
-	public Map()
+	ArrayList<VertexObject> settlements = new ArrayList<>();
+	
+	/**
+	 * cities: List of all current cities on the map.
+	 * Also dynamically updated. 
+	 */
+	ArrayList<VertexObject> cities = new ArrayList<>();
+	
+	/**
+	 * Radius: Radius of the map.
+	 */
+	int radius = 0;
+	
+	/**
+	 * 
+	 */
+	
+	
+	/**
+	 * Default Map constructor.
+	 * @param radius: radius of the map.
+	 * @pre
+	 * @post
+	 */
+	public Map(int radius)
 	{
-		
+		this.radius = radius;
 	}
 	
 	private boolean canPlaceHex()
