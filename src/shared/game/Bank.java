@@ -10,22 +10,26 @@ public class Bank
 	ArrayList<Card>mycards=new ArrayList<>();
 	
 	/**
+	 * @param cardtype the non null type that the card is. 
 	 *  A function that checks to see if the Bank can even give a card to a player
+	 *  @return returns false if card is not available
 	 */
 	boolean HasCardAvailable(String cardtype)
 	{
 		return true;
 	}
+	
 	/**
-	 *  A function that gives a player a card
+	 * @return returns a NON null valid Card object to the player
+	 * A function that gives a player a card
+	 * @throws PlayerNotFoundException if there is no corresponding player object
+	 * with the said playerid 
 	 */
-	Card giveplayercard()
+	Card giveplayercard(int playerid)
 	{
 		Card cardtogive=null;
 		return cardtogive;
 	}
-	
-	
 	
 	
 }
