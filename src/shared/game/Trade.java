@@ -20,9 +20,11 @@ public class Trade
 	}
 	
 	/**
+	 * 
 	 * Returns whether or not one player can trade with another.
+	 * @exception throws exception if player id with corresponding player is not found
 	 */
-	public boolean canTradeWith()
+	public boolean canTradeWith(int playerid)
 	{
 		return false;
 	}

@@ -29,7 +29,8 @@ public class Robber
 	/**
 	 * canPlaceRobber: Determines whether or not the
 	 * robber can be placed at the given HexLocation.
-	 * @param loc: given hex location
+	 * @param loc: given hex location, can't be null,  can't place 
+	 * if robber already exists on said tile. 
 	 */
 	boolean canPlaceRobber(HexLocation loc)
 	{
