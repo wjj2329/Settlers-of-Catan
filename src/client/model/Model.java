@@ -3,7 +3,7 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.game.Bank;
-import shared.game.Player;
+import shared.game.player.Player;
 import shared.game.map.Map;
 
 public class Model 
@@ -34,7 +34,7 @@ public void updatFromJSON()
 	
 }
 
-ArrayList<Player>myplayers;
+ArrayList<Player> myplayers=new ArrayList();
 
 
 

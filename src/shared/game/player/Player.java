@@ -1,6 +1,8 @@
-package shared.game;
+package shared.game.player;
 
 import shared.definitions.CatanColor;
+import shared.game.DevCardList;
+import shared.game.ResourceList;
 import shared.game.map.Index;
 
 /**
@@ -48,12 +50,12 @@ public class Player
 	/**
 	 * newDevCards: list of new development cards
 	 */
-	private DevCardList newDevCards = new DevCardList();
+	private DevCardList newDevCards = new DevCardList(numCities, numCities, numCities, numCities, numCities);
 	
 	/**
 	 * oldDevCards: list of old development cards
 	 */
-	private DevCardList oldDevCards= new DevCardList();
+	private DevCardList oldDevCards= new DevCardList(numCities, numCities, numCities, numCities, numCities);
 	
 	/**
 	 * Each player has their own Index.
