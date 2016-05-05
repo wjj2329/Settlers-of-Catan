@@ -33,9 +33,9 @@ public void updatFromJSON()
 {
 	
 }
-Bank bank;
-Map map;
+
 ArrayList<Player>myplayers;
+
 
 
 
