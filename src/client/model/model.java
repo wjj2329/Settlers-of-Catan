@@ -34,7 +34,7 @@ public void updatFromJSON()
 }
 Bank bank;
 Map map;
-//ArrayList<Player>myplayers;
+//ArrayList<Player>myplayers;dsadasd
 
 
 }
