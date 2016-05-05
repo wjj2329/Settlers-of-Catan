@@ -5,11 +5,15 @@ import java.util.ArrayList;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.Road;
 import shared.game.map.vertexobject.VertexObject;
+import shared.locations.HexLocation;
 
 /**
  * @author Alex
- * Map class: Represents the map of the Catan World - in other words,
+ * Map class: Represents the map of the Catan world - in other words,
  * the playing board. 
+ * 
+ * Need to change the name to CatanMap so no confusion is present.
+ * My b
  */
 public class Map 
 {
@@ -50,21 +54,32 @@ public class Map
 	int radius = 0;
 	
 	/**
-	 * 
+	 * robber: The robber that steals things.
 	 */
+	private Robber robber = null;
 	
 	
 	/**
 	 * Default Map constructor.
 	 * @param radius: radius of the map.
+	 * @param desertHexLoc: where the robber should be initially
+	 * (in the desert). 
 	 * @pre
 	 * @post
 	 */
-	public Map(int radius)
+	public Map(int radius, HexLocation desertHexLoc)
 	{
 		this.radius = radius;
+		robber = new Robber(desertHexLoc);
 	}
 	
+	/**
+	 * canPlaceHex: Determines whether or not we can place 
+	 * a hex in the given location.
+	 *  
+	 * NOTE: Will need to edit this with the appropriate parameter!
+	 * 
+	 */
 	private boolean canPlaceHex()
 	{
 		return false;
