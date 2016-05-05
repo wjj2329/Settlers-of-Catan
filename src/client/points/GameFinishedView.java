@@ -10,7 +10,7 @@ import client.base.*;
 import client.utils.*;
 
 
-/**
+/**test
  * Implementation for the game finished view, which is displayed when the game is over
  */
 @SuppressWarnings({"serial", "unused"})
