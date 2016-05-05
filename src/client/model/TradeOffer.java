@@ -10,13 +10,12 @@ public class TradeOffer
 	int receiver;
 	ArrayList<Card>offer=new ArrayList<Card>();
 	
-	
 	boolean canTrade()
 	{
 		return true;
 	}
 	
-	void offerTrade()
+	void offerTrade(int playerid)
 	{
 		return;
 	}
