@@ -1,5 +1,7 @@
 package shared.game.map.Hex;
 
+import shared.locations.HexLocation;
+
 public class Hex 
 {
 HexLocation location;
