@@ -6,9 +6,9 @@ import shared.game.Bank;
 import shared.game.Player;
 import shared.game.map.Map;
 
-public class model 
+public class Model 
 {
-public model()
+public Model()
 {
 	
 }
