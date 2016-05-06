@@ -1,5 +1,7 @@
 package shared.game;
 
+import shared.game.player.Player;
+
 /**
  * @author Alex
  * MaritimeTrade: a trade that takes place at a harbor.
@@ -19,8 +21,12 @@ public class MaritimeTrade extends Trade
 	/**
 	 * CanTrade: determines whether or not a trade can
 	 * be performed
+	 * @custom.mytag1 pre:  Player MUST be a valid non null Player that is 
+	 * currently playing the current game running on the server. 
+	 * @custon.mytag2 post: returns false if not able to trade returns true if is able to trade
+	 * @exception throws exception if player is not valid player
 	 */
-	public boolean canTrade()
+	public boolean canTrade(Player player)
 	{
 		return false;
 	}
