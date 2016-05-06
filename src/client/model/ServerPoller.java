@@ -15,6 +15,12 @@ public class ServerPoller
 	 */
 	Timer requestTimer = null;
 	
+	// Add dependency injection.
+	public ServerPoller()
+	{
+		
+	}
+	
 	/**
 	 * Function to determine whether or not we need an update. 
 	 */
