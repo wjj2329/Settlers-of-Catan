@@ -20,7 +20,8 @@ public class Trade
 	}
 	
 	/**
-	 * 
+	 * @custom.mytag1 pre:playid is not negative
+	 * @custom.mytag2 post:returns true if successful
 	 * Returns whether or not one player can trade with another.
 	 * @exception throws exception if player id with corresponding player is not found
 	 */
