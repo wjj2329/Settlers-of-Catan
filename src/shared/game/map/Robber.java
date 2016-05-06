@@ -20,10 +20,26 @@ public class Robber
 	 * Robber constructor
 	 * @param initialLocation: where the robber starts
 	 * (should be on the Desert Hex). 
+	 * @custom.mytag1 pre: initialLocation is not null
+	 * 						initialLocation is the Desert hex
+	 * @custom.mytag2 post: same as above.
 	 */
 	public Robber(HexLocation initialLocation)
 	{
 		location = initialLocation;
+	}
+	
+	/**
+	 * robPlayer: Robs the player at the given index.
+	 * @param playerToRob: the player to rob.
+	 * @custom.mytag1 pre: The canBeRobbed() function for the player must return true.
+	 * 						canPlaceRobber must also be true at the particular location of the player.
+	 * 						Otherwise, the player cannot be robbed.
+	 * @custom.mytag2 post: The player will be deficient of a particular resource.
+	 */
+	public void robPlayer(Index playerToRob)
+	{
+		
 	}
 	
 	/**
