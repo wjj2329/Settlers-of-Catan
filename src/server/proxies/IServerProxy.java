@@ -22,7 +22,6 @@ public interface IServerProxy {
 	 *            the player's username
 	 * @param password:
 	 *            the player's password
-	 * 
 	 * @pre username is not null, password is not null
 	 * @post if username and password is valid: 1. The server
 	 *                returns an HTTP 200 success response with "Success" in the
@@ -47,7 +46,6 @@ public interface IServerProxy {
 	 *            the player's username
 	 * @param password:
 	 *            the player's password
-	 * 
 	 * @pre username is not null password is not null The
 	 *                specified username is not already in use
 	 * @post If there is no existing user with the specified

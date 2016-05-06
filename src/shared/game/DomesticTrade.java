@@ -22,7 +22,7 @@ public class DomesticTrade extends Trade
 	 * be performed
 	 * @pre Player MUST be a valid non null Player that is 
 	 * currently playing the current game running on the server. 
-	 * @custon.mytag2 post: returns false if not able to trade returns true if is able to trade
+	 * @post returns false if not able to trade returns true if is able to trade
 	 * @exception throws exception if player is not valid player
 	 */
 	public boolean canTrade(Player player)
