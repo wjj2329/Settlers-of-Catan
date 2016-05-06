@@ -1,14 +1,21 @@
 package client.model;
 
+import java.util.Timer;
+
 public class ServerPoller 
 {
-String serverhost;
-String serverport;
-String urlprefix;
-void send(String urlpath, String data)
+Timer requestTimer;
+
+boolean needUpdate()
+{
+	return true;
+}
+
+void startPoller()
 {
 	
-}		
+}
+
 	
 }
 
