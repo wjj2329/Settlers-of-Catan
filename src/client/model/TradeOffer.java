@@ -19,8 +19,8 @@ public class TradeOffer
 	
 	/**
 	 * @exception throws exception if player is Invalid/null
-	 * @custom.mytag1 pre: player is not null player is valid.  
-	 * @custom.mytag2 post:returns true if player can trade and false if can't
+	 * @pre: player is not null player is valid.  
+	 * @post: returns true if player can trade and false if can't
 	 * @return
 	 */
 	boolean canTrade(Player player)
@@ -30,8 +30,8 @@ public class TradeOffer
 	
 	/**
 	 * @exception throws exception if player is Invalid/null
-	 * @custom.mytag1 pre: player is not null player is valid.  
-	 * @custom.mytag2 post:returns true if player can trade and false if can't
+	 * @pre: player is not null player is valid.  
+	 * @post: returns true if player can trade and false if can't
 	 * @param playerid
 	 */
 	void offerTrade(int playerid)
