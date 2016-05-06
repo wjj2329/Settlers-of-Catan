@@ -17,10 +17,10 @@ public class Hex
 	 * @param location: where the hex is located on the map.
 	 * @param resourcetype: what kind of resource can be found on the hex.
 	 * @param resourcenumber: number of the resource
-	 * @custom.mytag1 pre: HexLocation is not null
+	 * @pre HexLocation is not null
 	 * 						resourceType is not null
 	 * 						resourcenumber is not negative
-	 * @custom.mytag2 post: same as above. 
+	 * @post same as above. 
 	 */
 	public Hex(HexLocation location, String resourcetype, int resourcenumber)
 	{

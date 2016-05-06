@@ -21,7 +21,7 @@ public class MaritimeTrade extends Trade
 	/**
 	 * CanTrade: determines whether or not a trade can
 	 * be performed
-	 * @custom.mytag1 pre: Player MUST be a valid non null Player that is 
+	 * @pre Player MUST be a valid non null Player that is 
 	 * currently playing the current game running on the server. 
 	 * @custon.mytag2 post: returns false if not able to trade returns true if is able to trade
 	 * @exception throws exception if player is not valid player

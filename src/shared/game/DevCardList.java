@@ -21,9 +21,9 @@ public class DevCardList
 	
 	/**
 	 * Constructor for DevCardList
-	 * @custom.mytag1 pre: all these numbers for the constructor must be non 
+	 * @pre all these numbers for the constructor must be non 
 	 * negative and must be less then or equal to  the number that the game contains
-	 * @custom.mytag2 post: the numbers get updated!
+	 * @post the numbers get updated!
 	 */
 	public DevCardList(int monopoly, int monument, int roadBuilding,
 			int soldier, int yearOfPlenty)

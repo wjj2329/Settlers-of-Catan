@@ -20,8 +20,8 @@ public class TurnTracker
 	/**
 	  * A function that updates at the start of the turn the player with 
 	  * the largest Army
-	  * @custom.mytag1 pre: There must be a player that has at least 3 army knights before this card can be given.
-	  * @custom.mytag2 post: Player is updates as having the Largest Army Card. 
+	  * @pre There must be a player that has at least 3 army knights before this card can be given.
+	  * @post Player is updates as having the Largest Army Card. 
 	  * 
 	  */
 	public Player updateUserWithLargestArmy()
@@ -31,8 +31,8 @@ public class TurnTracker
 	/**
 	  * A function that updates at the start of the turn the player with 
 	  * the largest Road
-	  *  * @custom.mytag1 pre: There must be a player that has at least 3 army continuous road pieces before this card can be given.
-	  * @custom.mytag2 post: Player is updates as having the Largest Road Card. 
+	  *  * @pre There must be a player that has at least 3 army continuous road pieces before this card can be given.
+	  * @post Player is updates as having the Largest Road Card. 
 	  */
 	public Player updateUserWithLargestRoad()
 	{

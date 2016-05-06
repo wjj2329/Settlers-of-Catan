@@ -16,7 +16,7 @@ public class MessageList
 	 * @param message  Not null string that contains a message
 	 * @param line Not null line that contains source of the said message.  
 	 * @exception throws invalidLocationException if line doesn't exist as a location
-	 * @custom.mytag1 pre: message and line must not be null!
+	 * @pre message and line must not be null!
 	 */
 	public void addtoList(String message, String line)
 	{

@@ -64,10 +64,10 @@ public class CatanMap
 	 * @param radius: radius of the map.
 	 * @param desertHexLoc: where the robber should be initially
 	 * (in the desert). 
-	 * @custom.mytag1 pre: radius should be greater than 0. 
+	 * @pre radius should be greater than 0. 
 	 * 						desertHexLoc should not be null.
 	 * 						we should be able to place Hexes in their corresponding locations.
-	 * @custom.mytag2 post: robber should not be null.
+	 * @post robber should not be null.
 	 * 						robber should be placed on the desert hex tile.
 	 */
 	public CatanMap(int radius, HexLocation desertHexLoc)

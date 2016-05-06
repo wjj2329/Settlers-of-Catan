@@ -102,10 +102,10 @@ public class Player
 	
 	/**
 	 * Player constructor
-	 * @custom.mytag1 pre: name is between 3 and 7 characters
+	 * @pre name is between 3 and 7 characters
 	 * 						CatanColor is not null
 	 * 						playerID is not null
-	 * @custom.mytag2 post: same as above.
+	 * @post same as above.
 	 */
 	public Player(String name, CatanColor color, Index playerID)
 	{

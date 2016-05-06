@@ -24,9 +24,9 @@ public class RewardCardList
 		
 	}
 	/**
-	 * @custom.mytag1 pre: longestRoadSize is not negative and is not larger then there
+	 * @pre longestRoadSize is not negative and is not larger then there
 	 * are number of road pieces
-	 * @custom.mytag2 post:longestRoadSize is updated. 
+	 * @postlongestRoadSize is updated. 
 	 * @param longestRoadSize
 	 */
 	private void updatelongestroad(int longestRoadSize)
@@ -34,9 +34,9 @@ public class RewardCardList
 		this.longestRoadSize=longestRoadSize;
 	}
 	/**
-	 * @custom.mytag1 pre: largestArmySize is not negative and is not larger then there
+	 * @pre largestArmySize is not negative and is not larger then there
 	 * are number of Knight Cards
-	 * @custom.mytag2 post:largestArmySize is updated. 
+	 * @postlargestArmySize is updated. 
 	 * @param longestRoadSize
 	 */
 	private void updatelargestarmy(int largestArmySize)

@@ -23,8 +23,8 @@ public class Settlement extends Structure
 	/**
 	 * Constructor
 	 * @param buildingCost: cost of building the settlement
-	 * @custom.mytag1 pre: buildingCost is nonnegative
-	 * @custom.mytag2 post: the superclass is also constructed
+	 * @pre buildingCost is nonnegative
+	 * @post the superclass is also constructed
 	 */
 	public Settlement(int buildingCost) 
 	{
@@ -34,7 +34,7 @@ public class Settlement extends Structure
 	/**
 	 * Determines whether or not a settlement can be placed at
 	 * the given location.
-	 * @custom.mytag1 pre: loc is not null
+	 * @pre loc is not null
 	 */
 	public boolean canPlaceSettlement(HexLocation loc)
 	{

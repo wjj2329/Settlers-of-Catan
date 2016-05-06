@@ -4,7 +4,7 @@ import client.data.*;
 import shared.definitions.*;
 import shared.locations.*;
 
-import org.json.JSONObject;
+import org.json.*;
 
 /**
  * Interface for the ServerProxy
@@ -23,14 +23,14 @@ public interface IServerProxy {
 	 * @param password:
 	 *            the player's password
 	 * 
-	 * @custom.mytag1 pre: username is not null, password is not null
-	 * @custom.mytag2 post: if username and password is valid: 1. The server
+	 * @pre username is not null, password is not null
+	 * @post if username and password is valid: 1. The server
 	 *                returns an HTTP 200 success response with "Success" in the
 	 *                body. 2. the HTTP response headers set the catan.user
 	 *                cookie to contain the identity of the logged-in player.
 	 *                Cookie uses "Path=/", and its value contains a url-encoded
 	 *                JSON object in the form:
-	 *                {“name”:STRING,“password”:STRING,“playerID”:INTEGER}. If
+	 *                {"name":STRING,"password":STRING,"playerID":INTEGER}. @post If
 	 *                username and password are not valid or operation fails for
 	 *                any reason 1. The server returns an HTTP 400 error
 	 *                response, and the body contains an error message.
@@ -48,17 +48,17 @@ public interface IServerProxy {
 	 * @param password:
 	 *            the player's password
 	 * 
-	 * @custom.mytag1 pre: username is not null password is not null The
+	 * @pre username is not null password is not null The
 	 *                specified username is not already in use
-	 * @custom.mytag2 post: If there is no existing user with the specified
+	 * @post If there is no existing user with the specified
 	 *                username, 1. A new user account has been created with the
 	 *                specified username and password. 2. The server returns an
-	 *                HTTP 200 success response with “Success” in the body. 3.
+	 *                HTTP 200 success response with "Success" in the body. 3.
 	 *                The HTTP response headers set the catan.user cookie to
 	 *                contain the identity of the logged in player. The cookie
 	 *                uses "Path=/", and its value contains a url encoded
 	 *                JSONobject of the following form:
-	 *                {“name”:STRING,“password”:STRING,“playerID”:INTEGER}. If
+	 *                {"name":STRING,"password":STRING,"playerID":INTEGER}. If
 	 *                there is already an existing user with the specified name,
 	 *                or operation fails for any reason 1. The server returns
 	 *                and HTTP 400 error response, and the body contains an
@@ -69,11 +69,11 @@ public interface IServerProxy {
 	/**
 	 * Returns information about all of the current games on the server.
 	 *
-	 * @custom.mytag1 pre: None! :D
-	 * @custom.mytag2 post: If the operation succeeds, 1.The server returns an
+	 * @pre None! :D
+	 * @post If the operation succeeds, 1.The server returns an
 	 *                HTTP 200 success response. 2.The body contains a JSON
 	 *                array containing a list of objects that contain
-	 *                information about the server’s games If the operation
+	 *                information about the server’s games @post If the operation
 	 *                fails, 1.The server returns an HTTP 400 error response,
 	 *                and the body contains an error message
 	 * 
@@ -92,9 +92,9 @@ public interface IServerProxy {
 	 * @param randomPorts
 	 *            if random ports will be created
 	 * 
-	 * @custom.mytag1 pre: name != null, randomeTiles, randomNumbers, and
+	 * @pre name != null, randomeTiles, randomNumbers, and
 	 *                randomPorts contain valid boolean values
-	 * @custom.mytag2 post: If the operation succeeds, 1.A new game with the
+	 * @post If the operation succeeds, 1.A new game with the
 	 *                specified properties has been created 2.The server returns
 	 *                an HTTP 200 success response. 3.The body contains a
 	 *                JSONobject describing the newly created game. If the
@@ -114,7 +114,7 @@ public interface IServerProxy {
 	 * @param player
 	 *            the player that wants to be added to game.
 	 *
-	 * @custom.mytag1 pre: 1.The user has previously logged in to the server
+	 * @pre 1.The user has previously logged in to the server
 	 *                (i.e.,they have a valid catan.user HTTP cookie). 2.The
 	 *                player may join the game because 2.a They are already in
 	 *                the game, OR 2.b There is space in the game to add a new
@@ -122,12 +122,12 @@ public interface IServerProxy {
 	 *                color is
 	 *                valid(red,green,blue,yellow,puce,brown,white,purple,
 	 *                orange)
-	 * @custom.mytag2 post: If the operation succeeds, 1. The server returns an
+	 * @post If the operation succeeds, 1. The server returns an
 	 *                HTTP 200 success response with "Success" in the body. 2.
 	 *                The player is in the game with the specified
 	 *                color(i.e.calls to /games/list method will show the player
 	 *                in the game with the chosen color). 3. The serve response
-	 *                includes the “Set cookie” response header setting the
+	 *                includes the "Set cookie" response header setting the
 	 *                catan.game HTTP cookie If the operation fails, 1.The
 	 *                server returns an HTTP 400 error response, and the body
 	 *                contains an error message
@@ -148,9 +148,9 @@ public interface IServerProxy {
 	 * @param fileName
 	 *            the file name that will have the information for saved game.
 	 * 
-	 * @custom.mytag1 pre: 1.The specified game ID is valid 2.The specified file
+	 * @pre 1.The specified game ID is valid 2.The specified file
 	 *                name is valid(i.e.,not null or empty)
-	 * @custom.mytag2 post:If the operation succeeds, 1. The server returns an
+	 * @postIf the operation succeeds, 1. The server returns an
 	 *                HTTP 200 success response with "Success" in the body. 2.
 	 *                The current state of specified game (including its ID) has
 	 *                been saved to the specified file in the server's saves/
@@ -172,8 +172,8 @@ public interface IServerProxy {
 	 * @param name
 	 *            it is the name of the file
 	 *
-	 * @custom.mytag1 pre: 1.A previously saved game file with the specified name exists in the server’s saves/ directory
-	 * @custom.mytag2 post: If the operation succeeds, 
+	 * @pre 1.A previously saved game file with the specified name exists in the server’s saves/ directory
+	 * @post If the operation succeeds, 
 	 * 						1. The server returns an HTTP 200 success response with "Success" in the body. 
 	 *                		2. The game in the specified file has been loaded into the server and its state restored (including its ID). 
 	 *                		If the operation fails, 
@@ -186,13 +186,12 @@ public interface IServerProxy {
 	 * Returns the current state of the game in JSON format, and also includes a
 	 * "version" number for the client model.
 	 *
-	 * @param version version number for hte client model 
+	 * @param version version number for the client model 
 	 * 
-	 * @custom.mytag1 pre: 1.The caller has previously logged into the server and joined a game(i.e.,they have valid 
+	 * @pre 1.The caller has previously logged into the server and joined a game(i.e.,they have valid 
 	 * 						catan.user and catan.game HTTP cookies).
-	 * 						2.If specified, the version number is included as the “version” query parameter 
 	 * 						in the request URL, and its value is a valid integer
-	 * @custom.mytag2 post: If the operation succeeds,
+	 * @post If the operation succeeds,
 	 * 						1. The server returns an HTTP 200 success response
 	 * 						2. The response body contains JSON data 
 	 * 							a. The full client model JSON is returned if the caller does not provide a version 
@@ -208,14 +207,14 @@ public interface IServerProxy {
 	/**
 	 * Clears out the command history of the current game.
 	 * 
-	 * @custom.mytag1 pre: 1. The caller has previously logged in to the server and joined a game (i.e., they have a valid 
+	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have a valid 
 	 * 						 catan.user and catan.game HTTP cookies)
-	 * @custom.mytag2 post: If the operation succeeds,
+	 * @post If the operation succeeds,
 	 * 						1. The game's command history has been cleared out
 	 * 						2. The game's players have NOT been cleared out
 	 * 						3. The server returns an HTTP 200 success response. 
 	 * 						4. The body contains the game's updated client model JSON  
-	 *                		If the operation fails, 
+	 * @post If the operation fails, 
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 						
 	 * 
@@ -225,9 +224,9 @@ public interface IServerProxy {
 	/**
 	 * Returns a list of commands that have been executed in the current game.
 	 *
-	 * @custom.mytag1 pre: 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
+	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
 	 * 						  catan.user and catan.game HTTP cookies).
-	 * @custom.mytag2 post: If the operation succeeds,
+	 * @post If the operation succeeds,
 	 * 						1. The server returns an HTTP 200 success response
 	 * 						2. The body contains a JSON array of commands that have been executed in the game. 
 	 *                		If the operation fails, 
@@ -240,9 +239,9 @@ public interface IServerProxy {
 	 * 
 	 * Executes the specified command list in the current game.
 	 * 
-	 * @custom.mytag1 pre: 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
+	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
 	 * 						  catan.user and catan.game HTTP cookies).
-	 * @custom.mytag2 post:If the operation succeeds,
+	 * @postIf the operation succeeds,
 	 * 						1. The passed-in command list has been applied to the game.
 	 * 						2. The server returns an HTTP 200 success response.
 	 * 						3. The body contains the game's updated client model JSON
@@ -256,8 +255,8 @@ public interface IServerProxy {
 	 * 
 	 * Returns a list of supported AI player types
 	 * 
-	 * @custom.mytag1 pre: NONE! :D 
-	 * @custom.mytag2 post: If the operation succeeds,
+	 * @pre NONE! :D 
+	 * @post If the operation succeeds,
 	 * 						1. The server returns an HTTP 200 success response
 	 * 						2. The body contains a JSON string array enumerating the different types of AI players. These are the values
 	 * 							that may be passed to the /game/addAI method. 
@@ -269,11 +268,11 @@ public interface IServerProxy {
 	 * 
 	 * Adds an AI player to the current game. Must login and join a game before calling this method. 
 	 * 
-	 * @custom.mytag1 pre: 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
+	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
 	 * 						  catan.user and catan.game HTTP cookies).
 	 * 					   2. There is space in the game for another player(i.e., the game is not "full").
 	 * 					   3. The specified "AIType" is valid(i.e., one of the values returned by the /game/listAImethod).
-	 * @custom.mytag2 post: If the operation succeeds, 
+	 * @post If the operation succeeds, 
 	 * 						1. The server returns an HTTP 200 success response with "Success" in the body. 
 	 * 						2. A new AI player of the specified type has been added to the current game. The server selected a name
 	 * 							and color for the player. 
@@ -286,15 +285,15 @@ public interface IServerProxy {
 	/**
 	 * Sets the server's logging level
 	 * 
-	 * @param logLevel
-	 * 
-	 * @custom.mytag1 pre: The caller specifies a valid logging level. Valid values include: SEVER, WARNING, INFO, CONFIG, FINE, 
+	 * @param logLevel a logLevel, Valid values include: SEVER, WARNING, INFO, CONFIG, FINE, 
 	 * 						FINER, FINEST
-	 * @custom.mytag2 post: If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body.
-	 * 						2. The Server is using the specified logging level 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
+	 * 
+	 * @pre The caller specifies a valid logging level. 
+	 * @post If the operation succeeds, 
+	 * 		 1. The server returns an HTTP 200 success response with "Success" in the body.
+	 * 		 2. The Server is using the specified logging level 
+	 * @post If the operation fails, 
+	 *       1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
 	String changeLogLevel(String logLevel);
@@ -306,8 +305,8 @@ public interface IServerProxy {
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param content the message you want to send
 	 * 
-	 * @custom.mytag1 pre: None!
-	 * @custom.mytag2 post: The chat contains your message at the end
+	 * @pre None!
+	 * @post The chat contains your message at the end
 	 * 
 	 */
 	void sendChat(String type, int playerIndex, String content);
@@ -315,11 +314,11 @@ public interface IServerProxy {
 	/**
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
-	 * @param willAccept whether or not you accept the trade the offere
+	 * @param willAccept whether or not you accept the trade offered
 	 *
-	 * @custom.mytag1 pre:You have been offered a domestic trade
+	 * @preYou have been offered a domestic trade
 	 * 						To accept the offered trade, you have the required resources 
-	 * @custom.mytag2 post: If you accepted, you and the player who offered swap the specified resources
+	 * @post If you accepted, you and the player who offered swap the specified resources
 	 * 						If you declined no resources are exchanged
 	 * 						The trade offer is remove
 	 * 
@@ -331,9 +330,9 @@ public interface IServerProxy {
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param discardedCards the cards you are discarding
 	 * 
-	 * @custom.mytag1 pre: The status of hte client model is 'Discarding'
+	 * @pre The status of the client model is 'Discarding'
 	 * 						You have over 7 cards, You have the cards you're choosing to discard
-	 * @custom.mytag2 post: You gave up the specified resources,
+	 * @post You gave up the specified resources,
 	 * 						If you're the last one to discard, the client model status changes to 'Robbing' 
 	 * 
 	 */
@@ -344,8 +343,8 @@ public interface IServerProxy {
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param number integer in the range 2-12 (the number you rolled)
 	 * 
-	 * @custom.mytag1 pre: It is your turn, the client model's status is 'Rolling'
-	 * @custom.mytag2 post: The client model's status is now in 'Discarding' or 'Robbing' or 'Playing'
+	 * @pre It is your turn, the client model's status is 'Rolling'
+	 * @post The client model's status is now in 'Discarding' or 'Robbing' or 'Playing'
 	 * 
 	 */
 	void rollNumber(String type, int playerIndex, int number);
@@ -356,10 +355,10 @@ public interface IServerProxy {
 	 * @param free whether or no you get this piece for free
 	 * @param roadLocation the new road's location
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						road location is open, is connected to another road owned by the player, is not on
 	 * 						the water, you have the required resources(1 wood, 1 brick; 1 road) 
-	 * @custom.mytag2 post: You have the required resources to build a road(1 wood, 1 brick; 1 road) 
+	 * @post You have the required resources to build a road(1 wood, 1 brick; 1 road) 
 	 * 						The road is on the map at the specified location
 	 * 						if applicable, "longest road" has been awarded to the player with the longest road
 	 * 
@@ -373,11 +372,11 @@ public interface IServerProxy {
 	 * @param vertexLocation the location of the settlement
 	 * 
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						the settlement location is open, is not on water, is connected to one of your roads 
 	 * 						except during setup. You have the required resources(1 wood, 1 brick, 1 wheat, 1 sheep; 1 settlement)
 	 * 						the settlement cannot be placed adjacent to another settlement
-	 * @custom.mytag2 post: You lost the required resources to build a settlement(1 wood, 1 brick, 1 wheat, 1 sheep; 1 settlement)
+	 * @post You lost the required resources to build a settlement(1 wood, 1 brick, 1 wheat, 1 sheep; 1 settlement)
 	 * 						the settlement is on the map at the specified locatoin 
 	 * 
 	 */
@@ -388,10 +387,10 @@ public interface IServerProxy {
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param vertexLocation the location of the city
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					   the city location is where you currently have a settlement, 
 	 * 						you have the required resources (2 wheat, 3 ore; 1 city)
-	 * @custom.mytag2 post: you lost resources required to build a city, the city is on the map at the specified 
+	 * @post you lost resources required to build a city, the city is on the map at the specified 
 	 * 						location, you got a settlement back
 	 * 
 	 */
@@ -402,9 +401,9 @@ public interface IServerProxy {
 	 * @param playerIndex the recipient of the trade offer
 	 * @param offer negative numbers mean you get those cards
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						you have the resources you are offering
-	 * @custom.mytag2 post: the trade is offered to the other player(stored in the server model)
+	 * @post the trade is offered to the other player(stored in the server model)
 	 * 
 	 */
 	void offerTrade(String type, int playerIndex, JSONObject offer);
@@ -417,10 +416,10 @@ public interface IServerProxy {
 	 * @param outputResource what you are getting 
 	 * 
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						you have the resources you are giving, for ratios less than 4, you 
 	 * 						have the correct port for the trade
-	 * @custom.mytag2 post: the trade has been executed ( offered resources are in the bank, and the requested resource
+	 * @post the trade has been executed ( offered resources are in the bank, and the requested resource
 	 * 						has been received)
 	 * 
 	 * 
@@ -432,9 +431,9 @@ public interface IServerProxy {
 	 * @param playerIndex the player you are robbing or -1 if you are not robbing anyone
 	 * @param location
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					  robber is not being kept in the same location, if a player 
-	 * @custom.mytag2 post:the robber is in the new location, the player being robberd(if any) gave one 
+	 * @postthe robber is in the new location, the player being robberd(if any) gave one 
 	 * 					 one of his resource cards (if randomly selected)
 	 * 
 	 * 
@@ -445,9 +444,9 @@ public interface IServerProxy {
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					
-	 * @custom.mytag2 post: the cards in your new dev card hand have been transferred to your 
+	 * @post the cards in your new dev card hand have been transferred to your 
 	 * 						old dev hand, it is the next player's turn. 
 	 * 
 	 * 
@@ -458,10 +457,10 @@ public interface IServerProxy {
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					you have the required resources( 1 ore, 1 wheat, 1 sheep) there are dev cards left in the deck
-	 * @custom.mytag2 post: you have a new card! if monument it is added to old devcard
-	 * 						if non monument card it is added to new deve card hand
+	 * @post you have a new card! if monument it is added to old dev card
+	 * 						if non monument card it is added to new dev card hand
 	 * 
 	 * 
 	 */
@@ -473,11 +472,11 @@ public interface IServerProxy {
 	 * @param location new robber location
 	 * @param victimIndex the player you are robbing or -1 if you are not robbing anyone
 	 * 
-	 * @custom.mytag1 pre: it is your turn, the client model's status is 'Playing'
+	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
 	 * 						you have not yet played a non-monument dev card this turn
 	 * 						if robber is not being kept in the same location, if player being robbed they have the resource cards
-	 * @custom.mytag2 post: robber is in the new location, player being robbed gave you a resource
+	 * @post robber is in the new location, player being robbed gave you a resource
 	 * 						card, "largest army" awarded to the player who has played the most soldier card, no allowed to play other deelopment cards 
 	 * 						during this turn
 	 * 
@@ -491,10 +490,10 @@ public interface IServerProxy {
 	 * @param resource1 first resource you want to receive
 	 * @param resource2 second resource you want to receive
 	 * 
-	 * @custom.mytag1 pre:  it is your turn, the client model's status is 'Playing'
+	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
-	 * 						two specified recources are in the bank
-	 * @custom.mytag2 post: you gained to specifed resources
+	 * 						two specified resources are in the bank
+	 * @post you gained to specified resources
 	 * 
 	 * 
 	 */
@@ -506,12 +505,12 @@ public interface IServerProxy {
 	 * @param spot1 edge location
 	 * @param spot2 edge location 
 	 * 
-	 * @custom.mytag1 pre:  it is your turn, the client model's status is 'Playing'
+	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
 	 * 						first road location is connected to one of your road, second road location is connected to one of your roads
-	 * 						or the first road location, neither road location is on hte water, you have atleast 
+	 * 						or the first road location, neither road location is on the water, you have atleast 
 	 * 						two unused roads
-	 * @custom.mytag2 post: you have 2 fewer unused roads, 2 new roads appear on the map at the specifed
+	 * @post you have 2 fewer unused roads, 2 new roads appear on the map at the specified
 	 * 						locations, "longest road" has been awarded to the correct user
 	 * 
 	 */
@@ -522,9 +521,9 @@ public interface IServerProxy {
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param resource the resource being taken from the others players
 	 * 
-	 * @custom.mytag1 pre:  it is your turn, the client model's status is 'Playing'
+	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
-	 * @custom.mytag2 post: all of the other players have give you all of theire resources cards of hte specified type
+	 * @post all of the other players have give you all of their resources cards of the specified type
 	 * 
 	 * 
 	 */
@@ -534,10 +533,10 @@ public interface IServerProxy {
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
 	 * 
-	 * @custom.mytag1 pre:  it is your turn, the client model's status is 'Playing'
+	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
 	 * 						you have enough monument cards to win the game
-	 * @custom.mytag2 post: you gained a victory point
+	 * @post you gained a victory point
 	 * 
 	 * 
 	 */
