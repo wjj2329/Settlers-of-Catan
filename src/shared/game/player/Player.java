@@ -13,10 +13,6 @@ import shared.game.map.Index;
  */
 public class Player 
 {
-	public Player()
-	{
-		
-	}
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
