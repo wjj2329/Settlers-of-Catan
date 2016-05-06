@@ -15,7 +15,7 @@ import shared.locations.HexLocation;
  * Need to change the name to CatanMap so no confusion is present.
  * My b
  */
-public class Map 
+public class CatanMap 
 {
 	/**
 	 * hexes: List of all the hexes in the map.
@@ -70,7 +70,7 @@ public class Map
 	 * @custom.mytag2 post: robber should not be null.
 	 * 						robber should be placed on the desert hex tile.
 	 */
-	public Map(int radius, HexLocation desertHexLoc)
+	public CatanMap(int radius, HexLocation desertHexLoc)
 	{
 		this.radius = radius;
 		robber = new Robber(desertHexLoc);
