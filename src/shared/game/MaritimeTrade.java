@@ -6,7 +6,7 @@ import shared.game.player.Player;
  * @author Alex
  * MaritimeTrade: a trade that takes place at a harbor.
  * You do not need another player to perform a MaritimeTrade,
- * but you do need cards to trade with.
+ * but you do need cards to trade with.   
  */
 public class MaritimeTrade extends Trade
 {
