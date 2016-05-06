@@ -46,12 +46,12 @@ public class Player
 	/**
 	 * newDevCards: list of new development cards
 	 */
-	private DevCardList newDevCards = new DevCardList(numCities, numCities, numCities, numCities, numCities);
+	private DevCardList newDevCards = new DevCardList(DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL);
 	
 	/**
 	 * oldDevCards: list of old development cards
 	 */
-	private DevCardList oldDevCards= new DevCardList(numCities, numCities, numCities, numCities, numCities);
+	private DevCardList oldDevCards= new DevCardList(DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL);
 	
 	/**
 	 * Each player has their own Index.
@@ -148,4 +148,6 @@ public class Player
 	{
 		return false;
 	}
+	
+	private static final int DEFAULT_VAL = 0;
 }

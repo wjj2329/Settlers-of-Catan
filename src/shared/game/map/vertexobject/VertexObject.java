@@ -28,7 +28,7 @@ public class VertexObject
 	}
 	
 	/**
-	 * Tests whether or not we can build our VertexObject
+	 * Tests whether or not we can build our VertexObject.
 	 */
 	private boolean ObjectAvailabletoBuild()
 	{
