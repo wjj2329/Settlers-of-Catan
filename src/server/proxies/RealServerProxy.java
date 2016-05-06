@@ -140,7 +140,7 @@ public class RealServerProxy implements IServerProxy {
 	}
 
 	@Override
-	public void offerTrade(String type, int playerIndex, JSONObject offer, int playerIndex2) {
+	public void offerTrade(String type, int playerIndex, server.proxies.JSONObject offer) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -198,8 +198,6 @@ public class RealServerProxy implements IServerProxy {
 		// TODO Auto-generated method stub
 		
 	}
-
-
 
 
 }
