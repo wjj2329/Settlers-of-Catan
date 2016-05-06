@@ -16,23 +16,25 @@ public class Settlement extends Structure
 	HexLocation location = null;
 	
 	/**
-	 * direction:
+	 * direction: the direction that the settlement is in.
 	 */
 	String direction = "";
 	
 	/**
 	 * Constructor
 	 * @param buildingCost: cost of building the settlement
+	 * @custom.mytag1 pre: buildingCost is nonnegative
+	 * @custom.mytag2 post: the superclass is also constructed
 	 */
 	public Settlement(int buildingCost) 
 	{
 		super(buildingCost);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
 	 * Determines whether or not a settlement can be placed at
 	 * the given location.
+	 * @custom.mytag1 pre: loc is not null
 	 */
 	public boolean canPlaceSettlement(HexLocation loc)
 	{
