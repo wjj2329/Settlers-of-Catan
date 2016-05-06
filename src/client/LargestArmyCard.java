@@ -1,12 +1,13 @@
-package model;
+package client;
 
 public class LargestArmyCard extends RewardCard
 {
 	/**
 	 * KnightCard constructor
 	 */
-	public LargestArmyCard()
+	public LargestArmyCard(String type)
 	{
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -1,12 +1,13 @@
-package model;
+package client;
 
 public class LongestRoadCard extends RewardCard
 {
 	/**
 	 * LongestRoadCard constructor
 	 */
-	public LongestRoadCard()
+	public LongestRoadCard(String type)
 	{
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	

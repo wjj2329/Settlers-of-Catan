@@ -1,4 +1,6 @@
-package model;
+package client.model;
+
+import shared.game.ResourceList;
 
 /**
  * Bank: Defines the Bank, where all extra cards are kept
