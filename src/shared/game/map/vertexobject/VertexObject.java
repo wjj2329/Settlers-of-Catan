@@ -5,7 +5,7 @@ import shared.locations.EdgeLocation;
 
 /**
  * @author William
- * VertexObject class: Encapsulates Structure: Cities and Settlements.
+ * VertexObject class: Encapsulates Structure, Cities and Settlements.
  */
 public class VertexObject 
 {
@@ -30,7 +30,7 @@ public class VertexObject
 	/**
 	 * Tests whether or not we can build our VertexObject
 	 */
-	private boolean ObjectAvaibletoBuild()
+	private boolean ObjectAvailabletoBuild()
 	{
 		return true;
 	}
