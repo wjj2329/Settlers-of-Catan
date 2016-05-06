@@ -1,5 +1,7 @@
 package client.model;
-
+/**
+ * The client that handles talking with the server
+ */
 import java.util.ArrayList;
 
 import shared.game.Bank;
@@ -12,6 +14,9 @@ public Model()
 {
 	
 }
+/**
+*
+* */
 public void createGame()
 {
 	
