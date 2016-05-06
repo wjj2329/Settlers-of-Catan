@@ -16,6 +16,8 @@ public class RoadPiece
 	
 	/**
 	 * Constructor:
+	 * @custom.mytag1 pre: buildingCost is greater than 0. 
+	 * @custom.mytag2 post: same.
 	 */
 	public RoadPiece(int buildingCost)
 	{
@@ -26,6 +28,9 @@ public class RoadPiece
 	 * Determines whether or not we can place a road piece
 	 * at a particular given location. 
 	 * @param loc: the location we are querying.
+	 * @custom.mytag1 pre: loc is not null
+	 * @custom.mytag2 post: same as pre.
+	 * @exception: throws exception if hex location is not found
 	 */
 	public boolean canPlaceRoadAtLoc(HexLocation loc)
 	{
