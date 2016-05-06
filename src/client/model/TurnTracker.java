@@ -1,7 +1,13 @@
 package client.model;
 
+import shared.game.player.Player;
+
+/**
+ * A class to keep track of turns
+ */
 public class TurnTracker
 {
+
 	int currentturn=0;
 	String status;
 	int longestRoad=0;
@@ -11,15 +17,26 @@ public class TurnTracker
 	{
 		
 	}
-	
-	public void updateUserWithLargestArmy()
+	/**
+	  * A function that updates at the start of the turn the player with 
+	  * the largest Army
+	  * @custom.mytag1 pre: There must be a player that has at least 3 army knights before this card can be given.
+	  * @custom.mytag2 post: Player is updates as having the Largest Army Card. 
+	  * 
+	  */
+	public Player updateUserWithLargestArmy()
 	{
-		
+		return null;
 	}
-	
-	public void updateUserWithLargestRoad()
+	/**
+	  * A function that updates at the start of the turn the player with 
+	  * the largest Road
+	  *  * @custom.mytag1 pre: There must be a player that has at least 3 army continuous road pieces before this card can be given.
+	  * @custom.mytag2 post: Player is updates as having the Largest Road Card. 
+	  */
+	public Player updateUserWithLargestRoad()
 	{
-		
+		return null;
 	}
 	
 
