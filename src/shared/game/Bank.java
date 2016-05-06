@@ -1,29 +1,44 @@
 package shared.game;
 
-import java.util.ArrayList;
+import shared.game.Card;
+import shared.game.PlayerNotFoundException;
+import shared.game.ResourceList;
 
-/** A class to keep track of cards that the "Bank" has available and can 
- * give to players
- * 
- * @author williamjones
- *
+/**
+ * Bank: Defines the Bank, where all extra cards are kept
  */
-public class Bank 
+public class Bank
 {
-	/**
-	 * An Array List of cards that the bank has available to offer a player
-	 */
-	ArrayList<Card>mycards=new ArrayList<>();
+	private ResourceList cardslist;
 	
 	/**
-	 * @param cardtype the non null type that the card is. 
-	 *  A function that checks to see if the Bank can even give a card to a player
-	 *  @return returns false if card is not available
-	 *  @pre cardType is not null, cardType is valid
+	 * Bank constructor
 	 */
-	boolean HasCardAvailable(String cardtype)
+	public Bank()
 	{
-		return true;
+		// TODO Auto-generated constructor stub
+	}
+	/**
+	 * hasCardAvailable: Checks to see if the bank has any of
+	 * the requested card available. Returns resulting boolean.
+	 */
+	public boolean hasCardAvailable()
+	{
+		return false;
+	}
+	/**
+	 * @return the cardslist
+	 */
+	public ResourceList getCardslist()
+	{
+		return cardslist;
+	}
+	/**
+	 * @param cardslist the cardslist to set
+	 */
+	public void setCardslist(ResourceList cardslist)
+	{
+		this.cardslist = cardslist;
 	}
 	
 	/**
