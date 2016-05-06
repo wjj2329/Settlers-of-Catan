@@ -3,14 +3,23 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.game.Bank;
+import shared.game.map.CatanMap;
+import shared.game.map.Index;
 import shared.game.player.Player;
-//import shared.game.map.Map;
 
 /**
  * Model: The client that handles talking with the server.
  */
 public class Model 
 {
+	private Bank bank;
+	private MessageList chat;
+	private MessageList log;
+	private CatanMap map;
+	private TradeOffer tradeoffer;
+	private TurnTracker turntracker;
+	private Index version;
+	private Index winner;
 	/**
 	 * ArrayList of players in the game.
 	 */
