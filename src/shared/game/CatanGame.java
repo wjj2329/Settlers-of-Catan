@@ -35,7 +35,7 @@ public class CatanGame
 	 */
 	boolean canStartGame()
 	{
-	return true;	
+		return true;	
 	}
 	/**
 	 * a function that starts the game nothing too fancy.   
