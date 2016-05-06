@@ -27,11 +27,12 @@ public class City extends Structure
 	/**
 	 * Constructor for City
 	 * @param buildingCost: cost of building city
+	 * @custom.mytag1 pre: buildingCost is nonnegative
+	 * @custom.mytag2 post: the superclass is constructed.
 	 */
 	public City(int buildingCost) 
 	{
 		super(buildingCost);
-		// TODO Auto-generated constructor stub
 	}
 	
 	/**
