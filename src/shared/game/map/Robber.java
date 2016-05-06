@@ -23,6 +23,7 @@ public class Robber
 	 * @custom.mytag1 pre: initialLocation is not null
 	 * 						initialLocation is the Desert hex
 	 * @custom.mytag2 post: same as above.
+	 * @exception: Throws exception if initialLocation is an invalid location.
 	 */
 	public Robber(HexLocation initialLocation)
 	{
@@ -36,6 +37,7 @@ public class Robber
 	 * 						canPlaceRobber must also be true at the particular location of the player.
 	 * 						Otherwise, the player cannot be robbed.
 	 * @custom.mytag2 post: The player will be deficient of a particular resource.
+	 * @exception: Throws exception if the index is invalid.
 	 */
 	public void robPlayer(Index playerToRob)
 	{
@@ -45,8 +47,12 @@ public class Robber
 	/**
 	 * canPlaceRobber: Determines whether or not the
 	 * robber can be placed at the given HexLocation.
-	 * @param loc: given hex location, can't be null,  can't place 
+	 * @param loc: given hex location, can't be null, can't place 
 	 * if robber already exists on said tile. 
+	 * 
+	 * @custom.mytag1 pre: loc is not null.
+	 * @custom.mytag2 post: true if you can place robber there; false otherwise.
+	 * @exception: throws if loc is not found.
 	 */
 	boolean canPlaceRobber(HexLocation loc)
 	{
