@@ -19,6 +19,7 @@ public class Bank
 	 * @param cardtype the non null type that the card is. 
 	 *  A function that checks to see if the Bank can even give a card to a player
 	 *  @return returns false if card is not available
+	 *  @custom.mytag1 pre: cardType is not null, cardType is valid
 	 */
 	boolean HasCardAvailable(String cardtype)
 	{
@@ -30,6 +31,7 @@ public class Bank
 	 * A function that gives a player a card
 	 * @throws PlayerNotFoundException if there is no corresponding player object
 	 * with the said playerid 
+	 * @custom.mytag1 pre: playerid is nonnegative
 	 */
 	Card giveplayercard(int playerid)
 	{
