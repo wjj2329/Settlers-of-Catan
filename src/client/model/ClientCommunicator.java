@@ -24,12 +24,13 @@ public class ClientCommunicator
 	/**
 	 * Send function. Sends the message to the proxy. 
 	 * @param urlpath: the URL address.
-	 * @param data: any data that is included. 
+	 * @param data: any data that is included. Read it from the JSON as a string,
+	 * but implemented as an object. 
 	 * @pre urlpath and data are not null
 	 * @exception: throws exception if URL path or Data are invalid. 
 	 */
-	void send(String urlpath, String data)
+	Object send(String urlpath, Object data)
 	{
-		
+		return null;
 	}
 }
