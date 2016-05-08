@@ -1,6 +1,6 @@
-package model;
+package client.devcards;
 
-import player.DevCard;
+import client.devcards.DevCard;
 
 public class VictoryPointCard extends DevCard
 {

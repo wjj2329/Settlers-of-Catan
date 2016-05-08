@@ -1,4 +1,4 @@
-package model;
+package client.devcards;
 
 import client.devcards.ProgressCard;
 
