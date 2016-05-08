@@ -18,20 +18,33 @@ import shared.game.player.Player;
  */
 public class TestCanBeRobbed 
 {
+	/**
+	 * Our sample player.
+	 */
 	private Player alex = null;
+
+	/**
+	 * SetUp: Initializing the basic setup for the JUnit test.
+     */
 	@Before
 	public void setUp() throws Exception 
 	{
 		Robber.getSingleton().clear();
-		alex = new Player("Alex", CatanColor.BLUE, new Index(0));
+		alex = new Player(NAME, CatanColor.BLUE, new Index(0));
 	}
 
+	/**
+	 * Overriding tearDown function.
+     */
 	@After
 	public void tearDown() throws Exception 
 	{
 		
 	}
 
+	/**
+	 * If a user is the current player, they cannot be robbed.
+     */
 	@Test
 	public void testCurrentPlayerFails() throws Exception
 	{
@@ -39,6 +52,11 @@ public class TestCanBeRobbed
 		assertFalse(alex.canBeRobbed());
 	}
 
+	/**
+	 * If the player doesn't have any resources, they should be immune to robbing.
+	 * You can't steal from someone who has nothing.
+	 * Even hobos.
+     */
 	@Test
 	public void testNoCardsFails() throws Exception
 	{
@@ -47,6 +65,9 @@ public class TestCanBeRobbed
 		assertFalse(alex.canBeRobbed());
 	}
 
+	/**
+	 * If the player does have cards, the Robber can rob them.
+     */
 	@Test
 	public void testHasCardsSucceeds() throws Exception
 	{
@@ -59,6 +80,10 @@ public class TestCanBeRobbed
 	/**
 	 * Will need another test when we see if current player has a Structure built on the hex that the
 	 * Robber is currently on.
+	 *
+	 * Will put it below this comment.
 	 */
+
+	private static final String NAME = "Alex";
 
 }
