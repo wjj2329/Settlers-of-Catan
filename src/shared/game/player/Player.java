@@ -4,8 +4,11 @@ import shared.definitions.CatanColor;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.Index;
+import shared.game.map.Port;
 import shared.game.map.Robber;
 import shared.locations.HexLocation;
+
+import java.util.ArrayList;
 
 /**
  * @author Alex
@@ -79,20 +82,22 @@ public class Player
 	 * (brick, ore, sheep, wheat, wood)
 	 */
 	private ResourceList resources = null;
+
+	private ArrayList<Port> playerPorts = null;
 	
 	/**
-	 * How many roads the Player currently has. 
+	 * How many roads the Player CAN BUILD.
 	 * Updated dynamically. 
 	 */
 	private int numRoads = 0;
 	
 	/**
-	 * How many settlements the player currently has
+	 * How many settlements the player CAN BUILD.
 	 */
 	private int numSettlements = 0;
 	
 	/**
-	 * How many soldiers (soldier cards) the player currently has
+	 * How many soldiers (soldier cards) the player CAN BUILD.
 	 */
 	private int numSoldierCards = 0;
 	
@@ -125,6 +130,7 @@ public class Player
 	/**
 	 * Determines whether or not the player has the resources to be robbed
 	 * Need to check this before Robber robs player
+	 * @pre: Robber's location is not null
 	 */
 	public boolean canBeRobbed()
 	{
