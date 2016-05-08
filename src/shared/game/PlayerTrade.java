@@ -7,12 +7,12 @@ import shared.game.player.Player;
  * DomesticTrade: class used to represent a domestic trade
  * (i.e., a trade with another player; not on the coast)
  */
-public class DomesticTrade extends Trade 
+public class PlayerTrade extends Trade 
 {
 	/**
 	 * DomesticTrade constructor
 	 */
-	public DomesticTrade()
+	public PlayerTrade()
 	{
 		
 	}

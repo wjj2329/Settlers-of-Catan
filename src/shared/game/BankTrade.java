@@ -8,12 +8,12 @@ import shared.game.player.Player;
  * You do not need another player to perform a MaritimeTrade,
  * but you do need cards to trade with.   
  */
-public class MaritimeTrade extends Trade
+public class BankTrade extends Trade
 {
 	/**
 	 * Default MaritimeTrade constructor
 	 */
-	public MaritimeTrade()
+	public BankTrade()
 	{
 		
 	}
