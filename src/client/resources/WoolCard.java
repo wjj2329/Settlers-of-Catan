@@ -1,15 +1,15 @@
-package model;
+package client.resources;
 
 /**
  * WoolCard: Defines a WoolCard, a type of ResourceCard
  */
-public class WoolCard extends model.ResourceCard
+public class WoolCard extends ResourceCard
 {
 	/**
 	 * WoolCard constructor
 	 */
-	public WoolCard()
-	{
+	public WoolCard(String type) {
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	

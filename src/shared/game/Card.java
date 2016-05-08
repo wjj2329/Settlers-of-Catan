@@ -16,4 +16,12 @@ public class Card
 	{
 		this.type=type;
 	}
+	public void setPlayerIndex(int playerIndex) {
+		// TODO Auto-generated method stub
+		
+	}
+	public int getPlayerIndex() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 }

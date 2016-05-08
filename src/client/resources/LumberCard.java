@@ -1,4 +1,4 @@
-package model;
+package client.resources;
 
 /**
  * LumberCard: Defines a LumberCard, a type of ResourceCard
@@ -8,8 +8,8 @@ public class LumberCard extends ResourceCard
 	/**
 	 * LumberCard constructor
 	 */
-	public LumberCard()
-	{
+	public LumberCard(String type) {
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	

@@ -1,4 +1,4 @@
-package model;
+package client.resources;
 
 /**
  * BrickCard: Defines a BrickCard, a type of ResourceCard
@@ -8,8 +8,8 @@ public class BrickCard extends ResourceCard
 	/**
 	 * BrickCard constructor
 	 */
-	public BrickCard()
-	{
+	public BrickCard(String type) {
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	/**

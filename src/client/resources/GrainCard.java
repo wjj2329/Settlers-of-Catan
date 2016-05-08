@@ -1,4 +1,4 @@
-package model;
+package client.resources;
 
 /**
  * GrainkCard: Defines a GrainCard, a type of ResourceCard
@@ -8,8 +8,8 @@ public class GrainCard extends ResourceCard
 	/**
 	 * GrainCard constructor
 	 */
-	public GrainCard()
-	{
+	public GrainCard(String type) {
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	

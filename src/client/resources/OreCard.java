@@ -1,4 +1,4 @@
-package model;
+package client.resources;
 
 /**
  * OreCard: Defines an OreCard, a type of ResourceCard
@@ -8,8 +8,8 @@ public class OreCard extends ResourceCard
 	/**
 	 * OreCard constructor
 	 */
-	public OreCard()
-	{
+	public OreCard(String type) {
+		super(type);
 		// TODO Auto-generated constructor stub
 	}
 	
