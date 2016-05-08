@@ -1,5 +1,6 @@
 package shared.game;
 
+import shared.definitions.ResourceType;
 import shared.game.Card;
 //import shared.game.PlayerNotFoundException;
 import shared.game.ResourceList;
@@ -9,7 +10,7 @@ import shared.game.ResourceList;
  */
 public class Bank
 {
-	private ResourceList cardslist;
+	private ResourceList cardslist=new ResourceList();
 	
 	/**
 	 * Bank constructor
@@ -22,8 +23,86 @@ public class Bank
 	 * hasCardAvailable: Checks to see if the bank has any of
 	 * the requested card available. Returns resulting boolean.
 	 */
-	public boolean CanBankGiveCard()
+	public boolean CanBankGiveCard(ResourceType mytype) throws Exception
 	{
+		switch(mytype)
+		{
+			case WOOD:
+			{
+				if(cardslist.getWood()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(cardslist.getWood()>0)
+				{
+					return true;
+				}
+				else return false;
+			}
+			case BRICK:
+			{
+				if(cardslist.getBrick()<0)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(cardslist.getBrick()>0)
+				{
+					return true;
+				}
+				else return false;
+			}
+			case WHEAT:
+			{
+				if(cardslist.getWheat()<0)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+
+				}
+				if(cardslist.getWheat()>0)
+				{
+					return true;
+				}
+				else return false;
+			}
+			case SHEEP:
+			{
+				if(cardslist.getSheep()<0)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(cardslist.getSheep()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+
+			}
+			case ORE:
+			{
+				if(cardslist.getOre()<0)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(cardslist.getOre()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+
+			}
+		}
 		return false;
 	}
 	/**
@@ -39,6 +118,15 @@ public class Bank
 	public void setCardslist(ResourceList cardslist)
 	{
 		this.cardslist = cardslist;
+	}
+
+	public void setCardslist(int brick, int wheat, int sheep, int wood, int ore)
+	{
+		cardslist.setBrick(brick);
+		cardslist.setWheat(wheat);
+		cardslist.setSheep(sheep);
+		cardslist.setWood(wood);
+		cardslist.setOre(ore);
 	}
 	
 	/**
