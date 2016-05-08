@@ -4,6 +4,8 @@ import shared.definitions.CatanColor;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.Index;
+import shared.game.map.Robber;
+import shared.locations.HexLocation;
 
 /**
  * @author Alex
@@ -99,6 +101,11 @@ public class Player
 	 * Everyone starts off with 2. 10+ on your turn to win!
 	 */
 	private int numVictoryPoints = 0;
+
+	/**
+	 * CurrentPlayer: Tracks whether or not this player is the current one!
+	 */
+	private boolean currentPlayer = false;
 	
 	/**
 	 * Player constructor
@@ -112,6 +119,7 @@ public class Player
 		this.name = name;
 		this.color = color;
 		this.playerID = playerID;
+		resources = new ResourceList();
 	}
 	
 	/**
@@ -120,7 +128,24 @@ public class Player
 	 */
 	public boolean canBeRobbed()
 	{
-		return false;
+		HexLocation currentRobberLocation = Robber.getSingleton().getLocation();
+		if (resources.getBrick() == 0 && resources.getOre() == 0 && resources.getSheep() == 0
+				&& resources.getWheat() == 0 && resources.getWood() == 0)
+		{
+			return false;
+		}
+		if (currentPlayer)
+		{
+			return false;
+		}
+
+		/*
+		Need another IF statement here:
+			If the player doesn't have a settlement or city on the robber's hex, then they cannot be robbed.
+			So we need to have Map as a singleton. However, this will take a while to implement, so I haven't
+			done it just yet. ~ Alex
+		 */
+		return true;
 	}
 	
 	/**
@@ -132,9 +157,9 @@ public class Player
 	}
 	
 	/**
-	 * Determines whether or not the player can buy a road.
+	 * Determines whether or not the player can buy/build a road.
 	 */
-	public boolean canBuyRoad()
+	public boolean canBuildRoad()
 	{
 		return false;
 	}
@@ -148,6 +173,39 @@ public class Player
 	{
 		return false;
 	}
-	
+
+	public boolean canBuildSettlement()
+	{
+		return false;
+	}
+
+	public boolean canBuildCity()
+	{
+		return false;
+	}
+
+	/**
+	 * Getters and setters:
+	 */
+	public boolean isCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(boolean currentPlayer)
+	{
+		this.currentPlayer = currentPlayer;
+	}
+
+	public ResourceList getResources()
+	{
+		return resources;
+	}
+
+	public void setResources(ResourceList resources)
+	{
+		this.resources = resources;
+	}
+
 	private static final int DEFAULT_VAL = 0;
 }

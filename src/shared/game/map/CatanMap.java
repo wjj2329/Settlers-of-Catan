@@ -73,7 +73,8 @@ public class CatanMap
 	public CatanMap(int radius, HexLocation desertHexLoc)
 	{
 		this.radius = radius;
-		robber = new Robber(desertHexLoc);
+		//robber = new Robber(desertHexLoc);
+		Robber.getSingleton().setLocation(desertHexLoc);
 	}
 	
 	/**

@@ -11,23 +11,36 @@ import shared.locations.HexLocation;
 public class Robber 
 {
 	/**
+	 * The singleton instance of the Robber class.
+	 */
+	private static Robber singleton = null;
+
+	/**
 	 * location: Represents the Robber's current location
 	 * on the playing board. (i.e., which hex s/he is on)
 	 */
 	private HexLocation location = null;
-	
+
 	/**
-	 * Robber constructor
-	 * @param initialLocation: where the robber starts
-	 * (should be on the Desert Hex). 
-	 * @pre initialLocation is not null
-	 * 						initialLocation is the Desert hex
-	 * @post same as above.
-	 * @exception: Throws exception if initialLocation is an invalid location.
+	 * Private constructor in order to ensure that we only have
+	 * one instance of Robber.
 	 */
-	public Robber(HexLocation initialLocation)
+	private Robber()
 	{
-		location = initialLocation;
+
+	}
+
+	/**
+	 * GetSingleton function!
+	 * @return the singleton instance of the Robber class.
+     */
+	public static Robber getSingleton()
+	{
+		if (singleton == null)
+		{
+			singleton = new Robber();
+		}
+		return singleton;
 	}
 	
 	/**
@@ -57,6 +70,14 @@ public class Robber
 	boolean canPlaceRobber(HexLocation loc)
 	{
 		return false;
+	}
+
+	/**
+	 * Clears the Robber so everything is reset!
+	 */
+	public void clear()
+	{
+		location = null;
 	}
 
 	/**
