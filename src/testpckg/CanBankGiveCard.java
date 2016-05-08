@@ -14,11 +14,17 @@ import shared.game.ResourceList;
 public class CanBankGiveCard {
 
 
+	/*
+	Test the can bank give card function and I create 3 different
+	kinds of bank objects to test this with.
+	 */
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
-	Bank mybank1=new Bank();
-	Bank mybank2=new Bank();
-	Bank mybank3=new Bank();
+
+	private Bank mybank1=new Bank();
+	private Bank mybank2=new Bank();
+	private Bank mybank3=new Bank();
+
 	@Before
 	public void setUp()throws Exception
 	{
