@@ -5,7 +5,7 @@ import shared.game.Card;
 import shared.game.ResourceList;
 
 /**
- * Bank: Defines the Bank, where all extra cards are kept
+ * Bank: Defines the Bank, where all extra cards are kept 
  */
 public class Bank
 {
