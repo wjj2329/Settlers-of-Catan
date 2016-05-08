@@ -1,6 +1,8 @@
 package shared.game.player;
 
 import shared.definitions.CatanColor;
+import shared.definitions.PortType;
+import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.Index;
@@ -83,6 +85,9 @@ public class Player
 	 */
 	private ResourceList resources = null;
 
+	/**
+	 * List of all the ports that the player currently has.
+	 */
 	private ArrayList<Port> playerPorts = null;
 	
 	/**
@@ -151,6 +156,36 @@ public class Player
 			So we need to have Map as a singleton. However, this will take a while to implement, so I haven't
 			done it just yet. ~ Alex
 		 */
+		return true;
+	}
+
+	/**
+	 * Function to determine whether or not the player can trade with the bank
+	 * based on the parameters of their particular trade.
+	 * Need to replace sampleBank with Bank singleton most likely.
+	 * @param tradeType
+     */
+	public boolean canDoTradeWithBank(PortType tradeType)
+	{
+		Bank sampleBank = new Bank();
+		// What kind of trade is it?
+		switch (tradeType)
+		{
+			case WOOD:
+				break;
+			case BRICK:
+				break;
+			case SHEEP:
+				break;
+			case WHEAT:
+				break;
+			case ORE:
+				break;
+			case THREE:
+				break;
+			default:
+				break;
+		}
 		return true;
 	}
 	
