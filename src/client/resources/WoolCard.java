@@ -1,7 +1,7 @@
 package client.resources;
 
 /**
- * WoolCard: Defines a WoolCard, a type of ResourceCard
+ * WoolCard: Defines a WoolCard, a type of ResourceCard!
  */
 public class WoolCard extends ResourceCard
 {
