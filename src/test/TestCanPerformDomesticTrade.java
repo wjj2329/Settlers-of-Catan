@@ -9,6 +9,8 @@ import org.junit.Test;
 /**
  * Tests our function which determines whether or not a domestic trade
  * between two players can be performed. 
+ * 
+ * OR between a player and the bank. 
  * @author Alex
  *
  */
