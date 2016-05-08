@@ -10,15 +10,12 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a maritime trade can be
- * performed with the bank. For example, the bank (or the player) may not
- * have sufficient resources to perform the trade, in which case our 
- * canPerformMaritimeTrade() function will fail. This test should account for
- * both cases (i.e., success and failure of the function). 
+ * TestCanStartGame: Tests our function that determines whether or not the 
+ * game can be started.
  * @author Alex
  *
  */
-public class TestCanPerformMaritimeTrade 
+public class TestCanStartGame 
 {
 
 	/**
