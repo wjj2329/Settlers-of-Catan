@@ -1,4 +1,7 @@
-package test;
+/**
+ * 
+ */
+package testpckg;
 
 import static org.junit.Assert.*;
 
@@ -7,25 +10,31 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * TestCanPlaceRobber: Tests our method that determines whether or not a 
- * robber can be placed in a particular hex location. 
+ * Tests the function that determines whether or not a dev card can be played.
  * @author Alex
  *
  */
-public class TestCanPlaceRobber 
+public class TestCanPlayDevCard 
 {
+
+	/**
+	 * @throws java.lang.Exception
+	 */
 	@Before
 	public void setUp() throws Exception 
 	{
 		
 	}
 
+	/**
+	 * @throws java.lang.Exception
+	 */
 	@After
 	public void tearDown() throws Exception 
 	{
 		
 	}
-	
+
 	@Test
 	public void test() 
 	{

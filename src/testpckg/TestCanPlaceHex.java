@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 
@@ -10,11 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests the function that determines whether or not a dev card can be played.
+ * Tests our function which determines whether or not a hex can be placed.
  * @author Alex
  *
  */
-public class TestCanPlayDevCard 
+public class TestCanPlaceHex 
 {
 
 	/**

@@ -1,7 +1,4 @@
-/**
- * 
- */
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 
@@ -10,25 +7,21 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a hex can be placed.
+ * Tests our function which determines whether or not a trade
+ * between two players can be performed. 
+ * 
  * @author Alex
  *
  */
-public class TestCanPlaceHex 
+public class TestCanPerformPlayerTrade 
 {
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@Before
 	public void setUp() throws Exception 
 	{
 		
 	}
 
-	/**
-	 * @throws java.lang.Exception
-	 */
 	@After
 	public void tearDown() throws Exception 
 	{

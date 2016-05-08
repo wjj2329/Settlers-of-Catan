@@ -1,7 +1,7 @@
 /**
  * 
  */
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 

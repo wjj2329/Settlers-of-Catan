@@ -1,4 +1,4 @@
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 
@@ -7,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a player can be robbed.
+ * TestCanPlaceRobber: Tests our method that determines whether or not a 
+ * robber can be placed in a particular hex location. 
  * @author Alex
  *
  */
-public class TestCanBeRobbed 
+public class TestCanPlaceRobber 
 {
-
 	@Before
 	public void setUp() throws Exception 
 	{
@@ -25,7 +25,7 @@ public class TestCanBeRobbed
 	{
 		
 	}
-
+	
 	@Test
 	public void test() 
 	{

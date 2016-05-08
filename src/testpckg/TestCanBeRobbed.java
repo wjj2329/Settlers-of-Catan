@@ -1,4 +1,4 @@
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 
@@ -7,13 +7,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a trade
- * between two players can be performed. 
- * 
+ * Tests our function which determines whether or not a player can be robbed.
  * @author Alex
  *
  */
-public class TestCanPerformPlayerTrade 
+public class TestCanBeRobbed 
 {
 
 	@Before
@@ -29,7 +27,7 @@ public class TestCanPerformPlayerTrade
 	}
 
 	@Test
-	public void test() 
+	public void test() throws Exception
 	{
 		fail("Not yet implemented");
 	}

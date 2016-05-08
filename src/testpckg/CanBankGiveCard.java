@@ -1,13 +1,14 @@
-package test;
+package testpckg;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class CanPlaceSettlement {
+public class CanBankGiveCard {
 
 	@Test
-	public void test() {
+	public void test() 
+	{
 		fail("Not yet implemented");
 	}
 
