@@ -19,7 +19,7 @@ import org.junit.Test;
  * @author Alex
  *
  */
-public class TestCanPerformMaritimeTrade 
+public class TestCanPerformBankTrade 
 {
 
 	/**

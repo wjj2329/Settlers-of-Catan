@@ -7,13 +7,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a domestic trade
+ * Tests our function which determines whether or not a trade
  * between two players can be performed. 
  * 
  * @author Alex
  *
  */
-public class TestCanPerformDomesticTrade 
+public class TestCanPerformPlayerTrade 
 {
 
 	@Before
