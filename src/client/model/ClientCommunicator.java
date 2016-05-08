@@ -33,4 +33,22 @@ public class ClientCommunicator
 	{
 		return null;
 	}
+	
+	/**
+	 * SerializeModel: Serializes all our data to JSON so that the server can have
+	 * the data.
+	 */
+	public void serializeModel()
+	{
+		
+	}
+	
+	/**
+	 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and 
+	 * puts it into the model. 
+	 */
+	public void updateFromJSON()
+	{
+		
+	}
 }
