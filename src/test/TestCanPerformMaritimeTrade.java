@@ -10,7 +10,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * Tests our function which determines whether or not a maritime trade can be
+ * Tests our function which determines whether or not a maritime trade (or any
+ * other kind of trade) can be
  * performed with the bank. For example, the bank (or the player) may not
  * have sufficient resources to perform the trade, in which case our 
  * canPerformMaritimeTrade() function will fail. This test should account for
