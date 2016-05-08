@@ -1,7 +1,7 @@
 package shared.game;
 
 import shared.game.Card;
-import shared.game.PlayerNotFoundException;
+//import shared.game.PlayerNotFoundException;
 import shared.game.ResourceList;
 
 /**
@@ -44,7 +44,7 @@ public class Bank
 	/**
 	 * @return returns a NON null valid Card object to the player
 	 * A function that gives a player a card
-	 * @throws PlayerNotFoundException if there is no corresponding player object
+	 * @throws if there is no corresponding player object
 	 * with the said playerid 
 	 * @pre playerid is nonnegative
 	 */
