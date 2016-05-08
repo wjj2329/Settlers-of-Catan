@@ -1,4 +1,6 @@
-package model;
+package client.devcards;
+
+import player.DevCard;
 
 public class KnightCard extends DevCard
 {

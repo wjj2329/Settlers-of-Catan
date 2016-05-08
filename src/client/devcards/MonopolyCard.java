@@ -1,6 +1,6 @@
-package model;
+package client.devcards;
 
-public class MonopolyCard extends ProgressCard
+public class MonopolyCard extends model.ProgressCard
 {
 	/**
 	 * MonopolyCard constructor

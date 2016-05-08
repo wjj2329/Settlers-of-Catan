@@ -3,7 +3,7 @@ package model;
 /**
  * WoolCard: Defines a WoolCard, a type of ResourceCard
  */
-public class WoolCard extends ResourceCard
+public class WoolCard extends model.ResourceCard
 {
 	/**
 	 * WoolCard constructor

@@ -1,5 +1,7 @@
 package model;
 
+import client.devcards.ProgressCard;
+
 public class YearofPlentyCard extends ProgressCard
 {
 	/**

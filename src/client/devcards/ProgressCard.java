@@ -1,4 +1,6 @@
-package model;
+package client.devcards;
+
+import player.DevCard;
 
 public abstract class ProgressCard extends DevCard
 {
