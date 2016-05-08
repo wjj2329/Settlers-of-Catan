@@ -22,7 +22,7 @@ public class Bank
 	 * hasCardAvailable: Checks to see if the bank has any of
 	 * the requested card available. Returns resulting boolean.
 	 */
-	public boolean hasCardAvailable()
+	public boolean CanBankGiveCard()
 	{
 		return false;
 	}
