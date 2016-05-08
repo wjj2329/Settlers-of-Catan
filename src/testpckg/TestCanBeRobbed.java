@@ -84,6 +84,9 @@ public class TestCanBeRobbed
 	 * Will put it below this comment.
 	 */
 
+	/**
+	 * Saved variables:
+	 */
 	private static final String NAME = "Alex";
 
 }
