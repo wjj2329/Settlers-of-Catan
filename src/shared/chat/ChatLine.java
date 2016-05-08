@@ -16,9 +16,9 @@ public class ChatLine extends MessageLine
 	/**
 	 * Constructor
 	 */
-	public ChatLine()
+	public ChatLine(String message, String source)
 	{
-		
+		super(message, source);
 	}
 	
 	/**
