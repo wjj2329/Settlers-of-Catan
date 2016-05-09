@@ -3,7 +3,10 @@ package shared.game.map;
 import java.util.ArrayList;
 
 import client.main.Catan;
+import shared.definitions.HexType;
+import shared.definitions.PortType;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Hex.NumberToken;
 import shared.game.map.Hex.Road;
 import shared.game.map.vertexobject.VertexObject;
 import shared.locations.HexLocation;
@@ -135,6 +138,50 @@ public class CatanMap
 	public CatanMap(int radius)
 	{
 		this.radius = radius;
+		//this is the way the map will look by default if shuffling is not enabled. 
+		hexes.add(new Hex(new HexLocation(-3, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-3, 1), HexType.WATER, new NumberToken(0), PortType.WOOD));
+		hexes.add(new Hex(new HexLocation(-3, 0), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-3, -1), HexType.WATER, new NumberToken(0), PortType.THREE));
+
+		hexes.add(new Hex(new HexLocation(-2, -2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-2, -1), HexType.ORE, new NumberToken(5), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-2, 0), HexType.WHEAT, new NumberToken(2), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-2,1), HexType.WOOD, new NumberToken(6), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-2, 2), HexType.WATER, new NumberToken(0), PortType.BRICK));
+
+		hexes.add(new Hex(new HexLocation(-1,3), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-1, 2), HexType.ORE, new NumberToken(3), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-1, 1), HexType.SHEEP, new NumberToken(9), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-1, 0), HexType.SHEEP, new NumberToken(10), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-1, -1), HexType.BRICK, new NumberToken(8), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(-1, -2), HexType.WATER, new NumberToken(0), PortType.WHEAT));
+
+		hexes.add(new Hex(new HexLocation(0,3), HexType.WATER,new NumberToken(0), PortType.THREE));
+		hexes.add(new Hex(new HexLocation(0, 2), HexType.WHEAT, new NumberToken(8), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(0, 1), HexType.WOOD, new NumberToken(4), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(0, 0), HexType.WHEAT, new NumberToken(11), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(0, -1), HexType.WOOD, new NumberToken(3), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(0, -2),HexType.DESERT,new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(0, -3), HexType.WATER, new NumberToken(0), PortType.BLANK));
+
+		hexes.add(new Hex(new HexLocation(1, -3), HexType.WATER, new NumberToken(0), PortType.ORE));
+		hexes.add(new Hex(new HexLocation(1, -2), HexType.BRICK, new NumberToken(4), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(1, -1), HexType.ORE, new NumberToken(9), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(1, 0), HexType.BRICK, new NumberToken(5), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(1, 1), HexType.SHEEP, new NumberToken(10), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(1, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+
+		hexes.add(new Hex(new HexLocation(2, -2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(2, -1), HexType.WOOD, new NumberToken(11), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(2,0),HexType.SHEEP, new NumberToken(12), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(2,1),HexType.WHEAT, new NumberToken(6), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(2, 2), HexType.WATER,new NumberToken(0), PortType.THREE));
+
+		hexes.add(new Hex(new HexLocation(3, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(3, 1), HexType.WATER, new NumberToken(0), PortType.SHEEP));
+		hexes.add(new Hex(new HexLocation(3, 0), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		hexes.add(new Hex(new HexLocation(3, -1), HexType.WATER, new NumberToken(0), PortType.THREE));
 
 	}
 	HexLocation desertHexLoc;

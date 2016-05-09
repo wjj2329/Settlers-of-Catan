@@ -16,7 +16,7 @@ import shared.locations.HexLocation;
 
 /**
  * Tests our function which determines whether or not a hex can be placed.
- * @author Alex
+ * @author William
  *
  */
 public class TestCanPlaceHex 
