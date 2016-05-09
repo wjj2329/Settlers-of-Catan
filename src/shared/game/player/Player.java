@@ -237,7 +237,7 @@ public class Player
 			case WOOD: // Then it is a 2:1.
 				if (resources.getWood() < TWO_WAY)
 				{
-					return false; // DELETE THIS and all of them. ALL OF THEM
+					return false; // I think this should be fine.
 				}
 				break;
 			case BRICK:
