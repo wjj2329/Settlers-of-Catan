@@ -25,9 +25,9 @@ public class TestCanPlaceHex
 	/**
 	 * @throws java.lang.Exception
 	 */
-	Hex hex1;
-	Hex hex2;
-	Hex hex3;
+	private Hex hex1;
+	private Hex hex2;
+	private Hex hex3;
 	@Before
 	public void setUp() throws Exception 
 	{
