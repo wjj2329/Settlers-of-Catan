@@ -108,10 +108,6 @@ public class CanBankGiveCard {
         assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
         assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
         assertFalse(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
-
-
-
-
     }
 
 }

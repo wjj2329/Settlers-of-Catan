@@ -15,7 +15,7 @@ import shared.game.map.Hex.NumberToken;
 import shared.locations.HexLocation;
 
 /**
- * Tests our function which determines whether or not a hex can be placed.
+ * Tests our function which determines whether or not a hex can be placed.AKA is the Hex a Valid hex when formed.
  * @author William
  *
  */

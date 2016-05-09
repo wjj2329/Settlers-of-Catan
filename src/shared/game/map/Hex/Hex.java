@@ -2,6 +2,7 @@ package shared.game.map.Hex;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.game.map.Port;
 import shared.locations.HexLocation;
 
@@ -32,6 +33,14 @@ public class Hex
 		this.resourcetype = resourcetype;
 		this.resourcenumber = resourcenumber;
 		this.myport=myport;
+	}
+	public boolean CanPlaceRobber()
+	{
+		if(this.resourcetype.equals(HexType.WATER))
+		{
+			return false;
+		}
+		return true;
 	}
 	public boolean CanPlaceHex()
 	{
