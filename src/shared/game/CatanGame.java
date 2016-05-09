@@ -35,11 +35,16 @@ public class CatanGame
 	public void setMymap(CatanMap mymap) {
 		this.mymap = mymap;
 	}
-
+	
+	public void addPlayer(Player player)
+	{
+		myplayers.add(player);
+	}
+	
 	/**
 	 * an array containing the players for the game. 
 	 */
-	ArrayList<Player>myplayers=new ArrayList();
+	private ArrayList<Player>myplayers=new ArrayList();
 	/**
 	 * the map for the game. 
 	 */

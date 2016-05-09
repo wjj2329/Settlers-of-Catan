@@ -3,6 +3,7 @@ package client.model;
 import java.util.ArrayList;
 
 import shared.game.Bank;
+import shared.game.CatanGame;
 import shared.game.map.CatanMap;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -20,6 +21,7 @@ public class Model
 	private TurnTracker turntracker;
 	private Index version;
 	private Index winner;
+	private ArrayList<CatanGame> gamelist;
 	/**
 	 * ArrayList of players in the game.
 	 */
@@ -38,7 +40,7 @@ public class Model
 	**/
 	public void createGame()
 	{
-		
+		gamelist.add(new CatanGame());
 	}
 	
 	/**
@@ -46,33 +48,18 @@ public class Model
 	 */
 	public void listGames()
 	{
-		
+		for (CatanGame game : gamelist)
+		{
+			System.out.println(game.toString());
+		}
 	}
 	
 	/**
 	 * JoinGame: The player can join a game. Games must have 4 players in order 
 	 * to start!
 	 */
-	public void joinGame()
+	public void joinGame(Player player, int gameindex)
 	{
-		
-	}
-	
-	/**
-	 * SerializeModel: Serializes all our data to JSON so that the server can have
-	 * the data.
-	 */
-	public void serializeModel()
-	{
-		
-	}
-	
-	/**
-	 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and 
-	 * puts it into the model. 
-	 */
-	public void updateFromJSON()
-	{
-		
+		gamelist.get(gameindex).addPlayer(player);
 	}
 }
