@@ -2,6 +2,7 @@ package shared.game.player;
 
 import shared.definitions.CatanColor;
 import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
@@ -164,27 +165,116 @@ public class Player
 	 * based on the parameters of their particular trade.
 	 * Need to replace sampleBank with Bank singleton most likely.
 	 * @param tradeType
+	 * @param typeFor_3_Or4Way
+	 * @param typeRequesting: which type the player wants!
+	 *
+	 * Second PortType is only necessary if there is a 3:1 or 4:1 trade. This is because it is saved as THREE
+	 * or FOUR, and thus we don't know if that means WHEAT, SHEEP, WOOD, etc.
+	 *
+	 * If the second type is listed as BLANK, then it is a 2:1 trade, and thus said second variable will never be used.
      */
-	public boolean canDoTradeWithBank(PortType tradeType)
+	public boolean canDoTradeWithBank(PortType tradeType, PortType typeFor_3_Or4Way, ResourceType typeRequesting) throws Exception
 	{
-		Bank sampleBank = new Bank();
 		// What kind of trade is it?
 		switch (tradeType)
 		{
-			case WOOD:
+			case WOOD: // Then it is a 2:1.
+				if (resources.getWood() < TWO_WAY)
+				{
+					return false; // DELETE THIS and all of them. ALL OF THEM
+				}
 				break;
 			case BRICK:
+				if (resources.getBrick() < TWO_WAY)
+				{
+					return false;
+				}
 				break;
 			case SHEEP:
+				if (resources.getSheep() < TWO_WAY)
+				{
+					return false;
+				}
 				break;
 			case WHEAT:
+				if (resources.getWheat() < TWO_WAY)
+				{
+					return false;
+				}
 				break;
 			case ORE:
+				if (resources.getOre() < TWO_WAY)
+				{
+					return false;
+				}
 				break;
-			case THREE:
+			case THREE: // 3:1.
+				if (!multiWayTrade(typeFor_3_Or4Way, THREE_WAY))
+				{
+					return false;
+				}
+				break;
+			case FOUR: // 4:1.
+				if (!multiWayTrade(typeFor_3_Or4Way, FOUR_WAY))
+				{
+					return false;
+				}
 				break;
 			default:
+				assert(false);
+		}
+		if (!Bank.getSingleton().CanBankGiveCard(typeRequesting))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Handles three or four way trades.
+	 * @param theType: type of the trade
+	 * @param threeOrFour: whether it is a 3-way or 4-way
+     */
+	boolean multiWayTrade(PortType theType, int threeOrFour)
+	{
+		assert(!theType.equals(PortType.BLANK));
+		assert(!theType.equals(PortType.THREE));
+		assert(!theType.equals(PortType.FOUR));
+		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
+		switch (theType)
+		{
+			case WOOD:
+				if (resources.getWood() < threeOrFour)
+				{
+					return false;
+				}
 				break;
+			case BRICK:
+				if (resources.getBrick() < threeOrFour)
+				{
+					return false;
+				}
+				break;
+			case SHEEP:
+				if (resources.getSheep() < threeOrFour)
+				{
+					return false;
+				}
+				break;
+			case ORE:
+				if (resources.getOre() < threeOrFour)
+				{
+					return false;
+				}
+				break;
+			case WHEAT:
+				if (resources.getWheat() < threeOrFour)
+				{
+					return false;
+				}
+				break;
+			default:
+				assert(false);
 		}
 		return true;
 	}
@@ -249,4 +339,7 @@ public class Player
 	}
 
 	private static final int DEFAULT_VAL = 0;
+	private static final int TWO_WAY = 2;
+	private static final int THREE_WAY = 3;
+	private static final int FOUR_WAY = 4;
 }

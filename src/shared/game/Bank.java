@@ -10,21 +10,41 @@ import shared.game.ResourceList;
  */
 public class Bank
 {
-	private ResourceList cardslist=new ResourceList();
+	private static Bank singleton = null;
+	private ResourceList cardslist= null;
 	
 	/**
 	 * Bank constructor
 	 */
-	public Bank()
+	private Bank()
 	{
 		// TODO Auto-generated constructor stub
 	}
+
+	public static Bank getSingleton()
+	{
+		if (singleton == null)
+		{
+			singleton = new Bank();
+		}
+		return singleton;
+	}
+
+	public void clear()
+	{
+		cardslist = null;
+	}
+
 	/**
 	 * hasCardAvailable: Checks to see if the bank has any of
 	 * the requested card available. Returns resulting boolean.
 	 */
 	public boolean CanBankGiveCard(ResourceType mytype) throws Exception
 	{
+		if (cardslist == null)
+		{
+			cardslist = new ResourceList();
+		}
 		switch(mytype)
 		{
 			case WOOD:
@@ -110,6 +130,10 @@ public class Bank
 	 */
 	public ResourceList getCardslist()
 	{
+		if (this.cardslist == null)
+		{
+			this.cardslist = new ResourceList();
+		}
 		return cardslist;
 	}
 	/**
@@ -117,11 +141,19 @@ public class Bank
 	 */
 	public void setCardslist(ResourceList cardslist)
 	{
+		if (this.cardslist == null)
+		{
+			this.cardslist = new ResourceList();
+		}
 		this.cardslist = cardslist;
 	}
 
 	public void setCardslist(int brick, int wheat, int sheep, int wood, int ore)
 	{
+		if (this.cardslist == null)
+		{
+			this.cardslist = new ResourceList();
+		}
 		cardslist.setBrick(brick);
 		cardslist.setWheat(wheat);
 		cardslist.setSheep(sheep);
@@ -138,6 +170,10 @@ public class Bank
 	 */
 	Card giveplayercard(int playerid)
 	{
+		if (this.cardslist == null)
+		{
+			this.cardslist = new ResourceList();
+		}
 		Card cardtogive=null;
 		return cardtogive;
 	}

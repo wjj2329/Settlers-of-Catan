@@ -7,11 +7,11 @@ package shared.definitions;
  *
  * :D
  *
- * If they don't specify it, it's 4:1.
+ * FOUR is for 4:1. BLANK is used in the Player.java class.
  */
 public enum PortType
 {
 	
-	WOOD, BRICK, SHEEP, WHEAT, ORE, THREE
+	WOOD, BRICK, SHEEP, WHEAT, ORE, THREE, FOUR, BLANK
 }
 

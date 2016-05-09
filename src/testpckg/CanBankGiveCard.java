@@ -21,45 +21,58 @@ public class CanBankGiveCard {
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 
-	private Bank mybank1=new Bank();
+	/*private Bank mybank1=new Bank();
 	private Bank mybank2=new Bank();
-	private Bank mybank3=new Bank();
+	private Bank mybank3=new Bank();*/
 
 	@Before
 	public void setUp()throws Exception
 	{
+		Bank.getSingleton().clear();
 		ResourceList mylist=new ResourceList();
 		mylist.setBrick(4);
 		mylist.setOre(3);
 		mylist.setSheep(2);
 		mylist.setWheat(10);
 		mylist.setWood(0);
-		mybank1.setCardslist(mylist);
-		mybank2.setCardslist(0, 0 , 0 , 50, 25);
-		mybank3.setCardslist(-1, -9, -1 , -1, -1);
+		Bank.getSingleton().setCardslist(mylist);
 	}
 
 	@After
 	public void tearDown() throws Exception
 	{
-
+		Bank.getSingleton().clear();
 	}
 	@Test
-	public void test()  throws Exception
+	public void testBank1()  throws Exception
 	{
 		assertTrue(true);
-		assertTrue(mybank1.CanBankGiveCard(ResourceType.BRICK));
-		assertFalse(mybank1.CanBankGiveCard(ResourceType.WOOD));
-		assertTrue(mybank1.CanBankGiveCard(ResourceType.WHEAT));
-		assertTrue(mybank1.CanBankGiveCard(ResourceType.SHEEP));
-		assertTrue(mybank1.CanBankGiveCard(ResourceType.ORE));
-		assertFalse(mybank2.CanBankGiveCard(ResourceType.BRICK));
-		assertTrue(mybank2.CanBankGiveCard(ResourceType.WOOD));
-		assertTrue(mybank2.CanBankGiveCard(ResourceType.ORE));
-		assertFalse(mybank2.CanBankGiveCard(ResourceType.WHEAT));
-		assertFalse(mybank2.CanBankGiveCard(ResourceType.SHEEP));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.BRICK));
+		assertFalse(Bank.getSingleton().CanBankGiveCard(ResourceType.WOOD));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.WHEAT));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.SHEEP));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.ORE));
+	}
+
+	@Test
+	public void testBank2() throws Exception
+	{
+		Bank.getSingleton().clear();
+		Bank.getSingleton().setCardslist(0, 0 , 0 , 50, 25);
+		assertFalse(Bank.getSingleton().CanBankGiveCard(ResourceType.BRICK));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.WOOD));
+		assertTrue(Bank.getSingleton().CanBankGiveCard(ResourceType.ORE));
+		assertFalse(Bank.getSingleton().CanBankGiveCard(ResourceType.WHEAT));
+		assertFalse(Bank.getSingleton().CanBankGiveCard(ResourceType.SHEEP));
+	}
+
+	@Test
+	public void testBank3() throws Exception
+	{
+		Bank.getSingleton().clear();
+		Bank.getSingleton().setCardslist(-1, -9, -1 , -1, -1);
 		exception.expect(Exception.class);
-		mybank3.CanBankGiveCard(ResourceType.BRICK);
+		Bank.getSingleton().CanBankGiveCard(ResourceType.BRICK);
 	}
 
 }
