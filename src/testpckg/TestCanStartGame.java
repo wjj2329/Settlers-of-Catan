@@ -13,6 +13,7 @@ import shared.definitions.PortType;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Hex.NumberToken;
 import shared.game.map.Port;
 import shared.locations.HexLocation;
 
@@ -41,49 +42,49 @@ public class TestCanStartGame
 
 
 		//this is the way the map will look by default if shuffling is not enabled. 
-		myhexes.add(new Hex(new HexLocation(-3, 2), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(-3, 1), HexType.WATER, 0, PortType.WOOD));
-		myhexes.add(new Hex(new HexLocation(-3, 0), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(-3, -1), HexType.WATER, 0, PortType.THREE));
+		myhexes.add(new Hex(new HexLocation(-3, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-3, 1), HexType.WATER, new NumberToken(0), PortType.WOOD));
+		myhexes.add(new Hex(new HexLocation(-3, 0), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-3, -1), HexType.WATER, new NumberToken(0), PortType.THREE));
 
-		myhexes.add(new Hex(new HexLocation(-2, -2), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(-2, -1), HexType.ORE, 5, null));
-		myhexes.add(new Hex(new HexLocation(-2, 0), HexType.WHEAT, 2, null));
-		myhexes.add(new Hex(new HexLocation(-2,1), HexType.WOOD, 6, null));
-		myhexes.add(new Hex(new HexLocation(-2, 2), HexType.WATER, 0, PortType.BRICK));
+		myhexes.add(new Hex(new HexLocation(-2, -2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-2, -1), HexType.ORE, new NumberToken(5), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-2, 0), HexType.WHEAT, new NumberToken(2), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-2,1), HexType.WOOD, new NumberToken(6), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-2, 2), HexType.WATER, new NumberToken(0), PortType.BRICK));
 
-		myhexes.add(new Hex(new HexLocation(-1,3), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(-1, 2), HexType.ORE, 3, null));
-		myhexes.add(new Hex(new HexLocation(-1, 1), HexType.SHEEP, 9, null));
-		myhexes.add(new Hex(new HexLocation(-1, 0), HexType.SHEEP, 10, null));
-		myhexes.add(new Hex(new HexLocation(-1, -1), HexType.BRICK, 8, null));
-		myhexes.add(new Hex(new HexLocation(-1, -2), HexType.WATER, 0, PortType.WHEAT));
+		myhexes.add(new Hex(new HexLocation(-1,3), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-1, 2), HexType.ORE, new NumberToken(3), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-1, 1), HexType.SHEEP, new NumberToken(9), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-1, 0), HexType.SHEEP, new NumberToken(10), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-1, -1), HexType.BRICK, new NumberToken(8), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(-1, -2), HexType.WATER, new NumberToken(0), PortType.WHEAT));
 
-		myhexes.add(new Hex(new HexLocation(0,3), HexType.WATER,0, PortType.THREE));
-		myhexes.add(new Hex(new HexLocation(0, 2), HexType.WHEAT, 8, null));
-		myhexes.add(new Hex(new HexLocation(0, 1), HexType.WOOD, 4, null));
-		myhexes.add(new Hex(new HexLocation(0, 0), HexType.WHEAT, 11, null));
-		myhexes.add(new Hex(new HexLocation(0, -1), HexType.WOOD, 3, null));
-		myhexes.add(new Hex(new HexLocation(0, -2),HexType.DESERT,0, null));
-		myhexes.add(new Hex(new HexLocation(0, -3), HexType.WATER, 0, null));
+		myhexes.add(new Hex(new HexLocation(0,3), HexType.WATER,new NumberToken(0), PortType.THREE));
+		myhexes.add(new Hex(new HexLocation(0, 2), HexType.WHEAT, new NumberToken(8), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(0, 1), HexType.WOOD, new NumberToken(4), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(0, 0), HexType.WHEAT, new NumberToken(11), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(0, -1), HexType.WOOD, new NumberToken(3), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(0, -2),HexType.DESERT,new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(0, -3), HexType.WATER, new NumberToken(0), PortType.BLANK));
 
-		myhexes.add(new Hex(new HexLocation(1, -3), HexType.WATER, 0, PortType.ORE));
-		myhexes.add(new Hex(new HexLocation(1, -2), HexType.BRICK, 4, null));
-		myhexes.add(new Hex(new HexLocation(1, -1), HexType.ORE, 9, null));
-		myhexes.add(new Hex(new HexLocation(1, 0), HexType.BRICK, 5, null));
-		myhexes.add(new Hex(new HexLocation(1, 1), HexType.SHEEP, 10, null));
-		myhexes.add(new Hex(new HexLocation(1, 2), HexType.WATER, 0, null));
+		myhexes.add(new Hex(new HexLocation(1, -3), HexType.WATER, new NumberToken(0), PortType.ORE));
+		myhexes.add(new Hex(new HexLocation(1, -2), HexType.BRICK, new NumberToken(4), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(1, -1), HexType.ORE, new NumberToken(9), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(1, 0), HexType.BRICK, new NumberToken(5), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(1, 1), HexType.SHEEP, new NumberToken(10), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(1, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
 
-		myhexes.add(new Hex(new HexLocation(2, -2), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(2, -1), HexType.WOOD, 11, null));
-		myhexes.add(new Hex(new HexLocation(2,0),HexType.SHEEP, 12, null));
-		myhexes.add(new Hex(new HexLocation(2,1),HexType.WHEAT, 6, null));
-		myhexes.add(new Hex(new HexLocation(2, 2), HexType.WATER,0, PortType.THREE));
+		myhexes.add(new Hex(new HexLocation(2, -2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(2, -1), HexType.WOOD, new NumberToken(11), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(2,0),HexType.SHEEP, new NumberToken(12), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(2,1),HexType.WHEAT, new NumberToken(6), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(2, 2), HexType.WATER,new NumberToken(0), PortType.THREE));
 
-		myhexes.add(new Hex(new HexLocation(3, 2), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(3, 1), HexType.WATER, 0, PortType.SHEEP));
-		myhexes.add(new Hex(new HexLocation(3, 0), HexType.WATER, 0, null));
-		myhexes.add(new Hex(new HexLocation(3, -1), HexType.WATER, 0, PortType.THREE));
+		myhexes.add(new Hex(new HexLocation(3, 2), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(3, 1), HexType.WATER, new NumberToken(0), PortType.SHEEP));
+		myhexes.add(new Hex(new HexLocation(3, 0), HexType.WATER, new NumberToken(0), PortType.BLANK));
+		myhexes.add(new Hex(new HexLocation(3, -1), HexType.WATER, new NumberToken(0), PortType.THREE));
 	}
 
 	/**

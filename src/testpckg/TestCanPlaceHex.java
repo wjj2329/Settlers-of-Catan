@@ -8,6 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import shared.game.map.Hex.Hex;
 
 /**
  * Tests our function which determines whether or not a hex can be placed.
@@ -23,7 +24,7 @@ public class TestCanPlaceHex
 	@Before
 	public void setUp() throws Exception 
 	{
-		
+
 	}
 
 	/**

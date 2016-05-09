@@ -13,7 +13,7 @@ public class Hex
 {
 	private HexLocation location = null;
 	private HexType resourcetype = null;
-	private int resourcenumber = 0;
+	private NumberToken resourcenumber=null;
 	private PortType myport=null;
 	
 	/**
@@ -26,7 +26,7 @@ public class Hex
 	 * 						resourcenumber is not negative
 	 * @post same as above. 
 	 */
-	public Hex(HexLocation location, HexType resourcetype, int resourcenumber, PortType myport)
+	public Hex(HexLocation location, HexType resourcetype, NumberToken resourcenumber, PortType myport)
 	{
 		this.location=location;
 		this.resourcetype = resourcetype;
