@@ -162,6 +162,11 @@ public class Player
 		return true;
 	}
 
+	public boolean canBuyDevCard()
+	{
+		return true;
+	}
+
 	/**
 	 * Function to determine whether or not the player can trade with the bank
 	 * based on the parameters of their particular trade.
@@ -175,6 +180,7 @@ public class Player
 	 *
 	 * If the second type is listed as BLANK, then it is a 2:1 trade, and thus said second variable will never be used.
      */
+
 	public boolean canDoTradeWithBank(PortType tradeType, PortType typeFor_3_Or4Way, ResourceType typeRequesting) throws Exception
 	{
 		// What kind of trade is it?
@@ -225,7 +231,7 @@ public class Player
 			default:
 				assert(false);
 		}
-		if (!Bank.getSingleton().CanBankGiveCard(typeRequesting))
+		if (!Bank.getSingleton().CanBankGiveResourceCard(typeRequesting))
 		{
 			return false;
 		}

@@ -28,6 +28,7 @@ public class ResourceList
 		
 	}
 
+
 	public int getBrick() {
 		return brick;
 	}

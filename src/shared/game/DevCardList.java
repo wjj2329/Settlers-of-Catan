@@ -34,4 +34,8 @@ public class DevCardList
 		this.soldier = soldier;
 		this.yearOfPlenty = yearOfPlenty;
 	}
+	public DevCardList()
+	{
+
+	}
 }

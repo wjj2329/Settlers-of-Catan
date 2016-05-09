@@ -1,5 +1,6 @@
 package shared.game;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.game.Card;
 //import shared.game.PlayerNotFoundException;
@@ -12,6 +13,7 @@ public class Bank
 {
 	private static Bank singleton = null;
 	private ResourceList cardslist= null;
+	private DevCardList devCardList=null;
 	
 	/**
 	 * Bank constructor
@@ -39,7 +41,17 @@ public class Bank
 	 * hasCardAvailable: Checks to see if the bank has any of
 	 * the requested card available. Returns resulting boolean.
 	 */
-	public boolean CanBankGiveCard(ResourceType mytype) throws Exception
+
+	public boolean CanBankGiveDevelopmentCard(DevCardType mytype)throws Exception
+	{
+		if(devCardList==null)
+		{
+			devCardList=new DevCardList();
+		}
+
+		return true;
+	}
+	public boolean CanBankGiveResourceCard(ResourceType mytype) throws Exception
 	{
 		if (cardslist == null)
 		{
