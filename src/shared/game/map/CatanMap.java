@@ -2,6 +2,7 @@ package shared.game.map;
 
 import java.util.ArrayList;
 
+import client.main.Catan;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.Road;
 import shared.game.map.vertexobject.VertexObject;
@@ -22,7 +23,55 @@ public class CatanMap
 	 * This will stay the same throughout the game.
 	 */
 	ArrayList<Hex> hexes = new ArrayList<>();
-	
+
+	public ArrayList<Port> getPorts() {
+		return ports;
+	}
+
+	public void setPorts(ArrayList<Port> ports) {
+		this.ports = ports;
+	}
+
+	public ArrayList<Road> getRoads() {
+		return roads;
+	}
+
+	public void setRoads(ArrayList<Road> roads) {
+		this.roads = roads;
+	}
+
+	public ArrayList<VertexObject> getCities() {
+		return cities;
+	}
+
+	public void setCities(ArrayList<VertexObject> cities) {
+		this.cities = cities;
+	}
+
+	public ArrayList<Hex> getHexes() {
+		return hexes;
+	}
+
+	public void setHexes(ArrayList<Hex> hexes) {
+		this.hexes = hexes;
+	}
+
+	public ArrayList<VertexObject> getSettlements() {
+		return settlements;
+	}
+
+	public void setSettlements(ArrayList<VertexObject> settlements) {
+		this.settlements = settlements;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+
 	/**
 	 * ports: List of all the ports on the map.
 	 * This will stay the same throughout the game.
@@ -61,7 +110,7 @@ public class CatanMap
 	
 	/**
 	 * Default Map constructor.
-	 * @param radius: radius of the map.
+	 * @param : radius of the map.
 	 * @param desertHexLoc: where the robber should be initially
 	 * (in the desert). 
 	 * @pre radius should be greater than 0. 
@@ -70,12 +119,26 @@ public class CatanMap
 	 * @post robber should not be null.
 	 * 						robber should be placed on the desert hex tile.
 	 */
-	public CatanMap(int radius, HexLocation desertHexLoc)
+
+	public void SetDesertHexLoc(HexLocation desertHexLoc)
+	{
+		Robber.getSingleton().setLocation(desertHexLoc);
+		this.desertHexLoc=desertHexLoc;
+	}
+
+	public CatanMap(ArrayList<Hex> hexes, int radius)
+	{
+		this.hexes=hexes;
+		this.radius=radius;
+	}
+
+	public CatanMap(int radius)
 	{
 		this.radius = radius;
-		//robber = new Robber(desertHexLoc);
-		Robber.getSingleton().setLocation(desertHexLoc);
+
 	}
+	HexLocation desertHexLoc;
+
 	
 	/**
 	 * canPlaceHex: Determines whether or not we can place 

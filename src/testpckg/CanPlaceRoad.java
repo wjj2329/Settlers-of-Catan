@@ -8,7 +8,7 @@ import shared.game.map.CatanMap;
 
 public class CanPlaceRoad 
 {
-	CatanMap mymap=new CatanMap(0, null);
+	CatanMap mymap=new CatanMap(0);
 	@Test
 	public void test() 
 	{

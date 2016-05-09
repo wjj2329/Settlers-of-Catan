@@ -12,7 +12,30 @@ import shared.game.player.Player;
 
 public class CatanGame 
 {
-	
+	public ArrayList<Player> getMyplayers() {
+		return myplayers;
+	}
+
+	public void setMyplayers(ArrayList<Player> myplayers) {
+		this.myplayers = myplayers;
+	}
+
+	public Chat getMychat() {
+		return mychat;
+	}
+
+	public void setMychat(Chat mychat) {
+		this.mychat = mychat;
+	}
+
+	public CatanMap getMymap() {
+		return mymap;
+	}
+
+	public void setMymap(CatanMap mymap) {
+		this.mymap = mymap;
+	}
+
 	/**
 	 * an array containing the players for the game. 
 	 */
@@ -20,7 +43,7 @@ public class CatanGame
 	/**
 	 * the map for the game. 
 	 */
-	CatanMap mymap=new CatanMap(0, null);
+	CatanMap mymap=new CatanMap(0);
 	/**
 	 * the chat system
 	 */

@@ -1,5 +1,8 @@
 package shared.game.map.Hex;
 
+import shared.definitions.HexType;
+import shared.definitions.PortType;
+import shared.game.map.Port;
 import shared.locations.HexLocation;
 
 /**
@@ -9,8 +12,9 @@ import shared.locations.HexLocation;
 public class Hex 
 {
 	private HexLocation location = null;
-	private String resourcetype = null;
+	private HexType resourcetype = null;
 	private int resourcenumber = 0;
+	private PortType myport=null;
 	
 	/**
 	 * Hex Constructor
@@ -22,10 +26,11 @@ public class Hex
 	 * 						resourcenumber is not negative
 	 * @post same as above. 
 	 */
-	public Hex(HexLocation location, String resourcetype, int resourcenumber)
+	public Hex(HexLocation location, HexType resourcetype, int resourcenumber, PortType myport)
 	{
 		this.location=location;
 		this.resourcetype = resourcetype;
 		this.resourcenumber = resourcenumber;
+		this.myport=myport;
 	}
 }
