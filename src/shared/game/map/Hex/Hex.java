@@ -33,4 +33,21 @@ public class Hex
 		this.resourcenumber = resourcenumber;
 		this.myport=myport;
 	}
+	public boolean CanPlaceHex()
+	{
+		if(resourcetype.equals(HexType.WATER)&&resourcenumber.getValue()>0)
+		{
+			return false;
+		}
+		if(resourcetype.equals(HexType.DESERT)&&resourcenumber.getValue()>0)
+		{
+			return false;
+		}
+		if(resourcetype!=(HexType.WATER)&&myport!=(PortType.BLANK))
+		{
+			return false;
+		}
+		return true;
+	}
+
 }
