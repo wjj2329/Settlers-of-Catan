@@ -14,7 +14,7 @@ import org.junit.Test;
  * @author Alex
  *
  */
-public class TestCanPlayDevCard 
+public class TestCanBuyDevCard
 {
 
 	/**
