@@ -13,6 +13,11 @@ public class Bank
 {
 	private static Bank singleton = null;
 	private ResourceList cardslist= null;
+
+	public DevCardList getDevCardList() {
+		return devCardList;
+	}
+
 	private DevCardList devCardList=null;
 	
 	/**
@@ -49,8 +54,78 @@ public class Bank
 		{
 			devCardList=new DevCardList();
 		}
+		switch(mytype)
+		{
+			case MONOPOLY:
+				if(devCardList.getMonopoly()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getMonopoly()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			case SOLDIER:
+				if(devCardList.getSoldier()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getSoldier()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			case YEAR_OF_PLENTY:
+				if(devCardList.getYearOfPlenty()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getYearOfPlenty()>=1)
+				{
+					return true;
+				}
+				else
+					return false;
+			case ROAD_BUILD:
+				if(devCardList.getRoadBuilding()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getRoadBuilding()>=1)
+				{
+					return true;
+				}
+				else
+					return false;
+			case MONUMENT:
+			{
+				if(devCardList.getMonument()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getMonument()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			}
+		}
 
-		return true;
+		return false;
 	}
 	public boolean CanBankGiveResourceCard(ResourceType mytype) throws Exception
 	{
@@ -165,6 +240,11 @@ public class Bank
 		{
 			this.devCardList=new DevCardList();
 		}
+		devCardList.setMonopoly(monopoly);
+		devCardList.setMonument(monument);
+		devCardList.setRoadBuilding(roadBuilding);
+		devCardList.setSoldier(soldier);
+		devCardList.setYearOfPlenty(yearOfPlenty);
 	}
 	/**
 	 * @param cardslist the cardslist to set

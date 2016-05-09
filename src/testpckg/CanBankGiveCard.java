@@ -2,28 +2,22 @@ package testpckg;
 
 import static org.junit.Assert.*;
 
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
+import shared.game.DevCardList;
 import shared.game.ResourceList;
 
 public class CanBankGiveCard {
-
-
     /*
-    Test the can bank give card function and I create 3 different
-    kinds of bank objects to test this with.
+    This tests if the bank can give resource objects and devleopment cards and throws exceptions if the bank contains negative
+    amounts.
      */
+
     @Rule
     public final ExpectedException exception = ExpectedException.none();
-
-	/*private Bank mybank1=new Bank();
-	private Bank mybank2=new Bank();
-	private Bank mybank3=new Bank();*/
 
     @Before
     public void setUp()throws Exception
@@ -43,6 +37,7 @@ public class CanBankGiveCard {
     {
         Bank.getSingleton().clear();
     }
+
     @Test
     public void testBank1()  throws Exception
     {
@@ -73,6 +68,50 @@ public class CanBankGiveCard {
         Bank.getSingleton().setResourceCardslist(-1, -9, -1 , -1, -1);
         exception.expect(Exception.class);
         Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK);
+    }
+
+    @Test
+    public void testBank4()throws Exception
+    {
+        Bank.getSingleton().clear();
+        Bank.getSingleton().setDevCardList(-10, -10, -3, -4, -5);
+        exception.expect(Exception.class);
+        Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONOPOLY);
+
+    }
+
+    @Test
+    public void testBank5() throws Exception
+    {
+        Bank.getSingleton().clear();
+        Bank.getSingleton().setDevCardList(10, 15, 0, 0, 2);
+        assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
+        assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
+        assertFalse(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
+        assertFalse(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
+        assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
+    }
+
+    @Test
+    public void testBank6() throws Exception
+    {
+        Bank.getSingleton().clear();
+        DevCardList mylist=new DevCardList();
+        mylist.setYearOfPlenty(1);
+        mylist.setMonopoly(0);
+        mylist.setSoldier(1);
+        mylist.setMonument(5);
+        mylist.setRoadBuilding(0);
+        Bank.getSingleton().setDevCardList(mylist);
+        assertTrue( Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
+        assertFalse(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
+        assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
+        assertTrue(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
+        assertFalse(Bank.getSingleton().CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
+
+
+
+
     }
 
 }
