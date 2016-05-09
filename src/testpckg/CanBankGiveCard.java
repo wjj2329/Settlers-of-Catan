@@ -35,7 +35,7 @@ public class CanBankGiveCard {
         mylist.setSheep(2);
         mylist.setWheat(10);
         mylist.setWood(0);
-        Bank.getSingleton().setCardslist(mylist);
+        Bank.getSingleton().setResourceCardslist(mylist);
     }
 
     @After
@@ -58,7 +58,7 @@ public class CanBankGiveCard {
     public void testBank2() throws Exception
     {
         Bank.getSingleton().clear();
-        Bank.getSingleton().setCardslist(0, 0 , 0 , 50, 25);
+        Bank.getSingleton().setResourceCardslist(0, 0 , 0 , 50, 25);
         assertFalse(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK));
         assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.WOOD));
         assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.ORE));
@@ -70,7 +70,7 @@ public class CanBankGiveCard {
     public void testBank3() throws Exception
     {
         Bank.getSingleton().clear();
-        Bank.getSingleton().setCardslist(-1, -9, -1 , -1, -1);
+        Bank.getSingleton().setResourceCardslist(-1, -9, -1 , -1, -1);
         exception.expect(Exception.class);
         Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK);
     }

@@ -42,6 +42,7 @@ public class Bank
 	 * the requested card available. Returns resulting boolean.
 	 */
 
+
 	public boolean CanBankGiveDevelopmentCard(DevCardType mytype)throws Exception
 	{
 		if(devCardList==null)
@@ -148,10 +149,27 @@ public class Bank
 		}
 		return cardslist;
 	}
+
+
+	public void setDevCardList(DevCardList devCardList)
+	{
+		if(this.devCardList==null)
+		{
+			this.devCardList=new DevCardList();
+		}
+		this.devCardList=devCardList;
+	}
+	public void setDevCardList(int monopoly, int monument, int roadBuilding, int soldier, int yearOfPlenty)
+	{
+		if(this.devCardList==null)
+		{
+			this.devCardList=new DevCardList();
+		}
+	}
 	/**
 	 * @param cardslist the cardslist to set
 	 */
-	public void setCardslist(ResourceList cardslist)
+	public void setResourceCardslist(ResourceList cardslist)
 	{
 		if (this.cardslist == null)
 		{
@@ -160,7 +178,7 @@ public class Bank
 		this.cardslist = cardslist;
 	}
 
-	public void setCardslist(int brick, int wheat, int sheep, int wood, int ore)
+	public void setResourceCardslist(int brick, int wheat, int sheep, int wood, int ore)
 	{
 		if (this.cardslist == null)
 		{

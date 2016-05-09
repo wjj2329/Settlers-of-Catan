@@ -14,6 +14,7 @@ import org.junit.Test;
  */
 public class TestCanPlaceRobber 
 {
+
 	@Before
 	public void setUp() throws Exception 
 	{
