@@ -117,6 +117,7 @@ public class Player
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
+	 * I.e. is it your turn?
 	 */
 	private boolean currentPlayer = false;
 	
@@ -133,6 +134,53 @@ public class Player
 		this.color = color;
 		this.playerID = playerID;
 		resources = new ResourceList();
+	}
+
+	/**
+	 * Function to determine whether or not a player can trade with another player.
+	 * @param other: the other player
+     */
+	public boolean canRequestTrade(Player other, int amountRequesting, int amountSending, ResourceType typeRequesting,
+								   ResourceType typeSending)
+	{
+		if (!currentPlayer || other.isCurrentPlayer())
+		{
+			return false;
+		}
+
+		if (amountSending > resources.getRequestedType(typeSending))
+		{
+			return false;
+		}
+
+		/*
+		 This next part may need to be split up/adjusted because of the GUI.
+		 The player can REQUEST as much as he wants. However, if the other player
+		 doesn't have sufficient of the requested resources, then they will have the
+		 option to accept the trade grayed out.
+
+		 It is KEY that the operation be performed on Player OTHER! NOT, and I repeat NOT
+		  the local player!
+		  */
+		if (!other.canBeTradedWith(amountRequesting, typeRequesting))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Returns true if the player can trade with the quantity requested.
+	 * It is interconnected with the similar method canRequestTrade().
+	 * @param quantityRequested: how many resources the player wants.
+     */
+	public boolean canBeTradedWith(int quantityRequested, ResourceType typeRequested)
+	{
+		if (quantityRequested > resources.getRequestedType(typeRequested))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -243,7 +291,7 @@ public class Player
 	 * @param theType: type of the trade
 	 * @param threeOrFour: whether it is a 3-way or 4-way
      */
-	boolean multiWayTrade(PortType theType, int threeOrFour)
+	private boolean multiWayTrade(PortType theType, int threeOrFour)
 	{
 		assert(!theType.equals(PortType.BLANK));
 		assert(!theType.equals(PortType.THREE));

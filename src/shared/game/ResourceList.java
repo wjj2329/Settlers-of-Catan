@@ -1,5 +1,7 @@
 package shared.game;
 
+import shared.definitions.ResourceType;
+
 /**
  * @author Alex
  * ResourceList: list of resource cards owned by a player
@@ -67,5 +69,24 @@ public class ResourceList
 
 	public void setWood(int wood) {
 		this.wood = wood;
+	}
+
+	public int getRequestedType(ResourceType resourceType)
+	{
+		switch (resourceType)
+		{
+			case BRICK:
+				return brick;
+			case ORE:
+				return ore;
+			case SHEEP:
+				return sheep;
+			case WHEAT:
+				return wheat;
+			case WOOD:
+				return wood;
+			default:
+				return -1;
+		}
 	}
 }
