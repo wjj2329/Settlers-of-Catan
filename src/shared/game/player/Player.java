@@ -21,6 +21,8 @@ import java.util.ArrayList;
  */
 public class Player 
 {
+	private int roadSize=0;
+	private int armySize=0;
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
@@ -342,4 +344,12 @@ public class Player
 	private static final int TWO_WAY = 2;
 	private static final int THREE_WAY = 3;
 	private static final int FOUR_WAY = 4;
+
+	public int getArmySize() {
+		return armySize;
+	}
+
+	public int getRoadSize() {
+		return roadSize;
+	}
 }

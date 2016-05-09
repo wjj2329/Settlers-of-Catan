@@ -39,6 +39,8 @@ public class TestCanStartGame
 		CatanMap mymap3=new CatanMap(0);
 		ArrayList<Hex>myhexes=new ArrayList<>();
 
+
+		//this is the way the map will look by default if shuffling is not enabled. 
 		myhexes.add(new Hex(new HexLocation(-3, 2), HexType.WATER, 0, null));
 		myhexes.add(new Hex(new HexLocation(-3, 1), HexType.WATER, 0, PortType.WOOD));
 		myhexes.add(new Hex(new HexLocation(-3, 0), HexType.WATER, 0, null));
