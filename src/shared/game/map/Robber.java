@@ -90,6 +90,10 @@ public class Robber
 
 	public void setLocation(HexLocation location) 
 	{
+		if (location == null)
+		{
+			location = new HexLocation(-1, 0);
+		}
 		this.location = location;
 	}
 	

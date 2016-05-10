@@ -14,6 +14,7 @@ import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
 import shared.game.map.Index;
 import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.HexLocation;
@@ -35,6 +36,9 @@ public class TestCanBeRobbed
 	 */
 	private Player alex = null;
 
+	/**
+	 * All the hex locations!
+	 */
 	private HexLocation hexLoc1 = null;
 	private HexLocation hexLoc2 = null;
 	private HexLocation hexLoc3 = null;
@@ -140,8 +144,36 @@ public class TestCanBeRobbed
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
 		Settlement settle1 = new Settlement(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East));
+		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc11);
 		assertFalse(alex.canBeRobbed());
+		City city1 = new City(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East));
+		alex.addToCities(city1);
+		assertFalse(alex.canBeRobbed());
+	}
+
+	/**
+	 * Should succeed because it's at the same location as the robber.
+     */
+	@Test
+	public void testDoesHaveStructureSucceeds() throws Exception
+	{
+		CatanMap sampleMap = new CatanMap(RADIUS);
+		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
+		loadMyMap(theHexesOfMap);
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		alex.addToSettlements(settle1);
+		Robber.getSingleton().setLocation(hexLoc8);
+		assertTrue(alex.canBeRobbed());
+		Settlement settle2 = new Settlement(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest));
+
+		alex.getSettlements().clear();
+		assertFalse(alex.canBeRobbed());
+		alex.addToSettlements(settle2);
+		City city1 = new City(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest));
+		alex.addToCities(city1);
+		Robber.getSingleton().setLocation(hexLoc1);
+		assertTrue(alex.canBeRobbed());
 	}
 
 	private void loadMyMap(Map<HexLocation, Hex> hexes)
