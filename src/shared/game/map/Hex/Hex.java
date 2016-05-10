@@ -58,7 +58,7 @@ public class Hex
 	 */
 	public boolean canBuildCityHere()
 	{
-		if (cities.size() >= 3)
+		if (settlements.size() <= 0 || cities.size() >= 3)
 		{
 			return false;
 		}
