@@ -453,7 +453,7 @@ public class Player
 
 	public boolean canBuildCity(Hex hex, VertexLocation myLocation)
 	{
-		if (!hex.canBuildCityHere(myLocation))
+		if (!hex.canBuildCityHere(myLocation.getDir()))
 		{
 			return false;
 		}
