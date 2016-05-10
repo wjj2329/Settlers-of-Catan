@@ -32,5 +32,10 @@ public class Index
 	{
 		return number;
 	}
+	
+	public void setNumber(int newIndex)
+	{
+		number = newIndex;
+	}
 
 }
