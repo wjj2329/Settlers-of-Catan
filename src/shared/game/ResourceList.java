@@ -30,6 +30,14 @@ public class ResourceList
 		
 	}
 
+	public ResourceList(int brick, int ore, int sheep, int wheat, int wood)
+	{
+		this.brick=brick;
+		this.ore=ore;
+		this.sheep=sheep;
+		this.wheat=wheat;
+		this.wood=wood;
+	}
 
 	public int getBrick() {
 		return brick;

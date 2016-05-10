@@ -27,18 +27,13 @@ import java.util.ArrayList;
  */
 public class TestCanStartGame 
 {
-
-	private CatanGame mygame=new CatanGame();
 	/**
 	 * @throws java.lang.Exception
 	 */
 	@Before
 	public void setUp() throws Exception 
 	{
-		CatanMap mymap=new CatanMap(0);
-		CatanMap mymap2=new CatanMap(0);
-		CatanMap mymap3=new CatanMap(0);
-		ArrayList<Hex>myhexes=new ArrayList<>();
+
 	}
 
 	/**
