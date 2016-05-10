@@ -175,7 +175,6 @@ public class CatanMap
 		hexes.put(hexLoc27, new Hex(hexLoc27, HexType.SHEEP, new NumberToken(10), PortType.BLANK));
 		hexes.put(hexLoc28, new Hex(hexLoc28, HexType.WATER, new NumberToken(0), PortType.BLANK));
 
-		// i am here currently
 		hexes.put(hexLoc29, new Hex(hexLoc29, HexType.WATER, new NumberToken(0), PortType.BLANK));
 		hexes.put(hexLoc30, new Hex(hexLoc30, HexType.WOOD, new NumberToken(11), PortType.BLANK));
 		hexes.put(hexLoc31, new Hex(hexLoc31,HexType.SHEEP, new NumberToken(12), PortType.BLANK));
