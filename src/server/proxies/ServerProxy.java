@@ -2,16 +2,23 @@ package server.proxies;
 
 
 import client.data.*;
+import client.model.ClientCommunicator;
+import server.param.*;
 import shared.definitions.*;
+import shared.game.ResourceList;
 import shared.locations.*;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
  * Implementation for the RealServerProxy
  */
-public class RealServerProxy implements IServerProxy {
+public class ServerProxy implements IServer {
 
+	String usercookie;
+	String gamecookie; 
+	
 	/**
 	 * Logs the caller in to the server, and sets their catan.userHTTP cookie.
 	 * The passed-in username and password may correspond to the credentials of
@@ -23,27 +30,33 @@ public class RealServerProxy implements IServerProxy {
 	 *            the player's password
 	 * 
 	 * @pre username is not null, password is not null
-	 * @post if username and password is valid: 1. The server
-	 *                returns an HTTP 200 success response with "Success" in the
-	 *                body. 2. the HTTP response headers set the catan.user
-	 *                cookie to contain the identity of the logged-in player.
-	 *                Cookie uses "Path=/", and its value contains a url-encoded
-	 *                JSON object in the form:
-	 *                {"name”:STRING,"password”:STRING,"playerID”:INTEGER}. If
-	 *                username and password are not valid or operation fails for
-	 *                any reason 1. The server returns an HTTP 400 error
-	 *                response, and the body contains an error message.
+	 * @post if username and password is valid: 
+	 * 1. The server returns an HTTP 200 success response with "Success" in the body. 
+	 * 2. the HTTP response headers set the catan.user cookie to contain the identity of 
+	 *  the logged-in player.cookie uses "Path=/", and its value contains a url-encoded
+	 *  JSON object in the form: {"name”:STRING,"password”:STRING,"playerID”:INTEGER}. 
+	 * If username and password are not valid or operation fails for any reason 
+	 * 1. The server returns an HTTP 400 error response, and the body contains an error message.
 	 * 
-	 */
+	 */ //GET
 	@Override
-	public String loginUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public boolean loginUser(String username, String password) {
+		final String URL_SUFFIX = "/user/login";
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		Param param = new LoginParam(username, password);
+		String responseData = clientCommunicator.send(URL_SUFFIX, param);
+		if(responseData.equals("Success")){
+			return true;
+		}
+	
+		return false; 
 	}
 
 	/**
-	 * This method does two things: 1) Creates a new user account 2) Logs the
-	 * caller in to the server as the new user, and sets their catan.userHTTP
+	 * This method does two things: 
+	 * 1) Creates a new user account 
+	 * 2) Logs the caller in to the server as the new user, and sets their catan.userHTTP
 	 * cookie
 	 * 
 	 * @param username:
@@ -53,22 +66,25 @@ public class RealServerProxy implements IServerProxy {
 	 * 
 	 * @pre username is not null password is not null The
 	 *                specified username is not already in use
-	 * @post If there is no existing user with the specified
-	 *                username, 1. A new user account has been created with the
-	 *                specified username and password. 2. The server returns an
-	 *                HTTP 200 success response with "Success” in the body. 3.
-	 *                The HTTP response headers set the catan.user cookie to
-	 *                contain the identity of the logged in player. The cookie
-	 *                uses "Path=/", and its value contains a url encoded
-	 *                JSONobject of the following form:
-	 *                {"name”:STRING,"password”:STRING,"playerID”:INTEGER}. If
-	 *                there is already an existing user with the specified name,
-	 *                or operation fails for any reason 1. The server returns
-	 *                and HTTP 400 error response, and the body contains an
-	 *                error message.
-	 */
+	 * @post 
+	 * If there is no existing user with the specified username, 
+	 *	1. A new user account has been created with the specified username and password.
+	 * 	2. The server returns an HTTP 200 success response with "Success” in the body. 
+	 *	3. The HTTP response headers set the catan.user cookie to contain the identity of the 
+	 * 	logged in player. The cookie uses "Path=/", and its value contains a url encoded
+	 * 	JSONobject of the following form: {"name”:STRING,"password”:STRING,"playerID”:INTEGER}.
+	 * If there is already an existing user with the specified name, or operation fails for any reason 
+	 *  1. The server returns and HTTP 400 error response, and the body contains an error message.
+	 */ //POST
 	@Override
 	public String registerUser(String username, String password) {
+		final String URL_SUFFIX = "/user/register";
+		
+		Param param = new RegisterParam(username, password);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -84,24 +100,28 @@ public class RealServerProxy implements IServerProxy {
 	 *                fails, 1.The server returns an HTTP 400 error response,
 	 *                and the body contains an error message
 	 * 
-	 */
+	 *///GET 
 	@Override
 	public String getAllCurrentGames() {
+		final String URL_SUFFIX = "/games/list";
+		
+		Param param = new ListAllGamesParam();
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		// TODO Auto-generated method stub
-		return null;
+		return null;	
 	}
 
 	/**
 	 * Creates a new game on the server.
 	 * 
-	 * @param gameName
+	 * @param name
 	 *            game name
-	 * @param randomTiles
-	 *            if random tiles will be created
-	 * @param randomNumbers
-	 *            if random numbers will be assigned
-	 * @param randomPorts
-	 *            if random ports will be created
+	 * @param randomTiles if random tiles will be created
+	 * @param randomNumbers if random numbers will be assigned
+	 * @param randomPorts  if random ports will be created
 	 * 
 	 * @pre name != null, randomeTiles, randomNumbers, and
 	 *                randomPorts contain valid boolean values
@@ -112,9 +132,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                operation fails, 1.The server returns an HTTP 400 error
 	 *                response, and the body contains an error message
 	 * 
-	 */
+	 *///POST
 	@Override
-	public String createAGame(String gameName, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
+	public String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {	
+		final String URL_SUFFIX = "/games/create";
+		
+		Param param = new CreateGameParam(name, randomTiles, randomNumbers, randomPorts);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -122,21 +149,16 @@ public class RealServerProxy implements IServerProxy {
 	/**
 	 * Adds the player to the specified game and sets their catan.game cookie.
 	 *
-	 * @param gameID
-	 *            id of game
-	 * @param color
-	 *            the players color choice
-	 * @param player
-	 *            the player that wants to be added to game.
+	 * @param gameID the id of game
+	 * @param color the players color choice
 	 *
-	 * @pre 1.The user has previously logged in to the server
-	 *                (i.e.,they have a valid catan.user HTTP cookie). 2.The
-	 *                player may join the game because 2.a They are already in
-	 *                the game, OR 2.b There is space in the game to add a new
-	 *                player 3.The specified game ID is valid 4.The specified
-	 *                color is
-	 *                valid(red,green,blue,yellow,puce,brown,white,purple,
-	 *                orange)
+	 * @pre 
+	 * 1.The user has previously logged in to the server (i.e.,they have a valid catan.user HTTP cookie). 
+	 * 2.The player may join the game because 
+	 * 2.a They are already in the game, OR 
+	 * 2.b There is space in the game to add a new player 
+	 * 3.The specified game ID is valid 
+	 * 4.The specified color is valid(red,green,blue,yellow,puce,brown,white,purple, orange)
 	 * @post If the operation succeeds, 1. The server returns an
 	 *                HTTP 200 success response with "Success" in the body. 2.
 	 *                The player is in the game with the specified
@@ -147,9 +169,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                server returns an HTTP 400 error response, and the body
 	 *                contains an error message
 	 * 
-	 */
+	 *///POST
 	@Override
-	public String addPlayertoGame(int gameID, CatanColor color, PlayerInfo player) {
+	public String JoinGame(int gameID, String color) {
+		final String URL_SUFFIX = "/games/join";
+		
+		Param param = new JoinGameParam(gameID, color);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -162,10 +191,8 @@ public class RealServerProxy implements IServerProxy {
 	 * saved file using the /game/load/ method. Game files are saved to and
 	 * loaded from the server's saves/directory.
 	 *
-	 * @param gameID
-	 *            the id of the game to be saved
-	 * @param fileName
-	 *            the file name that will have the information for saved game.
+	 * @param gameID the id of the game to be saved
+	 * @param fileName the file name you want to save it under
 	 * 
 	 * @pre 1.The specified game ID is valid 2.The specified file
 	 *                name is valid(i.e.,not null or empty)
@@ -177,10 +204,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                HTTP 400 error response, and the body contains an error
 	 *                message
 	 * 
-	 */
+	 *///POST
 	@Override
 	public String saveGame(int gameID, String fileName) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/games/save";
+		
+		Param param = new JoinGameParam(gameID, fileName);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -192,8 +225,7 @@ public class RealServerProxy implements IServerProxy {
 	 * saved file using the /game/load/ method. Game files are saved to and
 	 * loaded from the server's saves/directory.
 	 *
-	 * @param name
-	 *            it is the name of the file
+	 * @param name the name of the saved game file that you want to load
 	 *
 	 * @pre 1.A previously saved game file with the specified
 	 *                name exists in the server’s saves/ directory
@@ -204,10 +236,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                operation fails, 1.The server returns an HTTP 400 error
 	 *                response, and the body contains an error message
 	 * 
-	 */
+	 *///POST
 	@Override
 	public String loadGame(String name) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/games/load";
+		
+		Param param = new LoadGameParam(name);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -234,10 +272,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                fails, 1.The server returns an HTTP 400 error response,
 	 *                and the body contains an error message
 	 * 
-	 */
+	 *///GET - necesita galleta! haha
 	@Override
 	public String getGameCurrentState(int version) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/game/model";
+		
+		Param param = new GetGameCurrentStateParam();
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -256,10 +300,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                an error message
 	 * 
 	 * 
-	 */
+	 *///POST needs cookie! 
 	@Override
 	public String resetCurrentGame() {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/game/reset";
+		
+		Param param = new ResetCurrentGameParam();
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -275,9 +325,9 @@ public class RealServerProxy implements IServerProxy {
 	 *                the operation fails, 1.The server returns an HTTP 400
 	 *                error response, and the body contains an error message
 	 * 
-	 */
+	 *///GET
 	@Override
-	public String GET() {
+	public String GETCommands() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -296,9 +346,9 @@ public class RealServerProxy implements IServerProxy {
 	 *                1.The server returns an HTTP 400 error response, and the
 	 *                body contains an error message
 	 * 
-	 */
+	 *///POST needs game cookie
 	@Override
-	public String POST() {
+	public String POSTCommands() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -314,10 +364,16 @@ public class RealServerProxy implements IServerProxy {
 	 *                players. These are the values that may be passed to the
 	 *                /game/addAI method.
 	 * 
-	 */
+	 *///GET
 	@Override
-	public String getAIList() {
-		// TODO Auto-generated method stub
+	public String listAI(){
+		final String URL_SUFFIX = "/game/listAI";
+		
+		Param param = new ListAIParam();
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -343,7 +399,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public String addAIPlayer(String logLevel) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/game/addAI";
+		
+		Param param = new AddAIParam(logLevel);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -363,7 +425,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public String changeLogLevel(String logLevel) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/util/changeLogLevel";
+		
+		Param param = new ChangeLogLevelParam(logLevel);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 		return null;
 	}
 
@@ -381,8 +449,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void sendChat(String type, int playerIndex, String content) {
-		// TODO Auto-generated method stub
-
+		final String URL_SUFFIX = "/moves/sendChat";
+		
+		Param param = new SendChatParam(type, playerIndex, content);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 	}
 
 	/**
@@ -402,7 +475,12 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void acceptTrade(String type, int playerIndex, boolean willAccept) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/acceptTrade";
+		
+		Param param = new AcceptTradeParam(type, playerIndex, willAccept);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
 
 	}
 
@@ -423,8 +501,13 @@ public class RealServerProxy implements IServerProxy {
 	 * 
 	 */
 	@Override
-	public void discardCards(String type, int playerIndex, JSONObject discardedCards) {
-		// TODO Auto-generated method stub
+	public void discardCards(String type, int playerIndex, ResourceList discardedCards) {
+		final String URL_SUFFIX = "/moves/discardCards";
+		
+		Param param = new DiscardCardsParam(type, playerIndex, discardedCards);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
 
 	}
 
@@ -444,7 +527,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void rollNumber(String type, int playerIndex, int number) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/rollNumber";
+		
+		Param param = new RollNumberParam(type, playerIndex, number);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -470,7 +559,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/buildRoad";
+		
+		Param param = new BuildRoadParam(type, playerIndex, roadLocation, free);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -499,7 +594,14 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/buildSettlement";
+		
+		Param param = new BuildSettlementParam(type, playerIndex, vertexLocation, free);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
+
 
 	}
 
@@ -522,17 +624,21 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void buildCity(String type, int playerIndex, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/buildCity";
+		
+		Param param = new BuildCityParam(type, playerIndex, vertexLocation);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
 	/**
-	 * @param type
-	 *            name of move being executed
-	 * @param playerIndex
-	 *            the recipient of the trade offer
-	 * @param offer
-	 *            negative numbers mean you get those cards
+	 * @param type name of move being executed
+	 * @param playerIndex the person making offer
+	 * @param offer negative numbers mean you get those cards
+	 * @param receiver person receiving offer
 	 * 
 	 * @pre it is your turn, the client model's status is
 	 *                'Playing' you have the resources you are offering
@@ -541,26 +647,38 @@ public class RealServerProxy implements IServerProxy {
 	 * 
 	 */
 	@Override
-	public void offerTrade(String type, int playerIndex, JSONObject offer) {
-		// TODO Auto-generated method stub
+	public void offerTrade(String type, int playerIndex, ResourceList offer,int receiver) {
+		final String URL_SUFFIX = "/moves/offerTrade";
+		
+		Param param = new OfferTradeParam(type, playerIndex, offer, receiver);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+		
 
 	}
 
 	/**
 	 * @param type name of move being executed
 	 * @param playerIndex the player you are robbing or -1 if you are not robbing anyone
-	 * @param location
+	 * @param location new location of robber
+	 * @param victimIndex the player you are robbing or -1 if you are not robbing anyone
 	 * 
 	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					  robber is not being kept in the same location, if a player 
-	 * @postthe robber is in the new location, the player being robberd(if any) gave one 
+	 * @post the robber is in the new location, the player being robbed(if any) gave one 
 	 * 					 one of his resource cards (if randomly selected)
 	 * 
 	 * 
 	 */
 	@Override
-	public void robPlayer(String type, HexLocation location, int playerIndex) {
-		// TODO Auto-generated method stub
+	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) {
+		final String URL_SUFFIX = "/moves/robPlayer";
+		
+		Param param = new RobPlayerParam(type, playerIndex, location, victimIndex);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
 
 	}
 
@@ -577,7 +695,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void finishTurn(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/finishTurn";
+		
+		Param param = new FinishTurnParam(type, playerIndex);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -594,7 +718,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void buyDevCard(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/buyDevCard";
+		
+		Param param = new BuyDevCardParam(type, playerIndex);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -616,7 +746,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/Soldier";
+		
+		Param param = new PlaySoldierParam(type, playerIndex, location, victimIndex);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -628,14 +764,20 @@ public class RealServerProxy implements IServerProxy {
 	 * 
 	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
-	 * 						two specified recources are in the bank
-	 * @post you gained to specifed resources
+	 * 						two specified resources are in the bank
+	 * @post you gained to specified resources
 	 * 
 	 * 
 	 */
 	@Override
 	public void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/Year_of_Plenty";
+		
+		Param param = new PlayYearOfPlentyParam(type, playerIndex, resource1, resource2);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -650,13 +792,19 @@ public class RealServerProxy implements IServerProxy {
 	 * 						first road location is connected to one of your road, second road location is connected to one of your roads
 	 * 						or the first road location, neither road location is on the water, you have atleast 
 	 * 						two unused roads
-	 * @post you have 2 fewer unused roads, 2 new roads appear on the map at the specifed
+	 * @post you have 2 fewer unused roads, 2 new roads appear on the map at the specified
 	 * 						locations, "longest road" has been awarded to the correct user
 	 * 
 	 */
 	@Override
 	public void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/Road_Building";
+		
+		Param param = new PlayRoadBuildingParam(type, playerIndex, spot1, spot2);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -673,7 +821,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void playMonopoly(String type, int playerIndex, String resource) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/Monopoly";
+		
+		Param param = new PlayMonopolyParam(type, playerIndex, resource);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -690,7 +844,13 @@ public class RealServerProxy implements IServerProxy {
 	 */
 	@Override
 	public void playMonument(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/Monument";
+		
+		Param param = new PlayMonumentParam(type, playerIndex);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
 
 	}
 
@@ -700,7 +860,7 @@ public class RealServerProxy implements IServerProxy {
 	 * @param playerIndex
 	 *            the player's position in the game's turn order
 	 * @param ratio
-	 *            integer(2,3, or 4)
+	 *            integer(2, 3, or 4)
 	 * @param inputResource
 	 *            what you are giving
 	 * @param outputResource
@@ -714,13 +874,18 @@ public class RealServerProxy implements IServerProxy {
 	 * @post the trade has been executed ( offered resources are
 	 *                in the bank, and the requested resource has been received)
 	 * 
-	 * 
 	 */
 	
 	@Override
 	public void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) {
-		// TODO Auto-generated method stub
+		final String URL_SUFFIX = "/moves/maritimeTrade";
 		
+		Param param = new MaritimeTradeParam(type, playerIndex, ratio, inputResource, outputResource);
+		ClientCommunicator clientCommunicator = new ClientCommunicator();
+		
+		clientCommunicator.send(URL_SUFFIX, param);
+
+
 	}
 
 }

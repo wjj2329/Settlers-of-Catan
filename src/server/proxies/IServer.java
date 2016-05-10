@@ -2,18 +2,22 @@ package server.proxies;
 
 import client.data.*;
 import shared.definitions.*;
+import shared.game.ResourceList;
 import shared.locations.*;
+
+import java.util.List;
 
 import org.json.*;
 
 /**
- * Implementation for the MockServerProxy
+ * Interface for the ServerProxy
  */
-public class MockServerProxy implements IServerProxy {
+public interface IServer {
 
-	private RealServerProxy realServerProxy;
+	// Non-Move APIs
 
-	/** Logs the caller in to the server, and sets their catan.userHTTP cookie.
+	/**
+	 * Logs the caller in to the server, and sets their catan.userHTTP cookie.
 	 * The passed-in username and password may correspond to the credentials of
 	 * any registered user.
 	 * 
@@ -21,7 +25,6 @@ public class MockServerProxy implements IServerProxy {
 	 *            the player's username
 	 * @param password:
 	 *            the player's password
-	 * 
 	 * @pre username is not null, password is not null
 	 * @post if username and password is valid: 1. The server
 	 *                returns an HTTP 200 success response with "Success" in the
@@ -29,17 +32,13 @@ public class MockServerProxy implements IServerProxy {
 	 *                cookie to contain the identity of the logged-in player.
 	 *                Cookie uses "Path=/", and its value contains a url-encoded
 	 *                JSON object in the form:
-	 *                {"name":STRING,"password":STRING,"playerID":INTEGER}. If
+	 *                {"name":STRING,"password":STRING,"playerID":INTEGER}. @post If
 	 *                username and password are not valid or operation fails for
 	 *                any reason 1. The server returns an HTTP 400 error
 	 *                response, and the body contains an error message.
 	 * 
 	 */
-	@Override
-	public String loginUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	boolean loginUser(String username, String password);
 
 	/**
 	 * This method does two things: 1) Creates a new user account 2) Logs the
@@ -50,7 +49,6 @@ public class MockServerProxy implements IServerProxy {
 	 *            the player's username
 	 * @param password:
 	 *            the player's password
-	 * 
 	 * @pre username is not null password is not null The
 	 *                specified username is not already in use
 	 * @post If there is no existing user with the specified
@@ -67,11 +65,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                and HTTP 400 error response, and the body contains an
 	 *                error message.
 	 */
-	@Override
-	public String registerUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String registerUser(String username, String password);
 
 	/**
 	 * Returns information about all of the current games on the server.
@@ -80,21 +74,17 @@ public class MockServerProxy implements IServerProxy {
 	 * @post If the operation succeeds, 1.The server returns an
 	 *                HTTP 200 success response. 2.The body contains a JSON
 	 *                array containing a list of objects that contain
-	 *                information about the server’s games If the operation
+	 *                information about the server’s games @post If the operation
 	 *                fails, 1.The server returns an HTTP 400 error response,
 	 *                and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String getAllCurrentGames() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String getAllCurrentGames();
 
 	/**
 	 * Creates a new game on the server.
 	 * 
-	 * @param gameName
+	 * @param name
 	 *            game name
 	 * @param randomTiles
 	 *            if random tiles will be created
@@ -113,21 +103,13 @@ public class MockServerProxy implements IServerProxy {
 	 *                response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String createAGame(String gameName, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts);
 
 	/**
 	 * Adds the player to the specified game and sets their catan.game cookie.
 	 *
-	 * @param gameID
-	 *            id of game
-	 * @param color
-	 *            the players color choice
-	 * @param player
-	 *            the player that wants to be added to game.
+	 * @param gameID the id of game
+	 * @param color the players color choice
 	 *
 	 * @pre 1.The user has previously logged in to the server
 	 *                (i.e.,they have a valid catan.user HTTP cookie). 2.The
@@ -148,11 +130,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                contains an error message
 	 * 
 	 */
-	@Override
-	public String addPlayertoGame(int gameID, CatanColor color, PlayerInfo player) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String JoinGame(int gameID, String color);
 
 	/**
 	 * This method is for testing and debugging purposes. When a bug is found,
@@ -162,10 +140,8 @@ public class MockServerProxy implements IServerProxy {
 	 * saved file using the /game/load/ method. Game files are saved to and
 	 * loaded from the server's saves/directory.
 	 *
-	 * @param gameID
-	 *            the id of the game to be saved
-	 * @param fileName
-	 *            the file name that will have the information for saved game.
+	 * @param gameID the id of the game to be saved
+	 * @param fileName the file name you want to save it under 
 	 * 
 	 * @pre 1.The specified game ID is valid 2.The specified file
 	 *                name is valid(i.e.,not null or empty)
@@ -178,11 +154,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                message
 	 * 
 	 */
-	@Override
-	public String saveGame(int gameID, String fileName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String saveGame(int gameID, String fileName);
 
 	/**
 	 * This method is for testing and debugging purposes. When a bug is found,
@@ -192,8 +164,7 @@ public class MockServerProxy implements IServerProxy {
 	 * saved file using the /game/load/ method. Game files are saved to and
 	 * loaded from the server's saves/directory.
 	 *
-	 * @param name
-	 *            it is the name of the file
+	 * @param name the name of the saved game file that you want to load
 	 *
 	 * @pre 1.A previously saved game file with the specified name exists in the server’s saves/ directory
 	 * @post If the operation succeeds, 
@@ -203,11 +174,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String loadGame(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String loadGame(String name);
 
 	/**
 	 * Returns the current state of the game in JSON format, and also includes a
@@ -217,7 +184,6 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * @pre 1.The caller has previously logged into the server and joined a game(i.e.,they have valid 
 	 * 						catan.user and catan.game HTTP cookies).
-	 * 						2.If specified, the version number is included as the "version" query parameter 
 	 * 						in the request URL, and its value is a valid integer
 	 * @post If the operation succeeds,
 	 * 						1. The server returns an HTTP 200 success response
@@ -230,11 +196,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String getGameCurrentState(int version) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String getGameCurrentState(int version);
 
 	/**
 	 * Clears out the command history of the current game.
@@ -246,16 +208,12 @@ public class MockServerProxy implements IServerProxy {
 	 * 						2. The game's players have NOT been cleared out
 	 * 						3. The server returns an HTTP 200 success response. 
 	 * 						4. The body contains the game's updated client model JSON  
-	 *                		If the operation fails, 
+	 * @post If the operation fails, 
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 						
 	 * 
 	 */
-	@Override
-	public String resetCurrentGame() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String resetCurrentGame();
 
 	/**
 	 * Returns a list of commands that have been executed in the current game.
@@ -269,11 +227,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String GET() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String GETCommands();
 
 	/**
 	 * 
@@ -289,11 +243,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String POST() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String POSTCommands();
 
 	/**
 	 * 
@@ -306,11 +256,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 							that may be passed to the /game/addAI method. 
 	 * 
 	 */
-	@Override
-	public String getAIList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String listAI();
 
 	/**
 	 * 
@@ -328,11 +274,7 @@ public class MockServerProxy implements IServerProxy {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String addAIPlayer(String logLevel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String addAIPlayer(String logLevel);
 
 	/**
 	 * Sets the server's logging level
@@ -342,17 +284,15 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * @pre The caller specifies a valid logging level. 
 	 * @post If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body.
-	 * 						2. The Server is using the specified logging level 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
+	 * 		 1. The server returns an HTTP 200 success response with "Success" in the body.
+	 * 		 2. The Server is using the specified logging level 
+	 * @post If the operation fails, 
+	 *       1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	@Override
-	public String changeLogLevel(String logLevel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	String changeLogLevel(String logLevel);
+
+	// Move APIs uses /moves/*
 
 	/**
 	 * @param type name of move being executed
@@ -363,16 +303,12 @@ public class MockServerProxy implements IServerProxy {
 	 * @post The chat contains your message at the end
 	 * 
 	 */
-	@Override
-	public void sendChat(String type, int playerIndex, String content) {
-		// TODO Auto-generated method stub
-
-	}
+	void sendChat(String type, int playerIndex, String content);
 
 	/**
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
-	 * @param willAccept whether or not you accept the trade the offere
+	 * @param willAccept whether or not you accept the trade offered
 	 *
 	 * @preYou have been offered a domestic trade
 	 * 						To accept the offered trade, you have the required resources 
@@ -381,11 +317,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 						The trade offer is remove
 	 * 
 	 */
-	@Override
-	public void acceptTrade(String type, int playerIndex, boolean willAccept) {
-		// TODO Auto-generated method stub
-
-	}
+	void acceptTrade(String type, int playerIndex, boolean willAccept);
 
 	/**
 	 * @param type name of move being executed
@@ -398,11 +330,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 						If you're the last one to discard, the client model status changes to 'Robbing' 
 	 * 
 	 */
-	@Override
-	public void discardCards(String type, int playerIndex, JSONObject discardedCards) {
-		// TODO Auto-generated method stub
-
-	}
+	void discardCards(String type, int playerIndex, ResourceList discardedCards);
 
 	/**
 	 * @param type name of move being executed
@@ -413,11 +341,7 @@ public class MockServerProxy implements IServerProxy {
 	 * @post The client model's status is now in 'Discarding' or 'Robbing' or 'Playing'
 	 * 
 	 */
-	@Override
-	public void rollNumber(String type, int playerIndex, int number) {
-		// TODO Auto-generated method stub
-
-	}
+	void rollNumber(String type, int playerIndex, int number);
 
 	/**
 	 * @param type name of move being executed
@@ -433,11 +357,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 						if applicable, "longest road" has been awarded to the player with the longest road
 	 * 
 	 */
-	@Override
-	public void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) {
-		// TODO Auto-generated method stub
-
-	}
+	void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation);
 
 	/**
 	 * @param type name of move being executed
@@ -454,11 +374,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 						the settlement is on the map at the specified locatoin 
 	 * 
 	 */
-	@Override
-	public void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
-
-	}
+	void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation);
 
 	/**
 	 * @param type name of move being executed
@@ -472,27 +388,20 @@ public class MockServerProxy implements IServerProxy {
 	 * 						location, you got a settlement back
 	 * 
 	 */
-	@Override
-	public void buildCity(String type, int playerIndex, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
-
-	}
+	void buildCity(String type, int playerIndex, VertexLocation vertexLocation);
 
 	/**
 	 * @param type name of move being executed
-	 * @param playerIndex the recipient of the trade offer
+	 * @param playerIndex the person making offer
 	 * @param offer negative numbers mean you get those cards
+	 * @param receiver person receiving offer
 	 * 
 	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						you have the resources you are offering
 	 * @post the trade is offered to the other player(stored in the server model)
 	 * 
 	 */
-	@Override
-	public void offerTrade(String type, int playerIndex, JSONObject offer) {
-		// TODO Auto-generated method stub
-
-	}
+	void offerTrade(String type, int playerIndex, ResourceList offer,int receiver);
 
 	/**
 	 * @param type name of move being executed
@@ -510,16 +419,13 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * 
 	 */
-	@Override
-	public void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) {
-		// TODO Auto-generated method stub
-
-	}
+	void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource);
 
 	/**
 	 * @param type name of move being executed
 	 * @param playerIndex the player you are robbing or -1 if you are not robbing anyone
-	 * @param location
+	 * @param location new location of robber
+	 * @param victimIndex the player you are robbing or -1 if you are not robbing anyone
 	 * 
 	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					  robber is not being kept in the same location, if a player 
@@ -529,10 +435,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 */
 	@Override
-	public void robPlayer(String type, HexLocation location, int playerIndex) {
-		// TODO Auto-generated method stub
-
-	}
+	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) ;
 
 	/**
 	 * @param type name of move being executed
@@ -545,11 +448,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * 
 	 */
-	@Override
-	public void finishTurn(String type, int playerIndex) {
-		// TODO Auto-generated method stub
-
-	}
+	void finishTurn(String type, int playerIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -557,16 +456,12 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 					you have the required resources( 1 ore, 1 wheat, 1 sheep) there are dev cards left in the deck
-	 * @post you have a new card! if monument it is added to old devcard
-	 * 						if non monument card it is added to new deve card hand
+	 * @post you have a new card! if monument it is added to old dev card
+	 * 						if non monument card it is added to new dev card hand
 	 * 
 	 * 
 	 */
-	@Override
-	public void buyDevCard(String type, int playerIndex) {
-		// TODO Auto-generated method stub
-
-	}
+	void buyDevCard(String type, int playerIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -584,11 +479,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * 
 	 */
-	@Override
-	public void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) {
-		// TODO Auto-generated method stub
-
-	}
+	void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -598,16 +489,12 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * @pre  it is your turn, the client model's status is 'Playing'
 	 * 						you have the card you want to play in old dev card hand, 
-	 * 						two specified recources are in the bank
-	 * @post you gained to specifed resources
+	 * 						two specified resources are in the bank
+	 * @post you gained to specified resources
 	 * 
 	 * 
 	 */
-	@Override
-	public void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
-		// TODO Auto-generated method stub
-
-	}
+	void playYearofPlenty(String type, int playerIndex, String resource1, String resource2);
 
 	/**
 	 * @param type name of move being executed
@@ -624,11 +511,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 						locations, "longest road" has been awarded to the correct user
 	 * 
 	 */
-	@Override
-	public void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
-
-	}
+	void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
 
 	/**
 	 * @param type name of move being executed
@@ -641,11 +524,7 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * 
 	 */
-	@Override
-	public void playMonopoly(String type, int playerIndex, String resource) {
-		// TODO Auto-generated method stub
-
-	}
+	void playMonopoly(String type, int playerIndex, String resource);
 
 	/**
 	 * @param type name of move being executed
@@ -658,10 +537,6 @@ public class MockServerProxy implements IServerProxy {
 	 * 
 	 * 
 	 */
-	@Override
-	public void playMonument(String type, int playerIndex) {
-		// TODO Auto-generated method stub
-
-	}
+	void playMonument(String type, int playerIndex);
 
 }
