@@ -1,6 +1,7 @@
 package server.proxies;
 
 import client.data.*;
+import client.model.Model;
 import shared.definitions.*;
 import shared.game.ResourceList;
 import shared.locations.*;
@@ -538,5 +539,7 @@ public interface IServer {
 	 * 
 	 */
 	void playMonument(String type, int playerIndex);
+
+	Model getGameModel(double version);
 
 }
