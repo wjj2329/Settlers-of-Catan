@@ -69,7 +69,10 @@ public class Hex
 		sw = new EdgeLocation(location, EdgeDirection.SouthWest);
 	}
 
-	void BuildCity(VertexLocation mylocation)
+	/**this function actually places cities on the hex and the corresponding hexes that intersect at that intersection.
+	 * @param mylocation not null
+	 */
+	public void buildCity(VertexLocation mylocation)
 	{
 		if(canBuildCityHere(mylocation.getDir()))
 		{
@@ -155,8 +158,10 @@ public class Hex
 
 	}
 
-	//this function actually places settlements on the hex and the corresponding hexes that intersect at that intersection.
-	void BuildSettlement(VertexLocation mylocation)
+	/**this function actually places settlements on the hex and the corresponding hexes that intersect at that intersection.
+	 * @param mylocation not null
+     */
+	public void buildSettlement(VertexLocation mylocation)
 	{
 		if(canBuildSettlementHere(mylocation))
 		{
@@ -167,7 +172,7 @@ public class Hex
 				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.east.isHassettlement()&&this.east.isHascity()) {
+					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
 						hextoupdate.getSouthwest().setHassettlement(true);
 						hextoupdate2.getNorthwest().setHassettlement(true);
 						east.setHassettlement(true);
@@ -181,7 +186,7 @@ public class Hex
 				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.west.isHassettlement()&&this.west.isHascity()) {
+					if(!this.west.isHassettlement()&&!this.west.isHascity()) {
 						hextoupdate.getSoutheast().setHassettlement(true);
 						hextoupdate2.getNortheast().setHassettlement(true);
 						west.setHassettlement(true);
@@ -195,7 +200,7 @@ public class Hex
 				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.northeast.isHassettlement()&&this.northeast.isHascity()) {
+					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
 						hextoupdate.getSoutheast().setHassettlement(true);
 						hextoupdate2.getWest().setHassettlement(true);
 						northeast.setHassettlement(true);
@@ -209,7 +214,7 @@ public class Hex
 				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.northwest.isHassettlement()&&this.northwest.isHascity()) {
+					if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
 						hextoupdate.getEast().setHassettlement(true);
 						hextoupdate2.getSouthwest().setHassettlement(true);
 						northwest.setHassettlement(true);
@@ -223,7 +228,7 @@ public class Hex
 				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.southwest.isHassettlement()&&this.southwest.isHascity()) {
+					if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
 						hextoupdate.getNorthwest().setHassettlement(true);
 						hextoupdate2.getEast().setHassettlement(true);
 						southwest.setHassettlement(true);
@@ -236,7 +241,7 @@ public class Hex
 				Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
 				Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
-					if(!this.southeast.isHassettlement()&&this.southeast.isHascity()) {
+					if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
 						hextoupdate.getWest().setHassettlement(true);
 						hextoupdate2.getNortheast().setHassettlement(true);
 						southeast.setHassettlement(true);
@@ -272,7 +277,7 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
-			if(northeast.isHassettlement()||east.isHassettlement()||west.isHassettlement())
+			if(northeast.isHassettlement()||east.isHassettlement()||northwest.isHassettlement())
 			{
 				return false;
 			}
