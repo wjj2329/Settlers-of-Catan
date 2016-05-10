@@ -25,6 +25,11 @@ public class Hex
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
 
+	public void addRoad(VertexLocation northeast)
+	{
+
+	}
+
 	public VertexLocation getNortheast() {
 		return northeast;
 	}
