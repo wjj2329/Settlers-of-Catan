@@ -56,21 +56,21 @@ public class Hex
 	{
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
-			if(east.isHascity())
+			if(east.isHassettlement()||northeast.isHassettlement()||northwest.isHassettlement())
 			{
 				return false;
 			}
 		}
 		if(mylocation.getDir().equals(VertexDirection.West))
 		{
-			if(west.isHascity())
+			if(west.isHassettlement()||northwest.isHassettlement()||southwest.isHassettlement())
 			{
 				return false;
 			}
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
-			if(northeast.isHascity())
+			if(northeast.isHassettlement()||east.isHassettlement()||west.isHassettlement())
 			{
 				return false;
 			}
@@ -78,28 +78,21 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthWest))
 		{
-			if(northwest.isHascity())
-			{
-				return false;
-			}
-		}
-		if(mylocation.getDir().equals(VertexDirection.NorthEast))
-		{
-			if (northeast.isHascity())
+			if(northwest.isHassettlement()||northeast.isHassettlement()||west.isHassettlement())
 			{
 				return false;
 			}
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthEast))
 		{
-			if(southeast.isHascity())
+			if(southeast.isHassettlement()||southwest.isHassettlement()||east.isHassettlement())
 			{
 			return false;
 			}
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthWest))
 		{
-			if(southwest.isHascity())
+			if(southwest.isHassettlement()||southeast.isHassettlement()||west.isHassettlement())
 			{
 				return false;
 			}
@@ -115,8 +108,32 @@ public class Hex
 	/**
 	 * This function will need further implementation
 	 */
-	public boolean canBuildCityHere(VertexLocation mylocation)
+	public boolean canBuildCityHere(VertexDirection mydirection)
 	{
+		if(mydirection.equals(VertexDirection.SouthEast))
+		{
+			return southeast.isHassettlement();
+		}
+		if(mydirection.equals(VertexDirection.SouthWest))
+		{
+			return southwest.isHassettlement();
+		}
+		if(mydirection.equals(VertexDirection.West))
+		{
+			return (west.isHassettlement());
+		}
+		if(mydirection.equals(VertexDirection.East))
+		{
+			return east.isHassettlement();
+		}
+		if(mydirection.equals(VertexDirection.NorthWest))
+		{
+			return northwest.isHassettlement())
+		}
+		if(mydirection.equals(VertexDirection.NorthEast))
+		{
+			return northeast.isHassettlement();
+		}
 		if (settlements.size() <= 0 || cities.size() >= 3)
 		{
 			return false;
