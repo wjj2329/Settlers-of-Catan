@@ -40,4 +40,14 @@ public class Settlement extends Structure
 	{
 		return false;
 	}
+
+	public HexLocation getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(HexLocation location)
+	{
+		this.location = location;
+	}
 }

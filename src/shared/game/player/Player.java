@@ -6,9 +6,12 @@ import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
+import shared.game.map.Hex.Hex;
 import shared.game.map.Index;
 import shared.game.map.Port;
 import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
 import shared.locations.HexLocation;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class Player
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
-	private int numCities = 0;
+	private int numCities = MAX_NUM_CITIES;
 	/**
 	 * Color: Color is received as a String from the JSON file.
 	 * However, we need to use the enum type CatanColor.
@@ -92,6 +95,19 @@ public class Player
 	 * List of all the ports that the player currently has.
 	 */
 	private ArrayList<Port> playerPorts = null;
+
+	/**
+	 * List of settlements owned by the player.
+	 * Use this to obtain how many CURRENT settlements a player has.
+	 */
+	private ArrayList<Settlement> settlements = null;
+
+	/**
+	 * List of cities owned by the player.
+	 * Use this to obtain how many CURRENT cities a player has.
+	 * Settlements come before cities.
+	 */
+	private ArrayList<City> cities = null;
 	
 	/**
 	 * How many roads the Player CAN BUILD.
@@ -102,7 +118,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlements = 0;
+	private int numSettlements = MAX_NUM_SETTLEMENTS;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -202,11 +218,30 @@ public class Player
 		}
 
 		/*
-		Need another IF statement here:
+		A bit of helpful (hopefully) explanation for this next little bit:
 			If the player doesn't have a settlement or city on the robber's hex, then they cannot be robbed.
-			So we need to have Map as a singleton. However, this will take a while to implement, so I haven't
-			done it just yet. ~ Alex
+			I don't THINK we will need to override .equals, but we might need to.
+			Remember: These are using double equals (==) so they need to be the SAME POINTERS!
 		 */
+		boolean hasAreaAffectedByRobber = false;
+		for (Settlement settlement : settlements)
+		{
+			if (settlement.getLocation() == Robber.getSingleton().getLocation())
+			{
+				hasAreaAffectedByRobber = true;
+			}
+		}
+		for (City city : cities)
+		{
+			if (city.getLocation() == Robber.getSingleton().getLocation())
+			{
+				hasAreaAffectedByRobber = true;
+			}
+		}
+		if (!hasAreaAffectedByRobber)
+		{
+			return false;
+		}
 		return true;
 	}
 
@@ -390,9 +425,22 @@ public class Player
 		return false;
 	}
 
-	public boolean canBuildSettlement()
+	/**
+	 * Determines whether or not a player can build a settlement on a particular hex
+	 * @param hex: the hex
+     */
+	public boolean canBuildSettlement(Hex hex)
 	{
-		return false;
+		if (!hex.canBuildSettlementHere())
+		{
+			return false;
+		}
+		if (resources.getOre() < 3 || resources.getWheat() < 2)
+		{
+			return false;
+		}
+		// another if goes here.
+		return true;
 	}
 
 	public boolean canBuildCity()
@@ -423,10 +471,43 @@ public class Player
 		this.resources = resources;
 	}
 
+	public ArrayList<Settlement> getSettlements()
+	{
+		return settlements;
+	}
+
+	/**
+	 * Adds the settlement to the player's settlements
+	 * @pre: settlement is not null
+	 * player has the proper resources required to build
+	 * settlement can be placed at the given location
+     */
+	public void addToSettlements(Settlement settlement)
+	{
+		settlements.add(settlement);
+	}
+	public ArrayList<City> getCities()
+	{
+		return cities;
+	}
+	/**
+	 * Adds the city to the player's cities
+	 * @pre: city is not null
+	 * city can be placed at the given location
+	 * player has the proper resources required to build
+	 * (including there being 1 settlement there)
+     */
+	public void addToCities(City city)
+	{
+		cities.add(city);
+	}
+
 	private static final int DEFAULT_VAL = 0;
 	private static final int TWO_WAY = 2;
 	private static final int THREE_WAY = 3;
 	private static final int FOUR_WAY = 4;
+	private static final int MAX_NUM_CITIES = 4;
+	private static final int MAX_NUM_SETTLEMENTS = 5;
 
 	public int getArmySize() {
 		return armySize;
