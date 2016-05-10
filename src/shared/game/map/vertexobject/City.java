@@ -24,9 +24,9 @@ public class City
 		this.vertexLocation = vertexLocation;
 	}
 
-	public HexLocation getHexLocation() {
+	/*//public HexLocation getHexLocation() {
 		return hexLocation;
-	}
+	}*/
 
 	public void setHexLocation(HexLocation hexLocation) {
 		this.hexLocation = hexLocation;
@@ -44,7 +44,7 @@ public class City
 	/**
 	 * Where the city is located on the map
 	 */
-	private HexLocation location = null;
+	//private HexLocation location = null;
 	
 	/**
 	 * Direction: string
@@ -59,13 +59,13 @@ public class City
 		return false;
 	}
 
-	public HexLocation getLocation()
+	public HexLocation getHexLocation()
 	{
-		return location;
+		return hexLocation;
 	}
 
 	public void setLocation(HexLocation location)
 	{
-		this.location = location;
+		this.hexLocation = location;
 	}
 }

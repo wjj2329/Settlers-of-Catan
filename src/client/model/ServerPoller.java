@@ -31,7 +31,7 @@ public class ServerPoller
 	/**
 	 * Starts the poller. Should only be called once. 
 	 */
-	void startPoller()
+	public void startPoller()
 	{
 		requestTimer.scheduleAtFixedRate(new Poll(this), 0, 2*1000);
 		

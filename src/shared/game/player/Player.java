@@ -103,14 +103,14 @@ public class Player
 	 * List of settlements owned by the player.
 	 * Use this to obtain how many CURRENT settlements a player has.
 	 */
-	private ArrayList<Settlement> settlements = null;
+	private ArrayList<Settlement> settlements = new ArrayList<>();
 
 	/**
 	 * List of cities owned by the player.
 	 * Use this to obtain how many CURRENT cities a player has.
 	 * Settlements come before cities.
 	 */
-	private ArrayList<City> cities = null;
+	private ArrayList<City> cities = new ArrayList<>();
 	
 	/**
 	 * How many roads the Player CAN BUILD.
@@ -230,14 +230,14 @@ public class Player
 		boolean hasAreaAffectedByRobber = false;
 		for (Settlement settlement : settlements)
 		{
-			if (settlement.getLocation() == Robber.getSingleton().getLocation())
+			if (settlement.getHexLocation().equals(Robber.getSingleton().getLocation()))
 			{
 				hasAreaAffectedByRobber = true;
 			}
 		}
 		for (City city : cities)
 		{
-			if (city.getLocation() == Robber.getSingleton().getLocation())
+			if (city.getHexLocation().equals(Robber.getSingleton().getLocation()))
 			{
 				hasAreaAffectedByRobber = true;
 			}
