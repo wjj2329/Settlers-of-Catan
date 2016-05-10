@@ -24,6 +24,55 @@ public class Hex
 	private PortType myport=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
+
+	public VertexLocation getNortheast() {
+		return northeast;
+	}
+
+	public void setNortheast(VertexLocation northeast) {
+		this.northeast = northeast;
+	}
+
+	public VertexLocation getSoutheast() {
+		return southeast;
+	}
+
+	public void setSoutheast(VertexLocation southeast) {
+		this.southeast = southeast;
+	}
+
+	public VertexLocation getWest() {
+		return west;
+	}
+
+	public void setWest(VertexLocation west) {
+		this.west = west;
+	}
+
+	public VertexLocation getEast() {
+		return east;
+	}
+
+	public void setEast(VertexLocation east) {
+		this.east = east;
+	}
+
+	public VertexLocation getSouthwest() {
+		return southwest;
+	}
+
+	public void setSouthwest(VertexLocation southwest) {
+		this.southwest = southwest;
+	}
+
+	public VertexLocation getNorthwest() {
+		return northwest;
+	}
+
+	public void setNorthwest(VertexLocation northwest) {
+		this.northwest = northwest;
+	}
+
 	private VertexLocation northeast=null;
 	private VertexLocation northwest=null;
 	private VertexLocation southwest=null;
