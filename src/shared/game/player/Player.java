@@ -29,7 +29,7 @@ public class Player
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
-	private int numCities = MAX_NUM_CITIES;
+	private int numCitiesRemaining = MAX_NUM_CITIES;
 	/**
 	 * Color: Color is received as a String from the JSON file.
 	 * However, we need to use the enum type CatanColor.
@@ -43,6 +43,8 @@ public class Player
 	
 	/**
 	 * numMonuments: how many monuments a player has.
+	 * I don't know what this is, and I don't think we need this. Even though I think I created it.
+	 * :D ~ Alex
 	 */
 	private int numMonuments = 0;
 	
@@ -118,7 +120,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlements = MAX_NUM_SETTLEMENTS;
+	private int numSettlementsRemaining = MAX_NUM_SETTLEMENTS;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -435,18 +437,33 @@ public class Player
 		{
 			return false;
 		}
+		if (resources.getSheep() < 1 || resources.getWheat() < 1
+				|| resources.getBrick() < 1 || resources.getWood() < 1)
+		{
+			return false;
+		}
+		if (numSettlementsRemaining <= 0)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public boolean canBuildCity(Hex hex)
+	{
+		if (!hex.canBuildCityHere())
+		{
+			return false;
+		}
 		if (resources.getOre() < 3 || resources.getWheat() < 2)
 		{
 			return false;
 		}
-
-		// another if goes here.
+		if (numCitiesRemaining <= 0)
+		{
+			return false;
+		}
 		return true;
-	}
-
-	public boolean canBuildCity()
-	{
-		return false;
 	}
 
 	/**
