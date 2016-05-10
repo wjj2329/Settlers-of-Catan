@@ -24,12 +24,12 @@ public class Hex
 	private PortType myport=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
-	private VertexLocation northeast=new VertexLocation(location, VertexDirection.NorthEast);
-	private VertexLocation northwest=new VertexLocation(location, VertexDirection.NorthWest);
-	private VertexLocation southwest=new VertexLocation(location, VertexDirection.SouthWest);
-	private VertexLocation southeast=new VertexLocation(location, VertexDirection.SouthEast);
-	private VertexLocation east=new VertexLocation(location, VertexDirection.East);
-	private VertexLocation west=new VertexLocation(location, VertexDirection.West);
+	private VertexLocation northeast=null;
+	private VertexLocation northwest=null;
+	private VertexLocation southwest=null;
+	private VertexLocation southeast=null;
+	private VertexLocation east=null;
+	private VertexLocation west=null;
 	
 	/**
 	 * Hex Constructor
@@ -47,6 +47,12 @@ public class Hex
 		this.resourcetype = resourcetype;
 		this.resourcenumber = resourcenumber;
 		this.myport=myport;
+		northeast = new VertexLocation(location, VertexDirection.NorthEast);
+		northwest = new VertexLocation(location, VertexDirection.NorthWest);
+		southwest = new VertexLocation(location, VertexDirection.SouthWest);
+		southeast = new VertexLocation(location, VertexDirection.SouthEast);
+		east = new VertexLocation(location, VertexDirection.East);
+		west = new VertexLocation(location, VertexDirection.West);
 	}
 
 	/**

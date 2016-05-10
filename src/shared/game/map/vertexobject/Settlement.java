@@ -16,7 +16,7 @@ public class Settlement
 	/**
 	 * Location: Where this settlement resides on the map. 
 	 */
-	HexLocation location = null;
+	//HexLocation location = null;
 	
 	/**
 	 * direction: the direction that the settlement is in.
@@ -44,13 +44,13 @@ public class Settlement
 		return false;
 	}
 
-	public HexLocation getLocation()
+	public HexLocation getHexLocation()
 	{
-		return location;
+		return hexLocation;
 	}
 
 	public void setLocation(HexLocation location)
 	{
-		this.location = location;
+		this.hexLocation = location;
 	}
 }

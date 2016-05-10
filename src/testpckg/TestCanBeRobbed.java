@@ -102,6 +102,15 @@ public class TestCanBeRobbed
 	@Test
 	public void testCurrentPlayerFails() throws Exception
 	{
+		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
+		loadMyMap(theHexesOfMap);
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		alex.addToSettlements(settle1);
+		Robber.getSingleton().setLocation(hexLoc8);
+		ResourceList resList = new ResourceList();
+		resList.setSheep(3);
+		alex.setResources(resList);
+
 		alex.setCurrentPlayer(true);
 		assertFalse(alex.canBeRobbed());
 	}
@@ -114,6 +123,14 @@ public class TestCanBeRobbed
 	@Test
 	public void testNoCardsFails() throws Exception
 	{
+		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
+		loadMyMap(theHexesOfMap);
+		ResourceList resList = new ResourceList();
+		alex.setResources(resList);
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		alex.addToSettlements(settle1);
+		Robber.getSingleton().setLocation(hexLoc8);
+
 		// Alex should have 0 resources by default, so this should return false successfully.
 		alex.setCurrentPlayer(false);
 		assertFalse(alex.canBeRobbed());
@@ -125,9 +142,16 @@ public class TestCanBeRobbed
 	@Test
 	public void testHasCardsSucceeds() throws Exception
 	{
+		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
+		loadMyMap(theHexesOfMap);
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		alex.addToSettlements(settle1);
+		Robber.getSingleton().setLocation(hexLoc8);
+
 		ResourceList resList = new ResourceList();
 		resList.setSheep(1);
 		alex.setResources(resList);
+		alex.setCurrentPlayer(false);
 		assertTrue(alex.canBeRobbed());
 	}
 
@@ -140,9 +164,11 @@ public class TestCanBeRobbed
 	@Test
 	public void testDoesNotHaveStructureFails() throws Exception
 	{
-		CatanMap sampleMap = new CatanMap(RADIUS);
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
+		ResourceList resList = new ResourceList();
+		resList.setSheep(3);
+		alex.setResources(resList);
 		Settlement settle1 = new Settlement(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc11);
@@ -158,12 +184,15 @@ public class TestCanBeRobbed
 	@Test
 	public void testDoesHaveStructureSucceeds() throws Exception
 	{
-		CatanMap sampleMap = new CatanMap(RADIUS);
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
 		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc8);
+		alex.setCurrentPlayer(false);
+		ResourceList resList = new ResourceList();
+		resList.setSheep(3);
+		alex.setResources(resList);
 		assertTrue(alex.canBeRobbed());
 		Settlement settle2 = new Settlement(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest));
 
@@ -271,7 +300,5 @@ public class TestCanBeRobbed
 	 * Saved variables:
 	 */
 	private static final String NAME = "Alex";
-	// Just a sample size since it shouldn't really matter for this particular test
-	private static final int RADIUS = 10;
 
 }
