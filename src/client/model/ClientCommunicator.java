@@ -10,6 +10,7 @@ import java.net.URL;
 
 import org.json.JSONException;
 
+import org.json.JSONObject;
 import server.param.Param;
 
 /**
@@ -97,17 +98,20 @@ public class ClientCommunicator
 	 * SerializeModel: Serializes all our data to JSON so that the server can have
 	 * the data.
 	 */
-	public void serializeModel()
+	ModelFacade myobject=new ModelFacade();
+
+	public JSONObject serializeModel()
 	{
-		
+		JSONObject myobject=null;
+		return myobject;
 	}
 	
 	/**
 	 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and 
 	 * puts it into the model. 
 	 */
-	public void updateFromJSON()
+	public void updateFromJSON(JSONObject myobject)
 	{
-		
+
 	}
 }

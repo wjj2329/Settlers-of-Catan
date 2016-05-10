@@ -2,13 +2,27 @@ package testpckg;
 
 import static org.junit.Assert.*;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 import shared.game.map.CatanMap;
 
 public class CanPlaceRoad 
 {
-	CatanMap mymap=new CatanMap(0);
+
+	@Before
+	public void setup()
+	{
+
+	}
+
+	@After
+	public void teardown()
+	{
+
+	}
+
 	@Test
 	public void test() 
 	{
