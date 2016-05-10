@@ -1,6 +1,11 @@
 package client.model;
 
 import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.TimeUnit;
+
+import server.proxies.IServerProxy;
+import shared.game.CatanGame;
 
 /**
  * ServerPoller class: Polls the server to see if there is an update.
@@ -14,19 +19,13 @@ public class ServerPoller
 	 * the server.
 	 */
 	Timer requestTimer = null;
+	iServer server;
+	CatanGame game;
 	
-	// Add dependency injection.
-	public ServerPoller()
+	public ServerPoller(CatanGame game, iServer server)
 	{
-		
-	}
-	
-	/**
-	 * Function to determine whether or not we need an update. 
-	 */
-	boolean needUpdate()
-	{
-		return true;
+		this.server = server;
+		this.game = game;
 	}
 	
 	/**
@@ -34,7 +33,35 @@ public class ServerPoller
 	 */
 	void startPoller()
 	{
+		requestTimer.scheduleAtFixedRate(new Poll(this), 0, 2*1000);
 		
 	}
+	public void stop()
+	{
+		requestTimer.cancel();
+	}
+	
+	public class Poll extends TimerTask
+	{
+		ServerPoller poller;
+		
+		public Poll(ServerPoller parent)
+		{
+			poller = parent;
+		}
+		
+		@Override
+		public void run()
+		{
+			Model newModel = server.getGameModel(game.getModel().getVersion());
+			if (newModel != null) {
+				System.out.println("New version: "+newModel.getVersion());
+				if (newModel.getVersion() > game.getModel().getVersion() || game.getModel().getVersion() == 0)
+					game.setModel(newModel);
+			}
+		}
+		
+	}
+	
 }
 

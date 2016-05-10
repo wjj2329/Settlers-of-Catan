@@ -11,7 +11,7 @@ import shared.game.player.Player;
 /**
  * Model: The client that handles talking with the server.
  */
-public class Model 
+public class Model
 {
 	private Bank bank;
 	private MessageList chat;
@@ -19,13 +19,13 @@ public class Model
 	private CatanMap map;
 	private TradeOffer tradeoffer;
 	private TurnTracker turntracker;
-	private Index version;
+	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist;
 	/**
 	 * ArrayList of players in the game.
 	 */
-	ArrayList<Player> myplayers=new ArrayList<>();
+	ArrayList<Player> myplayers = new ArrayList<>();
 	
 	/**
 	 * Model Constructor
@@ -36,15 +36,15 @@ public class Model
 	}
 	
 	/**
-	* CreateGame function: Creates a new game. 
-	**/
+	 * CreateGame function: Creates a new game.
+	 **/
 	public void createGame()
 	{
 		gamelist.add(new CatanGame());
 	}
 	
 	/**
-	 * ListGames: Lists all the games that currently exist. 
+	 * ListGames: Lists all the games that currently exist.
 	 */
 	public void listGames()
 	{
@@ -55,11 +55,16 @@ public class Model
 	}
 	
 	/**
-	 * JoinGame: The player can join a game. Games must have 4 players in order 
+	 * JoinGame: The player can join a game. Games must have 4 players in order
 	 * to start!
 	 */
 	public void joinGame(Player player, int gameindex)
 	{
 		gamelist.get(gameindex).addPlayer(player);
+	}
+	
+	public double getVersion()
+	{
+		return version;
 	}
 }

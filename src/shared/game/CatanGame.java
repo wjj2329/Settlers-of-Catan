@@ -2,6 +2,7 @@ package shared.game;
 
 import java.util.ArrayList;
 
+import client.model.Model;
 import shared.chat.Chat;
 import shared.game.map.CatanMap;
 import shared.game.player.Player;
@@ -70,6 +71,18 @@ public class CatanGame
 	 */
 	void startGame()
 	{
+		
+	}
+
+	public Model getModel()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setModel(Model newModel)
+	{
+		// TODO Auto-generated method stub
 		
 	}
 
