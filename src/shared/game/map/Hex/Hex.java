@@ -75,35 +75,40 @@ public class Hex
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
-			east.setHascity(true);
+				east.setHascity(true);
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-
+				
 			}
 			if(mylocation.getDir().equals(VertexDirection.West))
 			{
-			west.setHascity(true);
+				west.setHascity(true);
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
 			}
 			if(mylocation.getDir().equals(VertexDirection.NorthEast))
 			{
-			northeast.setHascity(true);
+				northeast.setHascity(true);
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 			}
 			if(mylocation.getDir().equals(VertexDirection.NorthWest))
 			{
 				northwest.setHascity(true);
-
-			}
-			if(mylocation.getDir().equals(VertexDirection.SouthEast))
-			{
-				southeast.setHascity(true);
+				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
 			}
 			if(mylocation.getDir().equals(VertexDirection.SouthWest))
 			{
+				southeast.setHascity(true);
+				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+			}
+			if(mylocation.getDir().equals(VertexDirection.SouthEast))
+			{
 				southwest.setHascity(true);
+				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY());
+				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()+1);
 			}
 
 		}
