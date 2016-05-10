@@ -8,6 +8,9 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import shared.definitions.CatanColor;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 /**
  * Tests the function that determines whether or not a dev card can be played.
@@ -16,6 +19,11 @@ import org.junit.Test;
  */
 public class TestCanBuyDevCard
 {
+
+	Player William=new Player("william", CatanColor.BLUE, new Index(4));
+	Player Alex=new Player("Alex",CatanColor.WHITE,new Index(2));
+	Player Brian=new Player("Brain", CatanColor.BROWN, new Index(1));
+	Player Spencer=new Player("Spencer", CatanColor.GREEN, new Index(3));
 
 	/**
 	 * @throws java.lang.Exception
@@ -38,7 +46,7 @@ public class TestCanBuyDevCard
 	@Test
 	public void test() 
 	{
-		fail("Not yet implemented");
+
 	}
 
 }

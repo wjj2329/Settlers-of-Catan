@@ -212,7 +212,18 @@ public class Player
 
 	public boolean canBuyDevCard()
 	{
-		return true;
+		if(resources.getOre()>0)
+		{
+			if(resources.getSheep()>0)
+			{
+				if(resources.getWheat()>0)
+				{
+					return true;
+				}
+
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -334,14 +345,7 @@ public class Player
 		}
 		return true;
 	}
-	
-	/**
-	 * Determines whether or not the player can play a dev card.
-	 */
-	public boolean canPlayDevCard()
-	{
-		return false;
-	}
+
 	
 	/**
 	 * Determines whether or not the player can buy/build a road.
