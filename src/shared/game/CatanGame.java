@@ -40,14 +40,19 @@ public class CatanGame
 	
 	public void addPlayer(Player player)
 	{
-		myplayers.add(player);
+		if(canCreatePlayer(player)) {
+			myplayers.add(player);
+		}
 	}
 
 	public boolean canCreatePlayer(Player newplayer)
 	{
+		if(myplayers==null)
+		{
+			myplayers=new ArrayList<Player>();
+		}
 		for(int i=0; i<myplayers.size(); i++)
 		{
-			System.out.println("i compare "+myplayers.get(i).getColor()+" and this "+newplayer.getColor());
 			if(myplayers.get(i)==newplayer)
 			{
 				return false;
@@ -67,7 +72,7 @@ public class CatanGame
 	/**
 	 * the map for the game. 
 	 */
-	CatanMap mymap=new CatanMap(0);
+	CatanMap mymap;
 	/**
 	 * the chat system
 	 */
@@ -80,18 +85,37 @@ public class CatanGame
 	 *  @post return true if we can start the game. 
 	 * 	@return
 	 */
-	boolean canStartGame()
+	public boolean canStartGame() throws Exception
 	{
-		return true;	
+
+		if(mymap==null)
+		{
+			return false;
+		}
+		if(myplayers==null)
+		{
+			return false;
+		}
+		if(myplayers.size()>4)
+		{
+			Exception e = new Exception();
+			e.printStackTrace();
+			throw e;
+		}
+		if(myplayers.size()<4)
+		{
+			return false;
+		}
+		return true;
 	}
 	/**
 	 * a function that starts the game nothing too fancy.   
 	 */
-	void startGame()
+	public void startGame()
 	{
 		
 	}
-	void clear()
+	public void clear()
 	{
 		mymap=null;
 		mychat=null;
