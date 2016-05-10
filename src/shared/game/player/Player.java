@@ -444,9 +444,34 @@ public class Player
 		switch(edge.getDir())
 		{
 			case NorthWest:
+				vertexClockwiseUpper = hex.getNorthwest();
+				vertexClockwiseLower = hex.getWest();
 				break;
 			case North:
+				vertexClockwiseUpper = hex.getNortheast();
+				vertexClockwiseLower = hex.getNorthwest();
 				break;
+			case NorthEast:
+				vertexClockwiseUpper = hex.getEast();
+				vertexClockwiseLower = hex.getNortheast();
+				break;
+			case SouthEast:
+				vertexClockwiseUpper = hex.getSoutheast();
+				vertexClockwiseLower = hex.getEast();
+				break;
+			case South:
+				vertexClockwiseUpper = hex.getSouthwest();
+				vertexClockwiseLower = hex.getSoutheast();
+				break;
+			case SouthWest:
+				vertexClockwiseUpper = hex.getWest();
+				vertexClockwiseLower = hex.getSouthwest();
+				break;
+			default:
+				assert false;
+		}
+		if (vertexClockwiseLower.isHassettlement() ) // need a pointer to settlement; get playerID
+		{
 
 		}
 		return true;
