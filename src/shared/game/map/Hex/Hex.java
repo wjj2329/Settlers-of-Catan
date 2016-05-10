@@ -7,6 +7,8 @@ import shared.game.map.Port;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,12 @@ public class Hex
 	private PortType myport=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
+	private VertexLocation northeast=new VertexLocation(location, VertexDirection.NorthEast);
+	private VertexLocation northwest=new VertexLocation(location, VertexDirection.NorthWest);
+	private VertexLocation southwest=new VertexLocation(location, VertexDirection.SouthWest);
+	private VertexLocation southeast=new VertexLocation(location, VertexDirection.SouthEast);
+	private VertexLocation east=new VertexLocation(location, VertexDirection.East);
+	private VertexLocation west=new VertexLocation(location, VertexDirection.West);
 	
 	/**
 	 * Hex Constructor
@@ -44,19 +52,70 @@ public class Hex
 	/**
 	 * This function will need further implementation
      */
-	public boolean canBuildSettlementHere()
+	public boolean canBuildSettlementHere(VertexLocation mylocation)
 	{
+		if(mylocation.getDir().equals(VertexDirection.East))
+		{
+			if(east.isHascity())
+			{
+				return false;
+			}
+		}
+		if(mylocation.getDir().equals(VertexDirection.West))
+		{
+			if(west.isHascity())
+			{
+				return false;
+			}
+		}
+		if(mylocation.getDir().equals(VertexDirection.NorthEast))
+		{
+			if(northeast.isHascity())
+			{
+				return false;
+			}
+
+		}
+		if(mylocation.getDir().equals(VertexDirection.NorthWest))
+		{
+			if(northwest.isHascity())
+			{
+				return false;
+			}
+		}
+		if(mylocation.getDir().equals(VertexDirection.NorthEast))
+		{
+			if (northeast.isHascity())
+			{
+				return false;
+			}
+		}
+		if(mylocation.getDir().equals(VertexDirection.SouthEast))
+		{
+			if(southeast.isHascity())
+			{
+			return false;
+			}
+		}
+		if(mylocation.getDir().equals(VertexDirection.SouthWest))
+		{
+			if(southwest.isHascity())
+			{
+				return false;
+			}
+		}
 		if (settlements.size() >= 3)
 		{
 			return false;
 		}
+
 		return true;
 	}
 
 	/**
 	 * This function will need further implementation
 	 */
-	public boolean canBuildCityHere()
+	public boolean canBuildCityHere(VertexLocation mylocation)
 	{
 		if (settlements.size() <= 0 || cities.size() >= 3)
 		{

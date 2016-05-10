@@ -5,9 +5,33 @@ package shared.locations;
  */
 public class VertexLocation
 {
-	
+
+	public boolean isHassettlement() {
+		return hassettlement;
+	}
+
+	public boolean isHascity() {
+		return hascity;
+	}
+
 	private HexLocation hexLoc;
 	private VertexDirection dir;
+
+	private  VertexDirection getVertexDirection()
+	{
+		return dir;
+	}
+
+	public void setHassettlement(boolean hassettlement) {
+		this.hassettlement = hassettlement;
+	}
+
+	public void setHascity(boolean hascity) {
+		this.hascity = hascity;
+	}
+
+	boolean hassettlement=false;
+	boolean hascity=false;
 	
 	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
 	{
