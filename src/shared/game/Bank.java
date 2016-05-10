@@ -1,5 +1,6 @@
 package shared.game;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.game.Card;
 //import shared.game.PlayerNotFoundException;
@@ -12,6 +13,12 @@ public class Bank
 {
 	private static Bank singleton = null;
 	private ResourceList cardslist= null;
+
+	public DevCardList getDevCardList() {
+		return devCardList;
+	}
+
+	private DevCardList devCardList=null;
 	
 	/**
 	 * Bank constructor
@@ -39,7 +46,88 @@ public class Bank
 	 * hasCardAvailable: Checks to see if the bank has any of
 	 * the requested card available. Returns resulting boolean.
 	 */
-	public boolean CanBankGiveCard(ResourceType mytype) throws Exception
+
+
+	public boolean CanBankGiveDevelopmentCard(DevCardType mytype)throws Exception
+	{
+		if(devCardList==null)
+		{
+			devCardList=new DevCardList();
+		}
+		switch(mytype)
+		{
+			case MONOPOLY:
+				if(devCardList.getMonopoly()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getMonopoly()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			case SOLDIER:
+				if(devCardList.getSoldier()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getSoldier()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			case YEAR_OF_PLENTY:
+				if(devCardList.getYearOfPlenty()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getYearOfPlenty()>=1)
+				{
+					return true;
+				}
+				else
+					return false;
+			case ROAD_BUILD:
+				if(devCardList.getRoadBuilding()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getRoadBuilding()>=1)
+				{
+					return true;
+				}
+				else
+					return false;
+			case MONUMENT:
+			{
+				if(devCardList.getMonument()<0)
+				{
+					Exception e=new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(devCardList.getMonument()>0)
+				{
+					return true;
+				}
+				else
+					return false;
+			}
+		}
+
+		return false;
+	}
+	public boolean CanBankGiveResourceCard(ResourceType mytype) throws Exception
 	{
 		if (cardslist == null)
 		{
@@ -136,10 +224,32 @@ public class Bank
 		}
 		return cardslist;
 	}
+
+
+	public void setDevCardList(DevCardList devCardList)
+	{
+		if(this.devCardList==null)
+		{
+			this.devCardList=new DevCardList();
+		}
+		this.devCardList=devCardList;
+	}
+	public void setDevCardList(int monopoly, int monument, int roadBuilding, int soldier, int yearOfPlenty)
+	{
+		if(this.devCardList==null)
+		{
+			this.devCardList=new DevCardList();
+		}
+		devCardList.setMonopoly(monopoly);
+		devCardList.setMonument(monument);
+		devCardList.setRoadBuilding(roadBuilding);
+		devCardList.setSoldier(soldier);
+		devCardList.setYearOfPlenty(yearOfPlenty);
+	}
 	/**
 	 * @param cardslist the cardslist to set
 	 */
-	public void setCardslist(ResourceList cardslist)
+	public void setResourceCardslist(ResourceList cardslist)
 	{
 		if (this.cardslist == null)
 		{
@@ -148,7 +258,7 @@ public class Bank
 		this.cardslist = cardslist;
 	}
 
-	public void setCardslist(int brick, int wheat, int sheep, int wood, int ore)
+	public void setResourceCardslist(int brick, int wheat, int sheep, int wood, int ore)
 	{
 		if (this.cardslist == null)
 		{

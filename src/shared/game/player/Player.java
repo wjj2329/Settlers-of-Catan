@@ -6,9 +6,12 @@ import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
+import shared.game.map.Hex.Hex;
 import shared.game.map.Index;
 import shared.game.map.Port;
 import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
 import shared.locations.HexLocation;
 
 import java.util.ArrayList;
@@ -26,7 +29,7 @@ public class Player
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
-	private int numCities = 0;
+	private int numCitiesRemaining = MAX_NUM_CITIES;
 	/**
 	 * Color: Color is received as a String from the JSON file.
 	 * However, we need to use the enum type CatanColor.
@@ -40,6 +43,8 @@ public class Player
 	
 	/**
 	 * numMonuments: how many monuments a player has.
+	 * I don't know what this is, and I don't think we need this. Even though I think I created it.
+	 * :D ~ Alex
 	 */
 	private int numMonuments = 0;
 	
@@ -92,6 +97,19 @@ public class Player
 	 * List of all the ports that the player currently has.
 	 */
 	private ArrayList<Port> playerPorts = null;
+
+	/**
+	 * List of settlements owned by the player.
+	 * Use this to obtain how many CURRENT settlements a player has.
+	 */
+	private ArrayList<Settlement> settlements = null;
+
+	/**
+	 * List of cities owned by the player.
+	 * Use this to obtain how many CURRENT cities a player has.
+	 * Settlements come before cities.
+	 */
+	private ArrayList<City> cities = null;
 	
 	/**
 	 * How many roads the Player CAN BUILD.
@@ -102,7 +120,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlements = 0;
+	private int numSettlementsRemaining = MAX_NUM_SETTLEMENTS;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -117,6 +135,7 @@ public class Player
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
+	 * I.e. is it your turn?
 	 */
 	private boolean currentPlayer = false;
 	
@@ -133,6 +152,53 @@ public class Player
 		this.color = color;
 		this.playerID = playerID;
 		resources = new ResourceList();
+	}
+
+	/**
+	 * Function to determine whether or not a player can trade with another player.
+	 * @param other: the other player
+     */
+	public boolean canRequestTrade(Player other, int amountRequesting, int amountSending, ResourceType typeRequesting,
+								   ResourceType typeSending)
+	{
+		if (!currentPlayer || other.isCurrentPlayer())
+		{
+			return false;
+		}
+
+		if (amountSending > resources.getRequestedType(typeSending))
+		{
+			return false;
+		}
+
+		/*
+		 This next part may need to be split up/adjusted because of the GUI.
+		 The player can REQUEST as much as he wants. However, if the other player
+		 doesn't have sufficient of the requested resources, then they will have the
+		 option to accept the trade grayed out.
+
+		 It is KEY that the operation be performed on Player OTHER! NOT, and I repeat NOT
+		  the local player!
+		  */
+		if (!other.canBeTradedWith(amountRequesting, typeRequesting))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Returns true if the player can trade with the quantity requested.
+	 * It is interconnected with the similar method canRequestTrade().
+	 * @param quantityRequested: how many resources the player wants.
+     */
+	public boolean canBeTradedWith(int quantityRequested, ResourceType typeRequested)
+	{
+		if (quantityRequested > resources.getRequestedType(typeRequested))
+		{
+			return false;
+		}
+		return true;
 	}
 	
 	/**
@@ -154,12 +220,72 @@ public class Player
 		}
 
 		/*
-		Need another IF statement here:
+		A bit of helpful (hopefully) explanation for this next little bit:
 			If the player doesn't have a settlement or city on the robber's hex, then they cannot be robbed.
-			So we need to have Map as a singleton. However, this will take a while to implement, so I haven't
-			done it just yet. ~ Alex
+			I don't THINK we will need to override .equals, but we might need to.
+			Remember: These are using double equals (==) so they need to be the SAME POINTERS!
 		 */
+		boolean hasAreaAffectedByRobber = false;
+		for (Settlement settlement : settlements)
+		{
+			if (settlement.getLocation() == Robber.getSingleton().getLocation())
+			{
+				hasAreaAffectedByRobber = true;
+			}
+		}
+		for (City city : cities)
+		{
+			if (city.getLocation() == Robber.getSingleton().getLocation())
+			{
+				hasAreaAffectedByRobber = true;
+			}
+		}
+		if (!hasAreaAffectedByRobber)
+		{
+			return false;
+		}
 		return true;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public CatanColor getColor() {
+		return color;
+	}
+
+	public void setColor(CatanColor color) {
+		this.color = color;
+	}
+
+	public Index getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(Index playerID) {
+		this.playerID = playerID;
+	}
+
+	public boolean canBuyDevCard()
+	{
+
+		if(resources.getOre()>0)
+		{
+			if(resources.getSheep()>0)
+			{
+				if(resources.getWheat()>0)
+				{
+					return true;
+				}
+
+			}
+		}
+		return false;
 	}
 
 	/**
@@ -175,6 +301,7 @@ public class Player
 	 *
 	 * If the second type is listed as BLANK, then it is a 2:1 trade, and thus said second variable will never be used.
      */
+
 	public boolean canDoTradeWithBank(PortType tradeType, PortType typeFor_3_Or4Way, ResourceType typeRequesting) throws Exception
 	{
 		// What kind of trade is it?
@@ -183,7 +310,7 @@ public class Player
 			case WOOD: // Then it is a 2:1.
 				if (resources.getWood() < TWO_WAY)
 				{
-					return false; // DELETE THIS and all of them. ALL OF THEM
+					return false; // I think this should be fine.
 				}
 				break;
 			case BRICK:
@@ -225,7 +352,7 @@ public class Player
 			default:
 				assert(false);
 		}
-		if (!Bank.getSingleton().CanBankGiveCard(typeRequesting))
+		if (!Bank.getSingleton().CanBankGiveResourceCard(typeRequesting))
 		{
 			return false;
 		}
@@ -237,7 +364,7 @@ public class Player
 	 * @param theType: type of the trade
 	 * @param threeOrFour: whether it is a 3-way or 4-way
      */
-	boolean multiWayTrade(PortType theType, int threeOrFour)
+	private boolean multiWayTrade(PortType theType, int threeOrFour)
 	{
 		assert(!theType.equals(PortType.BLANK));
 		assert(!theType.equals(PortType.THREE));
@@ -280,14 +407,7 @@ public class Player
 		}
 		return true;
 	}
-	
-	/**
-	 * Determines whether or not the player can play a dev card.
-	 */
-	public boolean canPlayDevCard()
-	{
-		return false;
-	}
+
 	
 	/**
 	 * Determines whether or not the player can buy/build a road.
@@ -307,14 +427,43 @@ public class Player
 		return false;
 	}
 
-	public boolean canBuildSettlement()
+	/**
+	 * Determines whether or not a player can build a settlement on a particular hex
+	 * @param hex: the hex
+     */
+	public boolean canBuildSettlement(Hex hex)
 	{
-		return false;
+		if (!hex.canBuildSettlementHere())
+		{
+			return false;
+		}
+		if (resources.getSheep() < 1 || resources.getWheat() < 1
+				|| resources.getBrick() < 1 || resources.getWood() < 1)
+		{
+			return false;
+		}
+		if (numSettlementsRemaining <= 0)
+		{
+			return false;
+		}
+		return true;
 	}
 
-	public boolean canBuildCity()
+	public boolean canBuildCity(Hex hex)
 	{
-		return false;
+		if (!hex.canBuildCityHere())
+		{
+			return false;
+		}
+		if (resources.getOre() < 3 || resources.getWheat() < 2)
+		{
+			return false;
+		}
+		if (numCitiesRemaining <= 0)
+		{
+			return false;
+		}
+		return true;
 	}
 
 	/**
@@ -340,10 +489,43 @@ public class Player
 		this.resources = resources;
 	}
 
+	public ArrayList<Settlement> getSettlements()
+	{
+		return settlements;
+	}
+
+	/**
+	 * Adds the settlement to the player's settlements
+	 * @pre: settlement is not null
+	 * player has the proper resources required to build
+	 * settlement can be placed at the given location
+     */
+	public void addToSettlements(Settlement settlement)
+	{
+		settlements.add(settlement);
+	}
+	public ArrayList<City> getCities()
+	{
+		return cities;
+	}
+	/**
+	 * Adds the city to the player's cities
+	 * @pre: city is not null
+	 * city can be placed at the given location
+	 * player has the proper resources required to build
+	 * (including there being 1 settlement there)
+     */
+	public void addToCities(City city)
+	{
+		cities.add(city);
+	}
+
 	private static final int DEFAULT_VAL = 0;
 	private static final int TWO_WAY = 2;
 	private static final int THREE_WAY = 3;
 	private static final int FOUR_WAY = 4;
+	private static final int MAX_NUM_CITIES = 4;
+	private static final int MAX_NUM_SETTLEMENTS = 5;
 
 	public int getArmySize() {
 		return armySize;

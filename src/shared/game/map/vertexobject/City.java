@@ -2,13 +2,40 @@ package shared.game.map.vertexobject;
 
 import shared.game.map.Index;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 /**
  * @author Alex
  * City: players can build a city in order to expand their territory
  */
-public class City extends Structure 
+public class City
 {
+	public City(HexLocation hexLocation, VertexLocation vertexLocation)
+	{
+		this.hexLocation=hexLocation;
+		this.vertexLocation=vertexLocation;
+	}
+
+	public VertexLocation getVertexLocation() {
+		return vertexLocation;
+	}
+
+	public void setVertexLocation(VertexLocation vertexLocation) {
+		this.vertexLocation = vertexLocation;
+	}
+
+	public HexLocation getHexLocation() {
+		return hexLocation;
+	}
+
+	public void setHexLocation(HexLocation hexLocation) {
+		this.hexLocation = hexLocation;
+	}
+
+	private VertexLocation vertexLocation;
+
+	private HexLocation hexLocation;
+
 	/**
 	 * owner: Index of the player who owns city
 	 */
@@ -25,21 +52,20 @@ public class City extends Structure
 	private String direction = "";
 	
 	/**
-	 * Constructor for City
-	 * @param buildingCost: cost of building city
-	 * @pre buildingCost is nonnegative
-	 * @post the superclass is constructed.
-	 */
-	public City(int buildingCost) 
-	{
-		super(buildingCost);
-	}
-	
-	/**
 	 * Determining whether or not we can place a city.
 	 */
 	public boolean canPlaceCity()
 	{
 		return false;
+	}
+
+	public HexLocation getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(HexLocation location)
+	{
+		this.location = location;
 	}
 }
