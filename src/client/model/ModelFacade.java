@@ -1,5 +1,6 @@
 package client.model;
 
+import org.json.JSONObject;
 import shared.game.CatanGame;
 
 /**
@@ -10,9 +11,24 @@ import shared.game.CatanGame;
 public class ModelFacade
 {
 	//CatanGame.singleton
-	public ModelFacade()
-	{
-		// TODO Auto-generated constructor stub
+	public ModelFacade() {
 	}
+
+	public JSONObject serializeModel()
+	{
+			JSONObject myobject=null;
+			return myobject;
+	}
+
+		/**
+		 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and
+		 * puts it into the model.
+		 */
+	public void updateFromJSON(JSONObject myobject)
+	{
+
+	}
+		// TODO Auto-generated constructor stub
+
 	
 }

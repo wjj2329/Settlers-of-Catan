@@ -36,7 +36,7 @@ public class ClientCommunicator
 	
 	/**
 	 * Send function. Sends the message to the proxy. 
-	 * @param urlpath: the URL address.
+	 * @param urlsuffix: the URL address.
 	 * @param data: any data that is included. Read it from the JSON as a string,
 	 * but implemented as an object. 
 	 * @pre urlpath and data are not null
@@ -100,18 +100,19 @@ public class ClientCommunicator
 	 */
 	ModelFacade myobject=new ModelFacade();
 
+	//william
 	public JSONObject serializeModel()
 	{
-		JSONObject myobject=null;
-		return myobject;
+
+		return myobject.serializeModel();
 	}
 	
 	/**
 	 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and 
 	 * puts it into the model. 
 	 */
-	public void updateFromJSON(JSONObject myobject)
+	public void updateFromJSON(JSONObject given)
 	{
-
+			myobject.updateFromJSON(given);
 	}
 }

@@ -10,9 +10,9 @@ import shared.game.map.Hex.Hex;
 public class CanPlaceSettlement {
 
 
-	Hex hex1;
-	Hex hex2;
-	Hex hex3;
+	//Hex hex1=new Hex();
+	//Hex hex2=new Hex();
+	//Hex hex3=new Hex();
 	@Before
 	public void setup()
 	{
