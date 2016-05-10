@@ -3,6 +3,7 @@ package server.proxies;
 
 import client.data.*;
 import client.model.ClientCommunicator;
+import client.model.Model;
 import server.param.*;
 import shared.definitions.*;
 import shared.game.ResourceList;
@@ -852,6 +853,11 @@ public class ServerProxy implements IServer {
 		clientCommunicator.send(URL_SUFFIX, param);
 
 
+	}
+
+	@Override
+	public Model getGameModel(double version) {
+		return null;
 	}
 
 	/**

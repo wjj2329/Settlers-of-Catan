@@ -1,6 +1,7 @@
 package server.proxies;
 
 import client.data.*;
+import client.model.Model;
 import shared.definitions.*;
 import shared.game.ResourceList;
 import shared.locations.*;
@@ -663,6 +664,11 @@ public class MockServer implements IServer {
 	public void playMonument(String type, int playerIndex) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Model getGameModel(double version) {
+		return null;
 	}
 
 }
