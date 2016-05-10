@@ -20,10 +20,10 @@ import shared.game.player.Player;
 public class TestCanBuyDevCard
 {
 
-	Player William=new Player("william", CatanColor.BLUE, new Index(4));
-	Player Alex=new Player("Alex",CatanColor.WHITE,new Index(2));
-	Player Brian=new Player("Brain", CatanColor.BROWN, new Index(1));
-	Player Spencer=new Player("Spencer", CatanColor.GREEN, new Index(3));
+	private Player William=new Player("william", CatanColor.BLUE, new Index(4));
+	private Player Alex=new Player("Alex",CatanColor.WHITE,new Index(2));
+	private Player Brian=new Player("Brain", CatanColor.BROWN, new Index(1));
+	private Player Spencer=new Player("Spencer", CatanColor.GREEN, new Index(3));
 
 	/**
 	 * @throws java.lang.Exception
