@@ -223,9 +223,6 @@ public class Player
 		/*
 		A bit of helpful (hopefully) explanation for this next little bit:
 			If the player doesn't have a settlement or city on the robber's hex, then they cannot be robbed.
-			I don't THINK we will need to override .equals, but we might need to.
-			Remember: These are using double equals (==) so they need to be the SAME POINTERS!
-			If this implementation doesn't work, we will need to use .equals() and override that method.
 		 */
 		boolean hasAreaAffectedByRobber = false;
 		for (Settlement settlement : settlements)
