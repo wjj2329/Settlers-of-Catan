@@ -13,6 +13,7 @@ import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 import java.util.ArrayList;
 
@@ -431,9 +432,9 @@ public class Player
 	 * Determines whether or not a player can build a settlement on a particular hex
 	 * @param hex: the hex
      */
-	public boolean canBuildSettlement(Hex hex)
+	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation)
 	{
-		if (!hex.canBuildSettlementHere())
+		if (!hex.canBuildSettlementHere(myLocation))
 		{
 			return false;
 		}
@@ -449,9 +450,9 @@ public class Player
 		return true;
 	}
 
-	public boolean canBuildCity(Hex hex)
+	public boolean canBuildCity(Hex hex, VertexLocation myLocation)
 	{
-		if (!hex.canBuildCityHere())
+		if (!hex.canBuildCityHere(myLocation))
 		{
 			return false;
 		}
