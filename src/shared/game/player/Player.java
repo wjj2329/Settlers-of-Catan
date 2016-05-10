@@ -439,6 +439,7 @@ public class Player
 		{
 			return false;
 		}
+
 		// another if goes here.
 		return true;
 	}
