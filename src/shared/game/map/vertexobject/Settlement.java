@@ -2,9 +2,12 @@ package shared.game.map.vertexobject;
 
 import shared.game.map.Index;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
-public class Settlement extends Structure 
+public class Settlement
 {
+	private VertexLocation vertexLocation;
+	private HexLocation hexLocation;
 	/**
 	 * Index: The playerID or playerIndex of the player who owns this settlement.
 	 */
@@ -22,13 +25,13 @@ public class Settlement extends Structure
 	
 	/**
 	 * Constructor
-	 * @param buildingCost: cost of building the settlement
 	 * @pre buildingCost is nonnegative
 	 * @post the superclass is also constructed
 	 */
-	public Settlement(int buildingCost) 
+	public Settlement(HexLocation hexLocation, VertexLocation vertexLocation)
 	{
-		super(buildingCost);
+		this.hexLocation=hexLocation;
+		this.vertexLocation=vertexLocation;
 	}
 	
 	/**
