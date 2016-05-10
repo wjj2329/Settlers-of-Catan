@@ -128,7 +128,7 @@ public class Hex
 		}
 		if(mydirection.equals(VertexDirection.NorthWest))
 		{
-			return northwest.isHassettlement())
+			return northwest.isHassettlement();
 		}
 		if(mydirection.equals(VertexDirection.NorthEast))
 		{
