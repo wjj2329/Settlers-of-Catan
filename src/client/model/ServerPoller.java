@@ -4,7 +4,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
-import server.proxies.IServerProxy;
+import server.proxies.IServer;
 import shared.game.CatanGame;
 
 /**
@@ -19,10 +19,10 @@ public class ServerPoller
 	 * the server.
 	 */
 	Timer requestTimer = null;
-	iServer server;
+	IServer server;
 	CatanGame game;
 	
-	public ServerPoller(CatanGame game, iServer server)
+	public ServerPoller(CatanGame game, IServer server)
 	{
 		this.server = server;
 		this.game = game;
