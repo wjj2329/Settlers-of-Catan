@@ -10,8 +10,10 @@ import shared.game.player.Player;
  */
 
 
-public class CatanGame 
+public class CatanGame
 {
+	public static CatanGame singleton=new CatanGame();
+
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
 	}
