@@ -470,10 +470,22 @@ public class Player
 			default:
 				assert false;
 		}
-		if (vertexClockwiseLower.isHassettlement() ) // need a pointer to settlement; get playerID
+		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
+		// need a pointer to settlement; get playerID
 		{
-
+			return false;
 		}
+		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
+		{
+			return false;
+		}
+		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
+		{
+			return false;
+		}
+		// other city case
+		// there HAS to be a city, settlement, or road adjacent to it.
+
 		return true;
 	}
 

@@ -68,4 +68,14 @@ public class City
 	{
 		this.hexLocation = location;
 	}
+
+	public Index getOwner()
+	{
+		return owner;
+	}
+
+	public void setOwner(Index owner)
+	{
+		this.owner = owner;
+	}
 }

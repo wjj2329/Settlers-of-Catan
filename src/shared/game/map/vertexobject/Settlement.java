@@ -53,4 +53,24 @@ public class Settlement
 	{
 		this.hexLocation = location;
 	}
+
+	public VertexLocation getVertexLocation()
+	{
+		return vertexLocation;
+	}
+
+	public void setVertexLocation(VertexLocation vertexLocation)
+	{
+		this.vertexLocation = vertexLocation;
+	}
+
+	public Index getOwner()
+	{
+		return owner;
+	}
+
+	public void setOwner(Index owner)
+	{
+		this.owner = owner;
+	}
 }

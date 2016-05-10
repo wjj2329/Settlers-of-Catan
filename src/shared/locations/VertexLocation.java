@@ -1,5 +1,8 @@
 package shared.locations;
 
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
+
 /**
  * Represents the location of a vertex on a hex map
  */
@@ -32,6 +35,8 @@ public class VertexLocation
 
 	boolean hassettlement=false;
 	boolean hascity=false;
+	private Settlement settlement = null;
+	private City city = null;
 	
 	public VertexLocation(HexLocation hexLoc, VertexDirection dir)
 	{
@@ -138,6 +143,40 @@ public class VertexLocation
 			default:
 				assert false;
 				return null;
+		}
+	}
+
+	public Settlement getSettlement()
+	{
+		assert(settlement != null);
+		return settlement;
+	}
+
+	public void setSettlement(Settlement settlement)
+	{
+		// make sure that settlement isn't null
+		if (this.settlement == null)
+		{
+			this.settlement = new Settlement(settlement.getHexLocation(), settlement.getVertexLocation());
+		}
+		this.settlement = settlement;
+	}
+
+	public City getCity()
+	{
+		assert(city != null);
+		return city;
+	}
+
+	public void setCity(City city)
+	{
+		if (this.city == null)
+		{
+			this.city = new City(city.getHexLocation(), city.getVertexLocation());
+		}
+		else
+		{
+			this.city = city;
 		}
 	}
 }
