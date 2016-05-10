@@ -12,7 +12,7 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
-	public static CatanGame singleton=new CatanGame();
+	private static CatanGame singleton=new CatanGame();
 
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
@@ -73,6 +73,12 @@ public class CatanGame
 	void startGame()
 	{
 		
+	}
+	void clear()
+	{
+		mymap=null;
+		mychat=null;
+		myplayers=null;
 	}
 
 }
