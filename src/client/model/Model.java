@@ -67,4 +67,9 @@ public class Model
 	{
 		return version;
 	}
+	
+	public void setVersion(double newVersion)
+	{
+		version = newVersion;
+	}
 }
