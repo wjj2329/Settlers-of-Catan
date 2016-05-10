@@ -12,7 +12,7 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
-	private static CatanGame singleton=new CatanGame();
+	public static CatanGame singleton=new CatanGame();
 
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
@@ -41,6 +41,23 @@ public class CatanGame
 	public void addPlayer(Player player)
 	{
 		myplayers.add(player);
+	}
+
+	public boolean canCreatePlayer(Player newplayer)
+	{
+		for(int i=0; i<myplayers.size(); i++)
+		{
+			System.out.println("i compare "+myplayers.get(i).getColor()+" and this "+newplayer.getColor());
+			if(myplayers.get(i)==newplayer)
+			{
+				return false;
+			}
+			if(myplayers.get(i).getColor().equals(newplayer.getColor()))
+			{
+				return false;
+			}
+		}
+		return true;
 	}
 	
 	/**

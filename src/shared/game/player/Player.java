@@ -210,8 +210,33 @@ public class Player
 		return true;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public CatanColor getColor() {
+		return color;
+	}
+
+	public void setColor(CatanColor color) {
+		this.color = color;
+	}
+
+	public Index getPlayerID() {
+		return playerID;
+	}
+
+	public void setPlayerID(Index playerID) {
+		this.playerID = playerID;
+	}
+
 	public boolean canBuyDevCard()
 	{
+
 		if(resources.getOre()>0)
 		{
 			if(resources.getSheep()>0)
