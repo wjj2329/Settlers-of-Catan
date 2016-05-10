@@ -6,9 +6,7 @@ import shared.definitions.ResourceType;
 import shared.game.map.Port;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
-import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 
 import java.util.ArrayList;
 
@@ -25,65 +23,19 @@ public class Hex
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
 
-	public void addRoad(VertexLocation northeast)
-	{
-
-	}
-
-	public VertexLocation getNortheast() {
-		return northeast;
-	}
-
-	public void setNortheast(VertexLocation northeast) {
-		this.northeast = northeast;
-	}
-
-	public VertexLocation getSoutheast() {
-		return southeast;
-	}
-
-	public void setSoutheast(VertexLocation southeast) {
-		this.southeast = southeast;
-	}
-
-	public VertexLocation getWest() {
-		return west;
-	}
-
-	public void setWest(VertexLocation west) {
-		this.west = west;
-	}
-
-	public VertexLocation getEast() {
-		return east;
-	}
-
-	public void setEast(VertexLocation east) {
-		this.east = east;
-	}
-
-	public VertexLocation getSouthwest() {
-		return southwest;
-	}
-
-	public void setSouthwest(VertexLocation southwest) {
-		this.southwest = southwest;
-	}
-
-	public VertexLocation getNorthwest() {
-		return northwest;
-	}
-
-	public void setNorthwest(VertexLocation northwest) {
-		this.northwest = northwest;
-	}
-
 	private VertexLocation northeast=null;
 	private VertexLocation northwest=null;
 	private VertexLocation southwest=null;
 	private VertexLocation southeast=null;
 	private VertexLocation east=null;
 	private VertexLocation west=null;
+
+	private EdgeLocation nw = null;
+	private EdgeLocation n = null;
+	private EdgeLocation ne = null;
+	private EdgeLocation se = null;
+	private EdgeLocation s = null;
+	private EdgeLocation sw = null;
 	
 	/**
 	 * Hex Constructor
@@ -107,6 +59,13 @@ public class Hex
 		southeast = new VertexLocation(location, VertexDirection.SouthEast);
 		east = new VertexLocation(location, VertexDirection.East);
 		west = new VertexLocation(location, VertexDirection.West);
+
+		nw = new EdgeLocation(location, EdgeDirection.NorthWest);
+		n = new EdgeLocation(location, EdgeDirection.North);
+		ne = new EdgeLocation(location, EdgeDirection.NorthEast);
+		se = new EdgeLocation(location, EdgeDirection.SouthEast);
+		s = new EdgeLocation(location, EdgeDirection.South);
+		sw = new EdgeLocation(location, EdgeDirection.SouthWest);
 	}
 
 	/**
@@ -225,4 +184,118 @@ public class Hex
 		return true;
 	}
 
+	/**
+	 * Getters and Setters:
+	 */
+	public VertexLocation getNortheast() {
+		return northeast;
+	}
+
+	public void setNortheast(VertexLocation northeast) {
+		this.northeast = northeast;
+	}
+
+	public VertexLocation getSoutheast() {
+		return southeast;
+	}
+
+	public void setSoutheast(VertexLocation southeast) {
+		this.southeast = southeast;
+	}
+
+	public VertexLocation getWest() {
+		return west;
+	}
+
+	public void setWest(VertexLocation west) {
+		this.west = west;
+	}
+
+	public VertexLocation getEast() {
+		return east;
+	}
+
+	public void setEast(VertexLocation east) {
+		this.east = east;
+	}
+
+	public VertexLocation getSouthwest() {
+		return southwest;
+	}
+
+	public void setSouthwest(VertexLocation southwest) {
+		this.southwest = southwest;
+	}
+
+	public VertexLocation getNorthwest() {
+		return northwest;
+	}
+
+	public void setNorthwest(VertexLocation northwest) {
+		this.northwest = northwest;
+	}
+
+	/**
+	 * Getters and setters for EdgeLocations:
+	 * Nw, n, ne, se, s, sw, nw = DIRECTIONS! :)
+     */
+	public EdgeLocation getNw()
+	{
+		return nw;
+	}
+
+	public void setNw(EdgeLocation nw)
+	{
+		this.nw = nw;
+	}
+
+	public EdgeLocation getN()
+	{
+		return n;
+	}
+
+	public void setN(EdgeLocation n)
+	{
+		this.n = n;
+	}
+
+	public EdgeLocation getNe()
+	{
+		return ne;
+	}
+
+	public void setNe(EdgeLocation ne)
+	{
+		this.ne = ne;
+	}
+
+	public EdgeLocation getSe()
+	{
+		return se;
+	}
+
+	public void setSe(EdgeLocation se)
+	{
+		this.se = se;
+	}
+
+	public EdgeLocation getS()
+	{
+		return s;
+	}
+
+	public void setS(EdgeLocation s)
+	{
+		this.s = s;
+	}
+
+	public EdgeLocation getSw()
+	{
+		return sw;
+	}
+
+	public void setSw(EdgeLocation sw)
+	{
+		this.sw = sw;
+	}
 }
