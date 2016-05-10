@@ -68,11 +68,48 @@ public class Hex
 		sw = new EdgeLocation(location, EdgeDirection.SouthWest);
 	}
 
+	void BuildSettlement(VertexLocation mylocation)
+	{
+		if(canBuildSettlementHere(mylocation))
+		{
+			if(mylocation.getDir().equals(VertexDirection.East))
+			{
+			east.setHascity(true);
+				
+			}
+			if(mylocation.getDir().equals(VertexDirection.West))
+			{
+			west.setHascity(true);
+			}
+			if(mylocation.getDir().equals(VertexDirection.NorthEast))
+			{
+			northeast.setHascity(true);
+			}
+			if(mylocation.getDir().equals(VertexDirection.NorthWest))
+			{
+				northwest.setHascity(true);
+			}
+			if(mylocation.getDir().equals(VertexDirection.SouthEast))
+			{
+				southeast.setHascity(true);
+			}
+			if(mylocation.getDir().equals(VertexDirection.SouthWest))
+			{
+				southwest.setHascity(true);
+			}
+
+		}
+	}
+
 	/**
 	 * This function will need further implementation
      */
 	public boolean canBuildSettlementHere(VertexLocation mylocation)
 	{
+		if (settlements.size() >= 3)
+		{
+			return false;
+		}
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
 			if(east.isHassettlement()||northeast.isHassettlement()||northwest.isHassettlement())
@@ -116,11 +153,6 @@ public class Hex
 				return false;
 			}
 		}
-		if (settlements.size() >= 3)
-		{
-			return false;
-		}
-
 		return true;
 	}
 
