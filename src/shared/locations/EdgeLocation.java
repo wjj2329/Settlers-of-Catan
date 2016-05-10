@@ -1,5 +1,7 @@
 package shared.locations;
 
+import shared.game.map.Hex.Road;
+
 /**
  * Represents the location of an edge on a hex map
  */
@@ -8,6 +10,9 @@ public class EdgeLocation
 	
 	private HexLocation hexLoc;
 	private EdgeDirection dir;
+	// Added by Alex
+	private boolean hasRoad = false;
+	private Road road = new Road();
 	
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
 	{
@@ -105,6 +110,29 @@ public class EdgeLocation
 				assert false;
 				return null;
 		}
+	}
+
+	/**
+	 * The following getters and setters were added by Alex.
+     */
+	public boolean hasRoad()
+	{
+		return hasRoad;
+	}
+
+	public void setHasRoad(boolean hasRoad)
+	{
+		this.hasRoad = hasRoad;
+	}
+
+	public Road getRoad()
+	{
+		return road;
+	}
+
+	public void setRoad(Road road)
+	{
+		this.road = road;
 	}
 }
 

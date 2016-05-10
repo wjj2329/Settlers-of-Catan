@@ -25,6 +25,25 @@ public class Index
 	{
 		return true;
 	}
+
+	@Override
+	public boolean equals(Object o)
+	{
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Index index = (Index) o;
+
+		return number == index.number;
+
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return number;
+	}
+
 	/**
 	 * Getters and setters follow:
 	 */

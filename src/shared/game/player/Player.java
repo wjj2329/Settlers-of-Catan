@@ -12,6 +12,8 @@ import shared.game.map.Port;
 import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
@@ -77,7 +79,7 @@ public class Player
 	 * We might even want to add a list of Indexes to the main game map,
 	 * representing each player (if the need arises). 
 	 */
-	private Index playerIndex = null;
+	private Index playerIndex = null; // don't need this I don't think
 	
 	/**
 	 * ID of the player
@@ -116,7 +118,7 @@ public class Player
 	 * How many roads the Player CAN BUILD.
 	 * Updated dynamically. 
 	 */
-	private int numRoads = 0;
+	private int numRoadPiecesRemaining = 15;
 	
 	/**
 	 * How many settlements the player CAN BUILD.
@@ -402,7 +404,7 @@ public class Player
 				}
 				break;
 			default:
-				assert(false);
+				assert false;
 		}
 		return true;
 	}
@@ -410,16 +412,103 @@ public class Player
 	
 	/**
 	 * Determines whether or not the player can buy/build a road.
+	 * SetUp phase is when the player can place a road wherever they want, I think.
+	 * Other than the setup, the player must have an adjacent road, city, or
+	 * settlement in order to build a road.
 	 */
-	public boolean canBuildRoad()
+	public boolean canBuildRoad(Hex hex, EdgeLocation edge, boolean setupPhase)
 	{
-		return false;
+		if (resources.getBrick() < 1 || resources.getWood() < 1 || numRoadPiecesRemaining < 1)
+		{
+			return false;
+		}
+		if (edge.hasRoad())
+		{
+			return false;
+		}
+		if (!checkAdjacentEdges(hex, edge))
+		{
+			return false;
+		}
+		if (!checkAdjacentSettlements(hex, edge))
+		{
+			return false;
+		}
+		return true;
+	}
+
+	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
+	{
+		VertexLocation vertexClockwiseUpper = null;
+		VertexLocation vertexClockwiseLower = null;
+		switch(edge.getDir())
+		{
+			case NorthWest:
+				break;
+			case North:
+				break;
+
+		}
+		return true;
+	}
+
+	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge)
+	{
+		assert(edge != null && hex != null);
+		EdgeLocation adjacentEdgeClockwiseUp = null;
+		EdgeLocation adjacentEdgeClockwiseDown = null;
+		switch (edge.getDir())
+		{
+			case NorthWest:
+				adjacentEdgeClockwiseUp = hex.getN();
+				adjacentEdgeClockwiseDown = hex.getSw();
+				break;
+			case North:
+				adjacentEdgeClockwiseUp = hex.getNe();
+				adjacentEdgeClockwiseDown = hex.getNw();
+				break;
+			case NorthEast:
+				adjacentEdgeClockwiseUp = hex.getSe();
+				adjacentEdgeClockwiseDown = hex.getN();
+				break;
+			case SouthEast:
+				adjacentEdgeClockwiseUp = hex.getS();
+				adjacentEdgeClockwiseDown = hex.getNe();
+				break;
+			case South:
+				adjacentEdgeClockwiseUp = hex.getSw();
+				adjacentEdgeClockwiseDown = hex.getSe();
+				break;
+			case SouthWest:
+				adjacentEdgeClockwiseUp = hex.getNw();
+				adjacentEdgeClockwiseDown = hex.getS();
+				break;
+			default:
+				assert false;
+		}
+		if (adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseUp.getRoad().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return false;
+		}
+		if (adjacentEdgeClockwiseDown.hasRoad() && !adjacentEdgeClockwiseDown.getRoad().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return false;
+		}
+		if (!adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseDown.hasRoad())
+		{
+			return false;
+		}
+		return true; // if no issues
 	}
 	
 	/**
 	 * Determines whether or not the player can accept a current trade.
 	 * May need a TradeParameters object in order to assist with this
 	 * method.
+	 *
+	 * Note: I am not sure yet if this method is necessary! There are
+	 * implementations elsewhere. We should keep it for now until we
+	 * know for sure.
 	 */
 	public boolean canAcceptTrade()
 	{
