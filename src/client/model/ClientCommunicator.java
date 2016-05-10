@@ -41,8 +41,7 @@ public class ClientCommunicator
 	 * @pre urlpath and data are not null
 	 * @exception: throws exception if URL path or Data are invalid. 
 	 */
-	public String send(String urlsuffix, Param data)
-	{
+	public String send(String urlsuffix, Param data) throws JSONException {
 		URL url;
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
@@ -50,20 +49,20 @@ public class ClientCommunicator
 			connection.setRequestMethod(data.getRequestType());
 			connection.setDoOutput(true);
 			connection.connect();
-			
+
 			if(!data.getCookies().isEmpty()){
 				connection.addRequestProperty("cookie:",data.getCookies());
 			}
-			
+
 			if(data.getRequestType().equals("POST")){
 				OutputStream requestBody = connection.getOutputStream();
 	            requestBody.write(data.getRequest().getBytes());
 	            requestBody.close();
 			}
-			
-			
+
+
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                
+
                 InputStream responseBody = connection.getInputStream();
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -80,20 +79,17 @@ public class ClientCommunicator
                 return null;
 
             }
-			
-			
+
+
 		} catch (MalformedURLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		
+
+
 		return null;
 	}
 	

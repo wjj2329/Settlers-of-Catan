@@ -41,7 +41,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */ //GET
 	@Override
-	public boolean loginUser(String username, String password) {
+	public boolean loginUser(String username, String password) throws JSONException {
 		final String URL_SUFFIX = "/user/login";
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
@@ -78,7 +78,7 @@ public class ServerProxy implements IServer {
 	 *  1. The server returns and HTTP 400 error response, and the body contains an error message.
 	 */ //POST
 	@Override
-	public String registerUser(String username, String password) {
+	public String registerUser(String username, String password) throws JSONException {
 		final String URL_SUFFIX = "/user/register";
 		
 		Param param = new RegisterParam(username, password);
@@ -103,7 +103,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET 
 	@Override
-	public String getAllCurrentGames() {
+	public String getAllCurrentGames() throws JSONException {
 		final String URL_SUFFIX = "/games/list";
 		
 		Param param = new ListAllGamesParam();
@@ -135,7 +135,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {	
+	public String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) throws JSONException {
 		final String URL_SUFFIX = "/games/create";
 		
 		Param param = new CreateGameParam(name, randomTiles, randomNumbers, randomPorts);
@@ -172,7 +172,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String JoinGame(int gameID, String color) {
+	public String JoinGame(int gameID, String color) throws JSONException {
 		final String URL_SUFFIX = "/games/join";
 		
 		Param param = new JoinGameParam(gameID, color);
@@ -207,7 +207,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String saveGame(int gameID, String fileName) {
+	public String saveGame(int gameID, String fileName) throws JSONException {
 		final String URL_SUFFIX = "/games/save";
 		
 		Param param = new JoinGameParam(gameID, fileName);
@@ -239,7 +239,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String loadGame(String name) {
+	public String loadGame(String name) throws JSONException {
 		final String URL_SUFFIX = "/games/load";
 		
 		Param param = new LoadGameParam(name);
@@ -275,7 +275,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET - necesita galleta! haha
 	@Override
-	public String getGameCurrentState(int version) {
+	public String getGameCurrentState(int version) throws JSONException {
 		final String URL_SUFFIX = "/game/model";
 		
 		Param param = new GetGameCurrentStateParam();
@@ -303,7 +303,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST needs cookie! 
 	@Override
-	public String resetCurrentGame() {
+	public String resetCurrentGame() throws JSONException {
 		final String URL_SUFFIX = "/game/reset";
 		
 		Param param = new ResetCurrentGameParam();
@@ -367,7 +367,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET
 	@Override
-	public String listAI(){
+	public String listAI() throws JSONException {
 		final String URL_SUFFIX = "/game/listAI";
 		
 		Param param = new ListAIParam();
@@ -399,7 +399,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public String addAIPlayer(String logLevel) {
+	public String addAIPlayer(String logLevel) throws JSONException {
 		final String URL_SUFFIX = "/game/addAI";
 		
 		Param param = new AddAIParam(logLevel);
@@ -425,7 +425,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public String changeLogLevel(String logLevel) {
+	public String changeLogLevel(String logLevel) throws JSONException {
 		final String URL_SUFFIX = "/util/changeLogLevel";
 		
 		Param param = new ChangeLogLevelParam(logLevel);
@@ -449,7 +449,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void sendChat(String type, int playerIndex, String content) {
+	public void sendChat(String type, int playerIndex, String content) throws JSONException {
 		final String URL_SUFFIX = "/moves/sendChat";
 		
 		Param param = new SendChatParam(type, playerIndex, content);
@@ -475,7 +475,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void acceptTrade(String type, int playerIndex, boolean willAccept) {
+	public void acceptTrade(String type, int playerIndex, boolean willAccept) throws JSONException {
 		final String URL_SUFFIX = "/moves/acceptTrade";
 		
 		Param param = new AcceptTradeParam(type, playerIndex, willAccept);
@@ -502,7 +502,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void discardCards(String type, int playerIndex, ResourceList discardedCards) {
+	public void discardCards(String type, int playerIndex, ResourceList discardedCards) throws JSONException {
 		final String URL_SUFFIX = "/moves/discardCards";
 		
 		Param param = new DiscardCardsParam(type, playerIndex, discardedCards);
@@ -527,7 +527,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void rollNumber(String type, int playerIndex, int number) {
+	public void rollNumber(String type, int playerIndex, int number) throws JSONException {
 		final String URL_SUFFIX = "/moves/rollNumber";
 		
 		Param param = new RollNumberParam(type, playerIndex, number);
@@ -559,7 +559,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) {
+	public void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) throws JSONException {
 		final String URL_SUFFIX = "/moves/buildRoad";
 		
 		Param param = new BuildRoadParam(type, playerIndex, roadLocation, free);
@@ -594,7 +594,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) {
+	public void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) throws JSONException {
 		final String URL_SUFFIX = "/moves/buildSettlement";
 		
 		Param param = new BuildSettlementParam(type, playerIndex, vertexLocation, free);
@@ -624,7 +624,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildCity(String type, int playerIndex, VertexLocation vertexLocation) {
+	public void buildCity(String type, int playerIndex, VertexLocation vertexLocation) throws JSONException {
 		final String URL_SUFFIX = "/moves/buildCity";
 		
 		Param param = new BuildCityParam(type, playerIndex, vertexLocation);
@@ -648,7 +648,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void offerTrade(String type, int playerIndex, ResourceList offer,int receiver) {
+	public void offerTrade(String type, int playerIndex, ResourceList offer,int receiver) throws JSONException {
 		final String URL_SUFFIX = "/moves/offerTrade";
 		
 		Param param = new OfferTradeParam(type, playerIndex, offer, receiver);
@@ -673,7 +673,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) {
+	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException {
 		final String URL_SUFFIX = "/moves/robPlayer";
 		
 		Param param = new RobPlayerParam(type, playerIndex, location, victimIndex);
@@ -695,7 +695,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void finishTurn(String type, int playerIndex) {
+	public void finishTurn(String type, int playerIndex) throws JSONException {
 		final String URL_SUFFIX = "/moves/finishTurn";
 		
 		Param param = new FinishTurnParam(type, playerIndex);
@@ -718,7 +718,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buyDevCard(String type, int playerIndex) {
+	public void buyDevCard(String type, int playerIndex) throws JSONException {
 		final String URL_SUFFIX = "/moves/buyDevCard";
 		
 		Param param = new BuyDevCardParam(type, playerIndex);
@@ -746,7 +746,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) {
+	public void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException {
 		final String URL_SUFFIX = "/moves/Soldier";
 		
 		Param param = new PlaySoldierParam(type, playerIndex, location, victimIndex);
@@ -771,7 +771,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
+	public void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) throws JSONException {
 		final String URL_SUFFIX = "/moves/Year_of_Plenty";
 		
 		Param param = new PlayYearOfPlentyParam(type, playerIndex, resource1, resource2);
@@ -798,7 +798,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
+	public void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws JSONException {
 		final String URL_SUFFIX = "/moves/Road_Building";
 		
 		Param param = new PlayRoadBuildingParam(type, playerIndex, spot1, spot2);
@@ -821,7 +821,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playMonopoly(String type, int playerIndex, String resource) {
+	public void playMonopoly(String type, int playerIndex, String resource) throws JSONException {
 		final String URL_SUFFIX = "/moves/Monopoly";
 		
 		Param param = new PlayMonopolyParam(type, playerIndex, resource);
@@ -844,7 +844,7 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playMonument(String type, int playerIndex) {
+	public void playMonument(String type, int playerIndex) throws JSONException {
 		final String URL_SUFFIX = "/moves/Monument";
 		
 		Param param = new PlayMonumentParam(type, playerIndex);
@@ -883,7 +883,7 @@ public class ServerProxy implements IServer {
 	 */
 	
 	@Override
-	public void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) {
+	public void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) throws JSONException {
 		final String URL_SUFFIX = "/moves/maritimeTrade";
 		
 		Param param = new MaritimeTradeParam(type, playerIndex, ratio, inputResource, outputResource);

@@ -3,6 +3,7 @@ package testpckg;
 
 import static org.junit.Assert.*;
 
+import org.json.JSONException;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,7 +22,7 @@ public class TestServerProxy {
 
 	
 	@Test
-	public void testLogin(){
+	public void testLogin() throws JSONException {
 		assertTrue(iserver.loginUser("Sam", "sam"));
 	}
 	
