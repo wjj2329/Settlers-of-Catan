@@ -21,6 +21,7 @@ public class Hex
 	private HexType resourcetype = null;
 	private NumberToken resourcenumber=null;
 	private PortType myport=null;
+	private VertexLocation portlocation=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
 
@@ -594,5 +595,19 @@ public class Hex
 	public int getResourcenumber()
 	{
 		return this.resourcenumber.getValue();
+	}
+
+	public String getPortType()
+	{
+		return myport.name();
+	}
+
+	public void setPortlocation(VertexLocation vertexLocation)
+	{
+		this.portlocation=vertexLocation;
+	}
+	public String getPortLocation()
+	{
+		return portlocation.toString();
 	}
 }

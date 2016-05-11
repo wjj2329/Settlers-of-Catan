@@ -48,13 +48,7 @@ public class TestServerProxyMoves {
 		assertEquals(iserver.rollNumber("rollNumber", 2, 4).getResponseCode(), HttpURLConnection.HTTP_OK);		
 	
 	}
-	
-	@Test 
-	public void TestRobPlayer(){
-		HexLocation hexLocation = new HexLocation(2,2);
-		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);		
-		
-	}
+
 	
 	@Test
 	public void TestFinishTurn(){
@@ -66,12 +60,23 @@ public class TestServerProxyMoves {
 		assertEquals(iserver.buyDevCard("buyDevCard", 0).getResponseCode(), HttpURLConnection.HTTP_OK);
 	}
 	
+	@Test
+	public void TestPlayYearofPlenty(){
+		assertEquals(iserver.playYearofPlenty("Year_of_Plenty", 0, "brick", "sheep").getResponseCode(), HttpURLConnection.HTTP_OK);
+	}
+	
+	@Test
+	public void TestPlayRoadBuilding(){
+		EdgeLocation spot1 = new EdgeLocation(new HexLocation(0,1), EdgeDirection.North);
+		EdgeLocation spot2 = new EdgeLocation(new HexLocation(0,1), EdgeDirection.NorthEast);
+		
+		assertEquals(iserver.playRoadBuilding("Road_Building", 0, spot1, spot2).getResponseCode(), HttpURLConnection.HTTP_OK);
+	}
 	
 	@Test
 	public void TestPlaySoldier(){
 		HexLocation hexLocation = new HexLocation(2,2);
-		assertEquals(iserver.playSoldier("Soldier", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);		
-		
+		assertEquals(iserver.playSoldier("Soldier", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);				
 	}
 	
 	@Test
@@ -129,6 +134,12 @@ public class TestServerProxyMoves {
 		ResourceList discardedCards = new ResourceList(1, 1, 0, 1, 0);
 		assertEquals(iserver.discardCards("discardCards", 0, discardedCards).getResponseCode(), HttpURLConnection.HTTP_OK);
 	
+	}
+	
+	@Test
+	public void TestRobPlayer(){
+		HexLocation hexLocation = new HexLocation(2,2);
+		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);				
 	}
 	
 }
