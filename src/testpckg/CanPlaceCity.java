@@ -39,6 +39,17 @@ public class CanPlaceCity {
 	@Test
 	public void test1()
 	{
+		assertTrue(hex1.canBuildCityHere(VertexDirection.East));
+		assertTrue(hex1.canBuildCityHere(VertexDirection.West));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.NorthEast));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.NorthWest));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.SouthEast));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.SouthEast));
+		hex1.buildCity(new VertexLocation(new HexLocation(0, 1), VertexDirection.East));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
+		hex1.buildCity(new VertexLocation(new HexLocation(0,1),VertexDirection.West));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
+		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(0, 1), VertexDirection.East)));
 
 	}
 	@Test

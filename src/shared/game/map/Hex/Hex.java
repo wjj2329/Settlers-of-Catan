@@ -289,7 +289,7 @@ public class Hex
 	}
 
 	/**
-	 * This function will need further implementation
+	 * This function checks to see if it is even possible to place Settlements on specific Hex
      */
 	public boolean canBuildSettlementHere(VertexLocation mylocation)
 	{
@@ -299,6 +299,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
+			if(east.isHascity()||northeast.isHascity()||northwest.isHascity())
+			{
+				return false;
+			}
 			if(east.isHassettlement()||northeast.isHassettlement()||northwest.isHassettlement())
 			{
 				return false;
@@ -306,6 +310,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.West))
 		{
+			if(west.isHascity()||northwest.isHascity()||southeast.isHascity())
+			{
+				return false;
+			}
 			if(west.isHassettlement()||northwest.isHassettlement()||southwest.isHassettlement())
 			{
 				return false;
@@ -313,6 +321,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
+			if (northeast.isHascity()||east.isHascity()||northwest.isHascity())
+			{
+				return false;
+			}
 			if(northeast.isHassettlement()||east.isHassettlement()||northwest.isHassettlement())
 			{
 				return false;
@@ -321,6 +333,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthWest))
 		{
+			if (northeast.isHascity()||northwest.isHascity()||west.isHascity())
+			{
+				return false;
+			}
 			if(northwest.isHassettlement()||northeast.isHassettlement()||west.isHassettlement())
 			{
 				return false;
@@ -328,6 +344,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthEast))
 		{
+			if(southwest.isHascity()||east.isHascity()||southeast.isHascity())
+			{
+				return false;
+			}
 			if(southeast.isHassettlement()||southwest.isHassettlement()||east.isHassettlement())
 			{
 			return false;
@@ -335,6 +355,10 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthWest))
 		{
+			if(southwest.isHascity()||southeast.isHascity()||east.isHascity())
+			{
+				return false;
+			}
 			if(southwest.isHassettlement()||southeast.isHassettlement()||west.isHassettlement())
 			{
 				return false;
