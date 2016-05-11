@@ -60,7 +60,7 @@ public class TestDoBuildRoadPiece
     {
         p1.setCurrentPlayer(true);
         assertEquals(loc1, hex1.getLocation());
-        Settlement settle1 = new Settlement(loc1, hex1.getNorthwest());
+        Settlement settle1 = new Settlement(loc1, hex1.getNorthwest(),new Index(2));
         hex1.getNorthwest().setHassettlement(true);
         hex1.getNorthwest().setSettlement(settle1);
         settle1.setOwner(p1.getPlayerID());
@@ -74,7 +74,7 @@ public class TestDoBuildRoadPiece
         p2.setCurrentPlayer(true);
         loc2 = new HexLocation(0, -1);
         hex2 = CatanGame.singleton.getMymap().getHexes().get(loc2);
-        Settlement settle2 = new Settlement(loc2, hex2.getNortheast());
+        Settlement settle2 = new Settlement(loc2, hex2.getNortheast(),new Index(2));
         hex2.getNortheast().setHassettlement(true);
         hex2.getNortheast().setSettlement(settle2);
         settle2.setOwner(p2.getPlayerID());

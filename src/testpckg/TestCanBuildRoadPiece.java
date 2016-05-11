@@ -86,7 +86,7 @@ public class TestCanBuildRoadPiece
 		p1.getResources().setWood(MIN);
 
 		assertEquals(loc1, hex1.getLocation());
-		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest());
+		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest(),new Index(2));
 		hex1.getNorthwest().setHassettlement(true);
 		hex1.getNorthwest().setSettlement(settle1);
 		// Do NOT forget this!
@@ -105,7 +105,7 @@ public class TestCanBuildRoadPiece
 	{
 		HexLocation loc1 = new HexLocation(-2, 0);
 		Hex hex1 = hexes.get(loc1);
-		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest());
+		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest(),new Index(2));
 		hex1.getNorthwest().setHassettlement(true);
 		hex1.getNorthwest().setSettlement(settle1);
 		settle1.setOwner(p1.getPlayerID());
@@ -125,7 +125,7 @@ public class TestCanBuildRoadPiece
 		Hex hex1 = hexes.get(loc1);
 		HexLocation tryingToPlaceHere = new HexLocation(0, -1);
 		Hex failHex = hexes.get(tryingToPlaceHere);
-		Settlement settle1 = new Settlement(tryingToPlaceHere, failHex.getNorthwest());
+		Settlement settle1 = new Settlement(tryingToPlaceHere, failHex.getNorthwest(),new Index(2));
 		failHex.getNorthwest().setHassettlement(true);
 		failHex.getNorthwest().setSettlement(settle1);
 		settle1.setOwner(p1.getPlayerID());
@@ -146,7 +146,7 @@ public class TestCanBuildRoadPiece
 		Hex hex1 = hexes.get(loc1);
 		// ensuring that .equals method is working properly for HexLocation
 		assertEquals(loc1, hex1.getLocation());
-		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest());
+		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest(),new Index(2));
 		hex1.getNorthwest().setHassettlement(true);
 		hex1.getNorthwest().setSettlement(settle1);
 		// Do NOT forget this!
@@ -178,7 +178,7 @@ public class TestCanBuildRoadPiece
 		p2.getResources().setWood(MIN);
 
 		assertEquals(loc1, hex1.getLocation());
-		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest());
+		Settlement settle1 = new Settlement(loc1, hex1.getNorthwest(),new Index(2));
 		hex1.getNorthwest().setHassettlement(true);
 		hex1.getNorthwest().setSettlement(settle1);
 		settle1.setOwner(p1.getPlayerID());

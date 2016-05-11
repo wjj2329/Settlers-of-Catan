@@ -104,7 +104,7 @@ public class TestCanBeRobbed
 	{
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
-		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest), new Index(2));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc8);
 		ResourceList resList = new ResourceList();
@@ -127,7 +127,7 @@ public class TestCanBeRobbed
 		loadMyMap(theHexesOfMap);
 		ResourceList resList = new ResourceList();
 		alex.setResources(resList);
-		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest),new Index(2));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc8);
 
@@ -144,7 +144,7 @@ public class TestCanBeRobbed
 	{
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
-		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest),new Index(2));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc8);
 
@@ -169,11 +169,11 @@ public class TestCanBeRobbed
 		ResourceList resList = new ResourceList();
 		resList.setSheep(3);
 		alex.setResources(resList);
-		Settlement settle1 = new Settlement(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East));
+		Settlement settle1 = new Settlement(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East), new Index(2));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc11);
 		assertFalse(alex.canBeRobbed());
-		City city1 = new City(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East));
+		City city1 = new City(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East), new Index(2));
 		alex.addToCities(city1);
 		assertFalse(alex.canBeRobbed());
 	}
@@ -186,7 +186,7 @@ public class TestCanBeRobbed
 	{
 		Map<HexLocation, Hex> theHexesOfMap = new HashMap<>();
 		loadMyMap(theHexesOfMap);
-		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest));
+		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest), new Index(2));
 		alex.addToSettlements(settle1);
 		Robber.getSingleton().setLocation(hexLoc8);
 		alex.setCurrentPlayer(false);
@@ -194,12 +194,12 @@ public class TestCanBeRobbed
 		resList.setSheep(3);
 		alex.setResources(resList);
 		assertTrue(alex.canBeRobbed());
-		Settlement settle2 = new Settlement(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest));
+		Settlement settle2 = new Settlement(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest), new Index(2));
 
 		alex.getSettlements().clear();
 		assertFalse(alex.canBeRobbed());
 		alex.addToSettlements(settle2);
-		City city1 = new City(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest));
+		City city1 = new City(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest), new Index(2));
 		alex.addToCities(city1);
 		Robber.getSingleton().setLocation(hexLoc1);
 		assertTrue(alex.canBeRobbed());
