@@ -10,9 +10,9 @@ import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 
-public class CanBankGiveCard {
+public class TestCanBankGiveDevelopmentCard {
     /*
-    This tests if the bank can give resource objects and devleopment cards and throws exceptions if the bank contains negative
+    This tests if the bank can give and devleopment cards and throws exceptions if the bank contains negative
     amounts.
      */
 
@@ -36,38 +36,6 @@ public class CanBankGiveCard {
     public void tearDown() throws Exception
     {
         Bank.getSingleton().clear();
-    }
-
-    @Test
-    public void testBank1()  throws Exception
-    {
-        assertTrue(true);
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK));
-        assertFalse(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.WOOD));
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.WHEAT));
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.SHEEP));
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.ORE));
-    }
-
-    @Test
-    public void testBank2() throws Exception
-    {
-        Bank.getSingleton().clear();
-        Bank.getSingleton().setResourceCardslist(0, 0 , 0 , 50, 25);
-        assertFalse(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK));
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.WOOD));
-        assertTrue(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.ORE));
-        assertFalse(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.WHEAT));
-        assertFalse(Bank.getSingleton().CanBankGiveResourceCard(ResourceType.SHEEP));
-    }
-
-    @Test
-    public void testBank3() throws Exception
-    {
-        Bank.getSingleton().clear();
-        Bank.getSingleton().setResourceCardslist(-1, -9, -1 , -1, -1);
-        exception.expect(Exception.class);
-        Bank.getSingleton().CanBankGiveResourceCard(ResourceType.BRICK);
     }
 
     @Test

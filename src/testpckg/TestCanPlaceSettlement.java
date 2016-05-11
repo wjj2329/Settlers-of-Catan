@@ -19,7 +19,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class CanPlaceSettlement {
+public class TestCanPlaceSettlement {
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
@@ -33,7 +33,6 @@ public class CanPlaceSettlement {
 		CatanGame.singleton.setMymap(new CatanMap(5));
 		hex1=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
 		hex2=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
-		hex3= CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 1));//a hex next to a water hex
 		hex4=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(500,20));//invalid hex
 	}
 

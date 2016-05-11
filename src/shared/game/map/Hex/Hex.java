@@ -299,11 +299,11 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
-			if(east.isHascity()||northeast.isHascity()||northwest.isHascity())
+			if(east.isHascity()||northeast.isHascity()||southeast.isHascity())
 			{
 				return false;
 			}
-			if(east.isHassettlement()||northeast.isHassettlement()||northwest.isHassettlement())
+			if(east.isHassettlement()||northeast.isHassettlement()||southeast.isHassettlement())
 			{
 				return false;
 			}
