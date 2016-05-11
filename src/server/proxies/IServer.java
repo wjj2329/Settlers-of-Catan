@@ -2,6 +2,7 @@ package server.proxies;
 
 import client.data.*;
 import client.model.Model;
+import server.response.ServerResponse;
 import shared.definitions.*;
 import shared.game.ResourceList;
 import shared.locations.*;
@@ -39,7 +40,7 @@ public interface IServer {
 	 *                response, and the body contains an error message.
 	 * 
 	 */
-	boolean loginUser(String username, String password) throws JSONException;
+	ServerResponse loginUser(String username, String password);
 
 	/**
 	 * This method does two things: 1) Creates a new user account 2) Logs the
@@ -66,7 +67,7 @@ public interface IServer {
 	 *                and HTTP 400 error response, and the body contains an
 	 *                error message.
 	 */
-	String registerUser(String username, String password) throws JSONException;
+	ServerResponse registerUser(String username, String password);
 
 	/**
 	 * Returns information about all of the current games on the server.
@@ -80,7 +81,7 @@ public interface IServer {
 	 *                and the body contains an error message
 	 * 
 	 */
-	String getAllCurrentGames() throws JSONException;
+	ServerResponse getAllCurrentGames();
 
 	/**
 	 * Creates a new game on the server.
@@ -104,7 +105,7 @@ public interface IServer {
 	 *                response, and the body contains an error message
 	 * 
 	 */
-	String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) throws JSONException;
+	ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts);
 
 	/**
 	 * Adds the player to the specified game and sets their catan.game cookie.
@@ -131,51 +132,7 @@ public interface IServer {
 	 *                contains an error message
 	 * 
 	 */
-	String JoinGame(int gameID, String color) throws JSONException;
-
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 * @param gameID the id of the game to be saved
-	 * @param fileName the file name you want to save it under 
-	 * 
-	 * @pre 1.The specified game ID is valid 2.The specified file
-	 *                name is valid(i.e.,not null or empty)
-	 * @postIf the operation succeeds, 1. The server returns an
-	 *                HTTP 200 success response with "Success" in the body. 2.
-	 *                The current state of specified game (including its ID) has
-	 *                been saved to the specified file in the server's saves/
-	 *                directory If the operation fails, 1.The server returns an
-	 *                HTTP 400 error response, and the body contains an error
-	 *                message
-	 * 
-	 */
-	String saveGame(int gameID, String fileName) throws JSONException;
-
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 * @param name the name of the saved game file that you want to load
-	 *
-	 * @pre 1.A previously saved game file with the specified name exists in the server’s saves/ directory
-	 * @post If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body. 
-	 *                		2. The game in the specified file has been loaded into the server and its state restored (including its ID). 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	String loadGame(String name) throws JSONException;
+	ServerResponse JoinGame(int gameID, String color);
 
 	/**
 	 * Returns the current state of the game in JSON format, and also includes a
@@ -197,54 +154,7 @@ public interface IServer {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	String getGameCurrentState(int version) throws JSONException;
-
-	/**
-	 * Clears out the command history of the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have a valid 
-	 * 						 catan.user and catan.game HTTP cookies)
-	 * @post If the operation succeeds,
-	 * 						1. The game's command history has been cleared out
-	 * 						2. The game's players have NOT been cleared out
-	 * 						3. The server returns an HTTP 200 success response. 
-	 * 						4. The body contains the game's updated client model JSON  
-	 * @post If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 						
-	 * 
-	 */
-	String resetCurrentGame() throws JSONException;
-
-	/**
-	 * Returns a list of commands that have been executed in the current game.
-	 *
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
-	 * 						  catan.user and catan.game HTTP cookies).
-	 * @post If the operation succeeds,
-	 * 						1. The server returns an HTTP 200 success response
-	 * 						2. The body contains a JSON array of commands that have been executed in the game. 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	String GETCommands();
-
-	/**
-	 * 
-	 * Executes the specified command list in the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
-	 * 						  catan.user and catan.game HTTP cookies).
-	 * @postIf the operation succeeds,
-	 * 						1. The passed-in command list has been applied to the game.
-	 * 						2. The server returns an HTTP 200 success response.
-	 * 						3. The body contains the game's updated client model JSON
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	String POSTCommands();
+	ServerResponse getGameCurrentState(int version);
 
 	/**
 	 * 
@@ -257,7 +167,7 @@ public interface IServer {
 	 * 							that may be passed to the /game/addAI method. 
 	 * 
 	 */
-	String listAI() throws JSONException;
+	ServerResponse listAI();
 
 	/**
 	 * 
@@ -275,23 +185,7 @@ public interface IServer {
 	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
 	 * 
 	 */
-	String addAIPlayer(String logLevel) throws JSONException;
-
-	/**
-	 * Sets the server's logging level
-	 * 
-	 * @param logLevel a logLevel, Valid values include: SEVER, WARNING, INFO, CONFIG, FINE, 
-	 * 						FINER, FINEST
-	 * 
-	 * @pre The caller specifies a valid logging level. 
-	 * @post If the operation succeeds, 
-	 * 		 1. The server returns an HTTP 200 success response with "Success" in the body.
-	 * 		 2. The Server is using the specified logging level 
-	 * @post If the operation fails, 
-	 *       1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	String changeLogLevel(String logLevel) throws JSONException;
+	ServerResponse addAIPlayer(String logLevel);
 
 	// Move APIs uses /moves/*
 
@@ -304,7 +198,7 @@ public interface IServer {
 	 * @post The chat contains your message at the end
 	 * 
 	 */
-	void sendChat(String type, int playerIndex, String content) throws JSONException;
+	ServerResponse sendChat(String type, int playerIndex, String content);
 
 	/**
 	 * @param type name of move being executed
@@ -318,7 +212,7 @@ public interface IServer {
 	 * 						The trade offer is remove
 	 * 
 	 */
-	void acceptTrade(String type, int playerIndex, boolean willAccept) throws JSONException;
+	ServerResponse acceptTrade(String type, int playerIndex, boolean willAccept)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -331,7 +225,7 @@ public interface IServer {
 	 * 						If you're the last one to discard, the client model status changes to 'Robbing' 
 	 * 
 	 */
-	void discardCards(String type, int playerIndex, ResourceList discardedCards) throws JSONException;
+	ServerResponse discardCards(String type, int playerIndex, ResourceList discardedCards)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -342,7 +236,7 @@ public interface IServer {
 	 * @post The client model's status is now in 'Discarding' or 'Robbing' or 'Playing'
 	 * 
 	 */
-	void rollNumber(String type, int playerIndex, int number) throws JSONException;
+	ServerResponse rollNumber(String type, int playerIndex, int number)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -358,7 +252,7 @@ public interface IServer {
 	 * 						if applicable, "longest road" has been awarded to the player with the longest road
 	 * 
 	 */
-	void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) throws JSONException;
+	ServerResponse buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -375,7 +269,7 @@ public interface IServer {
 	 * 						the settlement is on the map at the specified locatoin 
 	 * 
 	 */
-	void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) throws JSONException;
+	ServerResponse buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -389,7 +283,7 @@ public interface IServer {
 	 * 						location, you got a settlement back
 	 * 
 	 */
-	void buildCity(String type, int playerIndex, VertexLocation vertexLocation) throws JSONException;
+	ServerResponse buildCity(String type, int playerIndex, VertexLocation vertexLocation)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -402,7 +296,7 @@ public interface IServer {
 	 * @post the trade is offered to the other player(stored in the server model)
 	 * 
 	 */
-	void offerTrade(String type, int playerIndex, ResourceList offer,int receiver) throws JSONException;
+	ServerResponse offerTrade(String type, int playerIndex, ResourceList offer,int receiver)  ;
 
 	/**
 	 * @param type name of move being executed
@@ -420,7 +314,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) throws JSONException;
+	ServerResponse maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource);
 
 	/**
 	 * @param type name of move being executed
@@ -436,7 +330,7 @@ public interface IServer {
 	 * 
 	 */
 	//@Override
-	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException;
+	public ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -449,7 +343,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void finishTurn(String type, int playerIndex) throws JSONException;
+	ServerResponse finishTurn(String type, int playerIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -462,7 +356,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void buyDevCard(String type, int playerIndex) throws JSONException;
+	ServerResponse buyDevCard(String type, int playerIndex);
 
 	/**
 	 * @param type name of move being executed
@@ -480,8 +374,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException;
-
+	ServerResponse playSoldier(String type, int playerIndex, HexLocation location, int victimIndex);
 	/**
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
@@ -495,7 +388,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) throws JSONException;
+	ServerResponse playYearofPlenty(String type, int playerIndex, String resource1, String resource2);
 
 	/**
 	 * @param type name of move being executed
@@ -512,7 +405,7 @@ public interface IServer {
 	 * 						locations, "longest road" has been awarded to the correct user
 	 * 
 	 */
-	void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws JSONException;
+	ServerResponse playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
 
 	/**
 	 * @param type name of move being executed
@@ -525,7 +418,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void playMonopoly(String type, int playerIndex, String resource) throws JSONException;
+	ServerResponse playMonopoly(String type, int playerIndex, String resource);
 
 	/**
 	 * @param type name of move being executed
@@ -538,7 +431,7 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	void playMonument(String type, int playerIndex) throws JSONException;
+	ServerResponse playMonument(String type, int playerIndex);
 
 	Model getGameModel(double version);
 

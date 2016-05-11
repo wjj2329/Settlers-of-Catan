@@ -17,6 +17,10 @@ public class ChatMessages
 	{
 		
 	}
+	public ArrayList<ChatLine> messages()
+	{
+		return lines;
+	}
 	
 	/**
 	 * Displays all chat lines in chat.
