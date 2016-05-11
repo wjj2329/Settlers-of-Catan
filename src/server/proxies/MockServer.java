@@ -2,6 +2,7 @@ package server.proxies;
 
 import client.data.*;
 import client.model.Model;
+import server.response.ServerResponse;
 import shared.definitions.*;
 import shared.game.ResourceList;
 import shared.locations.*;
@@ -16,7 +17,8 @@ import org.json.*;
  */
 public class MockServer implements IServer {
 
-
+		ServerProxy proxy = new ServerProxy();
+	
 	/** Logs the caller in to the server, and sets their catan.userHTTP cookie.
 	 * The passed-in username and password may correspond to the credentials of
 	 * any registered user.
@@ -40,9 +42,8 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public boolean loginUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return false;
+	public ServerResponse loginUser(String username, String password) {
+			return proxy.loginUser(username, password);
 	}
 
 	/**
@@ -72,9 +73,8 @@ public class MockServer implements IServer {
 	 *                error message.
 	 */
 	@Override
-	public String registerUser(String username, String password) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServerResponse registerUser(String username, String password) {
+		return proxy.registerUser(username, password);
 	}
 
 	/**
@@ -90,8 +90,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String getAllCurrentGames() {
-		// TODO Auto-generated method stub
+	public ServerResponse getAllCurrentGames() {
 		return null;
 	}
 
@@ -118,7 +117,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
+	public ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -149,66 +148,11 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String JoinGame(int gameID, String color) {
+	public ServerResponse JoinGame(int gameID, String color) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 * @param gameID the id of the game to be saved
-	 * @param fileName the file name you want to save it under 
-	 * 
-	 * @pre 
-	 * 1.The specified game ID is valid 
-	 * 2.The specified file name is valid(i.e.,not null or empty)
-	 * @postIf the operation succeeds, 
-	 * 1. The server returns an HTTP 200 success response with "Success" in the body. 
-	 * 2.The current state of specified game (including its ID) has
-	 *                been saved to the specified file in the server's saves/
-	 *                directory 
-	 * If the operation fails, 
-	 * 1.The server returns an
-	 *                HTTP 400 error response, and the body contains an error
-	 *                message
-	 * 
-	 */
-	@Override
-	public String saveGame(int gameID, String fileName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 *
-	 * @param name the name of the saved game file that you want to load
-	 *
-	 * @pre 1.A previously saved game file with the specified name exists in the server’s saves/ directory
-	 * @post If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body. 
-	 *                		2. The game in the specified file has been loaded into the server and its state restored (including its ID). 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	@Override
-	public String loadGame(String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 	/**
 	 * Returns the current state of the game in JSON format, and also includes a
@@ -232,66 +176,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String getGameCurrentState(int version) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Clears out the command history of the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have a valid 
-	 * 						 catan.user and catan.game HTTP cookies)
-	 * @post If the operation succeeds,
-	 * 						1. The game's command history has been cleared out
-	 * 						2. The game's players have NOT been cleared out
-	 * 						3. The server returns an HTTP 200 success response. 
-	 * 						4. The body contains the game's updated client model JSON  
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 						
-	 * 
-	 */
-	@Override
-	public String resetCurrentGame() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Returns a list of commands that have been executed in the current game.
-	 *
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
-	 * 						  catan.user and catan.game HTTP cookies).
-	 * @post If the operation succeeds,
-	 * 						1. The server returns an HTTP 200 success response
-	 * 						2. The body contains a JSON array of commands that have been executed in the game. 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	@Override
-	public String GETCommands() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 
-	 * Executes the specified command list in the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server and joined a game (i.e., they have valid 
-	 * 						  catan.user and catan.game HTTP cookies).
-	 * @postIf the operation succeeds,
-	 * 						1. The passed-in command list has been applied to the game.
-	 * 						2. The server returns an HTTP 200 success response.
-	 * 						3. The body contains the game's updated client model JSON
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	@Override
-	public String POSTCommands() {
+	public ServerResponse getGameCurrentState(int version) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -308,7 +193,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String listAI() {
+	public ServerResponse listAI() {
 		return null;
 	}
 
@@ -329,27 +214,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public String addAIPlayer(String logLevel) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * Sets the server's logging level
-	 * 
-	 * @param logLevel a logLevel, Valid values include: SEVER, WARNING, INFO, CONFIG, FINE, 
-	 * 						FINER, FINEST
-	 * 
-	 * @pre The caller specifies a valid logging level. 
-	 * @post If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body.
-	 * 						2. The Server is using the specified logging level 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	@Override
-	public String changeLogLevel(String logLevel) {
+	public ServerResponse addAIPlayer(String logLevel) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -364,7 +229,7 @@ public class MockServer implements IServer {
 	 * 
 	 */
 	@Override
-	public void sendChat(String type, int playerIndex, String content) {
+	public ServerResponse sendChat(String type, int playerIndex, String content) {
 		// TODO Auto-generated method stub
 
 	}

@@ -419,8 +419,10 @@ public class Player
 	{
 		if (canBuildRoadPiece(hex, edge))
 		{
-			
+			hex.buildRoad(edge);
+			numRoadPiecesRemaining = numRoadPiecesRemaining - 1;
 		}
+		// Then determine adjacent hex and buildRoad on that. Do not decrement numRoadPiecesRemaining the second time!
 		return false;
 	}
 

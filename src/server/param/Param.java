@@ -1,24 +1,26 @@
 package server.param;
 
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class Param {
 
-	String userCookie;
-	String gameCookie; 
+	Map<String, String> headers;
 	
+	protected final String POST = "POST";
+	protected final String GET = "GET";
 	
 	public abstract String getRequest();
 	
+	public void addHeader(String key, String value){
+		if(headers==null){
+			headers = new HashMap<String, String>();
+		}
+		headers.put(key, value);
+	}
 	
-	public String getCookies(){
-		String cookies="";
-		if(userCookie != null){
-			cookies += "catan.user=" + userCookie +";";
-		}
-		if(gameCookie != null){
-			cookies += "catan.game=" + gameCookie;
-		}
-		return cookies;
+	public Map<String, String> getHeaders(){
+		return headers;
 	}
 	
 	public abstract String getRequestType();
