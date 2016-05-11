@@ -443,6 +443,8 @@ public class Player
 			else
 			{
 				RoadPiece piece = hex.buildRoad(edge);
+				// I *think* this works, but we will see.
+				piece.setLocation(edge.getNormalizedLocation());
 				adjacent.buildRoad(edge2);
 				roadPieces.add(piece);
 				return true;
