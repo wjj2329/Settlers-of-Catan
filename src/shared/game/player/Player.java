@@ -1,9 +1,12 @@
 package shared.game.player;
 
+import client.main.Catan;
 import shared.definitions.CatanColor;
+import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
+import shared.game.CatanGame;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -415,15 +418,88 @@ public class Player
 		return true;
 	}
 
+	/**
+	 * Function to build a road segment!
+	 * Only decrease numRoadPiecesRemaining once!
+	 * @param hex: the hex we want to build on. We will also compute the adjacent hex.
+	 * @param edge: the edge that we want to build on. We will also compute the adjacent edge.
+     */
 	public boolean buildRoadPiece(Hex hex, EdgeLocation edge)
 	{
 		if (canBuildRoadPiece(hex, edge))
 		{
-			hex.buildRoad(edge);
 			numRoadPiecesRemaining = numRoadPiecesRemaining - 1;
+			Hex adjacent = computeAdjacentHex(hex, edge);
+			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
+
+			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+			{
+				return false;
+			}
+			else
+			{
+				hex.buildRoad(edge);
+				adjacent.buildRoad(edge2);
+				return true;
+			}
 		}
-		// Then determine adjacent hex and buildRoad on that. Do not decrement numRoadPiecesRemaining the second time!
 		return false;
+	}
+
+	/**
+	 * Computes the neighboring hex which shares the border for the road.
+	 *
+	 * @param initial: the hex which we are computing the neighbor for.
+	 * @param edge: well this direction needs to be modified so we place it in the correct location
+	 *            on the other hex. But java doesn't like passing by reference apparently.
+     */
+	private Hex computeAdjacentHex(Hex initial, EdgeLocation edge)
+	{
+		Hex adjacent = null;
+		switch (edge.getDir())
+		{
+			case NorthWest:
+				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc1);
+				//setMe = new EdgeLocation(loc, edge.getDir().getOppositeDirection());
+				break;
+			case North:
+				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc2);
+				break;
+			case NorthEast:
+				HexLocation loc3 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY() - 1);
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc3);
+				break;
+			case SouthEast:
+				HexLocation loc4 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY());
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc4);
+				break;
+			case South:
+				HexLocation loc5 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() + 1);
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc5);
+				break;
+			case SouthWest:
+				HexLocation loc6 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY() + 1);
+				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc6);
+				break;
+			default:
+				assert false;
+		}
+		assert(adjacent != null);
+		return adjacent;
+	}
+
+	/**
+	 * Each road will exist on TWO hexes. This computes the second one.
+	 *
+	 * @param initial: the initial edgeLocation that we already have
+	 * @param newHex: the new hex that we have computed: the one that shares the road
+	 *              with our initial hex.
+     */
+	private EdgeLocation computeAdjacentEdgeLocation(EdgeLocation initial, Hex newHex)
+	{
+		return new EdgeLocation(newHex.getLocation(), initial.getDir().getOppositeDirection());
 	}
 
 	

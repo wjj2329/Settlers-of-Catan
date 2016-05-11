@@ -2,6 +2,8 @@ package shared.game;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import client.model.Model;
 import shared.chat.Chat;
 import shared.game.map.CatanMap;
@@ -14,7 +16,9 @@ import shared.game.player.Player;
 public class CatanGame
 {
 	public static CatanGame singleton=new CatanGame();
-
+	private Model gameModel = new Model();
+	
+	
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
 	}
@@ -125,14 +129,26 @@ public class CatanGame
 
 	public Model getModel()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return gameModel;
 	}
 
 	public void setModel(Model newModel)
 	{
-		// TODO Auto-generated method stub
+		gameModel = newModel;
 		
+	}
+	public JSONObject serializeModel()
+	{
+		return null;
+	}
+
+		/**
+		 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and
+		 * puts it into the model.
+		 */
+	public void updateFromJSON(JSONObject myobject)
+	{
+
 	}
 
 }
