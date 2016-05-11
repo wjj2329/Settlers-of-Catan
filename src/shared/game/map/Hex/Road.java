@@ -34,6 +34,7 @@ public class Road
 	
 	/**
 	 * canBuildRoad: function to determine whether or not the road can be built
+	 * it's not used yet whoops
 	 */
 	public boolean canBuildRoad()
 	{
