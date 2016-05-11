@@ -422,7 +422,7 @@ public class Player
 	 * Other than the setup, the player must have an adjacent road, city, or
 	 * settlement in order to build a road.
 	 */
-	public boolean canBuildRoad(Hex hex, EdgeLocation edge)
+	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 	{
 		neitherBorderingEdgeHasARoad = false;
 		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
