@@ -7,6 +7,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import shared.game.map.CatanMap;
+import shared.game.map.Hex.Hex;
+import shared.locations.HexLocation;
+
+import java.util.Map;
 
 /**
  * Testing the canBuildRoad function in the Player class.
@@ -16,12 +20,25 @@ import shared.game.map.CatanMap;
 public class TestCanBuildRoadPiece
 {
 	/**
+	 * The map we will be using
+	 */
+	private CatanMap sampleMap = null;
+
+	/**
+	 * All the hexes on the map
+	 */
+	private Map<HexLocation, Hex> hexes;
+	/**
 	 * Overriding setUp function.
 	 */
 	@Before
-	public void setUp()
+	public void setUp() throws Exception
 	{
-
+		sampleMap = new CatanMap(RADIUS);
+		hexes = sampleMap.getHexes();
+		assertNotNull(sampleMap);
+		assertNotNull(hexes);
+		assertEquals(hexes.size(), EXPECTED_SIZE);
 	}
 
 	/**
@@ -30,7 +47,8 @@ public class TestCanBuildRoadPiece
 	@After
 	public void tearDown()
 	{
-
+		sampleMap = null;
+		hexes = null;
 	}
 
 	/**
@@ -44,8 +62,12 @@ public class TestCanBuildRoadPiece
 	 *  road that you are able to build (because there is a max of 15).
 	 */
 	@Test
-	public void testSuccess()
+	public void testSuccessfulCase() throws Exception
 	{
-
+		Hex hex1 = hexes.get(new HexLocation(-2, 0));
+		//assertEquals(new HexLocation(-2, 0), )
 	}
+
+	private static final int RADIUS = 10;
+	private static final int EXPECTED_SIZE = 37;
 }
