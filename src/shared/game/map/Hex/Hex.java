@@ -288,6 +288,41 @@ public class Hex
 		}
 	}
 
+	public void buildRoad(EdgeLocation edgeLocation)
+	{
+		Road road = new Road();
+		// set hasRoad to true, then actually create the Road object and set that.
+		switch (edgeLocation.getDir())
+		{
+			case NorthWest:
+				nw.setHasRoad(true);
+				nw.setRoad(road);
+				break;
+			case North:
+				n.setHasRoad(true);
+				n.setRoad(road);
+				break;
+			case NorthEast:
+				ne.setHasRoad(true);
+				ne.setRoad(road);
+				break;
+			case SouthEast:
+				se.setHasRoad(true);
+				se.setRoad(road);
+				break;
+			case South:
+				s.setHasRoad(true);
+				s.setRoad(road);
+				break;
+			case SouthWest:
+				sw.setHasRoad(true);
+				sw.setRoad(road);
+				break;
+			default:
+				assert false;
+		}
+	}
+
 	/**
 	 * This function checks to see if it is even possible to place Settlements on specific Hex
      */
