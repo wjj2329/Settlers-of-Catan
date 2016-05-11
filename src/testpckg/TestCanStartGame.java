@@ -55,6 +55,7 @@ public class TestCanStartGame
 
 	@Test
 	public void test1() throws Exception {
+		CatanGame.singleton=new CatanGame();
 		CatanGame.singleton.addPlayer(new Player("William", CatanColor.ORANGE, new Index(3)));
 		assertFalse(CatanGame.singleton.canStartGame());
 		CatanGame.singleton.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));

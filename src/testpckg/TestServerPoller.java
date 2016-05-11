@@ -32,7 +32,7 @@ public class TestServerPoller
 	@After
 	public void tearDown()
 	{
-		poller.stop();
+
 	}
 
 	
