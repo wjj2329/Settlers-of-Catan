@@ -509,7 +509,27 @@ public class Player
 		return new EdgeLocation(newHex.getLocation(), initial.getDir().getOppositeDirection());
 	}
 
-	
+	public void  buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
+	{
+		if(canBuildSettlement(buildingon,locationofsettlement))
+		{
+			buildingon.buildSettlement(locationofsettlement);
+			resources.setBrick(resources.getBrick()-1);
+			resources.setWheat(resources.getWheat()-1);
+			resources.setSheep(resources.getSheep()-1);
+			resources.setWood(resources.getWood()-1);
+		}
+	}
+
+	public void buildCity(Hex buildingon, VertexLocation locationforcity)
+	{
+		if(canBuildCity(buildingon,locationforcity))
+		{
+			buildingon.buildCity(locationforcity);
+			resources.setOre(resources.getOre()-3);
+			resources.setWheat(resources.getWheat()-2);
+		}
+	}
 	/**
 	 * Determines whether or not the player can buy/build a road.
 	 * SetUp phase is when the player can place a road wherever they want, I think.
