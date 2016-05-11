@@ -16,7 +16,7 @@ import shared.game.CatanGame;
  */
 public class ModelFacade
 {
-	//CatanGame.singleton
+	public static CatanGame singleton=new CatanGame();
 	public ModelFacade()
 	{
 
@@ -54,15 +54,7 @@ public class ModelFacade
 		JSONObject log=new JSONObject();
 		JSONArray lines2=new JSONArray();
 		GameHistory myhistory=mychat.getGameHistory();
-		for(int i=0; i<myhistory.getLines().size();i++)
-		{
-			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",myhistory.getLines().get(i).getLine());
-			messageandstring.put("source:",myhistory.getLines().get(i).getSource());
-			lines2.put(messageandstring);
-		}
-		log.put("lines:",lines2);
-		myobject.put("chat:", log);
+		//for(int i=0; i<)
 
 		return myobject;
 	}
@@ -76,6 +68,78 @@ public class ModelFacade
 
 	}
 		// TODO Auto-generated constructor stub
+	public ArrayList<Player> getMyplayers()
+	{
+		return singleton.getMyplayers();
+	}
+
+	public void setMyplayers(ArrayList<Player> myplayers)
+	{
+		singleton.setMyplayers(myplayers);
+	}
+
+	public Chat getMychat() 
+	{
+		return singleton.getMychat();
+	}
+
+	public void setMychat(Chat mychat) {
+		singleton.setMychat(mychat);
+	}
+
+	public CatanMap getMymap()
+	{
+		return singleton.getMymap();
+	}
+
+	public void setMymap(CatanMap mymap) {
+		singleton.setMymap(mymap);
+	}
+	
+	public void addPlayer(Player player)
+	{
+		if(canCreatePlayer(player)) {
+			singleton.getMyplayers().add(player);
+		}
+	}
+
+	public boolean canCreatePlayer(Player newplayer)
+	{
+		return singleton.canCreatePlayer(newplayer);
+	}
+
+	/**
+	 *  a function to see if we can start the game
+	 *  @exception throws exception if not able to start the game for anything that would prevent from starting
+	 *  such as not enough players, invalid Map,  Internet problems,  Server failure etc. 
+	 *  @post return true if we can start the game. 
+	 * 	@return
+	 */
+	public boolean canStartGame() throws Exception
+	{
+		return singleton.canStartGame();
+	}
+	/**
+	 * a function that starts the game nothing too fancy.   
+	 */
+	public void startGame()
+	{
+		singleton.startGame();
+	}
+	public void clear()
+	{
+		singleton.clear();
+	}
+
+	public Model getModel()
+	{
+		return singleton.getModel();
+	}
+
+	public void setModel(Model newModel)
+	{
+		singleton.setModel(newModel);		
+	}
 
 	
 }
