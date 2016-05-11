@@ -9,9 +9,8 @@ import org.junit.Test;
 import shared.definitions.CatanColor;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
-import shared.game.map.Hex.Road;
+import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
-import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.*;
@@ -156,10 +155,10 @@ public class TestCanBuildRoadPiece
 		p2.getResources().setBrick(MIN);
 		p2.getResources().setWood(MIN);
 
-		Road road = new Road();
-		road.setPlayerWhoOwnsRoad(p2.getPlayerID());
+		RoadPiece roadPiece = new RoadPiece();
+		roadPiece.setPlayerWhoOwnsRoad(p2.getPlayerID());
 		hex1.setN(new EdgeLocation(loc1, EdgeDirection.North));
-		hex1.getN().setRoad(road);
+		hex1.getN().setRoadPiece(roadPiece);
 		hex1.getN().setHasRoad(true);
 		assertFalse(p1.canBuildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
 	}

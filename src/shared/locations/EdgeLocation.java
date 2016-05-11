@@ -1,6 +1,6 @@
 package shared.locations;
 
-import shared.game.map.Hex.Road;
+import shared.game.map.Hex.RoadPiece;
 
 /**
  * Represents the location of an edge on a hex map
@@ -12,7 +12,7 @@ public class EdgeLocation
 	private EdgeDirection dir;
 	// Added by Alex
 	private boolean hasRoad = false;
-	private Road road = new Road();
+	private RoadPiece roadPiece = new RoadPiece();
 	
 	public EdgeLocation(HexLocation hexLoc, EdgeDirection dir)
 	{
@@ -125,14 +125,14 @@ public class EdgeLocation
 		this.hasRoad = hasRoad;
 	}
 
-	public Road getRoad()
+	public RoadPiece getRoadPiece()
 	{
-		return road;
+		return roadPiece;
 	}
 
-	public void setRoad(Road road)
+	public void setRoadPiece(RoadPiece roadPiece)
 	{
-		this.road = road;
+		this.roadPiece = roadPiece;
 	}
 }
 

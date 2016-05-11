@@ -2,9 +2,7 @@ package shared.game.map.Hex;
 
 import shared.definitions.HexType;
 import shared.definitions.PortType;
-import shared.definitions.ResourceType;
 import shared.game.CatanGame;
-import shared.game.map.Port;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.*;
@@ -289,39 +287,40 @@ public class Hex
 		}
 	}
 
-	public void buildRoad(EdgeLocation edgeLocation)
+	public RoadPiece buildRoad(EdgeLocation edgeLocation)
 	{
-		Road road = new Road();
-		// set hasRoad to true, then actually create the Road object and set that.
+		RoadPiece roadPiece = new RoadPiece();
+		// set hasRoad to true, then actually create the RoadPiece object and set that.
 		switch (edgeLocation.getDir())
 		{
 			case NorthWest:
 				nw.setHasRoad(true);
-				nw.setRoad(road);
+				nw.setRoadPiece(roadPiece);
 				break;
 			case North:
 				n.setHasRoad(true);
-				n.setRoad(road);
+				n.setRoadPiece(roadPiece);
 				break;
 			case NorthEast:
 				ne.setHasRoad(true);
-				ne.setRoad(road);
+				ne.setRoadPiece(roadPiece);
 				break;
 			case SouthEast:
 				se.setHasRoad(true);
-				se.setRoad(road);
+				se.setRoadPiece(roadPiece);
 				break;
 			case South:
 				s.setHasRoad(true);
-				s.setRoad(road);
+				s.setRoadPiece(roadPiece);
 				break;
 			case SouthWest:
 				sw.setHasRoad(true);
-				sw.setRoad(road);
+				sw.setRoadPiece(roadPiece);
 				break;
 			default:
 				assert false;
 		}
+		return roadPiece;
 	}
 
 	/**

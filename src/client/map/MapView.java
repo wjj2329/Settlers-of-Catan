@@ -294,7 +294,7 @@ public class MapView extends PanelView implements IMapView
 			switch (pieceType)
 			{
 				case ROAD:
-					return "Place a Road!";
+					return "Place a RoadPiece!";
 				case SETTLEMENT:
 					return "Place a Settlement!";
 				case CITY:
