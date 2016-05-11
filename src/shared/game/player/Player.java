@@ -425,7 +425,7 @@ public class Player
 	public boolean canBuildRoad(Hex hex, EdgeLocation edge)
 	{
 		neitherBorderingEdgeHasARoad = false;
-		if (resources.getBrick() < 1 || resources.getWood() < 1 || numRoadPiecesRemaining < 1)
+		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
 		{
 			return false;
 		}
@@ -551,6 +551,10 @@ public class Player
 		{
 			neitherBorderingEdgeHasARoad = true;
 		}
+		else
+		{
+			neitherBorderingEdgeHasARoad = false;
+		}
 		return true; // if no issues
 	}
 	
@@ -662,6 +666,7 @@ public class Player
 	}
 
 	private static final int DEFAULT_VAL = 0;
+	private static final int MIN = 1;
 	private static final int TWO_WAY = 2;
 	private static final int THREE_WAY = 3;
 	private static final int FOUR_WAY = 4;
