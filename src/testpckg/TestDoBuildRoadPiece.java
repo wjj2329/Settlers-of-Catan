@@ -35,7 +35,9 @@ public class TestDoBuildRoadPiece
     private Player p1 = new Player(NAME1, CatanColor.BLUE, new Index(0));
     private Player p2 = new Player(NAME2, CatanColor.RED, new Index(1));
     private Hex hex1 = null;
+    private Hex hex2 = null;
     private HexLocation loc1 = null;
+    private HexLocation loc2 = null;
 
     @Before
     public void setUp()
@@ -67,13 +69,29 @@ public class TestDoBuildRoadPiece
         assertTrue(p1.canBuildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
     }
 
+    private void initialize2() throws Exception
+    {
+        p2.setCurrentPlayer(true);
+        loc2 = new HexLocation(0, -1);
+        hex2 = CatanGame.singleton.getMymap().getHexes().get(loc2);
+        Settlement settle2 = new Settlement(loc2, hex2.getNortheast());
+        hex2.getNortheast().setHassettlement(true);
+        hex2.getNortheast().setSettlement(settle2);
+        settle2.setOwner(p2.getPlayerID());
+
+        p2.addToSettlements(settle2);
+        assertTrue(p2.canBuildRoadPiece(hex2, new EdgeLocation(loc2, EdgeDirection.NorthEast)));
+    }
+
     /**
      * A test case that should run successfully. Both types should NOT be water for this case.
      */
     @Test
     public void testSuccess_NeitherHexIsWater() throws Exception
     {
-
+        initialize2();
+        assertTrue(hex2.getResourcetype().equals(HexType.WOOD));
+        assertTrue(p2.buildRoadPiece(hex2, new EdgeLocation(loc2, EdgeDirection.NorthEast)));
     }
 
     /**
