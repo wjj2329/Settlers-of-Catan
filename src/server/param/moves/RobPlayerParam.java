@@ -24,7 +24,7 @@ public class RobPlayerParam extends Param{
 				"playerIndex:" + playerIndex + ", "+
 				"victimIndex:" + victimIndex + ", "+
 				"location:{" +
-					"x:\""+ location.getX() + "\","+ 
+					"x:\""+ location.getX() + "\", "+ 
 					"y:\""+ location.getY() + "\"}"+ 
 				"}";
 	}
