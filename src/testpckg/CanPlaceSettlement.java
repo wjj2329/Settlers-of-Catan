@@ -21,7 +21,6 @@ import shared.locations.VertexLocation;
 
 public class CanPlaceSettlement {
 
-
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
 	private Hex hex1;
@@ -119,6 +118,5 @@ public class CanPlaceSettlement {
 		exception.expect(Exception.class);
 		hex4.buildSettlement(new VertexLocation(new HexLocation(500, 20), VertexDirection.East));
 	}
-
 
 }
