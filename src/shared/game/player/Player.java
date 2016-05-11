@@ -415,6 +415,15 @@ public class Player
 		return true;
 	}
 
+	public boolean buildRoadPiece(Hex hex, EdgeLocation edge)
+	{
+		if (canBuildRoadPiece(hex, edge))
+		{
+			
+		}
+		return false;
+	}
+
 	
 	/**
 	 * Determines whether or not the player can buy/build a road.
