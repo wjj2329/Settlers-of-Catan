@@ -35,6 +35,19 @@ public class Phase1Tests
 				"testpckg.TestCanBuildRoadPiece",
 				"testpckg.TestCanBuyDevCard",
 				"testpckg.TestCanCreatePlayer",
+				"testpckg.TestCanPerformBankTrade",
+				"testpckg.TestCanPerformPlayerTrade",
+				"testpckg.TestCanPlaceCity",
+				"testpckg.TestCanPlaceHex",
+				"testpckg.TestCanPlaceRobber",
+				"testpckg.TestCanPlaceSettlement",
+				"testpckg.TestCanStartGame",
+				"testpckg.TestDoBuildRoadPiece",
+				"testpckg.TestServerPoller",
+				"testpckg.TestServerProxyGame",
+				"testpckg.TestServerProxyGames",
+				"testpckg.TestServerProxyMoves",
+				"testpckg.TestServerProxyUser"
 		};
 
 		org.junit.runner.JUnitCore.main(testClasses);
