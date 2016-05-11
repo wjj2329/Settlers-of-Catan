@@ -48,19 +48,7 @@ public class TestServerProxyMoves {
 		assertEquals(iserver.rollNumber("rollNumber", 2, 4).getResponseCode(), HttpURLConnection.HTTP_OK);		
 	
 	}
-	
-	@Test
-	public void TestValidRobPlayer(){
-		HexLocation location = new HexLocation(0,2);
-		assertEquals(iserver.robPlayer("robPlayer", 0, location, 2).getResponseCode(), HttpURLConnection.HTTP_OK);
-	}
-	
-	@Test 
-	public void TestRobPlayer(){
-		HexLocation hexLocation = new HexLocation(2,2);
-		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);		
-		
-	}
+
 	
 	@Test
 	public void TestFinishTurn(){
@@ -146,6 +134,12 @@ public class TestServerProxyMoves {
 		ResourceList discardedCards = new ResourceList(1, 1, 0, 1, 0);
 		assertEquals(iserver.discardCards("discardCards", 0, discardedCards).getResponseCode(), HttpURLConnection.HTTP_OK);
 	
+	}
+	
+	@Test
+	public void TestRobPlayer(){
+		HexLocation hexLocation = new HexLocation(2,2);
+		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);				
 	}
 	
 }
