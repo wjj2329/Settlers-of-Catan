@@ -10,7 +10,7 @@ public class Index
 	
 	/**
 	 * The constructor!
-	 * @param number: the number itself    
+	 * @param number: the number itself
 	 * @current.mytag1 pre: number is greater than 0
 	 * @exception: if the index number is not found. 
 	 */
