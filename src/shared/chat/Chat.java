@@ -6,6 +6,11 @@ package shared.chat;
  */
 public class Chat 
 {
+
+	public  ChatMessages getChatMessages()
+	{
+		return messages;
+	}
 	/**
 	 * messages: an object that encapsulates all chat messages.
 	 * Will be passed to the GUI.
