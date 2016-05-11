@@ -1,4 +1,4 @@
-﻿<project name="Demo Server" default="server" basedir=".">
+<project name="Demo Server" default="server" basedir=".">
 
 	<!-- PROPERTIES -->
 	<!-- ********** -->	
@@ -35,6 +35,13 @@
 		</fileset>
 	</path>
 
+	<path id="java.lib.classpath">
+		<fileset dir="lib">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+	
+	
 	<!-- TARGETS -->
 	<!-- ******* -->
      
@@ -86,7 +93,9 @@
 	<property name="java.build" location="${java.dir}/build"/>
 	<property name="java.dist" location="${java.dir}/dist"/>
 	<property name="java.lib" location="${java.dir}/lib"/>
- 
+	<property name="java.test" location="test"/>
+	<property name="java.build.Phase1Tests" location="${java.build}/Phase1Tests"/>
+	
 	<target name="init" description="create build directories">
 		<tstamp/>
 		<mkdir dir="${java.build}"/>
@@ -154,6 +163,28 @@
     <target name="make-tester-zip" depends="package" description="makes a zip file for your testing team">
         <zip destfile="./tester.zip" basedir="${java.dist}" />
     </target>
+	
+	<target name="test" depends="compile-test" description="compiles, packages, and runs the student server">
+		<java classname = "testpckg.Phase1Tests" fork="yes">
+			<classpath>
+				<path refid = "java.lib.classpath"/>			
+			</classpath>
+			<classpath>
+				<pathelements location = "${java.build}"/>
+				<pathelements location = "${java.build.Phase1Tests}"/>	
+			</classpath>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
   
+	<target name="compile-test" depends="compile" description="compile the source " >
+		<javac srcdir="${java.test}" destdir="${java.build}" debug="true" includeantruntime="true">
+			<classpath refid="java.lib.classpath" />
+		</javac>
+	</target>
+	
 </project>
 
