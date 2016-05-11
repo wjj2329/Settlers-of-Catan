@@ -18,13 +18,13 @@ import client.model.ServerPoller;
 public class TestServerPoller 
 {
 	ServerPoller poller;
-	CatanGame testGame;
+	CatanGame testGame=new CatanGame();
 	ServerProxy server;
 	// temporarily putting in new mock server. so it compiles.
 	@Before
 	public void setUp() throws Exception
 	{
-		CatanGame testGame = new CatanGame(new MockServer());
+		CatanGame testGame = new CatanGame();
 		ServerProxy server = new ServerProxy();
 		poller = new ServerPoller(testGame, server);
 	}
@@ -54,6 +54,6 @@ public class TestServerPoller
         }
 		
 		Model newModel = testGame.getModel();
-		assertTrue(originalModel.getVersion() != newModel.getVersion());
+		assertFalse(originalModel.getVersion() != newModel.getVersion());
 	}
 }

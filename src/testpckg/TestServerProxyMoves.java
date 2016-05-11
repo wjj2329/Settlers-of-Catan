@@ -1,6 +1,7 @@
 package testpckg;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 import java.net.HttpURLConnection;
 
@@ -139,7 +140,7 @@ public class TestServerProxyMoves {
 	@Test
 	public void TestRobPlayer(){
 		HexLocation hexLocation = new HexLocation(2,2);
-		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);				
+		assertEquals(iserver.robPlayer("robPlayer", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);
 	}
 	
 }

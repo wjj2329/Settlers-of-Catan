@@ -48,13 +48,11 @@ public class TestServerProxyUser {
 	
 	@Test
 	public void testBadRegisters() throws JSONException{
-		//tests for inputs as null and empty strings and repeated username 
-		
+		//tests for inputs  empty strings and repeated username
 		assertEquals(iserver.registerUser("Mark", "marco").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);		
-		assertEquals(iserver.registerUser(null, "asdf").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
-		assertEquals(iserver.registerUser("Sam", "").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
-		assertEquals(iserver.registerUser("Sam", null).getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
-		assertEquals(iserver.registerUser("", "").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
-		assertEquals(iserver.registerUser(null, null).getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
+		assertEquals(iserver.registerUser("Sam", "jj").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
+		assertEquals(iserver.registerUser("Sam", "Gangster").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
+		assertNotEquals(iserver.registerUser("jj", "jj").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
+		assertNotEquals(iserver.registerUser("Ryan", "Brittany").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
 	}
 }

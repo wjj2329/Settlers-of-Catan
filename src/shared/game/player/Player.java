@@ -125,7 +125,7 @@ public class Player
 	/**
 	 * All the RoadPieces owned by the Player
 	 */
-	private ArrayList<RoadPiece> roadPieces = null;
+	private ArrayList<RoadPiece> roadPieces = new ArrayList<>();
 	
 	/**
 	 * How many settlements the player CAN BUILD.

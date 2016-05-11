@@ -26,6 +26,7 @@ public class ServerPoller
 	{
 		this.server = server;
 		this.game = game;
+		requestTimer=new Timer();
 	}
 	
 	/**
