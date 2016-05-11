@@ -85,8 +85,9 @@ public class ModelFacade
 			hexes.put("resource:", mymap.get(loc).getResourcetype());
 			hexes.put("number:", mymap.get(loc).getResourcenumber());
 		}
-		map.put("hexes",hexes);
+		map.put("hexes:",hexes);
 		JSONObject ports=new JSONObject();
+
 		//ports
 		for(HexLocation loc:mymap.keySet())
 		{
@@ -98,10 +99,18 @@ public class ModelFacade
 			ports.put("direction:", mymap.get(loc).getPortLocation());
 		}
 		map.put("ports:",ports);
+
+		JSONObject roads=new JSONObject();
 		//roads
 		for(HexLocation loc:mymap.keySet())
 		{
-			JSONObject roads=new JSONObject();
+
+		}
+		JSONObject settlements=new JSONObject();
+		//settlements
+		for(HexLocation loc:mymap.keySet())
+		{
+			//settlements.put("owner", mymap.get(loc).)
 		}
 
 		return myobject;
