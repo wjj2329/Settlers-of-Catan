@@ -85,7 +85,13 @@ public class ModelFacade
 			hexes.put("resource:", mymap.get(loc).getResourcetype());
 			hexes.put("number:", mymap.get(loc).getResourcenumber());
 		}
+		map.put("hexes",hexes);
 		//ports
+		for(HexLocation loc:mymap.keySet())
+		{
+			JSONObject ports=new JSONObject();
+			ports.put("resource", mymap.get(loc).getPortType());
+		}
 
 		return myobject;
 	}

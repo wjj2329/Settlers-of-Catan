@@ -595,4 +595,9 @@ public class Hex
 	{
 		return this.resourcenumber.getValue();
 	}
+
+	public String getPortType()
+	{
+		return myport.name();
+	}
 }
