@@ -19,7 +19,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class CanPlaceSettlement {
+public class TestCanPlaceSettlement {
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();

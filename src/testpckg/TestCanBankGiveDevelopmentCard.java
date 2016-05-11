@@ -10,7 +10,7 @@ import shared.game.Bank;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 
-public class CanBankGiveDevelopmentCard {
+public class TestCanBankGiveDevelopmentCard {
     /*
     This tests if the bank can give and devleopment cards and throws exceptions if the bank contains negative
     amounts.

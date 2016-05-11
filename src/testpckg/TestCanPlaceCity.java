@@ -14,7 +14,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class CanPlaceCity {
+public class TestCanPlaceCity {
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
