@@ -2,6 +2,7 @@ package shared.game.player;
 
 import client.main.Catan;
 import shared.definitions.CatanColor;
+import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
@@ -417,6 +418,12 @@ public class Player
 		return true;
 	}
 
+	/**
+	 * Function to build a road segment!
+	 * Only decrease numRoadPiecesRemaining once!
+	 * @param hex: the hex we want to build on. We will also compute the adjacent hex.
+	 * @param edge: the edge that we want to build on. We will also compute the adjacent edge.
+     */
 	public boolean buildRoadPiece(Hex hex, EdgeLocation edge)
 	{
 		if (canBuildRoadPiece(hex, edge))
@@ -425,11 +432,17 @@ public class Player
 			Hex adjacent = computeAdjacentHex(hex, edge);
 			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
 
-			hex.buildRoad(edge);
-			adjacent.buildRoad(edge2);
-			return true;
+			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+			{
+				return false;
+			}
+			else
+			{
+				hex.buildRoad(edge);
+				adjacent.buildRoad(edge2);
+				return true;
+			}
 		}
-		// Then determine adjacent hex and buildRoad on that. Do not decrement numRoadPiecesRemaining the second time!
 		return false;
 	}
 
