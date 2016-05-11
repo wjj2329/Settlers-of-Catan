@@ -30,7 +30,11 @@ public class Phase1Tests
 
 		String[] testClasses = new String[] {
 				"testpckg.TestCanBankGiveDevelopmentCard",
-				"testpckg.TestCanBankGiveResourceCard"
+				"testpckg.TestCanBankGiveResourceCard",
+				"testpckg.TestCanBeRobbed",
+				"testpckg.TestCanBuildRoadPiece",
+				"testpckg.TestCanBuyDevCard",
+				"testpckg.TestCanCreatePlayer",
 		};
 
 		org.junit.runner.JUnitCore.main(testClasses);
