@@ -137,6 +137,12 @@ public class Player
 	private int numVictoryPoints = 0;
 
 	/**
+	 * Creating this because Java doesn't like passing booleans by reference -_-
+	 * Please do not delete
+	 */
+	boolean neitherBorderingEdgeHasARoad = false;
+
+	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
 	 * I.e. is it your turn?
 	 */
@@ -293,8 +299,8 @@ public class Player
 	 * Function to determine whether or not the player can trade with the bank
 	 * based on the parameters of their particular trade.
 	 * Need to replace sampleBank with Bank singleton most likely.
-	 * @param tradeType
-	 * @param typeFor_3_Or4Way
+	 * @param tradeType: the type of trade being performed, based on the port type
+	 * @param typeFor_3_Or4Way: if it's 3-way or 4-way, we will need additional specifications
 	 * @param typeRequesting: which type the player wants!
 	 *
 	 * Second PortType is only necessary if there is a 3:1 or 4:1 trade. This is because it is saved as THREE
@@ -351,7 +357,7 @@ public class Player
 				}
 				break;
 			default:
-				assert(false);
+				assert false;
 		}
 		if (!Bank.getSingleton().CanBankGiveResourceCard(typeRequesting))
 		{
@@ -416,8 +422,9 @@ public class Player
 	 * Other than the setup, the player must have an adjacent road, city, or
 	 * settlement in order to build a road.
 	 */
-	public boolean canBuildRoad(Hex hex, EdgeLocation edge, boolean setupPhase)
+	public boolean canBuildRoad(Hex hex, EdgeLocation edge)
 	{
+		neitherBorderingEdgeHasARoad = false;
 		if (resources.getBrick() < 1 || resources.getWood() < 1 || numRoadPiecesRemaining < 1)
 		{
 			return false;
@@ -483,8 +490,16 @@ public class Player
 		{
 			return false;
 		}
-		// other city case
+		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
+		{
+			return false;
+		}
 		// there HAS to be a city, settlement, or road adjacent to it.
+		if (!vertexClockwiseLower.isHassettlement() && !vertexClockwiseUpper.isHassettlement()
+				&& !vertexClockwiseLower.isHascity() && !vertexClockwiseUpper.isHascity() && neitherBorderingEdgeHasARoad)
+		{
+			return false;
+		}
 
 		return true;
 	}
@@ -531,9 +546,10 @@ public class Player
 		{
 			return false;
 		}
+		// doesn't work completely because they CAN build it if they have a city there.
 		if (!adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseDown.hasRoad())
 		{
-			return false;
+			neitherBorderingEdgeHasARoad = true;
 		}
 		return true; // if no issues
 	}
