@@ -571,11 +571,6 @@ public class ServerProxy implements IServer {
 	public ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex){
 		final String URL_SUFFIX = "/moves/robPlayer";
 		
-		assert playerIndex >= 0;
-		assert victimIndex >= -1;
-		assert type != null;
-		assert location != null;
-		
 		Param param = new RobPlayerParam(type, playerIndex, location, victimIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
