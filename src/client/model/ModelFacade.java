@@ -8,6 +8,10 @@ import shared.chat.ChatMessages;
 import shared.chat.GameHistory;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.map.CatanMap;
+import shared.game.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * 
@@ -54,8 +58,21 @@ public class ModelFacade
 		JSONObject log=new JSONObject();
 		JSONArray lines2=new JSONArray();
 		GameHistory myhistory=mychat.getGameHistory();
-		//for(int i=0; i<)
+		for(int i=0; i<myhistory.getLines().size();i++)
+		{
+			JSONObject messageandstring=new JSONObject();
+			messageandstring.put("message:",myhistory.getLines().get(i).getLine());
+			messageandstring.put("source:",myhistory.getLines().get(i).getSource());
+			lines2.put(messageandstring);
+		}
+		log.put("lines:",lines2);
+		myobject.put("chat:", log);
 
+		//map
+		//hexes
+		JSONObject map=new JSONObject();
+		JSONArray hexes=new JSONArray();
+		//for(int i=0; i<)
 		return myobject;
 	}
 
