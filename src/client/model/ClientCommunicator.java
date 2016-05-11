@@ -115,8 +115,7 @@ public class ClientCommunicator
 	ModelFacade myobject=new ModelFacade();
 
 	//william
-	public JSONObject serializeModel()
-	{
+	public JSONObject serializeModel() throws JSONException {
 
 		return myobject.serializeModel();
 	}

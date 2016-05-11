@@ -1,39 +1,59 @@
 package shared.game.map.Hex;
 
-import shared.locations.HexLocation;
+import shared.game.map.Index;
+import shared.locations.EdgeLocation;
+
+import java.util.ArrayList;
 
 /**
  * @author Alex
- * RoadPiece: The individual components that make up a road.
- * They are bought and placed one at a time. 
+ * RoadPiece class: represents the roads that players can build.
+ * Made up of RoadPieces.
+ *
+ * I found that the Road class was largely unnecessary. We can just use the RoadPiece.
+ * Then, the Player will have an arrayList of RoadPieces.
  */
-public class RoadPiece 
+public class RoadPiece
 {
-	/**
-	 * BuildingCost: Price of constructing the road piece.
-	 */
-	private int buildingCost = 0;
+
+	private EdgeLocation location = null;
+
+	private Index playerWhoOwnsRoad = null;
 	
 	/**
-	 * Constructor:
-	 * @pre buildingCost is greater than 0. 
-	 * @post same.
+	 * RoadPiece constructor
 	 */
-	public RoadPiece(int buildingCost)
+	public RoadPiece()
 	{
-		this.buildingCost = buildingCost;
+		
 	}
 	
 	/**
-	 * Determines whether or not we can place a road piece
-	 * at a particular given location. 
-	 * @param loc: the location we are querying.
-	 * @pre loc is not null
-	 * @post same as pre.
-	 * @exception: throws exception if hex location is not found
+	 * canBuildRoad: function to determine whether or not the road can be built
+	 * it's not used yet whoops
 	 */
-	public boolean canPlaceRoadAtLoc(HexLocation loc)
+	public boolean canBuildRoad()
 	{
 		return false;
+	}
+
+	public Index getPlayerWhoOwnsRoad()
+	{
+		return playerWhoOwnsRoad;
+	}
+
+	public void setPlayerWhoOwnsRoad(Index playerWhoOwnsRoad)
+	{
+		this.playerWhoOwnsRoad = playerWhoOwnsRoad;
+	}
+
+	public EdgeLocation getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(EdgeLocation location)
+	{
+		this.location = location;
 	}
 }

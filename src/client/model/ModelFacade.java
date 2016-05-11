@@ -23,10 +23,10 @@ import java.util.Map;
  */
 public class ModelFacade
 {
-	public static CatanGame singleton=new CatanGame();
+	private CatanGame singleton;
 	public ModelFacade()
 	{
-
+		singleton = CatanGame.singleton;
 	}
 
 	public JSONObject serializeModel() throws JSONException

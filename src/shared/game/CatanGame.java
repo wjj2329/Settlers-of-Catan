@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.json.JSONObject;
 
 import client.model.Model;
+import client.model.ServerPoller;
+import server.proxies.IServer;
 import shared.chat.Chat;
 import shared.game.map.CatanMap;
 import shared.game.player.Player;
@@ -15,9 +17,26 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
-	public static CatanGame singleton=new CatanGame();
+	public static CatanGame singleton = null;
 	private Model gameModel = new Model();
+	ServerPoller poller;
+	IServer server;	
+	private ArrayList<Player>myplayers=new ArrayList();
+	CatanMap mymap;
+	Chat mychat=new Chat();
 	
+	public CatanGame(IServer server) throws Exception
+	{
+		 if(singleton == null)
+		 {
+			 singleton = this;
+			 this.server = server;
+		 }
+		 else
+		 {
+			 throw new Exception();
+		 }
+	}
 	
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
@@ -68,21 +87,7 @@ public class CatanGame
 			}
 		}
 		return true;
-	}
-	
-	/**
-	 * an array containing the players for the game. 
-	 */
-	private ArrayList<Player>myplayers=new ArrayList();
-	/**
-	 * the map for the game. 
-	 */
-	CatanMap mymap;
-	/**
-	 * the chat system
-	 */
-	Chat mychat=new Chat();
-	
+	}	
 	/**
 	 *  a function to see if we can start the game
 	 *  @exception throws exception if not able to start the game for anything that would prevent from starting
@@ -118,7 +123,8 @@ public class CatanGame
 	 */
 	public void startGame()
 	{
-		
+		poller = new ServerPoller(this, server);
+		poller.startPoller();
 	}
 	public void clear()
 	{

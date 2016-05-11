@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import client.main.Catan;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
-import shared.game.map.Hex.Road;
+import shared.game.map.Hex.RoadPiece;
 import shared.game.map.vertexobject.VertexObject;
 import shared.locations.HexLocation;
 
@@ -36,11 +35,11 @@ public class CatanMap
 	private ArrayList<Port> ports = new ArrayList<>();
 	
 	/**
-	 * roads: List of all the roads on the map.
+	 * roadPieces: List of all the roadPieces on the map.
 	 * This will be dynamically updated as players 
-	 * build roads at different map locations.
+	 * build roadPieces at different map locations.
 	 */
-	private ArrayList<Road> roads = new ArrayList<>();
+	private ArrayList<RoadPiece> roadPieces = new ArrayList<>();
 	
 	/**
 	 * settlements: List of all current settlements on map.
@@ -212,12 +211,12 @@ public class CatanMap
 		this.ports = ports;
 	}
 
-	public ArrayList<Road> getRoads() {
-		return roads;
+	public ArrayList<RoadPiece> getRoadPieces() {
+		return roadPieces;
 	}
 
-	public void setRoads(ArrayList<Road> roads) {
-		this.roads = roads;
+	public void setRoadPieces(ArrayList<RoadPiece> roadPieces) {
+		this.roadPieces = roadPieces;
 	}
 
 	public ArrayList<VertexObject> getCities() {

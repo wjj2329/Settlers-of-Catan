@@ -1,6 +1,5 @@
 package shared.game.player;
 
-import client.main.Catan;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
@@ -10,12 +9,12 @@ import shared.game.CatanGame;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
 import shared.game.map.Port;
 import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
-import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -122,6 +121,11 @@ public class Player
 	 * Updated dynamically. 
 	 */
 	private int numRoadPiecesRemaining = 15;
+
+	/**
+	 * All the RoadPieces owned by the Player
+	 */
+	private ArrayList<RoadPiece> roadPieces = null;
 	
 	/**
 	 * How many settlements the player CAN BUILD.
@@ -438,8 +442,11 @@ public class Player
 			}
 			else
 			{
-				hex.buildRoad(edge);
+				RoadPiece piece = hex.buildRoad(edge);
+				// I *think* this works, but we will see.
+				piece.setLocation(edge.getNormalizedLocation());
 				adjacent.buildRoad(edge2);
+				roadPieces.add(piece);
 				return true;
 			}
 		}
@@ -625,11 +632,11 @@ public class Player
 			default:
 				assert false;
 		}
-		if (adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseUp.getRoad().getPlayerWhoOwnsRoad().equals(playerID))
+		if (adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseUp.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return false;
 		}
-		if (adjacentEdgeClockwiseDown.hasRoad() && !adjacentEdgeClockwiseDown.getRoad().getPlayerWhoOwnsRoad().equals(playerID))
+		if (adjacentEdgeClockwiseDown.hasRoad() && !adjacentEdgeClockwiseDown.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return false;
 		}
@@ -765,5 +772,20 @@ public class Player
 
 	public int getRoadSize() {
 		return roadSize;
+	}
+
+	public ArrayList<RoadPiece> getRoadPieces()
+	{
+		return roadPieces;
+	}
+
+	public void setRoadPieces(ArrayList<RoadPiece> roadPieces)
+	{
+		this.roadPieces = roadPieces;
+	}
+
+	public void addToRoadPieces(RoadPiece roadPiece)
+	{
+		roadPieces.add(roadPiece);
 	}
 }

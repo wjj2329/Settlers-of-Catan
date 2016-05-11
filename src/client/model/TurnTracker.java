@@ -64,9 +64,9 @@ public class TurnTracker implements Serializable
 	}
 	/**
 	  * A function that updates at the start of the turn the player with 
-	  * the largest Road
+	  * the largest RoadPiece
 	  *  * @pre There must be a player that has at least 3 continuous road pieces before this card can be given.
-	  * @post Player is updates as having the Largest Road Card. 
+	  * @post Player is updates as having the Largest RoadPiece Card.
 	  */
 	public Player updateUserWithLongestRoad(ArrayList<Player> allplayers)
 	{

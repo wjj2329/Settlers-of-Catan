@@ -2,6 +2,7 @@ package client.model;
 
 import java.util.ArrayList;
 
+import server.proxies.MockServer;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
@@ -37,10 +38,10 @@ public class Model
 	
 	/**
 	 * CreateGame function: Creates a new game.
+	 * I changed this to NewMockServer so that nothing breaks.
 	 **/
-	public void createGame()
-	{
-		gamelist.add(new CatanGame());
+	public void createGame() throws Exception {
+		gamelist.add(new CatanGame(new MockServer()));
 	}
 	
 	/**

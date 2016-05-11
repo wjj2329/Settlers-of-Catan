@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
 
+import server.proxies.MockServer;
 import server.proxies.ServerProxy;
 import shared.game.CatanGame;
 import client.model.Model;
@@ -19,10 +20,11 @@ public class TestServerPoller
 	ServerPoller poller;
 	CatanGame testGame;
 	ServerProxy server;
+	// temporarily putting in new mock server. so it compiles.
 	@Before
-	public void setUp()
+	public void setUp() throws Exception
 	{
-		CatanGame testGame = new CatanGame();
+		CatanGame testGame = new CatanGame(new MockServer());
 		ServerProxy server = new ServerProxy();
 		poller = new ServerPoller(testGame, server);
 	}
