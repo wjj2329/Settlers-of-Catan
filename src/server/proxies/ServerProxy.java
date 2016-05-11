@@ -4,7 +4,12 @@ package server.proxies;
 import client.data.*;
 import client.model.ClientCommunicator;
 import client.model.Model;
-import server.param.*;
+import server.param.user.*;
+import server.response.ServerResponse;
+import server.param.moves.*;
+import server.param.Param;
+import server.param.game.*;
+import server.param.games.*;
 import shared.definitions.*;
 import shared.game.ResourceList;
 import shared.locations.*;
@@ -41,17 +46,20 @@ public class ServerProxy implements IServer {
 	 * 
 	 */ //GET
 	@Override
-	public boolean loginUser(String username, String password) throws JSONException {
+	public ServerResponse loginUser(String username, String password){
 		final String URL_SUFFIX = "/user/login";
+
+		assert username != null;
+		assert username.length() > 0;
+		assert password != null;
+		assert password.length() > 0; 
+		
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
 		Param param = new LoginParam(username, password);
-		String responseData = clientCommunicator.send(URL_SUFFIX, param);
-		if(responseData.equals("Success")){
-			return true;
-		}
-	
-		return false; 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		usercookie = response.getUserCookie();
+		return response;
 	}
 
 	/**
@@ -78,16 +86,20 @@ public class ServerProxy implements IServer {
 	 *  1. The server returns and HTTP 400 error response, and the body contains an error message.
 	 */ //POST
 	@Override
-	public String registerUser(String username, String password) throws JSONException {
+	public ServerResponse registerUser(String username, String password){
 		final String URL_SUFFIX = "/user/register";
+		
+		assert username != null;
+		assert username.length() > 0;
+		assert password != null;
+		assert password.length() > 0; 
 		
 		Param param = new RegisterParam(username, password);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		// TODO Auto-generated method stub
-		return null;
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		usercookie = response.getUserCookie();
+		return response;
 	}
 
 	/**
@@ -103,23 +115,20 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET 
 	@Override
-	public String getAllCurrentGames() throws JSONException {
+	public ServerResponse getAllCurrentGames() {
 		final String URL_SUFFIX = "/games/list";
 		
 		Param param = new ListAllGamesParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		// TODO Auto-generated method stub
-		return null;	
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
 	 * Creates a new game on the server.
 	 * 
-	 * @param name
-	 *            game name
+	 * @param name game name
 	 * @param randomTiles if random tiles will be created
 	 * @param randomNumbers if random numbers will be assigned
 	 * @param randomPorts  if random ports will be created
@@ -135,16 +144,17 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) throws JSONException {
+	public ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
 		final String URL_SUFFIX = "/games/create";
+		
+		assert name != null;
+		assert name.length() > 0; 
 		
 		Param param = new CreateGameParam(name, randomTiles, randomNumbers, randomPorts);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		// TODO Auto-generated method stub
-		return null;
+
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -172,84 +182,25 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///POST
 	@Override
-	public String JoinGame(int gameID, String color) throws JSONException {
+	public ServerResponse JoinGame(int gameID, String color) {
 		final String URL_SUFFIX = "/games/join";
 		
+		assert gameID >= 0;
+		assert usercookie != null;
+		assert usercookie.length() >0;
+		assert color != null;
+		assert color.length() > 0;
+		
 		Param param = new JoinGameParam(gameID, color);
+		param.addHeader("Cookie", "catan.user=" + usercookie);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		// TODO Auto-generated method stub
-		return null;
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		gamecookie = response.getGameCookie();
+		return response;
 	}
 
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 * @param gameID the id of the game to be saved
-	 * @param fileName the file name you want to save it under
-	 * 
-	 * @pre 1.The specified game ID is valid 2.The specified file
-	 *                name is valid(i.e.,not null or empty)
-	 * @postIf the operation succeeds, 1. The server returns an
-	 *                HTTP 200 success response with "Success" in the body. 2.
-	 *                The current state of specified game (including its ID) has
-	 *                been saved to the specified file in the server's saves/
-	 *                directory If the operation fails, 1.The server returns an
-	 *                HTTP 400 error response, and the body contains an error
-	 *                message
-	 * 
-	 *///POST
-	@Override
-	public String saveGame(int gameID, String fileName) throws JSONException {
-		final String URL_SUFFIX = "/games/save";
-		
-		Param param = new JoinGameParam(gameID, fileName);
-		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
-	}
-
-	/**
-	 * This method is for testing and debugging purposes. When a bug is found,
-	 * you can use the /games/saves method to save the state of the game to
-	 * file, and attach the file to a bug report. A developer can later restore
-	 * the state of the game when the bug occurred by loading the previously
-	 * saved file using the /game/load/ method. Game files are saved to and
-	 * loaded from the server's saves/directory.
-	 *
-	 * @param name the name of the saved game file that you want to load
-	 *
-	 * @pre 1.A previously saved game file with the specified
-	 *                name exists in the server’s saves/ directory
-	 * @post If the operation succeeds, 1. The server returns an
-	 *                HTTP 200 success response with "Success" in the body. 2.
-	 *                The game in the specified file has been loaded into the
-	 *                server and its state restored (including its ID). If the
-	 *                operation fails, 1.The server returns an HTTP 400 error
-	 *                response, and the body contains an error message
-	 * 
-	 *///POST
-	@Override
-	public String loadGame(String name) throws JSONException {
-		final String URL_SUFFIX = "/games/load";
-		
-		Param param = new LoadGameParam(name);
-		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
-	}
-
+	
 	/**
 	 * Returns the current state of the game in JSON format, and also includes a
 	 * "version" number for the client model.
@@ -275,83 +226,23 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET - necesita galleta! haha
 	@Override
-	public String getGameCurrentState(int version) throws JSONException {
+	public ServerResponse getGameCurrentState(int version) {
 		final String URL_SUFFIX = "/game/model";
+		
+		assert version >= 0;
+		assert usercookie != null;
+		assert usercookie.length() >0;
+		assert gamecookie != null;
+		assert gamecookie.length() >0;
 		
 		Param param = new GetGameCurrentStateParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
-	}
 
-	/**
-	 * Clears out the command history of the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server
-	 *                and joined a game (i.e., they have a valid catan.user and
-	 *                catan.game HTTP cookies)
-	 * @post If the operation succeeds, 1. The game's command
-	 *                history has been cleared out 2. The game's players have
-	 *                NOT been cleared out 3. The server returns an HTTP 200
-	 *                success response. 4. The body contains the game's updated
-	 *                client model JSON If the operation fails, 1.The server
-	 *                returns an HTTP 400 error response, and the body contains
-	 *                an error message
-	 * 
-	 * 
-	 *///POST needs cookie! 
-	@Override
-	public String resetCurrentGame() throws JSONException {
-		final String URL_SUFFIX = "/game/reset";
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
+		param.addHeader("version", String.valueOf(version));
 		
-		Param param = new ResetCurrentGameParam();
-		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
-	}
-
-	/**
-	 * Returns a list of commands that have been executed in the current game.
-	 *
-	 * @pre 1. The caller has previously logged in to the server
-	 *                and joined a game (i.e., they have valid catan.user and
-	 *                catan.game HTTP cookies).
-	 * @post If the operation succeeds, 1. The server returns an
-	 *                HTTP 200 success response 2. The body contains a JSON
-	 *                array of commands that have been executed in the game. If
-	 *                the operation fails, 1.The server returns an HTTP 400
-	 *                error response, and the body contains an error message
-	 * 
-	 *///GET
-	@Override
-	public String GETCommands() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	/**
-	 * 
-	 * Executes the specified command list in the current game.
-	 * 
-	 * @pre 1. The caller has previously logged in to the server
-	 *                and joined a game (i.e., they have valid catan.user and
-	 *                catan.game HTTP cookies).
-	 * @postIf the operation succeeds, 1. The passed-in command
-	 *                list has been applied to the game. 2. The server returns
-	 *                an HTTP 200 success response. 3. The body contains the
-	 *                game's updated client model JSON If the operation fails,
-	 *                1.The server returns an HTTP 400 error response, and the
-	 *                body contains an error message
-	 * 
-	 *///POST needs game cookie
-	@Override
-	public String POSTCommands() {
-		// TODO Auto-generated method stub
-		return null;
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -367,15 +258,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 *///GET
 	@Override
-	public String listAI() throws JSONException {
+	public ServerResponse listAI(){
 		final String URL_SUFFIX = "/game/listAI";
 		
 		Param param = new ListAIParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
+
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -399,42 +291,23 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public String addAIPlayer(String logLevel) throws JSONException {
+	public ServerResponse addAIPlayer(String logLevel) {
 		final String URL_SUFFIX = "/game/addAI";
+		
+		assert logLevel != null;
+		assert usercookie != null;
+		assert gamecookie !=null;
 		
 		Param param = new AddAIParam(logLevel);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
+
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
-	/**
-	 * Sets the server's logging level
-	 * 
-	 * @param logLevel a logLevel, Valid values include: SEVER, WARNING, INFO, CONFIG, FINE, 
-	 * 						FINER, FINEST
-	 * 
-	 * @pre The caller specifies a valid logging level. 
-	 * @post If the operation succeeds, 
-	 * 						1. The server returns an HTTP 200 success response with "Success" in the body.
-	 * 						2. The Server is using the specified logging level 
-	 *                		If the operation fails, 
-	 *                		1.The server returns an HTTP 400 error response, and the body contains an error message
-	 * 
-	 */
-	@Override
-	public String changeLogLevel(String logLevel) throws JSONException {
-		final String URL_SUFFIX = "/util/changeLogLevel";
-		
-		Param param = new ChangeLogLevelParam(logLevel);
-		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
-		return null;
-	}
+
 
 	/**
 	 * @param type
@@ -449,14 +322,22 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void sendChat(String type, int playerIndex, String content) throws JSONException {
+	public ServerResponse sendChat(String type, int playerIndex, String content){
 		final String URL_SUFFIX = "/moves/sendChat";
+		
+		assert type !=null;
+		assert content != null;
+		assert playerIndex >0;
+		assert usercookie != null;
+		assert gamecookie != null;
 		
 		Param param = new SendChatParam(type, playerIndex, content);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
+
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -475,14 +356,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void acceptTrade(String type, int playerIndex, boolean willAccept) throws JSONException {
+	public ServerResponse acceptTrade(String type, int playerIndex, boolean willAccept) {
 		final String URL_SUFFIX = "/moves/acceptTrade";
 		
 		Param param = new AcceptTradeParam(type, playerIndex, willAccept);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -502,14 +385,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void discardCards(String type, int playerIndex, ResourceList discardedCards) throws JSONException {
+	public ServerResponse discardCards(String type, int playerIndex, ResourceList discardedCards){
 		final String URL_SUFFIX = "/moves/discardCards";
 		
 		Param param = new DiscardCardsParam(type, playerIndex, discardedCards);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -527,15 +412,20 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void rollNumber(String type, int playerIndex, int number) throws JSONException {
+	public ServerResponse rollNumber(String type, int playerIndex, int number){
 		final String URL_SUFFIX = "/moves/rollNumber";
+		
+		assert type != null;
+		assert playerIndex >=0;
+		assert number >= 2;
 		
 		Param param = new RollNumberParam(type, playerIndex, number);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
 
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -559,15 +449,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) throws JSONException {
+	public ServerResponse buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation){
 		final String URL_SUFFIX = "/moves/buildRoad";
 		
 		Param param = new BuildRoadParam(type, playerIndex, roadLocation, free);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -594,16 +485,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) throws JSONException {
+	public ServerResponse buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation){
 		final String URL_SUFFIX = "/moves/buildSettlement";
 		
 		Param param = new BuildSettlementParam(type, playerIndex, vertexLocation, free);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
 
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -624,15 +515,18 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buildCity(String type, int playerIndex, VertexLocation vertexLocation) throws JSONException {
+	public ServerResponse buildCity(String type, int playerIndex, VertexLocation vertexLocation){
 		final String URL_SUFFIX = "/moves/buildCity";
 		
 		Param param = new BuildCityParam(type, playerIndex, vertexLocation);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
 		clientCommunicator.send(URL_SUFFIX, param);
+		
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -648,15 +542,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void offerTrade(String type, int playerIndex, ResourceList offer,int receiver) throws JSONException {
+	public ServerResponse offerTrade(String type, int playerIndex, ResourceList offer,int receiver) {
 		final String URL_SUFFIX = "/moves/offerTrade";
 		
 		Param param = new OfferTradeParam(type, playerIndex, offer, receiver);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
-		
 
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
+
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -673,14 +568,21 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void robPlayer(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException {
+	public ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex){
 		final String URL_SUFFIX = "/moves/robPlayer";
+		
+		assert playerIndex >= 0;
+		assert victimIndex >= -1;
+		assert type != null;
+		assert location != null;
 		
 		Param param = new RobPlayerParam(type, playerIndex, location, victimIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -695,15 +597,19 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void finishTurn(String type, int playerIndex) throws JSONException {
+	public ServerResponse finishTurn(String type, int playerIndex){
 		final String URL_SUFFIX = "/moves/finishTurn";
+		
+		assert playerIndex >= 0;
+		assert type != null;
 		
 		Param param = new FinishTurnParam(type, playerIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
 
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -718,15 +624,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void buyDevCard(String type, int playerIndex) throws JSONException {
+	public ServerResponse buyDevCard(String type, int playerIndex) {
 		final String URL_SUFFIX = "/moves/buyDevCard";
 		
 		Param param = new BuyDevCardParam(type, playerIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -746,15 +653,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) throws JSONException {
+	public ServerResponse playSoldier(String type, int playerIndex, HexLocation location, int victimIndex){
 		final String URL_SUFFIX = "/moves/Soldier";
 		
 		Param param = new PlaySoldierParam(type, playerIndex, location, victimIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -771,15 +679,17 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playYearofPlenty(String type, int playerIndex, String resource1, String resource2) throws JSONException {
+	public ServerResponse playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
 		final String URL_SUFFIX = "/moves/Year_of_Plenty";
+		
 		
 		Param param = new PlayYearOfPlentyParam(type, playerIndex, resource1, resource2);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -798,15 +708,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws JSONException {
+	public ServerResponse playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		final String URL_SUFFIX = "/moves/Road_Building";
 		
 		Param param = new PlayRoadBuildingParam(type, playerIndex, spot1, spot2);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -821,15 +732,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playMonopoly(String type, int playerIndex, String resource) throws JSONException {
+	public ServerResponse playMonopoly(String type, int playerIndex, String resource){
 		final String URL_SUFFIX = "/moves/Monopoly";
 		
 		Param param = new PlayMonopolyParam(type, playerIndex, resource);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
-		clientCommunicator.send(URL_SUFFIX, param);
 
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	/**
@@ -844,15 +756,16 @@ public class ServerProxy implements IServer {
 	 * 
 	 */
 	@Override
-	public void playMonument(String type, int playerIndex) throws JSONException {
+	public ServerResponse playMonument(String type, int playerIndex) {
 		final String URL_SUFFIX = "/moves/Monument";
 		
 		Param param = new PlayMonumentParam(type, playerIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
-
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 	}
 
 	@Override
@@ -883,14 +796,16 @@ public class ServerProxy implements IServer {
 	 */
 	
 	@Override
-	public void maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) throws JSONException {
+	public ServerResponse maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) {
 		final String URL_SUFFIX = "/moves/maritimeTrade";
 		
 		Param param = new MaritimeTradeParam(type, playerIndex, ratio, inputResource, outputResource);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
-		clientCommunicator.send(URL_SUFFIX, param);
+		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
+		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		return response;
 
 	}
 
