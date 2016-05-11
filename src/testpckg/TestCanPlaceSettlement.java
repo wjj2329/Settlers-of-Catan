@@ -33,6 +33,7 @@ public class TestCanPlaceSettlement {
 		CatanGame.singleton.setMymap(new CatanMap(5));
 		hex1=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
 		hex2=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
+		hex3=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
 		hex4=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(500,20));//invalid hex
 	}
 

@@ -37,6 +37,11 @@ public class CatanGame
 			 throw new Exception();
 		 }
 	}
+	//for testting purposes only
+	public CatanGame()
+	{
+		singleton=this;
+	}
 	
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;

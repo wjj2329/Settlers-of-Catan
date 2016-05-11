@@ -1,13 +1,20 @@
 package testpckg;
 
+import client.model.Model;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import server.proxies.IServer;
+import server.response.ServerResponse;
 import shared.definitions.CatanColor;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -31,6 +38,7 @@ public class TestCanCreatePlayer
         p2 = new Player("Matthew", CatanColor.BROWN, new Index(1));
         p3 = new Player("Alex", CatanColor.RED, new Index(2));
         p4 = new Player("Alex", CatanColor.RED, new Index(3));
+        CatanGame.singleton=new CatanGame();
         CatanGame.singleton.addPlayer(p1);
     }
 
