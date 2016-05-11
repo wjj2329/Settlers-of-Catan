@@ -7,11 +7,14 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 import org.json.JSONException;
 
 import org.json.JSONObject;
 import server.param.Param;
+import server.response.ServerResponse;
 
 /**
  * @author William
@@ -42,18 +45,23 @@ public class ClientCommunicator
 	 * @pre urlpath and data are not null
 	 * @exception: throws exception if URL path or Data are invalid. 
 	 */
-	public String send(String urlsuffix, Param data) throws JSONException {
+	public ServerResponse send(String urlsuffix, Param data) {
 		URL url;
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 			connection.setRequestMethod(data.getRequestType());
 			connection.setDoOutput(true);
+			
+			if(data.getHeaders() != null){
+				for(String string: data.getHeaders().keySet()){
+					connection.addRequestProperty(string, data.getHeaders().get(string));
+				}
+			}
+			
 			connection.connect();
 
-			if(!data.getCookies().isEmpty()){
-				connection.addRequestProperty("cookie:",data.getCookies());
-			}
+			
 
 			if(data.getRequestType().equals("POST")){
 				OutputStream requestBody = connection.getOutputStream();
@@ -61,9 +69,10 @@ public class ClientCommunicator
 	            requestBody.close();
 			}
 
-
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-
+				
+				 Map<String, List<String>> headers = connection.getHeaderFields();
+				String galleta = connection.getHeaderField("Set-cookie");
                 InputStream responseBody = connection.getInputStream();
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -74,10 +83,15 @@ public class ClientCommunicator
                 }
 
                 String responseBodyData = baos.toString();
-                return responseBodyData;
+                ServerResponse response = new ServerResponse(galleta, connection.getResponseCode());
+                response.setCookie(galleta);
+                
+                return response;
             }
             else {
-                return null;
+            	ServerResponse response = new ServerResponse();
+            	response.setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST);
+                return response;
 
             }
 

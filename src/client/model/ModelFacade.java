@@ -1,6 +1,11 @@
 package client.model;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
+import shared.chat.Chat;
+import shared.chat.ChatMessages;
+import shared.game.Bank;
 import shared.game.CatanGame;
 
 /**
@@ -11,13 +16,36 @@ import shared.game.CatanGame;
 public class ModelFacade
 {
 	//CatanGame.singleton
-	public ModelFacade() {
+	public ModelFacade()
+	{
+
 	}
 
-	public JSONObject serializeModel()
+	public JSONObject serializeModel() throws JSONException
 	{
-			JSONObject myobject=null;
-			return myobject;
+		JSONObject myobject=new JSONObject();
+		JSONObject bank=new JSONObject();
+		bank.put("brick:", Bank.getSingleton().getCardslist().getBrick());
+		bank.put("ore:", Bank.getSingleton().getCardslist().getOre());
+		bank.put("sheep", Bank.getSingleton().getCardslist().getSheep());
+		bank.put("wheat", Bank.getSingleton().getCardslist().getWheat());
+		bank.put("wood", Bank.getSingleton().getCardslist().getWood());
+		myobject.put("bank", bank);
+		JSONObject chat=new JSONObject();
+		JSONArray lines=new JSONArray();
+		Chat mychat=CatanGame.singleton.getMychat();
+		ChatMessages mymessages=mychat.getChatMessages();
+		for(int i=0; i<mymessages.messages().size(); i++)
+		{
+			JSONObject messageandstring=new JSONObject();
+			messageandstring.put("message:",mymessages.messages().get(i).getMessage());
+			messageandstring.put("source:",mymessages.messages().get(i).getSource());
+			lines.put(messageandstring);
+		}
+		chat.put("lines",lines);
+		myobject.put("chat",chat);
+
+		return myobject;
 	}
 
 		/**
