@@ -9,9 +9,12 @@ import shared.chat.GameHistory;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
+import shared.game.map.Hex.Hex;
 import shared.game.player.Player;
+import shared.locations.HexLocation;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * 
@@ -71,8 +74,19 @@ public class ModelFacade
 		//map
 		//hexes
 		JSONObject map=new JSONObject();
-		JSONArray hexes=new JSONArray();
-		//for(int i=0; i<)
+		JSONObject hexes=new JSONObject();
+		Map<HexLocation, Hex> mymap=getMymap().getHexes();
+		for(HexLocation loc:mymap.keySet())
+		{
+			JSONObject locationarray=new JSONObject();
+			locationarray.put("x:",loc.getX());
+			locationarray.put("y:", loc.getY());
+			hexes.put("location:", locationarray);
+			hexes.put("resource:", mymap.get(loc).getResourcetype());
+			hexes.put("number:", mymap.get(loc).getResourcenumber());
+		}
+		//ports
+
 		return myobject;
 	}
 

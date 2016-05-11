@@ -590,4 +590,9 @@ public class Hex
 	{
 		this.location = location;
 	}
+
+	public int getResourcenumber()
+	{
+		return this.resourcenumber.getValue();
+	}
 }
