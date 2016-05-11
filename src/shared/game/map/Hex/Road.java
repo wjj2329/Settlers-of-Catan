@@ -8,7 +8,10 @@ import java.util.ArrayList;
 /**
  * @author Alex
  * Road class: represents the roads that players can build.
- * Made up of RoadPieces. 
+ * Made up of RoadPieces.
+ *
+ * I made a new Road instead of new RoadPieces. Whoops. We may need to either change the name of
+ * this class, OR construct new RoadPieces but that may be unnecessary.
  */
 public class Road 
 {
@@ -45,5 +48,15 @@ public class Road
 	public void setPlayerWhoOwnsRoad(Index playerWhoOwnsRoad)
 	{
 		this.playerWhoOwnsRoad = playerWhoOwnsRoad;
+	}
+
+	public EdgeLocation getLocation()
+	{
+		return location;
+	}
+
+	public void setLocation(EdgeLocation location)
+	{
+		this.location = location;
 	}
 }
