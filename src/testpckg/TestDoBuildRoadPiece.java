@@ -5,8 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
-import shared.definitions.ResourceType;
 import shared.game.CatanGame;
+import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Index;
 import shared.game.map.vertexobject.Settlement;
@@ -14,6 +14,8 @@ import shared.game.player.Player;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -40,18 +42,21 @@ public class TestDoBuildRoadPiece
     private HexLocation loc2 = null;
 
     @Before
-    public void setUp()
+    public void setUp() throws Exception
     {
         p1.getResources().setBrick(1);
         p1.getResources().setWood(1);
         p2.getResources().setBrick(1);
         p2.getResources().setWood(1);
         loc1 = new HexLocation(-2, 0);
+        // init
+        CatanMap myMap = CatanGame.singleton.getMymap(); // this needs to be INITIALIZED.
+        myMap = new CatanMap(10); // NO need to fix this
         hex1 = CatanGame.singleton.getMymap().getHexes().get(loc1);
     }
 
     @After
-    public void tearDown()
+    public void tearDown() throws Exception
     {
 
     }
