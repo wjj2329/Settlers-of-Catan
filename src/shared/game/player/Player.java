@@ -140,7 +140,7 @@ public class Player
 	 * Creating this because Java doesn't like passing booleans by reference -_-
 	 * Please do not delete
 	 */
-	boolean neitherBorderingEdgeHasARoad = false;
+	private boolean neitherBorderingEdgeHasARoad = false;
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
@@ -546,7 +546,6 @@ public class Player
 		{
 			return false;
 		}
-		// doesn't work completely because they CAN build it if they have a city there.
 		if (!adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseDown.hasRoad())
 		{
 			neitherBorderingEdgeHasARoad = true;
