@@ -9,6 +9,10 @@ import java.util.ArrayList;
  */
 public class GameHistory 
 {
+	public ArrayList<GameHistoryLine>getLines()
+	{
+	return lines;
+	}
 	/**
 	 * List of all GameHistory lines, recording each action taken each turn
 	 */
