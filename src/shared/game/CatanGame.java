@@ -16,7 +16,9 @@ import shared.game.player.Player;
 public class CatanGame
 {
 	public static CatanGame singleton=new CatanGame();
-
+	private Model gameModel = new Model();
+	
+	
 	public ArrayList<Player> getMyplayers() {
 		return myplayers;
 	}
@@ -127,13 +129,12 @@ public class CatanGame
 
 	public Model getModel()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return gameModel;
 	}
 
 	public void setModel(Model newModel)
 	{
-		// TODO Auto-generated method stub
+		gameModel = newModel;
 		
 	}
 	public JSONObject serializeModel()
