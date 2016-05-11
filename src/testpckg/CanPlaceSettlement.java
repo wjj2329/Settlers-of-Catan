@@ -24,10 +24,10 @@ public class CanPlaceSettlement {
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();
-	Hex hex1;
-	Hex hex2;
-	Hex hex3;
-	Hex hex4;
+	private Hex hex1;
+	private Hex hex2;
+	private Hex hex3;
+	private Hex hex4;
 	@Before
 	public void setup()
 	{
