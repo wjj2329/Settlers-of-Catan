@@ -29,8 +29,8 @@ public class TestDoBuildRoadPiece
     }
 
     @Test
-    public void test() throws Exception
+    public void testSuccess_NormalCase() throws Exception
     {
-        fail("test cannot be run because your mom is too fat");
+        
     }
 }
