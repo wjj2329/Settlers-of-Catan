@@ -68,6 +68,15 @@ public class TestDoBuildRoadPiece
     }
 
     /**
+     * A test case that should run successfully. Both types should NOT be water for this case.
+     */
+    @Test
+    public void testSuccess_NeitherHexIsWater() throws Exception
+    {
+
+    }
+
+    /**
      * If one hex is water but the other isn't, we are clear to build a road there.
      */
     @Test
