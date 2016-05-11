@@ -91,6 +91,11 @@ public class ModelFacade
 		{
 			JSONObject ports=new JSONObject();
 			ports.put("resource", mymap.get(loc).getPortType());
+			JSONObject location=new JSONObject();
+			location.put("x:",loc.getX());
+			location.put("y:", loc.getX());
+			ports.put("location:",location);
+			ports.put("direction:", mymap.get(loc).getPortLocation());
 		}
 
 		return myobject;
