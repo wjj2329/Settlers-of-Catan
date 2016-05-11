@@ -8,6 +8,10 @@ import shared.chat.ChatMessages;
 import shared.chat.GameHistory;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.map.CatanMap;
+import shared.game.player.Player;
+
+import java.util.ArrayList;
 
 /**
  * 
