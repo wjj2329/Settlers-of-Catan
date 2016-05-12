@@ -5,9 +5,16 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import shared.definitions.CatanColor;
+import shared.definitions.HexType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Hex.NumberToken;
+import shared.game.map.Index;
+import shared.game.player.Player;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -25,6 +32,9 @@ public class TestCanPlayerBuildCity
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
+    Hex hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), PortType.BLANK);
+    Player william=new Player("William", CatanColor.WHITE,new Index(3));
+    
     @Before
     public void setup()
     {
@@ -38,7 +48,8 @@ public class TestCanPlayerBuildCity
     }
 
     @Test
-    public void test() throws Exception {
+    public void test() throws Exception
+    {
 
     }
 
