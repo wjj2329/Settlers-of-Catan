@@ -17,6 +17,7 @@ import shared.locations.HexLocation;
 
 import java.util.Map;
 
+import static junit.framework.TestCase.assertFalse;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -51,7 +52,6 @@ public class TestDoBuildRoadPiece
         loc1 = new HexLocation(-2, 0);
         // init
         CatanMap myMap = CatanGame.singleton.getMymap(); // this needs to be INITIALIZED.
-        //myMap = new CatanMap(10);
         hex1 = myMap.getHexes().get(loc1);
     }
 
@@ -88,6 +88,16 @@ public class TestDoBuildRoadPiece
         assertTrue(p2.canBuildRoadPiece(hex2, new EdgeLocation(loc2, EdgeDirection.NorthEast)));
     }
 
+    private void initialize3(Hex hex3, HexLocation hexLoc3) throws Exception
+    {
+        p1.setCurrentPlayer(true);
+        Settlement settle3 = new Settlement(hexLoc3, hex3.getSouthwest(), p1.getPlayerID());
+        hex3.getSouthwest().setHassettlement(true);
+        hex3.getSouthwest().setSettlement(settle3);
+        settle3.setOwner(p1.getPlayerID());
+        p1.addToSettlements(settle3);
+    }
+
     /**
      * A test case that should run successfully. Both types should NOT be water for this case.
      */
@@ -111,8 +121,28 @@ public class TestDoBuildRoadPiece
     }
 
     /**
-     * Here and below I will make the cases for testing failure
+     * Of course, the test case fails if you cannot place a road piece there.
      */
+    @Test
+    public void testFail_CannotBuildRoadPiece() throws Exception
+    {
+        assertFalse(p1.buildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
+    }
+
+    /**
+     * Building a road fails if both hexes are of type water.
+     */
+    @Test
+    public void testFail_BothHexesAreWater() throws Exception
+    {
+        HexLocation hexLoc3 = new HexLocation(-3, 0);
+        Hex hex3 = CatanGame.singleton.getMymap().getHexes().get(hexLoc3);
+        // south:
+        assertTrue(hex3.getResourcetype().equals(HexType.WATER));
+        initialize3(hex3, hexLoc3);
+        EdgeLocation location = new EdgeLocation(hexLoc3, EdgeDirection.South);
+        assertFalse(p1.buildRoadPiece(hex3, location));
+    }
 
     private static final String NAME1 = "Jenny";
     private static final String NAME2 = "Joy";

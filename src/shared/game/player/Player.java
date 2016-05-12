@@ -457,8 +457,7 @@ public class Player
 	 * Computes the neighboring hex which shares the border for the road.
 	 *
 	 * @param initial: the hex which we are computing the neighbor for.
-	 * @param edge: well this direction needs to be modified so we place it in the correct location
-	 *            on the other hex. But java doesn't like passing by reference apparently.
+	 * @param edge: the edgeLocation in which the road was already built on.
      */
 	private Hex computeAdjacentHex(Hex initial, EdgeLocation edge)
 	{
@@ -540,6 +539,10 @@ public class Player
 	{
 		neitherBorderingEdgeHasARoad = false;
 		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
+		{
+			return false;
+		}
+		if (!currentPlayer)
 		{
 			return false;
 		}
