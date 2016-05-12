@@ -137,7 +137,6 @@ public class TestDoBuildRoadPiece
     {
         HexLocation hexLoc3 = new HexLocation(-3, 0);
         Hex hex3 = CatanGame.singleton.getMymap().getHexes().get(hexLoc3);
-        // south:
         assertTrue(hex3.getResourcetype().equals(HexType.WATER));
         initialize3(hex3, hexLoc3);
         EdgeLocation location = new EdgeLocation(hexLoc3, EdgeDirection.South);
