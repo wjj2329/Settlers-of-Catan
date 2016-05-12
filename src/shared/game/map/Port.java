@@ -1,7 +1,8 @@
 package shared.game.map;
 
-import com.sun.xml.internal.ws.wsdl.writer.document.PortType;
+//import com.sun.xml.internal.ws.wsdl.writer.document.PortType;
 
+/*
 /**
  * @author Alex
  * Port class: represents ports/harbors.
@@ -13,7 +14,7 @@ public class Port
 	 * Represents whether the port is for wood, sheep,
 	 * brick, sheep, wheat, ore, or three. 
 	 */
-	private PortType type;
+	//private PortType type;
 	
 	/**
 	 * Default constructor for port.
@@ -23,3 +24,4 @@ public class Port
 		
 	}
 }
+

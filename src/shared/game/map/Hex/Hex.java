@@ -605,6 +605,7 @@ public class Hex
 	{
 		this.portlocation=vertexLocation;
 	}
+
 	public String getPortLocation()
 	{
 		return portlocation.toString();
