@@ -27,7 +27,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Created by williamjones on 5/11/16.
  * This class is pretty basic really just testing to see if player has enough resources in general to buy said city
- *  Actual testing of if  city can be placed is is done in Can Place City
+ *  Actual testing of if city can be placed is done in Can Place City test
  */
 public class TestCanPlayerBuildCity
 {

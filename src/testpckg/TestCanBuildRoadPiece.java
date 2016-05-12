@@ -93,7 +93,7 @@ public class TestCanBuildRoadPiece
 		settle1.setOwner(p1.getPlayerID());
 
 		p1.addToSettlements(settle1);
-		assertTrue(p1.canBuildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
+		assertFalse(p1.canBuildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
 	}
 
 	/**

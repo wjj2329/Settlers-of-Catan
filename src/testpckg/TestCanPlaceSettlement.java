@@ -19,7 +19,11 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+/**
+ * tests the hex for placement on hex as opposed to if the players has resources to build said settlement
+ */
 public class TestCanPlaceSettlement {
+
 
 	@Rule
 	public final ExpectedException exception = ExpectedException.none();

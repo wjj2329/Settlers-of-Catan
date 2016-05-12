@@ -63,7 +63,7 @@ public class TestCanStartGame
 		CatanGame.singleton.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
 		assertFalse(CatanGame.singleton.canStartGame());
 		CatanGame.singleton.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
-		assertFalse(CatanGame.singleton.canStartGame());
+		assertTrue(CatanGame.singleton.canStartGame());
 		CatanGame.singleton.setMymap(new CatanMap(1));
 		assertTrue(CatanGame.singleton.canStartGame());
 	}

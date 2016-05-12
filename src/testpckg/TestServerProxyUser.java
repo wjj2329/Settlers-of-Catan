@@ -13,7 +13,7 @@ import server.proxies.*;
 
 public class TestServerProxyUser {
 	
-	IServer iserver;
+	private IServer iserver;
 	
 	@Before
 	public void setUp(){

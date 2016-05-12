@@ -24,6 +24,7 @@ import static org.junit.Assert.assertTrue;
 
 /**
  * Created by williamjones on 5/11/16.
+ * Tests if player can Build Settlement so tests more on the resource part then on the Hex part look at Hex can place Settlement for that
  */
 public class TestCanPlayerBuildSettlement
 {
@@ -51,6 +52,9 @@ public class TestCanPlayerBuildSettlement
         CatanGame.singleton.clear();
     }
 
+    /**
+    Tests a normal regular hex one time
+     */
     @Test
     public void test() throws Exception
     {
@@ -59,7 +63,9 @@ public class TestCanPlayerBuildSettlement
         assertFalse(william.canBuildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
         assertFalse(william.canBuildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.West)));
     }
-
+    /**
+     Tests a normal regular hex to build on all sides and then if I run out of resources it wont let me build any more
+     */
     @Test
     public void test2()throws Exception
     {
@@ -77,6 +83,10 @@ public class TestCanPlayerBuildSettlement
         assertFalse(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
     }
 
+    /**
+     * tests null stuff
+     * @throws Exception
+     */
     @Test
     public void test3()throws Exception
     {
@@ -86,6 +96,11 @@ public class TestCanPlayerBuildSettlement
         william.canBuildCity(hex2, new VertexLocation(hex1.getLocation(), VertexDirection.East));
         exception.expect(Exception.class);
     }
+
+    /**
+     * tests when I run of of peices.
+     * @throws Exception
+     */
     @Test
     public void test4()throws Exception
     {

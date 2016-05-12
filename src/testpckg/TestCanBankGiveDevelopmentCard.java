@@ -11,9 +11,9 @@ import shared.game.DevCardList;
 import shared.game.ResourceList;
 
 public class TestCanBankGiveDevelopmentCard {
-    /*
+    /**
     This tests if the bank can give and devleopment cards and throws exceptions if the bank contains negative
-    amounts.
+    amounts.  Tests a variety of situations.
      */
 
     @Rule
