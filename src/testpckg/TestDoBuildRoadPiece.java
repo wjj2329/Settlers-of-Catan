@@ -51,8 +51,8 @@ public class TestDoBuildRoadPiece
         loc1 = new HexLocation(-2, 0);
         // init
         CatanMap myMap = CatanGame.singleton.getMymap(); // this needs to be INITIALIZED.
-        myMap = new CatanMap(10); // NO need to fix this
-        hex1 = CatanGame.singleton.getMymap().getHexes().get(loc1);
+        //myMap = new CatanMap(10);
+        hex1 = myMap.getHexes().get(loc1);
     }
 
     @After
@@ -109,6 +109,10 @@ public class TestDoBuildRoadPiece
         assertTrue(hex1.getResourcetype().equals(HexType.WHEAT));
         assertTrue(p1.buildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
     }
+
+    /**
+     * Here and below I will make the cases for testing failure
+     */
 
     private static final String NAME1 = "Jenny";
     private static final String NAME2 = "Joy";

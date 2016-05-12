@@ -17,17 +17,18 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
-	public static CatanGame singleton = null;
+	// The singleton was null so I did this instead
+	public static CatanGame singleton = new CatanGame();
 	private Model gameModel = new Model();
-	ServerPoller poller;
-	IServer server;	
+	private ServerPoller poller;
+	private IServer server;
 	private ArrayList<Player>myplayers=new ArrayList();
-	CatanMap mymap;
-	Chat mychat=new Chat();
-	
+	private CatanMap mymap = new CatanMap(RADIUS);
+	private Chat mychat=new Chat();
+	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
-		 if(singleton == null)
+		 if(singleton == null) // this doesn't work
 		 {
 			 singleton = this;
 			 this.server = server;
@@ -37,6 +38,7 @@ public class CatanGame
 			 throw new Exception();
 		 }
 	}
+	// If this is a singleton, then this shouldn't exist.
 	//for testting purposes only
 	public CatanGame()
 	{
@@ -161,5 +163,11 @@ public class CatanGame
 	{
 
 	}
+
+	/**
+	 * I am not sure what the radius should be yet so I am just putting
+	 * in this value. Feel free to change this
+	 */
+	private static final int RADIUS = 10;
 
 }
