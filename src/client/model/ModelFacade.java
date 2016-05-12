@@ -120,10 +120,69 @@ public class ModelFacade
 		 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and
 		 * puts it into the model.
 		 */
-	public void updateFromJSON(JSONObject myobject)
+	public void updateFromJSON(JSONObject myObject) throws JSONException
+	{
+		JSONObject bank = myObject.getJSONObject("bank");
+		loadBank(bank);
+
+		JSONObject chat = myObject.getJSONObject("chat");
+		loadChat(chat);
+
+		JSONObject log = myObject.getJSONObject("log");
+		loadLog(log);
+
+		JSONObject map = myObject.getJSONObject("map");
+		loadMap(map);
+	}
+
+	private void loadBank(JSONObject bank) throws JSONException
+	{
+		int bankBrickQuantity = bank.getInt("brick");
+		int bankOreQuantity = bank.getInt("ore");
+		int bankSheepQuantity = bank.getInt("sheep");
+		int bankWheatQuantity = bank.getInt("wheat");
+		int bankWoodQuantity = bank.getInt("wood");
+	}
+
+	private void loadChat(JSONObject chat) throws JSONException
+	{
+		JSONArray chatLines = chat.getJSONArray("lines");
+		for (int i = 0; i < chatLines.length(); i++)
+		{
+			JSONObject obj = chatLines.getJSONObject(i);
+			if (obj.has("message"))
+			{
+				String chatMessage = obj.getString("message");
+			}
+			if (obj.has("source"))
+			{
+				String chatSource = obj.getString("source");
+			}
+		}
+	}
+
+	private void loadLog(JSONObject log) throws JSONException
+	{
+		JSONArray logLines = log.getJSONArray("lines");
+		for (int i = 0; i < logLines.length(); i++)
+		{
+			JSONObject obj = logLines.getJSONObject(i);
+			if (obj.has("message"))
+			{
+				String logMessage = obj.getString("message");
+			}
+			if (obj.has("source"))
+			{
+				String logSource = obj.getString("source");
+			}
+		}
+	}
+
+	private void loadMap(JSONObject map) throws JSONException
 	{
 
 	}
+
 		// TODO Auto-generated constructor stub
 	public ArrayList<Player> getMyplayers()
 	{
