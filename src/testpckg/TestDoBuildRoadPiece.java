@@ -50,8 +50,7 @@ public class TestDoBuildRoadPiece
         p2.getResources().setBrick(1);
         p2.getResources().setWood(1);
         loc1 = new HexLocation(-2, 0);
-        // init
-        CatanMap myMap = CatanGame.singleton.getMymap(); // this needs to be INITIALIZED.
+        CatanMap myMap = CatanGame.singleton.getMymap();
         hex1 = myMap.getHexes().get(loc1);
     }
 
