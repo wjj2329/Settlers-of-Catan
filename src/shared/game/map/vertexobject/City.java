@@ -10,10 +10,11 @@ import shared.locations.VertexLocation;
  */
 public class City
 {
-	public City(HexLocation hexLocation, VertexLocation vertexLocation)
+	public City(HexLocation hexLocation, VertexLocation vertexLocation, Index owner)
 	{
 		this.hexLocation=hexLocation;
 		this.vertexLocation=vertexLocation;
+		this.owner=owner;
 	}
 
 	public VertexLocation getVertexLocation() {

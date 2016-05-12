@@ -28,10 +28,11 @@ public class Settlement
 	 * @pre buildingCost is nonnegative
 	 * @post the superclass is also constructed
 	 */
-	public Settlement(HexLocation hexLocation, VertexLocation vertexLocation)
+	public Settlement(HexLocation hexLocation, VertexLocation vertexLocation, Index owner)
 	{
 		this.hexLocation=hexLocation;
 		this.vertexLocation=vertexLocation;
+		this.owner=owner;
 	}
 	
 	/**

@@ -1,5 +1,6 @@
 package shared.locations;
 
+import shared.game.map.Index;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 
@@ -33,8 +34,8 @@ public class VertexLocation
 		this.hascity = hascity;
 	}
 
-	boolean hassettlement=false;
-	boolean hascity=false;
+	private boolean hassettlement=false;
+	private boolean hascity=false;
 	private Settlement settlement = null;
 	private City city = null;
 	
@@ -157,7 +158,7 @@ public class VertexLocation
 		// make sure that settlement isn't null
 		if (this.settlement == null)
 		{
-			this.settlement = new Settlement(settlement.getHexLocation(), settlement.getVertexLocation());
+			this.settlement = new Settlement(settlement.getHexLocation(), settlement.getVertexLocation(),new Index(2));
 		}
 		this.settlement = settlement;
 	}
@@ -172,7 +173,7 @@ public class VertexLocation
 	{
 		if (this.city == null)
 		{
-			this.city = new City(city.getHexLocation(), city.getVertexLocation());
+			this.city = new City(city.getHexLocation(), city.getVertexLocation(), new Index(2));
 		}
 		else
 		{
