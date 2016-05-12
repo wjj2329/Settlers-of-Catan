@@ -1,6 +1,7 @@
 package shared.game.map.Hex;
 
 import shared.game.map.Index;
+import shared.game.player.Player;
 import shared.locations.EdgeLocation;
 
 import java.util.ArrayList;
@@ -23,9 +24,9 @@ public class RoadPiece
 	/**
 	 * RoadPiece constructor
 	 */
-	public RoadPiece()
+	public RoadPiece(Index playerWhoOwnsRoad)
 	{
-		
+		this.playerWhoOwnsRoad=playerWhoOwnsRoad;
 	}
 	
 	/**
