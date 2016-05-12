@@ -518,16 +518,17 @@ public class Player
 			resources.setWheat(resources.getWheat()-1);
 			resources.setSheep(resources.getSheep()-1);
 			resources.setWood(resources.getWood()-1);
+			numSettlementsRemaining--;
 		}
 	}
 
-	public void buildCity(Hex buildingon, VertexLocation locationforcity)
-	{
+	public void buildCity(Hex buildingon, VertexLocation locationforcity) throws Exception {
 		if(canBuildCity(buildingon,locationforcity))
 		{
 			buildingon.buildCity(locationforcity);
 			resources.setOre(resources.getOre()-3);
 			resources.setWheat(resources.getWheat()-2);
+			numCitiesRemaining--;
 		}
 	}
 	/**
@@ -689,8 +690,12 @@ public class Player
 	 * Determines whether or not a player can build a settlement on a particular hex
 	 * @param hex: the hex
      */
-	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation)
-	{
+	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation) throws Exception {
+		if(hex==null||myLocation==null)
+		{
+			Exception e=new Exception();
+			e.printStackTrace();
+			throw e;		}
 		if (!hex.canBuildSettlementHere(myLocation))
 		{
 			return false;
@@ -707,8 +712,15 @@ public class Player
 		return true;
 	}
 
-	public boolean canBuildCity(Hex hex, VertexLocation myLocation)
+	public boolean canBuildCity(Hex hex, VertexLocation myLocation) throws Exception
 	{
+		if(hex==null||myLocation==null)
+		{
+			Exception e=new Exception();
+			e.printStackTrace();
+			throw e;
+		}
+
 		if (!hex.canBuildCityHere(myLocation.getDir()))
 		{
 			return false;
@@ -727,6 +739,10 @@ public class Player
 	/**
 	 * Getters and setters:
 	 */
+	public int getNumCitiesRemaining()
+	{
+		return this.numCitiesRemaining;
+	}
 	public boolean isCurrentPlayer()
 	{
 		return currentPlayer;
