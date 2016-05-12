@@ -18,7 +18,8 @@ import java.util.Map;
 
 /**
  * 
- * Facade for the Model. Every object accessing the model classes should do so through here 
+ * Facade for the Model. Every object accessing the model classes should do so through here
+ * Note to TA's this isn't completed yet we are just working on it for Phase 2
  *
  */
 public class ModelFacade

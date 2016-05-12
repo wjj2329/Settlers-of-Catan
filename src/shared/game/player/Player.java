@@ -130,7 +130,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = MAX_NUM_SETTLEMENTS;
+	private int numSettlementsRemaining = 4;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -517,7 +517,7 @@ public class Player
 			resources.setWheat(resources.getWheat()-1);
 			resources.setSheep(resources.getSheep()-1);
 			resources.setWood(resources.getWood()-1);
-			numSettlementsRemaining--;
+			this.numSettlementsRemaining--;
 		}
 	}
 
@@ -527,7 +527,7 @@ public class Player
 			buildingon.buildCity(locationforcity);
 			resources.setOre(resources.getOre()-3);
 			resources.setWheat(resources.getWheat()-2);
-			numCitiesRemaining--;
+			this.numCitiesRemaining--;
 		}
 	}
 	/**
@@ -826,5 +826,13 @@ public class Player
 	public void addToRoadPieces(RoadPiece roadPiece)
 	{
 		roadPieces.add(roadPiece);
+	}
+	public void setNumSettlementsRemaining(int number)
+	{
+		this.numSettlementsRemaining=number;
+	}
+	public  void setNumCitiesRemaining(int number)
+	{
+		this.numCitiesRemaining=number;
 	}
 }

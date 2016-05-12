@@ -27,20 +27,19 @@ public class TestCanPlaceSettlement {
 	private Hex hex2;
 	private Hex hex3;
 	private Hex hex4;
+
 	@Before
-	public void setup()
-	{
+	public void setup() {
 		CatanGame.singleton.setMymap(new CatanMap(5));
-		hex1=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
-		hex2=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
-		hex3=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
-		hex4=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(500,20));//invalid hex
+		hex1 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
+		hex2 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
+		hex3 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
+		hex4 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(500, 20));//invalid hex
 	}
 
 	@After
-	public void teardown()
-	{
-
+	public void teardown() {
+		CatanGame.singleton.clear();
 	}
 
 	@Test
@@ -50,7 +49,7 @@ public class TestCanPlaceSettlement {
 		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
 		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthWest)));
 		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthWest)));
-		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1),VertexDirection.East)));
+		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.East)));
 		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthEast)));
 		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthEast)));
 		hex1.buildSettlement(new VertexLocation(new HexLocation(1, 1), VertexDirection.East));
@@ -63,8 +62,7 @@ public class TestCanPlaceSettlement {
 	}
 
 	@Test
-	public void test2()throws Exception
-	{
+	public void test2() throws Exception {
 		exception.expect(Exception.class);
 		hex2.buildSettlement(new VertexLocation(new HexLocation(-3, 2), VertexDirection.West));
 		exception.expect(Exception.class);
@@ -81,22 +79,21 @@ public class TestCanPlaceSettlement {
 	}
 
 	@Test
-	public void test3()throws Exception
-	{
+	public void test3() throws Exception {
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
-		hex3.buildSettlement(new VertexLocation(new HexLocation(-2,1), VertexDirection.NorthEast));
+		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
 		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
-		hex3.buildSettlement(new VertexLocation(new HexLocation(-2,1), VertexDirection.West));
+		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
 		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
@@ -113,8 +110,7 @@ public class TestCanPlaceSettlement {
 	}
 
 	@Test
-	public void test4()throws Exception
-	{
+	public void test4() throws Exception {
 		exception.expect(Exception.class);
 		hex4.buildSettlement(new VertexLocation(new HexLocation(500, 20), VertexDirection.East));
 	}

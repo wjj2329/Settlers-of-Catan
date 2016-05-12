@@ -124,8 +124,7 @@ public class ClientCommunicator
 	 * updateFromJSON: The opposite of SerializeModel. Reads JSON data and 
 	 * puts it into the model. 
 	 */
-	public void updateFromJSON(JSONObject given)
-	{
+	public void updateFromJSON(JSONObject given) throws JSONException {
 			myobject.updateFromJSON(given);
 	}
 }

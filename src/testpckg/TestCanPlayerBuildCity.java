@@ -48,7 +48,7 @@ public class TestCanPlayerBuildCity
     @After
     public void teardown()
     {
-
+            CatanGame.singleton.clear();
     }
 
     @Test
