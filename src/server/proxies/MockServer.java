@@ -37,6 +37,13 @@ public class MockServer implements IServer {
 	@Override
 	public ServerResponse loginUser(String username, String password) {
 			return proxy.loginUser(username, password);
+			
+//			for a bad response for testing purposes uncomment
+//			ServerResponse response = new ServerResponse();
+//			response.setResponseCode(400);
+			
+//			return null;
+			
 	}
 
 	/**
@@ -68,6 +75,12 @@ public class MockServer implements IServer {
 	@Override
 	public ServerResponse registerUser(String username, String password) {
 		return proxy.registerUser(username, password);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
+//		return null;
 	}
 
 	/**
@@ -84,6 +97,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse getAllCurrentGames() {
+//		return proxy.getAllCurrentGames();
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -111,7 +130,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
-		// TODO Auto-generated method stub
+//		return proxy.createGame(name, randomTiles, randomNumbers, randomPorts);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -142,7 +166,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse JoinGame(int gameID, String color) {
-		// TODO Auto-generated method stub
+//		return proxy.JoinGame(gameID, color);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -170,7 +199,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse getGameCurrentState(int version) {
-		// TODO Auto-generated method stub
+//		return proxy.getGameCurrentState(version);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -187,6 +221,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse listAI() {
+//		return proxy.listAI();
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -208,7 +248,13 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse addAIPlayer(String logLevel) {
-		// TODO Auto-generated method stub
+//		return proxy.addAIPlayer(logLevel);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
+		
 		return null;
 	}
 
@@ -223,7 +269,12 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse sendChat(String type, int playerIndex, String content) {
-		// TODO Auto-generated method stub
+//		return proxy.sendChat(type, playerIndex, content);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
+		
 		return null;
 	}
 
@@ -231,6 +282,7 @@ public class MockServer implements IServer {
 	 * @param type name of move being executed
 	 * @param playerIndex the player's position in the game's turn order
 	 * @param willAccept whether or not you accept the trade the offere
+	 * @return 
 	 *
 	 * @preYou have been offered a domestic trade
 	 * 						To accept the offered trade, you have the required resources 
@@ -241,7 +293,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse acceptTrade(String type, int playerIndex, boolean willAccept) {
-		// TODO Auto-generated method stub
+//		return proxy.acceptTrade(type, playerIndex, willAccept);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -259,7 +315,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse discardCards(String type, int playerIndex, ResourceList discardedCards) {
-		// TODO Auto-generated method stub
+//		proxy.discardCards(type, playerIndex, discardedCards);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -275,7 +335,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse rollNumber(String type, int playerIndex, int number) {
-		// TODO Auto-generated method stub
+//		proxy.rollNumber(type, playerIndex, number);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -296,7 +360,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) {
-		// TODO Auto-generated method stub
+//		return proxy.buildRoad(type, playerIndex, free, roadLocation);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -318,7 +386,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse buildSettlement(String type, int playerIndex, boolean free, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
+//		return proxy.buildSettlement(type, playerIndex, free, vertexLocation);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -337,7 +409,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse buildCity(String type, int playerIndex, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
+//		return proxy.buildCity(type, playerIndex, vertexLocation);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -355,7 +431,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse offerTrade(String type, int playerIndex, ResourceList offer, int receiver) {
-		// TODO Auto-generated method stub
+//		return proxy.offerTrade(type, playerIndex, offer, receiver);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -372,13 +452,17 @@ public class MockServer implements IServer {
 	 * 						you have the resources you are giving, for ratios less than 4, you 
 	 * 						have the correct port for the trade
 	 * @post the trade has been executed ( offered resources are in the bank, and the requested resource
-	 * 						has been received)
+	 * 		has been received)
 	 * 
 	 * 
 	 */
 	@Override
 	public ServerResponse maritimeTrade(String type, int playerIndex, int ratio, String inputResource, String outputResource) {
-		// TODO Auto-generated method stub
+//		proxy.maritimeTrade(type, playerIndex, ratio, inputResource, outputResource);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -398,7 +482,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex)  {
-		// TODO Auto-generated method stub
+//		return proxy.robPlayer(type, playerIndex, location, victimIndex);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -416,7 +504,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse finishTurn(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+//		return proxy.finishTurn(type, playerIndex);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -434,7 +526,9 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse buyDevCard(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -457,7 +551,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse playSoldier(String type, int playerIndex, HexLocation location, int victimIndex) {
-		// TODO Auto-generated method stub
+//		return proxy.playSoldier(type, playerIndex, location, victimIndex);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -477,7 +575,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
-		// TODO Auto-generated method stub
+//		return proxy.playYearofPlenty(type, playerIndex, resource1, resource2);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -499,7 +601,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse playRoadBuilding(String type, int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
+//		return proxy.playRoadBuilding(type, playerIndex, spot1, spot2);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -517,7 +623,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse playMonopoly(String type, int playerIndex, String resource) {
-		// TODO Auto-generated method stub
+//		return proxy.playMonopoly(type, playerIndex, resource);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}
@@ -535,7 +645,11 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse playMonument(String type, int playerIndex) {
-		// TODO Auto-generated method stub
+//		return proxy.playMonument(type, playerIndex);
+		
+//		for a bad response for testing purposes uncomment
+//		ServerResponse response = new ServerResponse();
+//		response.setResponseCode(400);
 
 		return null;
 	}

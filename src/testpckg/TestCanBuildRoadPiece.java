@@ -155,7 +155,7 @@ public class TestCanBuildRoadPiece
 		p2.getResources().setBrick(MIN);
 		p2.getResources().setWood(MIN);
 
-		RoadPiece roadPiece = new RoadPiece();
+		RoadPiece roadPiece = new RoadPiece(new Index(3));
 		roadPiece.setPlayerWhoOwnsRoad(p2.getPlayerID());
 		hex1.setN(new EdgeLocation(loc1, EdgeDirection.North));
 		hex1.getN().setRoadPiece(roadPiece);

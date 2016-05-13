@@ -2,7 +2,8 @@
 
 	<!-- PROPERTIES -->
 	<!-- ********** -->	
-    
+    <!-- THISis new not here before -->
+    <property name="lib" location="lib"/>
 	<!-- Directory paths for the java server, javascript, and dest dir for the student copy -->
     <property name="port.arg" value="8081"/>
     <property name="web.arg" value="gameplay"/>
@@ -39,6 +40,12 @@
 		<fileset dir="lib">
 			<include name="**/*.jar" />
 		</fileset>
+	</path>
+
+<!--new code -->
+	<path id="all-classpath">
+		<path refid="java.lib.classpath"/>
+		<pathelement location="lib"/>
 	</path>
 	
 	
@@ -88,13 +95,13 @@
     -->
 
   	<property name="java.dir" location="java"/>
-	<property name="java.src" location="${java.dir}/src"/>
+	<property name="java.src" location="src"/>
 	<property name="java.images" location="${java.dir}/images"/>
 	<property name="java.build" location="${java.dir}/build"/>
 	<property name="java.dist" location="${java.dir}/dist"/>
 	<property name="java.lib" location="${java.dir}/lib"/>
-	<property name="java.test" location="test"/>
-	<property name="java.build.Phase1Tests" location="${java.build}/Phase1Tests"/>
+	<property name="java.test" location="src/testpckg"/>
+	<!--<property name="java.build.Phase1Tests" location="${java.build}/Phase1Tests"/> -->
 	
 	<target name="init" description="create build directories">
 		<tstamp/>
@@ -108,7 +115,7 @@
 	</target>
     
 	<target name="compile" depends="init" description="compile the source " >
-		<javac srcdir="${java.src}" destdir="${java.build}" debug="true" includeantruntime="true">
+		<javac srcdir="src" destdir="${java.build}" debug="true" includeantruntime="true">
 			<classpath refid="java.lib.classpath" />
 		</javac>
 	</target>
@@ -170,8 +177,8 @@
 				<path refid = "java.lib.classpath"/>			
 			</classpath>
 			<classpath>
-				<pathelements location = "${java.build}"/>
-				<pathelements location = "${java.build.Phase1Tests}"/>	
+				<pathelement location = "${java.build}"/>
+				<pathelement location = "${java.build.testpckg}"/>
 			</classpath>
 			<assertions>
 				<enable/>

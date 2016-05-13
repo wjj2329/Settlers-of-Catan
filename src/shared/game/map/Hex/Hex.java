@@ -3,8 +3,10 @@ package shared.game.map.Hex;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.CatanGame;
+import shared.game.map.Index;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
+import shared.game.player.Player;
 import shared.locations.*;
 
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ public class Hex
 	private VertexLocation portlocation=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
+	private ArrayList<RoadPiece> roads=new ArrayList<>();
 
 	private VertexLocation northeast=null;
 	private VertexLocation northwest=null;
@@ -287,35 +290,41 @@ public class Hex
 		}
 	}
 
-	public RoadPiece buildRoad(EdgeLocation edgeLocation)
+	public RoadPiece buildRoad(EdgeLocation edgeLocation, Index playerid)
 	{
-		RoadPiece roadPiece = new RoadPiece();
+		RoadPiece roadPiece = new RoadPiece(playerid);
 		// set hasRoad to true, then actually create the RoadPiece object and set that.
 		switch (edgeLocation.getDir())
 		{
 			case NorthWest:
 				nw.setHasRoad(true);
 				nw.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			case North:
 				n.setHasRoad(true);
 				n.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			case NorthEast:
 				ne.setHasRoad(true);
 				ne.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			case SouthEast:
 				se.setHasRoad(true);
 				se.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			case South:
 				s.setHasRoad(true);
 				s.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			case SouthWest:
 				sw.setHasRoad(true);
 				sw.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
 				break;
 			default:
 				assert false;
@@ -605,8 +614,14 @@ public class Hex
 	{
 		this.portlocation=vertexLocation;
 	}
+
 	public String getPortLocation()
 	{
 		return portlocation.toString();
+	}
+
+	public ArrayList<RoadPiece> getRoads()
+	{
+		return roads;
 	}
 }
