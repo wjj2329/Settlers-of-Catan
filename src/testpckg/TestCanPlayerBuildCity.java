@@ -42,7 +42,7 @@ public class TestCanPlayerBuildCity
         CatanGame.singleton=new CatanGame();
         CatanGame.singleton.setMymap(new CatanMap(4));
         william.setResources(new ResourceList(3, 3, 3, 3, 3));
-        hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East));
+        hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East),new Index(2));
     }
 
     @After
@@ -70,7 +70,7 @@ public class TestCanPlayerBuildCity
     public void test2()throws Exception
     {
         william.setResources(new ResourceList(0, 0, 0, 0, 0));
-        hex1.buildSettlement(new VertexLocation(hex1.getLocation(), VertexDirection.West));
+        hex1.buildSettlement(new VertexLocation(hex1.getLocation(), VertexDirection.West ),new Index(2));
         assertFalse(william.canBuildCity(hex1, new VertexLocation(hex1.getLocation(), VertexDirection.West)));
     }
 
@@ -78,7 +78,7 @@ public class TestCanPlayerBuildCity
     public void test3()throws Exception
     {
         william.setResources(new ResourceList(0, 3, 0, 2, 0));
-        hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East));
+        hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East),new Index(3));
         assertTrue(william.canBuildCity(hex1, new VertexLocation(hex1.getLocation(), VertexDirection.East)));
         hex1.buildCity(new VertexLocation(hex1.getLocation(), VertexDirection.East));
         assertFalse(william.canBuildCity(hex1, new VertexLocation(hex1.getLocation(), VertexDirection.East)));

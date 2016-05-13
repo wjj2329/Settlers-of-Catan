@@ -508,11 +508,11 @@ public class Player
 		return new EdgeLocation(newHex.getLocation(), initial.getDir().getOppositeDirection());
 	}
 
-	public void  buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
+	public void  buildSettlement(Hex buildingon, VertexLocation locationofsettlement, Index playerid) throws Exception
 	{
 		if(canBuildSettlement(buildingon,locationofsettlement))
 		{
-			buildingon.buildSettlement(locationofsettlement);
+			buildingon.buildSettlement(locationofsettlement,playerid);
 			resources.setBrick(resources.getBrick()-1);
 			resources.setWheat(resources.getWheat()-1);
 			resources.setSheep(resources.getSheep()-1);
