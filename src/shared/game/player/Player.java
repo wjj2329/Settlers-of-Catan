@@ -508,7 +508,7 @@ public class Player
 		return new EdgeLocation(newHex.getLocation(), initial.getDir().getOppositeDirection());
 	}
 
-	public void  buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
+	public void buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
 	{
 		if(canBuildSettlement(buildingon,locationofsettlement))
 		{
@@ -535,6 +535,10 @@ public class Player
 	 * SetUp phase is when the player can place a road wherever they want, I think.
 	 * Other than the setup, the player must have an adjacent road, city, or
 	 * settlement in order to build a road.
+	 * @pre: hex is not null
+	 * 		edge is not null
+	 * @param hex: The hex that the player is trying to build on
+	 * @param edge: The edge that the road will be placed on
 	 */
 	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 	{
