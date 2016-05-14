@@ -33,7 +33,7 @@ public class TestCanPlayerBuildCity
 {
     @Rule
     public final ExpectedException exception = ExpectedException.none();
-    private Hex hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), PortType.BLANK);
+    private Hex hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), null);
     private Player william=new Player("William", CatanColor.WHITE,new Index(3));
 
     @Before

@@ -482,7 +482,7 @@ public class Hex
 		{
 			return false;
 		}
-		if(resourcetype!=(HexType.WATER)&&myport!=(PortType.BLANK))
+		if(resourcetype!=(HexType.WATER)&&myport!=(null))
 		{
 			return false;
 		}

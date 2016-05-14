@@ -27,8 +27,8 @@ public class TestCanPlaceRobber
 	@Before
 	public void setUp() throws Exception 
 	{
-		hextest1=new Hex(new HexLocation(-3, 3), HexType.BRICK, new NumberToken(4), PortType.BLANK);
-		hextest2=new Hex(new HexLocation(-2, 2), HexType.WATER, new NumberToken(0), PortType.BLANK);
+		hextest1=new Hex(new HexLocation(-3, 3), HexType.BRICK, new NumberToken(4), null);
+		hextest2=new Hex(new HexLocation(-2, 2), HexType.WATER, new NumberToken(0), null);
 		hextest3=new Hex(new HexLocation(1,1), HexType.WATER, new NumberToken(0), PortType.BRICK);
 	}
 
