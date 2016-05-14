@@ -8,7 +8,8 @@ public class ServerResponse {
 	String userCookie;
 	String gameCookie; 
 	
-	public ServerResponse(String response, int responseCode){
+	public ServerResponse(int responseCode, String response){
+		System.out.println(response);
 		this.response = response;
 		this.responseCode = responseCode;
 	}
@@ -46,6 +47,10 @@ public class ServerResponse {
 	
 	public int getResponseCode(){
 		return responseCode;
+	}
+	
+	public String getResponse(){
+		return response;
 	}
 	
 
