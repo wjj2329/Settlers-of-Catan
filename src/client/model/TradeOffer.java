@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.smartcardio.Card;
 
+import shared.game.ResourceList;
 import shared.game.player.Player;
 
 /**
@@ -13,9 +14,36 @@ import shared.game.player.Player;
  */
 public class TradeOffer 
 {
-	int sender;
-	int receiver;
-	ArrayList<Card>offer=new ArrayList<Card>();
+	private int sender;
+
+	public ResourceList getMylist()
+	{
+		return mylist;
+	}
+	public void setMylist(ResourceList mylist)
+	{
+		this.mylist=mylist;
+	}
+	public int getReceiver() {
+		return receiver;
+	}
+
+	public void setReceiver(int receiver) {
+		this.receiver = receiver;
+	}
+
+	public int getSender() {
+		return sender;
+	}
+
+	public void setSender(int sender) {
+		this.sender = sender;
+	}
+
+
+
+	private int receiver;
+	ResourceList mylist=new ResourceList();
 	
 	/**
 	 * @exception throws exception if player is Invalid/null

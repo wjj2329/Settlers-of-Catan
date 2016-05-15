@@ -2,12 +2,9 @@ package shared.game;
 
 import java.util.ArrayList;
 
-import client.model.TurnStatus;
-import client.model.TurnTracker;
+import client.model.*;
 import org.json.JSONObject;
 
-import client.model.Model;
-import client.model.ServerPoller;
 import server.proxies.IServer;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
@@ -31,6 +28,9 @@ public class CatanGame
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
 	private TurnTracker myturntracker=new TurnTracker(TurnStatus.FIRSTROUND, new Index(0), new Index(1), new Index(2));
+	private Index version=new Index(0);
+	private Index winner=new Index(0);
+	private TradeOffer mytradeoffer=new TradeOffer();
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
@@ -189,4 +189,19 @@ public class CatanGame
 	{
 		this.myGameHistory = myGameHistory;
 	}
+
+	public Index getVersion()
+	{
+		return version;
+	}
+
+	public Index getWinner()
+	{
+		return winner;
+	}
+	public TradeOffer getMytradeoffer()
+	{
+		return mytradeoffer;
+	}
+
 }
