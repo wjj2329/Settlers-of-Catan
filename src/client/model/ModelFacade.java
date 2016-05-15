@@ -44,12 +44,12 @@ public class ModelFacade
 
 		//bank code
 		JSONObject bank=new JSONObject();
-		bank.put("brick:", Bank.getSingleton().getCardslist().getBrick());
-		bank.put("ore:", Bank.getSingleton().getCardslist().getOre());
-		bank.put("sheep:", Bank.getSingleton().getCardslist().getSheep());
-		bank.put("wheat:", Bank.getSingleton().getCardslist().getWheat());
-		bank.put("wood:", Bank.getSingleton().getCardslist().getWood());
-		myobject.put("bank:", bank);
+		bank.put("brick", Bank.getSingleton().getCardslist().getBrick());
+		bank.put("ore", Bank.getSingleton().getCardslist().getOre());
+		bank.put("sheep", Bank.getSingleton().getCardslist().getSheep());
+		bank.put("wheat", Bank.getSingleton().getCardslist().getWheat());
+		bank.put("wood", Bank.getSingleton().getCardslist().getWood());
+		myobject.put("bank", bank);
 
 		//chat code
 		JSONObject chat=new JSONObject();
@@ -59,12 +59,12 @@ public class ModelFacade
 		for(int i=0; i<mymessages.getMessages().size(); i++)
 		{
 			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",mymessages.getMessages().get(i).getMessage());
-			messageandstring.put("source:",mymessages.getMessages().get(i).getSource());
+			messageandstring.put("message",mymessages.getMessages().get(i).getMessage());
+			messageandstring.put("source",mymessages.getMessages().get(i).getSource());
 			lines.put(messageandstring);
 		}
-		chat.put("lines:",lines);
-		myobject.put("chat:",chat);
+		chat.put("lines",lines);
+		myobject.put("chat",chat);
 
 		//logcode
 		JSONObject log=new JSONObject();
@@ -73,12 +73,12 @@ public class ModelFacade
 		for(int i=0; i<myhistory.getLines().size();i++)
 		{
 			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",myhistory.getLines().get(i).getLine());
-			messageandstring.put("source:",myhistory.getLines().get(i).getSource());
+			messageandstring.put("message",myhistory.getLines().get(i).getLine());
+			messageandstring.put("source",myhistory.getLines().get(i).getSource());
 			lines2.put(messageandstring);
 		}
-		log.put("lines:",lines2);
-		myobject.put("chat:", log);
+		log.put("lines",lines2);
+		myobject.put("chat", log);
 
 		//map
 		//hexes
@@ -88,13 +88,13 @@ public class ModelFacade
 		for(HexLocation loc:mymap.keySet())
 		{
 			JSONObject locationarray=new JSONObject();
-			locationarray.put("x:",loc.getX());
-			locationarray.put("y:", loc.getY());
-			hexes.put("location:", locationarray);
-			hexes.put("resource:", mymap.get(loc).getResourcetype());
-			hexes.put("number:", mymap.get(loc).getResourcenumber());
+			locationarray.put("x",loc.getX());
+			locationarray.put("y", loc.getY());
+			hexes.put("location", locationarray);
+			hexes.put("resource", mymap.get(loc).getResourcetype());
+			hexes.put("number", mymap.get(loc).getResourcenumber());
 		}
-		map.put("hexes:",hexes);
+		map.put("hexes",hexes);
 		JSONObject ports=new JSONObject();
 
 		//ports
@@ -102,12 +102,12 @@ public class ModelFacade
 		{
 			ports.put("resource", mymap.get(loc).getPortType());
 			JSONObject location=new JSONObject();
-			location.put("x:",loc.getX());
-			location.put("y:", loc.getX());
-			ports.put("location:",location);
-			ports.put("direction:", mymap.get(loc).getPortLocation());
+			location.put("x",loc.getX());
+			location.put("y", loc.getX());
+			ports.put("location",location);
+			ports.put("direction", mymap.get(loc).getPortLocation());
 		}
-		map.put("ports:",ports);
+		map.put("ports",ports);
 
 		//roads
 		JSONObject roads=new JSONObject();
@@ -115,15 +115,15 @@ public class ModelFacade
 		{
 			for(int i=0; i<mymap.get(loc).getRoads().size(); i++)
 			{
-				roads.put("owner:", mymap.get(loc).getRoads().get(i));
+				roads.put("owner", mymap.get(loc).getRoads().get(i));
 				JSONObject location=new JSONObject();
-				location.put("x:",loc.getX());
-				location.put("y:",loc.getY());
-				roads.put("location:",location);
-				roads.put("direction:",mymap.get(loc).getRoads().get(i).getLocation());
+				location.put("x",loc.getX());
+				location.put("y",loc.getY());
+				roads.put("location",location);
+				roads.put("direction",mymap.get(loc).getRoads().get(i).getLocation());
 			}
 		}
-		myobject.put("roads:",roads);
+		myobject.put("roads",roads);
 
 		//settlements
 		JSONObject settlements=new JSONObject();
@@ -131,15 +131,15 @@ public class ModelFacade
 		{
 			for(int i=0; i<mymap.get(loc).getSettlementlist().size(); i++)
 			{
-				settlements.put("owner:", mymap.get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				settlements.put("owner", mymap.get(loc).getSettlementlist().get(i).getOwner().getNumber());
 				JSONObject location=new JSONObject();
-				location.put("x:",loc.getX());
-				location.put("y:",loc.getY());
-				settlements.put("location:", location);
-				settlements.put("direction:", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
+				location.put("x",loc.getX());
+				location.put("y",loc.getY());
+				settlements.put("location", location);
+				settlements.put("direction", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
 			}
 		}
-		myobject.put("settlements:",settlements);
+		myobject.put("settlements",settlements);
 
 		//cities
 		JSONObject cities=new JSONObject();
@@ -147,12 +147,12 @@ public class ModelFacade
 		{
 			for(int i=0; i<mymap.get(loc).getCities().size();i++)
 			{
-				cities.put("owner:", mymap.get(loc).getCities().get(i).getOwner().getNumber());
+				cities.put("owner", mymap.get(loc).getCities().get(i).getOwner().getNumber());
 				JSONObject location=new JSONObject();
-				location.put("x:",loc.getX());
-				location.put("y:",loc.getY());
-				cities.put("location:", location);
-				cities.put("direction:", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
+				location.put("x",loc.getX());
+				location.put("y",loc.getY());
+				cities.put("location", location);
+				cities.put("direction", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
 			}
 		}
 
@@ -162,38 +162,38 @@ public class ModelFacade
 		//for(int i=0; i<myplayers.size(); i++)
 		for(;;)
 		{
-			players.put("cities:", myplayers.get(i).getCities().size());
-			players.put("color:", myplayers.get(i).getColor().toString());
-			players.put("discarded:", myplayers.get(i).getIsDiscarded());
-			players.put("monuments:", myplayers.get(i).getNumMonuments());
-			players.put("name:", myplayers.get(i).getName());
+			players.put("cities", myplayers.get(i).getCities().size());
+			players.put("color", myplayers.get(i).getColor().toString());
+			players.put("discarded", myplayers.get(i).getIsDiscarded());
+			players.put("monuments", myplayers.get(i).getNumMonuments());
+			players.put("name", myplayers.get(i).getName());
 			JSONObject newDevCards=new JSONObject();
-			newDevCards.put("monopoly:", myplayers.get(i).getNewDevCards().getMonopoly());
-			newDevCards.put("monument:", myplayers.get(i).getNewDevCards().getMonument());
-			newDevCards.put("roadBuilding:", myplayers.get(i).getNewDevCards().getRoadBuilding());
-			newDevCards.put("soldier:", myplayers.get(i).getNewDevCards().getSoldier());
-			newDevCards.put("yearOfPlenty:", myplayers.get(i).getNewDevCards().getYearOfPlenty());
-			players.put("newDevCards:", newDevCards);
+			newDevCards.put("monopoly", myplayers.get(i).getNewDevCards().getMonopoly());
+			newDevCards.put("monument", myplayers.get(i).getNewDevCards().getMonument());
+			newDevCards.put("roadBuilding", myplayers.get(i).getNewDevCards().getRoadBuilding());
+			newDevCards.put("soldier", myplayers.get(i).getNewDevCards().getSoldier());
+			newDevCards.put("yearOfPlenty", myplayers.get(i).getNewDevCards().getYearOfPlenty());
+			players.put("newDevCards", newDevCards);
 			JSONObject oldDevCards=new JSONObject();
-			oldDevCards.put("monopoly:", myplayers.get(i).getNewDevCards().getMonopoly());
-			oldDevCards.put("monument:", myplayers.get(i).getNewDevCards().getMonument());
-			oldDevCards.put("roadBuilding:", myplayers.get(i).getNewDevCards().getRoadBuilding());
-			oldDevCards.put("soldier:", myplayers.get(i).getNewDevCards().getSoldier());
-			oldDevCards.put("yearOfPlenty:", myplayers.get(i).getNewDevCards().getYearOfPlenty());
-			players.put("oldDevCards:", oldDevCards);
-			players.put("playerIndex:", myplayers.get(i).getPlayerIndex().getNumber());
-			players.put("playedDevCard:", myplayers.get(i).getplayedDevCard());
-			players.put("playerID:", myplayers.get(i).getPlayerID().getNumber());
+			oldDevCards.put("monopoly", myplayers.get(i).getNewDevCards().getMonopoly());
+			oldDevCards.put("monument", myplayers.get(i).getNewDevCards().getMonument());
+			oldDevCards.put("roadBuilding", myplayers.get(i).getNewDevCards().getRoadBuilding());
+			oldDevCards.put("soldier", myplayers.get(i).getNewDevCards().getSoldier());
+			oldDevCards.put("yearOfPlenty", myplayers.get(i).getNewDevCards().getYearOfPlenty());
+			players.put("oldDevCards", oldDevCards);
+			players.put("playerIndex", myplayers.get(i).getPlayerIndex().getNumber());
+			players.put("playedDevCard", myplayers.get(i).getplayedDevCard());
+			players.put("playerID", myplayers.get(i).getPlayerID().getNumber());
 			JSONObject resources=new JSONObject();
-			resources.put("brick:", myplayers.get(i).getResources().getBrick());
-			resources.put("ore:", myplayers.get(i).getResources().getOre());
-			resources.put("sheep:", myplayers.get(i).getResources().getSheep());
-			resources.put("wheat:", myplayers.get(i).getResources().getWheat());
-			resources.put("wood:", myplayers.get(i).getResources().getWood());
-			players.put("resources:", resources);
-			players.put("roads:",myplayers.get(i).getRoadPieces().size());
-			players.put("settlements:", myplayers.get(i).getSettlements().size());
-			players.put("soldiers:", myplayers.get(i).getArmySize());
+			resources.put("brick", myplayers.get(i).getResources().getBrick());
+			resources.put("ore", myplayers.get(i).getResources().getOre());
+			resources.put("sheep", myplayers.get(i).getResources().getSheep());
+			resources.put("wheat", myplayers.get(i).getResources().getWheat());
+			resources.put("wood", myplayers.get(i).getResources().getWood());
+			players.put("resources", resources);
+			players.put("roads",myplayers.get(i).getRoadPieces().size());
+			players.put("settlements", myplayers.get(i).getSettlements().size());
+			players.put("soldiers", myplayers.get(i).getArmySize());
 			players.put("victoryPoints", myplayers.get(i).getNumVictoryPoints());
 		}
 		myobject.put("players", players);
