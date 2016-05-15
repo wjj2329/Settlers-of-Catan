@@ -181,12 +181,14 @@ public class Hex
 				}
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
-						hextoupdate.getSouthwest().setHassettlement(true);
-						hextoupdate2.getNorthwest().setHassettlement(true);
-						east.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+							hextoupdate.getSouthwest().setHassettlement(true);
+							hextoupdate2.getNorthwest().setHassettlement(true);
+							east.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+						}
 					}
 				}
 			}
@@ -204,12 +206,14 @@ public class Hex
 				}
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.west.isHassettlement()&&!this.west.isHascity()) {
-						hextoupdate.getSoutheast().setHassettlement(true);
-						hextoupdate2.getNortheast().setHassettlement(true);
-						west.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+						if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
+							hextoupdate.getSoutheast().setHassettlement(true);
+							hextoupdate2.getNortheast().setHassettlement(true);
+							west.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+						}
 					}
 				}
 			}
@@ -227,12 +231,14 @@ public class Hex
 				}
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
-						hextoupdate.getSoutheast().setHassettlement(true);
-						hextoupdate2.getWest().setHassettlement(true);
-						northeast.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
+							hextoupdate.getSoutheast().setHassettlement(true);
+							hextoupdate2.getWest().setHassettlement(true);
+							northeast.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+						}
 					}
 				}
 			}
@@ -250,12 +256,14 @@ public class Hex
 				}
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
-						hextoupdate.getEast().setHassettlement(true);
-						hextoupdate2.getSouthwest().setHassettlement(true);
-						northwest.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+						if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
+							hextoupdate.getEast().setHassettlement(true);
+							hextoupdate2.getSouthwest().setHassettlement(true);
+							northwest.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+						}
 					}
 				}
 			}
@@ -273,12 +281,14 @@ public class Hex
 				}
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
-						hextoupdate.getNorthwest().setHassettlement(true);
-						hextoupdate2.getEast().setHassettlement(true);
-						southwest.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+						if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
+							hextoupdate.getNorthwest().setHassettlement(true);
+							hextoupdate2.getEast().setHassettlement(true);
+							southwest.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+						}
 					}
 				}
 			}
@@ -295,12 +305,14 @@ public class Hex
 				}
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 					if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
-						hextoupdate.getWest().setHassettlement(true);
-						hextoupdate2.getNortheast().setHassettlement(true);
-						southeast.setHassettlement(true);
-						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
-						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
-						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+							hextoupdate.getWest().setHassettlement(true);
+							hextoupdate2.getNortheast().setHassettlement(true);
+							southeast.setHassettlement(true);
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+						}
 					}
 
 				}
