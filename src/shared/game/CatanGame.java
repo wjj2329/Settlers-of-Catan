@@ -8,6 +8,7 @@ import client.model.Model;
 import client.model.ServerPoller;
 import server.proxies.IServer;
 import shared.chat.Chat;
+import shared.chat.GameHistory;
 import shared.game.map.CatanMap;
 import shared.game.player.Player;
 /**
@@ -25,6 +26,7 @@ public class CatanGame
 	private ArrayList<Player>myplayers=new ArrayList();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
+	private GameHistory myGameHistory = new GameHistory();
 	private TurnTracker myturntracker=new TurnTracker();
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
@@ -175,4 +177,13 @@ public class CatanGame
 		return myturntracker;
 	}
 
+	public GameHistory getMyGameHistory()
+	{
+		return myGameHistory;
+	}
+
+	public void setMyGameHistory(GameHistory myGameHistory)
+	{
+		this.myGameHistory = myGameHistory;
+	}
 }
