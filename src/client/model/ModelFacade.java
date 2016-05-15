@@ -21,7 +21,9 @@ import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -40,6 +42,7 @@ public class ModelFacade
 
 	public JSONObject serializeModel() throws JSONException
 	{
+
 		JSONObject myobject=new JSONObject();
 
 		//bank code
@@ -217,7 +220,7 @@ public class ModelFacade
 
 		//last two things
 		myobject.put("version", CatanGame.singleton.getVersion().getNumber());
-		myobject.put("winner", CatanGame.singleton.getWinner());
+		myobject.put("winner", CatanGame.singleton.getWinner().getNumber());
 
 		return myobject;
 	}
