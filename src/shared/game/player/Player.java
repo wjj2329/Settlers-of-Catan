@@ -1,5 +1,6 @@
 package shared.game.player;
 
+import client.devcards.DevCard;
 import shared.definitions.*;
 import shared.game.Bank;
 import shared.game.CatanGame;
@@ -28,6 +29,8 @@ public class Player
 {
 	private int roadSize=0;
 	private int armySize=0;
+	private boolean playedDevCard;
+
 	/**
 	 * numCities: How many cities an individual player has.
 	 */
@@ -806,6 +809,10 @@ public class Player
 	private static final int MAX_NUM_CITIES = 4;
 	private static final int MAX_NUM_SETTLEMENTS = 5;
 
+	public boolean getIsDiscarded()
+	{
+		return this.discarded;
+	}
 	public int getArmySize() {
 		return armySize;
 	}
@@ -836,4 +843,30 @@ public class Player
 	{
 		this.numCitiesRemaining=number;
 	}
+	public DevCardList getOldDevCards()
+	{
+		return this.oldDevCards;
+	}
+	public DevCardList getNewDevCards()
+	{
+		return this.newDevCards;
+	}
+	public Index getPlayerIndex()
+	{
+		return this.playerIndex;
+	}
+
+	public boolean getplayedDevCard()
+	{
+		return this.playedDevCard;
+	}
+	public int getNumMonuments()
+	{
+		return this.numMonuments;
+	}
+	public int getNumVictoryPoints()
+	{
+		return this.numVictoryPoints;
+	}
+
 }

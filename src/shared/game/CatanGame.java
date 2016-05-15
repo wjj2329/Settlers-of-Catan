@@ -25,6 +25,7 @@ public class CatanGame
 	private ArrayList<Player>myplayers=new ArrayList();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
+	private TurnTracker myturntracker=new TurnTracker();
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
@@ -169,5 +170,9 @@ public class CatanGame
 	 * in this value. Feel free to change this
 	 */
 	private static final int RADIUS = 10;
+	public TurnTracker getMyturntracker()
+	{
+		return myturntracker;
+	}
 
 }
