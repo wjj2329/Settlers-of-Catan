@@ -4,6 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import shared.chat.Chat;
+import shared.chat.ChatLine;
 import shared.chat.ChatMessages;
 import shared.chat.GameHistory;
 import shared.game.Bank;
@@ -48,11 +49,11 @@ public class ModelFacade
 		JSONArray lines=new JSONArray();
 		Chat mychat=CatanGame.singleton.getMychat();
 		ChatMessages mymessages=mychat.getChatMessages();
-		for(int i=0; i<mymessages.messages().size(); i++)
+		for(int i=0; i<mymessages.getMessages().size(); i++)
 		{
 			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",mymessages.messages().get(i).getMessage());
-			messageandstring.put("source:",mymessages.messages().get(i).getSource());
+			messageandstring.put("message:",mymessages.getMessages().get(i).getMessage());
+			messageandstring.put("source:",mymessages.getMessages().get(i).getSource());
 			lines.put(messageandstring);
 		}
 		chat.put("lines:",lines);
@@ -167,15 +168,27 @@ public class ModelFacade
 
 		JSONObject map = myObject.getJSONObject("map");
 		loadMap(map);
+
+		JSONArray players = myObject.getJSONArray("players");
+		loadPlayers(players);
+
+		JSONObject tradeOffer = myObject.getJSONObject("tradeOffer");
+		loadTradeOffer(tradeOffer);
+
+		JSONObject turnTracker = myObject.getJSONObject("turnTracker");
+		loadTurnTracker(turnTracker);
+
+		int version = myObject.getInt("version");
+		int winner_convertToIndex = myObject.getInt("winner");
 	}
 
 	private void loadBank(JSONObject bank) throws JSONException
 	{
-		int bankBrickQuantity = bank.getInt("brick");
-		int bankOreQuantity = bank.getInt("ore");
-		int bankSheepQuantity = bank.getInt("sheep");
-		int bankWheatQuantity = bank.getInt("wheat");
-		int bankWoodQuantity = bank.getInt("wood");
+		Bank.getSingleton().getCardslist().setBrick(bank.getInt("brick"));
+		Bank.getSingleton().getCardslist().setOre(bank.getInt("ore"));
+		Bank.getSingleton().getCardslist().setSheep(bank.getInt("sheep"));
+		Bank.getSingleton().getCardslist().setWheat(bank.getInt("wheat"));
+		Bank.getSingleton().getCardslist().setWood(bank.getInt("wood"));
 	}
 
 	private void loadChat(JSONObject chat) throws JSONException
@@ -186,11 +199,14 @@ public class ModelFacade
 			JSONObject obj = chatLines.getJSONObject(i);
 			if (obj.has("message"))
 			{
-				String chatMessage = obj.getString("message");
+				CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
+						ChatLine(obj.getString("message"), SOURCE));
+				// not sure what source does; we will have to see - for now it is just a default string
 			}
 			if (obj.has("source"))
 			{
-				String chatSource = obj.getString("source");
+				CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
+				ChatLine(obj.getString("message"), SOURCE));
 			}
 		}
 	}
@@ -203,6 +219,7 @@ public class ModelFacade
 			JSONObject obj = logLines.getJSONObject(i);
 			if (obj.has("message"))
 			{
+				//CatanGame.singleton;
 				String logMessage = obj.getString("message");
 			}
 			if (obj.has("source"))
@@ -214,7 +231,133 @@ public class ModelFacade
 
 	private void loadMap(JSONObject map) throws JSONException
 	{
+		JSONArray hexes = map.getJSONArray("hexes");
+		for (int i = 0; i < hexes.length(); i++)
+		{
+			JSONObject obj = hexes.getJSONObject(i);
+			JSONObject location = obj.getJSONObject("location");
+			int x = location.getInt("x");
+			int y = location.getInt("y");
+			String resource = obj.getString("resource");
+			int number = obj.getInt("number");
+		}
+		JSONArray ports = map.getJSONArray("ports");
+		for (int i = 0; i < ports.length(); i++)
+		{
+			JSONObject obj = ports.getJSONObject(i);
+			String resource = obj.getString("resource");
+			JSONObject location = obj.getJSONObject("location");
+			int x = location.getInt("x");
+			int y = location.getInt("y");
+			String direction = obj.getString("direction");
+			int ratio = obj.getInt("ratio");
+		}
+		JSONArray roads = map.getJSONArray("roads");
+		for (int i = 0; i < roads.length(); i++)
+		{
+			JSONObject obj = roads.getJSONObject(i);
+			// Integer needs to be converted into index.
+			int owner_convertToIndex = obj.getInt("owner");
+			JSONObject location = obj.getJSONObject("location");
+			int x = location.getInt("x");
+			int y = location.getInt("y");
+			String direction = obj.getString("direction");
+		}
+		JSONArray settlements = map.getJSONArray("settlements");
+		for (int i = 0; i < settlements.length(); i++)
+		{
+			JSONObject obj = settlements.getJSONObject(i);
+			int owner_convertToIndex = obj.getInt("owner");
+			JSONObject location = obj.getJSONObject("location");
+			int x = location.getInt("x");
+			int y = location.getInt("y");
+			String direction = obj.getString("direction");
+		}
+		JSONArray cities = map.getJSONArray("cities");
+		for (int i = 0; i < cities.length(); i++)
+		{
+			JSONObject obj = cities.getJSONObject(i);
+			int owner_convertToIndex = obj.getInt("owner");
+			JSONObject location = obj.getJSONObject("location");
+			int x = location.getInt("x");
+			int y = location.getInt("y");
+			String direction = obj.getString("direction");
+		}
+		int radius = map.getInt("radius");
+		JSONObject robber = map.getJSONObject("robber");
+		int x = robber.getInt("x");
+		int y = robber.getInt("y");
+	}
 
+	private void loadPlayers(JSONArray players) throws JSONException
+	{
+		for (int i = 0; i < players.length(); i++)
+		{
+			JSONObject obj = players.getJSONObject(i);
+			int cities = obj.getInt("cities");
+			String color = obj.getString("color");
+			boolean discarded = obj.getBoolean("discarded");
+			int monuments = obj.getInt("monuments"); // so why the heck is this called "monuments"?
+			String name = obj.getString("name");
+			newDevCards(obj.getJSONObject("newDevCards"));
+			oldDevCards(obj.getJSONObject("oldDevCards"));
+			int playerIndex_convertToIndex = obj.getInt("playerIndex");
+			boolean playedDevCard = obj.getBoolean("playedDevCard");
+			int playerID = obj.getInt("playerID");
+			resources(obj.getJSONObject("resources"));
+			int roads = obj.getInt("roads");
+			int settlements = obj.getInt("settlements");
+			int soldiers = obj.getInt("soldiers");
+			int victoryPoints = obj.getInt("victoryPoints");
+		}
+	}
+
+	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException
+	{
+		int sender = tradeOffer.getInt("sender");
+		int receiver = tradeOffer.getInt("receiver");
+		JSONObject offer = tradeOffer.getJSONObject("offer");
+		int brick = offer.getInt("brick");
+		int sheep = offer.getInt("sheep");
+		int wood = offer.getInt("wood");
+		int ore = offer.getInt("ore");
+		int wheat = offer.getInt("wheat");
+	}
+
+	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
+	{
+		int currentTurn_convertToIndex = turnTracker.getInt("currentTurn");
+		String status = turnTracker.getString("status");
+		// actual player who has the longest road
+		int longestRoad_convertToIndex = turnTracker.getInt("longestRoad");
+		int largestArmy_convertToIndex = turnTracker.getInt("largestArmy");
+	}
+
+	private void newDevCards(JSONObject newDevCards) throws JSONException
+	{
+		int monopoly = newDevCards.getInt("monopoly");
+		int monument = newDevCards.getInt("monument");
+		int roadBuilding = newDevCards.getInt("roadBuilding");
+		int soldier = newDevCards.getInt("soldier");
+		int yearOfPlenty = newDevCards.getInt("yearOfPlenty");
+	}
+
+	private void oldDevCards(JSONObject oldDevCards) throws JSONException
+	{
+		int monopoly = oldDevCards.getInt("monopoly");
+		int monument = oldDevCards.getInt("monument");
+		int roadBuilding = oldDevCards.getInt("roadBuilding");
+		int soldier = oldDevCards.getInt("soldier");
+		int yearOfPlenty = oldDevCards.getInt("yearOfPlenty");
+	}
+
+	private void resources(JSONObject resources) throws JSONException
+	{
+		int brick = resources.getInt("brick");
+		int ore = resources.getInt("ore");
+		int sheep = resources.getInt("sheep");
+		int wheat = resources.getInt("wheat");
+		int wood = resources.getInt("wood");
 	}
 
 		// TODO Auto-generated constructor stub
@@ -291,5 +434,5 @@ public class ModelFacade
 		singleton.setModel(newModel);		
 	}
 
-	
+	private static final String SOURCE = "Default";
 }

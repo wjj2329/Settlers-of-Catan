@@ -7,7 +7,7 @@ package shared.chat;
 public class Chat 
 {
 
-	public  ChatMessages getChatMessages()
+	public ChatMessages getChatMessages()
 	{
 		return messages;
 	}
