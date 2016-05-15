@@ -191,7 +191,12 @@ public class ModelFacade
 
 		//tradeOffer
 		JSONObject tradeOffer=new JSONObject();
-		tradeOffer.put("sender:", )
+		//tradeOffer.put("sender:", C)
+
+		//turnTracker
+		JSONObject turnTracker=new JSONObject();
+		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
+		
 
 		return myobject;
 	}
