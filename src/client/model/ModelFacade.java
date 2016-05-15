@@ -197,7 +197,7 @@ public class ModelFacade
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
 		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
-		
+
 
 		return myobject;
 	}
