@@ -1,5 +1,6 @@
 package client.model;
 
+import client.main.Catan;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -196,7 +197,10 @@ public class ModelFacade
 
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
-		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
+		turnTracker.put("currentTurn:", CatanGame.singleton.getMyturntracker().getCurrentTurn());
+		turnTracker.put("status:", CatanGame.singleton.getMyturntracker().getStatus().toString());
+		turnTracker.put("longestRoad:",CatanGame.singleton.getMyturntracker().getLongestRoad().getNumber());
+		turnTracker.put("largestArmy:", CatanGame.singleton.getMyturntracker().getLargestArmy().getNumber());
 
 
 		return myobject;
