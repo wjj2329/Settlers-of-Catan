@@ -9,7 +9,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
-import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.definitions.TradeType;
 import shared.game.Bank;

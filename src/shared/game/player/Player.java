@@ -354,6 +354,12 @@ public class Player
 					return false;
 				}
 				break;
+			case FOUR:
+				if (!multiWayTrade(typeFor_3_Or4Way, FOUR_WAY))
+				{
+					return false;
+				}
+				break;
 			default:
 				assert false;
 		}
@@ -373,6 +379,7 @@ public class Player
 	{
 		assert(!theType.equals(TradeType.FOUR));
 		assert(!theType.equals(TradeType.THREE));
+		assert(!theType.equals(TradeType.BLANK));
 		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
 		switch (theType)
 		{
