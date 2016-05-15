@@ -189,7 +189,7 @@ public class ModelFacade
 			players.put("soldiers:", myplayers.get(i).getArmySize());
 			players.put("victoryPoints", myplayers.get(i).getNumVictoryPoints());
 		}
-		myobject.put("players:", players);
+		myobject.put("players", players);
 
 		//tradeOffer
 		JSONObject tradeOffer=new JSONObject();
@@ -204,10 +204,10 @@ public class ModelFacade
 
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
-		turnTracker.put("currentTurn:", CatanGame.singleton.getMyturntracker().getCurrentTurn());
-		turnTracker.put("status:", CatanGame.singleton.getMyturntracker().getStatus().toString());
-		turnTracker.put("longestRoad:",CatanGame.singleton.getMyturntracker().getLongestRoad().getNumber());
-		turnTracker.put("largestArmy:", CatanGame.singleton.getMyturntracker().getLargestArmy().getNumber());
+		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
+		turnTracker.put("status", CatanGame.singleton.getMyturntracker().getStatus().toString());
+		turnTracker.put("longestRoad",CatanGame.singleton.getMyturntracker().getLongestRoad().getNumber());
+		turnTracker.put("largestArmy", CatanGame.singleton.getMyturntracker().getLargestArmy().getNumber());
 
 		//last two things
 		myobject.put("version", CatanGame.singleton.getVersion().getNumber());
