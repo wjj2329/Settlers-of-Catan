@@ -33,7 +33,7 @@ public class GameHistoryLine
 	/**
 	 * Constructor
 	 */
-	public GameHistoryLine()
+	public GameHistoryLine(String line, String source)
 	{
 		
 	}

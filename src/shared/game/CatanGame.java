@@ -23,7 +23,7 @@ public class CatanGame
 	private Model gameModel = new Model();
 	private ServerPoller poller;
 	private IServer server;
-	private ArrayList<Player>myplayers=new ArrayList();
+	private ArrayList<Player>myplayers=new ArrayList<>();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
