@@ -160,41 +160,41 @@ public class ModelFacade
 		Map<Index, Player>myplayers=CatanGame.singleton.getMyplayers();
 		JSONObject players=new JSONObject();
 		//for(int i=0; i<myplayers.size(); i++)
-		for(;;)
+		for(Map.Entry<Index, Player> entry : myplayers.entrySet())
 		{
-			players.put("cities", myplayers.get(i).getCities().size());
-			players.put("color", myplayers.get(i).getColor().toString());
-			players.put("discarded", myplayers.get(i).getIsDiscarded());
-			players.put("monuments", myplayers.get(i).getNumMonuments());
-			players.put("name", myplayers.get(i).getName());
+			players.put("cities", entry.getValue().getCities().size());
+			players.put("color", entry.getValue().getColor().toString());
+			players.put("discarded", entry.getValue().getIsDiscarded());
+			players.put("monuments", entry.getValue().getNumMonuments());
+			players.put("name", entry.getValue().getName());
 			JSONObject newDevCards=new JSONObject();
-			newDevCards.put("monopoly", myplayers.get(i).getNewDevCards().getMonopoly());
-			newDevCards.put("monument", myplayers.get(i).getNewDevCards().getMonument());
-			newDevCards.put("roadBuilding", myplayers.get(i).getNewDevCards().getRoadBuilding());
-			newDevCards.put("soldier", myplayers.get(i).getNewDevCards().getSoldier());
-			newDevCards.put("yearOfPlenty", myplayers.get(i).getNewDevCards().getYearOfPlenty());
+			newDevCards.put("monopoly", entry.getValue().getNewDevCards().getMonopoly());
+			newDevCards.put("monument", entry.getValue().getNewDevCards().getMonument());
+			newDevCards.put("roadBuilding", entry.getValue().getNewDevCards().getRoadBuilding());
+			newDevCards.put("soldier", entry.getValue().getNewDevCards().getSoldier());
+			newDevCards.put("yearOfPlenty", entry.getValue().getNewDevCards().getYearOfPlenty());
 			players.put("newDevCards", newDevCards);
 			JSONObject oldDevCards=new JSONObject();
-			oldDevCards.put("monopoly", myplayers.get(i).getNewDevCards().getMonopoly());
-			oldDevCards.put("monument", myplayers.get(i).getNewDevCards().getMonument());
-			oldDevCards.put("roadBuilding", myplayers.get(i).getNewDevCards().getRoadBuilding());
-			oldDevCards.put("soldier", myplayers.get(i).getNewDevCards().getSoldier());
-			oldDevCards.put("yearOfPlenty", myplayers.get(i).getNewDevCards().getYearOfPlenty());
+			oldDevCards.put("monopoly", entry.getValue().getNewDevCards().getMonopoly());
+			oldDevCards.put("monument", entry.getValue().getNewDevCards().getMonument());
+			oldDevCards.put("roadBuilding", entry.getValue().getNewDevCards().getRoadBuilding());
+			oldDevCards.put("soldier", entry.getValue().getNewDevCards().getSoldier());
+			oldDevCards.put("yearOfPlenty", entry.getValue().getNewDevCards().getYearOfPlenty());
 			players.put("oldDevCards", oldDevCards);
-			players.put("playerIndex", myplayers.get(i).getPlayerIndex().getNumber());
-			players.put("playedDevCard", myplayers.get(i).getplayedDevCard());
-			players.put("playerID", myplayers.get(i).getPlayerID().getNumber());
+			players.put("playerIndex", entry.getValue().getPlayerIndex().getNumber());
+			players.put("playedDevCard", entry.getValue().getplayedDevCard());
+			players.put("playerID", entry.getValue().getPlayerID().getNumber());
 			JSONObject resources=new JSONObject();
-			resources.put("brick", myplayers.get(i).getResources().getBrick());
-			resources.put("ore", myplayers.get(i).getResources().getOre());
-			resources.put("sheep", myplayers.get(i).getResources().getSheep());
-			resources.put("wheat", myplayers.get(i).getResources().getWheat());
-			resources.put("wood", myplayers.get(i).getResources().getWood());
+			resources.put("brick", entry.getValue().getResources().getBrick());
+			resources.put("ore", entry.getValue().getResources().getOre());
+			resources.put("sheep", entry.getValue().getResources().getSheep());
+			resources.put("wheat", entry.getValue().getResources().getWheat());
+			resources.put("wood", entry.getValue().getResources().getWood());
 			players.put("resources", resources);
-			players.put("roads",myplayers.get(i).getRoadPieces().size());
-			players.put("settlements", myplayers.get(i).getSettlements().size());
-			players.put("soldiers", myplayers.get(i).getArmySize());
-			players.put("victoryPoints", myplayers.get(i).getNumVictoryPoints());
+			players.put("roads",entry.getValue().getRoadPieces().size());
+			players.put("settlements", entry.getValue().getSettlements().size());
+			players.put("soldiers", entry.getValue().getArmySize());
+			players.put("victoryPoints", entry.getValue().getNumVictoryPoints());
 		}
 		myobject.put("players", players);
 
@@ -490,12 +490,12 @@ public class ModelFacade
 	}
 
 		// TODO Auto-generated constructor stub
-	public ArrayList<Player> getMyplayers()
+	public Map<Index, Player> getMyplayers()
 	{
 		return singleton.getMyplayers();
 	}
 
-	public void setMyplayers(ArrayList<Player> myplayers)
+	public void setMyplayers(Map<Index, Player> myplayers)
 	{
 		singleton.setMyplayers(myplayers);
 	}
@@ -521,7 +521,7 @@ public class ModelFacade
 	public void addPlayer(Player player)
 	{
 		if(canCreatePlayer(player)) {
-			singleton.getMyplayers().add(player);
+			singleton.getMyplayers().put(player.getPlayerID(), player);
 		}
 	}
 
