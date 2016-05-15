@@ -647,4 +647,14 @@ public class Hex
 	{
 		settlements.add(settlement);
 	}
+
+	public ArrayList<Settlement> getSettlementlist()
+	{
+		return this.settlements;
+	}
+
+	public ArrayList<City> getCities()
+	{
+		return this.cities;
+	}
 }

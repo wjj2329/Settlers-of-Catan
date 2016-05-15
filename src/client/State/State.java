@@ -230,7 +230,7 @@ public enum State {
 	JoinGameState{
 		@Override
 		public void playSoldierCard() {
-			
+
 		}
 
 		@Override

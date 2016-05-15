@@ -121,10 +121,32 @@ public class ModelFacade
 		JSONObject settlements=new JSONObject();
 		for(HexLocation loc:mymap.keySet())
 		{
-			//for(int i=0; i<mymap.get(loc).get)
-			//settlements.put("owner", mymap.get(loc).)
+			for(int i=0; i<mymap.get(loc).getSettlementlist().size(); i++)
+			{
+				settlements.put("owner:", mymap.get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				JSONObject location=new JSONObject();
+				location.put("x:",loc.getX());
+				location.put("y:",loc.getY());
+				settlements.put("location:", location);
+				settlements.put("direction:", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
+			}
 		}
+		myobject.put("settlements:",settlements);
 
+		//cities
+		JSONObject cities=new JSONObject();
+		for(HexLocation loc:mymap.keySet())
+		{
+			for(int i=0; i<mymap.get(loc).getCities().size();i++)
+			{
+				cities.put("owner:", mymap.get(loc).getCities().get(i).getOwner().getNumber());
+				JSONObject location=new JSONObject();
+				location.put("x:",loc.getX());
+				location.put("y:",loc.getY());
+				cities.put("location:", location);
+				cities.put("direction:", mymap.get(loc).getSettlementlist().get(i).getVertexLocation());
+			}
+		}
 		return myobject;
 	}
 
