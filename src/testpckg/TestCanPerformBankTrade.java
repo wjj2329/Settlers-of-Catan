@@ -32,7 +32,7 @@ public class TestCanPerformBankTrade
 	/**
 	 * Our sample player
 	 */
-	Player kesha = null;
+	private Player kesha = null;
 
 	/**
 	 * @throws java.lang.Exception

@@ -435,7 +435,7 @@ public class Player
 			numRoadPiecesRemaining = numRoadPiecesRemaining - 1;
 			Hex adjacent = computeAdjacentHex(hex, edge);
 			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
-
+			// check the other hex
 			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 			{
 				return false;
