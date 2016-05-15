@@ -20,7 +20,9 @@ import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.*;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -39,6 +41,7 @@ public class ModelFacade
 
 	public JSONObject serializeModel() throws JSONException
 	{
+
 		JSONObject myobject=new JSONObject();
 
 		//bank code
@@ -217,7 +220,7 @@ public class ModelFacade
 
 		//last two things
 		myobject.put("version", CatanGame.singleton.getVersion().getNumber());
-		myobject.put("winner", CatanGame.singleton.getWinner());
+		myobject.put("winner", CatanGame.singleton.getWinner().getNumber());
 
 		return myobject;
 	}
