@@ -90,7 +90,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public void register() {
 		
 		// TODO: register new user (which, if successful, also logs them in)
-		
 		// If register succeeded
 		getLoginView().closeModal();
 		loginAction.execute();
