@@ -3,15 +3,21 @@ package client.model;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import shared.chat.Chat;
-import shared.chat.ChatLine;
-import shared.chat.ChatMessages;
-import shared.chat.GameHistory;
+import shared.chat.*;
+import shared.definitions.HexType;
+import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Hex.NumberToken;
+import shared.game.map.Hex.RoadPiece;
+import shared.game.map.Index;
+import shared.game.map.Port;
 import shared.game.player.Player;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 import java.util.ArrayList;
@@ -248,17 +254,8 @@ public class ModelFacade
 		for (int i = 0; i < chatLines.length(); i++)
 		{
 			JSONObject obj = chatLines.getJSONObject(i);
-			if (obj.has("message"))
-			{
-				CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
-						ChatLine(obj.getString("message"), SOURCE));
-				// not sure what source does; we will have to see - for now it is just a default string
-			}
-			if (obj.has("source"))
-			{
-				CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
-				ChatLine(obj.getString("message"), SOURCE));
-			}
+			CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
+					ChatLine(obj.getString("message"), obj.getString("source")));
 		}
 	}
 
@@ -268,15 +265,8 @@ public class ModelFacade
 		for (int i = 0; i < logLines.length(); i++)
 		{
 			JSONObject obj = logLines.getJSONObject(i);
-			if (obj.has("message"))
-			{
-				//CatanGame.singleton;
-				String logMessage = obj.getString("message");
-			}
-			if (obj.has("source"))
-			{
-				String logSource = obj.getString("source");
-			}
+			CatanGame.singleton.getMyGameHistory().getLines().add(new
+					GameHistoryLine(obj.getString("message"), obj.getString("source")));
 		}
 	}
 
@@ -287,10 +277,13 @@ public class ModelFacade
 		{
 			JSONObject obj = hexes.getJSONObject(i);
 			JSONObject location = obj.getJSONObject("location");
-			int x = location.getInt("x");
-			int y = location.getInt("y");
+			HexLocation newLoc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			String resource = obj.getString("resource");
-			int number = obj.getInt("number");
+			HexType hexType = convertToHexType(resource);
+			assert(hexType != null); // it must NOT return null or something is wrong with our JSON
+			// The last parameter is null for now. NEED to fix ports for now.
+			Hex newHex = new Hex(newLoc, hexType, new NumberToken(obj.getInt("number")), null);
+			CatanGame.singleton.getMymap().getHexes().put(newLoc, newHex);
 		}
 		JSONArray ports = map.getJSONArray("ports");
 		for (int i = 0; i < ports.length(); i++)
@@ -298,21 +291,23 @@ public class ModelFacade
 			JSONObject obj = ports.getJSONObject(i);
 			String resource = obj.getString("resource");
 			JSONObject location = obj.getJSONObject("location");
-			int x = location.getInt("x");
-			int y = location.getInt("y");
 			String direction = obj.getString("direction");
-			int ratio = obj.getInt("ratio");
+			EdgeDirection dir = getDirectionFromString(direction);
+			assert(dir != null);
+			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
+					obj.getInt("ratio"));
+			CatanGame.singleton.getMymap().getPorts().add(newPort);
 		}
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)
 		{
 			JSONObject obj = roads.getJSONObject(i);
-			// Integer needs to be converted into index.
-			int owner_convertToIndex = obj.getInt("owner");
+			RoadPiece roadPiece = new RoadPiece(new Index(obj.getInt("owner")));
 			JSONObject location = obj.getJSONObject("location");
-			int x = location.getInt("x");
-			int y = location.getInt("y");
-			String direction = obj.getString("direction");
+			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
+					getDirectionFromString(obj.getString("direction"))));
+			CatanGame.singleton.getMyplayers();
+			roadPiece.getPlayerWhoOwnsRoad();
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
@@ -409,6 +404,74 @@ public class ModelFacade
 		int sheep = resources.getInt("sheep");
 		int wheat = resources.getInt("wheat");
 		int wood = resources.getInt("wood");
+	}
+
+	private HexType convertToHexType(String resource)
+	{
+		switch (resource)
+		{
+			case "wood":
+				return HexType.WOOD;
+			case "brick":
+				return HexType.BRICK;
+			case "sheep":
+				return HexType.SHEEP;
+			case "ore":
+				return HexType.ORE;
+			case "wheat":
+				return HexType.WHEAT;
+			case "desert":
+				return HexType.DESERT;
+			case "water":
+				return HexType.WATER;
+			default:
+				assert false;
+		}
+		return null;
+	}
+
+	private EdgeDirection getDirectionFromString(String direction)
+	{
+		switch (direction)
+		{
+			case "NW":
+				return EdgeDirection.NorthWest;
+			case "N":
+				return EdgeDirection.North;
+			case "NE":
+				return EdgeDirection.NorthEast;
+			case "SW":
+				return EdgeDirection.SouthWest;
+			case "S":
+				return EdgeDirection.South;
+			case "SE:":
+				return EdgeDirection.SouthEast;
+			default:
+				assert false;
+		}
+		return null;
+	}
+
+	private PortType getPortTypeFromString(String type)
+	{
+		switch (type)
+		{
+			case "wood":
+				return PortType.WOOD;
+			case "sheep":
+				return PortType.SHEEP;
+			case "brick":
+				return PortType.BRICK;
+			case "ore":
+				return PortType.ORE;
+			case "wheat":
+				return PortType.WHEAT;
+			case "three":
+				return PortType.THREE;
+			default:
+				assert false;
+		}
+		return null;
 	}
 
 		// TODO Auto-generated constructor stub

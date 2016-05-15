@@ -35,4 +35,9 @@ public class GameHistory
 			lines.get(i).display();
 		}
 	}
+
+	public void setLines(ArrayList<GameHistoryLine> lines)
+	{
+		this.lines = lines;
+	}
 }
