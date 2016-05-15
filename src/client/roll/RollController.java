@@ -27,10 +27,12 @@ public class RollController extends Controller implements IRollController {
 		return resultView;
 	}
 	public void setResultView(IRollResultView resultView) {
+
 		this.resultView = resultView;
 	}
 
 	public IRollView getRollView() {
+
 		return (IRollView)getView();
 	}
 	
