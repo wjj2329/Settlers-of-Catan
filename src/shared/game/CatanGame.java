@@ -2,6 +2,8 @@ package shared.game;
 
 import java.util.ArrayList;
 
+import client.model.TurnStatus;
+import client.model.TurnTracker;
 import org.json.JSONObject;
 
 import client.model.Model;
@@ -10,6 +12,7 @@ import server.proxies.IServer;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.game.map.CatanMap;
+import shared.game.map.Index;
 import shared.game.player.Player;
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
@@ -27,7 +30,7 @@ public class CatanGame
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
-	private TurnTracker myturntracker=new TurnTracker();
+	private TurnTracker myturntracker=new TurnTracker(TurnStatus.FIRSTROUND, new Index(0), new Index(1), new Index(2));
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
