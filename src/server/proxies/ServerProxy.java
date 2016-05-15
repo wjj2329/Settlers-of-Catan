@@ -320,7 +320,7 @@ public class ServerProxy implements IServer {
 	 * @pre None!
 	 * @post The chat contains your message at the end
 	 * 
-	 */
+	 */// GIVES OUT THE JSON
 	@Override
 	public ServerResponse sendChat(String type, int playerIndex, String content){
 		final String URL_SUFFIX = "/moves/sendChat";
@@ -447,7 +447,7 @@ public class ServerProxy implements IServer {
 	 *                specified location if applicable, "longest road" has been
 	 *                awarded to the player with the longest road
 	 * 
-	 */
+	 *///GIVES OUT JSON
 	@Override
 	public ServerResponse buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation){
 		final String URL_SUFFIX = "/moves/buildRoad";
@@ -481,7 +481,7 @@ public class ServerProxy implements IServer {
 	 * @post You lost the required resources to build a
 	 *                settlement(1 wood, 1 brick, 1 wheat, 1 sheep; 1
 	 *                settlement) the settlement is on the map at the specified
-	 *                locatoin
+	 *                location
 	 * 
 	 */
 	@Override
@@ -672,7 +672,7 @@ public class ServerProxy implements IServer {
 	 * @post you gained to specified resources
 	 * 
 	 * 
-	 */
+	 *///GIVES OUT JSON
 	@Override
 	public ServerResponse playYearofPlenty(String type, int playerIndex, String resource1, String resource2) {
 		final String URL_SUFFIX = "/moves/Year_of_Plenty";

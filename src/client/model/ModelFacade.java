@@ -114,12 +114,14 @@ public class ModelFacade
 				roads.put("location:",location);
 				roads.put("direction:",mymap.get(loc).getRoads().get(i).getLocation());
 			}
-
 		}
-		JSONObject settlements=new JSONObject();
+		myobject.put("roads:",roads);
+
 		//settlements
+		JSONObject settlements=new JSONObject();
 		for(HexLocation loc:mymap.keySet())
 		{
+			//for(int i=0; i<mymap.get(loc).get)
 			//settlements.put("owner", mymap.get(loc).)
 		}
 

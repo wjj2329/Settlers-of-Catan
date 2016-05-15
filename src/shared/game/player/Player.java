@@ -357,12 +357,6 @@ public class Player
 					return false;
 				}
 				break;
-			case FOUR: // 4:1.
-				if (!multiWayTrade(typeFor_3_Or4Way, FOUR_WAY))
-				{
-					return false;
-				}
-				break;
 			default:
 				assert false;
 		}
@@ -380,9 +374,8 @@ public class Player
      */
 	private boolean multiWayTrade(PortType theType, int threeOrFour)
 	{
-		assert(!theType.equals(PortType.BLANK));
+		assert(!theType.equals(null));
 		assert(!theType.equals(PortType.THREE));
-		assert(!theType.equals(PortType.FOUR));
 		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
 		switch (theType)
 		{
@@ -512,7 +505,7 @@ public class Player
 	{
 		if(canBuildSettlement(buildingon,locationofsettlement))
 		{
-			buildingon.buildSettlement(locationofsettlement);
+			buildingon.buildSettlement(locationofsettlement, this.playerID);
 			resources.setBrick(resources.getBrick()-1);
 			resources.setWheat(resources.getWheat()-1);
 			resources.setSheep(resources.getSheep()-1);

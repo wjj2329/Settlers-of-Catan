@@ -163,7 +163,7 @@ public class Hex
 	/**this function actually places settlements on the hex and the corresponding hexes that intersect at that intersection.
 	 * @param mylocation not null
      */
-	public void buildSettlement(VertexLocation mylocation) throws Exception
+	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
 		if(canBuildSettlementHere(mylocation))
 		{
@@ -184,6 +184,9 @@ public class Hex
 						hextoupdate.getSouthwest().setHassettlement(true);
 						hextoupdate2.getNorthwest().setHassettlement(true);
 						east.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 					}
 				}
 			}
@@ -204,6 +207,9 @@ public class Hex
 						hextoupdate.getSoutheast().setHassettlement(true);
 						hextoupdate2.getNortheast().setHassettlement(true);
 						west.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
 					}
 				}
 			}
@@ -224,6 +230,9 @@ public class Hex
 						hextoupdate.getSoutheast().setHassettlement(true);
 						hextoupdate2.getWest().setHassettlement(true);
 						northeast.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
 					}
 				}
 			}
@@ -244,6 +253,9 @@ public class Hex
 						hextoupdate.getEast().setHassettlement(true);
 						hextoupdate2.getSouthwest().setHassettlement(true);
 						northwest.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 					}
 				}
 			}
@@ -264,6 +276,9 @@ public class Hex
 						hextoupdate.getNorthwest().setHassettlement(true);
 						hextoupdate2.getEast().setHassettlement(true);
 						southwest.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
 					}
 				}
 			}
@@ -283,6 +298,9 @@ public class Hex
 						hextoupdate.getWest().setHassettlement(true);
 						hextoupdate2.getNortheast().setHassettlement(true);
 						southeast.setHassettlement(true);
+						settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+						hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+						hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
 					}
 
 				}
@@ -464,7 +482,7 @@ public class Hex
 		{
 			return false;
 		}
-		if(resourcetype!=(HexType.WATER)&&myport!=(PortType.BLANK))
+		if(resourcetype!=(HexType.WATER)&&myport!=(null))
 		{
 			return false;
 		}
@@ -623,5 +641,10 @@ public class Hex
 	public ArrayList<RoadPiece> getRoads()
 	{
 		return roads;
+	}
+
+	public void addSettlement(Settlement settlement)
+	{
+		settlements.add(settlement);
 	}
 }

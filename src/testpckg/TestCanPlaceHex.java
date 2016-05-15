@@ -31,9 +31,9 @@ public class TestCanPlaceHex
 	@Before
 	public void setUp() throws Exception 
 	{
-		hex1=new Hex(new HexLocation(3, 3), HexType.BRICK,new NumberToken(3), PortType.BLANK);
+		hex1=new Hex(new HexLocation(3, 3), HexType.BRICK,new NumberToken(3), null);
 		hex2=new Hex(new HexLocation(3, 3), HexType.WATER,new NumberToken(3), PortType.WHEAT);
-		hex3=new Hex(new HexLocation(3, 3), HexType.DESERT,new NumberToken(3), PortType.BLANK);
+		hex3=new Hex(new HexLocation(3, 3), HexType.DESERT,new NumberToken(3), null);
 	}
 
 	/**

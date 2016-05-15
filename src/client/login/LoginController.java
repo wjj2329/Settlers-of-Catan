@@ -7,6 +7,8 @@ import java.net.*;
 import java.io.*;
 import java.util.*;
 import java.lang.reflect.*;
+
+import server.proxies.*;
 //import com.google.gson.*;
 //import com.google.gson.reflect.TypeToken;
 
@@ -14,10 +16,12 @@ import java.lang.reflect.*;
 /**
  * Implementation for the login controller
  */
-public class LoginController extends Controller implements ILoginController {
+public class LoginController extends Controller implements ILoginController, Observer
+{
 
 	private IMessageView messageView;
 	private IAction loginAction;
+	private IServer server = new ServerProxy();
 	
 	/**
 	 * LoginController constructor
@@ -72,11 +76,14 @@ public class LoginController extends Controller implements ILoginController {
 	public void signIn() {
 		
 		// TODO: log in user
-		
-
-		// If log in succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		String username = getLoginView().getLoginUsername();
+		String password = getLoginView().getLoginPassword();
+		if(server.loginUser(username, password).getResponseCode() == HttpURLConnection.HTTP_OK)
+		{		
+			// If log in succeeded
+			getLoginView().closeModal();
+			loginAction.execute();
+		}
 	}
 
 	@Override
@@ -87,6 +94,13 @@ public class LoginController extends Controller implements ILoginController {
 		// If register succeeded
 		getLoginView().closeModal();
 		loginAction.execute();
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

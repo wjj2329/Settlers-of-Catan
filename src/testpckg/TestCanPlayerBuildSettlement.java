@@ -31,10 +31,10 @@ public class TestCanPlayerBuildSettlement
     @Rule
     public final ExpectedException exception = ExpectedException.none();
 
-    private  Hex hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), PortType.BLANK);
+    private  Hex hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), null);
     private  Player william;
-    private Hex hex2=new Hex(new HexLocation(1,0),HexType.ORE, new NumberToken(8), PortType.BLANK);
-    private Hex hex3=new Hex(new HexLocation(-1,0),HexType.WHEAT, new NumberToken(10), PortType.BLANK);
+    private Hex hex2=new Hex(new HexLocation(1,0),HexType.ORE, new NumberToken(8), null);
+    private Hex hex3=new Hex(new HexLocation(-1,0),HexType.WHEAT, new NumberToken(10), null);
 
 
     @Before
@@ -104,8 +104,8 @@ public class TestCanPlayerBuildSettlement
     @Test
     public void test4()throws Exception
     {
-        hex2=new Hex(new HexLocation(1,0),HexType.ORE, new NumberToken(8), PortType.BLANK);
-        hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), PortType.BLANK);
+        hex2=new Hex(new HexLocation(1,0),HexType.ORE, new NumberToken(8), null);
+        hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), null);
         assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.East)));
         assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.NorthWest)));
         assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.West)));

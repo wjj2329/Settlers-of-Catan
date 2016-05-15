@@ -60,14 +60,14 @@ public class TestCanPerformBankTrade
 		Bank.getSingleton().getCardslist().setWood(1);
 		assertEquals(kesha.getResources().getBrick(), 2);
 		assertEquals(Bank.getSingleton().getCardslist().getWood(), 1);
-		assertTrue(kesha.canDoTradeWithBank(PortType.BRICK, PortType.BLANK, ResourceType.WOOD));
+		assertTrue(kesha.canDoTradeWithBank(PortType.BRICK, null, ResourceType.WOOD));
 	}
 
 	@Test
 	public void test2WayTradeNo() throws Exception
 	{
-		assertFalse(kesha.canDoTradeWithBank(PortType.SHEEP, PortType.BLANK, ResourceType.WOOD));
-		assertFalse(kesha.canDoTradeWithBank(PortType.BRICK, PortType.BLANK, ResourceType.SHEEP));
+		assertFalse(kesha.canDoTradeWithBank(PortType.SHEEP, null, ResourceType.WOOD));
+		assertFalse(kesha.canDoTradeWithBank(PortType.BRICK, null, ResourceType.SHEEP));
 	}
 
 	@Test
@@ -92,7 +92,7 @@ public class TestCanPerformBankTrade
 	{
 		kesha.getResources().setSheep(7);
 		Bank.getSingleton().getCardslist().setWheat(1);
-		assertTrue(kesha.canDoTradeWithBank(PortType.FOUR, PortType.SHEEP, ResourceType.WHEAT));
+		assertTrue(kesha.canDoTradeWithBank(null, PortType.SHEEP, ResourceType.WHEAT));
 	}
 
 	@Test
@@ -100,8 +100,8 @@ public class TestCanPerformBankTrade
 	{
 		kesha.getResources().setWheat(1);
 		Bank.getSingleton().getCardslist().setSheep(1);
-		assertFalse(kesha.canDoTradeWithBank(PortType.FOUR, PortType.WHEAT, ResourceType.SHEEP));
-		assertFalse(kesha.canDoTradeWithBank(PortType.FOUR, PortType.SHEEP, ResourceType.BRICK));
+		assertFalse(kesha.canDoTradeWithBank(null, PortType.WHEAT, ResourceType.SHEEP));
+		assertFalse(kesha.canDoTradeWithBank(null, PortType.SHEEP, ResourceType.BRICK));
 	}
 
 	private static final String NAME = "Ke$ha";

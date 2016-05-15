@@ -1011,7 +1011,7 @@ public class MapComponent extends JComponent
 	{
 		
 		String imageFile = getPortImageFile(portType);
-		
+		System.out.println(imageFile);
 		return ImageUtils.loadImage(imageFile);
 	}
 	
