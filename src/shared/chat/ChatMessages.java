@@ -17,7 +17,7 @@ public class ChatMessages
 	{
 		
 	}
-	public ArrayList<ChatLine> messages()
+	public ArrayList<ChatLine> getMessages()
 	{
 		return lines;
 	}
