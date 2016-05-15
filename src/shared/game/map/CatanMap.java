@@ -9,6 +9,8 @@ import shared.definitions.PortType;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
 import shared.game.map.Hex.RoadPiece;
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
 import shared.game.map.vertexobject.VertexObject;
 import shared.locations.HexLocation;
 
@@ -45,13 +47,13 @@ public class CatanMap
 	 * settlements: List of all current settlements on map.
 	 * Dynamically updated.
 	 */
-	private ArrayList<VertexObject> settlements = new ArrayList<>();
+	private ArrayList<Settlement> settlements = new ArrayList<>();
 	
 	/**
 	 * cities: List of all current cities on the map.
 	 * Also dynamically updated. 
 	 */
-	private ArrayList<VertexObject> cities = new ArrayList<>();
+	private ArrayList<City> cities = new ArrayList<>();
 	
 	/**
 	 * Radius: Radius of the map.
@@ -219,11 +221,11 @@ public class CatanMap
 		this.roadPieces = roadPieces;
 	}
 
-	public ArrayList<VertexObject> getCities() {
+	public ArrayList<City> getCities() {
 		return cities;
 	}
 
-	public void setCities(ArrayList<VertexObject> cities) {
+	public void setCities(ArrayList<City> cities) {
 		this.cities = cities;
 	}
 
@@ -235,11 +237,11 @@ public class CatanMap
 		this.hexes = hexes;
 	}
 
-	public ArrayList<VertexObject> getSettlements() {
+	public ArrayList<Settlement> getSettlements() {
 		return settlements;
 	}
 
-	public void setSettlements(ArrayList<VertexObject> settlements) {
+	public void setSettlements(ArrayList<Settlement> settlements) {
 		this.settlements = settlements;
 	}
 

@@ -16,10 +16,9 @@ import shared.game.map.Hex.NumberToken;
 import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
 import shared.game.map.Port;
+import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
+import shared.locations.*;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -314,6 +313,7 @@ public class ModelFacade
 			assert(dir != null);
 			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
 					obj.getInt("ratio"));
+			newPort.setType(getPortTypeFromString(resource));
 			CatanGame.singleton.getMymap().getPorts().add(newPort);
 		}
 		JSONArray roads = map.getJSONArray("roads");
@@ -324,18 +324,19 @@ public class ModelFacade
 			JSONObject location = obj.getJSONObject("location");
 			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 					getDirectionFromString(obj.getString("direction"))));
-			CatanGame.singleton.getMyplayers();
-			roadPiece.getPlayerWhoOwnsRoad();
+			CatanGame.singleton.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			int owner_convertToIndex = obj.getInt("owner");
 			JSONObject location = obj.getJSONObject("location");
-			int x = location.getInt("x");
-			int y = location.getInt("y");
-			String direction = obj.getString("direction");
+			VertexDirection dir = convertToVertexDirection(obj.getString("direction"));
+			assert(dir != null);
+			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
+					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
+							dir), new Index(obj.getInt("owner")));
+			CatanGame.singleton.getMymap().getSettlements().add(settle1);
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
@@ -442,6 +443,28 @@ public class ModelFacade
 				return HexType.DESERT;
 			case "water":
 				return HexType.WATER;
+			default:
+				assert false;
+		}
+		return null;
+	}
+
+	private VertexDirection convertToVertexDirection(String direction)
+	{
+		switch (direction)
+		{
+			case "W":
+				return VertexDirection.West;
+			case "NW":
+				return VertexDirection.NorthWest;
+			case "NE":
+				return VertexDirection.NorthEast;
+			case "E":
+				return VertexDirection.East;
+			case "SE":
+				return VertexDirection.SouthEast;
+			case "SW":
+				return VertexDirection.SouthWest;
 			default:
 				assert false;
 		}
