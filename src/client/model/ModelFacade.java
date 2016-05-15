@@ -5,11 +5,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import shared.chat.*;
+import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
@@ -364,21 +366,26 @@ public class ModelFacade
 		for (int i = 0; i < players.length(); i++)
 		{
 			JSONObject obj = players.getJSONObject(i);
-			int cities = obj.getInt("cities");
-			String color = obj.getString("color");
-			boolean discarded = obj.getBoolean("discarded");
-			int monuments = obj.getInt("monuments"); // so why the heck is this called "monuments"?
-			String name = obj.getString("name");
-			newDevCards(obj.getJSONObject("newDevCards"));
-			oldDevCards(obj.getJSONObject("oldDevCards"));
-			int playerIndex_convertToIndex = obj.getInt("playerIndex");
-			boolean playedDevCard = obj.getBoolean("playedDevCard");
-			int playerID = obj.getInt("playerID");
-			resources(obj.getJSONObject("resources"));
-			int roads = obj.getInt("roads");
-			int settlements = obj.getInt("settlements");
-			int soldiers = obj.getInt("soldiers");
-			int victoryPoints = obj.getInt("victoryPoints");
+			CatanColor color = stringToCatanColor(obj.getString("color"));
+			assert(color != null);
+			Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
+			newPlayer.setNumCitiesRemaining(obj.getInt("cities"));
+			newPlayer.setIsDiscarded(obj.getBoolean("discarded"));
+			newPlayer.setNumMonuments(obj.getInt("monuments"));
+			newPlayer.setPlayerID(new Index(obj.getInt("playerID")));
+			newPlayer.setPlayedDevCard(obj.getBoolean("playedDevCard"));
+			newPlayer.setPlayerIndex(new Index(obj.getInt("playerIndex")));
+			// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
+			// although this makes the most sense to me, y'know?
+			newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
+			newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
+			newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
+			newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
+
+			newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
+			oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
+			resources(obj, newPlayer.getResources());
+			CatanGame.singleton.addPlayer(newPlayer);
 		}
 	}
 
@@ -406,31 +413,60 @@ public class ModelFacade
 		CatanGame.singleton.getMyturntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
 	}
 
-	private void newDevCards(JSONObject newDevCards) throws JSONException
+	private CatanColor stringToCatanColor(String color)
 	{
-		int monopoly = newDevCards.getInt("monopoly");
-		int monument = newDevCards.getInt("monument");
-		int roadBuilding = newDevCards.getInt("roadBuilding");
-		int soldier = newDevCards.getInt("soldier");
-		int yearOfPlenty = newDevCards.getInt("yearOfPlenty");
+		switch (color)
+		{
+			// the colors: RED, ORANGE, YELLOW, BLUE, GREEN, PURPLE, PUCE, WHITE, BROWN
+			case "red":
+				return CatanColor.RED;
+			case "orange":
+				return CatanColor.ORANGE;
+			case "yellow":
+				return CatanColor.YELLOW;
+			case "blue":
+				return CatanColor.BLUE;
+			case "green":
+				return CatanColor.GREEN;
+			case "purple":
+				return CatanColor.PURPLE;
+			case "puce":
+				return CatanColor.PUCE;
+			case "white":
+				return CatanColor.WHITE;
+			case "brown":
+				return CatanColor.BROWN;
+			default:
+				assert false;
+		}
+		return null;
 	}
 
-	private void oldDevCards(JSONObject oldDevCards) throws JSONException
+	private void newDevCards(JSONObject newDevCards, Player player) throws JSONException
 	{
-		int monopoly = oldDevCards.getInt("monopoly");
-		int monument = oldDevCards.getInt("monument");
-		int roadBuilding = oldDevCards.getInt("roadBuilding");
-		int soldier = oldDevCards.getInt("soldier");
-		int yearOfPlenty = oldDevCards.getInt("yearOfPlenty");
+		player.getNewDevCards().setMonopoly(newDevCards.getInt("monopoly"));
+		player.getNewDevCards().setMonument(newDevCards.getInt("monument"));
+		player.getNewDevCards().setRoadBuilding(newDevCards.getInt("roadBuilding"));
+		player.getNewDevCards().setSoldier(newDevCards.getInt("soldier"));
+		player.getNewDevCards().setYearOfPlenty(newDevCards.getInt("yearOfPlenty"));
 	}
 
-	private void resources(JSONObject resources) throws JSONException
+	private void oldDevCards(JSONObject oldDevCards, Player player) throws JSONException
 	{
-		int brick = resources.getInt("brick");
-		int ore = resources.getInt("ore");
-		int sheep = resources.getInt("sheep");
-		int wheat = resources.getInt("wheat");
-		int wood = resources.getInt("wood");
+		player.getOldDevCards().setMonopoly(oldDevCards.getInt("monopoly"));
+		player.getOldDevCards().setMonument(oldDevCards.getInt("monument"));
+		player.getOldDevCards().setRoadBuilding(oldDevCards.getInt("roadBuilding"));
+		player.getOldDevCards().setSoldier(oldDevCards.getInt("soldier"));
+		player.getOldDevCards().setYearOfPlenty(oldDevCards.getInt("yearOfPlenty"));
+	}
+
+	private void resources(JSONObject resources, ResourceList resList) throws JSONException
+	{
+		resList.setBrick(resources.getInt("brick"));
+		resList.setOre(resources.getInt("ore"));
+		resList.setSheep(resources.getInt("sheep"));
+		resList.setWheat(resources.getInt("wheat"));
+		resList.setWood(resources.getInt("wood"));
 	}
 
 	private TurnStatus convertStringToTurnStatus(String turnStatus)
@@ -576,7 +612,8 @@ public class ModelFacade
 	
 	public void addPlayer(Player player)
 	{
-		if(canCreatePlayer(player)) {
+		if(canCreatePlayer(player))
+		{
 			singleton.getMyplayers().put(player.getPlayerID(), player);
 		}
 	}
@@ -619,5 +656,4 @@ public class ModelFacade
 		singleton.setModel(newModel);		
 	}
 
-	private static final String SOURCE = "Default";
 }

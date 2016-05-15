@@ -809,6 +809,10 @@ public class Player
 	private static final int MAX_NUM_CITIES = 4;
 	private static final int MAX_NUM_SETTLEMENTS = 5;
 
+	public void setIsDiscarded(boolean discarded)
+	{
+		this.discarded = discarded;
+	}
 	public boolean getIsDiscarded()
 	{
 		return this.discarded;
@@ -863,13 +867,49 @@ public class Player
 	{
 		return this.playedDevCard;
 	}
+
+	public void setPlayedDevCard(boolean playedDevCard)
+	{
+		this.playedDevCard = playedDevCard;
+	}
+
 	public int getNumMonuments()
 	{
 		return this.numMonuments;
 	}
+
+	public void setNumMonuments(int numMonuments)
+	{
+		this.numMonuments = numMonuments;
+	}
+
 	public int getNumVictoryPoints()
 	{
 		return this.numVictoryPoints;
 	}
 
+	public void setNumVictoryPoints(int numVictoryPoints)
+	{
+		this.numVictoryPoints = numVictoryPoints;
+	}
+
+	public int getNumRoadPiecesRemaining()
+	{
+		return numRoadPiecesRemaining;
+	}
+
+	public void setNumRoadPiecesRemaining(int numRoadPiecesRemaining)
+	{
+		this.numRoadPiecesRemaining = numRoadPiecesRemaining;
+	}
+
+	public int getNumSoldierCards()
+	{
+		return numSoldierCards;
+	}
+
+	public void setNumSoldierCards(int numSoldierCards)
+	{
+		this.numSoldierCards = numSoldierCards;
+	}
 }
