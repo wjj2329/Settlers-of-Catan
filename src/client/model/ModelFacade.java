@@ -44,12 +44,12 @@ public class ModelFacade
 
 		//bank code
 		JSONObject bank=new JSONObject();
-		bank.put("brick:", Bank.getSingleton().getCardslist().getBrick());
-		bank.put("ore:", Bank.getSingleton().getCardslist().getOre());
-		bank.put("sheep:", Bank.getSingleton().getCardslist().getSheep());
-		bank.put("wheat:", Bank.getSingleton().getCardslist().getWheat());
-		bank.put("wood:", Bank.getSingleton().getCardslist().getWood());
-		myobject.put("bank:", bank);
+		bank.put("brick", Bank.getSingleton().getCardslist().getBrick());
+		bank.put("ore", Bank.getSingleton().getCardslist().getOre());
+		bank.put("sheep", Bank.getSingleton().getCardslist().getSheep());
+		bank.put("wheat", Bank.getSingleton().getCardslist().getWheat());
+		bank.put("wood", Bank.getSingleton().getCardslist().getWood());
+		myobject.put("bank", bank);
 
 		//chat code
 		JSONObject chat=new JSONObject();
@@ -59,12 +59,12 @@ public class ModelFacade
 		for(int i=0; i<mymessages.getMessages().size(); i++)
 		{
 			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",mymessages.getMessages().get(i).getMessage());
-			messageandstring.put("source:",mymessages.getMessages().get(i).getSource());
+			messageandstring.put("message",mymessages.getMessages().get(i).getMessage());
+			messageandstring.put("source",mymessages.getMessages().get(i).getSource());
 			lines.put(messageandstring);
 		}
-		chat.put("lines:",lines);
-		myobject.put("chat:",chat);
+		chat.put("lines",lines);
+		myobject.put("chat",chat);
 
 		//logcode
 		JSONObject log=new JSONObject();
@@ -73,12 +73,12 @@ public class ModelFacade
 		for(int i=0; i<myhistory.getLines().size();i++)
 		{
 			JSONObject messageandstring=new JSONObject();
-			messageandstring.put("message:",myhistory.getLines().get(i).getLine());
-			messageandstring.put("source:",myhistory.getLines().get(i).getSource());
+			messageandstring.put("message",myhistory.getLines().get(i).getLine());
+			messageandstring.put("source",myhistory.getLines().get(i).getSource());
 			lines2.put(messageandstring);
 		}
-		log.put("lines:",lines2);
-		myobject.put("chat:", log);
+		log.put("lines",lines2);
+		myobject.put("chat", log);
 
 		//map
 		//hexes
@@ -88,13 +88,13 @@ public class ModelFacade
 		for(HexLocation loc:mymap.keySet())
 		{
 			JSONObject locationarray=new JSONObject();
-			locationarray.put("x:",loc.getX());
-			locationarray.put("y:", loc.getY());
-			hexes.put("location:", locationarray);
-			hexes.put("resource:", mymap.get(loc).getResourcetype());
-			hexes.put("number:", mymap.get(loc).getResourcenumber());
+			locationarray.put("x",loc.getX());
+			locationarray.put("y", loc.getY());
+			hexes.put("location", locationarray);
+			hexes.put("resource", mymap.get(loc).getResourcetype());
+			hexes.put("number", mymap.get(loc).getResourcenumber());
 		}
-		map.put("hexes:",hexes);
+		map.put("hexes",hexes);
 		JSONObject ports=new JSONObject();
 
 		//ports
@@ -102,12 +102,12 @@ public class ModelFacade
 		{
 			ports.put("resource", mymap.get(loc).getPortType());
 			JSONObject location=new JSONObject();
-			location.put("x:",loc.getX());
-			location.put("y:", loc.getX());
-			ports.put("location:",location);
-			ports.put("direction:", mymap.get(loc).getPortLocation());
+			location.put("x",loc.getX());
+			location.put("y", loc.getX());
+			ports.put("location",location);
+			ports.put("direction", mymap.get(loc).getPortLocation());
 		}
-		map.put("ports:",ports);
+		map.put("ports",ports);
 
 		//roads
 		JSONObject roads=new JSONObject();
