@@ -15,6 +15,8 @@ import shared.game.map.Index;
 import shared.game.player.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by williamjones on 5/12/16.
@@ -31,9 +33,9 @@ public class TestingJsonImporterandExporter
     {
         CatanGame.singleton=new CatanGame();
         CatanGame.singleton.setMymap(new CatanMap(3));
-        ArrayList<Player>myplayers=new ArrayList<>();
-        myplayers.add(new Player("william", CatanColor.BLUE,new Index(3)));
-        myplayers.get(0).setPlayerIndex(new Index(0));
+        Map<Index, Player> myplayers=new HashMap<>();
+        myplayers.put(new Index(0), new Player("william", CatanColor.BLUE,new Index(3)));
+        //myplayers.get(0).setPlayerIndex(new Index(0));
         CatanGame.singleton.setMyplayers(myplayers);
     }
 

@@ -1,6 +1,8 @@
 package shared.game;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import client.model.*;
 import org.json.JSONObject;
@@ -23,7 +25,7 @@ public class CatanGame
 	private Model gameModel = new Model();
 	private ServerPoller poller;
 	private IServer server;
-	private ArrayList<Player>myplayers=new ArrayList<>();
+	private Map<Index, Player> myplayers=new HashMap<>();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
@@ -51,11 +53,11 @@ public class CatanGame
 		singleton=this;
 	}
 	
-	public ArrayList<Player> getMyplayers() {
+	public Map<Index, Player> getMyplayers() {
 		return myplayers;
 	}
 
-	public void setMyplayers(ArrayList<Player> myplayers) {
+	public void setMyplayers(Map<Index, Player> myplayers) {
 		this.myplayers = myplayers;
 	}
 
@@ -78,7 +80,7 @@ public class CatanGame
 	public void addPlayer(Player player)
 	{
 		if(canCreatePlayer(player)) {
-			myplayers.add(player);
+			myplayers.put(player.getPlayerID(), player);
 		}
 	}
 
@@ -86,15 +88,15 @@ public class CatanGame
 	{
 		if(myplayers==null)
 		{
-			myplayers=new ArrayList<Player>();
+			myplayers=new HashMap<>();
 		}
-		for(int i=0; i<myplayers.size(); i++)
+		for (Map.Entry<Index, Player> entry : myplayers.entrySet())
 		{
-			if(myplayers.get(i)==newplayer)
+			if(entry.getValue() == newplayer)
 			{
 				return false;
 			}
-			if(myplayers.get(i).getColor().equals(newplayer.getColor()))
+			if(entry.getValue().getColor().equals(newplayer.getColor()))
 			{
 				return false;
 			}
