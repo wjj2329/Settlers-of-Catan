@@ -16,6 +16,8 @@ import shared.game.map.Hex.NumberToken;
 import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
 import shared.game.map.Port;
+import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.*;
@@ -161,7 +163,6 @@ public class ModelFacade
 		//players
 		Map<Index, Player>myplayers=CatanGame.singleton.getMyplayers();
 		JSONObject players=new JSONObject();
-		//for(int i=0; i<myplayers.size(); i++)
 		for(Map.Entry<Index, Player> entry : myplayers.entrySet())
 		{
 			players.put("cities", entry.getValue().getCities().size());
@@ -337,21 +338,25 @@ public class ModelFacade
 					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 							dir), new Index(obj.getInt("owner")));
 			CatanGame.singleton.getMymap().getSettlements().add(settle1);
+			CatanGame.singleton.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
 		{
 			JSONObject obj = cities.getJSONObject(i);
 			int owner_convertToIndex = obj.getInt("owner");
+			Index owner = new Index(owner_convertToIndex);
 			JSONObject location = obj.getJSONObject("location");
-			int x = location.getInt("x");
-			int y = location.getInt("y");
-			String direction = obj.getString("direction");
+			VertexDirection dir = convertToVertexDirection(obj.getString("direction"));
+			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
+			assert(dir != null);
+			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
+			CatanGame.singleton.getMymap().getCities().add(city1);
+			CatanGame.singleton.getMyplayers().get(owner).addToCities(city1);
 		}
-		int radius = map.getInt("radius");
+		CatanGame.singleton.getMymap().setRadius(map.getInt("radius"));
 		JSONObject robber = map.getJSONObject("robber");
-		int x = robber.getInt("x");
-		int y = robber.getInt("y");
+		Robber.getSingleton().setLocation(new HexLocation(robber.getInt("x"), robber.getInt("y")));
 	}
 
 	private void loadPlayers(JSONArray players) throws JSONException
@@ -379,23 +384,26 @@ public class ModelFacade
 
 	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException
 	{
-		int sender = tradeOffer.getInt("sender");
-		int receiver = tradeOffer.getInt("receiver");
+		CatanGame.singleton.getMytradeoffer().setSender(tradeOffer.getInt("sender"));
+		CatanGame.singleton.getMytradeoffer().setReceiver(tradeOffer.getInt("receiver"));
+		CatanGame.singleton.getMytradeoffer();
 		JSONObject offer = tradeOffer.getJSONObject("offer");
-		int brick = offer.getInt("brick");
-		int sheep = offer.getInt("sheep");
-		int wood = offer.getInt("wood");
-		int ore = offer.getInt("ore");
-		int wheat = offer.getInt("wheat");
+		CatanGame.singleton.getMytradeoffer().getMylist().setBrick(offer.getInt("brick"));
+		CatanGame.singleton.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
+		CatanGame.singleton.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
+		CatanGame.singleton.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
 	}
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
-		int currentTurn_convertToIndex = turnTracker.getInt("currentTurn");
-		String status = turnTracker.getString("status");
+		CatanGame.singleton.getMyturntracker().setCurrentTurn(new Index(turnTracker.getInt("currentTurn")),
+				CatanGame.singleton.getMyplayers());
+		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
+		assert(status != null);
+		CatanGame.singleton.getMyturntracker().setStatus(status);
 		// actual player who has the longest road
-		int longestRoad_convertToIndex = turnTracker.getInt("longestRoad");
-		int largestArmy_convertToIndex = turnTracker.getInt("largestArmy");
+		CatanGame.singleton.getMyturntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
+		CatanGame.singleton.getMyturntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
 	}
 
 	private void newDevCards(JSONObject newDevCards) throws JSONException
@@ -423,6 +431,28 @@ public class ModelFacade
 		int sheep = resources.getInt("sheep");
 		int wheat = resources.getInt("wheat");
 		int wood = resources.getInt("wood");
+	}
+
+	private TurnStatus convertStringToTurnStatus(String turnStatus)
+	{
+		switch (turnStatus)
+		{
+			case "rolling":
+				return TurnStatus.ROLLING;
+			case "robbing":
+				return TurnStatus.ROBBING;
+			case "playing":
+				return TurnStatus.PLAYING;
+			case "discarding":
+				return TurnStatus.DISCARDING;
+			case "firstround":
+				return TurnStatus.FIRSTROUND;
+			case "secondround":
+				return TurnStatus.SECONDROUND;
+			default:
+				assert false;
+		}
+		return null;
 	}
 
 	private HexType convertToHexType(String resource)

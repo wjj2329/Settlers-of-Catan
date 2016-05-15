@@ -2,6 +2,7 @@ package client.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Map;
 
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -42,20 +43,20 @@ public class TurnTracker implements Serializable
 	  * the largest Army
 	  * @pre There must be a player that has at least 3 army knights before this card can be given.
 	  * @post Player is updates as having the Largest Army Card. 
-	  * 
+	  * need to fix this.
 	  */
-	public Player updateUserWithLargestArmy(ArrayList<Player> allplayers)
+	public Player updateUserWithLargestArmy(Map<Index, Player> allplayers)
 	{
 		int currentlargest = -1;
-		for (int i = 0; i < allplayers.size(); i++)
+		for (Map.Entry<Index, Player> entry : allplayers.entrySet())
 		{
-			if(allplayers.get(i).getArmySize() >= 3)
+			if(entry.getValue().getArmySize() >= 3)
 			{
 				if(currentlargest == -1 || 
-						allplayers.get(i).getArmySize() > allplayers.get(currentlargest).getArmySize())
+						entry.getValue().getArmySize() > allplayers.get(new Index(currentlargest)).getArmySize())
 				{
-					currentlargest = i;
-					largestArmy.setNumber(allplayers.get(i).getArmySize());
+					//currentlargest = i;
+					largestArmy.setNumber(entry.getValue().getArmySize());
 				}
 			}
 		}
@@ -67,19 +68,22 @@ public class TurnTracker implements Serializable
 	  * the largest RoadPiece
 	  *  * @pre There must be a player that has at least 3 continuous road pieces before this card can be given.
 	  * @post Player is updates as having the Largest RoadPiece Card.
+	 *
+	 * we will need to fix this. lo siento. fix the new index thing as well
 	  */
-	public Player updateUserWithLongestRoad(ArrayList<Player> allplayers)
+	public Player updateUserWithLongestRoad(Map<Index, Player> allplayers)
 	{
 		int currentlargest = -1;
-		for (int i = 0; i < allplayers.size(); i++)
+		//for (int i = 0; i < allplayers.size(); i++)
+		for (Map.Entry<Index, Player> entry : allplayers.entrySet())
 		{
-			if(allplayers.get(i).getRoadSize() >= 3)
+			if(entry.getValue().getRoadSize() >= 3)
 			{
 				if(currentlargest == -1 || 
-						allplayers.get(i).getRoadSize() > allplayers.get(currentlargest).getRoadSize())
+						entry.getValue().getRoadSize() > allplayers.get(new Index(currentlargest)).getRoadSize())
 				{
-					currentlargest = i;
-					longestRoad.setNumber(allplayers.get(i).getRoadSize());
+					//currentlargest = i;
+					longestRoad.setNumber(entry.getValue().getRoadSize());
 				}
 			}
 		}
@@ -96,7 +100,7 @@ public class TurnTracker implements Serializable
 	/**
 	 * @param currentTurn the currentTurn to set
 	 */
-	public void setCurrentTurn(Index currentTurn,ArrayList<Player> players)
+	public void setCurrentTurn(Index currentTurn,Map<Index, Player> players)
 	{
 		this.currentTurn = currentTurn;
 		updateUserWithLargestArmy(players);

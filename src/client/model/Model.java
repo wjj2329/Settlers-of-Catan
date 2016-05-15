@@ -1,6 +1,8 @@
 package client.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import server.proxies.MockServer;
 import shared.game.Bank;
@@ -24,9 +26,9 @@ public class Model
 	private Index winner;
 	private ArrayList<CatanGame> gamelist;
 	/**
-	 * ArrayList of players in the game.
+	 * Map of players in the game.
 	 */
-	ArrayList<Player> myplayers = new ArrayList<>();
+	Map<Index, Player> myplayers = new HashMap<>();
 	
 	/**
 	 * Model Constructor
