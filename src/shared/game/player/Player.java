@@ -1,9 +1,6 @@
 package shared.game.player;
 
-import shared.definitions.CatanColor;
-import shared.definitions.HexType;
-import shared.definitions.PortType;
-import shared.definitions.ResourceType;
+import shared.definitions.*;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.DevCardList;
@@ -316,7 +313,7 @@ public class Player
 	 * If the second type is listed as BLANK, then it is a 2:1 trade, and thus said second variable will never be used.
      */
 
-	public boolean canDoTradeWithBank(PortType tradeType, PortType typeFor_3_Or4Way, ResourceType typeRequesting) throws Exception
+	public boolean canDoTradeWithBank(TradeType tradeType, TradeType typeFor_3_Or4Way, ResourceType typeRequesting) throws Exception
 	{
 		// What kind of trade is it?
 		switch (tradeType)
@@ -372,10 +369,10 @@ public class Player
 	 * @param theType: type of the trade
 	 * @param threeOrFour: whether it is a 3-way or 4-way
      */
-	private boolean multiWayTrade(PortType theType, int threeOrFour)
+	private boolean multiWayTrade(TradeType theType, int threeOrFour)
 	{
-		assert(!theType.equals(null));
-		assert(!theType.equals(PortType.THREE));
+		assert(!theType.equals(TradeType.FOUR));
+		assert(!theType.equals(TradeType.THREE));
 		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
 		switch (theType)
 		{
