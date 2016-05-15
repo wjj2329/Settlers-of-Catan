@@ -157,9 +157,10 @@ public class ModelFacade
 		}
 
 		//players
-		ArrayList<Player>myplayers=CatanGame.singleton.getMyplayers();
+		Map<Index, Player>myplayers=CatanGame.singleton.getMyplayers();
 		JSONObject players=new JSONObject();
-		for(int i=0; i<myplayers.size(); i++)
+		//for(int i=0; i<myplayers.size(); i++)
+		for(;;)
 		{
 			players.put("cities:", myplayers.get(i).getCities().size());
 			players.put("color:", myplayers.get(i).getColor().toString());
