@@ -855,7 +855,10 @@ public class Player
 	{
 		return this.playerIndex;
 	}
-
+	public void setPlayerIndex(Index playerIndex)
+	{
+		this.playerIndex=playerIndex;
+	}
 	public boolean getplayedDevCard()
 	{
 		return this.playedDevCard;

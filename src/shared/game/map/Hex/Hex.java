@@ -625,6 +625,10 @@ public class Hex
 
 	public String getPortType()
 	{
+		if(myport==null)
+		{
+			return "fail";
+		}
 		return myport.name();
 	}
 
@@ -635,6 +639,10 @@ public class Hex
 
 	public String getPortLocation()
 	{
+		if(portlocation==null)
+		{
+			return "fail";
+		}
 		return portlocation.toString();
 	}
 
@@ -657,4 +665,5 @@ public class Hex
 	{
 		return this.cities;
 	}
+
 }

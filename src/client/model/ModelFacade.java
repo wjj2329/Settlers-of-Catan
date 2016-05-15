@@ -1,5 +1,6 @@
 package client.model;
 
+import client.main.Catan;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -194,16 +195,29 @@ public class ModelFacade
 			players.put("soldiers:", myplayers.get(i).getArmySize());
 			players.put("victoryPoints", myplayers.get(i).getNumVictoryPoints());
 		}
-		myobject.put("players:", players);
+		myobject.put("players", players);
 
 		//tradeOffer
 		JSONObject tradeOffer=new JSONObject();
-		//tradeOffer.put("sender:", C)
+		tradeOffer.put("sender",CatanGame.singleton.getMytradeoffer().getSender());
+		tradeOffer.put("receiver", CatanGame.singleton.getMytradeoffer().getReceiver());
+		JSONObject myoffer=new JSONObject();
+		myoffer.put("brick", CatanGame.singleton.getMytradeoffer().getMylist().getBrick());
+		myoffer.put("ore", CatanGame.singleton.getMytradeoffer().getMylist().getOre());
+		myoffer.put("sheep", CatanGame.singleton.getMytradeoffer().getMylist().getSheep());
+		myoffer.put("wheat", CatanGame.singleton.getMytradeoffer().getMylist().getWheat());
+		myoffer.put("wood", CatanGame.singleton.getMytradeoffer().getMylist().getWood());
 
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
 		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
+		turnTracker.put("status", CatanGame.singleton.getMyturntracker().getStatus().toString());
+		turnTracker.put("longestRoad",CatanGame.singleton.getMyturntracker().getLongestRoad().getNumber());
+		turnTracker.put("largestArmy", CatanGame.singleton.getMyturntracker().getLargestArmy().getNumber());
 
+		//last two things
+		myobject.put("version", CatanGame.singleton.getVersion().getNumber());
+		myobject.put("winner", CatanGame.singleton.getWinner());
 
 		return myobject;
 	}
