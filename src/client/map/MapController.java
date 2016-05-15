@@ -3,6 +3,9 @@ package client.map;
 import java.util.*;
 
 import shared.definitions.*;
+import shared.game.CatanGame;
+import shared.game.map.CatanMap;
+import shared.game.map.Hex.Hex;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
@@ -37,9 +40,16 @@ public class MapController extends Controller implements IMapController {
 	}
 	
 	protected void initFromModel() {
-		
+		CatanGame.singleton=new CatanGame();
+		CatanGame.singleton.setMymap(new CatanMap(1));
+		Map<HexLocation, Hex>mymap=CatanGame.singleton.getMymap().getHexes();
+		for(HexLocation rec:mymap.keySet())
+		{
+			getView().addHex(rec, mymap.get(rec).getResourcetype());
+
+		}
 		//<temp>
-		
+		/*
 		Random rand = new Random();
 
 		for (int x = 0; x <= 3; ++x) {
@@ -99,7 +109,7 @@ public class MapController extends Controller implements IMapController {
 		getView().addNumber(new HexLocation(2, -2), 10);
 		getView().addNumber(new HexLocation(2, -1), 11);
 		getView().addNumber(new HexLocation(2, 0), 12);
-		
+		*/
 		//</temp>
 	}
 

@@ -99,16 +99,16 @@ public class CatanMap
 	{
 		this.radius = radius;
 		//this is the way the map will look by default if shuffling is not enabled.
-		HexLocation hexLoc1 = new HexLocation(-3, 2);
-		HexLocation hexLoc2 = new HexLocation(-3, 1);
-		HexLocation hexLoc3 = new HexLocation(-3, 0);
-		HexLocation hexLoc4 = new HexLocation(-3, -1);
+		HexLocation hexLoc1 = new HexLocation(-3, 3);
+		HexLocation hexLoc2 = new HexLocation(-3, 2);
+		HexLocation hexLoc3 = new HexLocation(-3, 1);
+		HexLocation hexLoc4 = new HexLocation(-3, 0);
 
-		HexLocation hexLoc5 = new HexLocation(-2, -2);
-		HexLocation hexLoc6 = new HexLocation(-2, -1);
-		HexLocation hexLoc7 = new HexLocation(-2, 0);
-		HexLocation hexLoc8 = new HexLocation(-2, 1);
-		HexLocation hexLoc9 = new HexLocation(-2, 2);
+		HexLocation hexLoc5 = new HexLocation(-2, -1);
+		HexLocation hexLoc6 = new HexLocation(-2, 0);
+		HexLocation hexLoc7 = new HexLocation(-2, 1);
+		HexLocation hexLoc8 = new HexLocation(-2, 2);
+		HexLocation hexLoc9 = new HexLocation(-2, 3);
 
 		HexLocation hexLoc10 = new HexLocation(-1, 3);
 		HexLocation hexLoc11 = new HexLocation(-1, 2);
@@ -132,16 +132,16 @@ public class CatanMap
 		HexLocation hexLoc27 = new HexLocation(1, 1);
 		HexLocation hexLoc28 = new HexLocation(1, 2);
 
-		HexLocation hexLoc29 = new HexLocation(2, -2);
-		HexLocation hexLoc30 = new HexLocation(2, -1);
-		HexLocation hexLoc31 = new HexLocation(2,0);
-		HexLocation hexLoc32 = new HexLocation(2,1);
-		HexLocation hexLoc33 = new HexLocation(2, 2);
+		HexLocation hexLoc29 = new HexLocation(2, -3);
+		HexLocation hexLoc30 = new HexLocation(2, -2);
+		HexLocation hexLoc31 = new HexLocation(2,-1);
+		HexLocation hexLoc32 = new HexLocation(2, 0);
+		HexLocation hexLoc33 = new HexLocation(2, 1);
 
-		HexLocation hexLoc34 = new HexLocation(3, 2);
-		HexLocation hexLoc35 = new HexLocation(3, 1);
-		HexLocation hexLoc36 = new HexLocation(3, 0);
-		HexLocation hexLoc37 = new HexLocation(3, -1);
+		HexLocation hexLoc34 = new HexLocation(3, 0);
+		HexLocation hexLoc35 = new HexLocation(3, -1);
+		HexLocation hexLoc36 = new HexLocation(3, -2);
+		HexLocation hexLoc37 = new HexLocation(3, -3);
 
 		hexes.put(hexLoc1, new Hex(hexLoc1, HexType.WATER, new NumberToken(0), null));
 		hexes.put(hexLoc2, new Hex(hexLoc2, HexType.WATER, new NumberToken(0), PortType.WOOD));
