@@ -149,9 +149,12 @@ public class MapController extends Controller implements IMapController {
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
 		// testing. this will eventually be deleted except for return statement.
+		// study the hex system to get the needed value. maybe put one nearby to edgeLoc - no i don't think so
 		CatanGame.singleton.getCurrentPlayer().getResources().setBrick(1);
-		CatanGame.singleton.getCurrentPlayer().getResources().setWood(1);
-		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(new HexLocation(-2, 0),
+		CatanGame.singleton.getCurrentPlayer().getResources().setWood(1); // set current player true
+		CatanGame.singleton.getCurrentPlayer().setCurrentPlayer(true); // only for debugging right now
+
+		/*CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(new HexLocation(-2, 0),
 				CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0)).getNorthwest(),
 				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
 		HexLocation hexLoc5 = new HexLocation(-2, -1);
@@ -167,7 +170,7 @@ public class MapController extends Controller implements IMapController {
 
 		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc9,
 				CatanGame.singleton.getMymap().getHexes().get(hexLoc9).getNorthwest(),
-				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
+				CatanGame.singleton.getCurrentPlayer().getPlayerID()));*/
 
 		return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece
 				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc));
@@ -188,10 +191,12 @@ public class MapController extends Controller implements IMapController {
 		return true;
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-
-		// need to implement this a bit more. current player's color?
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+	public void placeRoad(EdgeLocation edgeLoc)
+	{
+		// need to implement this a bit more. current player's color? was CatanColor.ORANGE
+		getView().placeRoad(edgeLoc, CatanGame.singleton.getCurrentPlayer().getColor());
+		CatanGame.singleton.getCurrentPlayer().buildRoadPiece
+				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {

@@ -217,6 +217,7 @@ public class CatanGame
 
 	public void updateCurrentPlayer(Player currentPlayer)
 	{
+		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
 	}
 }
