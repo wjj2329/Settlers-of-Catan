@@ -4,6 +4,7 @@ import shared.game.CatanGame;
 import shared.game.map.Hex.Hex;
 import shared.game.player.Player;
 import shared.locations.EdgeLocation;
+import shared.locations.VertexLocation;
 
 public enum State {
 
@@ -29,6 +30,10 @@ public enum State {
 	},
 	
 	GamePlayingState{
+		@Override
+		public boolean canBuildCity(Hex hex, VertexLocation mylocation) throws Exception {
+			return (CatanGame.singleton.getCurrentPlayer().canBuildCity(hex, mylocation));
+		}
 		//player is actually playing the game.
 		@Override
 		public void playSoldierCard() {
@@ -81,9 +86,19 @@ public enum State {
 		{
 			return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece(hex, edge));
 		}
+
+		@Override
+		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
+			return (CatanGame.singleton.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
+		}
 	},
 	SetUpState
 	{
+
+		@Override
+		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
+			return (CatanGame.singleton.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
+		}
 		//First set up round player gets 2 free settlements and roads
 		@Override
 		public void buildSettlement()
@@ -142,6 +157,7 @@ public enum State {
 	
 	
 	//default methods do nothing.
+	public boolean canBuildCity(Hex hex, VertexLocation mylocation)throws Exception{return false;}
 	public void login(){}
 	public void joinGame(){}
 	public void register(){}
@@ -161,5 +177,6 @@ public enum State {
 	{
 		return false;
 	}
+	public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception{return false;}
 
 }
