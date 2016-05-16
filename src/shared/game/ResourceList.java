@@ -12,7 +12,7 @@ public class ResourceList
 	 * The following private data members need to be investigated
 	 * to ensure that they should be integers
 	 */
-	private int brick = 0; 
+	private int brick = 0;
 	
 	private int ore = 0;
 	

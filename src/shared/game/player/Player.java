@@ -130,7 +130,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = 4;
+	private int numSettlementsRemaining = 5;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -518,6 +518,8 @@ public class Player
 			resources.setSheep(resources.getSheep()-1);
 			resources.setWood(resources.getWood()-1);
 			this.numSettlementsRemaining--;
+			System.out.println("The number of brick peices left "+resources.getBrick());
+			System.out.println("my num of settlements Remaning is "+numSettlementsRemaining);
 		}
 	}
 
