@@ -14,7 +14,6 @@ import client.data.*;
 
 import static com.sun.deploy.trace.TraceLevel.values;
 
-
 /**
  * Implementation for the map controller
  */
@@ -155,12 +154,17 @@ public class MapController extends Controller implements IMapController, Observe
 		return true;
 	}
 
-	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+
+
+	//have these things in States
+	public boolean canPlaceSettlement(VertexLocation vertLoc)
+	{
 		Player test=CatanGame.singleton.getCurrentPlayer();
 		System.out.println(vertLoc.getHexLoc().getX());
 		System.out.println(vertLoc.getHexLoc().getY());
 		test.setResources(new ResourceList(5, 5, 5, 5,5));
-		try {
+		try
+		{
 			if(test.canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
             {
 				return true;
@@ -175,7 +179,8 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		Player test=CatanGame.singleton.getCurrentPlayer();
 		test.setResources(new ResourceList(5, 5, 5, 5, 5));
-		try {
+		try
+		{
 			if(test.canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
 			{
 				return true;
@@ -206,7 +211,9 @@ public class MapController extends Controller implements IMapController, Observe
 				e.printStackTrace();
 			}
 		}
+		System.out.println("i have "+currentPlayer.getResources().getBrick());
 		getView().placeSettlement(vertLoc, currentPlayer.getColor());
+
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
