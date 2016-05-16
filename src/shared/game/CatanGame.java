@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import server.proxies.IServer;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
+import shared.definitions.CatanColor;
 import shared.game.map.CatanMap;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -22,6 +23,8 @@ public class CatanGame
 {
 	// The singleton was null so I did this instead
 	public static CatanGame singleton = new CatanGame();
+	// we will override this eventually. right now this is for testing purposes:
+	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
 	private ServerPoller poller;
 	private IServer server;
@@ -79,7 +82,8 @@ public class CatanGame
 	
 	public void addPlayer(Player player)
 	{
-		if(canCreatePlayer(player)) {
+		if(canCreatePlayer(player))
+		{
 			myplayers.put(player.getPlayerID(), player);
 		}
 	}
@@ -206,4 +210,13 @@ public class CatanGame
 		return mytradeoffer;
 	}
 
+	public Player getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+
+	public void updateCurrentPlayer(Player currentPlayer)
+	{
+		this.currentPlayer = currentPlayer;
+	}
 }
