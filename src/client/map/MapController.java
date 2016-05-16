@@ -190,7 +190,7 @@ public class MapController extends Controller implements IMapController {
 
 	public void placeRoad(EdgeLocation edgeLoc) {
 
-		// need to implement this a bit more.
+		// need to implement this a bit more. current player's color?
 		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
 	}
 
