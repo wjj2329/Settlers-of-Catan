@@ -151,6 +151,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
+		CatanGame.singleton.setCurrentState(State.SetUpState);
 		if (CatanGame.singleton.getCurrentState() == State.SetUpState)
 		{
 			return CatanGame.singleton.getCurrentState().canBuildRoadPiece(
@@ -206,9 +207,15 @@ public class MapController extends Controller implements IMapController, Observe
 		return true;
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-		
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+	public void placeRoad(EdgeLocation edgeLoc)
+	{
+		if (CatanGame.singleton.getCurrentState() == State.SetUpState ||
+				CatanGame.singleton.getCurrentState() == State.GamePlayingState)
+		{
+			CatanGame.singleton.getCurrentState().buildRoad(CatanGame.singleton.getMymap().getHexes()
+				.get(edgeLoc.getHexLoc()), edgeLoc);
+			getView().placeRoad(edgeLoc, CatanGame.singleton.getCurrentPlayer().getColor());
+		}
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
