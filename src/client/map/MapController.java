@@ -6,6 +6,7 @@ import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.vertexobject.Settlement;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
@@ -145,9 +146,31 @@ public class MapController extends Controller implements IMapController {
 		//</temp>
 	}
 
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
-		return true;
+	public boolean canPlaceRoad(EdgeLocation edgeLoc)
+	{
+		// testing. this will eventually be deleted except for return statement.
+		CatanGame.singleton.getCurrentPlayer().getResources().setBrick(1);
+		CatanGame.singleton.getCurrentPlayer().getResources().setWood(1);
+		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(new HexLocation(-2, 0),
+				CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0)).getNorthwest(),
+				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
+		HexLocation hexLoc5 = new HexLocation(-2, -1);
+		HexLocation hexLoc7 = new HexLocation(-2, 1);
+		HexLocation hexLoc8 = new HexLocation(-2, 2);
+		HexLocation hexLoc9 = new HexLocation(-2, 3);
+		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc7,
+				CatanGame.singleton.getMymap().getHexes().get(hexLoc7).getNortheast(),
+				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
+		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc8,
+				CatanGame.singleton.getMymap().getHexes().get(hexLoc8).getNorthwest(),
+				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
+
+		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc9,
+				CatanGame.singleton.getMymap().getHexes().get(hexLoc9).getNorthwest(),
+				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
+
+		return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece
+				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc));
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
@@ -160,13 +183,14 @@ public class MapController extends Controller implements IMapController {
 		return true;
 	}
 
-	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
+	public boolean canPlaceRobber(HexLocation hexLoc)
+	{
 		return true;
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc) {
-		
+
+		// need to implement this a bit more.
 		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
 	}
 
