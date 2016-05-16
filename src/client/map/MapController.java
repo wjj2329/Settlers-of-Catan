@@ -170,16 +170,12 @@ public class MapController extends Controller implements IMapController, Observe
 	//have these things in States
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		Player test=CatanGame.singleton.getCurrentPlayer();
-		test.setResources(new ResourceList(5, 5, 5, 5,5));
-		try
+		try {
+			CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+		}
+		catch (Exception e)
 		{
-			if(test.canBuildSettlementNormal(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
-            {
-				return true;
-            }
-		} catch (Exception e) {
-			e.printStackTrace();
+			
 		}
 		return false;
 	}
