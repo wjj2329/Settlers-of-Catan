@@ -163,8 +163,6 @@ public class MapController extends Controller implements IMapController, Observe
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
 		Player test=CatanGame.singleton.getCurrentPlayer();
-		//System.out.println(vertLoc.getHexLoc().getX());
-		//System.out.println(vertLoc.getHexLoc().getY());
 		test.setResources(new ResourceList(5, 5, 5, 5,5));
 		try
 		{
