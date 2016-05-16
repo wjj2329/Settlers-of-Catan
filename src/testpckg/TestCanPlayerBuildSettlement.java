@@ -58,10 +58,10 @@ public class TestCanPlayerBuildSettlement
     @Test
     public void test() throws Exception
     {
-        assertTrue( william.canBuildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
+        assertTrue( william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
         william.buildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East));
-        assertFalse(william.canBuildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
-        assertFalse(william.canBuildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.West)));
+        assertFalse(william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
+        assertFalse(william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.West)));
     }
     /**
      Tests a normal regular hex to build on all sides and then if I run out of resources it wont let me build any more
@@ -70,17 +70,17 @@ public class TestCanPlayerBuildSettlement
     public void test2()throws Exception
     {
         william.setResources(new ResourceList(3,3,3,3,3));
-        assertTrue(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(),VertexDirection.East)));
+        assertTrue(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(),VertexDirection.East)));
         william.buildSettlement(hex2,new VertexLocation(hex2.getLocation(),VertexDirection.East));
-        assertTrue(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(),VertexDirection.NorthWest)));
-        assertTrue(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.West)));
-        assertTrue(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
+        assertTrue(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(),VertexDirection.NorthWest)));
+        assertTrue(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.West)));
+        assertTrue(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.NorthWest));
-        assertFalse(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.NorthWest)));
-        assertFalse(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.West)));
-        assertTrue(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.NorthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.West)));
+        assertTrue(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest));
-        assertFalse(william.canBuildSettlement(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex2,new VertexLocation(hex2.getLocation(), VertexDirection.SouthWest)));
     }
 
     /**
@@ -106,13 +106,13 @@ public class TestCanPlayerBuildSettlement
     {
         hex2=new Hex(new HexLocation(1,0),HexType.ORE, new NumberToken(8), null);
         hex1=new Hex(new HexLocation(1, 1), HexType.BRICK, new NumberToken(4), null);
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.East)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.NorthWest)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.West)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthWest)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthWest)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthEast)));
-        assertTrue(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthEast)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.East)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.NorthWest)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.West)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthWest)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthWest)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthEast)));
+        assertTrue(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthEast)));
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.East));
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.NorthWest));
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.SouthEast));
@@ -120,13 +120,13 @@ public class TestCanPlayerBuildSettlement
         william.buildSettlement(hex2, new VertexLocation(hex2.getLocation(), VertexDirection.NorthWest));
         william.setNumSettlementsRemaining(0);
         william.setResources(new ResourceList(3,3,3,3,3));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.East)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.NorthWest)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.West)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthWest)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthWest)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthEast)));
-        assertFalse(william.canBuildSettlement(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthEast)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.East)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(),VertexDirection.NorthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.West)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthWest)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.SouthEast)));
+        assertFalse(william.canBuildSettlementStartup(hex3,new VertexLocation(hex3.getLocation(), VertexDirection.NorthEast)));
     }
 
 

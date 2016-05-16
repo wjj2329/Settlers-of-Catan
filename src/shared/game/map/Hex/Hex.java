@@ -64,11 +64,17 @@ public class Hex
 		west = new VertexLocation(location, VertexDirection.West);
 
 		nw = new EdgeLocation(location, EdgeDirection.NorthWest);
+		nw.setHasRoad(false);
 		n = new EdgeLocation(location, EdgeDirection.North);
+		n.setHasRoad(false);
 		ne = new EdgeLocation(location, EdgeDirection.NorthEast);
+		ne.setHasRoad(false);
 		se = new EdgeLocation(location, EdgeDirection.SouthEast);
+		se.setHasRoad(false);
 		s = new EdgeLocation(location, EdgeDirection.South);
+		s.setHasRoad(false);
 		sw = new EdgeLocation(location, EdgeDirection.SouthWest);
+		sw.setHasRoad(false);
 	}
 
 	/**this function actually places cities on the hex and the corresponding hexes that intersect at that intersection.
@@ -163,9 +169,228 @@ public class Hex
 	/**this function actually places settlements on the hex and the corresponding hexes that intersect at that intersection.
 	 * @param mylocation not null
      */
+	public void buildSettlementNormal(VertexLocation mylocation, Index owner) throws Exception
+	{
+		if(canBuildSettlementHereNormal(mylocation))
+		{
+			if(mylocation.getDir().equals(VertexDirection.East))
+			{
+				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
+				{
+					//if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||this.se.hasRoad()&&hextoupdate.s.hasRoad())
+					{
+						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+							if (!this.east.isHassettlement() && !this.east.isHascity()) {
+								if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+									hextoupdate.getSouthwest().setHassettlement(true);
+									hextoupdate2.getNorthwest().setHassettlement(true);
+									east.setHassettlement(true);
+									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+								}
+							}
+						}
+					}
+				}
+			}
+			if(mylocation.getDir().equals(VertexDirection.West))
+			{
+				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
+				{
+					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+						if (!this.west.isHassettlement() && !this.west.isHascity()) {
+							if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
+								hextoupdate.getSoutheast().setHassettlement(true);
+								hextoupdate2.getNortheast().setHassettlement(true);
+								west.setHassettlement(true);
+								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+								hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+							}
+						}
+					}
+				}
+			}
+			if(mylocation.getDir().equals(VertexDirection.NorthEast))
+			{
+				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.n.hasRoad()||this.nw.hasRoad()||hextoupdate.se.hasRoad())
+				{
+					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+						if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
+							if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+								hextoupdate.getSoutheast().setHassettlement(true);
+								hextoupdate2.getWest().setHassettlement(true);
+								northeast.setHassettlement(true);
+								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+								hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+							}
+						}
+					}
+				}
+			}
+			if(mylocation.getDir().equals(VertexDirection.NorthWest))
+			{
+				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
+					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+						if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
+							if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
+								hextoupdate.getEast().setHassettlement(true);
+								hextoupdate2.getSouthwest().setHassettlement(true);
+								northwest.setHassettlement(true);
+								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+								hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+							}
+						}
+					}
+				}
+			}
+			if(mylocation.getDir().equals(VertexDirection.SouthWest))
+			{
+				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
+					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+						if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
+							if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
+								hextoupdate.getNorthwest().setHassettlement(true);
+								hextoupdate2.getEast().setHassettlement(true);
+								southwest.setHassettlement(true);
+								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+								hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+							}
+						}
+					}
+				}
+			}
+			if(mylocation.getDir().equals(VertexDirection.SouthEast)) {
+				HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
+				HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
+				Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					Exception e = new Exception();
+					e.printStackTrace();
+					throw e;
+				}
+				if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
+				{
+					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+						if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
+							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+								hextoupdate.getWest().setHassettlement(true);
+								hextoupdate2.getNortheast().setHassettlement(true);
+								southeast.setHassettlement(true);
+								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+								hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+							}
+						}
+					}
+
+				}
+			}
+		}
+	}
+
+	public RoadPiece buildRoad(EdgeLocation edgeLocation, Index playerid)
+	{
+		RoadPiece roadPiece = new RoadPiece(playerid);
+		// set hasRoad to true, then actually create the RoadPiece object and set that.
+		switch (edgeLocation.getDir())
+		{
+			case NorthWest:
+				System.out.println("i make this true");
+				nw.setHasRoad(true);
+				nw.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			case North:
+				n.setHasRoad(true);
+				n.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			case NorthEast:
+				ne.setHasRoad(true);
+				ne.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			case SouthEast:
+				se.setHasRoad(true);
+				se.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			case South:
+				s.setHasRoad(true);
+				s.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			case SouthWest:
+				sw.setHasRoad(true);
+				sw.setRoadPiece(roadPiece);
+				roads.add(roadPiece);
+				break;
+			default:
+				assert false;
+		}
+		return roadPiece;
+	}
+
 	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
-		if(canBuildSettlementHere(mylocation))
+		if(canBuildSettlementHereStartup(mylocation))
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
@@ -320,52 +545,221 @@ public class Hex
 		}
 	}
 
-	public RoadPiece buildRoad(EdgeLocation edgeLocation, Index playerid)
+	public boolean canBuildSettlementHereNormal(VertexLocation mylocation)
 	{
-		RoadPiece roadPiece = new RoadPiece(playerid);
-		// set hasRoad to true, then actually create the RoadPiece object and set that.
-		switch (edgeLocation.getDir())
+		System.out.println("i come here to check");
+		if (settlements.size() >= 3)
 		{
-			case NorthWest:
-				nw.setHasRoad(true);
-				nw.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			case North:
-				n.setHasRoad(true);
-				n.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			case NorthEast:
-				ne.setHasRoad(true);
-				ne.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			case SouthEast:
-				se.setHasRoad(true);
-				se.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			case South:
-				s.setHasRoad(true);
-				s.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			case SouthWest:
-				sw.setHasRoad(true);
-				sw.setRoadPiece(roadPiece);
-				roads.add(roadPiece);
-				break;
-			default:
-				assert false;
+			return false;
 		}
-		return roadPiece;
+		if(mylocation.getDir().equals(VertexDirection.East))
+		{
+			if(east.isHascity()||northeast.isHascity()||southeast.isHascity())
+			{
+				return false;
+			}
+			if(east.isHassettlement()||northeast.isHassettlement()||southeast.isHassettlement())
+			{
+				return false;
+			}
+			{
+				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					return false;
+				}
+				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
+				{
+					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+						if (!this.east.isHassettlement() && !this.east.isHascity()) {
+							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+								return true;
+							}
+						}
+					}
+				}
+			}
+			System.out.println("ne and se and s don't have roads");
+			return false;
+		}
+		if(mylocation.getDir().equals(VertexDirection.West))
+		{
+			if(west.isHascity()||northwest.isHascity()||southeast.isHascity())
+			{
+				return false;
+			}
+			if(west.isHassettlement()||northwest.isHassettlement()||southwest.isHassettlement())
+			{
+				return false;
+			}
+			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
+			{
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+					if (!this.west.isHassettlement() && !this.west.isHascity()) {
+						if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			System.out.println("nw and sw and s don't have roads");
+			return false;
+		}
+		if(mylocation.getDir().equals(VertexDirection.NorthEast))
+		{
+			if (northeast.isHascity()||east.isHascity()||northwest.isHascity())
+			{
+				return false;
+			}
+			if(northeast.isHassettlement()||east.isHassettlement()||northwest.isHassettlement())
+			{
+				return false;
+			}
+			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
+			HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.n.hasRoad()||this.ne.hasRoad()||hextoupdate.se.hasRoad()) {
+				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+					if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
+						if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			System.out.println("n and ne and se don't have roads");
+
+			return false;
+		}
+		if(mylocation.getDir().equals(VertexDirection.NorthWest))
+		{
+			if (northeast.isHascity()||northwest.isHascity()||west.isHascity())
+			{
+				return false;
+			}
+			if(northwest.isHassettlement()||northeast.isHassettlement()||west.isHassettlement())
+			{
+				return false;
+			}
+			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+			HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+					if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
+						if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			System.out.println("nw and ne and n don't have roads");
+
+			return false;
+		}
+		if(mylocation.getDir().equals(VertexDirection.SouthEast))
+		{
+			if(southwest.isHascity()||east.isHascity()||southeast.isHascity())
+			{
+				return false;
+			}
+			if(southeast.isHassettlement()||southwest.isHassettlement()||east.isHassettlement())
+			{
+				return false;
+			}
+			HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
+			HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
+			Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				return false;
+			}
+			if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
+			{
+				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+					if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
+						if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			System.out.println("se and sw and s don't have roads");
+
+			return false;
+		}
+		if(mylocation.getDir().equals(VertexDirection.SouthWest))
+		{
+			if(southwest.isHascity()||southeast.isHascity()||east.isHascity())
+			{
+				return false;
+			}
+			if(southwest.isHassettlement()||southeast.isHassettlement()||west.isHassettlement())
+			{
+				return false;
+			}
+			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
+			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
+
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+					if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
+						if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			System.out.println("sw and s and nw don't have roads");
+
+			return false;
+		}
+
+		return true;
 	}
 
 	/**
 	 * This function checks to see if it is even possible to place Settlements on specific Hex
      */
-	public boolean canBuildSettlementHere(VertexLocation mylocation)
+
+
+	public boolean canBuildSettlementHereStartup(VertexLocation mylocation)
 	{
 		if (settlements.size() >= 3)
 		{
@@ -450,13 +844,14 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
-			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-				if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
-					if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
-					return true;
+				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+					if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
+						if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+							return true;
+						}
 					}
 				}
-			}
+
 				return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthWest))
@@ -479,12 +874,13 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
-			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-				if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
-					if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
-					return true;
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+					if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
+						if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
+							return true;
 						}
-				}
+					}
+
 			}
 			return false;
 		}
@@ -506,11 +902,12 @@ public class Hex
 			{
 				return false;
 			}
-			if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 				if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
 					if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
 						return true;
 					}
+
 				}
 
 			}
@@ -536,11 +933,13 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
-			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 				if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
-					if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
+					if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
 						return true;
 					}
+
 				}
 			}
 			return false;
@@ -548,6 +947,7 @@ public class Hex
 
 		return true;
 	}
+
 
 	/**
 	 * This function will need further implementation
