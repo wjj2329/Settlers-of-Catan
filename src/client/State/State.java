@@ -66,8 +66,9 @@ public enum State {
 		}
 
 		@Override
-		public void buildRoad() {
-
+		public void buildRoad(Hex hex, EdgeLocation edge)
+		{
+			CatanGame.singleton.getCurrentPlayer().buildRoadPiece(hex, edge);
 		}
 
 		@Override
@@ -106,9 +107,9 @@ public enum State {
 		}
 
 		@Override
-		public void buildRoad()
+		public void buildRoad(Hex hex, EdgeLocation edge)
 		{
-
+			CatanGame.singleton.getCurrentPlayer().buildRoadPieceSetupState(hex, edge);
 		}
 		@Override
 		public String getState() {
@@ -166,7 +167,7 @@ public enum State {
 	public void playMonopolyCard(){}
 	public void buildCity(){}
 	public void buildSettlement(){}
-	public void buildRoad(){}
+	public void buildRoad(Hex hex, EdgeLocation edge){}
 	public void placeRobber(){}
 	public void rollNumber(){}
 	public void createGame(){}

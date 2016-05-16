@@ -445,7 +445,31 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
 				piece.setLocation(edge.getNormalizedLocation());
-				adjacent.buildRoad(edge2, new Index(3));
+				adjacent.buildRoad(edge2, playerID); // PlayerID or PlayerIndex?
+				roadPieces.add(piece);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean buildRoadPieceSetupState(Hex hex, EdgeLocation edge)
+	{
+		if (canBuildRoadPieceSetupState(hex, edge))
+		{
+			Hex adjacent = computeAdjacentHex(hex, edge);
+			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
+			// check the other hex
+			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+			{
+				return false;
+			}
+			else
+			{
+				RoadPiece piece = hex.buildRoad(edge, playerID);
+				// I *think* this works, but we will see.
+				piece.setLocation(edge.getNormalizedLocation());
+				adjacent.buildRoad(edge2, playerID);
 				roadPieces.add(piece);
 				return true;
 			}
