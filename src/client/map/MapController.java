@@ -2,6 +2,7 @@ package client.map;
 
 import java.util.*;
 
+import client.State.State;
 import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -17,11 +18,13 @@ import static com.sun.deploy.trace.TraceLevel.values;
 /**
  * Implementation for the map controller
  */
-public class MapController extends Controller implements IMapController {
+public class MapController extends Controller implements IMapController, Observer
+{
 	
 	private IRobView robView;
 	
-	public MapController(IMapView view, IRobView robView) {
+	public MapController(IMapView view, IRobView robView)
+	{
 		
 		super(view);
 		
@@ -148,7 +151,15 @@ public class MapController extends Controller implements IMapController {
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		
+		if (CatanGame.singleton.getCurrentState() == State.SetUpState)
+		{
+
+		}
+		else if (CatanGame.singleton.getCurrentState() == State.GamePlayingState)
+		{
+			return CatanGame.singleton.getCurrentState().canBuildRoadPiece(
+					CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
+		}
 		return true;
 	}
 
@@ -254,6 +265,19 @@ public class MapController extends Controller implements IMapController {
 	public void robPlayer(RobPlayerInfo victim) {	
 		
 	}
-	
+
+	/**
+	 * This function is important.
+	 * Essential for updating GUI.
+	 * @param o: modelFacade.
+	 * @param arg: I *think* this will be our CatanGame. According to Java's
+	 *           Observable's interface, arg is an argument passed to the
+	 *           notifyObservers method.
+     */
+	@Override
+	public void update(Observable o, Object arg)
+	{
+
+	}
 }
 

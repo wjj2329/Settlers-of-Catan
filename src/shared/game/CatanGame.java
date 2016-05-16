@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import client.State.State;
 import client.model.*;
 import org.json.JSONObject;
 
@@ -23,6 +24,10 @@ public class CatanGame
 {
 	// The singleton was null so I did this instead
 	public static CatanGame singleton = new CatanGame();
+	/**
+	 * Which state the game is in. Starts at login
+	 */
+	private State currentState = State.LoginState;
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
@@ -210,6 +215,16 @@ public class CatanGame
 		return mytradeoffer;
 	}
 
+	public State getCurrentState()
+	{
+		return currentState;
+	}
+
+	public void setCurrentState(State currentState)
+	{
+		this.currentState = currentState;
+	}
+
 	public Player getCurrentPlayer()
 	{
 		return currentPlayer;
@@ -217,6 +232,7 @@ public class CatanGame
 
 	public void updateCurrentPlayer(Player currentPlayer)
 	{
+		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
 	}
 }

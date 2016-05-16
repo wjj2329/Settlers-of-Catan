@@ -1,5 +1,10 @@
 package client.State;
 
+import shared.game.CatanGame;
+import shared.game.map.Hex.Hex;
+import shared.game.player.Player;
+import shared.locations.EdgeLocation;
+
 public enum State {
 
 
@@ -69,6 +74,12 @@ public enum State {
 		public String getState() {
 			return "GAMEPLAYING";
 		}
+
+		@Override
+		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
+		{
+			return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece(hex, edge));
+		}
 	},
 	SetUpState{
 		//First set up round player gets 2 free settlements and roads
@@ -101,16 +112,17 @@ public enum State {
 			return "PLAYERWAITING";
 		}
 	},
-	JoinGameState{
+	JoinGameState
+	{
 		//player can join or re-join games or create game
-		
 		@Override
-		public void joinGame() {
+		public void joinGame()
+		{
 
 		}
-		
 		@Override
-		public void createGame() {
+		public void createGame()
+		{
 
 		}
 		
@@ -137,5 +149,9 @@ public enum State {
 	public void createGame(){}
 	public void addAI(){}
 	public String getState(){ return null; }
+	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
+	{
+		return false;
+	}
 
 }
