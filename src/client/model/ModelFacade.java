@@ -309,7 +309,7 @@ public class ModelFacade
 		for (int i = 0; i < ports.length(); i++)
 		{
 			JSONObject obj = ports.getJSONObject(i);
-			String resource = obj.getString("resource");
+			String resource = obj.getString("resource"); // this is the port type
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
