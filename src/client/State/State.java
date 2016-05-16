@@ -81,22 +81,29 @@ public enum State {
 			return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece(hex, edge));
 		}
 	},
-	SetUpState{
+	SetUpState
+	{
 		//First set up round player gets 2 free settlements and roads
-		
 		@Override
-		public void buildSettlement() {
+		public void buildSettlement()
+		{
 
 		}
 
 		@Override
-		public void buildRoad() {
+		public void buildRoad()
+		{
 
 		}
-
 		@Override
 		public String getState() {
 			return "SETUP";
+		}
+
+		@Override
+		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
+		{
+			return CatanGame.singleton.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
 		}
 	},
 	PlayerWaitingState{

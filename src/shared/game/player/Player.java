@@ -568,6 +568,27 @@ public class Player
 		return true;
 	}
 
+	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
+	{
+		if (!currentPlayer)
+		{
+			return false;
+		}
+		if (edge.hasRoad())
+		{
+			return false;
+		}
+		if (!checkAdjacentEdges(hex, edge))
+		{
+			return false;
+		}
+		if (!checkAdjacentSettlements(hex, edge))
+		{
+			return false;
+		}
+		return true; // idk if I need this or just a boolean
+	}
+
 	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
 	{
 		VertexLocation vertexClockwiseUpper = null;

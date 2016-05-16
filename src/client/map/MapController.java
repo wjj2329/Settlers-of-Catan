@@ -153,14 +153,15 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		if (CatanGame.singleton.getCurrentState() == State.SetUpState)
 		{
-
+			return CatanGame.singleton.getCurrentState().canBuildRoadPiece(
+					CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 		}
 		else if (CatanGame.singleton.getCurrentState() == State.GamePlayingState)
 		{
 			return CatanGame.singleton.getCurrentState().canBuildRoadPiece(
 					CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 		}
-		return true;
+		return false;
 	}
 
 
