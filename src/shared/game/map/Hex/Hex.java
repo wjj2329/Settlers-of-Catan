@@ -381,6 +381,25 @@ public class Hex
 			{
 				return false;
 			}
+			{
+				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
+				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				if(hextoupdate==null||hextoupdate2==null)
+				{
+					return false;
+				}
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
+						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+							return true;
+						}
+					}
+				}
+			}
+			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.West))
 		{
@@ -392,6 +411,24 @@ public class Hex
 			{
 				return false;
 			}
+			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+				if(!this.west.isHassettlement()&&!this.west.isHascity()) {
+					if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
@@ -403,7 +440,24 @@ public class Hex
 			{
 				return false;
 			}
-
+			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
+			HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+				if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
+					if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
+					return true;
+					}
+				}
+			}
+				return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthWest))
 		{
@@ -415,6 +469,24 @@ public class Hex
 			{
 				return false;
 			}
+			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
+			HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+				if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
+					if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
+					return true;
+						}
+				}
+			}
+			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthEast))
 		{
@@ -426,6 +498,23 @@ public class Hex
 			{
 			return false;
 			}
+			HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
+			HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
+			Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				return false;
+			}
+			if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
+				if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
+					if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+						return true;
+					}
+				}
+
+			}
+			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthWest))
 		{
@@ -437,7 +526,26 @@ public class Hex
 			{
 				return false;
 			}
+			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
+			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
+			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			if(hextoupdate==null||hextoupdate2==null)
+			{
+				Exception e = new Exception();
+				e.printStackTrace();
+				return false;
+			}
+			if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+				if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
+					if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
+						return true;
+					}
+				}
+			}
+			return false;
 		}
+
 		return true;
 	}
 

@@ -4,9 +4,10 @@ import java.util.*;
 
 import shared.definitions.*;
 import shared.game.CatanGame;
+import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
-import shared.game.map.vertexobject.Settlement;
+import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
@@ -148,65 +149,75 @@ public class MapController extends Controller implements IMapController {
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		// testing. this will eventually be deleted except for return statement.
-		// study the hex system to get the needed value. maybe put one nearby to edgeLoc - no i don't think so
-		CatanGame.singleton.getCurrentPlayer().getResources().setBrick(1);
-		CatanGame.singleton.getCurrentPlayer().getResources().setWood(1); // set current player true
-		CatanGame.singleton.getCurrentPlayer().setCurrentPlayer(true); // only for debugging right now
-
-		/*CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(new HexLocation(-2, 0),
-				CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0)).getNorthwest(),
-				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
-		HexLocation hexLoc5 = new HexLocation(-2, -1);
-		HexLocation hexLoc7 = new HexLocation(-2, 1);
-		HexLocation hexLoc8 = new HexLocation(-2, 2);
-		HexLocation hexLoc9 = new HexLocation(-2, 3);
-		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc7,
-				CatanGame.singleton.getMymap().getHexes().get(hexLoc7).getNortheast(),
-				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
-		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc8,
-				CatanGame.singleton.getMymap().getHexes().get(hexLoc8).getNorthwest(),
-				CatanGame.singleton.getCurrentPlayer().getPlayerID()));
-
-		CatanGame.singleton.getCurrentPlayer().addToSettlements(new Settlement(hexLoc9,
-				CatanGame.singleton.getMymap().getHexes().get(hexLoc9).getNorthwest(),
-				CatanGame.singleton.getCurrentPlayer().getPlayerID()));*/
-
-		return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece
-				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc));
+		
+		return true;
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc) {
+		Player test=CatanGame.singleton.getCurrentPlayer();
+		System.out.println(vertLoc.getHexLoc().getX());
+		System.out.println(vertLoc.getHexLoc().getY());
+		test.setResources(new ResourceList(5, 5, 5, 5,5));
+		try {
+			if(test.canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
+            {
+				return true;
+            }
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean canPlaceCity(VertexLocation vertLoc)
+	{
+		Player test=CatanGame.singleton.getCurrentPlayer();
+		test.setResources(new ResourceList(5, 5, 5, 5, 5));
+		try {
+			if(test.canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
+			{
+				return true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+
+	public boolean canPlaceRobber(HexLocation hexLoc) {
 		
 		return true;
 	}
 
-	public boolean canPlaceCity(VertexLocation vertLoc) {
+	public void placeRoad(EdgeLocation edgeLoc) {
 		
-		return true;
-	}
-
-	public boolean canPlaceRobber(HexLocation hexLoc)
-	{
-		return true;
-	}
-
-	public void placeRoad(EdgeLocation edgeLoc)
-	{
-		// need to implement this a bit more. current player's color? was CatanColor.ORANGE
-		getView().placeRoad(edgeLoc, CatanGame.singleton.getCurrentPlayer().getColor());
-		CatanGame.singleton.getCurrentPlayer().buildRoadPiece
-				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
+		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+		Player currentPlayer=CatanGame.singleton.getCurrentPlayer();
+		if(canPlaceSettlement(vertLoc))
+		{
+			try {
+				currentPlayer.buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		getView().placeSettlement(vertLoc, currentPlayer.getColor());
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
+		Player currentPlayer=CatanGame.singleton.getCurrentPlayer();
+		if(canPlaceCity(vertLoc))
+		{
+			try {
+				currentPlayer.buildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		getView().placeCity(vertLoc, currentPlayer.getColor());
 	}
 
 	public void placeRobber(HexLocation hexLoc) {

@@ -698,13 +698,25 @@ public class Player
 	 * @param hex: the hex
      */
 	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation) throws Exception {
-		if(hex==null||myLocation==null)
+		if(myLocation==null)
 		{
+			System.out.println("Location is NULL");
 			Exception e=new Exception();
 			e.printStackTrace();
-			throw e;		}
+			return false;
+			//throw e;
+		}
+		if(hex==null)
+		{
+			System.out.println("HEX IS NULL");
+			Exception e = new Exception();
+			e.printStackTrace();
+			return false;
+			//throw e;
+		}
 		if (!hex.canBuildSettlementHere(myLocation))
 		{
+			System.out.println("I am to blame");
 			return false;
 		}
 		if (resources.getSheep() < 1 || resources.getWheat() < 1

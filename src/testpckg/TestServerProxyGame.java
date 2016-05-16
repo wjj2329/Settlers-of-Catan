@@ -16,6 +16,7 @@ import org.junit.Before;
 
 public class TestServerProxyGame {
 
+	
 	IServer iserver;
 	
 	@Before
