@@ -39,19 +39,13 @@ public class Port
 	 */
 	private int ratio = -1;
 
-	/**
-	 * Default constructor for port.
-	 */
-	public Port()
-	{
-		
-	}
 
 	/**
 	 * Another constructor for port.
 	 */
-	public Port(HexLocation location, EdgeDirection direction, int ratio)
+	public Port(HexLocation location, EdgeDirection direction, int ratio, PortType type)
 	{
+		this.type=type;
 		this.location = location;
 		this.direction = direction;
 		this.ratio = ratio;

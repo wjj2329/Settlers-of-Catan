@@ -10,6 +10,8 @@ import shared.locations.*;
 import client.base.*;
 import client.data.*;
 
+import static com.sun.deploy.trace.TraceLevel.values;
+
 
 /**
  * Implementation for the map controller
@@ -38,16 +40,31 @@ public class MapController extends Controller implements IMapController {
 	private void setRobView(IRobView robView) {
 		this.robView = robView;
 	}
-	
-	protected void initFromModel() {
+
+	private EdgeLocation converttoedgelocation(String location, HexLocation hexLocation)
+	{
+		System.out.println(location);
+		return new EdgeLocation(hexLocation, EdgeDirection.North);
+	}
+	protected void initFromModel()
+	{
 		CatanGame.singleton=new CatanGame();
 		CatanGame.singleton.setMymap(new CatanMap(1));
 		Map<HexLocation, Hex>mymap=CatanGame.singleton.getMymap().getHexes();
 		for(HexLocation rec:mymap.keySet())
 		{
-			getView().addHex(rec, mymap.get(rec).getResourcetype());
-
+			HexType test=mymap.get(rec).getResourcetype();
+			getView().addHex(rec, test);
+			if(mymap.get(rec).getResourcenumber()!=0) {
+				getView().addNumber(rec, mymap.get(rec).getResourcenumber());
+			}
+			if(mymap.get(rec).getPortType()!=null)
+			{
+				getView().addPort(converttoedgelocation(mymap.get(rec).getPortLocation(), rec),mymap.get(rec).getPortType());
+			}
 		}
+		getView().placeRobber(new HexLocation(0, -2));
+
 		//<temp>
 		/*
 		Random rand = new Random();

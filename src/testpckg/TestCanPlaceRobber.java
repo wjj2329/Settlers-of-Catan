@@ -10,6 +10,8 @@ import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
+import shared.game.map.Port;
+import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 
 /**
@@ -29,7 +31,7 @@ public class TestCanPlaceRobber
 	{
 		hextest1=new Hex(new HexLocation(-3, 3), HexType.BRICK, new NumberToken(4), null);
 		hextest2=new Hex(new HexLocation(-2, 2), HexType.WATER, new NumberToken(0), null);
-		hextest3=new Hex(new HexLocation(1,1), HexType.WATER, new NumberToken(0), PortType.BRICK);
+		hextest3=new Hex(new HexLocation(1,1), HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.North,3,PortType.BRICK));
 	}
 
 	@After

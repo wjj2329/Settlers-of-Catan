@@ -4,6 +4,7 @@ import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.CatanGame;
 import shared.game.map.Index;
+import shared.game.map.Port;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
@@ -20,7 +21,7 @@ public class Hex
 	private HexLocation location = null;
 	private HexType resourcetype = null;
 	private NumberToken resourcenumber=null;
-	private PortType myport=null;
+	private Port myport=null;
 	private VertexLocation portlocation=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();
 	private ArrayList<City> cities = new ArrayList<>();
@@ -50,7 +51,7 @@ public class Hex
 	 * 						resourcenumber is not negative
 	 * @post same as above. 
 	 */
-	public Hex(HexLocation location, HexType resourcetype, NumberToken resourcenumber, PortType myport)
+	public Hex(HexLocation location, HexType resourcetype, NumberToken resourcenumber, Port myport)
 	{
 		this.location=location;
 		this.resourcetype = resourcetype;
@@ -635,13 +636,13 @@ public class Hex
 		return this.resourcenumber.getValue();
 	}
 
-	public String getPortType()
+	public PortType getPortType()
 	{
 		if(myport==null)
 		{
-			return "fail";
+			return null;
 		}
-		return myport.name();
+		return myport.getType();
 	}
 
 	public void setPortlocation(VertexLocation vertexLocation)
@@ -651,11 +652,11 @@ public class Hex
 
 	public String getPortLocation()
 	{
-		if(portlocation==null)
+		if(myport==null)
 		{
 			return "fail";
 		}
-		return portlocation.toString();
+		return myport.getDirection().toString();
 	}
 
 	public ArrayList<RoadPiece> getRoads()

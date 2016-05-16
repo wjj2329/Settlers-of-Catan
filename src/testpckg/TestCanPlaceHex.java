@@ -12,6 +12,8 @@ import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
+import shared.game.map.Port;
+import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 
 /**
@@ -32,7 +34,7 @@ public class TestCanPlaceHex
 	public void setUp() throws Exception 
 	{
 		hex1=new Hex(new HexLocation(3, 3), HexType.BRICK,new NumberToken(3), null);
-		hex2=new Hex(new HexLocation(3, 3), HexType.WATER,new NumberToken(3), PortType.WHEAT);
+		hex2=new Hex(new HexLocation(3, 3), HexType.WATER,new NumberToken(3), new Port(new HexLocation(3, 3), EdgeDirection.North,3,PortType.BRICK));
 		hex3=new Hex(new HexLocation(3, 3), HexType.DESERT,new NumberToken(3), null);
 	}
 
