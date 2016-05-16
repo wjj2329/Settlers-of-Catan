@@ -2,6 +2,7 @@ package client.map;
 
 import java.util.*;
 
+import client.State.State;
 import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -150,7 +151,15 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		
+		if (CatanGame.singleton.getCurrentState() == State.SetUpState)
+		{
+
+		}
+		else if (CatanGame.singleton.getCurrentState() == State.GamePlayingState)
+		{
+			return CatanGame.singleton.getCurrentState().canBuildRoadPiece(
+					CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
+		}
 		return true;
 	}
 
@@ -257,6 +266,14 @@ public class MapController extends Controller implements IMapController, Observe
 		
 	}
 
+	/**
+	 * This function is important.
+	 * Essential for updating GUI.
+	 * @param o: modelFacade.
+	 * @param arg: I *think* this will be our CatanGame. According to Java's
+	 *           Observable's interface, arg is an argument passed to the
+	 *           notifyObservers method.
+     */
 	@Override
 	public void update(Observable o, Object arg)
 	{
