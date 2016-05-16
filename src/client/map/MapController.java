@@ -43,7 +43,22 @@ public class MapController extends Controller implements IMapController {
 
 	private EdgeLocation converttoedgelocation(String location, HexLocation hexLocation)
 	{
-		System.out.println(location);
+		switch(location) {
+			case ("North"):
+				return new EdgeLocation(hexLocation, EdgeDirection.North);
+			case("NorthWest"):
+				return new EdgeLocation(hexLocation, EdgeDirection.NorthWest);
+			case("NorthEast"):
+				return new EdgeLocation(hexLocation, EdgeDirection.NorthEast);
+			case("SouthEast"):
+				return new EdgeLocation(hexLocation, EdgeDirection.SouthEast);
+			case("SouthWest"):
+				return new EdgeLocation(hexLocation, EdgeDirection.SouthWest);
+			case("South"):
+				return new EdgeLocation(hexLocation, EdgeDirection.South);
+
+		}
+
 		return new EdgeLocation(hexLocation, EdgeDirection.North);
 	}
 	protected void initFromModel()

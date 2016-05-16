@@ -32,7 +32,7 @@ public class Port
 	/**
 	 * which direction (i.e., N S E W etc.) the port is in on the particular hex
 	 */
-	private EdgeDirection direction = EdgeDirection.North;
+	private EdgeDirection direction = EdgeDirection.South;
 
 	/**
 	 * ratio: which ratio of trade this is (should only be 1, 2, or 3)
