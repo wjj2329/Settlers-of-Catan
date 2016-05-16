@@ -158,12 +158,12 @@ public class MapController extends Controller implements IMapController {
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
 		Player test=CatanGame.singleton.getCurrentPlayer();
-		System.out.println(vertLoc.getHexLoc().getX());
-		System.out.println(vertLoc.getHexLoc().getY());
+		//System.out.println(vertLoc.getHexLoc().getX());
+		//System.out.println(vertLoc.getHexLoc().getY());
 		test.setResources(new ResourceList(5, 5, 5, 5,5));
 		try
 		{
-			if(test.canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
+			if(test.canBuildSettlementNormal(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
             {
 				return true;
             }
@@ -204,12 +204,12 @@ public class MapController extends Controller implements IMapController {
 		if(canPlaceSettlement(vertLoc))
 		{
 			try {
-				currentPlayer.buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				currentPlayer.buildSettlementNormal(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("i have "+currentPlayer.getResources().getBrick());
+		//System.out.println("i have "+currentPlayer.getResources().getBrick());
 		getView().placeSettlement(vertLoc, currentPlayer.getColor());
 
 	}

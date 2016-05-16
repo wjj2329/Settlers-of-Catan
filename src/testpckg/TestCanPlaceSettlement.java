@@ -51,21 +51,21 @@ public class TestCanPlaceSettlement {
 
 	@Test
 	public void test() throws Exception {
-		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
+		assertTrue(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
 		hex1.buildSettlement(new VertexLocation(new HexLocation(1, 1), VertexDirection.West), new Index(2));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthWest)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthWest)));
-		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.East)));
-		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthEast)));
-		assertTrue(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthEast)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthWest)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthWest)));
+		assertTrue(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.East)));
+		assertTrue(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthEast)));
+		assertTrue(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthEast)));
 		hex1.buildSettlement(new VertexLocation(new HexLocation(1, 1), VertexDirection.East), new Index(2));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthWest)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthWest)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.East)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthEast)));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthEast)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.West)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthWest)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthWest)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.East)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.SouthEast)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(1, 1), VertexDirection.NorthEast)));
 	}
 
 	@Test
@@ -76,44 +76,44 @@ public class TestCanPlaceSettlement {
 		hex2.buildSettlement(new VertexLocation(new HexLocation(-3, 2), VertexDirection.SouthWest), new Index(2));
 		exception.expect(Exception.class);
 		hex2.buildSettlement(new VertexLocation(new HexLocation(-3, 2), VertexDirection.NorthWest), new Index(2));
-		assertTrue(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East)));
-		assertTrue(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.SouthEast)));
-		assertTrue(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.NorthEast)));
+		assertTrue(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East)));
+		assertTrue(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.SouthEast)));
+		assertTrue(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.NorthEast)));
 		hex2.buildSettlement(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East), new Index(2));
-		assertFalse(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East)));
-		assertFalse(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.SouthEast)));
-		assertFalse(hex2.canBuildSettlementHere(new VertexLocation(new HexLocation(-3, 2), VertexDirection.NorthEast)));
+		assertFalse(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East)));
+		assertFalse(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.SouthEast)));
+		assertFalse(hex2.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-3, 2), VertexDirection.NorthEast)));
 	}
 
 	@Test
 	public void test3() throws Exception {
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast), new Index(2));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West), new Index(2));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
-		assertTrue(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
+		assertTrue(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast), new Index(2));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
-		assertFalse(hex3.canBuildSettlementHere(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthEast)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthEast)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest)));
+		assertFalse(hex3.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(-2, 1), VertexDirection.West)));
 	}
 
 	@Test

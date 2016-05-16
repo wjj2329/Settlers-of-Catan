@@ -510,13 +510,9 @@ public class Player
 
 	public void buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
 	{
-		if(canBuildSettlement(buildingon,locationofsettlement))
+		if(canBuildSettlementStartup(buildingon,locationofsettlement))
 		{
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick()-1);
-			resources.setWheat(resources.getWheat()-1);
-			resources.setSheep(resources.getSheep()-1);
-			resources.setWood(resources.getWood()-1);
 			this.numSettlementsRemaining--;
 			System.out.println("The number of brick peices left "+resources.getBrick());
 			System.out.println("my num of settlements Remaning is "+numSettlementsRemaining);
@@ -695,11 +691,53 @@ public class Player
 		return false;
 	}
 
+	public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
+		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
+			buildingon.buildSettlement(locationofsettlement, this.playerID);
+			resources.setBrick(resources.getBrick() - 1);
+			resources.setWheat(resources.getWheat() - 1);
+			resources.setSheep(resources.getSheep() - 1);
+			resources.setWood(resources.getWood() - 1);
+			this.numSettlementsRemaining--;
+			System.out.println("The number of brick peices left " + resources.getBrick());
+			System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
+		}
+	}
+
+	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
+		if (myLocation == null) {
+			System.out.println("Location is NULL");
+			Exception e = new Exception();
+			e.printStackTrace();
+			return false;
+			//throw e;
+		}
+		if (hex == null) {
+			System.out.println("HEX IS NULL");
+			Exception e = new Exception();
+			e.printStackTrace();
+			return false;
+			//throw e;
+		}
+		if (!hex.canBuildSettlementHereNormal(myLocation)) {
+			System.out.println("I am to blame");
+			return false;
+		}
+		if (resources.getSheep() < 1 || resources.getWheat() < 1
+				|| resources.getBrick() < 1 || resources.getWood() < 1) {
+			return false;
+		}
+		if (numSettlementsRemaining <= 0) {
+			return false;
+		}
+		return true;
+	}
+
 	/**
 	 * Determines whether or not a player can build a settlement on a particular hex
 	 * @param hex: the hex
      */
-	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation) throws Exception {
+	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
 		if(myLocation==null)
 		{
 			System.out.println("Location is NULL");
@@ -716,7 +754,7 @@ public class Player
 			return false;
 			//throw e;
 		}
-		if (!hex.canBuildSettlementHere(myLocation))
+		if (!hex.canBuildSettlementHereStartup(myLocation))
 		{
 			System.out.println("I am to blame");
 			return false;

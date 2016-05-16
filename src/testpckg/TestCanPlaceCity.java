@@ -49,7 +49,7 @@ public class TestCanPlaceCity {
 		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
 		hex1.buildCity(new VertexLocation(new HexLocation(0,1),VertexDirection.West));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
-		assertFalse(hex1.canBuildSettlementHere(new VertexLocation(new HexLocation(0, 1), VertexDirection.East)));
+		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(0, 1), VertexDirection.East)));
 
 	}
 
