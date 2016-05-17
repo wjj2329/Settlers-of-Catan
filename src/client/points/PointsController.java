@@ -1,6 +1,7 @@
 package client.points;
 
 import client.base.*;
+import shared.game.CatanGame;
 
 
 /**
@@ -38,9 +39,14 @@ public class PointsController extends Controller implements IPointsController {
 	}
 
 	private void initFromModel() {
-		//<temp>		
-		getPointsView().setPoints(5);
-		//</temp>
+		
+		int points = CatanGame.singleton.getCurrentPlayer().getNumVictoryPoints();	
+		getPointsView().setPoints(points);
+		
+		int winner = CatanGame.singleton.getWinner().getNumber();
+		if(winner != -1){
+			//ends the game...
+		}
 	}
 	
 }
