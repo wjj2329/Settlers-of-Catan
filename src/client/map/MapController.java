@@ -224,8 +224,8 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		server.buildSettlement("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,vertLoc);
-
+		//server.buildSettlement("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,vertLoc);
+		//notifyAll();
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
@@ -241,6 +241,7 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
 		server.buildCity("buildCity",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),vertLoc);
+
 	}
 
 	public void placeRobber(HexLocation hexLoc) {

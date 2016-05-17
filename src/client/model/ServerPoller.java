@@ -20,7 +20,7 @@ public class ServerPoller
 	 */
 	Timer requestTimer = null;
 	IServer server;
-	CatanGame game;
+	CatanGame game=ModelFacade.facace_currentgame.currentgame;
 	
 	public ServerPoller(CatanGame game, IServer server)
 	{
