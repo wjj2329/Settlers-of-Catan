@@ -428,7 +428,6 @@ public class Hex
 		switch (edgeLocation.getDir())
 		{
 			case NorthWest:
-				System.out.println("i make this true");
 				nw.setHasRoad(true);
 				nw.setRoadPiece(roadPiece);
 				roads.add(roadPiece);
@@ -466,8 +465,8 @@ public class Hex
 
 	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
-		System.out.println("i build a settlement in start up");
-		System.out.println("Magic the index is... " + owner.getNumber());
+		/*System.out.println("i build a settlement in start up");
+		System.out.println("Magic the index is... " + owner.getNumber());*/
 		if(canBuildSettlementHereStartup(mylocation))
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))

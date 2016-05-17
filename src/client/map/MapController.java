@@ -151,10 +151,8 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		System.out.println("The hexLoc is: " + edgeLoc.getHexLoc().getX() + ", " + edgeLoc.getHexLoc().getY());
 		if (!CatanGame.singleton.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
 		{
-			System.out.println("Hex location not found");
 			return false;
 		}
 		return CatanGame.singleton.getCurrentState().canBuildRoadPiece
