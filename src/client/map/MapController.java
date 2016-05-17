@@ -23,11 +23,8 @@ public class MapController extends Controller implements IMapController, Observe
 	
 	public MapController(IMapView view, IRobView robView)
 	{
-		
 		super(view);
-		
 		setRobView(robView);
-		
 		initFromModel();
 		ModelFacade.facace_singleton.addObserver(this);
 	}

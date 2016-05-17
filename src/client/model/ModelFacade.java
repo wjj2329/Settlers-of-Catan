@@ -43,7 +43,8 @@ public class ModelFacade extends Observable
 	private CatanGame singleton;
 	public static ModelFacade facace_singleton = new ModelFacade();
 	private int localplayerID;
-	
+
+
 	public ModelFacade()
 	{
 		singleton = CatanGame.singleton;

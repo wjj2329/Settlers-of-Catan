@@ -2,6 +2,7 @@ package client.resources;
 
 import java.util.*;
 
+import client.State.State;
 import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -37,8 +38,49 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 * @param element The resource bar element with which the action is associated
 	 * @param action The action to be executed
 	 */
-	public void setElementAction(ResourceBarElement element, IAction action) {
 
+	//needs to get update to work to overwrite the inital state when stuff happens in other controllers.
+	public void setElementAction(ResourceBarElement element, IAction action) {
+		elementActions.put(element, action);
+		Player player = CatanGame.singleton.getCurrentPlayer();
+
+		if (player != null)
+		{
+			ResourceList resourceCards = player.getResources();
+
+			// update the resources you have
+			this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
+			this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
+			this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
+			this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
+			this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
+
+			// update roads/settlements/cities you have left
+			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getNumRoadPiecesRemaining());
+			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getNumCitiesRemaining());
+			this.getView().setElementAmount(ResourceBarElement.CITY, player.getNumCitiesRemaining());
+
+			// update soldiers
+			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
+
+		}
+		if(CatanGame.singleton.getCurrentState()!= State.SetUpState) {
+			if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
+				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+			}
+			if (player.getResources().getSheep() < 1 || player.getResources().getWood() < 1 || player.getResources().getBrick() < 1 || player.getResources().getWheat() < 1) {
+				this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+			}
+			if (player.getResources().getWheat() < 2 || player.getResources().getOre() < 3) {
+				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+			}
+			if (player.getResources().getOre() < 1 || player.getResources().getSheep() < 1 || player.getResources().getWheat() < 1) {
+				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+			}
+			if (player.getOldDevCards().getMonopoly() < 1 && player.getOldDevCards().getMonument() < 1 && player.getOldDevCards().getRoadBuilding() < 1 && player.getOldDevCards().getSoldier() < 0 && player.getOldDevCards().getYearOfPlenty() < 0) {
+				this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+			}
+		}
 
 	}
 
@@ -116,12 +158,29 @@ public class ResourceBarController extends Controller implements IResourceBarCon
             
             
             if (player.getPlayerIndex() != currentTurn){
-                this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
                 this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
                 this.getView().setElementEnabled(ResourceBarElement.CITY, false);
                 this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
                 this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-            }      
+            }
+			if(CatanGame.singleton.getCurrentState()!= State.SetUpState) {
+				if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
+					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+				}
+				if (player.getResources().getSheep() < 1 || player.getResources().getWood() < 1 || player.getResources().getBrick() < 1 || player.getResources().getWheat() < 1) {
+					this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+				}
+				if (player.getResources().getWheat() < 2 || player.getResources().getOre() < 3) {
+					this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+				}
+				if (player.getResources().getOre() < 1 || player.getResources().getSheep() < 1 || player.getResources().getWheat() < 1) {
+					this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+				}
+				if (player.getOldDevCards().getMonopoly() < 1 && player.getOldDevCards().getMonument() < 1 && player.getOldDevCards().getRoadBuilding() < 1 && player.getOldDevCards().getSoldier() < 0 && player.getOldDevCards().getYearOfPlenty() < 0) {
+					this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+				}
+			}
         }
     }
 }

@@ -55,6 +55,7 @@ public class CatanGame
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
+		this.currentPlayer.setResources(new ResourceList(10,10,10,10,10));
 		 if(singleton == null) // this doesn't work
 		 {
 			 singleton = this;
@@ -69,6 +70,7 @@ public class CatanGame
 	//for testting purposes only
 	public CatanGame()
 	{
+		this.currentPlayer.setResources(new ResourceList(10,10,10,10,10));
 		singleton=this;
 	}
 	
