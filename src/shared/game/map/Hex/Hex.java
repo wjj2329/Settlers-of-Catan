@@ -405,6 +405,7 @@ public class Hex
 	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
 		System.out.println("i build a settlement in start up");
+		System.out.println("Magic the index is... " + owner.getNumber());
 		if(canBuildSettlementHereStartup(mylocation))
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))
@@ -425,7 +426,9 @@ public class Hex
 							hextoupdate.getSouthwest().setHassettlement(true);
 							hextoupdate2.getNorthwest().setHassettlement(true);
 							east.setHassettlement(true);
+							east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							//System.out.println("What is owner? " + owner.getNumber());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));

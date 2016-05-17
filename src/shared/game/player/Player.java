@@ -91,7 +91,7 @@ public class Player
 	 * NOTE: Keep this until we determine if there's a difference
 	 * between playerID and playerIndex. 
 	 */
-	private Index playerID = null;
+	private Index playerID = new Index(1924);
 	
 	/**
 	 * ResourceList: List of all the resource cards
@@ -537,6 +537,7 @@ public class Player
 	{
 		if(canBuildSettlementStartup(buildingon,locationofsettlement))
 		{
+			System.out.println("the playerID is " + playerID.getNumber() + " aka " + this.playerID.getNumber());
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
 			this.numSettlementsRemaining--;
 			System.out.println("The number of brick peices left "+resources.getBrick());
@@ -627,6 +628,10 @@ public class Player
 		{
 			System.out.println("not broken");
 		}
+		if (hex.getNorthwest() == null || hex.getWest() == null)
+		{
+			System.out.println("something is null");
+		}
 		VertexLocation vertexClockwiseUpper = null;
 		VertexLocation vertexClockwiseLower = null;
 		switch(edge.getDir())
@@ -658,6 +663,15 @@ public class Player
 			default:
 				assert false;
 		}
+		/*if (vertexClockwiseLower.getSettlement().getOwner() == null)
+		{
+			System.out.println("oh poop."); // yep this is null.
+		}*/
+		if (vertexClockwiseLower.getSettlement() == null)
+		{
+			System.out.println("death and destruction");
+		}
+		System.out.println("THE ID TO YOUR MOM IS: " + playerID.getNumber());
 		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
 		// need a pointer to settlement; get playerID
 		{
