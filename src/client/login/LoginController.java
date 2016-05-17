@@ -88,7 +88,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		}
 		
 		//Get ID from cookie
-		ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
+		//ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		}
 		
 		//Get ID from cookie
-		ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
+		//ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
 	}
 
 	@Override
