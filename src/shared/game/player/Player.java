@@ -804,11 +804,7 @@ public class Player
 			System.out.println("I am to blame");
 			return false;
 		}
-		if (resources.getSheep() < 1 || resources.getWheat() < 1
-				|| resources.getBrick() < 1 || resources.getWood() < 1)
-		{
-			return false;
-		}
+
 		if (numSettlementsRemaining <= 0)
 		{
 			return false;

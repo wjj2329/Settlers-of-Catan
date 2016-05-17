@@ -27,7 +27,7 @@ public class CatanGame
 	/**
 	 * Which state the game is in. Starts at login
 	 */
-	private State currentState = State.LoginState;
+	private State currentState = State.SetUpState;
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
@@ -48,6 +48,7 @@ public class CatanGame
 		 {
 			 singleton = this;
 			 this.server = server;
+			 this.mymap=new CatanMap(1);
 		 }
 		 else
 		 {

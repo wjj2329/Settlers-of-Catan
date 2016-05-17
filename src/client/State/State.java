@@ -61,7 +61,7 @@ public enum State {
 		}
 
 		@Override
-		public void buildSettlement() {
+		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception {
 
 		}
 
@@ -101,9 +101,9 @@ public enum State {
 		}
 		//First set up round player gets 2 free settlements and roads
 		@Override
-		public void buildSettlement()
+		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-
+				//CatanGame.singleton.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
 		}
 
 		@Override
@@ -166,7 +166,7 @@ public enum State {
 	public void playMonumentCard(){}
 	public void playMonopolyCard(){}
 	public void buildCity(){}
-	public void buildSettlement(){}
+	public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception{}
 	public void buildRoad(Hex hex, EdgeLocation edge){}
 	public void placeRobber(){}
 	public void rollNumber(){}

@@ -164,6 +164,7 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		try
 		{
+			System.out.println(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
 			return CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 		}
 		catch (Exception e)
@@ -179,7 +180,7 @@ public class MapController extends Controller implements IMapController, Observe
 		try
 		{
 			return CatanGame.singleton.getCurrentState().canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
