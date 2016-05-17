@@ -15,6 +15,7 @@ import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 import java.util.ArrayList;
@@ -590,20 +591,26 @@ public class Player
 
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
+		if (hex == null)
+		System.out.println("eff hex is null in canBuildRoadPieceSetupState");
 		if (!currentPlayer)
 		{
+			System.out.println("false: not current player");
 			return false;
 		}
 		if (edge.hasRoad())
 		{
+			System.out.println("false: Edge already has a road");
 			return false;
 		}
 		if (!checkAdjacentEdges(hex, edge))
 		{
+			System.out.println("false: adjacent edge sucks/has crap on it");
 			return false;
 		}
 		if (!checkAdjacentSettlements(hex, edge))
 		{
+			System.out.println("false: adjacent settlements are not there");
 			return false;
 		}
 		return true; // idk if I need this or just a boolean
@@ -611,6 +618,15 @@ public class Player
 
 	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
 	{
+		if (hex == null || edge == null )
+		{
+			System.out.println("it is broken");
+		}
+		//else if ()
+		else
+		{
+			System.out.println("not broken");
+		}
 		VertexLocation vertexClockwiseUpper = null;
 		VertexLocation vertexClockwiseLower = null;
 		switch(edge.getDir())
@@ -645,35 +661,52 @@ public class Player
 		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
 		// need a pointer to settlement; get playerID
 		{
+			System.out.println("The first one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
 		{
+			System.out.println("The second one");
 			return false;
 		}
 		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
 		{
+			System.out.println("The third one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
 		{
+			System.out.println("The fourth one");
 			return false;
 		}
 		// there HAS to be a city, settlement, or road adjacent to it.
 		if (!vertexClockwiseLower.isHassettlement() && !vertexClockwiseUpper.isHassettlement()
 				&& !vertexClockwiseLower.isHascity() && !vertexClockwiseUpper.isHascity() && neitherBorderingEdgeHasARoad)
 		{
-			return false;
+			System.out.println("The fifth one");
+			return false; // should be false. changing this to true is weird
 		}
 
 		return true;
 	}
 
-	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge)
-	{
-		assert(edge != null && hex != null);
+	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge) {
+		assert (edge != null && hex != null);
 		EdgeLocation adjacentEdgeClockwiseUp = null;
 		EdgeLocation adjacentEdgeClockwiseDown = null;
+		if (hex == null)
+		{
+			System.out.println("Eff");
+			return false;
+		}
+		else if (hex.getN() == null)
+		{
+			System.out.println("it has no north direction");
+		}
+		else
+		{
+			System.out.println("i hate all of you");
+		}
 		switch (edge.getDir())
 		{
 			case NorthWest:

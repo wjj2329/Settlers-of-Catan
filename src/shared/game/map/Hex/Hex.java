@@ -26,19 +26,19 @@ public class Hex
 	private ArrayList<City> cities = new ArrayList<>();
 	private ArrayList<RoadPiece> roads=new ArrayList<>();
 
-	private VertexLocation northeast=null;
-	private VertexLocation northwest=null;
-	private VertexLocation southwest=null;
-	private VertexLocation southeast=null;
-	private VertexLocation east=null;
-	private VertexLocation west=null;
+	private VertexLocation northeast=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
+	private VertexLocation northwest=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
+	private VertexLocation southwest=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
+	private VertexLocation southeast=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
+	private VertexLocation east=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
+	private VertexLocation west=new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthWest);
 
-	private EdgeLocation nw = null;
-	private EdgeLocation n = null;
-	private EdgeLocation ne = null;
-	private EdgeLocation se = null;
-	private EdgeLocation s = null;
-	private EdgeLocation sw = null;
+	private EdgeLocation nw = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North); // was null
+	private EdgeLocation n = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North);
+	private EdgeLocation ne = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North);
+	private EdgeLocation se = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North);
+	private EdgeLocation s = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North);
+	private EdgeLocation sw = new EdgeLocation(new HexLocation(0, 0), EdgeDirection.North);
 	
 	/**
 	 * Hex Constructor

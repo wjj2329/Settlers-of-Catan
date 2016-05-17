@@ -152,7 +152,7 @@ public class MapController extends Controller implements IMapController, Observe
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
 		CatanGame.singleton.setCurrentState(State.SetUpState);
-		
+		System.out.println("The hexLoc is: " + edgeLoc.getHexLoc().getX() + ", " + edgeLoc.getHexLoc().getY());
 		return CatanGame.singleton.getCurrentState().canBuildRoadPiece
 				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
@@ -197,6 +197,8 @@ public class MapController extends Controller implements IMapController, Observe
 		if (CatanGame.singleton.getCurrentState() == State.SetUpState ||
 				CatanGame.singleton.getCurrentState() == State.GamePlayingState)
 		{
+			System.out.println("I am in here");
+			System.out.println("current player's color is: " + CatanGame.singleton.getCurrentPlayer().getColor());
 			CatanGame.singleton.getCurrentState().buildRoad(CatanGame.singleton.getMymap().getHexes()
 				.get(edgeLoc.getHexLoc()), edgeLoc);
 			getView().placeRoad(edgeLoc, CatanGame.singleton.getCurrentPlayer().getColor());

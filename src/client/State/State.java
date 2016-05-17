@@ -126,6 +126,18 @@ public enum State {
 		@Override
 		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 		{
+			if (hex == null)
+			{
+				System.out.println("the hex is null homie");
+			}
+			else if (edge == null)
+			{
+				System.out.println("the edge is null homie");
+			}
+			else
+			{
+				System.out.println("none of them bunny slippers iz nullz");
+			}
 			return CatanGame.singleton.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
 		}
 	},
