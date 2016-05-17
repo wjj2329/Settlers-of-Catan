@@ -580,6 +580,15 @@ public class Player
 		return true;
 	}
 
+	/**
+	 * I am trying to fix this again.
+	 * @return
+     */
+	private boolean checkForOtherRoadsAndStructures()
+	{
+		return false;
+	}
+
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
 		if (hex == null || edge == null) // added the edge one
@@ -653,19 +662,6 @@ public class Player
 
 	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
 	{
-
-		/*if (hex == null || edge == null )
-		{
-			System.out.println("it is broken");
-		}
-		else
-		{
-			System.out.println("not broken");
-		}
-		if (hex.getNorthwest() == null || hex.getWest() == null)
-		{
-			System.out.println("something is null");
-		}*/
 		VertexLocation vertexClockwiseUpper = null;
 		VertexLocation vertexClockwiseLower = null;
 		switch(edge.getDir())
@@ -697,30 +693,21 @@ public class Player
 			default:
 				assert false;
 		}
-		/*if (vertexClockwiseLower.getSettlement() == null)
-		{
-			System.out.println("death and destruction");
-		}*/
-		//System.out.println("THE ID TO YOUR MOM IS: " + playerID.getNumber());
 		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
 		// need a pointer to settlement; get playerID
 		{
-			//System.out.println("The FIRST one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
 		{
-			//System.out.println("The SECOND one");
 			return false;
 		}
 		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
 		{
-			//System.out.println("The THIRD one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
 		{
-			//System.out.println("The FOURTH one");
 			return false;
 		}
 		// there HAS to be a city, settlement, or road adjacent to it.
@@ -786,10 +773,11 @@ public class Player
 		if (!adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseDown.hasRoad())
 		{
 			System.out.println("Neither bordering edge has a road - can't build here");
-			/*System.out.println("The current edge direction is " + edge.getDir().toString());
+			System.out.println("The current edge direction is " + edge.getDir().toString());
+			System.out.println("The hex location is " + hex.getLocation().toString());
 			System.out.println("The adjacent edge clockwise UP is " + adjacentEdgeClockwiseUp.getDir().toString());
 			System.out.println("The adjacent edge clockwise DOWN is " + adjacentEdgeClockwiseDown.getDir().toString());
-			// This is returning true when it shouldn't, which means the edges' boolean isn't working*/
+			// This is returning true when it shouldn't, which means the edges' boolean isn't working
 			neitherBorderingEdgeHasARoad = true;
 		}
 		else

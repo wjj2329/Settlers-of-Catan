@@ -53,17 +53,22 @@ public class CatanGame
 	private Index winner=new Index(0);
 	private TradeOffer mytradeoffer=new TradeOffer();
 	// If there is a singleton, then this shouldn't exist.
+	public CatanGame() throws Exception
+	{
+		if(singleton == null) // this doesn't work
+		{
+			singleton = this;
+			//this.server = server;
+		}
+		else
+		{
+			throw new Exception();
+		}
+	}
+
 	public CatanGame(IServer server, boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
 	{
-		 if(singleton == null) // this doesn't work
-		 {
-			 singleton = this;
-			 this.server = server;
-		 }
-		 else
-		 {
-			 throw new Exception();
-		 }
+		this.server = server;
 	}
 	// If this is a singleton, then this shouldn't exist.
 	//for testting purposes only
