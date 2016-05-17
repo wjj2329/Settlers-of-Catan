@@ -525,7 +525,7 @@ public class Player
 	public void buildCity(Hex buildingon, VertexLocation locationforcity) throws Exception {
 		if(canBuildCity(buildingon,locationforcity))
 		{
-			buildingon.buildCity(locationforcity);
+			buildingon.buildCity(locationforcity,this.getPlayerID());
 			resources.setOre(resources.getOre()-3);
 			resources.setWheat(resources.getWheat()-2);
 			this.numCitiesRemaining--;

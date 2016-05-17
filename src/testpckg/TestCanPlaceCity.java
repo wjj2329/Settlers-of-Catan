@@ -45,9 +45,9 @@ public class TestCanPlaceCity {
 		assertFalse(hex1.canBuildCityHere(VertexDirection.NorthWest));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.SouthEast));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.SouthEast));
-		hex1.buildCity(new VertexLocation(new HexLocation(0, 1), VertexDirection.East));
+		hex1.buildCity(new VertexLocation(new HexLocation(0, 1), VertexDirection.East),new Index(5));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
-		hex1.buildCity(new VertexLocation(new HexLocation(0,1),VertexDirection.West));
+		hex1.buildCity(new VertexLocation(new HexLocation(0,1),VertexDirection.West),new Index(5));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
 		assertFalse(hex1.canBuildSettlementHereStartup(new VertexLocation(new HexLocation(0, 1), VertexDirection.East)));
 
@@ -62,7 +62,7 @@ public class TestCanPlaceCity {
 		assertFalse(hex2.canBuildCityHere(VertexDirection.SouthEast));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.NorthWest));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.SouthWest));
-		hex2.buildCity(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East));
+		hex2.buildCity(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East), new Index(5));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.East));
 	}
 
@@ -76,9 +76,9 @@ public class TestCanPlaceCity {
 		assertFalse(hex3.canBuildCityHere(VertexDirection.West));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.NorthEast));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.SouthEast));
-		hex3.buildCity(new VertexLocation(new HexLocation(-2, -1), VertexDirection.East));
-		hex3.buildCity(new VertexLocation(new HexLocation(-2,-1), VertexDirection.NorthWest));
-		hex3.buildCity(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest));
+		hex3.buildCity(new VertexLocation(new HexLocation(-2, -1), VertexDirection.East), new Index(5));
+		hex3.buildCity(new VertexLocation(new HexLocation(-2,-1), VertexDirection.NorthWest), new Index(5));
+		hex3.buildCity(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest), new Index(5));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.East));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.NorthWest));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.SouthWest));

@@ -80,7 +80,7 @@ public class TestCanPlayerBuildCity
         william.setResources(new ResourceList(0, 3, 0, 2, 0));
         hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East),new Index(3));
         assertTrue(william.canBuildCity(hex1, new VertexLocation(hex1.getLocation(), VertexDirection.East)));
-        hex1.buildCity(new VertexLocation(hex1.getLocation(), VertexDirection.East));
+        hex1.buildCity(new VertexLocation(hex1.getLocation(), VertexDirection.East), new Index(5));
         assertFalse(william.canBuildCity(hex1, new VertexLocation(hex1.getLocation(), VertexDirection.East)));
     }
 
