@@ -13,7 +13,6 @@ import shared.locations.*;
 import client.base.*;
 import client.data.*;
 
-import static com.sun.deploy.trace.TraceLevel.values;
 
 /**
  * Implementation for the map controller
