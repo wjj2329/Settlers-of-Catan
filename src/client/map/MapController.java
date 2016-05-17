@@ -272,7 +272,32 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		//loads settlements on update
+		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		{
+			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
+			{
+				getView().placeSettlement(CatanGame.singleton.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
+			}
+		}
+		//loads cities on update
+		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		{
+			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getCities().size();i++)
+			{
+				getView().placeCity(CatanGame.singleton.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
 
+			}
+		}
+		//loads roads on update
+		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		{
+			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getRoads().size();i++)
+			{
+				getView().placeRoad(CatanGame.singleton.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
+
+			}
+		}
 	}
 }
 
