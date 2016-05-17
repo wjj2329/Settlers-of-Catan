@@ -44,9 +44,13 @@ public class Model
 	/**
 	 * CreateGame function: Creates a new game.
 	 * I changed this to NewMockServer so that nothing breaks.
+	 * @param title 
+	 * @param randomPorts 
+	 * @param randomlyPlaceHexes 
+	 * @param randomlyPlaceNumbers 
 	 **/
-	public void createGame() throws Exception {
-		gamelist.add(new CatanGame(new MockServer()));
+	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception {
+		gamelist.add(new CatanGame(new MockServer(), randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title));
 	}
 	
 	/**
@@ -99,6 +103,5 @@ public class Model
 	{
 		this.server = server;
 	}
-	
 	
 }
