@@ -6,6 +6,7 @@ import java.util.Map;
 
 import client.State.State;
 import client.model.*;
+
 import org.json.JSONObject;
 
 import server.proxies.IServer;
@@ -235,5 +236,17 @@ public class CatanGame
 	{
 		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
+	}
+
+	public int getGameId()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getTitle()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import server.proxies.IServer;
 import server.proxies.MockServer;
 import shared.game.Bank;
 import shared.game.CatanGame;
@@ -25,6 +26,8 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist;
+	private IServer server;
+	
 	/**
 	 * Map of players in the game.
 	 */
@@ -49,12 +52,9 @@ public class Model
 	/**
 	 * ListGames: Lists all the games that currently exist.
 	 */
-	public void listGames()
+	public ArrayList<CatanGame> listGames()
 	{
-		for (CatanGame game : gamelist)
-		{
-			System.out.println(game.toString());
-		}
+		return gamelist;
 	}
 	
 	/**
@@ -83,4 +83,22 @@ public class Model
 	{
 		return turntracker;
 	}
+
+	/**
+	 * @return the server
+	 */
+	public IServer getServer()
+	{
+		return server;
+	}
+
+	/**
+	 * @param server the server to set
+	 */
+	public void setServer(IServer server)
+	{
+		this.server = server;
+	}
+	
+	
 }

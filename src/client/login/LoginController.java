@@ -2,6 +2,7 @@ package client.login;
 
 import client.base.*;
 import client.misc.*;
+import client.model.ModelFacade;
 
 import java.net.*;
 import java.io.*;
@@ -9,6 +10,7 @@ import java.util.*;
 import java.lang.reflect.*;
 
 import server.proxies.*;
+import shared.game.player.Player;
 //import com.google.gson.*;
 //import com.google.gson.reflect.TypeToken;
 
@@ -84,6 +86,9 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getLoginView().closeModal();
 			loginAction.execute();
 		}
+		
+		//Get ID from cookie
+		ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
 	}
 
 	@Override
@@ -103,6 +108,9 @@ public class LoginController extends Controller implements ILoginController, Obs
 			}
 			System.out.println("i failed to register");
 		}
+		
+		//Get ID from cookie
+		ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
 	}
 
 	@Override
