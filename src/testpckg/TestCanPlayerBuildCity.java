@@ -1,5 +1,6 @@
 package testpckg;
 
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,8 +40,8 @@ public class TestCanPlayerBuildCity
     @Before
     public void setup() throws Exception
     {
-        CatanGame.singleton=new CatanGame();
-        CatanGame.singleton.setMymap(new CatanMap(4));
+        //ModelFacade.facace_currentgame.currentgame=new CatanGame();
+        ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(4));
         william.setResources(new ResourceList(3, 3, 3, 3, 3));
         hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East),new Index(2));
     }
@@ -48,7 +49,7 @@ public class TestCanPlayerBuildCity
     @After
     public void teardown()
     {
-            CatanGame.singleton.clear();
+            ModelFacade.facace_currentgame.currentgame.clear();
     }
 
     @Test

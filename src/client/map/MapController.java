@@ -26,7 +26,7 @@ public class MapController extends Controller implements IMapController, Observe
 		super(view);
 		setRobView(robView);
 		initFromModel();
-		ModelFacade.facace_singleton.addObserver(this);
+		ModelFacade.facace_currentgame.addObserver(this);
 	}
 	
 	public IMapView getView() {
@@ -63,9 +63,9 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 	protected void initFromModel()
 	{
-		CatanGame.singleton=new CatanGame();
-		CatanGame.singleton.setMymap(new CatanMap(1));
-		Map<HexLocation, Hex>mymap=CatanGame.singleton.getMymap().getHexes();
+		ModelFacade.facace_currentgame.currentgame=new CatanGame();
+		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
+		Map<HexLocation, Hex>mymap=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes();
 		for(HexLocation rec:mymap.keySet())
 		{
 			HexType test=mymap.get(rec).getResourcetype();
@@ -147,12 +147,12 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		if (!CatanGame.singleton.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
+		if (!ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
 		{
 			return false;
 		}
-		return CatanGame.singleton.getCurrentState().canBuildRoadPiece
-				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
+		return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildRoadPiece
+				(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
 
 
@@ -162,8 +162,8 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		try
 		{
-			//System.out.println(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
-			return CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+			return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 		}
 		catch (Exception e)
 		{
@@ -177,7 +177,7 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		try
 		{
-			return CatanGame.singleton.getCurrentState().canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -192,34 +192,34 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		if (CatanGame.singleton.getCurrentState() == State.SetUpState ||
-				CatanGame.singleton.getCurrentState() == State.GamePlayingState)
+		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState ||
+				ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
 			System.out.println("I am in here");
-			System.out.println("current player's color is: " + CatanGame.singleton.getCurrentPlayer().getColor());
-			CatanGame.singleton.getCurrentState().buildRoad(CatanGame.singleton.getMymap().getHexes()
+			System.out.println("current player's color is: " + ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+			ModelFacade.facace_currentgame.currentgame.getCurrentState().buildRoad(ModelFacade.facace_currentgame.getMymap().getHexes()
 				.get(edgeLoc.getHexLoc()), edgeLoc);
-			getView().placeRoad(edgeLoc, CatanGame.singleton.getCurrentPlayer().getColor());
+			getView().placeRoad(edgeLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 		}
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
 		try {
-			System.out.println("my current state is this "+CatanGame.singleton.getCurrentState().toString());
-			CatanGame.singleton.getCurrentState().buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
+			System.out.println("my current state is this "+ModelFacade.facace_currentgame.currentgame.getCurrentState().toString());
+			ModelFacade.facace_currentgame.currentgame.getCurrentState().buildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		getView().placeSettlement(vertLoc, CatanGame.singleton.getCurrentPlayer().getColor());
+		getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		Player currentPlayer=CatanGame.singleton.getCurrentPlayer();
+		Player currentPlayer=ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
 		if(canPlaceCity(vertLoc))
 		{
 			try {
-				currentPlayer.buildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				currentPlayer.buildCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -267,28 +267,28 @@ public class MapController extends Controller implements IMapController, Observe
 	public void update(Observable o, Object arg)
 	{
 		//loads settlements on update
-		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
+			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				getView().placeSettlement(CatanGame.singleton.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
+				getView().placeSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
 		//loads cities on update
-		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getCities().size();i++)
+			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
 			{
-				getView().placeCity(CatanGame.singleton.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
+				getView().placeCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 
 			}
 		}
 		//loads roads on update
-		for(HexLocation loc:CatanGame.singleton.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<CatanGame.singleton.getMymap().getHexes().get(loc).getRoads().size();i++)
+			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
-				getView().placeRoad(CatanGame.singleton.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), CatanGame.singleton.getCurrentPlayer().getColor());
+				getView().placeRoad(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 
 			}
 		}

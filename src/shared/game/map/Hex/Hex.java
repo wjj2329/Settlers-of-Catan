@@ -1,5 +1,6 @@
 package shared.game.map.Hex;
 
+import client.model.ModelFacade;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.CatanGame;
@@ -88,8 +89,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate= ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getSouthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
 				hextoupdate.getNorthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 				east.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.East),owner));
@@ -97,7 +98,7 @@ public class Hex
 				hextoupdate.getSouthwest().setHassettlement(false);
 				hextoupdate2.getNorthwest().setHassettlement(false);
 				east.setHassettlement(false);
-				east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				east.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getSouthwest().setHascity(true);
 				hextoupdate2.getNorthwest().setHascity(true);
 				east.setHascity(true);
@@ -107,8 +108,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getSoutheast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
 				hextoupdate.getNortheast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
 				west.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.West),owner));
@@ -116,7 +117,7 @@ public class Hex
 				hextoupdate.getSoutheast().setHassettlement(false);
 				hextoupdate2.getNortheast().setHassettlement(false);
 				west.setHassettlement(false);
-				west.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				west.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getSoutheast().setHascity(true);
 				hextoupdate2.getNortheast().setHascity(true);
 				west.setHascity(true);
@@ -125,8 +126,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getSoutheast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
 				hextoupdate.getWest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.West),owner));
 				northeast.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.NorthEast),owner));
@@ -135,7 +136,7 @@ public class Hex
 				hextoupdate2.getWest().setHassettlement(false);
 				northeast.setHassettlement(false);
 				northeast.setHascity(true);
-				northeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				northeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getSouthwest().setHascity(true);
 				hextoupdate2.getWest().setHascity(true);
 			}
@@ -143,8 +144,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getEast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.East),owner));
 				hextoupdate.getSouthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
 				northwest.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.NorthWest),owner));
@@ -154,7 +155,7 @@ public class Hex
 				hextoupdate2.getSouthwest().setHassettlement(false);
 				northwest.setHassettlement(false);
 				northwest.setHascity(true);
-				northwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				northwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getEast().setHascity(true);
 				hextoupdate2.getSouthwest().setHascity(true);
 			}
@@ -162,8 +163,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getNorthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 				hextoupdate.getEast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.East),owner));
 				southeast.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.SouthEast),owner));
@@ -172,7 +173,7 @@ public class Hex
 				hextoupdate2.getEast().setHassettlement(false);
 				southeast.setHassettlement(false);
 				southeast.setHascity(true);
-				southeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				southeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getNorthwest().setHascity(true);
 				hextoupdate2.getEast().setHascity(true);
 
@@ -180,8 +181,8 @@ public class Hex
 			if(mylocation.getDir().equals(VertexDirection.SouthWest)) {
 				HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
 				HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
-				Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				hextoupdate.getWest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.West),owner));
 				hextoupdate.getNortheast().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
 				southwest.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.SouthWest),owner));
@@ -190,7 +191,7 @@ public class Hex
 				hextoupdate2.getNortheast().setHassettlement(false);
 				southwest.setHassettlement(false);
 				southwest.setHascity(true);
-				southwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+				southwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 				hextoupdate.getWest().setHascity(true);
 				hextoupdate2.getNortheast().setHascity(true);
 			}
@@ -210,8 +211,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -220,7 +221,7 @@ public class Hex
 				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
-					if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID()))
+					if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID()))
 					{
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.east.isHassettlement() && !this.east.isHascity()) {
@@ -232,7 +233,7 @@ public class Hex
 									hextoupdate2.getNorthwest().setHassettlement(true);
 									east.setHassettlement(true);
 									east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-									east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									east.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
@@ -246,8 +247,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -256,7 +257,7 @@ public class Hex
 				}
 				if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
 				{
-					if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+					if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.west.isHassettlement() && !this.west.isHascity()) {
 								if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
@@ -267,7 +268,7 @@ public class Hex
 									hextoupdate2.getNortheast().setHassettlement(true);
 									west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 									west.setHassettlement(true);
-									west.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									west.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -281,8 +282,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -291,7 +292,7 @@ public class Hex
 				}
 				if(this.n.hasRoad()||this.nw.hasRoad()||hextoupdate.se.hasRoad())
 				{
-					if(n.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+					if(n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 								if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
@@ -302,7 +303,7 @@ public class Hex
 									hextoupdate2.getWest().setHassettlement(true);
 									northeast.setHassettlement(true);
 									northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
-									northeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									northeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -316,8 +317,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -325,7 +326,7 @@ public class Hex
 					throw e;
 				}
 				if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
-					if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID()))
+					if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID()))
 					{
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
@@ -337,7 +338,7 @@ public class Hex
 									hextoupdate2.getSouthwest().setHassettlement(true);
 									northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 									northwest.setHassettlement(true);
-									northwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									northwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
@@ -351,8 +352,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -360,7 +361,7 @@ public class Hex
 					throw e;
 				}
 				if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
-					if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID()))
+					if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID()))
 					{
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
@@ -372,7 +373,7 @@ public class Hex
 									hextoupdate2.getEast().setHassettlement(true);
 									southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 									southwest.setHassettlement(true);
-									southwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									southwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
@@ -385,8 +386,8 @@ public class Hex
 			if(mylocation.getDir().equals(VertexDirection.SouthEast)) {
 				HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
 				HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
-				Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -395,7 +396,7 @@ public class Hex
 				}
 				if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
 				{
-					if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+					if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
 								if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
@@ -406,7 +407,7 @@ public class Hex
 									hextoupdate2.getNortheast().setHassettlement(true);
 									southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 									southeast.setHassettlement(true);
-									southeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+									southeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -473,8 +474,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -492,7 +493,7 @@ public class Hex
 
 							east.setHassettlement(true);
 							east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-							east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							east.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							//System.out.println("What is owner? " + owner.getNumber());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -505,8 +506,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -523,7 +524,7 @@ public class Hex
 							hextoupdate2.getNortheast().setHassettlement(true);
 							west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							west.setHassettlement(true);
-							west.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							west.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -535,8 +536,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -553,7 +554,7 @@ public class Hex
 							hextoupdate2.getWest().setHassettlement(true);
 							northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 							northeast.setHassettlement(true);
-							northeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							northeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -565,8 +566,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -583,7 +584,7 @@ public class Hex
 							hextoupdate2.getSouthwest().setHassettlement(true);
 							northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							northwest.setHassettlement(true);
-							northwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							northwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
@@ -595,8 +596,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -613,7 +614,7 @@ public class Hex
 							hextoupdate2.getEast().setHassettlement(true);
 							southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							southwest.setHassettlement(true);
-							southwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							southwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
@@ -624,8 +625,8 @@ public class Hex
 			if(mylocation.getDir().equals(VertexDirection.SouthEast)) {
 				HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
 				HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
-				Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
@@ -642,7 +643,7 @@ public class Hex
 							hextoupdate2.getNortheast().setHassettlement(true);
 							southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							southeast.setHassettlement(true);
-							southeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
+							southeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -674,15 +675,15 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					return false;
 				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
-						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 							System.out.print("i come here and I have a road at ne or se or s");
 							if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 								if (!this.east.isHassettlement() && !this.east.isHascity()) {
@@ -708,8 +709,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -718,7 +719,7 @@ public class Hex
 			}
 			if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
 			{
-				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.west.isHassettlement() && !this.west.isHascity()) {
 							if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
@@ -744,8 +745,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 			HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -753,7 +754,7 @@ public class Hex
 				return false;
 			}
 			if(this.n.hasRoad()||this.ne.hasRoad()||hextoupdate.se.hasRoad()) {
-				if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+				if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 							if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
@@ -780,8 +781,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 			HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -789,7 +790,7 @@ public class Hex
 				return false;
 			}
 			if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
-				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 							if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
@@ -816,15 +817,15 @@ public class Hex
 			}
 			HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
 			HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
-			Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				return false;
 			}
 			if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
 			{
-				if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+				if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
@@ -852,8 +853,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
 			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -862,7 +863,7 @@ public class Hex
 			}
 			if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
 
-				if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())) {
+				if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 							if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
@@ -905,8 +906,8 @@ public class Hex
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
-				Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-				Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+				Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					return false;
@@ -934,8 +935,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -963,8 +964,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 			HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -993,8 +994,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
 			HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
@@ -1023,8 +1024,8 @@ public class Hex
 			}
 			HexLocation location1 = new HexLocation(this.location.getX() + 1, this.location.getY());
 			HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
-			Hex hextoupdate = CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2 = CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				return false;
@@ -1052,8 +1053,8 @@ public class Hex
 			}
 			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()+1);
 			HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
-			Hex hextoupdate=CatanGame.singleton.getMymap().getHexes().get(location1);
-			Hex hextoupdate2=CatanGame.singleton.getMymap().getHexes().get(locatoin2);
+			Hex hextoupdate=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(location1);
+			Hex hextoupdate2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();

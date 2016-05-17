@@ -11,7 +11,6 @@ import shared.game.ResourceList;
  */
 public class Bank
 {
-	private static Bank singleton = null;
 	private ResourceList cardslist= null;
 
 	public DevCardList getDevCardList() {
@@ -23,19 +22,12 @@ public class Bank
 	/**
 	 * Bank constructor
 	 */
-	private Bank()
+	public Bank()
 	{
 		// TODO Auto-generated constructor stub
 	}
 
-	public static Bank getSingleton()
-	{
-		if (singleton == null)
-		{
-			singleton = new Bank();
-		}
-		return singleton;
-	}
+
 
 	public void clear()
 	{

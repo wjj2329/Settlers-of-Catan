@@ -1,6 +1,7 @@
 package testpckg;
 
 import client.model.Model;
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,8 +39,8 @@ public class TestCanCreatePlayer
         p2 = new Player("Matthew", CatanColor.BROWN, new Index(1));
         p3 = new Player("Alex", CatanColor.RED, new Index(2));
         p4 = new Player("Alex", CatanColor.RED, new Index(3));
-        CatanGame.singleton=new CatanGame();
-        CatanGame.singleton.addPlayer(p1);
+       // ModelFacade.facace_currentgame.currentgame=new CatanGame();
+        ModelFacade.facace_currentgame.currentgame.addPlayer(p1);
     }
 
     /**
@@ -55,11 +56,11 @@ public class TestCanCreatePlayer
     public void test()
     {
 
-        assertFalse(CatanGame.singleton.canCreatePlayer(p1));
-        assertTrue(CatanGame.singleton.canCreatePlayer(p2));
-        assertTrue(CatanGame.singleton.canCreatePlayer(p3));
-        CatanGame.singleton.addPlayer(p3);
-        assertFalse(CatanGame.singleton.canCreatePlayer(p4));
+        assertFalse(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p1));
+        assertTrue(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p2));
+        assertTrue(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p3));
+        ModelFacade.facace_currentgame.currentgame.addPlayer(p3);
+        assertFalse(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p4));
     }
 
 }

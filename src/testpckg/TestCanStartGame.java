@@ -6,6 +6,7 @@ package testpckg;
 import static org.junit.Assert.*;
 
 import client.main.Catan;
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -55,33 +56,33 @@ public class TestCanStartGame
 
 	@Test
 	public void test1() throws Exception {
-		CatanGame.singleton=new CatanGame();
-		CatanGame.singleton.addPlayer(new Player("William", CatanColor.ORANGE, new Index(3)));
-		assertFalse(CatanGame.singleton.canStartGame());
-		CatanGame.singleton.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
-		assertFalse(CatanGame.singleton.canStartGame());
-		CatanGame.singleton.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
-		assertFalse(CatanGame.singleton.canStartGame());
-		CatanGame.singleton.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
-		assertTrue(CatanGame.singleton.canStartGame());
-		CatanGame.singleton.setMymap(new CatanMap(1));
-		assertTrue(CatanGame.singleton.canStartGame());
+		//ModelFacade.facace_currentgame.currentgame=new CatanGame();
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("William", CatanColor.ORANGE, new Index(3)));
+		assertFalse(ModelFacade.facace_currentgame.currentgame.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
+		assertFalse(ModelFacade.facace_currentgame.currentgame.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
+		assertFalse(ModelFacade.facace_currentgame.currentgame.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
+		assertTrue(ModelFacade.facace_currentgame.currentgame.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
+		assertTrue(ModelFacade.facace_currentgame.currentgame.canStartGame());
 	}
 
 	@Test
 	public void test2() throws Exception
 	{
-		CatanGame.singleton.clear();
-		CatanGame.singleton.setMymap(new CatanMap(2));
-		CatanGame.singleton.addPlayer(new Player("William", CatanColor.ORANGE, new Index(3)));
-		CatanGame.singleton.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
-		CatanGame.singleton.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
-		CatanGame.singleton.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
-		assertFalse(CatanGame.singleton.canStartGame());
-		CatanGame.singleton.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
-		assertTrue(CatanGame.singleton.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.clear();
+		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(2));
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("William", CatanColor.ORANGE, new Index(3)));
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
+		assertFalse(ModelFacade.facace_currentgame.currentgame.canStartGame());
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
+		assertTrue(ModelFacade.facace_currentgame.currentgame.canStartGame());
 		exception.expect(Exception.class);
-		CatanGame.singleton.addPlayer(new Player("Chris", CatanColor.BLUE, new Index(5)));
-		CatanGame.singleton.canStartGame();
+		ModelFacade.facace_currentgame.currentgame.addPlayer(new Player("Chris", CatanColor.BLUE, new Index(5)));
+		ModelFacade.facace_currentgame.currentgame.canStartGame();
 	}
 }

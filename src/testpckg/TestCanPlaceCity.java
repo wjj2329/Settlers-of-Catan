@@ -2,6 +2,7 @@ package testpckg;
 
 import static org.junit.Assert.*;
 
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -24,13 +25,13 @@ public class TestCanPlaceCity {
 	private Hex hex3;
 	@Before
 	public void setup() throws Exception {
-		CatanGame.singleton.setMymap(new CatanMap(5));
-		hex1=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
+		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(5));
+		hex1=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
 		hex1.buildSettlement(new VertexLocation(new HexLocation(0, 1), VertexDirection.East), new Index(2));
 		hex1.buildSettlement(new VertexLocation(new HexLocation(0, 1), VertexDirection.West), new Index(2));
-		hex2=CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
+		hex2=ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
 		hex2.buildSettlement(new VertexLocation(new HexLocation(-3, 2), VertexDirection.East),new Index(2));
-		hex3= CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 1));//a hex next to a water hex
+		hex3= ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-2, 1));//a hex next to a water hex
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.NorthWest), new Index(2));
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.SouthWest), new Index(2));
 		hex3.buildSettlement(new VertexLocation(new HexLocation(-2, 1), VertexDirection.East), new Index(2));

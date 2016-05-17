@@ -1,6 +1,8 @@
 package shared.game.player;
 
 import client.devcards.DevCard;
+import client.model.Model;
+import client.model.ModelFacade;
 import shared.definitions.*;
 import shared.game.Bank;
 import shared.game.CatanGame;
@@ -224,7 +226,7 @@ public class Player
 	 */
 	public boolean canBeRobbed()
 	{
-		HexLocation currentRobberLocation = Robber.getSingleton().getLocation();
+		HexLocation currentRobberLocation = ModelFacade.facace_currentgame.currentgame.myrobber.getLocation();
 		if (resources.getBrick() == 0 && resources.getOre() == 0 && resources.getSheep() == 0
 				&& resources.getWheat() == 0 && resources.getWood() == 0)
 		{
@@ -242,14 +244,14 @@ public class Player
 		boolean hasAreaAffectedByRobber = false;
 		for (Settlement settlement : settlements)
 		{
-			if (settlement.getHexLocation().equals(Robber.getSingleton().getLocation()))
+			if (settlement.getHexLocation().equals(ModelFacade.facace_currentgame.currentgame.myrobber.getLocation()))
 			{
 				hasAreaAffectedByRobber = true;
 			}
 		}
 		for (City city : cities)
 		{
-			if (city.getHexLocation().equals(Robber.getSingleton().getLocation()))
+			if (city.getHexLocation().equals(ModelFacade.facace_currentgame.currentgame.myrobber.getLocation()))
 			{
 				hasAreaAffectedByRobber = true;
 			}
@@ -366,7 +368,7 @@ public class Player
 			default:
 				assert false;
 		}
-		if (!Bank.getSingleton().CanBankGiveResourceCard(typeRequesting))
+		if (ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveResourceCard(typeRequesting))
 		{
 			return false;
 		}
@@ -471,28 +473,28 @@ public class Player
 		{
 			case NorthWest:
 				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc1);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc1);
 				//setMe = new EdgeLocation(loc, edge.getDir().getOppositeDirection());
 				break;
 			case North:
 				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc2);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc2);
 				break;
 			case NorthEast:
 				HexLocation loc3 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY() - 1);
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc3);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc3);
 				break;
 			case SouthEast:
 				HexLocation loc4 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY());
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc4);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc4);
 				break;
 			case South:
 				HexLocation loc5 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() + 1);
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc5);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc5);
 				break;
 			case SouthWest:
 				HexLocation loc6 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY() + 1);
-				adjacent = CatanGame.singleton.getMymap().getHexes().get(loc6);
+				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc6);
 				break;
 			default:
 				assert false;

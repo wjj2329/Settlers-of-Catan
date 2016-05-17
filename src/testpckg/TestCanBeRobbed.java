@@ -2,6 +2,7 @@ package testpckg;
 
 import static org.junit.Assert.*;
 
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -85,7 +86,6 @@ public class TestCanBeRobbed
 	@Before
 	public void setUp() throws Exception 
 	{
-		Robber.getSingleton().clear();
 		alex = new Player(NAME, CatanColor.BLUE, new Index(0));
 	}
 
@@ -108,7 +108,7 @@ public class TestCanBeRobbed
 		loadMyMap(theHexesOfMap);
 		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest), new Index(2));
 		alex.addToSettlements(settle1);
-		Robber.getSingleton().setLocation(hexLoc8);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc8);
 		ResourceList resList = new ResourceList();
 		resList.setSheep(3);
 		alex.setResources(resList);
@@ -131,7 +131,7 @@ public class TestCanBeRobbed
 		alex.setResources(resList);
 		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest),new Index(2));
 		alex.addToSettlements(settle1);
-		Robber.getSingleton().setLocation(hexLoc8);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc8);
 
 		// Alex should have 0 resources by default, so this should return false successfully.
 		alex.setCurrentPlayer(false);
@@ -148,7 +148,7 @@ public class TestCanBeRobbed
 		loadMyMap(theHexesOfMap);
 		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest),new Index(2));
 		alex.addToSettlements(settle1);
-		Robber.getSingleton().setLocation(hexLoc8);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc8);
 
 		ResourceList resList = new ResourceList();
 		resList.setSheep(1);
@@ -173,7 +173,7 @@ public class TestCanBeRobbed
 		alex.setResources(resList);
 		Settlement settle1 = new Settlement(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East), new Index(2));
 		alex.addToSettlements(settle1);
-		Robber.getSingleton().setLocation(hexLoc11);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc11);
 		assertFalse(alex.canBeRobbed());
 		City city1 = new City(hexLoc10, new VertexLocation(hexLoc10, VertexDirection.East), new Index(2));
 		alex.addToCities(city1);
@@ -190,7 +190,7 @@ public class TestCanBeRobbed
 		loadMyMap(theHexesOfMap);
 		Settlement settle1 = new Settlement(hexLoc8, new VertexLocation(hexLoc8, VertexDirection.SouthWest), new Index(2));
 		alex.addToSettlements(settle1);
-		Robber.getSingleton().setLocation(hexLoc8);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc8);
 		alex.setCurrentPlayer(false);
 		ResourceList resList = new ResourceList();
 		resList.setSheep(3);
@@ -203,7 +203,7 @@ public class TestCanBeRobbed
 		alex.addToSettlements(settle2);
 		City city1 = new City(hexLoc1, new VertexLocation(hexLoc1, VertexDirection.NorthWest), new Index(2));
 		alex.addToCities(city1);
-		Robber.getSingleton().setLocation(hexLoc1);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(hexLoc1);
 		assertTrue(alex.canBeRobbed());
 	}
 

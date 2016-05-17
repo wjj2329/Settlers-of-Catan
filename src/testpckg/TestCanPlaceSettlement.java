@@ -3,6 +3,7 @@ package testpckg;
 import static org.junit.Assert.*;
 
 import client.main.Catan;
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -37,16 +38,16 @@ public class TestCanPlaceSettlement {
 
 	@Before
 	public void setup() {
-		CatanGame.singleton.setMymap(new CatanMap(5));
-		hex1 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
-		hex2 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
-		hex3 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
-		hex4 = CatanGame.singleton.getMymap().getHexes().get(new HexLocation(500, 20));//invalid hex
+		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(5));
+		hex1 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
+		hex2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
+		hex3 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
+		hex4 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(500, 20));//invalid hex
 	}
 
 	@After
 	public void teardown() {
-		CatanGame.singleton.clear();
+		ModelFacade.facace_currentgame.currentgame.clear();
 	}
 
 	@Test

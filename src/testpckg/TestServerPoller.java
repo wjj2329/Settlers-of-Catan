@@ -18,13 +18,17 @@ import client.model.ServerPoller;
 public class TestServerPoller 
 {
 	ServerPoller poller;
-	CatanGame testGame=new CatanGame();
+	CatanGame testGame=new CatanGame(null, false, false, false, null);
 	ServerProxy server;
+
+	public TestServerPoller() throws Exception {
+	}
+
 	// temporarily putting in new mock server. so it compiles.
 	@Before
 	public void setUp() throws Exception
 	{
-		CatanGame testGame = new CatanGame();
+		CatanGame testGame = new CatanGame(null, false,false, false, null);
 		ServerProxy server = new ServerProxy();
 		poller = new ServerPoller(testGame, server);
 	}

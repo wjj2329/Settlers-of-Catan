@@ -659,4 +659,9 @@ public class MockServer implements IServer {
 		return null;
 	}
 
+	@Override
+	public String getUserCookie() {
+		return null;
+	}
+
 }
