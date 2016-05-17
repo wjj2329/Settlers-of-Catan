@@ -200,6 +200,9 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.east.isHassettlement() && !this.east.isHascity()) {
 								if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+									hextoupdate.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+									hextoupdate2.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+
 									hextoupdate.getSouthwest().setHassettlement(true);
 									hextoupdate2.getNorthwest().setHassettlement(true);
 									east.setHassettlement(true);
@@ -231,6 +234,9 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.west.isHassettlement() && !this.west.isHascity()) {
 							if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
+								hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+								hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+
 								hextoupdate.getSoutheast().setHassettlement(true);
 								hextoupdate2.getNortheast().setHassettlement(true);
 								west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -261,6 +267,9 @@ public class Hex
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 							if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+								hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+								hextoupdate2.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+
 								hextoupdate.getSoutheast().setHassettlement(true);
 								hextoupdate2.getWest().setHassettlement(true);
 								northeast.setHassettlement(true);
@@ -290,6 +299,9 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 							if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
+								hextoupdate.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+								hextoupdate2.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+
 								hextoupdate.getEast().setHassettlement(true);
 								hextoupdate2.getSouthwest().setHassettlement(true);
 								northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
@@ -319,6 +331,9 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 							if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
+								hextoupdate.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+								hextoupdate2.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+
 								hextoupdate.getNorthwest().setHassettlement(true);
 								hextoupdate2.getEast().setHassettlement(true);
 								southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -348,6 +363,9 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
 							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+								hextoupdate.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+								hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+
 								hextoupdate.getWest().setHassettlement(true);
 								hextoupdate2.getNortheast().setHassettlement(true);
 								southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
@@ -429,8 +447,12 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
 						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+							hextoupdate.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+							hextoupdate2.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+
 							hextoupdate.getSouthwest().setHassettlement(true);
 							hextoupdate2.getNorthwest().setHassettlement(true);
+
 							east.setHassettlement(true);
 							east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
@@ -457,6 +479,9 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.west.isHassettlement()&&!this.west.isHascity()) {
 						if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
+							hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+							hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
 							west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -484,6 +509,9 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
 						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
+							hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
+							hextoupdate2.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getWest().setHassettlement(true);
 							northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -511,6 +539,9 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
 						if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
+							hextoupdate.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+							hextoupdate2.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+
 							hextoupdate.getEast().setHassettlement(true);
 							hextoupdate2.getSouthwest().setHassettlement(true);
 							northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
@@ -538,6 +569,9 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
 						if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
+							hextoupdate.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+							hextoupdate2.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+
 							hextoupdate.getNorthwest().setHassettlement(true);
 							hextoupdate2.getEast().setHassettlement(true);
 							southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -564,6 +598,9 @@ public class Hex
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 					if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
 						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+							hextoupdate.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+							hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+
 							hextoupdate.getWest().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
 							southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
