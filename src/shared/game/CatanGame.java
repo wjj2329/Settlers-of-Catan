@@ -10,6 +10,7 @@ import client.model.*;
 import org.json.JSONObject;
 
 import server.proxies.IServer;
+import server.proxies.ServerProxy;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
@@ -44,7 +45,7 @@ public class CatanGame
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
 	private ServerPoller poller;
-	private IServer server;
+	private IServer server = new ServerProxy();
 	private Map<Index, Player> myplayers=new HashMap<>();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
@@ -243,5 +244,15 @@ public class CatanGame
 	{
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	public IServer getServer()
+	{
+		return server;
+	}
+
+	public void setServer(IServer server)
+	{
+		this.server = server;
 	}
 }
