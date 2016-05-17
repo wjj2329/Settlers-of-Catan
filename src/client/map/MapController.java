@@ -204,17 +204,12 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		Player currentPlayer=CatanGame.singleton.getCurrentPlayer();
-		if(canPlaceSettlement(vertLoc))
-		{
-			try {
-				currentPlayer.buildSettlementNormal(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			CatanGame.singleton.getCurrentState().buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		//System.out.println("i have "+currentPlayer.getResources().getBrick());
-		getView().placeSettlement(vertLoc, currentPlayer.getColor());
+		getView().placeSettlement(vertLoc, CatanGame.singleton.getCurrentPlayer().getColor());
 
 	}
 

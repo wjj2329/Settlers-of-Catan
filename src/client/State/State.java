@@ -56,13 +56,19 @@ public enum State {
 		}
 
 		@Override
-		public void buildCity() {
+		public void buildCity(Hex buildingon, VertexLocation myloaction) {
+			try {
+				CatanGame.singleton.getCurrentPlayer().buildCity(buildingon, myloaction);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 
 		}
 
 		@Override
-		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception {
-
+		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
+		{
+			CatanGame.singleton.getCurrentPlayer().buildSettlementNormal(buildingon,vertexLocation);
 		}
 
 		@Override
@@ -72,7 +78,8 @@ public enum State {
 		}
 
 		@Override
-		public void rollNumber() {
+		public void rollNumber()
+		{
 
 		}
 		
@@ -103,7 +110,7 @@ public enum State {
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-				//CatanGame.singleton.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
+				CatanGame.singleton.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
 		}
 
 		@Override
@@ -165,7 +172,7 @@ public enum State {
 	public void playRoadBuildingCard(){}
 	public void playMonumentCard(){}
 	public void playMonopolyCard(){}
-	public void buildCity(){}
+	public void buildCity(Hex buildingon, VertexLocation myloaction){}
 	public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception{}
 	public void buildRoad(Hex hex, EdgeLocation edge){}
 	public void placeRobber(){}
