@@ -803,5 +803,11 @@ public class ServerProxy implements IServer {
 		return response;
 
 	}
+	
+	@Override 
+	public String getUserCookie(){
+		return usercookie;
+	}
+
 
 }
