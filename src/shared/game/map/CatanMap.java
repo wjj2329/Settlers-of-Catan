@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import client.model.ModelFacade;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
 import shared.game.map.Hex.Hex;
@@ -86,7 +87,7 @@ public class CatanMap
 
 	public void SetDesertHexLoc(HexLocation desertHexLoc)
 	{
-		Robber.getSingleton().setLocation(desertHexLoc);
+		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(desertHexLoc);
 		this.desertHexLoc=desertHexLoc;
 	}
 

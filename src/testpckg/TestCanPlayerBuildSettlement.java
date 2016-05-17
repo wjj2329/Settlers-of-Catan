@@ -1,5 +1,6 @@
 package testpckg;
 
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,8 +40,8 @@ public class TestCanPlayerBuildSettlement
 
     @Before
     public void setup() throws Exception {
-        CatanGame.singleton=new CatanGame();
-        CatanGame.singleton.setMymap(new CatanMap(1));
+       // ModelFacade.facace_currentgame.currentgame=new CatanGame();
+        ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
         william=new Player("William", CatanColor.WHITE,new Index(3));
         william.setResources(new ResourceList(1,1,1,1,1));
 
@@ -49,7 +50,7 @@ public class TestCanPlayerBuildSettlement
     @After
     public void teardown()
     {
-        CatanGame.singleton.clear();
+        ModelFacade.facace_currentgame.currentgame.clear();
     }
 
     /**

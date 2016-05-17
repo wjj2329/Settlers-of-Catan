@@ -13,7 +13,6 @@ public class Robber
 	/**
 	 * The singleton instance of the Robber class.
 	 */
-	private static Robber singleton = null;
 
 	/**
 	 * location: Represents the Robber's current location
@@ -25,7 +24,7 @@ public class Robber
 	 * Private constructor in order to ensure that we only have
 	 * one instance of Robber.
 	 */
-	private Robber()
+	public Robber()
 	{
 
 	}
@@ -34,15 +33,10 @@ public class Robber
 	 * GetSingleton function!
 	 * @return the singleton instance of the Robber class.
      */
-	public static Robber getSingleton()
-	{
-		if (singleton == null)
-		{
-			singleton = new Robber();
-		}
-		return singleton;
-	}
-	
+
+
+
+
 	/**
 	 * robPlayer: Robs the player at the given index.
 	 * @param playerToRob: the player to rob.

@@ -1,5 +1,6 @@
 package testpckg;
 
+import client.model.ModelFacade;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -50,7 +51,7 @@ public class TestDoBuildRoadPiece
         p2.getResources().setBrick(1);
         p2.getResources().setWood(1);
         loc1 = new HexLocation(-2, 0);
-        CatanMap myMap = CatanGame.singleton.getMymap();
+        CatanMap myMap = ModelFacade.facace_currentgame.currentgame.getMymap();
         hex1 = myMap.getHexes().get(loc1);
     }
 
@@ -77,7 +78,7 @@ public class TestDoBuildRoadPiece
     {
         p2.setCurrentPlayer(true);
         loc2 = new HexLocation(0, -1);
-        hex2 = CatanGame.singleton.getMymap().getHexes().get(loc2);
+        hex2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc2);
         Settlement settle2 = new Settlement(loc2, hex2.getNortheast(),new Index(2));
         hex2.getNortheast().setHassettlement(true);
         hex2.getNortheast().setSettlement(settle2);
@@ -135,7 +136,7 @@ public class TestDoBuildRoadPiece
     public void testFail_BothHexesAreWater() throws Exception
     {
         HexLocation hexLoc3 = new HexLocation(-3, 0);
-        Hex hex3 = CatanGame.singleton.getMymap().getHexes().get(hexLoc3);
+        Hex hex3 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(hexLoc3);
         assertTrue(hex3.getResourcetype().equals(HexType.WATER));
         initialize3(hex3, hexLoc3);
         EdgeLocation location = new EdgeLocation(hexLoc3, EdgeDirection.South);

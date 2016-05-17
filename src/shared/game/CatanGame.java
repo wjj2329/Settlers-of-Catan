@@ -15,6 +15,7 @@ import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
 import shared.game.map.CatanMap;
 import shared.game.map.Index;
+import shared.game.map.Robber;
 import shared.game.player.Player;
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
@@ -23,9 +24,8 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
+	public Robber myrobber=new Robber();
 	// The singleton was null so I did this instead
-	public static CatanGame singleton = new CatanGame();
-
 	/**
 	 * Which state the game is in. Starts at login
 	 */
@@ -34,6 +34,7 @@ public class CatanGame
 		return currentState;
 	}
 
+	public Bank mybank=new Bank();
 	public void setCurrentState(State currentState)
 	{
 		this.currentState = currentState;
@@ -53,30 +54,19 @@ public class CatanGame
 	private Index winner=new Index(0);
 	private TradeOffer mytradeoffer=new TradeOffer();
 	// If there is a singleton, then this shouldn't exist.
-	public CatanGame() throws Exception
+
+	public CatanGame()
 	{
-		if(singleton == null) // this doesn't work
-		{
-			singleton = this;
-			//this.server = server;
-		}
-		else
-		{
-			throw new Exception();
-		}
+
 	}
 
 	public CatanGame(IServer server, boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
 	{
-		this.server = server;
+
 	}
 	// If this is a singleton, then this shouldn't exist.
 	//for testting purposes only
-	public CatanGame()
-	{
-		singleton=this;
-	}
-	
+
 	public Map<Index, Player> getMyplayers() {
 		return myplayers;
 	}

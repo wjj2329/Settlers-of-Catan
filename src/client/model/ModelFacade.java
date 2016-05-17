@@ -40,14 +40,12 @@ import java.util.Observable;
  */
 public class ModelFacade extends Observable
 {
-	private CatanGame singleton;
-	public static ModelFacade facace_singleton = new ModelFacade();
+	public CatanGame currentgame;
+	public static ModelFacade facace_currentgame = new ModelFacade();
 	private int localplayerID;
-	
-	public ModelFacade()
-	{
-		singleton = CatanGame.singleton;
-	}
+
+
+
 
 	public JSONObject serializeModel() throws JSONException
 	{
@@ -56,17 +54,17 @@ public class ModelFacade extends Observable
 
 		//bank code
 		JSONObject bank=new JSONObject();
-		bank.put("brick", Bank.getSingleton().getCardslist().getBrick());
-		bank.put("ore", Bank.getSingleton().getCardslist().getOre());
-		bank.put("sheep", Bank.getSingleton().getCardslist().getSheep());
-		bank.put("wheat", Bank.getSingleton().getCardslist().getWheat());
-		bank.put("wood", Bank.getSingleton().getCardslist().getWood());
+		bank.put("brick", currentgame.mybank.getCardslist().getBrick());
+		bank.put("ore", currentgame.mybank.getCardslist().getOre());
+		bank.put("sheep", currentgame.mybank.getCardslist().getSheep());
+		bank.put("wheat", currentgame.mybank.getCardslist().getWheat());
+		bank.put("wood", currentgame.mybank.getCardslist().getWood());
 		myobject.put("bank", bank);
 
 		//chat code
 		JSONObject chat=new JSONObject();
 		JSONArray lines=new JSONArray();
-		Chat mychat=CatanGame.singleton.getMychat();
+		Chat mychat=currentgame.getMychat();
 		ChatMessages mymessages=mychat.getChatMessages();
 		for(int i=0; i<mymessages.getMessages().size(); i++)
 		{
@@ -169,7 +167,7 @@ public class ModelFacade extends Observable
 		}
 
 		//players
-		Map<Index, Player>myplayers=CatanGame.singleton.getMyplayers();
+		Map<Index, Player>myplayers=currentgame.getMyplayers();
 		JSONObject players=new JSONObject();
 		for(Map.Entry<Index, Player> entry : myplayers.entrySet())
 		{
@@ -211,25 +209,25 @@ public class ModelFacade extends Observable
 
 		//tradeOffer
 		JSONObject tradeOffer=new JSONObject();
-		tradeOffer.put("sender",CatanGame.singleton.getMytradeoffer().getSender());
-		tradeOffer.put("receiver", CatanGame.singleton.getMytradeoffer().getReceiver());
+		tradeOffer.put("sender",currentgame.getMytradeoffer().getSender());
+		tradeOffer.put("receiver", currentgame.getMytradeoffer().getReceiver());
 		JSONObject myoffer=new JSONObject();
-		myoffer.put("brick", CatanGame.singleton.getMytradeoffer().getMylist().getBrick());
-		myoffer.put("ore", CatanGame.singleton.getMytradeoffer().getMylist().getOre());
-		myoffer.put("sheep", CatanGame.singleton.getMytradeoffer().getMylist().getSheep());
-		myoffer.put("wheat", CatanGame.singleton.getMytradeoffer().getMylist().getWheat());
-		myoffer.put("wood", CatanGame.singleton.getMytradeoffer().getMylist().getWood());
+		myoffer.put("brick", currentgame.getMytradeoffer().getMylist().getBrick());
+		myoffer.put("ore", currentgame.getMytradeoffer().getMylist().getOre());
+		myoffer.put("sheep", currentgame.getMytradeoffer().getMylist().getSheep());
+		myoffer.put("wheat", currentgame.getMytradeoffer().getMylist().getWheat());
+		myoffer.put("wood", currentgame.getMytradeoffer().getMylist().getWood());
 
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
-		turnTracker.put("currentTurn", CatanGame.singleton.getMyturntracker().getCurrentTurn());
-		turnTracker.put("status", CatanGame.singleton.getMyturntracker().getStatus().toString());
-		turnTracker.put("longestRoad",CatanGame.singleton.getMyturntracker().getLongestRoad().getNumber());
-		turnTracker.put("largestArmy", CatanGame.singleton.getMyturntracker().getLargestArmy().getNumber());
+		turnTracker.put("currentTurn", currentgame.getMyturntracker().getCurrentTurn());
+		turnTracker.put("status", currentgame.getMyturntracker().getStatus().toString());
+		turnTracker.put("longestRoad",currentgame.getMyturntracker().getLongestRoad().getNumber());
+		turnTracker.put("largestArmy", currentgame.getMyturntracker().getLargestArmy().getNumber());
 
 		//last two things
-		myobject.put("version", CatanGame.singleton.getVersion().getNumber());
-		myobject.put("winner", CatanGame.singleton.getWinner().getNumber());
+		myobject.put("version", currentgame.getVersion().getNumber());
+		myobject.put("winner", currentgame.getWinner().getNumber());
 
 		return myobject;
 	}
@@ -267,11 +265,11 @@ public class ModelFacade extends Observable
 
 	private void loadBank(JSONObject bank) throws JSONException
 	{
-		Bank.getSingleton().getCardslist().setBrick(bank.getInt("brick"));
-		Bank.getSingleton().getCardslist().setOre(bank.getInt("ore"));
-		Bank.getSingleton().getCardslist().setSheep(bank.getInt("sheep"));
-		Bank.getSingleton().getCardslist().setWheat(bank.getInt("wheat"));
-		Bank.getSingleton().getCardslist().setWood(bank.getInt("wood"));
+		currentgame.mybank.getCardslist().setBrick(bank.getInt("brick"));
+		currentgame.mybank.getCardslist().setOre(bank.getInt("ore"));
+		currentgame.mybank.getCardslist().setSheep(bank.getInt("sheep"));
+		currentgame.mybank.getCardslist().setWheat(bank.getInt("wheat"));
+		currentgame.mybank.getCardslist().setWood(bank.getInt("wood"));
 	}
 
 	private void loadChat(JSONObject chat) throws JSONException
@@ -280,7 +278,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < chatLines.length(); i++)
 		{
 			JSONObject obj = chatLines.getJSONObject(i);
-			CatanGame.singleton.getMychat().getChatMessages().getMessages().add(new
+			currentgame.getMychat().getChatMessages().getMessages().add(new
 					ChatLine(obj.getString("message"), obj.getString("source")));
 		}
 	}
@@ -291,7 +289,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < logLines.length(); i++)
 		{
 			JSONObject obj = logLines.getJSONObject(i);
-			CatanGame.singleton.getMyGameHistory().getLines().add(new
+			currentgame.getMyGameHistory().getLines().add(new
 					GameHistoryLine(obj.getString("message"), obj.getString("source")));
 		}
 	}
@@ -311,7 +309,7 @@ public class ModelFacade extends Observable
 			assert(hexType != null); // it must NOT return null or something is wrong with our JSON
 			// The last parameter is null for now. NEED to fix ports for now.
 			Hex newHex = new Hex(newLoc, hexType, new NumberToken(obj.getInt("number")), null);
-			CatanGame.singleton.getMymap().getHexes().put(newLoc, newHex);
+			currentgame.getMymap().getHexes().put(newLoc, newHex);
 		}
 		JSONArray ports = map.getJSONArray("ports");
 		for (int i = 0; i < ports.length(); i++)
@@ -325,7 +323,7 @@ public class ModelFacade extends Observable
 			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
 					obj.getInt("ratio"),getPortTypeFromString(resource));//this is not going
 			newPort.setType(getPortTypeFromString(resource));
-			CatanGame.singleton.getMymap().getPorts().add(newPort);
+			currentgame.getMymap().getPorts().add(newPort);
 		}
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)
@@ -335,7 +333,7 @@ public class ModelFacade extends Observable
 			JSONObject location = obj.getJSONObject("location");
 			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 					getDirectionFromString(obj.getString("direction"))));
-			CatanGame.singleton.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
+			currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
@@ -347,8 +345,8 @@ public class ModelFacade extends Observable
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 							dir), new Index(obj.getInt("owner")));
-			CatanGame.singleton.getMymap().getSettlements().add(settle1);
-			CatanGame.singleton.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
+			currentgame.getMymap().getSettlements().add(settle1);
+			currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
@@ -361,12 +359,12 @@ public class ModelFacade extends Observable
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
 			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
-			CatanGame.singleton.getMymap().getCities().add(city1);
-			CatanGame.singleton.getMyplayers().get(owner).addToCities(city1);
+			currentgame.getMymap().getCities().add(city1);
+			currentgame.getMyplayers().get(owner).addToCities(city1);
 		}
-		CatanGame.singleton.getMymap().setRadius(map.getInt("radius"));
+		currentgame.getMymap().setRadius(map.getInt("radius"));
 		JSONObject robber = map.getJSONObject("robber");
-		Robber.getSingleton().setLocation(new HexLocation(robber.getInt("x"), robber.getInt("y")));
+		currentgame.myrobber.setLocation(new HexLocation(robber.getInt("x"), robber.getInt("y")));
 	}
 
 	private void loadPlayers(JSONArray players) throws JSONException
@@ -393,32 +391,32 @@ public class ModelFacade extends Observable
 			newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
 			oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 			resources(obj, newPlayer.getResources());
-			CatanGame.singleton.addPlayer(newPlayer);
+			currentgame.addPlayer(newPlayer);
 		}
 	}
 
 	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException
 	{
-		CatanGame.singleton.getMytradeoffer().setSender(tradeOffer.getInt("sender"));
-		CatanGame.singleton.getMytradeoffer().setReceiver(tradeOffer.getInt("receiver"));
-		CatanGame.singleton.getMytradeoffer();
+		currentgame.getMytradeoffer().setSender(tradeOffer.getInt("sender"));
+		currentgame.getMytradeoffer().setReceiver(tradeOffer.getInt("receiver"));
+		currentgame.getMytradeoffer();
 		JSONObject offer = tradeOffer.getJSONObject("offer");
-		CatanGame.singleton.getMytradeoffer().getMylist().setBrick(offer.getInt("brick"));
-		CatanGame.singleton.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
-		CatanGame.singleton.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
-		CatanGame.singleton.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
+		currentgame.getMytradeoffer().getMylist().setBrick(offer.getInt("brick"));
+		currentgame.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
+		currentgame.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
+		currentgame.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
 	}
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
-		CatanGame.singleton.getMyturntracker().setCurrentTurn(new Index(turnTracker.getInt("currentTurn")),
-				CatanGame.singleton.getMyplayers());
+		currentgame.getMyturntracker().setCurrentTurn(new Index(turnTracker.getInt("currentTurn")),
+				currentgame.getMyplayers());
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
 		assert(status != null);
-		CatanGame.singleton.getMyturntracker().setStatus(status);
+		currentgame.getMyturntracker().setStatus(status);
 		// actual player who has the longest road
-		CatanGame.singleton.getMyturntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
-		CatanGame.singleton.getMyturntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
+		currentgame.getMyturntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
+		currentgame.getMyturntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
 	}
 
 	private CatanColor stringToCatanColor(String color)
@@ -592,43 +590,43 @@ public class ModelFacade extends Observable
 		// TODO Auto-generated constructor stub
 	public Map<Index, Player> getMyplayers()
 	{
-		return singleton.getMyplayers();
+		return currentgame.getMyplayers();
 	}
 
 	public void setMyplayers(Map<Index, Player> myplayers)
 	{
-		singleton.setMyplayers(myplayers);
+		currentgame.setMyplayers(myplayers);
 	}
 
 	public Chat getMychat() 
 	{
-		return singleton.getMychat();
+		return currentgame.getMychat();
 	}
 
 	public void setMychat(Chat mychat) {
-		singleton.setMychat(mychat);
+		currentgame.setMychat(mychat);
 	}
 
 	public CatanMap getMymap()
 	{
-		return singleton.getMymap();
+		return currentgame.getMymap();
 	}
 
 	public void setMymap(CatanMap mymap) {
-		singleton.setMymap(mymap);
+		currentgame.setMymap(mymap);
 	}
 	
 	public void addPlayer(Player player)
 	{
 		if(canCreatePlayer(player))
 		{
-			singleton.getMyplayers().put(player.getPlayerID(), player);
+			currentgame.getMyplayers().put(player.getPlayerID(), player);
 		}
 	}
 
 	public boolean canCreatePlayer(Player newplayer)
 	{
-		return singleton.canCreatePlayer(newplayer);
+		return currentgame.canCreatePlayer(newplayer);
 	}
 
 	/**
@@ -640,28 +638,29 @@ public class ModelFacade extends Observable
 	 */
 	public boolean canStartGame() throws Exception
 	{
-		return singleton.canStartGame();
+		return currentgame.canStartGame();
 	}
 	/**
 	 * a function that starts the game nothing too fancy.   
 	 */
 	public void startGame()
 	{
-		singleton.startGame();
+		currentgame.startGame();
 	}
 	public void clear()
 	{
-		singleton.clear();
+		currentgame.clear();
 	}
 
 	public Model getModel()
 	{
-		return singleton.getModel();
+		return currentgame.getModel();
 	}
 
 	public void setModel(Model newModel)
 	{
-		singleton.setModel(newModel);		
+		currentgame.setModel(newModel);
+		notifyAll();
 	}
 
 	public void setLocalPlayer(int ID)

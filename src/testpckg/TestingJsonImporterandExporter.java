@@ -31,12 +31,12 @@ public class TestingJsonImporterandExporter
     @Before
     public void setUp() throws Exception
     {
-        CatanGame.singleton=new CatanGame();
-        CatanGame.singleton.setMymap(new CatanMap(3));
+        //ModelFacade.facace_currentgame.currentgame=new CatanGame();
+        ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(3));
         Map<Index, Player> myplayers=new HashMap<>();
         myplayers.put(new Index(0), new Player("william", CatanColor.BLUE,new Index(3)));
         myplayers.get(0).setPlayerIndex(new Index(0));
-        CatanGame.singleton.setMyplayers(myplayers);
+        ModelFacade.facace_currentgame.currentgame.setMyplayers(myplayers);
     }
 
    @Test

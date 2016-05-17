@@ -42,10 +42,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	//needs to get update to work to overwrite the inital state when stuff happens in other controllers.
 	public void setElementAction(ResourceBarElement element, IAction action) {
 		elementActions.put(element, action);
-		Player player = CatanGame.singleton.getCurrentPlayer();
+		Player player = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
 
 
-		if(CatanGame.singleton.getCurrentState().equals(State.SetUpState))
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
 				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
 				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
@@ -71,7 +71,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
 
 		}
-		if(CatanGame.singleton.getCurrentState()!= State.SetUpState) {
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState()!= State.SetUpState) {
 			if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 			}
@@ -128,8 +128,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
     @Override
     public void update(Observable o, Object arg)
     {
-    	Index currentTurn = ModelFacade.facace_singleton.getModel().getTurntracker().getCurrentTurn();
-        Player player = ModelFacade.facace_singleton.getMyplayers().get(currentTurn);
+    	Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+        Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
         if (player != null)
         {
             ResourceList resourceCards = player.getResources();
@@ -171,7 +171,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
                 this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
                 this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
             }
-			if(CatanGame.singleton.getCurrentState()!= State.SetUpState) {
+			if(ModelFacade.facace_currentgame.currentgame.getCurrentState()!= State.SetUpState) {
 				if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 				}

@@ -1,5 +1,7 @@
 package client.State;
 
+import client.model.Model;
+import client.model.ModelFacade;
 import shared.game.CatanGame;
 import shared.game.map.Hex.Hex;
 import shared.game.player.Player;
@@ -32,7 +34,7 @@ public enum State {
 	GamePlayingState{
 		@Override
 		public boolean canBuildCity(Hex hex, VertexLocation mylocation) throws Exception {
-			return (CatanGame.singleton.getCurrentPlayer().canBuildCity(hex, mylocation));
+			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildCity(hex, mylocation));
 		}
 		//player is actually playing the game.
 		@Override
@@ -58,7 +60,7 @@ public enum State {
 		@Override
 		public void buildCity(Hex buildingon, VertexLocation myloaction) {
 			try {
-				CatanGame.singleton.getCurrentPlayer().buildCity(buildingon, myloaction);
+				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildCity(buildingon, myloaction);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -68,13 +70,13 @@ public enum State {
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-			CatanGame.singleton.getCurrentPlayer().buildSettlementNormal(buildingon,vertexLocation);
+			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildSettlementNormal(buildingon,vertexLocation);
 		}
 
 		@Override
 		public void buildRoad(Hex hex, EdgeLocation edge)
 		{
-			CatanGame.singleton.getCurrentPlayer().buildRoadPiece(hex, edge);
+			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildRoadPiece(hex, edge);
 		}
 
 		@Override
@@ -91,13 +93,13 @@ public enum State {
 		@Override
 		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 		{
-			return (CatanGame.singleton.getCurrentPlayer().canBuildRoadPiece(hex, edge));
+			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildRoadPiece(hex, edge));
 		}
 
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception
 		{
-			return (CatanGame.singleton.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
+			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
 		}
 	},
 
@@ -106,19 +108,19 @@ public enum State {
 
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
-			return (CatanGame.singleton.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
+			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
 		}
 		//First set up round player gets 2 free settlements and roads
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-				CatanGame.singleton.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
+				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
 		}
 
 		@Override
 		public void buildRoad(Hex hex, EdgeLocation edge)
 		{
-			CatanGame.singleton.getCurrentPlayer().buildRoadPieceSetupState(hex, edge);
+			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildRoadPieceSetupState(hex, edge);
 		}
 		@Override
 		public String getState() {
@@ -128,7 +130,7 @@ public enum State {
 		@Override
 		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 		{
-			return CatanGame.singleton.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
+			return ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
 		}
 	},
 	PlayerWaitingState{
