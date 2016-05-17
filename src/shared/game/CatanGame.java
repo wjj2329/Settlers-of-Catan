@@ -227,11 +227,13 @@ public class CatanGame
 
 	public Player getCurrentPlayer()
 	{
+		currentPlayer.setCurrentPlayer(true);
 		return currentPlayer;
 	}
 
 	public void updateCurrentPlayer(Player currentPlayer)
 	{
+		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
 	}
 }
