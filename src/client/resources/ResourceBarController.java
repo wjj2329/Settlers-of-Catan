@@ -44,6 +44,13 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		elementActions.put(element, action);
 		Player player = CatanGame.singleton.getCurrentPlayer();
 
+
+		if(CatanGame.singleton.getCurrentState().equals(State.SetUpState))
+		{
+				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+				this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+		}
 		if (player != null)
 		{
 			ResourceList resourceCards = player.getResources();
@@ -57,7 +64,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 			// update roads/settlements/cities you have left
 			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getNumRoadPiecesRemaining());
-			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getNumCitiesRemaining());
+			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getNumSettlementsRemaining());
 			this.getView().setElementAmount(ResourceBarElement.CITY, player.getNumCitiesRemaining());
 
 			// update soldiers
