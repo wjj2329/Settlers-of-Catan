@@ -162,26 +162,25 @@ public class MapController extends Controller implements IMapController, Observe
 	//have these things in States
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		try {
-			CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+		try
+		{
+			System.out.println(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+			return CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 		}
 		catch (Exception e)
 		{
 			
 		}
 		return false;
+
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
-		Player test=CatanGame.singleton.getCurrentPlayer();
-		test.setResources(new ResourceList(5, 5, 5, 5, 5));
 		try
 		{
-			if(test.canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc))
-			{
-				return true;
-			}
+			return CatanGame.singleton.getCurrentState().canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -205,17 +204,12 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
-		Player currentPlayer=CatanGame.singleton.getCurrentPlayer();
-		if(canPlaceSettlement(vertLoc))
-		{
-			try {
-				currentPlayer.buildSettlementNormal(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
+		try {
+			CatanGame.singleton.getCurrentState().buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
-		//System.out.println("i have "+currentPlayer.getResources().getBrick());
-		getView().placeSettlement(vertLoc, currentPlayer.getColor());
+		getView().placeSettlement(vertLoc, CatanGame.singleton.getCurrentPlayer().getColor());
 
 	}
 

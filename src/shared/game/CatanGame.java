@@ -48,6 +48,7 @@ public class CatanGame
 		 {
 			 singleton = this;
 			 this.server = server;
+			 this.mymap=new CatanMap(1);
 		 }
 		 else
 		 {
