@@ -1,9 +1,11 @@
 package client.model;
 
 import client.main.Catan;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import shared.chat.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
@@ -29,13 +31,16 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+
 /**
  * 
  * Facade for the Model. Every object accessing the model classes should do so through here
  * Note to TA's this isn't completed yet we are just working on it for Phase 2
  *
  */
-public class ModelFacade
+public class ModelFacade implements Observable
 {
 	private CatanGame singleton;
 	public static ModelFacade facace_singleton = new ModelFacade();
@@ -656,6 +661,20 @@ public class ModelFacade
 	public void setModel(Model newModel)
 	{
 		singleton.setModel(newModel);		
+	}
+
+	@Override
+	public void addListener(InvalidationListener arg0)
+	{
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void removeListener(InvalidationListener arg0)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }
