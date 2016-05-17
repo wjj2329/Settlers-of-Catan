@@ -296,6 +296,8 @@ public class ModelFacade extends Observable
 		}
 	}
 
+
+
 	private void loadMap(JSONObject map) throws JSONException
 	{
 		JSONArray hexes = map.getJSONArray("hexes");
@@ -320,10 +322,10 @@ public class ModelFacade extends Observable
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
 			assert(dir != null);
-			//Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
-					//obj.getInt("ratio"));
-			//newPort.setType(getPortTypeFromString(resource));
-			//CatanGame.singleton.getMymap().getPorts().add(newPort);
+			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
+					obj.getInt("ratio"),getPortTypeFromString(resource));//this is not going
+			newPort.setType(getPortTypeFromString(resource));
+			CatanGame.singleton.getMymap().getPorts().add(newPort);
 		}
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)

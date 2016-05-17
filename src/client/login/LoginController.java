@@ -98,7 +98,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		String username = getLoginView().getRegisterUsername();
 		String password = getLoginView().getRegisterPassword();
 		String passrepeat = getLoginView().getRegisterPasswordRepeat();
-		if(password.equals(password))
+		if(password.equals(passrepeat))
 		{
 			if(server.registerUser(username,password).getResponseCode()==HttpURLConnection.HTTP_OK)
 			{
