@@ -445,7 +445,9 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
 				piece.setLocation(edge.getNormalizedLocation());
-				adjacent.buildRoad(edge2, playerID);
+
+				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
+				piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
 				roadPieces.add(piece);
 				return true;
 			}
@@ -570,7 +572,9 @@ public class Player
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
 		if (hex == null)
-			System.out.println("eff hex is null in canBuildRoadPieceSetupState");
+		{
+			return false;
+		}
 		if (!currentPlayer)
 		{
 			System.out.println("false: not current player");
@@ -610,7 +614,8 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
 				piece.setLocation(edge.getNormalizedLocation());
-				adjacent.buildRoad(edge2, playerID);
+				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
+				piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
 				return true;
 			}
@@ -638,7 +643,6 @@ public class Player
 		{
 			System.out.println("it is broken");
 		}
-		//else if ()
 		else
 		{
 			System.out.println("not broken");
@@ -678,36 +682,37 @@ public class Player
 			default:
 				assert false;
 		}
-		/*if (vertexClockwiseLower.getSettlement().getOwner() == null)
-		{
-			System.out.println("oh poop."); // yep this is null.
-		}*/
-		if (vertexClockwiseLower.getSettlement() == null)
+		/*if (vertexClockwiseLower.getSettlement() == null)
 		{
 			System.out.println("death and destruction");
-		}
+		}*/
 		System.out.println("THE ID TO YOUR MOM IS: " + playerID.getNumber());
 		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
 		// need a pointer to settlement; get playerID
 		{
+			System.out.println("The FIRST one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
 		{
+			System.out.println("The SECOND one");
 			return false;
 		}
 		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
 		{
+			System.out.println("The THIRD one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
 		{
+			System.out.println("The FOURTH one");
 			return false;
 		}
 		// there HAS to be a city, settlement, or road adjacent to it.
 		if (!vertexClockwiseLower.isHassettlement() && !vertexClockwiseUpper.isHassettlement()
 				&& !vertexClockwiseLower.isHascity() && !vertexClockwiseUpper.isHascity() && neitherBorderingEdgeHasARoad)
 		{
+			System.out.println("The FIFTH one");
 			return false;
 		}
 

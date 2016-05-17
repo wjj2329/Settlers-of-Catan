@@ -423,6 +423,7 @@ public class Hex
 	public RoadPiece buildRoad(EdgeLocation edgeLocation, Index playerid)
 	{
 		RoadPiece roadPiece = new RoadPiece(playerid);
+		edgeLocation.setHasRoad(true);
 		// set hasRoad to true, then actually create the RoadPiece object and set that.
 		switch (edgeLocation.getDir())
 		{
