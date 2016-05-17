@@ -39,7 +39,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 */
 	public void setElementAction(ResourceBarElement element, IAction action) {
 
-		elementActions.put(element, action);
+
 	}
 
 	@Override

@@ -3,6 +3,7 @@ package client.map;
 import java.util.*;
 
 import client.State.State;
+import client.model.ModelFacade;
 import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -30,6 +31,7 @@ public class MapController extends Controller implements IMapController, Observe
 		setRobView(robView);
 		
 		initFromModel();
+		ModelFacade.facace_singleton.addObserver(this);
 	}
 	
 	public IMapView getView() {
