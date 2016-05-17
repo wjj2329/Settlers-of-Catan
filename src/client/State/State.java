@@ -95,7 +95,8 @@ public enum State {
 		}
 
 		@Override
-		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
+		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception
+		{
 			return (CatanGame.singleton.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
 		}
 	},

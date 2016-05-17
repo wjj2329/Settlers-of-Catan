@@ -771,7 +771,7 @@ public class Player
 
 	public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
 		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
-			buildingon.buildSettlement(locationofsettlement, this.playerID);
+			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
 			resources.setBrick(resources.getBrick() - 1);
 			resources.setWheat(resources.getWheat() - 1);
 			resources.setSheep(resources.getSheep() - 1);

@@ -173,6 +173,7 @@ public class Hex
 	{
 		if(canBuildSettlementHereNormal(mylocation))
 		{
+			System.out.println("i can come and build");
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
@@ -390,6 +391,7 @@ public class Hex
 
 	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
+		System.out.println("i build a settlement in start up");
 		if(canBuildSettlementHereStartup(mylocation))
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))
@@ -547,7 +549,7 @@ public class Hex
 
 	public boolean canBuildSettlementHereNormal(VertexLocation mylocation)
 	{
-		System.out.println("i come here to check");
+		//System.out.println("i come here to check");
 		if (settlements.size() >= 3)
 		{
 			return false;
@@ -573,6 +575,7 @@ public class Hex
 				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
+					System.out.print("i come here and I have a road at ne or se or s");
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.east.isHassettlement() && !this.east.isHascity()) {
 							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
@@ -582,7 +585,6 @@ public class Hex
 					}
 				}
 			}
-			System.out.println("ne and se and s don't have roads");
 			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.West))
@@ -610,6 +612,7 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if (!this.west.isHassettlement() && !this.west.isHascity()) {
 						if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
+							System.out.print("i come here and I have a road at nw or sw or s");
 							return true;
 						}
 					}
@@ -642,6 +645,7 @@ public class Hex
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 					if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 						if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+							System.out.print("i come here and I have a road at ne or se or n");
 							return true;
 						}
 					}
@@ -675,6 +679,7 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 						if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
+							System.out.print("i come here and I have a road at ne or n or nw");
 							return true;
 						}
 					}
@@ -707,6 +712,7 @@ public class Hex
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 					if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
 						if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
+							System.out.print("i come here and I have a road at s or se or sw");
 							return true;
 						}
 					}
@@ -741,6 +747,7 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 						if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
+							System.out.print("i come here and I have a road at nw or sw or s");
 							return true;
 						}
 					}

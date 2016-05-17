@@ -164,7 +164,7 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		try
 		{
-			System.out.println(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+			//System.out.println(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
 			return CatanGame.singleton.getCurrentState().canBuildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 		}
 		catch (Exception e)
@@ -182,7 +182,7 @@ public class MapController extends Controller implements IMapController, Observe
 			return CatanGame.singleton.getCurrentState().canBuildCity(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 		return false;
 	}
@@ -207,6 +207,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void placeSettlement(VertexLocation vertLoc) {
 		try {
+			System.out.println("my current state is this "+CatanGame.singleton.getCurrentState().toString());
 			CatanGame.singleton.getCurrentState().buildSettlement(CatanGame.singleton.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
 		} catch (Exception e) {
 			e.printStackTrace();
