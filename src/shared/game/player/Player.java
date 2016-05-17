@@ -584,10 +584,28 @@ public class Player
 
 	/**
 	 * I am trying to fix this again.
-	 * @return
+	 * Directions: NorthWest, North, NorthEast, SouthEast, South, SouthWest.
      */
-	private boolean checkForOtherRoadsAndStructures()
+	private boolean checkForOtherRoadsAndStructures(Hex hex1, EdgeLocation edgeIAmTryingToPlaceRoadOn)
 	{
+		switch (edgeIAmTryingToPlaceRoadOn.getDir())
+		{
+			case NorthWest:
+
+				break;
+			case North:
+				break;
+			case NorthEast:
+				break;
+			case SouthEast:
+				break;
+			case South:
+				break;
+			case SouthWest:
+				break;
+			default:
+				assert false;
+		}
 		return false;
 	}
 
