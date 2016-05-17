@@ -75,4 +75,12 @@ public class Model
 	{
 		version = newVersion;
 	}
+
+	/**
+	 * @return the turntracker
+	 */
+	public TurnTracker getTurntracker()
+	{
+		return turntracker;
+	}
 }

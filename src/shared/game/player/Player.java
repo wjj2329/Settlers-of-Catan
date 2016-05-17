@@ -15,7 +15,6 @@ import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
-import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 import java.util.ArrayList;
@@ -131,7 +130,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = 5;
+	private int numSettlementsRemaining = 4;
 	
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -446,31 +445,7 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
 				piece.setLocation(edge.getNormalizedLocation());
-				adjacent.buildRoad(edge2, playerID); // PlayerID or PlayerIndex?
-				roadPieces.add(piece);
-				return true;
-			}
-		}
-		return false;
-	}
-
-	public boolean buildRoadPieceSetupState(Hex hex, EdgeLocation edge)
-	{
-		if (canBuildRoadPieceSetupState(hex, edge))
-		{
-			Hex adjacent = computeAdjacentHex(hex, edge);
-			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
-			// check the other hex
-			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
-			{
-				return false;
-			}
-			else
-			{
-				RoadPiece piece = hex.buildRoad(edge, playerID);
-				// I *think* this works, but we will see.
-				piece.setLocation(edge.getNormalizedLocation());
-				adjacent.buildRoad(edge2, playerID);
+				adjacent.buildRoad(edge2, new Index(3));
 				roadPieces.add(piece);
 				return true;
 			}
@@ -535,12 +510,14 @@ public class Player
 
 	public void buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
 	{
-		if(canBuildSettlementStartup(buildingon,locationofsettlement))
+		if(canBuildSettlement(buildingon,locationofsettlement))
 		{
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
+			resources.setBrick(resources.getBrick()-1);
+			resources.setWheat(resources.getWheat()-1);
+			resources.setSheep(resources.getSheep()-1);
+			resources.setWood(resources.getWood()-1);
 			this.numSettlementsRemaining--;
-			System.out.println("The number of brick peices left "+resources.getBrick());
-			System.out.println("my num of settlements Remaning is "+numSettlementsRemaining);
 		}
 	}
 
@@ -589,44 +566,8 @@ public class Player
 		return true;
 	}
 
-	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
-	{
-		if (hex == null)
-		System.out.println("eff hex is null in canBuildRoadPieceSetupState");
-		if (!currentPlayer)
-		{
-			System.out.println("false: not current player");
-			return false;
-		}
-		if (edge.hasRoad())
-		{
-			System.out.println("false: Edge already has a road");
-			return false;
-		}
-		if (!checkAdjacentEdges(hex, edge))
-		{
-			System.out.println("false: adjacent edge sucks/has crap on it");
-			return false;
-		}
-		if (!checkAdjacentSettlements(hex, edge))
-		{
-			System.out.println("false: adjacent settlements are not there");
-			return false;
-		}
-		return true; // idk if I need this or just a boolean
-	}
-
 	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
 	{
-		if (hex == null || edge == null )
-		{
-			System.out.println("it is broken");
-		}
-		//else if ()
-		else
-		{
-			System.out.println("not broken");
-		}
 		VertexLocation vertexClockwiseUpper = null;
 		VertexLocation vertexClockwiseLower = null;
 		switch(edge.getDir())
@@ -661,52 +602,35 @@ public class Player
 		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
 		// need a pointer to settlement; get playerID
 		{
-			System.out.println("The first one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
 		{
-			System.out.println("The second one");
 			return false;
 		}
 		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
 		{
-			System.out.println("The third one");
 			return false;
 		}
 		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
 		{
-			System.out.println("The fourth one");
 			return false;
 		}
 		// there HAS to be a city, settlement, or road adjacent to it.
 		if (!vertexClockwiseLower.isHassettlement() && !vertexClockwiseUpper.isHassettlement()
 				&& !vertexClockwiseLower.isHascity() && !vertexClockwiseUpper.isHascity() && neitherBorderingEdgeHasARoad)
 		{
-			System.out.println("The fifth one");
-			return false; // should be false. changing this to true is weird
+			return false;
 		}
 
 		return true;
 	}
 
-	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge) {
-		assert (edge != null && hex != null);
+	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge)
+	{
+		assert(edge != null && hex != null);
 		EdgeLocation adjacentEdgeClockwiseUp = null;
 		EdgeLocation adjacentEdgeClockwiseDown = null;
-		if (hex == null)
-		{
-			System.out.println("Eff");
-			return false;
-		}
-		else if (hex.getN() == null)
-		{
-			System.out.println("it has no north direction");
-		}
-		else
-		{
-			System.out.println("i hate all of you");
-		}
 		switch (edge.getDir())
 		{
 			case NorthWest:
@@ -769,75 +693,25 @@ public class Player
 		return false;
 	}
 
-	public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
-		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
-			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick() - 1);
-			resources.setWheat(resources.getWheat() - 1);
-			resources.setSheep(resources.getSheep() - 1);
-			resources.setWood(resources.getWood() - 1);
-			this.numSettlementsRemaining--;
-			System.out.println("The number of brick peices left " + resources.getBrick());
-			System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
-		}
-	}
-
-	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
-		if (myLocation == null) {
-			System.out.println("Location is NULL");
-			Exception e = new Exception();
-			e.printStackTrace();
-			return false;
-			//throw e;
-		}
-		if (hex == null) {
-			System.out.println("HEX IS NULL");
-			Exception e = new Exception();
-			e.printStackTrace();
-			return false;
-			//throw e;
-		}
-		if (!hex.canBuildSettlementHereNormal(myLocation)) {
-			System.out.println("I am to blame");
-			return false;
-		}
-		if (resources.getSheep() < 1 || resources.getWheat() < 1
-				|| resources.getBrick() < 1 || resources.getWood() < 1) {
-			return false;
-		}
-		if (numSettlementsRemaining <= 0) {
-			return false;
-		}
-		return true;
-	}
-
 	/**
 	 * Determines whether or not a player can build a settlement on a particular hex
 	 * @param hex: the hex
      */
-	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
-		if(myLocation==null)
+	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation) throws Exception {
+		if(hex==null||myLocation==null)
 		{
-			System.out.println("Location is NULL");
 			Exception e=new Exception();
 			e.printStackTrace();
-			return false;
-			//throw e;
-		}
-		if(hex==null)
+			throw e;		}
+		if (!hex.canBuildSettlementHere(myLocation))
 		{
-			System.out.println("HEX IS NULL");
-			Exception e = new Exception();
-			e.printStackTrace();
 			return false;
-			//throw e;
 		}
-		if (!hex.canBuildSettlementHereStartup(myLocation))
+		if (resources.getSheep() < 1 || resources.getWheat() < 1
+				|| resources.getBrick() < 1 || resources.getWood() < 1)
 		{
-			System.out.println("I am to blame");
 			return false;
 		}
-
 		if (numSettlementsRemaining <= 0)
 		{
 			return false;
@@ -1037,5 +911,49 @@ public class Player
 	public void setNumSoldierCards(int numSoldierCards)
 	{
 		this.numSoldierCards = numSoldierCards;
+	}
+
+	public boolean canAffordRoad()
+	{
+		if (resources.getBrick() < MIN || resources.getWood() < MIN)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public boolean canAffordSettlement()
+	{
+		if (resources.getSheep() < 1 || resources.getWheat() < 1
+				|| resources.getBrick() < 1 || resources.getWood() < 1)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public boolean canAffordCity()
+	{
+		if (resources.getOre() < 3 || resources.getWheat() < 2)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	public boolean canAffordDevCard()
+	{
+		if(resources.getOre()>0)
+		{
+			if(resources.getSheep()>0)
+			{
+				if(resources.getWheat()>0)
+				{
+					return true;
+				}
+
+			}
+		}
+		return false;
 	}
 }

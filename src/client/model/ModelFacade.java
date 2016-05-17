@@ -38,6 +38,8 @@ import java.util.Map;
 public class ModelFacade
 {
 	private CatanGame singleton;
+	public static ModelFacade facace_singleton = new ModelFacade();
+	
 	public ModelFacade()
 	{
 		singleton = CatanGame.singleton;
