@@ -6,13 +6,10 @@ import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
 import client.base.*;
-<<<<<<< HEAD
 import client.model.ModelFacade;
-=======
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.player.Player;
->>>>>>> refs/remotes/origin/master
 
 
 /**
@@ -79,7 +76,6 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		}
 	}
 	
-
     @Override
     public void update(Observable o, Object arg)
     {
@@ -128,6 +124,5 @@ public class ResourceBarController extends Controller implements IResourceBarCon
             }      
         }
     }
-
 }
 
