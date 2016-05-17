@@ -22,10 +22,10 @@ import java.util.ArrayList;
 /**
  * @author Alex
  * Player: Class that represents each individual player in the game.
- * There are 4 players in each game; thus, there are 4 objects of type 
- * Player in each game. 
+ * There are 4 players in each game; thus, there are 4 objects of type
+ * Player in each game.
  */
-public class Player 
+public class Player
 {
 	private int roadSize=0;
 	private int armySize=0;
@@ -40,58 +40,58 @@ public class Player
 	 * However, we need to use the enum type CatanColor.
 	 */
 	private CatanColor color = null;
-	
+
 	/**
 	 * discarded: whether or not they discarded a card
 	 */
 	private boolean discarded = false;
-	
+
 	/**
 	 * numMonuments: how many monuments a player has.
 	 * I don't know what this is, and I don't think we need this. Even though I think I created it.
 	 * :D ~ Alex
 	 */
 	private int numMonuments = 0;
-	
+
 	/**
 	 * Name: Player's name.
 	 * Examples: Jessie, Rob, Tiny, Kahuna (max 7 char)
-	 * 
+	 *
 	 * According to the JSON this will be read as just a String.
 	 * However, we may need a class to encapsulate "Name" in the future
-	 * in order to avoid primitive obsession. 
+	 * in order to avoid primitive obsession.
 	 */
 	private String name = "";
-	
+
 	/**
 	 * newDevCards: list of new development cards
 	 */
 	private DevCardList newDevCards = new DevCardList(DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL);
-	
+
 	/**
 	 * oldDevCards: list of old development cards
 	 */
 	private DevCardList oldDevCards= new DevCardList(DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL);
-	
+
 	/**
 	 * Each player has their own Index.
 	 * Recording this information is key for calculating turns
 	 * and getting the correct Player pointers.
-	 * 
+	 *
 	 * We might even want to add a list of Indexes to the main game map,
-	 * representing each player (if the need arises). 
+	 * representing each player (if the need arises).
 	 */
 	private Index playerIndex = null; // don't need this I don't think
-	
+
 	/**
 	 * ID of the player
 	 * received from JSON file
-	 * 
+	 *
 	 * NOTE: Keep this until we determine if there's a difference
-	 * between playerID and playerIndex. 
+	 * between playerID and playerIndex.
 	 */
 	private Index playerID = new Index(1924);
-	
+
 	/**
 	 * ResourceList: List of all the resource cards
 	 * (brick, ore, sheep, wheat, wood)
@@ -115,10 +115,10 @@ public class Player
 	 * Settlements come before cities.
 	 */
 	private ArrayList<City> cities = new ArrayList<>();
-	
+
 	/**
 	 * How many roads the Player CAN BUILD.
-	 * Updated dynamically. 
+	 * Updated dynamically.
 	 */
 	private int numRoadPiecesRemaining = 15;
 
@@ -126,17 +126,17 @@ public class Player
 	 * All the RoadPieces owned by the Player
 	 */
 	private ArrayList<RoadPiece> roadPieces = new ArrayList<>();
-	
+
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
 	private int numSettlementsRemaining = 4;
-	
+
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
 	 */
 	private int numSoldierCards = 0;
-	
+
 	/**
 	 * How many victory points the player has
 	 * Everyone starts off with 2. 10+ on your turn to win!
@@ -154,7 +154,7 @@ public class Player
 	 * I.e. is it your turn?
 	 */
 	private boolean currentPlayer = false;
-	
+
 	/**
 	 * Player constructor
 	 * @pre name is between 3 and 7 characters
@@ -216,7 +216,7 @@ public class Player
 		}
 		return true;
 	}
-	
+
 	/**
 	 * Determines whether or not the player has the resources to be robbed
 	 * Need to check this before Robber robs player
@@ -510,7 +510,7 @@ public class Player
 
 	public void buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
 	{
-		if(canBuildSettlement(buildingon,locationofsettlement))
+		if(canBuildSettlementStartup(buildingon,locationofsettlement))
 		{
 			System.out.println("the playerID is " + playerID.getNumber() + " aka " + this.playerID.getNumber());
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
@@ -567,10 +567,69 @@ public class Player
 		return true;
 	}
 
+	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
+	{
+		if (hex == null)
+			System.out.println("eff hex is null in canBuildRoadPieceSetupState");
+		if (!currentPlayer)
+		{
+			System.out.println("false: not current player");
+			return false;
+		}
+		if (edge.hasRoad())
+		{
+			System.out.println("false: Edge already has a road");
+			return false;
+		}
+		if (!checkAdjacentEdges(hex, edge))
+		{
+			System.out.println("false: adjacent edge sucks/has crap on it");
+			return false;
+		}
+		if (!checkAdjacentSettlements(hex, edge))
+		{
+			System.out.println("false: adjacent settlements are not there");
+			return false;
+		}
+		return true; // idk if I need this or just a boolean
+	}
+
+	public boolean buildRoadPieceSetupState(Hex hex, EdgeLocation edge) {
+		if (canBuildRoadPieceSetupState(hex, edge)) {
+			Hex adjacent = computeAdjacentHex(hex, edge);
+			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
+			// check the other hex
+			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER) {
+				return false;
+			} else {
+				RoadPiece piece = hex.buildRoad(edge, playerID);
+				// I *think* this works, but we will see.
+				piece.setLocation(edge.getNormalizedLocation());
+				adjacent.buildRoad(edge2, playerID);
+				adjacent.buildRoad(edge2, new Index(3));
+				roadPieces.add(piece);
+				return true;
+			}
+		}
+		return false;
+	}
+
+		public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
+		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
+			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
+			resources.setBrick(resources.getBrick() - 1);
+			resources.setWheat(resources.getWheat() - 1);
+			resources.setSheep(resources.getSheep() - 1);
+			resources.setWood(resources.getWood() - 1);
+			this.numSettlementsRemaining--;
+			System.out.println("The number of brick peices left " + resources.getBrick());
+			System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
+		}
+	}
+
 	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
 	{
-<<<<<<< HEAD
-=======
+
 		if (hex == null || edge == null )
 		{
 			System.out.println("it is broken");
@@ -584,7 +643,6 @@ public class Player
 		{
 			System.out.println("something is null");
 		}
->>>>>>> refs/remotes/origin/master
 		VertexLocation vertexClockwiseUpper = null;
 		VertexLocation vertexClockwiseLower = null;
 		switch(edge.getDir())
@@ -704,7 +762,7 @@ public class Player
 		}
 		return true; // if no issues
 	}
-	
+
 	/**
 	 * Determines whether or not the player can accept a current trade.
 	 * May need a TradeParameters object in order to assist with this
@@ -719,17 +777,36 @@ public class Player
 		return false;
 	}
 
-	/**
-	 * Determines whether or not a player can build a settlement on a particular hex
-	 * @param hex: the hex
-     */
-	public boolean canBuildSettlement(Hex hex, VertexLocation myLocation) throws Exception {
+
+	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
 		if(hex==null||myLocation==null)
 		{
 			Exception e=new Exception();
 			e.printStackTrace();
 			throw e;		}
-		if (!hex.canBuildSettlementHere(myLocation))
+		if (!hex.canBuildSettlementHereStartup(myLocation))
+		{
+			return false;
+		}
+
+		if (numSettlementsRemaining <= 0)
+		{
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Determines whether or not a player can build a settlement on a particular hex
+	 * @param hex: the hex
+     */
+	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
+		if(hex==null||myLocation==null)
+		{
+			Exception e=new Exception();
+			e.printStackTrace();
+			throw e;		}
+		if (!hex.canBuildSettlementHereNormal(myLocation))
 		{
 			return false;
 		}
@@ -795,6 +872,8 @@ public class Player
 	{
 		this.resources = resources;
 	}
+
+
 
 	public ArrayList<Settlement> getSettlements()
 	{
