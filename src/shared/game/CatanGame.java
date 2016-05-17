@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import client.State.State;
 import client.model.*;
 import org.json.JSONObject;
 
@@ -24,10 +23,13 @@ public class CatanGame
 {
 	// The singleton was null so I did this instead
 	public static CatanGame singleton = new CatanGame();
+<<<<<<< HEAD
+=======
 	/**
 	 * Which state the game is in. Starts at login
 	 */
 	private State currentState = State.SetUpState;
+>>>>>>> refs/remotes/origin/master
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
@@ -44,12 +46,10 @@ public class CatanGame
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
-		currentPlayer.setResources(new ResourceList(10,10,10,10,10));
 		 if(singleton == null) // this doesn't work
 		 {
 			 singleton = this;
 			 this.server = server;
-			 this.mymap=new CatanMap(1);
 		 }
 		 else
 		 {
@@ -217,25 +217,13 @@ public class CatanGame
 		return mytradeoffer;
 	}
 
-	public State getCurrentState()
-	{
-		return currentState;
-	}
-
-	public void setCurrentState(State currentState)
-	{
-		this.currentState = currentState;
-	}
-
 	public Player getCurrentPlayer()
 	{
-		currentPlayer.setCurrentPlayer(true);
 		return currentPlayer;
 	}
 
 	public void updateCurrentPlayer(Player currentPlayer)
 	{
-		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
 	}
 }

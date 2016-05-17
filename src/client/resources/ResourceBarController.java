@@ -2,7 +2,11 @@ package client.resources;
 
 import java.util.*;
 
+import shared.game.ResourceList;
+import shared.game.map.Index;
+import shared.game.player.Player;
 import client.base.*;
+import client.model.ModelFacade;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.player.Player;
@@ -11,7 +15,7 @@ import shared.game.player.Player;
 /**
  * Implementation for the resource bar controller
  */
-public class ResourceBarController extends Controller implements IResourceBarController {
+public class ResourceBarController extends Controller implements IResourceBarController, Observer {
 
 	private Map<ResourceBarElement, IAction> elementActions;
 	
@@ -71,6 +75,54 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			action.execute();
 		}
 	}
+	
+    @Override
+    public void update(Observable o, Object arg)
+    {
+    	Index currentTurn = ModelFacade.facace_singleton.getModel().getTurntracker().getCurrentTurn();
+        Player player = ModelFacade.facace_singleton.getMyplayers().get(currentTurn);
+        if (player != null)
+        {
+            ResourceList resourceCards = player.getResources();
+        
+            // update the resources you have
+            this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
+            this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
+            this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
+            this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
+            this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
 
+            // update roads/settlements/cities you have left
+            this.getView().setElementAmount(ResourceBarElement.ROAD, player.getRoadPieces().size());
+            this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getSettlements().size());
+            this.getView().setElementAmount(ResourceBarElement.CITY, player.getCities().size());
+
+            // update soldiers
+            this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
+
+            // update can build road/settlement/city
+            this.getView().setElementEnabled(ResourceBarElement.ROAD,
+                    player.canAffordRoad());
+            this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, 
+                    player.canAffordSettlement());
+            this.getView().setElementEnabled(ResourceBarElement.CITY, 
+                    player.canAffordCity());
+
+            // update can buy card and can play card
+            this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD,
+                    true);
+            this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
+                    player.canAffordDevCard());
+            
+            
+            if (player.getPlayerIndex() != currentTurn){
+                this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+                this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+                this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+                this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+                this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+            }      
+        }
+    }
 }
 
