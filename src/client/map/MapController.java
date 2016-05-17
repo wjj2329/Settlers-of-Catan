@@ -13,8 +13,6 @@ import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
-
-
 /**
  * Implementation for the map controller
  */
