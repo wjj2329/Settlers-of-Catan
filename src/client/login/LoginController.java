@@ -90,9 +90,15 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public void register() {
 		
 		// TODO: register new user (which, if successful, also logs them in)
-		// If register succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		String username = getLoginView().getRegisterUsername();
+		String password = getLoginView().getRegisterPassword();
+		if(server.registerUser(username,password).getResponseCode()==HttpURLConnection.HTTP_OK)
+		{
+			System.out.println("i registered them");
+			//getLoginView().closeModal();
+			//loginAction.execute();
+		}
+		System.out.println("i failed to register");
 	}
 
 	@Override

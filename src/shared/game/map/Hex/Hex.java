@@ -93,7 +93,7 @@ public class Hex
 				hextoupdate.getSouthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
 				hextoupdate.getNorthwest().setCity(new City(this.location,new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 				east.setCity(new City(this.location,new VertexLocation(this.location,VertexDirection.East),owner));
-				
+
 				hextoupdate.getSouthwest().setHassettlement(false);
 				hextoupdate2.getNorthwest().setHassettlement(false);
 				east.setHassettlement(false);
@@ -220,7 +220,7 @@ public class Hex
 				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
-					//if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||this.se.hasRoad()&&hextoupdate.s.hasRoad())
+					if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(CatanGame.singleton.getCurrentPlayer().getPlayerID()))
 					{
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.east.isHassettlement() && !this.east.isHascity()) {
