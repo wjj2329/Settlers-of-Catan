@@ -3,6 +3,9 @@ package client.resources;
 import java.util.*;
 
 import client.base.*;
+import shared.game.CatanGame;
+import shared.game.ResourceList;
+import shared.game.player.Player;
 
 
 /**
@@ -32,7 +35,13 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	 */
 	public void setElementAction(ResourceBarElement element, IAction action) {
 
+		CatanGame.singleton.getCurrentPlayer().setResources(new ResourceList(5,5,5,5,5));
 		elementActions.put(element, action);
+		this.getView().setElementAmount(ResourceBarElement.BRICK, CatanGame.singleton.getCurrentPlayer().getResources().getBrick());
+		this.getView().setElementAmount(ResourceBarElement.WHEAT, CatanGame.singleton.getCurrentPlayer().getResources().getWheat());
+		this.getView().setElementAmount(ResourceBarElement.WOOD, CatanGame.singleton.getCurrentPlayer().getResources().getWood());
+		this.getView().setElementAmount(ResourceBarElement.SHEEP, CatanGame.singleton.getCurrentPlayer().getResources().getSheep());
+		this.getView().setElementAmount(ResourceBarElement.ORE,CatanGame.singleton.getCurrentPlayer().getResources().getOre());
 	}
 
 	@Override
