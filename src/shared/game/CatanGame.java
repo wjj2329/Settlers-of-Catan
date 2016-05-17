@@ -229,6 +229,7 @@ public class CatanGame
 
 	public Player getCurrentPlayer()
 	{
+		currentPlayer.setCurrentPlayer(true);
 		return currentPlayer;
 	}
 
