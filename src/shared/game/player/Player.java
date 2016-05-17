@@ -130,7 +130,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = 4;
+	private int numSettlementsRemaining = 5;
 
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
