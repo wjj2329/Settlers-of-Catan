@@ -1,5 +1,7 @@
 package client.roll;
 
+import java.util.Random;
+
 import client.base.*;
 
 
@@ -9,7 +11,8 @@ import client.base.*;
 public class RollController extends Controller implements IRollController {
 
 	private IRollResultView resultView;
-
+	private int diceRoll;
+	
 	/**
 	 * RollController constructor
 	 * 
@@ -38,8 +41,15 @@ public class RollController extends Controller implements IRollController {
 	
 	@Override
 	public void rollDice() {
-
+		Random dice1 = new Random();
+		Random dice2 = new Random();
+		int diceRoll1 = dice1.nextInt(6) + 1;
+		int diceRoll2 = dice2.nextInt(6) + 2;
+		int diceRollTotal = diceRoll1 + diceRoll2;
+		getResultView().setRollValue(diceRollTotal);
+		
 		getResultView().showModal();
+		diceRoll = diceRollTotal;
 	}
 
 }
