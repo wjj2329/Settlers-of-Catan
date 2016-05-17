@@ -6,7 +6,13 @@ import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
 import client.base.*;
+<<<<<<< HEAD
 import client.model.ModelFacade;
+=======
+import shared.game.CatanGame;
+import shared.game.ResourceList;
+import shared.game.player.Player;
+>>>>>>> refs/remotes/origin/master
 
 
 /**

@@ -33,29 +33,33 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void startTrade() {
-		
+
+		System.out.println("i start the trade");
 		getTradeOverlay().showModal();
 	}
 
 	@Override
 	public void makeTrade() {
-
+		System.out.println("i make the trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void cancelTrade() {
 
+		System.out.println("i cancel the trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void setGetResource(ResourceType resource) {
+		System.out.println("This is the type "+resource.toString());
 
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
+		System.out.println("This is the type "+resource.toString());
 
 	}
 
