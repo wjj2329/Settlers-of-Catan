@@ -27,7 +27,7 @@ public class CatanGame
 	/**
 	 * Which state the game is in. Starts at login
 	 */
-	private State currentState = State.SetUpState;
+	private State currentState = State.GamePlayingState;
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
@@ -44,6 +44,7 @@ public class CatanGame
 	// If there is a singleton, then this shouldn't exist.
 	public CatanGame(IServer server) throws Exception
 	{
+		currentPlayer.setResources(new ResourceList(10,10,10,10,10));
 		 if(singleton == null) // this doesn't work
 		 {
 			 singleton = this;
