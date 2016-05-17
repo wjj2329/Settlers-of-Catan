@@ -203,6 +203,7 @@ public class Hex
 									hextoupdate.getSouthwest().setHassettlement(true);
 									hextoupdate2.getNorthwest().setHassettlement(true);
 									east.setHassettlement(true);
+									east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 									east.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -232,6 +233,7 @@ public class Hex
 							if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
 								hextoupdate.getSoutheast().setHassettlement(true);
 								hextoupdate2.getNortheast().setHassettlement(true);
+								west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 								west.setHassettlement(true);
 								west.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -262,6 +264,7 @@ public class Hex
 								hextoupdate.getSoutheast().setHassettlement(true);
 								hextoupdate2.getWest().setHassettlement(true);
 								northeast.setHassettlement(true);
+								northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 								northeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 								hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
@@ -289,6 +292,7 @@ public class Hex
 							if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
 								hextoupdate.getEast().setHassettlement(true);
 								hextoupdate2.getSouthwest().setHassettlement(true);
+								northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 								northwest.setHassettlement(true);
 								northwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
@@ -317,6 +321,7 @@ public class Hex
 							if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
 								hextoupdate.getNorthwest().setHassettlement(true);
 								hextoupdate2.getEast().setHassettlement(true);
+								southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 								southwest.setHassettlement(true);
 								southwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -345,6 +350,7 @@ public class Hex
 							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
 								hextoupdate.getWest().setHassettlement(true);
 								hextoupdate2.getNortheast().setHassettlement(true);
+								southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 								southeast.setHassettlement(true);
 								southeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 								settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
@@ -453,6 +459,7 @@ public class Hex
 						if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
+							west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							west.setHassettlement(true);
 							west.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
@@ -479,6 +486,7 @@ public class Hex
 						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getWest().setHassettlement(true);
+							northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 							northeast.setHassettlement(true);
 							northeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
@@ -505,6 +513,7 @@ public class Hex
 						if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
 							hextoupdate.getEast().setHassettlement(true);
 							hextoupdate2.getSouthwest().setHassettlement(true);
+							northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							northwest.setHassettlement(true);
 							northwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
@@ -531,6 +540,7 @@ public class Hex
 						if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
 							hextoupdate.getNorthwest().setHassettlement(true);
 							hextoupdate2.getEast().setHassettlement(true);
+							southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							southwest.setHassettlement(true);
 							southwest.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
@@ -556,6 +566,7 @@ public class Hex
 						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
 							hextoupdate.getWest().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
+							southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							southeast.setHassettlement(true);
 							southeast.getSettlement().setOwner(CatanGame.singleton.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
