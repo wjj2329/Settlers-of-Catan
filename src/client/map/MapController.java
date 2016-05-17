@@ -4,6 +4,8 @@ import java.util.*;
 
 import client.State.State;
 import client.model.ModelFacade;
+import server.proxies.IServer;
+import server.proxies.ServerProxy;
 import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -18,7 +20,7 @@ import client.data.*;
  */
 public class MapController extends Controller implements IMapController, Observer
 {
-	
+	private IServer server = new ServerProxy();
 	private IRobView robView;
 	
 	public MapController(IMapView view, IRobView robView)
@@ -201,6 +203,12 @@ public class MapController extends Controller implements IMapController, Observe
 				.get(edgeLoc.getHexLoc()), edgeLoc);
 			getView().placeRoad(edgeLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 		}
+		boolean insert=false;
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		{
+			insert=true;
+		}
+		server.buildRoad("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
@@ -211,6 +219,12 @@ public class MapController extends Controller implements IMapController, Observe
 			e.printStackTrace();
 		}
 		getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+		boolean insert=false;
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		{
+			insert=true;
+		}
+		server.buildSettlement("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,vertLoc);
 
 	}
 
@@ -225,6 +239,8 @@ public class MapController extends Controller implements IMapController, Observe
 			}
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
+
+		server.buildCity("buildCity",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),vertLoc);
 	}
 
 	public void placeRobber(HexLocation hexLoc) {

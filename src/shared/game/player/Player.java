@@ -822,7 +822,7 @@ public class Player
 		{
 			Exception e=new Exception();
 			e.printStackTrace();
-			throw e;		}
+		}
 		if (!hex.canBuildSettlementHereStartup(myLocation))
 		{
 			return false;
