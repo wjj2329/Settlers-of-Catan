@@ -1010,6 +1010,11 @@ public class Player
 		return this.playedDevCard;
 	}
 
+
+	public int getNumSettlementsRemaining()
+	{
+		return numSettlementsRemaining;
+	}
 	public void setPlayedDevCard(boolean playedDevCard)
 	{
 		this.playedDevCard = playedDevCard;

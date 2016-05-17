@@ -6,6 +6,7 @@ import java.util.Map;
 
 import client.State.State;
 import client.model.*;
+
 import org.json.JSONObject;
 
 import server.proxies.IServer;
@@ -52,7 +53,7 @@ public class CatanGame
 	private Index winner=new Index(0);
 	private TradeOffer mytradeoffer=new TradeOffer();
 	// If there is a singleton, then this shouldn't exist.
-	public CatanGame(IServer server) throws Exception
+	public CatanGame(IServer server, boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
 	{
 		 if(singleton == null) // this doesn't work
 		 {
@@ -235,5 +236,17 @@ public class CatanGame
 	{
 		currentPlayer.setCurrentPlayer(true);
 		this.currentPlayer = currentPlayer;
+	}
+
+	public int getGameId()
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public String getTitle()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

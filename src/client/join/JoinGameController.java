@@ -1,20 +1,36 @@
 package client.join;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import shared.definitions.CatanColor;
+import shared.game.CatanGame;
+import shared.game.player.Player;
 import client.base.*;
 import client.data.*;
 import client.misc.*;
+import client.model.ModelFacade;
 
 
 /**
  * Implementation for the join game controller
  */
-public class JoinGameController extends Controller implements IJoinGameController {
+public class JoinGameController extends Controller implements IJoinGameController, Observer {
 
 	private INewGameView newGameView;
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
+    private Timer timer;
+    private GameInfo game = null;
+    private boolean shouldShowGameList = true;
+    private GameInfo[] lastList = null;
+    private ArrayList<CatanColor> colorsTaken = null;
+	//private GameInfo[] games;
 	
 	/**
 	 * JoinGameController constructor
@@ -32,6 +48,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
+		ModelFacade.facace_singleton.addObserver(this);
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -86,37 +103,213 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		
 		this.messageView = messageView;
 	}
+	
+	private synchronized void refreshGameList()
+	{
+        ArrayList<CatanGame> gamesList = ModelFacade.facace_singleton.getModel().listGames();
+
+        if (gamesList == null)
+        {
+            return;
+        }
+        GameInfo[] games = new GameInfo[gamesList.size()];
+        GameInfo currentGame = null;
+        int idx = 0;
+        for(CatanGame gameChoice: gamesList)
+        {
+            games[idx] = new GameInfo();
+            games[idx].setId(gameChoice.getGameId());
+            games[idx].setTitle(gameChoice.getTitle());
+            int playerIndex = 0;
+            for(Player player: gameChoice.getMyplayers().values())
+            {
+                PlayerInfo onePlayersInfo = new PlayerInfo();
+                onePlayersInfo.setColor(player.getColor());
+                onePlayersInfo.setId(player.getPlayerID().getNumber());
+                onePlayersInfo.setName(player.getName());
+                onePlayersInfo.setPlayerIndex(playerIndex++);
+                games[idx].addPlayer(onePlayersInfo);
+            }
+            if(this.game != null && games[idx].getId() == this.game.getId())
+            {
+                currentGame = games[idx];
+            }
+            idx++;   
+        }
+        if(currentGame != null)
+        {
+            this.startJoinGame(currentGame);
+        }
+        
+        if(Arrays.equals(games, this.lastList))
+        {
+            return;
+        }
+        
+        this.lastList = games;
+        PlayerInfo localPlayer = new PlayerInfo();
+        localPlayer.setId(ModelFacade.facace_singleton.getLocalPlayer());
+        getJoinGameView().setGames(games, localPlayer);
+        if(this.shouldShowGameList)
+        {
+        	if(getJoinGameView().isModalShowing())
+        	{
+        		getJoinGameView().closeModal();
+        	}
+            getJoinGameView().showModal();
+        }
+        else if(this.game != null)
+        {
+            for(GameInfo gameInList : this.lastList)
+            {
+                if(this.game.getId() == gameInList.getId())
+                {
+                    if(gameInList.getPlayers().size() == 4)
+                    {
+                        for(PlayerInfo pInfo: gameInList.getPlayers())
+                            if(pInfo.getId() == localPlayer.getId())
+                            {
+                            	if(getJoinGameView().isModalShowing())
+                            	{
+                            		getJoinGameView().closeModal();
+                            	}
+                            	if(getSelectColorView().isModalShowing())
+                            	{
+                            		getSelectColorView().closeModal();
+                            	}
+                                return;
+                            }
+                        this.cancelJoinGame();
+                    }
+                    else
+                        this.startJoinGame(gameInList);
+                    return;
+                }
+            }
+        }
+    }
 
 	@Override
-	public void start() {
-		
+	public void start() 
+	{		
 		getJoinGameView().showModal();
+        TimerTask timerTask = new TimerTask()
+        {
+            @Override
+            public void run()
+            {
+                refreshGameList();
+            }
+        };
+        this.timer = new Timer();
+        this.timer.schedule(timerTask, 0, 1500);
 	}
 
 	@Override
-	public void startCreateNewGame() {
-
-		getNewGameView().showModal();
+	public void startCreateNewGame()
+	{
+    	if(getJoinGameView().isModalShowing())
+    	{
+    		getJoinGameView().closeModal();
+    	}
+        this.shouldShowGameList = false;
+        getNewGameView().setTitle("");
+        getNewGameView().setRandomlyPlaceHexes(false);
+        getNewGameView().setRandomlyPlaceNumbers(false);
+        getNewGameView().setUseRandomPorts(false);
+        getNewGameView().showModal();
 	}
 
 	@Override
-	public void cancelCreateNewGame() {
-		
-		getNewGameView().closeModal();
+	public void cancelCreateNewGame()
+	{
+    	if(getNewGameView().isModalShowing())
+    	{
+    		getNewGameView().closeModal();
+    	}
+        this.shouldShowGameList = true;
+        getJoinGameView().showModal();
 	}
 
 	@Override
-	public void createNewGame() {
-		
-		getNewGameView().closeModal();
+	public void createNewGame() 
+	{	
+		//Establish game details
+		boolean randomlyPlaceHexes = getNewGameView().getRandomlyPlaceHexes();
+        boolean randomlyPlaceNumbers = getNewGameView().getRandomlyPlaceNumbers();
+        String title = getNewGameView().getTitle();
+        boolean randomPorts = getNewGameView().getUseRandomPorts();
+        boolean validTitle = !(title == null || title.trim().equals(""));
+        
+        //Check title against other titles (needs to be unique)
+        if(this.lastList != null)
+            for(GameInfo info: this.lastList)
+            {
+                if(!validTitle || info.getTitle().equals(title.trim()))
+                {
+                    validTitle = false;
+                    break;
+                }
+
+            }
+        if(!validTitle)
+        {
+            this.getMessageView().setMessage("Invalid title -- check to see if a game with that name already exists.");
+            this.getMessageView().showModal();
+            return;
+        }
+        
+        if(getNewGameView().isModalShowing())
+        {
+        	getNewGameView().closeModal();
+        }
+		try
+		{
+			ModelFacade.facace_singleton.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+        
+        getJoinGameView().showModal();
+        this.shouldShowGameList = true;
+        this.refreshGameList();
+    }
+
+    @Override
+    public void startJoinGame(GameInfo game) 
+    {
+        this.game = game;
+        this.shouldShowGameList = false;
+        ArrayList<PlayerInfo> currentplayers = (ArrayList<PlayerInfo>) game.getPlayers();
+        ArrayList<CatanColor> currentColorsTaken = new ArrayList<CatanColor>();
+        
+        //What colors are already being used?
+        for(PlayerInfo playerinfo: currentplayers)
+        {
+            if(playerinfo.getId() != ModelFacade.facace_singleton.getLocalPlayer())
+            {
+                currentColorsTaken.add(playerinfo.getColor());
+            }
+        }
+        if(currentColorsTaken.equals(this.colorsTaken))
+        {
+            return;
+        }
+        
+        //Color now assigned to client player
+        this.colorsTaken = currentColorsTaken;
+        for(CatanColor color: CatanColor.values())
+        {
+            getSelectColorView().setColorEnabled(color, !colorsTaken.contains(color));
+        }
+        if(!this.getMessageView().isModalShowing())
+        {
+            getSelectColorView().showModal();
+        }
 	}
-
-	@Override
-	public void startJoinGame(GameInfo game) {
-
-		getSelectColorView().showModal();
-	}
-
+    
 	@Override
 	public void cancelJoinGame() {
 	
@@ -130,6 +323,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		getSelectColorView().closeModal();
 		getJoinGameView().closeModal();
 		joinAction.execute();
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1)
+	{
+		// TODO Auto-generated method stub
+		
 	}
 
 }

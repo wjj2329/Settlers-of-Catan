@@ -30,9 +30,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
-
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
+import java.util.Observable;
 
 /**
  * 
@@ -40,10 +38,11 @@ import javafx.beans.Observable;
  * Note to TA's this isn't completed yet we are just working on it for Phase 2
  *
  */
-public class ModelFacade implements Observable
+public class ModelFacade extends Observable
 {
 	private CatanGame singleton;
 	public static ModelFacade facace_singleton = new ModelFacade();
+	private int localplayerID;
 	
 	public ModelFacade()
 	{
@@ -665,18 +664,14 @@ public class ModelFacade implements Observable
 		singleton.setModel(newModel);		
 	}
 
-	@Override
-	public void addListener(InvalidationListener arg0)
+	public void setLocalPlayer(int ID)
 	{
-		// TODO Auto-generated method stub
-		
+		localplayerID = ID;		
 	}
-
-	@Override
-	public void removeListener(InvalidationListener arg0)
+	
+	public int getLocalPlayer()
 	{
-		// TODO Auto-generated method stub
-		
+		return localplayerID;
 	}
 
 }

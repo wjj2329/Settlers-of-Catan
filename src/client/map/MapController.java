@@ -3,6 +3,7 @@ package client.map;
 import java.util.*;
 
 import client.State.State;
+import client.model.ModelFacade;
 import shared.definitions.*;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -12,9 +13,6 @@ import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
-
-import static com.sun.deploy.trace.TraceLevel.values;
-
 /**
  * Implementation for the map controller
  */
@@ -25,12 +23,10 @@ public class MapController extends Controller implements IMapController, Observe
 	
 	public MapController(IMapView view, IRobView robView)
 	{
-		
 		super(view);
-		
 		setRobView(robView);
-		
 		initFromModel();
+		ModelFacade.facace_singleton.addObserver(this);
 	}
 	
 	public IMapView getView() {
