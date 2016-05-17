@@ -11,7 +11,7 @@ public class Settlement
 	/**
 	 * Index: The playerID or playerIndex of the player who owns this settlement.
 	 */
-	private Index owner = null;
+	private Index owner = new Index(1924);
 	
 	/**
 	 * Location: Where this settlement resides on the map. 
@@ -33,6 +33,7 @@ public class Settlement
 		this.hexLocation=hexLocation;
 		this.vertexLocation=vertexLocation;
 		this.owner=owner;
+		//Log.i("Index for owner is now " + owner.getNumber());
 	}
 	
 	/**

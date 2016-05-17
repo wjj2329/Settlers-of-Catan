@@ -153,6 +153,11 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		CatanGame.singleton.setCurrentState(State.SetUpState);
 		System.out.println("The hexLoc is: " + edgeLoc.getHexLoc().getX() + ", " + edgeLoc.getHexLoc().getY());
+		if (!CatanGame.singleton.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
+		{
+			System.out.println("Hex location not found");
+			return false;
+		}
 		return CatanGame.singleton.getCurrentState().canBuildRoadPiece
 				(CatanGame.singleton.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
