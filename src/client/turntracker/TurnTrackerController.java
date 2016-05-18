@@ -42,11 +42,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		//
 		//This is for testing. comment later
 		Map<Index, Player> players = new HashMap();
-		players.put(new Index(0), new Player("Vegeta", CatanColor.BLUE, new Index(0)));
-		players.put(new Index(1), new Player("Goku", CatanColor.ORANGE, new Index(1)));
-		players.put(new Index(2), new Player("Bulma", CatanColor.WHITE, new Index(2)));
-		players.put(new Index(3), new Player("Piccolo", CatanColor.GREEN, new Index(3)));
-		
 		int currentPlayer = 0;
 		getView().setLocalPlayerColor(CatanColor.BLUE);
 		
