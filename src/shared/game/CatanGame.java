@@ -56,6 +56,8 @@ public class CatanGame
 	private TradeOffer mytradeoffer=new TradeOffer();
 	private boolean randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts;
 	private String title;
+	private static int masterid = 0;
+	private int myid;
 	
 	
 	// If there is a singleton, then this shouldn't exist.
@@ -72,6 +74,7 @@ public class CatanGame
 		this.randomlyPlaceHexes = randomlyPlaceHexes;
 		this.randomPorts = randomPorts;
 		this.title = title;
+		myid = masterid++;
 	}
 
 	public Map<Index, Player> getMyplayers() {
@@ -242,8 +245,7 @@ public class CatanGame
 
 	public int getGameId()
 	{
-		// TODO Auto-generated method stub
-		return 0;
+		return myid;
 	}
 
 	public String getTitle()
