@@ -87,7 +87,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getLoginView().closeModal();
 			loginAction.execute();
 		}
-		
+
 		createPlayerFromCookie(username1, password1);
 	}
 
@@ -110,7 +110,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 			}
 			System.out.println("i failed to register");
 		}
-		
+
 		createPlayerFromCookie(username,password);
 	}
 
@@ -126,13 +126,12 @@ public class LoginController extends Controller implements ILoginController, Obs
 			
 			switch(i)
 			{
-			case 0:
-				localplayer.setName(splitinfo[1]);
-				
-				break;
 			case 1:
+				localplayer.setName(splitinfo[1]);
 				break;
 			case 2:
+				break;
+			case 3:
 				splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
 				localplayer.setPlayerIndex(new Index(Integer.parseInt(splitinfo[1])));
 				break;
