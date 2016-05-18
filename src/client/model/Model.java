@@ -27,7 +27,7 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-	private IServer server;
+	private IServer server=new ServerProxy();
 	
 	/**
 	 * Map of players in the game.
