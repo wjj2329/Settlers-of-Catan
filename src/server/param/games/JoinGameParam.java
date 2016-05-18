@@ -15,7 +15,7 @@ public class JoinGameParam extends Param {
 	
 	@Override
 	public String getRequest() {
-		return "{id:\"" + gameID + "\", "+
+		return "{id:" + gameID + ", "+
 				"color: \"" + color + "\"}";
 	}
 

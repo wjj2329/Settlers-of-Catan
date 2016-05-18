@@ -7,7 +7,6 @@ import client.join.JoinGameController;
 import client.login.LoginController;
 import client.model.Model;
 import client.model.ModelFacade;
-import javafx.collections.SetChangeListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;

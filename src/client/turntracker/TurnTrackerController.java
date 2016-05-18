@@ -33,22 +33,22 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	@Override
 	public void endTurn() {
-		// ModelFacade.facace_currentgame.currentgame.getServer().finishTurn("finishTurn",
-		// ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+		ModelFacade.facace_currentgame.currentgame.getModel().getServer().finishTurn("finishTurn", 
+				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
 	private void initFromModel() {
 		// sets the current user's color..
 		//
-		//This is for testing. comment later
-		Map<Index, Player> players = new HashMap();
-		int currentPlayer = 0;
-		getView().setLocalPlayerColor(CatanColor.BLUE);
+//		//This is for testing. comment later
+//		Map<Index, Player> players = new HashMap();
+//		int currentPlayer = 0;
+//		getView().setLocalPlayerColor(CatanColor.BLUE);
 		
 		//This is what is actually suppose to use, but the currentgame.getstuff is null and brings up a nullPointerException
-//		int currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());		
-//		Map<Index, Player> players = ModelFacade.facace_currentgame.currentgame.getMyplayers();
+		int currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());		
+		Map<Index, Player> players = ModelFacade.facace_currentgame.currentgame.getMyplayers();
 		if (players.size() == 4) {
 			for (Index index : players.keySet()) {
 				view.initializePlayer(index.getNumber(), players.get(index).getName(), players.get(index).getColor());
@@ -60,7 +60,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 						hasLargestArmy(index), hasLongestRoad(index));
 			}
 		}
-		boolean flammable = true;
 	}
 
 	public boolean hasLargestArmy(Index index) {
