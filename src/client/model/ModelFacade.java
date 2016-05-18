@@ -378,6 +378,8 @@ public class ModelFacade extends Observable
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 							dir), new Index(obj.getInt("owner")));
+			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
+			h.addSettlement(settle1);
 			currentgame.getMymap().getSettlements().add(settle1);
 			//currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
@@ -393,6 +395,7 @@ public class ModelFacade extends Observable
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
 			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
+			//Hex h = currentgame.getMymap().getHexes().
 			currentgame.getMymap().getCities().add(city1);
 			//currentgame.getMyplayers().get(owner).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
