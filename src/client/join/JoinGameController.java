@@ -336,7 +336,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             if(game.getGameId() == this.game.getId())
             {
                 gameindex=game.getGameId();
-                ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(gameindex,colorforit);
+                //ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(gameindex,colorforit);  doesn't work find where it does.
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);
