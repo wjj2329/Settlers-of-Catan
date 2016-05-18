@@ -45,7 +45,6 @@ public class CatanGame
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
 	private ServerPoller poller;
-	private IServer server = new ServerProxy();
 	private Map<Index, Player> myplayers=new HashMap<>();
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
@@ -67,9 +66,8 @@ public class CatanGame
 
 	}
 
-	public CatanGame(IServer server, boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
+	public CatanGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
 	{
-		this.server = server;
 		this.randomlyPlaceNumbers = randomlyPlaceNumbers;
 		this.randomlyPlaceHexes = randomlyPlaceHexes;
 		this.randomPorts = randomPorts;
@@ -171,7 +169,7 @@ public class CatanGame
 	 */
 	public void startGame()
 	{
-		poller = new ServerPoller(this, server);
+		poller = new ServerPoller(this, ModelFacade.facace_currentgame.getModel().getServer());
 		poller.startPoller();
 	}
 	public void clear()
@@ -263,11 +261,6 @@ public class CatanGame
 
 	public IServer getServer()
 	{
-		return server;
-	}
-
-	public void setServer(IServer server)
-	{
-		this.server = server;
+		return ModelFacade.facace_currentgame.getModel().getServer();
 	}
 }

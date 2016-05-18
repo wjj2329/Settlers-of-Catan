@@ -6,6 +6,7 @@ import java.util.Map;
 
 import server.proxies.IServer;
 import server.proxies.MockServer;
+import server.proxies.ServerProxy;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
@@ -26,7 +27,7 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-	private IServer server;
+	private IServer server = new ServerProxy();
 	
 	/**
 	 * Map of players in the game.
@@ -51,7 +52,10 @@ public class Model
 	 **/
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
-		CatanGame game = new CatanGame(server, randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		System.out.println("Before");
+		CatanGame game = new CatanGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		System.out.println("Mid");
+
 		server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
 		//gamelist.add(game);
 	}
