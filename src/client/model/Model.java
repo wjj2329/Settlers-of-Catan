@@ -52,8 +52,8 @@ public class Model
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
 		CatanGame game = new CatanGame(server, randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
-		server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts); // will actually use this in the end
-		//gamelist.add(game);
+		//server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts); // will actually use this in the end
+		gamelist.add(game);
 	}
 	
 	/**
