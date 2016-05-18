@@ -109,6 +109,14 @@ public class CatanGame
 		}
 	}
 
+	public void setTitle(String title){
+		this.title = title;
+	}
+	
+	public void setID(int id){
+		myid = id;
+	}
+	
 	public boolean canCreatePlayer(Player newplayer)
 	{
 		if(myplayers==null)

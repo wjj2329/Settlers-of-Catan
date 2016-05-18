@@ -8,7 +8,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+
 import server.proxies.IServer;
+import server.proxies.ServerProxy;
 import shared.chat.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
@@ -32,6 +34,7 @@ import shared.locations.*;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
@@ -46,6 +49,58 @@ public class ModelFacade extends Observable
 	public CatanGame currentgame;
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private Player localplayer;
+	
+	public void loadGames(){
+		
+		IServer server = new ServerProxy();
+		String JSON = server.getAllCurrentGames().getResponse();
+		
+		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
+		 try {
+			JSONArray array = new JSONArray(JSON);
+			for(int i = 0; i < array.length(); i++){
+				System.out.println("GAME " + i);
+				JSONObject jsonObject = array.getJSONObject(i);
+				CatanGame game = new CatanGame();
+				game.setTitle(jsonObject.getString("title"));
+				System.out.println(jsonObject.getString("title"));
+				game.setID(jsonObject.getInt("id"));
+				System.out.println(jsonObject.getInt("id"));
+				
+				JSONArray players = jsonObject.getJSONArray("players");
+				System.out.println(players.toString());
+				for(int p=0; p<players.length(); p++){
+					JSONObject playerinfo = players.getJSONObject(p);
+					if(!playerinfo.isNull("name"))
+					{
+						System.out.println(playerinfo.getString("name"));
+						System.out.println(playerinfo.getString("color"));
+						System.out.println(playerinfo.getInt("id"));
+						Player player = new Player(playerinfo.getString("name"), 
+							stringToCatanColor(playerinfo.getString("color")), 
+							new Index(playerinfo.getInt("id")));
+						game.addPlayer(player);
+					}
+				}
+				games.add(game);
+			}
+			
+			System.out.println(games.size());
+			getModel().setListGames(games);
+			System.out.println("LLEGO AQUI");
+			System.out.println(getModel().listGames().size());
+			
+			
+			
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		 
+		
+	}
+	
+	
 	public JSONObject serializeModel() throws JSONException
 	{
 
