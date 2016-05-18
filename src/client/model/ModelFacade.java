@@ -307,13 +307,14 @@ public class ModelFacade extends Observable
 		JSONArray players = myObject.getJSONArray("players");
 		loadPlayers(players);
 
-		try {
+		try
+		{
 			JSONObject tradeOffer = myObject.getJSONObject("tradeOffer");
 			loadTradeOffer(tradeOffer);
 		}
 		catch(JSONException e)
 		{
-
+			e.printStackTrace();
 		}
 
 		JSONObject turnTracker = myObject.getJSONObject("turnTracker");
