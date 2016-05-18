@@ -3,6 +3,7 @@ package client.model;
 import client.State.State;
 import client.main.Catan;
 
+import client.map.MapController;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -265,7 +266,7 @@ public class ModelFacade extends Observable
 
 		int version = myObject.getInt("version");
 		int winner_convertToIndex = myObject.getInt("winner");
-		//notifyAll();  //So it won't let me call this :(
+		notifyAll();//So it won't let me call this :(
 	}
 
 	private void loadBank(JSONObject bank) throws JSONException
@@ -370,7 +371,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			//System.out.println(obj);
+			System.out.println(obj);
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);

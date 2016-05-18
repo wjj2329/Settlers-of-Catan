@@ -4,6 +4,7 @@ import java.util.*;
 
 import client.State.State;
 import client.model.ModelFacade;
+import javafx.collections.SetChangeListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
@@ -176,7 +177,6 @@ public class MapController extends Controller implements IMapController, Observe
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		//System.out.println(mytest);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
