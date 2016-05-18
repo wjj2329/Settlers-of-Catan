@@ -382,7 +382,8 @@ public class ModelFacade extends Observable
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			h.addSettlement(settle1);
 			currentgame.getMymap().getSettlements().add(settle1);
-			//currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
+			settle1.setOwner(new Index(obj.getInt("owner")));
+			currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
