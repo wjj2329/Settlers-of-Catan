@@ -48,7 +48,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
-		ModelFacade.facace_currentgame.addObserver(this);
+		ModelFacade.facace_singleton.addObserver(this);
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -106,7 +106,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
-        ArrayList<CatanGame> gamesList = ModelFacade.facace_currentgame.getModel().listGames();
+        ArrayList<CatanGame> gamesList = ModelFacade.facace_singleton.getModel().listGames();
 
         if (gamesList == null)
         {
@@ -130,7 +130,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 onePlayersInfo.setPlayerIndex(playerIndex++);
                 games[idx].addPlayer(onePlayersInfo);
             }
-            if(this.game != null && games[idx].getId() == this.game.getId())
+            if(game != null && games[idx].getId() == game.getId())
             {
                 currentGame = games[idx];
             }
@@ -138,19 +138,19 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
         if(currentGame != null)
         {
-            this.startJoinGame(currentGame);
+            startJoinGame(currentGame);
         }
         
-        if(Arrays.equals(games, this.lastList))
+        if(Arrays.equals(games, lastList))
         {
             return;
         }
         
-        this.lastList = games;
+        lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
-        localPlayer.setId(ModelFacade.facace_currentgame.getLocalPlayer());
+        localPlayer.setId(ModelFacade.facace_singleton.getLocalPlayer().getPlayerIndex().getNumber());
         getJoinGameView().setGames(games, localPlayer);
-        if(this.shouldShowGameList)
+        if(shouldShowGameList)
         {
         	if(getJoinGameView().isModalShowing())
         	{
@@ -158,11 +158,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         	}
             getJoinGameView().showModal();
         }
-        else if(this.game != null)
+        else if(game != null)
         {
-            for(GameInfo gameInList : this.lastList)
+            for(GameInfo gameInList : lastList)
             {
-                if(this.game.getId() == gameInList.getId())
+                if(game.getId() == gameInList.getId())
                 {
                     if(gameInList.getPlayers().size() == 4)
                     {
@@ -179,10 +179,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                             	}
                                 return;
                             }
-                        this.cancelJoinGame();
+                        cancelJoinGame();
                     }
                     else
-                        this.startJoinGame(gameInList);
+                        startJoinGame(gameInList);
                     return;
                 }
             }
@@ -201,8 +201,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 refreshGameList();
             }
         };
-        this.timer = new Timer();
-        this.timer.schedule(timerTask, 0, 1500);
+        timer = new Timer();
+        timer.schedule(timerTask, 0, 1500);
 	}
 
 	@Override
@@ -212,7 +212,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     	{
     		getJoinGameView().closeModal();
     	}
-        this.shouldShowGameList = false;
+        shouldShowGameList = false;
         getNewGameView().setTitle("");
         getNewGameView().setRandomlyPlaceHexes(false);
         getNewGameView().setRandomlyPlaceNumbers(false);
@@ -227,7 +227,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     	{
     		getNewGameView().closeModal();
     	}
-        this.shouldShowGameList = true;
+        shouldShowGameList = true;
         getJoinGameView().showModal();
 	}
 
@@ -242,8 +242,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         boolean validTitle = !(title == null || title.trim().equals(""));
         
         //Check title against other titles (needs to be unique)
-        if(this.lastList != null)
-            for(GameInfo info: this.lastList)
+        if(lastList != null)
+            for(GameInfo info: lastList)
             {
                 if(!validTitle || info.getTitle().equals(title.trim()))
                 {
@@ -254,8 +254,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             }
         if(!validTitle)
         {
-            this.getMessageView().setMessage("Invalid title -- check to see if a game with that name already exists.");
-            this.getMessageView().showModal();
+            getMessageView().setMessage("Invalid title -- check to see if a game with that name already exists.");
+            getMessageView().showModal();
             return;
         }
         
@@ -265,7 +265,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
 		try
 		{
-			ModelFacade.facace_currentgame.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+			ModelFacade.facace_singleton.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
 		} 
 		catch (Exception e)
 		{
@@ -273,67 +273,110 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		}
         
         getJoinGameView().showModal();
-        this.shouldShowGameList = true;
-        this.refreshGameList();
+        shouldShowGameList = true;
+        refreshGameList();
     }
 
     @Override
     public void startJoinGame(GameInfo game) 
     {
-        //this doesn't work
-        /*
         this.game = game;
-        this.shouldShowGameList = false;
-        ArrayList<PlayerInfo> currentplayers =  (ArrayList<PlayerInfo>) game.getPlayers();
+        shouldShowGameList = false;
+        ArrayList<PlayerInfo> currentplayers = (ArrayList<PlayerInfo>) game.getPlayers();
         ArrayList<CatanColor> currentColorsTaken = new ArrayList<CatanColor>();
         
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-            if(playerinfo.getId() != ModelFacade.facace_currentgame.getLocalPlayer())
+            if(playerinfo.getId() != ModelFacade.facace_singleton.getLocalPlayer().getPlayerIndex().getNumber())
             {
                 currentColorsTaken.add(playerinfo.getColor());
             }
         }
-        if(currentColorsTaken.equals(this.colorsTaken))
+        if(currentColorsTaken.equals(colorsTaken))
         {
             return;
         }
         
         //Color now assigned to client player
-        this.colorsTaken = currentColorsTaken;
+        colorsTaken = currentColorsTaken;
         for(CatanColor color: CatanColor.values())
         {
             getSelectColorView().setColorEnabled(color, !colorsTaken.contains(color));
         }
-        if(!this.getMessageView().isModalShowing())
+        if(!getMessageView().isModalShowing())
         {
             getSelectColorView().showModal();
         }
-        */
-        getSelectColorView().showModal();
 	}
     
 	@Override
-	public void cancelJoinGame() {
+	public void cancelJoinGame() 
+	{
 	
 		getJoinGameView().closeModal();
 	}
 
 	@Override
-	public void joinGame(CatanColor color) {
-		
-		// If join succeeded
-		getSelectColorView().closeModal();
-		getJoinGameView().closeModal();
-		joinAction.execute();
+	public void joinGame(CatanColor color)
+	{		
+        ArrayList<CatanGame> games = ModelFacade.facace_singleton.getModel().listGames();
+        for(CatanGame game: games)
+        {
+            if(game.getGameId() == this.game.getId())
+            {
+                for(Player player: game.getMyplayers().values())
+                {
+                    getSelectColorView().setColorEnabled(color, false);
+                    if(player.getColor().equals(color) && 
+                    		player.getPlayerIndex().getNumber() != 
+                    		ModelFacade.facace_singleton.getLocalPlayer().getPlayerIndex().getNumber())
+                    {
+                        getMessageView().setMessage("Cannot join with that color.  Already taken.");
+                        getMessageView().showModal();
+                        return;
+                    }
+                }
+                break;
+            }
+        }
+        ModelFacade.facace_singleton.getModel().joinGame(ModelFacade.facace_singleton.getLocalPlayer(), game.getId());
+        
+        timer.cancel();
+        if(getSelectColorView().isModalShowing())
+        {
+        	getSelectColorView().closeModal();
+        }
+        if(getJoinGameView().isModalShowing())
+        {
+        	getJoinGameView().closeModal();
+        }
+        joinAction.execute();
+
 	}
 
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
-		// TODO Auto-generated method stub
-		
+		if(arg1 != null)
+        {
+            if(getJoinGameView().isModalShowing())
+            {
+                getJoinGameView().closeModal();
+            }
+            if(getMessageView().isModalShowing())
+            {
+                getMessageView().closeModal();
+            }
+            if(getNewGameView().isModalShowing())
+            {
+                getNewGameView().closeModal();
+            }
+            if(getSelectColorView().isModalShowing())
+            {
+                getSelectColorView().closeModal();
+            }
+        }		
 	}
 
 }

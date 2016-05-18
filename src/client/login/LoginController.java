@@ -10,6 +10,7 @@ import java.util.*;
 import java.lang.reflect.*;
 
 import server.proxies.*;
+import shared.game.map.Index;
 import shared.game.player.Player;
 //import com.google.gson.*;
 //import com.google.gson.reflect.TypeToken;
@@ -87,8 +88,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 			loginAction.execute();
 		}
 		
-		//Get ID from cookie
-		//ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
+		createPlayerFromCookie(username, password);
 	}
 
 	@Override
@@ -109,10 +109,37 @@ public class LoginController extends Controller implements ILoginController, Obs
 			System.out.println("i failed to register");
 		}
 		
-		//Get ID from cookie
-		//ModelFacade.facace_singleton.setLocalPlayer(server.loginUser(username, password).getUserCookie());
+		createPlayerFromCookie(username,password);
 	}
 
+	public void createPlayerFromCookie(String username, String password)
+	{
+		//Create player object from cookie info
+		Player localplayer = new Player(null,null,null);
+		String decodedCookie = URLDecoder.decode(server.loginUser(username, password).getUserCookie());
+		String[] splitCookie = decodedCookie.split(",");
+		for (int i = 0; i < splitCookie.length; i++)
+		{
+			String[] splitinfo = splitCookie[i].split(":");
+			
+			switch(i)
+			{
+			case 0:
+				localplayer.setName(splitinfo[1]);
+				
+				break;
+			case 1:
+				break;
+			case 2:
+				localplayer.setPlayerIndex(new Index(Integer.parseInt(splitinfo[1])));
+				break;
+			}
+		}
+
+
+		ModelFacade.facace_singleton.setLocalPlayer(localplayer);
+	}
+	
 	@Override
 	public void update(Observable arg0, Object arg1)
 	{
