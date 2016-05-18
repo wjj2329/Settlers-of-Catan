@@ -54,6 +54,10 @@ public class CatanGame
 	private Index version=new Index(0);
 	private Index winner=new Index(0);
 	private TradeOffer mytradeoffer=new TradeOffer();
+	private boolean randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts;
+	private String title;
+	
+	
 	// If there is a singleton, then this shouldn't exist.
 
 	public CatanGame()
@@ -63,10 +67,12 @@ public class CatanGame
 
 	public CatanGame(IServer server, boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception
 	{
-
+		this.server = server;
+		this.randomlyPlaceNumbers = randomlyPlaceNumbers;
+		this.randomlyPlaceHexes = randomlyPlaceHexes;
+		this.randomPorts = randomPorts;
+		this.title = title;
 	}
-	// If this is a singleton, then this shouldn't exist.
-	//for testting purposes only
 
 	public Map<Index, Player> getMyplayers() {
 		return myplayers;
@@ -242,8 +248,7 @@ public class CatanGame
 
 	public String getTitle()
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return title;
 	}
 
 	public IServer getServer()

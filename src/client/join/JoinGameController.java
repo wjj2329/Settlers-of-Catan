@@ -8,7 +8,6 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.player.Player;
