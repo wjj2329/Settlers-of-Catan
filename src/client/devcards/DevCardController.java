@@ -1,7 +1,10 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+import shared.game.DevCardList;
 import client.base.*;
+import client.model.ModelFacade;
 
 
 /**
@@ -41,8 +44,9 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		
-		getBuyCardView().showModal();
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuyDevCard()){
+			getBuyCardView().showModal();
+		}
 	}
 
 	@Override
@@ -59,6 +63,17 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startPlayCard() {
+		
+		DevCardList oldDevList = new DevCardList(2, 2, 2, 2, 1);
+//		DevCardList oldDevlist = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getOldDevCards();
+		
+		if(oldDevList.getTotalCardNum()>0){
+			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, oldDevList.getMonopoly());
+			getPlayCardView().setCardAmount(DevCardType.MONUMENT, oldDevList.getMonument());
+			getPlayCardView().setCardAmount(DevCardType.ROAD_BUILD, oldDevList.getRoadBuilding());
+			getPlayCardView().setCardAmount(DevCardType.SOLDIER, oldDevList.getSoldier());
+			getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, oldDevList.getYearOfPlenty());	
+		}
 		
 		getPlayCardView().showModal();
 	}
