@@ -1,11 +1,13 @@
 package client.model;
 
+import client.State.State;
 import client.main.Catan;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import server.proxies.IServer;
 import shared.chat.*;
 import shared.definitions.CatanColor;
 import shared.definitions.HexType;
@@ -43,10 +45,6 @@ public class ModelFacade extends Observable
 	public CatanGame currentgame;
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private int localplayerID;
-
-
-
-
 	public JSONObject serializeModel() throws JSONException
 	{
 
