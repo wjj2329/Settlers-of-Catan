@@ -5,6 +5,7 @@ import shared.definitions.ResourceType;
 import shared.game.DevCardList;
 import client.base.*;
 import client.model.ModelFacade;
+import server.proxies.IServer;
 
 
 /**
@@ -15,6 +16,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
 	private IAction roadAction;
+	private IServer server;
 	
 	/**
 	 * DevCardController constructor
@@ -28,7 +30,7 @@ public class DevCardController extends Controller implements IDevCardController 
 								IAction soldierAction, IAction roadAction) {
 
 		super(view);
-		
+		server = ModelFacade.facace_currentgame.currentgame.getServer();
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
@@ -86,12 +88,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+		server.playMonopoly("Monopoly", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource.name());
 	}
 
 	@Override
 	public void playMonumentCard() {
-		
+		server.playMonument("Monument", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
 	@Override
@@ -108,7 +110,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		
+		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource1.name(), resource2.name());
 	}
 
 }

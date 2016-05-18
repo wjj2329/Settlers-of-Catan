@@ -56,9 +56,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI() 
 	{
-		String addAiRequest = "{\n"
-                + "\"AIType\": \"LARGEST_ARMY\""
-                + "\n}";
+		String addAiRequest = "LARGEST_ARMY";
         ModelFacade.facace_currentgame.currentgame.getServer().addAIPlayer(addAiRequest);
 	}
 	
