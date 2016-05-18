@@ -112,7 +112,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
-		ModelFacade.facace_currentgame.loadGames();
         ArrayList<CatanGame> gamesList = ModelFacade.facace_currentgame.getModel().listGames();
 
         if (gamesList == null)
@@ -274,6 +273,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		try
 		{
 			ModelFacade.facace_currentgame.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+			ModelFacade.facace_currentgame.loadGames();
 		} 
 		catch (Exception e)
 		{

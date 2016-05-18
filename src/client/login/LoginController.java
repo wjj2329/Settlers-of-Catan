@@ -83,7 +83,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 		String password1 = getLoginView().getLoginPassword();
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
-			
+
+			ModelFacade.facace_currentgame.loadGames();
 			server.loginUser(username1, password1);
 			// If log in succeeded
 			getLoginView().closeModal();
@@ -109,6 +110,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 				server.loginUser(username, password);
 				getLoginView().closeModal();
 				loginAction.execute();
+				ModelFacade.facace_currentgame.loadGames();
 			}
 			System.out.println("i failed to register");
 		}
