@@ -247,9 +247,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         boolean randomPorts = getNewGameView().getUseRandomPorts();
         boolean validTitle = !(title == null || title.trim().equals(""));
         
-        
-        //System.out.println("Size of lastList is " + lastList.length);
-        
         //Check title against other titles (needs to be unique)
         if(lastList != null)
             for(GameInfo info: lastList)

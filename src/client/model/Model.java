@@ -49,8 +49,11 @@ public class Model
 	 * @param randomlyPlaceHexes 
 	 * @param randomlyPlaceNumbers 
 	 **/
-	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception {
-		gamelist.add(new CatanGame(new MockServer(), randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title));
+	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
+	{
+		CatanGame game = new CatanGame(server, randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
+		//gamelist.add(game);
 	}
 	
 	/**
