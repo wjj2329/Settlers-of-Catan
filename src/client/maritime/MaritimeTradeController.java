@@ -6,19 +6,23 @@ import client.base.*;
 
 /**
  * Implementation for the maritime trade controller
+ * Alex is working on this currently.
  */
-public class MaritimeTradeController extends Controller implements IMaritimeTradeController {
+public class MaritimeTradeController extends Controller implements IMaritimeTradeController
+{
 
 	private IMaritimeTradeOverlay tradeOverlay;
 	
-	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
+	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
+	{
 		
 		super(tradeView);
 
 		setTradeOverlay(tradeOverlay);
 	}
 	
-	public IMaritimeTradeView getTradeView() {
+	public IMaritimeTradeView getTradeView()
+	{
 		
 		return (IMaritimeTradeView)super.getView();
 	}
@@ -32,44 +36,49 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	}
 
 	@Override
-	public void startTrade() {
-
+	public void startTrade()
+	{
 		System.out.println("i start the trade");
 		getTradeOverlay().showModal();
 	}
 
 	@Override
-	public void makeTrade() {
+	public void makeTrade()
+	{
 		System.out.println("i make the trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
-	public void cancelTrade() {
-
+	public void cancelTrade()
+	{
 		System.out.println("i cancel the trade");
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
-	public void setGetResource(ResourceType resource) {
+	public void setGetResource(ResourceType resource)
+	{
 		System.out.println("This is the type "+resource.toString());
 
 	}
 
 	@Override
-	public void setGiveResource(ResourceType resource) {
+	public void setGiveResource(ResourceType resource)
+	{
 		System.out.println("This is the type "+resource.toString());
 
 	}
 
 	@Override
-	public void unsetGetValue() {
+	public void unsetGetValue()
+	{
 
 	}
 
 	@Override
-	public void unsetGiveValue() {
+	public void unsetGiveValue()
+	{
 
 	}
 

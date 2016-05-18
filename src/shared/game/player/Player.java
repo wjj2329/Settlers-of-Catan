@@ -304,7 +304,7 @@ public class Player
 	/**
 	 * Function to determine whether or not the player can trade with the bank
 	 * based on the parameters of their particular trade.
-	 * Need to replace sampleBank with Bank singleton most likely.
+	 * Attention: The bank is no longer a singleton. lolwhoops.
 	 * @param tradeType: the type of trade being performed, based on the port type
 	 * @param typeFor_3_Or4Way: if it's 3-way or 4-way, we will need additional specifications
 	 * @param typeRequesting: which type the player wants!

@@ -1,5 +1,6 @@
 package shared.game;
 
+import shared.definitions.HexType;
 import shared.definitions.ResourceType;
 
 /**
@@ -95,6 +96,30 @@ public class ResourceList
 				return wood;
 			default:
 				return -1;
+		}
+	}
+
+	/**
+	 * Helps with players obtaining the proper resources based on the hexes that they own.
+	 * @param hexType: the HexType we are passing in; which resource it has
+	 * @pre: The HexType passed in is NOT of type Desert or Water. It must have the proper resources.
+     */
+	public void incrementBasedOnHexType(HexType hexType)
+	{
+		switch (hexType)
+		{
+			case WOOD:
+				wood++;
+			case ORE:
+				ore++;
+			case BRICK:
+				brick++;
+			case WHEAT:
+				wheat++;
+			case SHEEP:
+				sheep++;
+			default:
+				assert false; // should NOT be any desert or water types passed here
 		}
 	}
 }
