@@ -147,7 +147,13 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		server.buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc);
+		String mytest=server.buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		try {
+			JSONObject mine=new JSONObject(mytest);
+			ModelFacade.facace_currentgame.updateFromJSON(mine);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
@@ -185,8 +191,13 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		server.buildCity("buildCity",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),vertLoc);
-
+		String response= server.buildCity("buildCity",0,vertLoc).getResponse();
+		try {
+			JSONObject mine=new JSONObject(response);
+			ModelFacade.facace_currentgame.updateFromJSON(mine);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
