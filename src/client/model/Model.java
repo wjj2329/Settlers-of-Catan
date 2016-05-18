@@ -52,8 +52,8 @@ public class Model
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
 		CatanGame game = new CatanGame(server, randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
-		//server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
-		gamelist.add(game);
+		server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts); // will actually use this in the end
+		//gamelist.add(game);
 	}
 	
 	/**
@@ -63,6 +63,13 @@ public class Model
 	{
 		return gamelist;
 	}
+	
+	public void setListGames(ArrayList<CatanGame> games){
+		System.out.println("sdfasdf");
+		gamelist = games;
+		System.out.println("done");
+	}
+	
 	
 	/**
 	 * JoinGame: The player can join a game. Games must have 4 players in order

@@ -5,6 +5,9 @@ import static org.junit.Assert.*;
 import java.net.HttpURLConnection;
 
 import org.junit.Test;
+
+import client.model.ModelFacade;
+
 import org.junit.After;
 import org.junit.Before;
 
@@ -21,6 +24,11 @@ IServer iserver;
 	
 	@After
 	public void tearDown(){
+	}
+	
+	@Test
+	public void testCrap(){
+		ModelFacade.facace_currentgame.loadGames();
 	}
 	
 	
