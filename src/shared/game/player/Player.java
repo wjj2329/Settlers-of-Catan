@@ -51,7 +51,7 @@ public class Player
 
 	/**
 	 * numMonuments: how many monuments a player has.
-	 * I don't know what this is, and I don't think we need this. Even though I think I created it.
+	 * I don't know what this is, but we get it for the JSON. So it is probably used for something.
 	 * :D ~ Alex
 	 */
 	private int numMonuments = 0;
@@ -125,6 +125,8 @@ public class Player
 	 */
 	private int numRoadPiecesRemaining = 15;
 
+	private int numRoadPiecesRemainingForSetupPhase = 2;
+
 	/**
 	 * All the RoadPieces owned by the Player
 	 */
@@ -145,12 +147,6 @@ public class Player
 	 * Everyone starts off with 2. 10+ on your turn to win!
 	 */
 	private int numVictoryPoints = 0;
-
-	/**
-	 * Creating this because Java doesn't like passing booleans by reference -_-
-	 * Please do not delete
-	 */
-	private boolean neitherBorderingEdgeHasARoad = false;
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
@@ -446,7 +442,6 @@ public class Player
 			else
 			{
 				RoadPiece piece = hex.buildRoad(edge, playerID);
-				// I *think* this works, but we will see.
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
 				//piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
@@ -472,7 +467,6 @@ public class Player
 			case NorthWest:
 				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
 				adjacent = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc1);
-				//setMe = new EdgeLocation(loc, edge.getDir().getOppositeDirection());
 				break;
 			case North:
 				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
@@ -497,24 +491,8 @@ public class Player
 			default:
 				assert false;
 		}
-		//System.out.println("The value at our hex is " + initial.getResourcenumber());
-		//System.out.println("The value at the adjacent hex is: " + adjacent.getResourcenumber());
 		assert(adjacent != null);
 		return adjacent;
-	}
-
-	/**
-	 * Each road will exist on TWO hexes. This computes the second one.
-	 *
-	 * @param initial: the initial edgeLocation that we already have
-	 * @param newHex: the new hex that we have computed: the one that shares the road
-	 *              with our initial hex.
-     */
-	private EdgeLocation computeAdjacentEdgeLocation(EdgeLocation initial, Hex newHex)
-	{
-		System.out.println("Our initial direction is actually " + initial.getDir().toString());
-		System.out.println("The opposite direction is going to be " + initial.getDir().getOppositeDirection().toString());
-		return new EdgeLocation(newHex.getLocation(), initial.getDir().getOppositeDirection());
 	}
 
 	public void buildSettlement(Hex buildingon, VertexLocation locationofsettlement) throws Exception
@@ -552,7 +530,6 @@ public class Player
 	 */
 	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 	{
-		neitherBorderingEdgeHasARoad = false;
 		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
 		{
 			return false;
@@ -565,27 +542,17 @@ public class Player
 		{
 			return false;
 		}
-		/*Hex adjacent = computeAdjacentHex(hex, edge);
-		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);*/
 		if (!checkForOtherRoadsAndStructures(hex, edge))
 		{
 			return false;
 		}
-		/*if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
-		{
-			//System.out.println("Regular direction is " + edge.getDir());
-			//System.out.println("Adjacent direction is " + adjLoc);
-			return false;
-		}
-		if (!checkAdjacentSettlements(hex, edge))
-		{
-			return false;
-		}*/
 		return true;
 	}
 
 	/**
-	 * I am trying to fix this again.
+	 * Function that analyzes the neighboring settlements and roads.
+	 * We don't need to worry about looking for cities since settlements will
+	 * always be there.
 	 * Directions: NorthWest, North, NorthEast, SouthEast, South, SouthWest.
      */
 	private boolean checkForOtherRoadsAndStructures(Hex hex1, EdgeLocation edgeIAmTryingToPlaceRoadOn)
@@ -597,6 +564,10 @@ public class Player
 			return false;
 		}
 		Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
+		if (adjacent == null)
+		{
+			return false;
+		}
 		if (hex1.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 		{
 			return false;
@@ -618,11 +589,6 @@ public class Player
 		EdgeLocation upEdge = getUpEdge(edgeIAmTryingToPlaceRoadOn, hex1);
 		EdgeLocation downEdge = getDownEdge(edgeIAmTryingToPlaceRoadOn, hex1);
 		// Now need to do this with adjacent hex
-		/*Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
-		if (hex1.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
-		{
-			return false;
-		}*/
 		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
 		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
 		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
@@ -645,6 +611,11 @@ public class Player
 		return false;
 	}
 
+	/**
+	 * Computes the opposite edge in the neighboring hexagon.
+	 * @param original: original edge
+	 * @param adjacent: adjacent hex where we need to compute the new edge
+     */
 	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
 	{
 		switch (original.getDir())
@@ -671,8 +642,8 @@ public class Player
 	/**
 	 * Returns the vertex that is clockwisely up from edge
 	 * @post: the "return null" case at the end should never be reached.
-	 * @param edgeIAmTryingToPlaceRoadOn
-	 * @param hex1
+	 * @param edgeIAmTryingToPlaceRoadOn: the edge we are trying to place the road on
+	 * @param hex1: the corresponding hex.
      */
 	private VertexLocation getUpVertex(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
 	{
@@ -697,6 +668,9 @@ public class Player
 		return null;
 	}
 
+	/**
+	 * Gets the vertex directly below the given edge.
+     */
 	private VertexLocation getDownVertex(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
 	{
 		switch (edgeIAmTryingToPlaceRoadOn.getDir())
@@ -720,6 +694,9 @@ public class Player
 		return null;
 	}
 
+	/**
+	 * Gets the edge "above" our current one
+     */
 	private EdgeLocation getUpEdge(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
 	{
 		switch (edgeIAmTryingToPlaceRoadOn.getDir())
@@ -743,6 +720,9 @@ public class Player
 		return null;
 	}
 
+	/**
+	 * Gets the edge "below" our current one
+     */
 	private EdgeLocation getDownEdge(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
 	{
 		switch (edgeIAmTryingToPlaceRoadOn.getDir())
@@ -766,43 +746,41 @@ public class Player
 		return null;
 	}
 
+	/**
+	 * Function to see whether or not we can build a particular road
+	 * at a particular location on the map.
+	 * @param hex: hex we're trying to build on
+	 * @param edge: edge we're trying to build the road on
+     */
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
 		if (hex == null || edge == null) // added the edge one
 		{
 			return false;
 		}
+		if (numRoadPiecesRemainingForSetupPhase <= 0)
+		{
+			return false;
+		}
 		if (!currentPlayer)
 		{
-			System.out.println("false: not current player");
 			return false;
 		}
 		if (edge.hasRoad())
 		{
-			System.out.println("false: Edge already has a road");
 			return false;
 		}
 		if (!checkForOtherRoadsAndStructures(hex, edge))
 		{
 			return false;
 		}
-		/*Hex adjacent = computeAdjacentHex(hex, edge);
-		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);*/
-		/*if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
-		{
-			//System.out.println("false: adjacent edge sucks/has crap on it");
-			return false;
-		}
-		if (!checkAdjacentSettlements(hex, edge) && !checkAdjacentSettlements(adjacent, adjLoc))
-		{
-			//System.out.println("false: adjacent settlements are not there");
-			//System.out.println("Regular direction is " + edge);
-			//System.out.println("Adjacent direction is " + adjLoc);
-			return false;
-		}*/
-		return true; // idk if I need this or just a boolean
+		return true;
 	}
 
+	/**
+	 * Function to actually build the road during the setup phase.
+	 * Players should only be able to build two road pieces.
+     */
 	public boolean buildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
 		if (canBuildRoadPieceSetupState(hex, edge))
@@ -817,9 +795,9 @@ public class Player
 			else
 			{
 				RoadPiece piece = hex.buildRoad(edge, playerID);
-				// I *think* this works, but we will see.
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
+				numRoadPiecesRemainingForSetupPhase--; // that way they can only build 2
 				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
 				roadPieces.add(piece2);
@@ -840,134 +818,6 @@ public class Player
 			System.out.println("The number of brick peices left " + resources.getBrick());
 			System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
 		}
-	}
-
-	private boolean checkAdjacentSettlements(Hex hex, EdgeLocation edge)
-	{
-		VertexLocation vertexClockwiseUpper = null;
-		VertexLocation vertexClockwiseLower = null;
-		switch(edge.getDir())
-		{
-			case NorthWest:
-				vertexClockwiseUpper = hex.getNorthwest();
-				vertexClockwiseLower = hex.getWest();
-				break;
-			case North:
-				vertexClockwiseUpper = hex.getNortheast();
-				vertexClockwiseLower = hex.getNorthwest();
-				break;
-			case NorthEast:
-				vertexClockwiseUpper = hex.getEast();
-				vertexClockwiseLower = hex.getNortheast();
-				break;
-			case SouthEast:
-				vertexClockwiseUpper = hex.getSoutheast();
-				vertexClockwiseLower = hex.getEast();
-				break;
-			case South:
-				vertexClockwiseUpper = hex.getSouthwest();
-				vertexClockwiseLower = hex.getSoutheast();
-				break;
-			case SouthWest:
-				vertexClockwiseUpper = hex.getWest();
-				vertexClockwiseLower = hex.getSouthwest();
-				break;
-			default:
-				assert false;
-		}
-		if (vertexClockwiseLower.isHassettlement() && !vertexClockwiseLower.getSettlement().getOwner().equals(playerID))
-		// need a pointer to settlement; get playerID
-		{
-			return false;
-		}
-		if (vertexClockwiseUpper.isHassettlement() && !vertexClockwiseUpper.getSettlement().getOwner().equals(playerID))
-		{
-			return false;
-		}
-		if (vertexClockwiseLower.isHascity() && !vertexClockwiseLower.getCity().getOwner().equals(playerID))
-		{
-			return false;
-		}
-		if (vertexClockwiseUpper.isHascity() && !vertexClockwiseUpper.getCity().getOwner().equals(playerID))
-		{
-			return false;
-		}
-		// there HAS to be a city, settlement, or road adjacent to it.
-		if (!vertexClockwiseLower.isHassettlement() && !vertexClockwiseUpper.isHassettlement()
-				&& !vertexClockwiseLower.isHascity() && !vertexClockwiseUpper.isHascity() && neitherBorderingEdgeHasARoad)
-		{
-			//System.out.println("bool: " + neitherBorderingEdgeHasARoad);
-			System.out.println("The FIFTH one");
-			return false;
-		}
-
-		return true;
-	}
-
-	private boolean checkAdjacentEdges(Hex hex, EdgeLocation edge)
-	{
-		assert(edge != null && hex != null);
-		EdgeLocation adjacentEdgeClockwiseUp = null;
-		EdgeLocation adjacentEdgeClockwiseDown = null;
-
-		if (hex == null)
-		{
-			return false;
-		}
-
-		switch (edge.getDir())
-		{
-			case NorthWest:
-				adjacentEdgeClockwiseUp = hex.getN();
-				adjacentEdgeClockwiseDown = hex.getSw();
-				break;
-			case North:
-				adjacentEdgeClockwiseUp = hex.getNe();
-				adjacentEdgeClockwiseDown = hex.getNw();
-				break;
-			case NorthEast:
-				adjacentEdgeClockwiseUp = hex.getSe();
-				adjacentEdgeClockwiseDown = hex.getN();
-				break;
-			case SouthEast:
-				adjacentEdgeClockwiseUp = hex.getS();
-				adjacentEdgeClockwiseDown = hex.getNe();
-				break;
-			case South:
-				adjacentEdgeClockwiseUp = hex.getSw();
-				adjacentEdgeClockwiseDown = hex.getSe();
-				break;
-			case SouthWest:
-				adjacentEdgeClockwiseUp = hex.getNw();
-				adjacentEdgeClockwiseDown = hex.getS();
-				break;
-			default:
-				assert false;
-		}
-		if (adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseUp.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
-		{
-			return false;
-		}
-		if (adjacentEdgeClockwiseDown.hasRoad() && !adjacentEdgeClockwiseDown.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
-		{
-			return false;
-		}
-		if (!adjacentEdgeClockwiseUp.hasRoad() && !adjacentEdgeClockwiseDown.hasRoad())
-		{
-			System.out.println("Neither bordering edge has a road - can't build here");
-			System.out.println("The current edge direction is " + edge.getDir().toString());
-			System.out.println("The hex location is " + hex.getLocation().toString());
-			System.out.println("The adjacent edge clockwise UP is " + adjacentEdgeClockwiseUp.getDir().toString());
-			System.out.println("The adjacent edge clockwise DOWN is " + adjacentEdgeClockwiseDown.getDir().toString());
-			// This is returning true when it shouldn't, which means the edges' boolean isn't working
-			neitherBorderingEdgeHasARoad = true;
-		}
-		else
-		{
-			neitherBorderingEdgeHasARoad = false;
-		}
-		//Hex adjacent = computeAdjacentHex(hex, edge);
-		return true; // if no issues
 	}
 
 	/**
