@@ -20,7 +20,7 @@ import java.util.ArrayList;
 public class Hex 
 {
 	private HexLocation location = null;
-	private HexType resourcetype = null;
+	private HexType resourcetype = HexType.DESERT;
 	private NumberToken resourcenumber=null;
 	private Port myport=null;
 	private ArrayList<Settlement> settlements = new ArrayList<>();

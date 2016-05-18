@@ -565,9 +565,13 @@ public class Player
 		{
 			return false;
 		}
-		Hex adjacent = computeAdjacentHex(hex, edge);
-		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);
-		if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
+		/*Hex adjacent = computeAdjacentHex(hex, edge);
+		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);*/
+		if (!checkForOtherRoadsAndStructures(hex, edge))
+		{
+			return false;
+		}
+		/*if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
 		{
 			//System.out.println("Regular direction is " + edge.getDir());
 			//System.out.println("Adjacent direction is " + adjLoc);
@@ -576,7 +580,7 @@ public class Player
 		if (!checkAdjacentSettlements(hex, edge))
 		{
 			return false;
-		}
+		}*/
 		return true;
 	}
 
@@ -588,14 +592,23 @@ public class Player
 	{
 		VertexLocation up = getUpVertex(edgeIAmTryingToPlaceRoadOn, hex1);
 		VertexLocation down = getDownVertex(edgeIAmTryingToPlaceRoadOn, hex1);
-		if (up.isHassettlement())
+		if (hex1 == null)
+		{
+			return false;
+		}
+		Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
+		if (hex1.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+		{
+			return false;
+		}
+		if (up != null && up.isHassettlement())
 		{
 			if (up.getSettlement().getOwner().equals(playerID))
 			{
 				return true;
 			}
 		}
-		if (down.isHassettlement())
+		if (down != null && down.isHassettlement())
 		{
 			if (down.getSettlement().getOwner().equals(playerID))
 			{
@@ -605,23 +618,27 @@ public class Player
 		EdgeLocation upEdge = getUpEdge(edgeIAmTryingToPlaceRoadOn, hex1);
 		EdgeLocation downEdge = getDownEdge(edgeIAmTryingToPlaceRoadOn, hex1);
 		// Now need to do this with adjacent hex
-		Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
+		/*Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
+		if (hex1.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+		{
+			return false;
+		}*/
 		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
 		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
 		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
-		if (upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		if (upEdge != null && upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
 		}
-		if (downEdge.hasRoad() && downEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		if (downEdge != null && downEdge.hasRoad() && downEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
 		}
-		if (upEdgeAdjacent.hasRoad() && upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		if (upEdgeAdjacent != null && upEdgeAdjacent.hasRoad() && upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
 		}
-		if (downEdgeAdjacent.hasRoad() && downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		if (downEdgeAdjacent != null && downEdgeAdjacent.hasRoad() && downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
 		}
