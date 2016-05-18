@@ -266,7 +266,7 @@ public class ModelFacade extends Observable
 
 		int version = myObject.getInt("version");
 		int winner_convertToIndex = myObject.getInt("winner");
-		notifyAll();//So it won't let me call this :(
+		notifyObservers();//So it won't let me call this :(
 	}
 
 	private void loadBank(JSONObject bank) throws JSONException

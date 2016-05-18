@@ -171,7 +171,7 @@ public class MapController extends Controller implements IMapController, Observe
 			insert=true;
 		}
 		//ModelFacade.facace_currentgame.currentgame.getServer().loginUser("Sam","sam");
-		//ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(0,"orange");
+		ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(0,"orange");
 
 		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
 		System.out.println(mytest);
