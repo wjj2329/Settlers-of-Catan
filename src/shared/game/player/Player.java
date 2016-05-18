@@ -17,6 +17,7 @@ import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 import java.util.ArrayList;
@@ -436,9 +437,7 @@ public class Player
 		{
 			numRoadPiecesRemaining = numRoadPiecesRemaining - 1;
 			Hex adjacent = computeAdjacentHex(hex, edge);
-			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
-			edge.getDir(); //returns an edgeDirection
-
+			EdgeLocation edge2 = computeOppositeEdge(edge, adjacent);
 			// check the other hex
 			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 			{
@@ -446,14 +445,13 @@ public class Player
 			}
 			else
 			{
-				//edge.setHasRoad(true);
-				//edge2.setHasRoad(true); // what if I comment these out?
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
-				piece.setLocation(edge.getNormalizedLocation());
+				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
-				piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
+				//piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
 				roadPieces.add(piece);
+				roadPieces.add(piece2); // maybe
 				return true;
 			}
 		}
@@ -588,25 +586,167 @@ public class Player
      */
 	private boolean checkForOtherRoadsAndStructures(Hex hex1, EdgeLocation edgeIAmTryingToPlaceRoadOn)
 	{
+		VertexLocation up = getUpVertex(edgeIAmTryingToPlaceRoadOn, hex1);
+		VertexLocation down = getDownVertex(edgeIAmTryingToPlaceRoadOn, hex1);
+		if (up.isHassettlement())
+		{
+			if (up.getSettlement().getOwner().equals(playerID))
+			{
+				return true;
+			}
+		}
+		if (down.isHassettlement())
+		{
+			if (down.getSettlement().getOwner().equals(playerID))
+			{
+				return true;
+			}
+		}
+		EdgeLocation upEdge = getUpEdge(edgeIAmTryingToPlaceRoadOn, hex1);
+		EdgeLocation downEdge = getDownEdge(edgeIAmTryingToPlaceRoadOn, hex1);
+		// Now need to do this with adjacent hex
+		Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
+		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
+		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
+		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
+		if (upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return true;
+		}
+		if (downEdge.hasRoad() && downEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return true;
+		}
+		if (upEdgeAdjacent.hasRoad() && upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return true;
+		}
+		if (downEdgeAdjacent.hasRoad() && downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
+		{
+			return true;
+		}
+		return false;
+	}
+
+	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
+	{
+		switch (original.getDir())
+		{
+			case NorthWest:
+				return adjacent.getSe();
+			case North:
+				return adjacent.getS();
+			case NorthEast:
+				return adjacent.getSw();
+			case SouthEast:
+				return adjacent.getNw();
+			case South:
+				return adjacent.getN();
+			case SouthWest:
+				return adjacent.getNe();
+			default:
+				assert false;
+				break;
+		}
+		return null;
+	}
+
+	/**
+	 * Returns the vertex that is clockwisely up from edge
+	 * @post: the "return null" case at the end should never be reached.
+	 * @param edgeIAmTryingToPlaceRoadOn
+	 * @param hex1
+     */
+	private VertexLocation getUpVertex(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
+	{
 		switch (edgeIAmTryingToPlaceRoadOn.getDir())
 		{
 			case NorthWest:
-
-				break;
+				return hex1.getNorthwest();
 			case North:
-				break;
+				return hex1.getNortheast();
 			case NorthEast:
-				break;
+				return hex1.getEast();
 			case SouthEast:
-				break;
+				return hex1.getSoutheast();
 			case South:
-				break;
+				return hex1.getSouthwest();
 			case SouthWest:
-				break;
+				return hex1.getWest();
 			default:
 				assert false;
 		}
-		return false;
+		// This should never be executed.
+		return null;
+	}
+
+	private VertexLocation getDownVertex(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
+	{
+		switch (edgeIAmTryingToPlaceRoadOn.getDir())
+		{
+			case NorthWest:
+				return hex1.getWest();
+			case North:
+				return hex1.getNorthwest();
+			case NorthEast:
+				return hex1.getNortheast();
+			case SouthEast:
+				return hex1.getEast();
+			case South:
+				return hex1.getSoutheast();
+			case SouthWest:
+				return hex1.getSouthwest();
+			default:
+				assert false;
+		}
+		// This should never be executed.
+		return null;
+	}
+
+	private EdgeLocation getUpEdge(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
+	{
+		switch (edgeIAmTryingToPlaceRoadOn.getDir())
+		{
+			case NorthWest:
+				return hex1.getN();
+			case North:
+				return hex1.getNe();
+			case NorthEast:
+				return hex1.getSe();
+			case SouthEast:
+				return hex1.getS();
+			case South:
+				return hex1.getSw();
+			case SouthWest:
+				return hex1.getNw();
+			default:
+				assert false;
+		}
+		// This should never be executed
+		return null;
+	}
+
+	private EdgeLocation getDownEdge(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
+	{
+		switch (edgeIAmTryingToPlaceRoadOn.getDir())
+		{
+			case NorthWest:
+				return hex1.getSw();
+			case North:
+				return hex1.getNw();
+			case NorthEast:
+				return hex1.getN();
+			case SouthEast:
+				return hex1.getNe();
+			case South:
+				return hex1.getSe();
+			case SouthWest:
+				return hex1.getS();
+			default:
+				assert false;
+		}
+		// This should never be executed
+		return null;
 	}
 
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
@@ -625,9 +765,13 @@ public class Player
 			System.out.println("false: Edge already has a road");
 			return false;
 		}
-		Hex adjacent = computeAdjacentHex(hex, edge);
-		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);
-		if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
+		if (checkForOtherRoadsAndStructures(hex, edge))
+		{
+			return false;
+		}
+		/*Hex adjacent = computeAdjacentHex(hex, edge);
+		EdgeLocation adjLoc = computeAdjacentEdgeLocation(edge, adjacent);*/
+		/*if (!checkAdjacentEdges(hex, edge) && !checkAdjacentEdges(adjacent, adjLoc))
 		{
 			//System.out.println("false: adjacent edge sucks/has crap on it");
 			return false;
@@ -638,7 +782,7 @@ public class Player
 			//System.out.println("Regular direction is " + edge);
 			//System.out.println("Adjacent direction is " + adjLoc);
 			return false;
-		}
+		}*/
 		return true; // idk if I need this or just a boolean
 	}
 
@@ -647,7 +791,7 @@ public class Player
 		if (canBuildRoadPieceSetupState(hex, edge))
 		{
 			Hex adjacent = computeAdjacentHex(hex, edge);
-			EdgeLocation edge2 = computeAdjacentEdgeLocation(edge, adjacent);
+			EdgeLocation edge2 = computeOppositeEdge(edge, adjacent);
 			// check the other hex
 			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 			{
@@ -657,10 +801,11 @@ public class Player
 			{
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				// I *think* this works, but we will see.
-				piece.setLocation(edge.getNormalizedLocation());
+				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
-				piece2.setLocation(edge2.getNormalizedLocation()); // changed this
+				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
+				roadPieces.add(piece2);
 				return true;
 			}
 		}
