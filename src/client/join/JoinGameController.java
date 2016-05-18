@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import client.model.Model;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -335,6 +336,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             if(game.getGameId() == this.game.getId())
             {
                 gameindex=game.getGameId();
+                ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(gameindex,colorforit);
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);
