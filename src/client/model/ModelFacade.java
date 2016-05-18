@@ -45,7 +45,7 @@ public class ModelFacade extends Observable
 {
 	public CatanGame currentgame;
 	public static ModelFacade facace_currentgame = new ModelFacade();
-	private int localplayerID;
+	private Player localplayer;
 	public JSONObject serializeModel() throws JSONException
 	{
 
@@ -701,14 +701,20 @@ public class ModelFacade extends Observable
 		notifyAll();
 	}
 
-	public void setLocalPlayer(int ID)
+	public void setLocalPlayer(Player player)
 	{
-		localplayerID = ID;		
+		localplayer = player;		
 	}
 	
-	public int getLocalPlayer()
+	public Player getLocalPlayer()
 	{
-		return localplayerID;
+		return localplayer;
+	}
+
+	public Object listAI()
+	{
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

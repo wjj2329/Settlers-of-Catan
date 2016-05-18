@@ -103,8 +103,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 			if(server.registerUser(username,password).getResponseCode()==HttpURLConnection.HTTP_OK)
 			{
 				System.out.println("i registered them");
-				//getLoginView().closeModal();
-				//loginAction.execute();
+				getLoginView().closeModal();
+				loginAction.execute();
 			}
 			System.out.println("i failed to register");
 		}
@@ -131,13 +131,14 @@ public class LoginController extends Controller implements ILoginController, Obs
 			case 1:
 				break;
 			case 2:
+				splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
 				localplayer.setPlayerIndex(new Index(Integer.parseInt(splitinfo[1])));
 				break;
 			}
 		}
 
 
-		ModelFacade.facace_singleton.setLocalPlayer(localplayer);
+		ModelFacade.facace_currentgame.setLocalPlayer(localplayer);
 	}
 	
 	@Override

@@ -25,7 +25,7 @@ public class Model
 	private TurnTracker turntracker;
 	private double version;
 	private Index winner;
-	private ArrayList<CatanGame> gamelist;
+	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
 	private IServer server;
 	
 	/**
