@@ -25,7 +25,6 @@ import client.data.*;
  */
 public class MapController extends Controller implements IMapController, Observer
 {
-	private IServer server = new ServerProxy();
 	private IRobView robView;
 	
 	public MapController(IMapView view, IRobView robView)
@@ -34,8 +33,6 @@ public class MapController extends Controller implements IMapController, Observe
 		setRobView(robView);
 		initFromModel();
 		ModelFacade.facace_currentgame.addObserver(this);
-		server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
-		server.JoinGame(JoinGameController.gameindex, JoinGameController.colorforit);
 	}
 	
 	public IMapView getView() {
@@ -150,7 +147,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=server.buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -172,7 +169,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=server.buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -193,7 +190,7 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= server.buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facace_currentgame.currentgame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);

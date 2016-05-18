@@ -26,7 +26,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public static String passwordforit;
 	private IMessageView messageView;
 	private IAction loginAction;
-	private IServer server = new ServerProxy();
+	private IServer server = ModelFacade.facace_currentgame.currentgame.getServer();
 	
 	/**
 	 * LoginController constructor
@@ -37,7 +37,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public LoginController(ILoginView view, IMessageView messageView) {
 
 		super(view);
-		
 		this.messageView = messageView;
 	}
 	
@@ -87,6 +86,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 		{
 			usernameforit=username1;
 			passwordforit=password1;
+			server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
+
 			// If log in succeeded
 			getLoginView().closeModal();
 			loginAction.execute();
@@ -109,6 +110,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 				usernameforit=username;
 				passwordforit=password;
 				System.out.println("i registered them");
+				server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
 				getLoginView().closeModal();
 				loginAction.execute();
 			}
