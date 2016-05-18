@@ -19,7 +19,7 @@ import client.model.ModelFacade;
 
 
 /**
- * Implementation for the join game controller
+ * Implementation for the join game controller!
  */
 public class JoinGameController extends Controller implements IJoinGameController, Observer {
 
