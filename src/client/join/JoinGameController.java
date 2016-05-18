@@ -30,11 +30,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private Timer timer;
     private GameInfo game = null;
     private boolean shouldShowGameList = true;
-    private GameInfo[] lastList = null;
+    //private GameInfo[] lastList = new GameInfo[200];
+    private ArrayList<GameInfo> lastList = new ArrayList<>();
     private ArrayList<CatanColor> colorsTaken = null;
     public static  String colorforit;
     public static int gameindex;
     public static int playerindexforit=0;
+    private int arrayIndexForLastList = 0;
 	//private GameInfo[] games;
 	
 	/**
@@ -49,7 +51,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 								ISelectColorView selectColorView, IMessageView messageView) {
 
 		super(view);
-
+        /*lastList = new GameInfo[200];
+        System.out.println("The INITIAL size of the array is " + lastList.length);
+        for (int i = 0; i < 200; i++)
+        {
+            lastList[i] = new GameInfo();
+        }
+        System.out.println("after the for loop, the size is " + lastList.length);*/
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
@@ -117,14 +125,17 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         {
             return;
         }
-        GameInfo[] games = new GameInfo[gamesList.size()];
+        //GameInfo[] games = new GameInfo[gamesList.size()];
+        ArrayList<GameInfo> games = new ArrayList<>();
         GameInfo currentGame = null;
         int idx = 0;
         for(CatanGame gameChoice: gamesList)
         {
-            games[idx] = new GameInfo();
-            games[idx].setId(gameChoice.getGameId());
-            games[idx].setTitle(gameChoice.getTitle());
+            GameInfo newGameInfo = new GameInfo();
+            //newGameInfo = games.get(idx);// = new GameInfo();*/
+            newGameInfo.setId(gameChoice.getGameId());
+            newGameInfo.setTitle(gameChoice.getTitle());
+            games.add(newGameInfo);
             int playerIndex = 0;
             for(Player player: gameChoice.getMyplayers().values())
             {
@@ -133,11 +144,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 onePlayersInfo.setId(player.getPlayerID().getNumber());
                 onePlayersInfo.setName(player.getName());
                 onePlayersInfo.setPlayerIndex(playerIndex++);
-                games[idx].addPlayer(onePlayersInfo);
+                games.get(idx).addPlayer(onePlayersInfo);
             }
-            if(game != null && games[idx].getId() == game.getId())
+            if(game != null && games.get(idx).getId() == game.getId())
             {
-                currentGame = games[idx];
+                currentGame = games.get(idx);
             }
             idx++;   
         }
@@ -145,11 +156,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         {
             startJoinGame(currentGame);
         }
-        
-        if(Arrays.equals(games, lastList))
+
+        /*if(Arrays.equals(games, lastListd))
         {
             return;
-        }
+        }*/
         
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
@@ -197,7 +208,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void start() 
-	{		
+	{
+        lastList = new GameInfo[200];
+        System.out.println("The STARTING size of the array is " + lastList.length);
+        for (int i = 0; i < 200; i++)
+        {
+            lastList[i] = new GameInfo();
+        }
 		getJoinGameView().showModal();
         TimerTask timerTask = new TimerTask()
         {
@@ -239,14 +256,25 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void createNewGame() 
-	{	
+	{
+        lastList = new GameInfo[200];
+        System.out.println("The CREATE NEW GAME size of the array is " + lastList.length);
+        for (int i = 0; i < 200; i++)
+        {
+            lastList[i] = new GameInfo();
+        }
 		//Establish game details
 		boolean randomlyPlaceHexes = getNewGameView().getRandomlyPlaceHexes();
         boolean randomlyPlaceNumbers = getNewGameView().getRandomlyPlaceNumbers();
         String title = getNewGameView().getTitle();
         boolean randomPorts = getNewGameView().getUseRandomPorts();
         boolean validTitle = !(title == null || title.trim().equals(""));
-        
+        GameInfo currentInfo = new GameInfo();
+        currentInfo.setTitle(title);
+        System.out.println("The array index IS: " + arrayIndexForLastList);
+        System.out.println("The size of the array is " + lastList.length);
+        lastList[arrayIndexForLastList] = currentInfo;
+        arrayIndexForLastList++;
 
         System.out.println("Size of lastList is " + lastList.length);
         
