@@ -8,6 +8,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.sun.tools.internal.xjc.reader.xmlschema.bindinfo.BIConversion;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -31,6 +32,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
     private ArrayList<CatanColor> colorsTaken = null;
+    public static  String colorforit;
+    public static int gameindex;
+    public static int playerindexforit=0;
 	//private GameInfo[] games;
 	
 	/**
@@ -149,7 +153,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
-        localPlayer.setId(ModelFacade.facace_currentgame.getLocalPlayer().getPlayerIndex().getNumber());
+        localPlayer.setId(playerindexforit);
+        playerindexforit++;
         getJoinGameView().setGames(games, localPlayer);
         if(shouldShowGameList)
         {
@@ -323,12 +328,14 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
 	@Override
 	public void joinGame(CatanColor color)
-	{		
+	{
+        colorforit=color.toString();
         ArrayList<CatanGame> games = ModelFacade.facace_currentgame.getModel().listGames();
         for(CatanGame game: games)
         {
             if(game.getGameId() == this.game.getId())
             {
+                gameindex=game.getGameId();
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);

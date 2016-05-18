@@ -49,6 +49,10 @@ public class DevCardList
 		this.yearOfPlenty = yearOfPlenty;
 	}
 
+	public int getTotalCardNum(){
+		return monopoly+monument+roadBuilding+soldier+yearOfPlenty;
+	}
+	
 	private int monopoly = 0;
 	
 	private int monument = 0;
