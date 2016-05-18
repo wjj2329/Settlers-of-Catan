@@ -5,6 +5,7 @@ import java.util.*;
 import client.State.State;
 import client.join.JoinGameController;
 import client.login.LoginController;
+import client.model.Model;
 import client.model.ModelFacade;
 import javafx.collections.SetChangeListener;
 import org.json.JSONException;
@@ -169,7 +170,11 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
+		//ModelFacade.facace_currentgame.currentgame.getServer().loginUser("Sam","sam");
+		//ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(0,"orange");
+
 		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
+		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
