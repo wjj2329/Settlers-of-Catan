@@ -52,7 +52,7 @@ public class ModelFacade extends Observable
 	
 	public void loadGames()
 	{
-		String JSON = currentgame.getServer().getAllCurrentGames().getResponse();
+		String JSON = currentgame.getModel().getServer().getAllCurrentGames().getResponse();
 		
 		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
 		 try {
@@ -92,9 +92,7 @@ public class ModelFacade extends Observable
 	
 	public JSONObject serializeModel() throws JSONException
 	{
-
 		JSONObject myobject=new JSONObject();
-
 		//bank code
 		JSONObject bank=new JSONObject();
 		bank.put("brick", currentgame.mybank.getCardslist().getBrick());
@@ -420,11 +418,18 @@ public class ModelFacade extends Observable
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
+			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
+				dir);
+			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
-					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-							dir), new Index(obj.getInt("owner")));
+					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			h.addSettlement(settle1);
+			try {
+				h.buildSettlement(mylocation,myindex);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);
