@@ -416,7 +416,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			System.out.println(obj);
+			//System.out.println(obj);
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
@@ -426,13 +426,16 @@ public class ModelFacade extends Observable
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			h.addSettlement(settle1);
 			currentgame.getMymap().getSettlements().add(settle1);
-			//currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
+			Index owner = new Index(obj.getInt("owner"));
+			settle1.setOwner(owner);
+			//currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
 		{
 			JSONObject obj = cities.getJSONObject(i);
+			System.out.println(obj);
 			int owner_convertToIndex = obj.getInt("owner");
 			Index owner = new Index(owner_convertToIndex);
 			JSONObject location = obj.getJSONObject("location");
@@ -440,8 +443,11 @@ public class ModelFacade extends Observable
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
 			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
-			//Hex h = currentgame.getMymap().getHexes().
+			Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
+			h.getCities().add(city1);
 			currentgame.getMymap().getCities().add(city1);
+			Index owner2 = new Index(obj.getInt("owner"));
+			city1.setOwner(owner2);
 			//currentgame.getMyplayers().get(owner).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}

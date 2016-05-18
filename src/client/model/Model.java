@@ -27,7 +27,7 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-	private IServer server = new ServerProxy();
+	private IServer server;
 	
 	/**
 	 * Map of players in the game.
@@ -56,8 +56,8 @@ public class Model
 		CatanGame game = new CatanGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
 		System.out.println("Mid");
 
-		server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
-		//gamelist.add(game);
+		//server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts); // will actually use this in the end
+		gamelist.add(game);
 	}
 	
 	/**
