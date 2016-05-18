@@ -83,7 +83,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
 			server.loginUser(username1, password1);
-
 			// If log in succeeded
 			getLoginView().closeModal();
 			loginAction.execute();
