@@ -251,15 +251,21 @@ public class ModelFacade extends Observable
 		JSONArray players = myObject.getJSONArray("players");
 		loadPlayers(players);
 
-		JSONObject tradeOffer = myObject.getJSONObject("tradeOffer");
-		loadTradeOffer(tradeOffer);
+		try {
+			JSONObject tradeOffer = myObject.getJSONObject("tradeOffer");
+			loadTradeOffer(tradeOffer);
+		}
+		catch(JSONException e)
+		{
+
+		}
 
 		JSONObject turnTracker = myObject.getJSONObject("turnTracker");
 		loadTurnTracker(turnTracker);
 
 		int version = myObject.getInt("version");
 		int winner_convertToIndex = myObject.getInt("winner");
-		notifyAll();
+		//notifyAll();  //So it won't let me call this :(
 	}
 
 	private void loadBank(JSONObject bank) throws JSONException
@@ -351,27 +357,29 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < roads.length(); i++)
 		{
 			JSONObject obj = roads.getJSONObject(i);
-			System.out.println(obj);
+			//System.out.println(obj);
 			RoadPiece roadPiece = new RoadPiece(new Index(obj.getInt("owner")));
 			JSONObject location = obj.getJSONObject("location");
-			System.out.println(location);
+			//System.out.println(location);
 			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 					getDirectionFromString(location.getString("direction"))));
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
-			// Alex you need to do something that's not this
+			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
+			//System.out.println(obj);
 			JSONObject location = obj.getJSONObject("location");
-			VertexDirection dir = convertToVertexDirection(obj.getString("direction"));
+			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 							dir), new Index(obj.getInt("owner")));
 			currentgame.getMymap().getSettlements().add(settle1);
-			currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
+			//currentgame.getMyplayers().get(new Index(obj.getInt("owner"))).addToSettlements(settle1);
+			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
@@ -380,12 +388,13 @@ public class ModelFacade extends Observable
 			int owner_convertToIndex = obj.getInt("owner");
 			Index owner = new Index(owner_convertToIndex);
 			JSONObject location = obj.getJSONObject("location");
-			VertexDirection dir = convertToVertexDirection(obj.getString("direction"));
+			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
 			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
 			currentgame.getMymap().getCities().add(city1);
-			currentgame.getMyplayers().get(owner).addToCities(city1);
+			//currentgame.getMyplayers().get(owner).addToCities(city1);
+			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		currentgame.getMymap().setRadius(map.getInt("radius"));
 		JSONObject robber = map.getJSONObject("robber");
@@ -493,11 +502,14 @@ public class ModelFacade extends Observable
 
 	private void resources(JSONObject resources, ResourceList resList) throws JSONException
 	{
-		resList.setBrick(resources.getInt("brick"));
-		resList.setOre(resources.getInt("ore"));
-		resList.setSheep(resources.getInt("sheep"));
-		resList.setWheat(resources.getInt("wheat"));
-		resList.setWood(resources.getInt("wood"));
+		JSONObject resourcestrue=resources.getJSONObject("resources");
+		//System.out.println(resources);
+		//System.out.println(resourcestrue);
+		resList.setBrick(resourcestrue.getInt("brick"));
+		resList.setOre(resourcestrue.getInt("ore"));
+		resList.setSheep(resourcestrue.getInt("sheep"));
+		resList.setWheat(resourcestrue.getInt("wheat"));
+		resList.setWood(resourcestrue.getInt("wood"));
 	}
 
 	private TurnStatus convertStringToTurnStatus(String turnStatus)
