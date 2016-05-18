@@ -24,11 +24,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 
 	private IMessageView messageView;
 	private IAction loginAction;
-<<<<<<< HEAD
 	private IServer server = ModelFacade.facace_currentgame.getModel().getServer();
-=======
-	private IServer server = ModelFacade.facace_currentgame.currentgame.getModel().getServer();
->>>>>>> branch 'master' of https://github.com/wjj2329/cs340
 	
 	/**
 	 * LoginController constructor

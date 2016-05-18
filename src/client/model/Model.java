@@ -28,11 +28,7 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-<<<<<<< HEAD
 	private IServer server = new ServerProxy();
-=======
-	private IServer server=new ServerProxy();
->>>>>>> branch 'master' of https://github.com/wjj2329/cs340
 	
 	/**
 	 * Map of players in the game.
