@@ -24,7 +24,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 
 	private IMessageView messageView;
 	private IAction loginAction;
-	private IServer server = ModelFacade.facace_currentgame.currentgame.getServer();
+	private IServer server = ModelFacade.facace_currentgame.getModel().getServer();
 	
 	/**
 	 * LoginController constructor
@@ -78,10 +78,12 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public void signIn() {
 		
 		// TODO: log in user
+		System.out.println("Logging in");
 		String username1 = getLoginView().getLoginUsername();
 		String password1 = getLoginView().getLoginPassword();
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
+			
 			server.loginUser(username1, password1);
 			// If log in succeeded
 			getLoginView().closeModal();

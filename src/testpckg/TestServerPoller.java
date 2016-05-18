@@ -18,7 +18,7 @@ import client.model.ServerPoller;
 public class TestServerPoller 
 {
 	ServerPoller poller;
-	CatanGame testGame=new CatanGame(null, false, false, false, null);
+	CatanGame testGame=new CatanGame(false, false, false, null);
 	ServerProxy server;
 
 	public TestServerPoller() throws Exception {
@@ -28,7 +28,7 @@ public class TestServerPoller
 	@Before
 	public void setUp() throws Exception
 	{
-		CatanGame testGame = new CatanGame(null, false,false, false, null);
+		CatanGame testGame = new CatanGame(false,false, false, null);
 		ServerProxy server = new ServerProxy();
 		poller = new ServerPoller(testGame, server);
 	}

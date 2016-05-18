@@ -46,36 +46,28 @@ import java.util.Observable;
  */
 public class ModelFacade extends Observable
 {
-	public CatanGame currentgame;
+	public CatanGame currentgame = new CatanGame();
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private Player localplayer;
 	
-	public void loadGames(){
-		
-		IServer server = new ServerProxy();
-		String JSON = server.getAllCurrentGames().getResponse();
+	public void loadGames()
+	{
+		String JSON = currentgame.getModel().getServer().getAllCurrentGames().getResponse();
 		
 		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
 		 try {
 			JSONArray array = new JSONArray(JSON);
 			for(int i = 0; i < array.length(); i++){
-				System.out.println("GAME " + i);
 				JSONObject jsonObject = array.getJSONObject(i);
 				CatanGame game = new CatanGame();
 				game.setTitle(jsonObject.getString("title"));
-				System.out.println(jsonObject.getString("title"));
 				game.setID(jsonObject.getInt("id"));
-				System.out.println(jsonObject.getInt("id"));
 				
 				JSONArray players = jsonObject.getJSONArray("players");
-				System.out.println(players.toString());
 				for(int p=0; p<players.length(); p++){
 					JSONObject playerinfo = players.getJSONObject(p);
 					if(!playerinfo.isNull("name"))
 					{
-						System.out.println(playerinfo.getString("name"));
-						System.out.println(playerinfo.getString("color"));
-						System.out.println(playerinfo.getInt("id"));
 						Player player = new Player(playerinfo.getString("name"), 
 							stringToCatanColor(playerinfo.getString("color")), 
 							new Index(playerinfo.getInt("id")));
@@ -85,10 +77,7 @@ public class ModelFacade extends Observable
 				games.add(game);
 			}
 			
-			System.out.println(games.size());
 			getModel().setListGames(games);
-			System.out.println("LLEGO AQUI");
-			System.out.println(getModel().listGames().size());
 			
 			
 			
@@ -103,9 +92,7 @@ public class ModelFacade extends Observable
 	
 	public JSONObject serializeModel() throws JSONException
 	{
-
 		JSONObject myobject=new JSONObject();
-
 		//bank code
 		JSONObject bank=new JSONObject();
 		bank.put("brick", currentgame.mybank.getCardslist().getBrick());
@@ -432,11 +419,18 @@ public class ModelFacade extends Observable
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
+			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
+				dir);
+			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
-					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-							dir), new Index(obj.getInt("owner")));
+					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			h.addSettlement(settle1);
+			try {
+				h.buildSettlement(mylocation,myindex);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);

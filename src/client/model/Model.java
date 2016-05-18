@@ -6,6 +6,8 @@ import java.util.Map;
 
 import server.proxies.IServer;
 import server.proxies.MockServer;
+import server.proxies.ServerProxy;
+import shared.definitions.CatanColor;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
@@ -26,7 +28,7 @@ public class Model
 	private double version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-	private IServer server;
+	private IServer server = new ServerProxy();
 	
 	/**
 	 * Map of players in the game.
@@ -51,7 +53,10 @@ public class Model
 	 **/
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
-		CatanGame game = new CatanGame(server, randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		System.out.println("Before");
+		CatanGame game = new CatanGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+		System.out.println("Mid");
+
 		//server.createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts); // will actually use this in the end
 		gamelist.add(game);
 	}
@@ -75,9 +80,10 @@ public class Model
 	 * JoinGame: The player can join a game. Games must have 4 players in order
 	 * to start!
 	 */
-	public void joinGame(Player player, int gameindex)
+	public void joinGame(CatanColor color, int gameindex)
 	{
-		gamelist.get(gameindex).addPlayer(player);
+		server.JoinGame(gameindex, color.name());
+		//gamelist.get(gameindex).addPlayer(player);
 	}
 	
 	public double getVersion()
@@ -103,6 +109,7 @@ public class Model
 	 */
 	public IServer getServer()
 	{
+		System.out.println("Getting server");
 		return server;
 	}
 

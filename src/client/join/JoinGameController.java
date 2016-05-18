@@ -111,6 +111,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
+		ModelFacade.facace_currentgame.loadGames();
         ArrayList<CatanGame> gamesList = ModelFacade.facace_currentgame.getModel().listGames();
 
         if (gamesList == null)
@@ -349,7 +350,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 break;
             }
         }
-        ModelFacade.facace_currentgame.getModel().joinGame(ModelFacade.facace_currentgame.getLocalPlayer(), game.getId());
+        ModelFacade.facace_currentgame.getModel().joinGame(color, game.getId());
         
         timer.cancel();
         if(getSelectColorView().isModalShowing())
