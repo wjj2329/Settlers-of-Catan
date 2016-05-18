@@ -765,7 +765,7 @@ public class Player
 			System.out.println("false: Edge already has a road");
 			return false;
 		}
-		if (checkForOtherRoadsAndStructures(hex, edge))
+		if (!checkForOtherRoadsAndStructures(hex, edge))
 		{
 			return false;
 		}
