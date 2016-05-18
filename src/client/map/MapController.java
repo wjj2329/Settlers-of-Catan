@@ -243,11 +243,14 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
+		//getView().placeSettlement(new VertexLocation(new HexLocation(-1,1),VertexDirection.East),CatanColor.BLUE);
 		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
 		{
 			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
+				System.out.println("I have settlements");
 				getView().placeSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
