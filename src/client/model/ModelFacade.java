@@ -429,11 +429,18 @@ public class ModelFacade extends Observable
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
+			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
+				dir);
+			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
-					new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-							dir), new Index(obj.getInt("owner")));
+					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			h.addSettlement(settle1);
+			try {
+				h.buildSettlement(mylocation,myindex);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);
