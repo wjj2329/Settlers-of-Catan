@@ -111,6 +111,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
+		ModelFacade.facace_currentgame.loadGames();
         ArrayList<CatanGame> gamesList = ModelFacade.facace_currentgame.getModel().listGames();
 
         if (gamesList == null)
