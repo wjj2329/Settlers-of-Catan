@@ -78,7 +78,7 @@ public class Model
 	 */
 	public void joinGame(CatanColor color, int gameindex)
 	{
-		server.JoinGame(gameindex, color.name());
+		server.JoinGame(gameindex, color.name().toLowerCase());
 		//gamelist.get(gameindex).addPlayer(player);
 	}
 	

@@ -3,6 +3,7 @@ package client.join;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Timer;
@@ -31,7 +32,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private GameInfo game = null;
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
-    private ArrayList<CatanColor> colorsTaken = null;
+    private Collection<CatanColor> colorsTaken = null;
     public static  String colorforit;
     public static int gameindex;
     public static int playerindexforit=0;
@@ -290,15 +291,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         this.game = game;
         shouldShowGameList = false;
         Collection<PlayerInfo> currentplayers = game.getPlayers();
-        ArrayList<CatanColor> currentColorsTaken = new ArrayList<CatanColor>();
+        Collection<CatanColor> currentColorsTaken = new HashSet<CatanColor>();
         
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-            if(playerinfo.getId() != ModelFacade.facace_currentgame.getLocalPlayer().getPlayerIndex().getNumber())
-            {
+            //if(playerinfo.getId() != ModelFacade.facace_currentgame.getLocalPlayer().getPlayerIndex().getNumber())
+            //{
                 currentColorsTaken.add(playerinfo.getColor());
-            }
+            //}
         }
         if(currentColorsTaken.equals(colorsTaken))
         {
