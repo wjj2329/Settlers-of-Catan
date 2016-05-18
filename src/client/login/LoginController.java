@@ -22,8 +22,6 @@ import shared.game.player.Player;
 public class LoginController extends Controller implements ILoginController, Observer
 {
 
-	public static String usernameforit;
-	public static String passwordforit;
 	private IMessageView messageView;
 	private IAction loginAction;
 	private IServer server = ModelFacade.facace_currentgame.currentgame.getServer();
@@ -84,9 +82,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		String password1 = getLoginView().getLoginPassword();
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
-			usernameforit=username1;
-			passwordforit=password1;
-			server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
+			server.loginUser(username1, password1);
 
 			// If log in succeeded
 			getLoginView().closeModal();
@@ -107,10 +103,9 @@ public class LoginController extends Controller implements ILoginController, Obs
 		{
 			if(server.registerUser(username,password).getResponseCode()==HttpURLConnection.HTTP_OK)
 			{
-				usernameforit=username;
-				passwordforit=password;
+
 				System.out.println("i registered them");
-				server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
+				server.loginUser(username, password);
 				getLoginView().closeModal();
 				loginAction.execute();
 			}
