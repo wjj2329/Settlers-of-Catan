@@ -4,6 +4,7 @@ import java.util.*;
 
 import client.State.State;
 import client.model.ModelFacade;
+import org.json.JSONObject;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
 import shared.definitions.*;
@@ -66,6 +67,7 @@ public class MapController extends Controller implements IMapController, Observe
 	protected void initFromModel() {
 		ModelFacade.facace_currentgame.currentgame = new CatanGame();
 		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
+		ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().setResources(new ResourceList(5,5,5,5,5));
 		Map<HexLocation, Hex> mymap = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes();
 		for (HexLocation rec : mymap.keySet()) {
 			HexType test = mymap.get(rec).getResourcetype();
@@ -142,7 +144,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		server.buildRoad("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc);
+		server.buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc);
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
@@ -158,8 +160,8 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		//server.buildSettlement("buildSettlement",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,vertLoc);
-		//notifyAll();
+		String mytest=server.buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
+		System.out.println(mytest);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {

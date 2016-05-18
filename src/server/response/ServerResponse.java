@@ -6,8 +6,8 @@ public class ServerResponse {
 	String response; 
 	int responseCode; 
 	String userCookie;
-	String gameCookie; 
-	
+	String gameCookie;
+
 	public ServerResponse(int responseCode, String response){
 		System.out.println(response);
 		this.response = response;

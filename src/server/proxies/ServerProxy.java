@@ -492,7 +492,6 @@ public class ServerProxy implements IServer {
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
-
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		return response;
 	}

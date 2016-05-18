@@ -969,7 +969,7 @@ public class Hex
 			if(hextoupdate==null||hextoupdate2==null)
 			{
 				Exception e = new Exception();
-				e.printStackTrace();
+				//e.printStackTrace();
 				return false;
 			}
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
