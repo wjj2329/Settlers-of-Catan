@@ -197,6 +197,7 @@ public class ServerProxy implements IServer {
 		
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		gamecookie = response.getGameCookie();
+		System.out.println(response.getResponseCode());
 		return response;
 	}
 
