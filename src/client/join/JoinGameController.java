@@ -350,6 +350,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 break;
             }
         }
+        System.out.println(game.getId());
         ModelFacade.facace_currentgame.getModel().joinGame(color, game.getId());
         
         timer.cancel();
