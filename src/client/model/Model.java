@@ -64,6 +64,13 @@ public class Model
 		return gamelist;
 	}
 	
+	public void setListGames(ArrayList<CatanGame> games){
+		System.out.println("sdfasdf");
+		gamelist = games;
+		System.out.println("done");
+	}
+	
+	
 	/**
 	 * JoinGame: The player can join a game. Games must have 4 players in order
 	 * to start!
