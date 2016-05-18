@@ -48,9 +48,7 @@ public class ModelFacade extends Observable
 	private Player localplayer;
 	public JSONObject serializeModel() throws JSONException
 	{
-
 		JSONObject myobject=new JSONObject();
-
 		//bank code
 		JSONObject bank=new JSONObject();
 		bank.put("brick", currentgame.mybank.getCardslist().getBrick());
