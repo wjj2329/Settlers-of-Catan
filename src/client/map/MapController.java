@@ -4,6 +4,7 @@ import java.util.*;
 
 import client.State.State;
 import client.model.ModelFacade;
+import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
@@ -30,6 +31,8 @@ public class MapController extends Controller implements IMapController, Observe
 		setRobView(robView);
 		initFromModel();
 		ModelFacade.facace_currentgame.addObserver(this);
+		server.loginUser("Sam", "sam");
+		server.JoinGame(0, "orange");
 	}
 	
 	public IMapView getView() {
@@ -161,7 +164,13 @@ public class MapController extends Controller implements IMapController, Observe
 			insert=true;
 		}
 		String mytest=server.buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
-		System.out.println(mytest);
+		try {
+			JSONObject mine=new JSONObject(mytest);
+			ModelFacade.facace_currentgame.updateFromJSON(mine);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		//System.out.println(mytest);
 	}
 
 	public void placeCity(VertexLocation vertLoc) {

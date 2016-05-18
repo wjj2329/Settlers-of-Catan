@@ -259,6 +259,7 @@ public class ModelFacade extends Observable
 
 		int version = myObject.getInt("version");
 		int winner_convertToIndex = myObject.getInt("winner");
+		notifyAll();
 	}
 
 	private void loadBank(JSONObject bank) throws JSONException
@@ -302,18 +303,41 @@ public class ModelFacade extends Observable
 			JSONObject obj = hexes.getJSONObject(i);
 			JSONObject location = obj.getJSONObject("location");
 			HexLocation newLoc = new HexLocation(location.getInt("x"), location.getInt("y"));
-			String resource = obj.getString("resource");
-			HexType hexType = convertToHexType(resource);
-			assert(hexType != null); // it must NOT return null or something is wrong with our JSON
-			// The last parameter is null for now. NEED to fix ports for now.
-			Hex newHex = new Hex(newLoc, hexType, new NumberToken(obj.getInt("number")), null);
-			currentgame.getMymap().getHexes().put(newLoc, newHex);
+			//System.out.println(obj);
+			//JSONObject resources=hexes.getJSONObject(i+1);
+			//JSONObject test=hexes.getJSONObject(i+2);
+			//System.out.println(resources);
+			//System.out.println(test);
+			String resource=null;
+			HexType hexType = null;
+			try {
+				resource = obj.getString("resource");
+
+				hexType = convertToHexType(resource);
+			}
+			catch(JSONException e)
+			{
+
+			}
+				if(resource!=null&&hexType!=null) {
+					Hex newHex = new Hex(newLoc, hexType, new NumberToken(obj.getInt("number")), null);
+					currentgame.getMymap().getHexes().put(newLoc, newHex);
+				}
+			else{
+					Hex newHex = new Hex(newLoc, HexType.DESERT, new NumberToken(0), null);
+					currentgame.getMymap().getHexes().put(newLoc, newHex);
+				}
 		}
 		JSONArray ports = map.getJSONArray("ports");
 		for (int i = 0; i < ports.length(); i++)
 		{
 			JSONObject obj = ports.getJSONObject(i);
-			String resource = obj.getString("resource"); // this is the port type
+			//System.out.println(obj);
+			int ratio=obj.getInt("ratio");
+			String resource="3:1";
+			if(ratio!=3) {
+				 resource = obj.getString("resource");
+			}// this is the port type
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
@@ -327,11 +351,14 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < roads.length(); i++)
 		{
 			JSONObject obj = roads.getJSONObject(i);
+			System.out.println(obj);
 			RoadPiece roadPiece = new RoadPiece(new Index(obj.getInt("owner")));
 			JSONObject location = obj.getJSONObject("location");
+			System.out.println(location);
 			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-					getDirectionFromString(obj.getString("direction"))));
-			currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
+					getDirectionFromString(location.getString("direction"))));
+			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
+			// Alex you need to do something that's not this
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
