@@ -70,11 +70,16 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void decreaseResourceAmount(ResourceType resource)
 	{
-
+		//getTradeOverlay().setPlayerSelectionEnabled();
+				if(resource.equals(ResourceType.BRICK))
+				{
+					System.out.println("i decrease this");
+				}
 	}
 
 	@Override
-	public void increaseResourceAmount(ResourceType resource) {
+	public void increaseResourceAmount(ResourceType resource)
+	{
 
 	}
 
