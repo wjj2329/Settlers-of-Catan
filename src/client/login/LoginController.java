@@ -22,6 +22,8 @@ import shared.game.player.Player;
 public class LoginController extends Controller implements ILoginController, Observer
 {
 
+	public static String usernameforit;
+	public static String passwordforit;
 	private IMessageView messageView;
 	private IAction loginAction;
 	private IServer server = new ServerProxy();
@@ -79,16 +81,18 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public void signIn() {
 		
 		// TODO: log in user
-		String username = getLoginView().getLoginUsername();
-		String password = getLoginView().getLoginPassword();
-		if(server.loginUser(username, password).getResponseCode() == HttpURLConnection.HTTP_OK)
-		{		
+		String username1 = getLoginView().getLoginUsername();
+		String password1 = getLoginView().getLoginPassword();
+		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
+		{
+			usernameforit=username1;
+			passwordforit=password1;
 			// If log in succeeded
 			getLoginView().closeModal();
 			loginAction.execute();
 		}
 		
-		createPlayerFromCookie(username, password);
+		createPlayerFromCookie(username1, password1);
 	}
 
 	@Override

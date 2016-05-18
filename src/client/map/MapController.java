@@ -3,6 +3,8 @@ package client.map;
 import java.util.*;
 
 import client.State.State;
+import client.join.JoinGameController;
+import client.login.LoginController;
 import client.model.ModelFacade;
 import javafx.collections.SetChangeListener;
 import org.json.JSONException;
@@ -32,8 +34,8 @@ public class MapController extends Controller implements IMapController, Observe
 		setRobView(robView);
 		initFromModel();
 		ModelFacade.facace_currentgame.addObserver(this);
-		server.loginUser("Sam", "sam");
-		server.JoinGame(0, "orange");
+		server.loginUser(LoginController.usernameforit, LoginController.passwordforit);
+		server.JoinGame(JoinGameController.gameindex, JoinGameController.colorforit);
 	}
 	
 	public IMapView getView() {
