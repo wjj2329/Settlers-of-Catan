@@ -133,7 +133,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <tr class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><strong><a href="../../client/map/IMapController.html#canPlaceRoad(shared.locations.EdgeLocation)">canPlaceRoad</a></strong>(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc)</code>
-<div class="block">This method is called whenever the user is trying to place a road on the
+<div class="block">This method is called whenever the user is trying to place a roadPiece on the
  map.</div>
 </td>
 </tr>
@@ -160,7 +160,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <tr class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../client/map/IMapController.html#placeRoad(shared.locations.EdgeLocation)">placeRoad</a></strong>(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc)</code>
-<div class="block">This method is called when the user clicks the mouse to place a road.</div>
+<div class="block">This method is called when the user clicks the mouse to place a roadPiece.</div>
 </td>
 </tr>
 <tr class="rowColor">
@@ -179,7 +179,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <tr class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><strong><a href="../../client/map/IMapController.html#playRoadBuildingCard()">playRoadBuildingCard</a></strong>()</code>
-<div class="block">This method is called when the user plays a "road building" progress
+<div class="block">This method is called when the user plays a "roadPiece building" progress
  development card.</div>
 </td>
 </tr>
@@ -202,7 +202,7 @@ extends <a href="../../client/base/IController.html" title="interface in client.
          boolean&nbsp;isFree,
          boolean&nbsp;allowDisconnected)</code>
 <div class="block">This method is called when the user requests to place a piece on the map
- (road, city, or settlement)</div>
+ (roadPiece, city, or settlement)</div>
 </td>
 </tr>
 </table>
@@ -234,12 +234,12 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <li class="blockList">
 <h4>canPlaceRoad</h4>
 <pre>boolean&nbsp;canPlaceRoad(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc)</pre>
-<div class="block">This method is called whenever the user is trying to place a road on the
+<div class="block">This method is called whenever the user is trying to place a roadPiece on the
  map. It is called by the view for each "mouse move" event. The returned
- value tells the view whether or not to allow the road to be placed at the
+ value tells the view whether or not to allow the roadPiece to be placed at the
  specified location.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed road location</dd>
-<dt><span class="strong">Returns:</span></dt><dd>true if the road can be placed at edgeLoc, false otherwise</dd></dl>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The proposed roadPiece location</dd>
+<dt><span class="strong">Returns:</span></dt><dd>true if the roadPiece can be placed at edgeLoc, false otherwise</dd></dl>
 </li>
 </ul>
 <a name="canPlaceSettlement(shared.locations.VertexLocation)">
@@ -294,8 +294,8 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <li class="blockList">
 <h4>placeRoad</h4>
 <pre>void&nbsp;placeRoad(<a href="../../shared/locations/EdgeLocation.html" title="class in shared.locations">EdgeLocation</a>&nbsp;edgeLoc)</pre>
-<div class="block">This method is called when the user clicks the mouse to place a road.</div>
-<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The road location</dd></dl>
+<div class="block">This method is called when the user clicks the mouse to place a roadPiece.</div>
+<dl><dt><span class="strong">Parameters:</span></dt><dd><code>edgeLoc</code> - The roadPiece location</dd></dl>
 </li>
 </ul>
 <a name="placeSettlement(shared.locations.VertexLocation)">
@@ -342,9 +342,9 @@ extends <a href="../../client/base/IController.html" title="interface in client.
              boolean&nbsp;isFree,
              boolean&nbsp;allowDisconnected)</pre>
 <div class="block">This method is called when the user requests to place a piece on the map
- (road, city, or settlement)</div>
+ (roadPiece, city, or settlement)</div>
 <dl><dt><span class="strong">Parameters:</span></dt><dd><code>pieceType</code> - The type of piece to be placed</dd><dd><code>isFree</code> - true if the piece should not cost the player resources, false
-            otherwise. Set to true during initial setup and when a road
+            otherwise. Set to true during initial setup and when a roadPiece
             building card is played.</dd><dd><code>allowDisconnected</code> - true if the piece can be disconnected, false otherwise. Set to
             true only during initial setup.</dd></dl>
 </li>
@@ -378,9 +378,9 @@ extends <a href="../../client/base/IController.html" title="interface in client.
 <li class="blockList">
 <h4>playRoadBuildingCard</h4>
 <pre>void&nbsp;playRoadBuildingCard()</pre>
-<div class="block">This method is called when the user plays a "road building" progress
+<div class="block">This method is called when the user plays a "roadPiece building" progress
  development card. It should initiate the process of allowing the player
- to place two roads.</div>
+ to place two roadPieces.</div>
 </li>
 </ul>
 <a name="robPlayer(client.data.RobPlayerInfo)">

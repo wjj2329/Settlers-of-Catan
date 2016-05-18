@@ -20,7 +20,7 @@ localhost:8081/joinGame.html
 			(either the setup page or the play page)
 
 localhost:8081/setup.html
-		This is where you do the first two rounds of the game (placing a road then a settlement).
+		This is where you do the first two rounds of the game (placing a roadPiece then a settlement).
 		Once you've finished that, you're automatically redirected to the game page.
 		
 localhost:8081/catan.html

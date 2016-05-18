@@ -268,8 +268,8 @@ catan.map.Controller = (function catan_controller_namespace() {
 		}
         
 		/**
-		 * Pops the map out and prompts the player to place two roads.
-         * This is called when the user plays a &quot;road building&quot; progress development card.
+		 * Pops the map out and prompts the player to place two roadPieces.
+         * This is called when the user plays a &quot;roadPiece building&quot; progress development card.
 		 * @method startDoubleRoadBuilding
 		 * @return void
 		**/	
@@ -279,8 +279,8 @@ catan.map.Controller = (function catan_controller_namespace() {
         
         /**
 		 * Pops the map out and prompts the player to place the appropriate piece
-         * @param {String} pieceType - &quot;road&quot;, &quot;settlement&quot;, or &quot;city
-         * @param {boolean} free - Set to true in road building and the initial setup
+         * @param {String} pieceType - &quot;roadPiece&quot;, &quot;settlement&quot;, or &quot;city
+         * @param {boolean} free - Set to true in roadPiece building and the initial setup
          * @param {boolean} disconnected - Whether or not the piece can be disconnected. Set to true only in initial setup
 		 * @method startMove
 		 * @return void
@@ -303,7 +303,7 @@ catan.map.Controller = (function catan_controller_namespace() {
          The returned value tells the view whether or not to allow the piece to be &quot;dropped&quot; at the current location.
 
 		 @param {MapLocation} loc The location being considered for piece placement
-		 @param {String} type The type of piece the player is trying to place (&quot;robber&quot;,&quot;road&quot;,&quot;settlement&quot;,&quot;city&quot;)
+		 @param {String} type The type of piece the player is trying to place (&quot;robber&quot;,&quot;roadPiece&quot;,&quot;settlement&quot;,&quot;city&quot;)
 		 @method onDrag
 		 @return {boolean} Whether or not the given piece can be placed at the current location.
 		*/
@@ -315,7 +315,7 @@ catan.map.Controller = (function catan_controller_namespace() {
          This method should close the modal and possibly trigger the Rob View.
 
 		 @param {MapLocation} loc The location where the piece is being placed
-		 @param {String} type The type of piece being placed (&quot;robber&quot;,&quot;road&quot;,&quot;settlement&quot;,&quot;city&quot;)
+		 @param {String} type The type of piece being placed (&quot;robber&quot;,&quot;roadPiece&quot;,&quot;settlement&quot;,&quot;city&quot;)
 		 @method onDrop
 		*/
 		MapController.prototype.onDrop = function (loc, type) {

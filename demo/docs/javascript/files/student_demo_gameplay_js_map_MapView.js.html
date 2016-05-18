@@ -1121,7 +1121,7 @@ catan.map.View = (function makeMapView(){
 		 Color can be omitted and has no effect if it&#x27;s the robber
 		 After calling this, the view will use the controller&#x27;s &quot;onDrag&quot; and &quot;onDrop&quot; methods to check whether a piece can be placed.
 		 
-		 @param {String} objectType The type of piece to be placed (&quot;city&quot;,&quot;settlement&quot;,&quot;road&quot;,&quot;robber&quot;)
+		 @param {String} objectType The type of piece to be placed (&quot;city&quot;,&quot;settlement&quot;,&quot;roadPiece&quot;,&quot;robber&quot;)
 		 @param {String} color The color of the piece you want to place. (Omit for &quot;robber&quot;.)
 		 @method startDrop
 		*/
@@ -1145,7 +1145,7 @@ catan.map.View = (function makeMapView(){
 					typeDef = this.getVertexDefinition();
 					goodShape = typeDef.makeSettlement(new VertexLocation().getCanonical(),color,outline);
 					break;
-				case &quot;road&quot;:
+				case &quot;roadPiece&quot;:
 					targetLayer = this.getEdgeLayer();
 					typeDef = this.getEdgeDefinition();
 					goodShape = typeDef.makeRoad(new EdgeLocation().getCanonical(),color,outline);
@@ -1281,9 +1281,9 @@ catan.map.View = (function makeMapView(){
 		}
 
 		/**
-		 This adds a road to the board. 
+		 This adds a roadPiece to the board.
 
-		 @param {EdgeLoc} loc The location to put the road. 
+		 @param {EdgeLoc} loc The location to put the roadPiece.
 		 @param {String} playerColor The player color
 		 @param {Boolean} [noDraw] Optional - if omitted or false, the view is not redrawn.	 
 		 @method placeRoad

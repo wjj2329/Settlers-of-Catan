@@ -296,7 +296,7 @@ catan.turntracker.View = (function turntracker_namespace(){
 		 * @param {int} updates.score the score
 		 * @param {Boolean} updates.highlight whether the player&#x27;s display box should be highlighted
 		 * @param {Boolean} updates.army whether the player has the largest army award
-		 * @param {Boolean} updates.road whether the player has the longest road award
+		 * @param {Boolean} updates.roadPiece whether the player has the longest roadPiece award
 		 * @return void
 		 */
 		TurnTrackerView.prototype.updatePlayer = function(updates){
@@ -304,7 +304,7 @@ catan.turntracker.View = (function turntracker_namespace(){
 				playerDisplay.setScore(updates.score);
 				playerDisplay.setHighlight(updates.highlight);
 				playerDisplay.setLargestArmy(updates.army);
-				playerDisplay.setLongestRoad(updates.road);
+				playerDisplay.setLongestRoad(updates.roadPiece);
 		}
 		
 		/**
