@@ -19,25 +19,25 @@ import shared.game.player.Player;
 public class ResourceBarController extends Controller implements IResourceBarController, Observer {
 
 	private Map<ResourceBarElement, IAction> elementActions;
-	
+
 	public ResourceBarController(IResourceBarView view) {
 
 		super(view);
-		
+
 		elementActions = new HashMap<ResourceBarElement, IAction>();
 		ModelFacade.facace_currentgame.addObserver(this);
 	}
 
 	@Override
 	public IResourceBarView getView() {
-		return (IResourceBarView)super.getView();
+		return (IResourceBarView) super.getView();
 	}
 
 	/**
 	 * Sets the action to be executed when the specified resource bar element is clicked by the user
-	 * 
+	 *
 	 * @param element The resource bar element with which the action is associated
-	 * @param action The action to be executed
+	 * @param action  The action to be executed
 	 */
 
 	//needs to get update to work to overwrite the inital state when stuff happens in other controllers.
@@ -46,14 +46,12 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player player = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
 
 
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
-		{
-				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
-				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
-				this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+		if (ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState)) {
+			this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+			this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+			this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
 		}
-		if (player != null)
-		{
+		if (player != null) {
 			ResourceList resourceCards = player.getResources();
 
 			// update the resources you have
@@ -72,7 +70,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
 
 		}
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState()!= State.SetUpState) {
+		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() != State.SetUpState) {
 			if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 			}
@@ -116,19 +114,19 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	public void playCard() {
 		executeElementAction(ResourceBarElement.PLAY_CARD);
 	}
-	
+
 	private void executeElementAction(ResourceBarElement element) {
-		
+
 		if (elementActions.containsKey(element)) {
-			
+
 			IAction action = elementActions.get(element);
 			action.execute();
 		}
 	}
-	
-    @Override
-    public void update(Observable o, Object arg)
-    {
+
+	@Override
+	public void update(Observable o, Object arg) {
+	/*
 		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet())
 		{
 			System.out.println(ModelFacade.facace_currentgame.getMyplayers().get(loc).getResources().getBrick());
@@ -137,47 +135,46 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
 
 		//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
-        if (player != null)
-        {
-            ResourceList resourceCards = player.getResources();
-            // update the resources you have
-            this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
-            this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
-            this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
-            this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
-            this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
+        if (player != null) {
+			ResourceList resourceCards = player.getResources();
+			// update the resources you have
+			this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
+			this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
+			this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
+			this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
+			this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
 
-            // update roads/settlements/cities you have left
-            this.getView().setElementAmount(ResourceBarElement.ROAD, player.getRoadPieces().size());
-            this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getSettlements().size());
-            this.getView().setElementAmount(ResourceBarElement.CITY, player.getCities().size());
+			// update roads/settlements/cities you have left
+			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getRoadPieces().size());
+			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getSettlements().size());
+			this.getView().setElementAmount(ResourceBarElement.CITY, player.getCities().size());
 
-            // update soldiers
-            this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
+			// update soldiers
+			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
 
-            // update can build road/settlement/city
-            this.getView().setElementEnabled(ResourceBarElement.ROAD,
-                    player.canAffordRoad());
-            this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, 
-                    player.canAffordSettlement());
-            this.getView().setElementEnabled(ResourceBarElement.CITY, 
-                    player.canAffordCity());
+			// update can build road/settlement/city
+			this.getView().setElementEnabled(ResourceBarElement.ROAD,
+					player.canAffordRoad());
+			this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT,
+					player.canAffordSettlement());
+			this.getView().setElementEnabled(ResourceBarElement.CITY,
+					player.canAffordCity());
 
-            // update can buy card and can play card
-            this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD,
-                    true);
-            this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
-                    player.canAffordDevCard());
-            
-            
-            //if (player.getPlayerIndex() != currentTurn){
-				//this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
-               // this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
-               // this.getView().setElementEnabled(ResourceBarElement.CITY, false);
-               // this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
-                //this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-           // }
-			if(ModelFacade.facace_currentgame.currentgame.getCurrentState()!= State.SetUpState) {
+			// update can buy card and can play card
+			this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD,
+					true);
+			this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
+					player.canAffordDevCard());
+
+
+			//if (player.getPlayerIndex() != currentTurn){
+			//this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+			// this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+			// this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+			// this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+			//this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+			// }
+			if (ModelFacade.facace_currentgame.currentgame.getCurrentState() != State.SetUpState) {
 				if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 				}
@@ -193,8 +190,14 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				if (player.getOldDevCards().getMonopoly() < 1 && player.getOldDevCards().getMonument() < 1 && player.getOldDevCards().getRoadBuilding() < 1 && player.getOldDevCards().getSoldier() < 0 && player.getOldDevCards().getYearOfPlenty() < 0) {
 					this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
 				}
+
+
 			}
-        }
+		}
+		*/
     }
+
+
 }
+
 
