@@ -25,7 +25,7 @@ public class Model
 	private CatanMap map;
 	private TradeOffer tradeoffer;
 	private TurnTracker turntracker;
-	private double version;
+	private int version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
 	private IServer server = new ServerProxy();
@@ -82,12 +82,12 @@ public class Model
 		//gamelist.get(gameindex).addPlayer(player);
 	}
 	
-	public double getVersion()
+	public int getVersion()
 	{
 		return version;
 	}
 	
-	public void setVersion(double newVersion)
+	public void setVersion(int newVersion)
 	{
 		version = newVersion;
 	}
