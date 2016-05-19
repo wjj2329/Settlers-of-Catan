@@ -47,7 +47,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		//This is what is actually suppose to use, but the currentgame.getstuff is null and brings up a nullPointerException
 //		int currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());		
+//		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 //		Map<Index, Player> players = ModelFacade.facace_currentgame.currentgame.getMyplayers();
 		if (players.size() == 4) {
 			for (Index index : players.keySet()) {

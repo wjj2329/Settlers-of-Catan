@@ -18,6 +18,7 @@ import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
@@ -88,8 +89,7 @@ public class ModelFacade extends Observable
 		 
 		
 	}
-	
-	
+
 	public JSONObject serializeModel() throws JSONException
 	{
 		JSONObject myobject=new JSONObject();
@@ -347,6 +347,35 @@ public class ModelFacade extends Observable
 	}
 
 
+public void loadGame(JSONObject mygame) throws JSONException {
+	/*
+	currentgame.clear();
+	JSONObject deck=mygame.getJSONObject("deck");
+	{
+		int yearofplenty=deck.getInt("yearOfPlenty");
+		int monopoly=deck.getInt("monopoly");
+		int soldier=deck.getInt("soldier");
+		int roadBuilding=deck.getInt("roadBuilding");
+		int monument=deck.getInt("monument");
+		DevCardList mylist=new DevCardList(monopoly,monument,roadBuilding,soldier,yearofplenty);
+		currentgame.mybank.setDevCardList(mylist);
+		updateFromJSON(deck);
+		JSONObject map=mygame.getJSONObject("map");
+		JSONObject hexGrid=mygame.getJSONObject("hexGrid");
+		JSONArray hexes=hexGrid.getJSONArray("hexes");
+		for (int i = 0; i < hexes.length(); i++)
+		{
+			JSONObject Location=hexes.getJSONObject(i).getJSONObject("location");
+			HexLocation mylocation=new HexLocation(Location.getInt("x"),Location.getInt("y"));
+			if(hexes.getBoolean(Integer.parseInt("IsLand"))==false)
+			{
+				Hex myhex=new Hex(mylocation,HexType.WATER)
+			}
+		}
+
+	}
+	*/
+}
 
 	private void loadMap(JSONObject map) throws JSONException
 	{
@@ -405,11 +434,20 @@ public class ModelFacade extends Observable
 		{
 			JSONObject obj = roads.getJSONObject(i);
 			//System.out.println(obj);
-			RoadPiece roadPiece = new RoadPiece(new Index(obj.getInt("owner")));
+			Index playerID = new Index(obj.getInt("owner"));
+			RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
 			//System.out.println(location);
-			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-					getDirectionFromString(location.getString("direction"))));
+			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
+			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
+			roadPiece.setLocation(edgeLocation);
+			roadPiece.setPlayerWhoOwnsRoad(playerID);
+			Hex hex = currentgame.getMymap().getHexes().get(loc);
+			edgeLocation.setRoadPiece(roadPiece);
+			hex.buildRoad(edgeLocation, playerID);
+
+			// I AM RIGHT HERE
+
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
@@ -423,6 +461,7 @@ public class ModelFacade extends Observable
 			assert(dir != null);
 			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 				dir);
+			mylocation.setHassettlement(true);
 			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
@@ -436,6 +475,7 @@ public class ModelFacade extends Observable
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);
+			mylocation.setSettlement(settle1);
 			//currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
@@ -450,12 +490,15 @@ public class ModelFacade extends Observable
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
-			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
+			VertexLocation vertexLoc = new VertexLocation(loc, dir);
+			City city1 = new City(loc, vertexLoc, owner);
+			vertexLoc.setHascity(true);
 			Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
 			h.getCities().add(city1);
 			currentgame.getMymap().getCities().add(city1);
 			Index owner2 = new Index(obj.getInt("owner"));
 			city1.setOwner(owner2);
+			vertexLoc.setCity(city1);
 			//currentgame.getMyplayers().get(owner).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
