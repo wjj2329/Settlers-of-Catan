@@ -533,6 +533,7 @@ public void loadGame(JSONObject mygame) throws JSONException {
 			oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 			resources(obj, newPlayer.getResources());
 			currentgame.addPlayer(newPlayer);
+			System.out.println("I add a player with name " + newPlayer.getName());
 		}
 	}
 
@@ -550,8 +551,10 @@ public void loadGame(JSONObject mygame) throws JSONException {
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
-		currentgame.getMyturntracker().setCurrentTurn(new Index(turnTracker.getInt("currentTurn")),
+		Index index = new Index(turnTracker.getInt("currentTurn"));
+		currentgame.getMyturntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
+		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(index));
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
 		assert(status != null);
 		currentgame.getMyturntracker().setStatus(status);
