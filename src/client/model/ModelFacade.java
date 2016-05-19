@@ -358,8 +358,9 @@ public void loadGame(JSONObject mygame) throws JSONException {
 		DevCardList mylist=new DevCardList(monopoly,monument,roadBuilding,soldier,yearofplenty);
 		currentgame.mybank.setDevCardList(mylist);
 		updateFromJSON(deck);
-		//JSONObject map=mygame.getJSONObject("map");
-		//loadMap(map);
+		JSONObject map=mygame.getJSONObject("map");
+		loadMap(map);
+
 	}
 }
 
