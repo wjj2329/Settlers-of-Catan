@@ -405,11 +405,20 @@ public class ModelFacade extends Observable
 		{
 			JSONObject obj = roads.getJSONObject(i);
 			//System.out.println(obj);
-			RoadPiece roadPiece = new RoadPiece(new Index(obj.getInt("owner")));
+			Index playerID = new Index(obj.getInt("owner"));
+			RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
 			//System.out.println(location);
-			roadPiece.setLocation(new EdgeLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
-					getDirectionFromString(location.getString("direction"))));
+			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
+			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
+			roadPiece.setLocation(edgeLocation);
+			roadPiece.setPlayerWhoOwnsRoad(playerID);
+			Hex hex = currentgame.getMymap().getHexes().get(loc);
+			edgeLocation.setRoadPiece(roadPiece);
+			hex.buildRoad(edgeLocation, playerID);
+
+			// I AM RIGHT HERE
+
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
