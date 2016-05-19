@@ -595,6 +595,15 @@ public class Player
 		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
 		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
 		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
+		System.out.println("ENTER LOTS OF CRAP: ");
+		System.out.println("upEdge has road: " + upEdge.hasRoad());
+		System.out.println("downEdge has road: " + downEdge.hasRoad());
+		System.out.println("upEdgeAdjacent has road: " + upEdgeAdjacent.hasRoad());
+		System.out.println("downEdgeAdjacent has road: " + downEdgeAdjacent.hasRoad());
+		System.out.println("upEdge player " + upEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		System.out.println("downEdge player " + downEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		System.out.println("upEdgeAdjacent player " + upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		System.out.println("downEdgeAdjacent player " + downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
 		if (upEdge != null && upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
