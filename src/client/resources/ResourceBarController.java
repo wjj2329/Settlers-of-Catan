@@ -25,6 +25,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		super(view);
 		
 		elementActions = new HashMap<ResourceBarElement, IAction>();
+		ModelFacade.facace_currentgame.addObserver(this);
 	}
 
 	@Override
@@ -128,12 +129,17 @@ public class ResourceBarController extends Controller implements IResourceBarCon
     @Override
     public void update(Observable o, Object arg)
     {
+		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet())
+		{
+			System.out.println(ModelFacade.facace_currentgame.getMyplayers().get(loc).getResources().getBrick());
+		}
     	Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-        Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+
+		//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
         if (player != null)
         {
             ResourceList resourceCards = player.getResources();
-        
             // update the resources you have
             this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
             this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
@@ -164,13 +170,13 @@ public class ResourceBarController extends Controller implements IResourceBarCon
                     player.canAffordDevCard());
             
             
-            if (player.getPlayerIndex() != currentTurn){
-				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
-                this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
-                this.getView().setElementEnabled(ResourceBarElement.CITY, false);
-                this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
-                this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-            }
+            //if (player.getPlayerIndex() != currentTurn){
+				//this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+               // this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+               // this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+               // this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+                //this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+           // }
 			if(ModelFacade.facace_currentgame.currentgame.getCurrentState()!= State.SetUpState) {
 				if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
