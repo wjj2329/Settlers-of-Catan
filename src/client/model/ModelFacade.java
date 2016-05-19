@@ -46,7 +46,7 @@ import java.util.Observable;
  */
 public class ModelFacade extends Observable
 {
-	public CatanGame currentgame = new CatanGame(); // should this be new?
+	public CatanGame currentgame = new CatanGame();
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private Player localplayer;
 	
@@ -279,6 +279,8 @@ public class ModelFacade extends Observable
 		 */
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
+		currentgame.clear();
+		currentgame=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
 		loadBank(bank);
 
@@ -301,17 +303,14 @@ public class ModelFacade extends Observable
 		}
 		catch(JSONException e)
 		{
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 		JSONObject turnTracker = myObject.getJSONObject("turnTracker");
 		loadTurnTracker(turnTracker);
 
 		int version = myObject.getInt("version");
-		currentgame.setVersion(new Index(version));
 		int winner_convertToIndex = myObject.getInt("winner");
-		Index winner = new Index(winner_convertToIndex);
-		currentgame.setWinner(winner);
 		this.setChanged();
 		notifyObservers();
 	}
@@ -418,7 +417,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			//System.out.println(obj);
+			System.out.println("this is a settlement I have"+obj);
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
@@ -428,7 +427,7 @@ public class ModelFacade extends Observable
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
-			h.addSettlement(settle1);
+			//h.addSettlement(settle1);
 			try {
 				h.buildSettlement(mylocation,myindex);
 			} catch (Exception e) {
@@ -444,7 +443,7 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < cities.length(); i++)
 		{
 			JSONObject obj = cities.getJSONObject(i);
-			System.out.println(obj);
+			//System.out.println(obj);
 			int owner_convertToIndex = obj.getInt("owner");
 			Index owner = new Index(owner_convertToIndex);
 			JSONObject location = obj.getJSONObject("location");
@@ -469,7 +468,8 @@ public class ModelFacade extends Observable
 	{
 		for (int i = 0; i < players.length(); i++)
 		{
-			JSONObject obj = players.getJSONObject(i); // each object should represent each individual player
+			JSONObject obj = players.getJSONObject(i);
+			System.out.println(obj);
 			CatanColor color = stringToCatanColor(obj.getString("color"));
 			assert(color != null);
 			Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
