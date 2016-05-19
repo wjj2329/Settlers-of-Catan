@@ -159,19 +159,17 @@ public class MapController extends Controller implements IMapController, Observe
 	public void placeSettlement(VertexLocation vertLoc) {
 		try {
 			System.out.println("my current state is this "+ModelFacade.facace_currentgame.currentgame.getCurrentState().toString());
-			ModelFacade.facace_currentgame.currentgame.getCurrentState().buildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
+			//ModelFacade.facace_currentgame.currentgame.getCurrentState().buildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+		//getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 		boolean insert=false;
 		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
 			insert=true;
 		}
-		//ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(0,"orange");
-
-		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildSettlement("buildSettlement", 0, true, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement", 0, insert, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
@@ -248,7 +246,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				System.out.println("I have settlements");
+				System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
 				getView().placeSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 			}
 		}

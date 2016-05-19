@@ -226,8 +226,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.east.isHassettlement() && !this.east.isHascity()) {
 								if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
-									hextoupdate.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
-									hextoupdate2.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+									hextoupdate.getSouthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+									hextoupdate2.getNorthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
 
 									hextoupdate.getSouthwest().setHassettlement(true);
 									hextoupdate2.getNorthwest().setHassettlement(true);
@@ -235,8 +235,8 @@ public class Hex
 									east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 									east.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 								}
 							}
 						}
@@ -261,8 +261,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.west.isHassettlement() && !this.west.isHascity()) {
 								if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
-									hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-									hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+									hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+									hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 
 									hextoupdate.getSoutheast().setHassettlement(true);
 									hextoupdate2.getNortheast().setHassettlement(true);
@@ -270,8 +270,8 @@ public class Hex
 									west.setHassettlement(true);
 									west.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 								}
 							}
 						}
@@ -296,8 +296,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 								if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
-									hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-									hextoupdate2.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+									hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+									hextoupdate2.getWest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 
 									hextoupdate.getSoutheast().setHassettlement(true);
 									hextoupdate2.getWest().setHassettlement(true);
@@ -305,8 +305,8 @@ public class Hex
 									northeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 									northeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 								}
 							}
 						}
@@ -331,8 +331,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 								if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
-									hextoupdate.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-									hextoupdate2.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+									hextoupdate.getEast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+									hextoupdate2.getSouthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 
 									hextoupdate.getEast().setHassettlement(true);
 									hextoupdate2.getSouthwest().setHassettlement(true);
@@ -340,8 +340,8 @@ public class Hex
 									northwest.setHassettlement(true);
 									northwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 								}
 							}
 						}
@@ -366,8 +366,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 								if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
-									hextoupdate.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
-									hextoupdate2.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+									hextoupdate.getNorthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+									hextoupdate2.getEast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 
 									hextoupdate.getNorthwest().setHassettlement(true);
 									hextoupdate2.getEast().setHassettlement(true);
@@ -375,8 +375,8 @@ public class Hex
 									southwest.setHassettlement(true);
 									southwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 								}
 							}
 						}
@@ -400,8 +400,8 @@ public class Hex
 						if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 							if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
 								if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
-									hextoupdate.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
-									hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+									hextoupdate.getWest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+									hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 
 									hextoupdate.getWest().setHassettlement(true);
 									hextoupdate2.getNortheast().setHassettlement(true);
@@ -409,8 +409,8 @@ public class Hex
 									southeast.setHassettlement(true);
 									southeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 									settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-									hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
-									hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+									hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+									hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
 								}
 							}
 						}
@@ -485,8 +485,8 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
 						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
-							hextoupdate.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
-							hextoupdate2.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
+							hextoupdate.getSouthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthWest),owner));
+							hextoupdate2.getNorthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthWest),owner));
 
 							hextoupdate.getSouthwest().setHassettlement(true);
 							hextoupdate2.getNorthwest().setHassettlement(true);
@@ -494,10 +494,10 @@ public class Hex
 							east.setHassettlement(true);
 							east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							east.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
-							//System.out.println("What is owner? " + owner.getNumber());
+							System.out.println("i come to east and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
 						}
 					}
 				}
@@ -517,17 +517,18 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.west.isHassettlement()&&!this.west.isHascity()) {
 						if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
-							hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
-							hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+							hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthEast),owner));
+							hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthEast),owner));
 
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
 							west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							west.setHassettlement(true);
 							west.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
+							System.out.println("i come to west and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthEast), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthEast), owner));
 						}
 					}
 				}
@@ -547,8 +548,8 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
 						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
-							hextoupdate.getSoutheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthEast),owner));
-							hextoupdate2.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
+							hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthEast),owner));
+							hextoupdate2.getWest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.West),owner));
 
 							hextoupdate.getSoutheast().setHassettlement(true);
 							hextoupdate2.getWest().setHassettlement(true);
@@ -556,8 +557,9 @@ public class Hex
 							northeast.setHassettlement(true);
 							northeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
+							System.out.println("i come to northeast and add settlements to 3 hexes");
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthEast), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.West), owner));
 						}
 					}
 				}
@@ -577,17 +579,18 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
 						if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
-							hextoupdate.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
-							hextoupdate2.getSouthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.SouthWest),owner));
+							hextoupdate.getEast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.East),owner));
+							hextoupdate2.getSouthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthWest),owner));
 
 							hextoupdate.getEast().setHassettlement(true);
 							hextoupdate2.getSouthwest().setHassettlement(true);
 							northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							northwest.setHassettlement(true);
 							northwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
+							System.out.println("i come to NorthWest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
 						}
 					}
 				}
@@ -607,17 +610,18 @@ public class Hex
 				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
 						if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
-							hextoupdate.getNorthwest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthWest),owner));
-							hextoupdate2.getEast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.East),owner));
+							hextoupdate.getNorthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.NorthWest),owner));
+							hextoupdate2.getEast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.East),owner));
 
 							hextoupdate.getNorthwest().setHassettlement(true);
 							hextoupdate2.getEast().setHassettlement(true);
 							southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							southwest.setHassettlement(true);
 							southwest.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
+							System.out.println("i come to southwest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.NorthWest), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.East), owner));
 						}
 					}
 				}
@@ -636,17 +640,18 @@ public class Hex
 				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 					if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
 						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
-							hextoupdate.getWest().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.West),owner));
-							hextoupdate2.getNortheast().setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(),VertexDirection.NorthEast),owner));
+							hextoupdate.getWest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.West),owner));
+							hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthEast),owner));
 
 							hextoupdate.getWest().setHassettlement(true);
 							hextoupdate2.getNortheast().setHassettlement(true);
 							southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							southeast.setHassettlement(true);
 							southeast.getSettlement().setOwner(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerID());
+							System.out.println("i come to southwest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
-							hextoupdate.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
-							hextoupdate2.addSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.West), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthEast), owner));
 						}
 					}
 
@@ -1301,6 +1306,7 @@ public class Hex
 
 	public void addSettlement(Settlement settlement)
 	{
+		System.out.println("i add a settlement for hex at location "+this.getLocation().getX()+" "+this.getLocation().getY());
 		settlements.add(settlement);
 	}
 
