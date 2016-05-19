@@ -448,6 +448,7 @@ public void loadGame(JSONObject mygame) throws JSONException {
 			assert(dir != null);
 			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 				dir);
+			mylocation.setHassettlement(true);
 			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
@@ -461,6 +462,7 @@ public void loadGame(JSONObject mygame) throws JSONException {
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);
+			mylocation.setSettlement(settle1);
 			//currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
@@ -475,12 +477,15 @@ public void loadGame(JSONObject mygame) throws JSONException {
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			assert(dir != null);
-			City city1 = new City(loc, new VertexLocation(loc, dir), owner);
+			VertexLocation vertexLoc = new VertexLocation(loc, dir);
+			City city1 = new City(loc, vertexLoc, owner);
+			vertexLoc.setHascity(true);
 			Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
 			h.getCities().add(city1);
 			currentgame.getMymap().getCities().add(city1);
 			Index owner2 = new Index(obj.getInt("owner"));
 			city1.setOwner(owner2);
+			vertexLoc.setCity(city1);
 			//currentgame.getMyplayers().get(owner).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
