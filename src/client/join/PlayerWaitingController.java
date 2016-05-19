@@ -1,5 +1,6 @@
 package client.join;
 
+import client.State.State;
 import client.base.*;
 import client.data.PlayerInfo;
 import client.model.ModelFacade;
@@ -11,6 +12,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import shared.game.player.Player;
 
@@ -38,11 +42,14 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void start() 
 	{
+		System.out.println("Starting waiting");
+		serverPoller = new ServerPoller(ModelFacade.facace_currentgame.currentgame,ModelFacade.facace_currentgame.getModel().getServer());
+		serverPoller.startPoller();
         String[] aiChoices = new String[1];
         aiChoices[0] = "LARGEST_ARMY";
        // ModelFacade.facace_currentgame.listAI()).toArray(aiChoices);
         getView().setAIChoices(aiChoices);
-        //getView().showModal();
+        getView().showModal();
         TimerTask timerTask = new TimerTask()
         {
             @Override
@@ -58,28 +65,46 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI() 
 	{
-			ModelFacade.facace_currentgame.currentgame.getServer().addAIPlayer(getView().getSelectedAI());
+			ModelFacade.facace_currentgame.currentgame.getServer().addAIPlayer("LARGEST_ARMY");
 	}
 	
 	public void checkGame()
     {
+//		try
+//		{
+//			String stringy = ModelFacade.facace_currentgame.getModel().getServer().getGameCurrentState(0).getResponse();
+//			System.out.println("This is stringy: " + stringy);
+//			JSONObject obj = new JSONObject(stringy);
+//			ModelFacade.facace_currentgame.updateFromJSON(obj);
+//			
+//		} catch (JSONException e)
+//		{
+//			System.out.println("I got an error");
+//			e.printStackTrace();
+//			
+//		}
+		
         if(this.numPlayers == ModelFacade.facace_currentgame.getMyplayers().size())
         {
+        	System.out.println("Oh noes");
             return;
         }
         if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)
         {
             this.timer.cancel();
-            serverPoller = new ServerPoller(ModelFacade.facace_currentgame.currentgame,ModelFacade.facace_currentgame.currentgame.getServer());
+            
             if(getView().isModalShowing())
             {
                 getView().closeModal();
+                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.GamePlayingState);
+                
             }
-            serverPoller.startPoller();
+            
+//            serverPoller.startPoller();
             return;
         }
         this.numPlayers = ModelFacade.facace_currentgame.getMyplayers().size();
-        ArrayList<Player> currentPlayers = (ArrayList<Player>) ModelFacade.facace_currentgame.getMyplayers().values();
+        Collection<Player> currentPlayers = ModelFacade.facace_currentgame.getMyplayers().values();
         PlayerInfo[] playerInfo = new PlayerInfo[currentPlayers.size()];
         int idx = 0;
         for(Player player: currentPlayers)

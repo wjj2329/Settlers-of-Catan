@@ -511,28 +511,31 @@ public void loadGame(JSONObject mygame) throws JSONException {
 	{
 		for (int i = 0; i < players.length(); i++)
 		{
-			JSONObject obj = players.getJSONObject(i);
-			System.out.println(obj);
-			CatanColor color = stringToCatanColor(obj.getString("color"));
-			assert(color != null);
-			Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
-			newPlayer.setNumCitiesRemaining(obj.getInt("cities"));
-			newPlayer.setIsDiscarded(obj.getBoolean("discarded"));
-			newPlayer.setNumMonuments(obj.getInt("monuments"));
-			newPlayer.setPlayerID(new Index(obj.getInt("playerID")));
-			newPlayer.setPlayedDevCard(obj.getBoolean("playedDevCard"));
-			newPlayer.setPlayerIndex(new Index(obj.getInt("playerIndex")));
-			// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
-			// although this makes the most sense to me, y'know?
-			newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
-			newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
-			newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
-			newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
-
-			newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
-			oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
-			resources(obj, newPlayer.getResources());
-			currentgame.addPlayer(newPlayer);
+			if(!players.isNull(i))
+			{
+				JSONObject obj = players.getJSONObject(i);
+				System.out.println(obj);
+				CatanColor color = stringToCatanColor(obj.getString("color"));
+				assert(color != null);
+				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
+				newPlayer.setNumCitiesRemaining(obj.getInt("cities"));
+				newPlayer.setIsDiscarded(obj.getBoolean("discarded"));
+				newPlayer.setNumMonuments(obj.getInt("monuments"));
+				newPlayer.setPlayerID(new Index(obj.getInt("playerID")));
+				newPlayer.setPlayedDevCard(obj.getBoolean("playedDevCard"));
+				newPlayer.setPlayerIndex(new Index(obj.getInt("playerIndex")));
+				// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
+				// although this makes the most sense to me, y'know?
+				newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
+				newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
+				newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
+				newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
+		
+				newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
+				oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
+				resources(obj, newPlayer.getResources());
+				currentgame.addPlayer(newPlayer);
+			}
 		}
 	}
 

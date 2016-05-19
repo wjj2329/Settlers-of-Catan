@@ -81,12 +81,16 @@ public class ServerPoller
 //					game.setModel(newModel);
 //				}
 			//}			
-			System.out.println("New version: " + version);
+			//System.out.println("New version: " + version);
 			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
 			{
 				try
 				{
+					System.out.println("Old version: " + game.getModel().getVersion());
 					ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(json.getResponse()));
+					System.out.println("New version: " + game.getModel().getVersion());
+					System.out.println(ModelFacade.facace_currentgame.getMyplayers().size());
+					
 				} catch (JSONException e)
 				{
 					// TODO Auto-generated catch block

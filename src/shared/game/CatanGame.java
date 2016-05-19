@@ -49,10 +49,10 @@ public class CatanGame
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
-	private TurnTracker myturntracker=new TurnTracker(TurnStatus.FIRSTROUND, new Index(0), new Index(1), new Index(2));
+	private TurnTracker myturntracker = new TurnTracker(TurnStatus.FIRSTROUND, new Index(0), new Index(1), new Index(2));
 	private Index version=new Index(0);
 	private Index winner=new Index(0);
-	private TradeOffer mytradeoffer=new TradeOffer();
+	private TradeOffer mytradeoffer = new TradeOffer();
 	private boolean randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts;
 	private String title;
 	private static int masterid = 0;

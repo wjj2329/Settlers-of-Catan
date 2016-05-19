@@ -268,6 +268,8 @@ public class ServerProxy implements IServer {
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		
+		
 		return response;
 	}
 
@@ -301,10 +303,12 @@ public class ServerProxy implements IServer {
 		
 		Param param = new AddAIParam(logLevel);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
+		System.out.println("doop");
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		System.out.println("ADD AI got back from the server");
+		System.out.println(response.getResponseCode());
 		return response;
 	}
 
