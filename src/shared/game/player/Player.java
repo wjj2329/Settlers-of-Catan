@@ -561,18 +561,18 @@ public class Player
 		VertexLocation down = getDownVertex(edgeIAmTryingToPlaceRoadOn, hex1);
 		if (hex1 == null)
 		{
-			System.out.println("cannot build: the hex is null");
+			//System.out.println("cannot build: the hex is null");
 			return false;
 		}
 		Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
 		if (adjacent == null)
 		{
-			System.out.println("cannot build: the adjacent edge is null");
+			//System.out.println("cannot build: the adjacent edge is null");
 			return false;
 		}
 		if (hex1.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 		{
-			System.out.println("cannot build: the resource types are both water");
+			//System.out.println("cannot build: the resource types are both water");
 			return false;
 		}
 		if (up != null && up.isHassettlement())
@@ -760,27 +760,27 @@ public class Player
 	{
 		if (hex == null || edge == null) // added the edge one
 		{
-			System.out.println("can't build road piece: hex or edge is null");
+			//System.out.println("can't build road piece: hex or edge is null");
 			return false;
 		}
 		if (numRoadPiecesRemainingForSetupPhase <= 0)
 		{
-			System.out.println("can't build road piece: out of pieces");
+			//System.out.println("can't build road piece: out of pieces");
 			return false;
 		}
 		if (!currentPlayer)
 		{
-			System.out.println("can't build road piece: not current player");
+			//System.out.println("can't build road piece: not current player");
 			return false;
 		}
 		if (edge.hasRoad())
 		{
-			System.out.println("can't build road piece: edge already has a road on it");
+			//System.out.println("can't build road piece: edge already has a road on it");
 			return false;
 		}
 		if (!checkForOtherRoadsAndStructures(hex, edge))
 		{
-			System.out.println("can't build road piece: no adjacent roads or structures belonging to player");
+			//System.out.println("can't build road piece: no adjacent roads or structures belonging to player");
 			return false;
 		}
 		System.out.println("it all worked");
