@@ -1,7 +1,9 @@
 package client.maritime;
 
+import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
+import shared.game.player.Player;
 
 
 /**
@@ -10,7 +12,11 @@ import client.base.*;
  */
 public class MaritimeTradeController extends Controller implements IMaritimeTradeController
 {
-
+	/**
+	 * This variable represents the player who is making the trade with the bank.
+	 * This may not be getLocalPlayer
+	 */
+	private Player currentPlayer = ModelFacade.facace_currentgame.getLocalPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
@@ -39,6 +45,10 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
+		if (currentPlayer.isCurrentPlayer())
+		{
+			
+		}
 		getTradeOverlay().showModal();
 	}
 
@@ -82,5 +92,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	}
 
+	public Player getCurrentPlayer()
+	{
+		return currentPlayer;
+	}
+
+	public void setCurrentPlayer(Player currentPlayer)
+	{
+		this.currentPlayer = currentPlayer;
+	}
 }
 
