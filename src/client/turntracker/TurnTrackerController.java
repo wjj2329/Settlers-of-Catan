@@ -18,7 +18,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	ITurnTrackerView view;
 
-	public TurnTrackerController(ITurnTrackerView view) {
+	public TurnTrackerController(ITurnTrackerView view)
+	{
 
 		super(view);
 		this.view = view;
@@ -26,18 +27,26 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 
 	@Override
-	public ITurnTrackerView getView() {
+	public ITurnTrackerView getView()
+	{
 
 		return (ITurnTrackerView) super.getView();
 	}
 
 	@Override
-	public void endTurn() {
+	public void endTurn()
+	{
 		ModelFacade.facace_currentgame.currentgame.getModel().getServer().finishTurn("finishTurn", 
 				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
-	private void initFromModel() {
+	private void initFromModel()
+	{
+
+	}
+
+	private void initFromModel2()
+	{
 		// sets the current user's color..
 		//
 ////		//This is for testing. comment later

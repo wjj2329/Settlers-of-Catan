@@ -15,7 +15,7 @@ public class TurnTracker implements Serializable
 {
 
 	/**
-	 * The index of the player whoom the current turn is on.
+	 * The index of the player whom the current turn is on.
 	 */
 	private Index currentTurn;
 	/**
@@ -100,7 +100,7 @@ public class TurnTracker implements Serializable
 	/**
 	 * @param currentTurn the currentTurn to set
 	 */
-	public void setCurrentTurn(Index currentTurn,Map<Index, Player> players)
+	public void setCurrentTurn(Index currentTurn, Map<Index, Player> players)
 	{
 		this.currentTurn = currentTurn;
 		updateUserWithLargestArmy(players);
@@ -115,10 +115,37 @@ public class TurnTracker implements Serializable
 	}
 	/**
 	 * @param status the status to set
+	 *               It converts it from string to TurnStatus
 	 */
+
 	public void setStatus(TurnStatus status)
 	{
 		this.status = status;
+	}
+
+	public void setStatusFromString(String status)
+	{
+		switch (status.toLowerCase())
+		{
+			case "rolling":
+				this.status = TurnStatus.ROLLING;
+				break;
+			case "robbing":
+				this.status = TurnStatus.ROBBING;
+				break;
+			case "playing":
+				this.status = TurnStatus.PLAYING;
+				break;
+			case "discarding":
+				this.status = TurnStatus.DISCARDING;
+				break;
+			case "firstround":
+				this.status = TurnStatus.FIRSTROUND;
+				break;
+			case "secondround":
+				this.status = TurnStatus.SECONDROUND;
+				break;
+		}
 	}
 	/**
 	 * @return the longestRoad
