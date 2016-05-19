@@ -4,7 +4,11 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import server.proxies.IServer;
+import server.response.ServerResponse;
 import shared.game.CatanGame;
 
 /**
@@ -20,7 +24,7 @@ public class ServerPoller
 	 */
 	Timer requestTimer = null;
 	IServer server;
-	CatanGame game=ModelFacade.facace_currentgame.currentgame;
+	CatanGame game = ModelFacade.facace_currentgame.currentgame;
 	
 	public ServerPoller(CatanGame game, IServer server)
 	{
@@ -34,6 +38,7 @@ public class ServerPoller
 	 */
 	public void startPoller()
 	{
+		System.out.println("Polling has started...");
 		requestTimer.scheduleAtFixedRate(new Poll(this), 0, 2*1000);
 		
 	}
@@ -54,11 +59,39 @@ public class ServerPoller
 		@Override
 		public void run()
 		{
-			Model newModel = server.getGameModel(game.getModel().getVersion());
-			if (newModel != null) {
-				System.out.println("New version: "+newModel.getVersion());
-				if (newModel.getVersion() > game.getModel().getVersion() || game.getModel().getVersion() == 0)
-					game.setModel(newModel);
+			System.out.println("polling server");
+			int version = 0;
+			ServerResponse json = server.getGameCurrentState(game.getModel().getVersion());
+			try
+			{
+				JSONObject object = new JSONObject(json.getResponse());
+				version = object.getInt("version");
+			} catch (JSONException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			//Model newModel = server.getGameModel(game.getModel().getVersion());
+			//if (newModel != null) 
+			//{
+//				System.out.println("New version: "+newModel.getVersion());
+//				if (newModel.getVersion() > game.getModel().getVersion() || game.getModel().getVersion() == 0)
+//				{
+//					game.setModel(newModel);
+//				}
+			//}			
+			System.out.println("New version: " + version);
+			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
+			{
+				try
+				{
+					ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(json.getResponse()));
+				} catch (JSONException e)
+				{
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 		
