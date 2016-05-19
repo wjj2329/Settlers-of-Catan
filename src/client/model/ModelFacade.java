@@ -348,6 +348,8 @@ public class ModelFacade extends Observable
 
 
 public void loadGame(JSONObject mygame) throws JSONException {
+	/*
+	currentgame.clear();
 	JSONObject deck=mygame.getJSONObject("deck");
 	{
 		int yearofplenty=deck.getInt("yearOfPlenty");
@@ -359,9 +361,20 @@ public void loadGame(JSONObject mygame) throws JSONException {
 		currentgame.mybank.setDevCardList(mylist);
 		updateFromJSON(deck);
 		JSONObject map=mygame.getJSONObject("map");
-		loadMap(map);
+		JSONObject hexGrid=mygame.getJSONObject("hexGrid");
+		JSONArray hexes=hexGrid.getJSONArray("hexes");
+		for (int i = 0; i < hexes.length(); i++)
+		{
+			JSONObject Location=hexes.getJSONObject(i).getJSONObject("location");
+			HexLocation mylocation=new HexLocation(Location.getInt("x"),Location.getInt("y"));
+			if(hexes.getBoolean(Integer.parseInt("IsLand"))==false)
+			{
+				Hex myhex=new Hex(mylocation,HexType.WATER)
+			}
+		}
 
 	}
+	*/
 }
 
 	private void loadMap(JSONObject map) throws JSONException
