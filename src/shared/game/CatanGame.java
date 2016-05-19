@@ -232,6 +232,17 @@ public class CatanGame
 	{
 		return winner;
 	}
+
+	public void setWinner(Index winner)
+	{
+		this.winner = winner;
+	}
+
+	public void setVersion(Index version)
+	{
+		this.version = version;
+	}
+
 	public TradeOffer getMytradeoffer()
 	{
 		return mytradeoffer;

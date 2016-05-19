@@ -1,6 +1,7 @@
 package client.communication;
 
 import client.base.*;
+import client.model.ModelFacade;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
 import shared.definitions.CatanColor;
@@ -17,6 +18,7 @@ import java.util.List;
 public class ChatController extends Controller implements IChatController
 {
 	private Player playerSendingChat = new Player("Broses", CatanColor.RED, new Index(1));
+	//ModelFacade.facace_currentgame
 	private List<LogEntry> allLogEntries = new ArrayList<>();
 	private IServer server = new ServerProxy();
 	private IAction sendChatAction;
