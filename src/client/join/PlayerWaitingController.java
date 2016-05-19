@@ -38,9 +38,11 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void start() 
 	{
-        String[] aiChoices = new String[3];
+        String[] aiChoices = new String[1];
+        aiChoices[0] = "LARGEST_ARMY";
        // ModelFacade.facace_currentgame.listAI()).toArray(aiChoices);
         getView().setAIChoices(aiChoices);
+        getView().showModal();
         TimerTask timerTask = new TimerTask()
         {
             @Override
