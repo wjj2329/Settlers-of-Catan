@@ -1265,6 +1265,10 @@ public class Hex
 		this.location = location;
 	}
 
+	public void setResourcenumber(NumberToken resourcenumber)
+	{
+		this.resourcenumber=resourcenumber;
+	}
 	public int getResourcenumber()
 	{
 		return this.resourcenumber.getValue();
