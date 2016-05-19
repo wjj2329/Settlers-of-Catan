@@ -223,6 +223,10 @@ public class CatanGame
 		this.myGameHistory = myGameHistory;
 	}
 
+	public void setCurrentPlayer(Player currentPlayer) {
+		this.currentPlayer = currentPlayer;
+	}
+
 	public Index getVersion()
 	{
 		return version;
