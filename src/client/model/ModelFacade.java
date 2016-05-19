@@ -46,7 +46,7 @@ import java.util.Observable;
  */
 public class ModelFacade extends Observable
 {
-	public CatanGame currentgame = new CatanGame();
+	public CatanGame currentgame = new CatanGame(); // should this be new?
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private Player localplayer;
 	
@@ -308,7 +308,10 @@ public class ModelFacade extends Observable
 		loadTurnTracker(turnTracker);
 
 		int version = myObject.getInt("version");
+		currentgame.setVersion(new Index(version));
 		int winner_convertToIndex = myObject.getInt("winner");
+		Index winner = new Index(winner_convertToIndex);
+		currentgame.setWinner(winner);
 		this.setChanged();
 		notifyObservers();
 	}
@@ -466,7 +469,7 @@ public class ModelFacade extends Observable
 	{
 		for (int i = 0; i < players.length(); i++)
 		{
-			JSONObject obj = players.getJSONObject(i);
+			JSONObject obj = players.getJSONObject(i); // each object should represent each individual player
 			CatanColor color = stringToCatanColor(obj.getString("color"));
 			assert(color != null);
 			Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
