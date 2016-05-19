@@ -18,6 +18,7 @@ import shared.definitions.PortType;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
+import shared.game.DevCardList;
 import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
@@ -88,8 +89,7 @@ public class ModelFacade extends Observable
 		 
 		
 	}
-	
-	
+
 	public JSONObject serializeModel() throws JSONException
 	{
 		JSONObject myobject=new JSONObject();
@@ -347,6 +347,21 @@ public class ModelFacade extends Observable
 	}
 
 
+public void loadGame(JSONObject mygame) throws JSONException {
+	JSONObject deck=mygame.getJSONObject("deck");
+	{
+		int yearofplenty=deck.getInt("yearOfPlenty");
+		int monopoly=deck.getInt("monopoly");
+		int soldier=deck.getInt("soldier");
+		int roadBuilding=deck.getInt("roadBuilding");
+		int monument=deck.getInt("monument");
+		DevCardList mylist=new DevCardList(monopoly,monument,roadBuilding,soldier,yearofplenty);
+		currentgame.mybank.setDevCardList(mylist);
+		updateFromJSON(deck);
+		//JSONObject map=mygame.getJSONObject("map");
+		//loadMap(map);
+	}
+}
 
 	private void loadMap(JSONObject map) throws JSONException
 	{

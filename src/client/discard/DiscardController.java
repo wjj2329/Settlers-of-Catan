@@ -1,5 +1,6 @@
 package client.discard;
 
+import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
 import client.misc.*;
@@ -35,7 +36,7 @@ public class DiscardController extends Controller implements IDiscardController 
 
 	@Override
 	public void increaseAmount(ResourceType resource) {
-		
+
 	}
 
 	@Override
@@ -44,8 +45,8 @@ public class DiscardController extends Controller implements IDiscardController 
 	}
 
 	@Override
-	public void discard() {
-		
+	public void discard()
+	{
 		getDiscardView().closeModal();
 	}
 

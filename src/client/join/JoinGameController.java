@@ -10,6 +10,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import client.model.Model;
+import org.json.JSONException;
+import org.json.JSONObject;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -33,8 +35,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
     private Collection<CatanColor> colorsTaken = null;
-    public static  String colorforit;
-    public static int gameindex;
     public static int playerindexforit=0;
 	//private GameInfo[] games;
 	
@@ -328,14 +328,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void joinGame(CatanColor color)
 	{
-        colorforit=color.toString();
         ArrayList<CatanGame> games = ModelFacade.facace_currentgame.getModel().listGames();
         for(CatanGame game: games)
         {
             if(game.getGameId() == this.game.getId())
             {
-                gameindex=game.getGameId();
-                //ModelFacade.facace_currentgame.currentgame.getServer().JoinGame(gameindex,colorforit);  doesn't work find where it does.
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);
@@ -353,7 +350,18 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
         System.out.println(game.getId());
         ModelFacade.facace_currentgame.getModel().joinGame(color, game.getId());
-        
+
+        /*
+        System.out.println(game.getPlayers().size());
+        if(game.getPlayers().size()==4)
+        try {
+            ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(ModelFacade.facace_currentgame.getModel().getServer().getGameCurrentState(0).getResponse()));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        */
+
+
         timer.cancel();
         if(getSelectColorView().isModalShowing())
         {
