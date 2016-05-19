@@ -663,7 +663,7 @@ public class Hex
 	public boolean canBuildSettlementHereNormal(VertexLocation mylocation)
 	{
 		//System.out.println("i come here to check");
-		
+
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
 			if(east.isHascity()||northeast.isHascity()||southeast.isHascity())
@@ -891,10 +891,7 @@ public class Hex
 
 	public boolean canBuildSettlementHereStartup(VertexLocation mylocation)
 	{
-		if (settlements.size() >= 3)
-		{
-			return false;
-		}
+
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
 			if(east.isHascity()||northeast.isHascity()||southeast.isHascity())

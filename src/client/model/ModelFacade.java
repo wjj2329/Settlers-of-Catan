@@ -536,7 +536,7 @@ public void loadGame(JSONObject mygame) throws JSONException {
 				resources(obj, newPlayer.getResources());
 				currentgame.addPlayer(newPlayer);
 			}
-			System.out.println("I add a player with name " + newPlayer.getName());
+			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
 	}
 
