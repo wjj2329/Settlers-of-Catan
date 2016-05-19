@@ -25,6 +25,7 @@ public class ServerPoller
 	Timer requestTimer = null;
 	IServer server;
 	CatanGame game = ModelFacade.facace_currentgame.currentgame;
+	public static Boolean stop=false;
 	
 	public ServerPoller(CatanGame game, IServer server)
 	{
@@ -82,7 +83,7 @@ public class ServerPoller
 //				}
 			//}			
 			//System.out.println("New version: " + version);
-			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
+			if (version > game.getModel().getVersion() || stop==false)
 			{
 				try
 				{
@@ -90,6 +91,7 @@ public class ServerPoller
 					ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(json.getResponse()));
 					System.out.println("New version: " + game.getModel().getVersion());
 					System.out.println(ModelFacade.facace_currentgame.getMyplayers().size());
+					stop=true;
 					
 				} catch (JSONException e)
 				{
