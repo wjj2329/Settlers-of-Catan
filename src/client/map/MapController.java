@@ -96,20 +96,28 @@ public class MapController extends Controller implements IMapController, Observe
 				(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
 
-
-
+	public static boolean canplace=true;
 	//have these things in States
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		try
-		{
-			//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
-			return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState)&&canplace) {
+			try {
+				//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+				return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			} catch (Exception e) {
+			}
+			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn. 
 		}
-		catch (Exception e)
-		{
-			
-		}
+			else{
+
+				try {
+					//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+					return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				} catch (Exception e) {
+
+				}
+			}
+
 		return false;
 
 	}
@@ -157,13 +165,12 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
+		//if current state is set up then I can do this.
 		try {
 			System.out.println("my current state is this "+ModelFacade.facace_currentgame.currentgame.getCurrentState().toString());
-			//ModelFacade.facace_currentgame.currentgame.getCurrentState().buildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 		boolean insert=false;
 		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
