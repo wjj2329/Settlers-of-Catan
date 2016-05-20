@@ -585,7 +585,9 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(index));
-		currentgame.getMyplayers().get(index).setCurrentPlayer(true);
+		if(currentgame.getMyplayers().size()==4) {// Should stop caring if first player logging in isn't the first to start the game.
+			currentgame.getMyplayers().get(index).setCurrentPlayer(true);
+		}
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
 		assert(status != null);
 		currentgame.getModel().getTurntracker().setStatus(status);

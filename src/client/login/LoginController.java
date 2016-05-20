@@ -25,7 +25,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 	private IMessageView messageView;
 	private IAction loginAction;
 	private IServer server = ModelFacade.facace_currentgame.getModel().getServer();
-	public static String REALPURENAME;
+	public static String REALPURENAME; //We MAY HAVE A SERIOUS BUG caused because of this.  Need to talk about the player name format. 
 
 	/**
 	 * LoginController constructor

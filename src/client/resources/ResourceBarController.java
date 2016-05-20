@@ -148,6 +148,22 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 
 			this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+			ResourceList resourceCards = player.getResources();
+
+			this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
+			this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
+			this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
+			this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
+			this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
+
+			// update roads/settlements/cities you have left
+			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getNumRoadPiecesRemaining());
+			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getNumSettlementsRemaining());
+			this.getView().setElementAmount(ResourceBarElement.CITY, player.getNumCitiesRemaining());
+
+			// update soldiers
+			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
+
 		} else {
 
 
