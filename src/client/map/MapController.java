@@ -259,12 +259,69 @@ public class MapController extends Controller implements IMapController, Observe
 	 *           Observable's interface, arg is an argument passed to the
 	 *           notifyObservers method.
      */
+	public static boolean Hasplayedoneturn=false;
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		if(player!=null)
 		{
-			getView().startDrop(PieceType.SETTLEMENT,CatanColor.BLUE,true);
+			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName()))
+			{
+				if (ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+				{
+					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 0)
+					{
+						getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+					}
+					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1)
+					{
+						getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+					}
+					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1
+							&& ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getRoadPieces().size() == 1
+							&& !Hasplayedoneturn)
+					{
+						String jsonString = ModelFacade.facace_currentgame.getModel().getServer().finishTurn("finishTurn",
+								ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber()).getResponse();
+						try
+						{
+							JSONObject jsonObj = new JSONObject(jsonString);
+							ModelFacade.facace_currentgame.updateFromJSON(jsonObj);
+						}
+						catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+						// should we set the turn status?
+						Hasplayedoneturn=true;
+					}
+					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getRoadPieces().size() == 1
+							&& Hasplayedoneturn)
+					{
+						getView().startDrop(PieceType.SETTLEMENT, CatanColor.GREEN, false);
+					}
+					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 2)
+					{
+						getView().startDrop(PieceType.ROAD, CatanColor.GREEN, false);
+						String json=ModelFacade.facace_currentgame.getModel().getServer().finishTurn("finishTurn",
+								ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber()).getResponse();
+						try
+						{
+							JSONObject jsonObj = new JSONObject(json);
+							ModelFacade.facace_currentgame.updateFromJSON(jsonObj);
+						}
+						catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+						ModelFacade.facace_currentgame.currentgame.setCurrentState(State.GamePlayingState);
+					}
+					//end turn
+					// reverse order. DO NOT FORGET THE REVERSE ORDER. idk if the server does it automatically.
+				}
+			}
 		}
 		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
