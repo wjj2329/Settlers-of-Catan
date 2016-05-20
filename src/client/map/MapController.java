@@ -16,6 +16,7 @@ import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
@@ -26,6 +27,7 @@ import client.data.*;
 public class MapController extends Controller implements IMapController, Observer
 {
 	private IRobView robView;
+	//public static boolean
 	
 	public MapController(IMapView view, IRobView robView)
 	{
@@ -96,20 +98,28 @@ public class MapController extends Controller implements IMapController, Observe
 				(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
 
-
-
+	public static boolean canplace=true;
 	//have these things in States
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		try
-		{
-			//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
-			return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState)&&canplace) {
+			try {
+				//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+				return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			} catch (Exception e) {
+			}
+			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn. 
 		}
-		catch (Exception e)
-		{
-			
-		}
+			else{
+
+				try {
+					//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+					return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				} catch (Exception e) {
+
+				}
+			}
+
 		return false;
 
 	}
@@ -157,22 +167,26 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
+		//if current state is set up then I can do this.
 		try {
 			System.out.println("my current state is this "+ModelFacade.facace_currentgame.currentgame.getCurrentState().toString());
-			//ModelFacade.facace_currentgame.currentgame.getCurrentState().buildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()),vertLoc);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//getView().placeSettlement(vertLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
 		boolean insert=false;
 		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement", 0, insert, vertLoc).getResponse();
+		int test=1;
+		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet()) {
+			 test = ModelFacade.facace_currentgame.getMyplayers().get(loc).getPlayerID().getNumber();
+		}
+		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
+			System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();

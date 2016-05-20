@@ -95,14 +95,14 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 
 	public boolean hasLargestArmy(Index index) {
-		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getMyturntracker().getLargestArmy().getNumber()) {
+		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean hasLongestRoad(Index index) {
-		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getMyturntracker().getLongestRoad().getNumber()) {
+		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getLongestRoad().getNumber()) {
 			return true;
 		}
 		return false;

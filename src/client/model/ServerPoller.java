@@ -85,7 +85,7 @@ public class ServerPoller
 			//System.out.println("New version: " + version);
 			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
 			{
-				//if(ModelFacade.facace_currentgame.getMyplayers().size()<4) {
+				if(ModelFacade.facace_currentgame.getMyplayers().size()<4) {
 					try
 					{
 						System.out.println("Old version: " + game.getModel().getVersion());
@@ -98,7 +98,7 @@ public class ServerPoller
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-				//}
+				}
 			}
 		}
 		

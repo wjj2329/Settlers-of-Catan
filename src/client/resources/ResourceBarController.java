@@ -3,6 +3,7 @@ package client.resources;
 import java.util.*;
 
 import client.State.State;
+import client.model.Model;
 import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -126,12 +127,14 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 	@Override
 	public void update(Observable o, Object arg) {
-	/*
-		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet())
+
+		for(Index id:ModelFacade.facace_currentgame.getMyplayers().keySet())
 		{
-			System.out.println(ModelFacade.facace_currentgame.getMyplayers().get(loc).getResources().getBrick());
+			System.out.println("MY players ids are these "+ModelFacade.facace_currentgame.getMyplayers().get(id).getPlayerID().getNumber());
 		}
+
     	Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		System.out.println("the current players index apparently is this "+currentTurn.getNumber());
 		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
 
 		//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
@@ -145,9 +148,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
 
 			// update roads/settlements/cities you have left
-			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getRoadPieces().size());
-			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getSettlements().size());
-			this.getView().setElementAmount(ResourceBarElement.CITY, player.getCities().size());
+			this.getView().setElementAmount(ResourceBarElement.ROAD, player.getNumRoadPiecesRemaining());
+			this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, player.getNumSettlementsRemaining());
+			this.getView().setElementAmount(ResourceBarElement.CITY, player.getNumCitiesRemaining());
 
 			// update soldiers
 			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
@@ -166,14 +169,18 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
 					player.canAffordDevCard());
 
+			if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState) {
 
-			//if (player.getPlayerIndex() != currentTurn){
-			//this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
-			// this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
-			// this.getView().setElementEnabled(ResourceBarElement.CITY, false);
-			// this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
-			//this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-			// }
+					this.getView().setElementEnabled(ResourceBarElement.ROAD, true);
+
+					this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
+
+					this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+
+					this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+
+					this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+			}
 			if (ModelFacade.facace_currentgame.currentgame.getCurrentState() != State.SetUpState) {
 				if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
@@ -194,7 +201,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 			}
 		}
-		*/
+
     }
 
 

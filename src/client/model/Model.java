@@ -24,7 +24,7 @@ public class Model
 	private MessageList log;
 	private CatanMap map;
 	private TradeOffer tradeoffer;
-	private TurnTracker turntracker;
+	private TurnTracker turntracker=new TurnTracker(null,null, null,null);
 	private int version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();

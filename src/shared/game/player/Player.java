@@ -906,7 +906,7 @@ public class Player
 		if(hex==null||myLocation==null)
 		{
 			Exception e=new Exception();
-			e.printStackTrace();
+			//e.printStackTrace();
 			throw e;		}
 		if (!hex.canBuildSettlementHereNormal(myLocation))
 		{

@@ -49,7 +49,6 @@ public class CatanGame
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
-	private TurnTracker myturntracker = new TurnTracker(TurnStatus.FIRSTROUND, new Index(0), new Index(1), new Index(2));
 	private Index version=new Index(0);
 	private Index winner=new Index(0);
 	private TradeOffer mytradeoffer = new TradeOffer();
@@ -187,7 +186,7 @@ public class CatanGame
 	public void setModel(Model newModel)
 	{
 		gameModel = newModel;
-		
+
 	}
 	public JSONObject serializeModel()
 	{
@@ -208,10 +207,7 @@ public class CatanGame
 	 * in this value. Feel free to change this
 	 */
 	private static final int RADIUS = 10;
-	public TurnTracker getMyturntracker()
-	{
-		return myturntracker;
-	}
+
 
 	public GameHistory getMyGameHistory()
 	{
