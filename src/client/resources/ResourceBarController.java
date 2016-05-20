@@ -164,14 +164,12 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				// update soldiers
 				this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
 
-			}
-		}else {
+			} else {
 
-
-			//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
-			if (player != null) {
+				System.out.println("Sam should get in here ");
+				//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
+				System.out.println("Sam IS HERE YEA!!!!");
 				ResourceList resourceCards = player.getResources();
-				// update the resources you have
 				this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
 				this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
 				this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
@@ -233,8 +231,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				}
 			}
 
+			}
+
 		}
-	}
+
 
 
 }
