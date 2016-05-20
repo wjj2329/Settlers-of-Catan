@@ -157,7 +157,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.currentgame.getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -191,7 +191,7 @@ public class MapController extends Controller implements IMapController, Observe
 			System.out.println("my players index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
@@ -214,7 +214,7 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facace_currentgame.currentgame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildCity("buildCity",0,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);

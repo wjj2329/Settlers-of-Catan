@@ -270,8 +270,4 @@ public class CatanGame
 		return title;
 	}
 
-	public IServer getServer()
-	{
-		return ModelFacade.facace_currentgame.getModel().getServer();
-	}
 }
