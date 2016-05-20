@@ -1,8 +1,10 @@
 package client.maritime;
 
+import client.State.State;
 import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
+import shared.game.CatanGame;
 import shared.game.player.Player;
 
 
@@ -41,11 +43,26 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		this.tradeOverlay = tradeOverlay;
 	}
 
+	/**
+	 * A few important points about the startTrade() function:
+	 * 1. A trade cannot be made if it is the setup phase, with the bank or otherwise, so the
+	 * 		button needs to be disabled. OR display a message that says "can't trade during setup."
+	 * 		I will probably do the second option; it seems more logical to me.
+	 *
+	 * 	2. Need to call the canTradeWithBank method on the Player class.
+	 */
 	@Override
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
+		// in setup state, you cannot make a trade.
+
 		getTradeOverlay().showModal();
+		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
+		{
+
+			return;
+		}
 		/*if (currentPlayer.canDoTradeWithBank())
 		{
 
