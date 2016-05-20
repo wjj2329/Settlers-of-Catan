@@ -585,6 +585,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(index));
+		currentgame.getMyplayers().get(index).setCurrentPlayer(true);
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
 		assert(status != null);
 		currentgame.getModel().getTurntracker().setStatus(status);

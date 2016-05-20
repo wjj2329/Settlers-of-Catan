@@ -42,7 +42,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	private void initFromModel()
 	{
-
+		
 	}
 
 	private void initFromModel2()
