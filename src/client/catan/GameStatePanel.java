@@ -9,7 +9,10 @@ import java.util.Observer;
 import javax.swing.*;
 
 import client.base.IAction;
+import client.login.LoginController;
 import client.model.ModelFacade;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 
 @SuppressWarnings("serial")
@@ -66,8 +69,13 @@ public class GameStatePanel extends JPanel implements Observer
 	public void update(Observable o, Object arg)
 	{
 
+		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		if (LoginController.REALPURENAME.equals(player.getName()))
+		{
+			updateGameState("End Turn",true);
+		}
 
-		updateGameState("Next turn",true);
 	}
 }
 

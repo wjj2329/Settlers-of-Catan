@@ -25,7 +25,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 	private IMessageView messageView;
 	private IAction loginAction;
 	private IServer server = ModelFacade.facace_currentgame.getModel().getServer();
-	
+	public static String REALPURENAME;
+
 	/**
 	 * LoginController constructor
 	 * 
@@ -141,8 +142,13 @@ public class LoginController extends Controller implements ILoginController, Obs
 				break;
 			}
 		}
-
-
+		StringBuilder mybuilder=new StringBuilder();
+		mybuilder.append(localplayer.getName());
+		mybuilder.deleteCharAt(0);
+		mybuilder.deleteCharAt(mybuilder.length()-1);
+		mybuilder.setCharAt(0,Character.toUpperCase(mybuilder.charAt(0)));
+		String newname=mybuilder.toString();
+		REALPURENAME=newname;
 		ModelFacade.facace_currentgame.setLocalPlayer(localplayer);
 	}
 	
