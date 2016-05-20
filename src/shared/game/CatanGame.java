@@ -171,7 +171,7 @@ public class CatanGame
 	 */
 	public void startGame()
 	{
-		poller = new ServerPoller(this, ModelFacade.facace_currentgame.getModel().getServer());
+		poller = new ServerPoller(this, ModelFacade.facace_currentgame.getServer());
 		poller.startPoller();
 	}
 	public void clear()

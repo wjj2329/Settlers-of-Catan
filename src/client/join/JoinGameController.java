@@ -9,6 +9,7 @@ import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import client.State.State;
 import client.model.Model;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -349,17 +350,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             }
         }
         System.out.println("i join the game with this id "+game.getId());
+
         ModelFacade.facace_currentgame.getModel().joinGame(color, game.getId());
 
-        /*
+
         System.out.println(game.getPlayers().size());
-        if(game.getPlayers().size()==4)
-        try {
-            ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(ModelFacade.facace_currentgame.getModel().getServer().getGameCurrentState(0).getResponse()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        */
+
+
 
 
         timer.cancel();

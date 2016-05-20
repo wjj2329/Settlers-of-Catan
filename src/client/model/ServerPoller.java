@@ -62,7 +62,7 @@ public class ServerPoller
 		{
 			System.out.println("polling server");
 			int version = 0;
-			ServerResponse json = ModelFacade.facace_currentgame.getModel().getServer().getGameCurrentState(game.getModel().getVersion());
+			ServerResponse json = ModelFacade.facace_currentgame.getServer().getGameCurrentState(game.getModel().getVersion());
 			try
 			{
 				JSONObject object = new JSONObject(json.getResponse());

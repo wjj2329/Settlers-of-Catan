@@ -28,8 +28,7 @@ public class Model
 	private int version;
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
-	private IServer server;
-	
+
 	/**
 	 * Map of players in the game.
 	 */
@@ -54,7 +53,7 @@ public class Model
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
 		CatanGame game = new CatanGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
-		getServer().createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
+		ModelFacade.facace_currentgame.getServer().createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
 	}
 	
 	/**
@@ -78,7 +77,7 @@ public class Model
 	 */
 	public void joinGame(CatanColor color, int gameindex)
 	{
-		getServer().JoinGame(gameindex, color.name().toLowerCase());
+		ModelFacade.facace_currentgame.getServer().JoinGame(gameindex, color.name().toLowerCase());
 		//gamelist.get(gameindex).addPlayer(player);
 	}
 	
@@ -103,9 +102,6 @@ public class Model
 	/**
 	 * @return the server
 	 */
-	public IServer getServer()
-	{
-		return ModelFacade.facace_currentgame.getServer();
-	}
+
 	
 }

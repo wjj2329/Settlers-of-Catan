@@ -54,7 +54,7 @@ public class ModelFacade extends Observable
 	
 	public void loadGames()
 	{
-		String JSON = currentgame.getModel().getServer().getAllCurrentGames().getResponse();
+		String JSON = server.getAllCurrentGames().getResponse();
 		
 		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
 		 try {

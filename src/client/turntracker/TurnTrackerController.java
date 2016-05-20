@@ -36,7 +36,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn()
 	{
-		ModelFacade.facace_currentgame.currentgame.getModel().getServer().finishTurn("finishTurn", 
+		ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",
 				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 

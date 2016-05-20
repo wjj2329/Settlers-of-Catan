@@ -43,7 +43,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public void start() 
 	{
 		System.out.println("Starting waiting");
-		serverPoller = new ServerPoller(ModelFacade.facace_currentgame.currentgame,ModelFacade.facace_currentgame.getModel().getServer());
+		serverPoller = new ServerPoller(ModelFacade.facace_currentgame.currentgame,ModelFacade.facace_currentgame.getServer());
 		serverPoller.startPoller();
         String[] aiChoices = new String[1];
         aiChoices[0] = "LARGEST_ARMY";
@@ -65,7 +65,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI() 
 	{
-			ModelFacade.facace_currentgame.currentgame.getModel().getServer().addAIPlayer("LARGEST_ARMY");
+			ModelFacade.facace_currentgame.getServer().addAIPlayer("LARGEST_ARMY");
 	}
 	
 	public void checkGame()
