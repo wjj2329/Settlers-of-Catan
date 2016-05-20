@@ -138,7 +138,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
 			System.out.println("I compare this player " + ModelFacade.facace_currentgame.getLocalPlayer().getName() + player.getName());
-			if (!LoginController.REALPURENAME.equals(player.getName())) {
+			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName())) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 
 				this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);

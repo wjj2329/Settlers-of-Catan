@@ -25,8 +25,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 	private IMessageView messageView;
 	private IAction loginAction;
 	private IServer server = ModelFacade.facace_currentgame.getModel().getServer();
-	public static String REALPURENAME; //We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
-	//format for names which is a problem!
+
 
 	/**
 	 * LoginController constructor
@@ -149,7 +148,9 @@ public class LoginController extends Controller implements ILoginController, Obs
 		mybuilder.deleteCharAt(mybuilder.length()-1);
 		mybuilder.setCharAt(0,Character.toUpperCase(mybuilder.charAt(0)));
 		String newname=mybuilder.toString();
-		REALPURENAME=newname;
+		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
+		//format for names which is a problem!
+		localplayer.setName(newname);
 		ModelFacade.facace_currentgame.setLocalPlayer(localplayer);
 	}
 	
