@@ -265,15 +265,22 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
-		if(player!=null)
+		if(player!=null && ModelFacade.facace_currentgame.getMyplayers().size() == 4)
 		{
+			System.out.println("Player is not null and there are 4 players");
 			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName()))
 			{
+				System.out.println("The names are equal. Bro.");
 				if (ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
 				{
 					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 0)
 					{
+						System.out.println("BEGIN setup: building settlements!");
 						getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+						/*if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1)
+						{
+							getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+						}*/
 					}
 					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1)
 					{

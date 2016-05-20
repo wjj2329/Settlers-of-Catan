@@ -40,7 +40,12 @@ public class CatanGame
 	{
 		this.currentState = currentState;
 	}
-	private State currentState = State.PlayerWaitingState;
+
+	/**
+	 * I am initializing this to setUp state because we don't seem to need the other state
+	 * and it really isn't working the other way.
+	 */
+	private State currentState = State.SetUpState;
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
@@ -57,8 +62,6 @@ public class CatanGame
 	private static int masterid = 0;
 	private int myid;
 	
-	
-	// If there is a singleton, then this shouldn't exist.
 
 	public CatanGame()
 	{

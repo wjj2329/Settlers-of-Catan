@@ -91,7 +91,13 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getLoginView().closeModal();
 			loginAction.execute();
 		}
-
+		else
+		{
+			getMessageView().setTitle("Login error");
+			getMessageView().setMessage("Login failed - bad password or username.");
+			getMessageView().showModal();
+			return;
+		}
 		createPlayerFromCookie(username1, password1);
 	}
 
@@ -113,7 +119,25 @@ public class LoginController extends Controller implements ILoginController, Obs
 				loginAction.execute();
 				ModelFacade.facace_currentgame.loadGames();
 			}
+			else
+			{
+				getMessageView().setTitle("Registration error");
+				getMessageView().setMessage("The username must be between 3 and 7 characters - " +
+						"letters, digits, _, and/or -. The password must be 5 or more characters," +
+						" and the two passwords must match.");
+				getMessageView().showModal();
+				return;
+			}
 			System.out.println("i failed to register");
+		}
+		else
+		{
+			getMessageView().setTitle("Registration error");
+			getMessageView().setMessage("The username must be between 3 and 7 characters - " +
+					"letters, digits, _, and/or -. The password must be 5 or more characters," +
+					" and the two passwords must match.");
+			getMessageView().showModal();
+			return;
 		}
 
 		createPlayerFromCookie(username,password);
