@@ -16,7 +16,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * This variable represents the player who is making the trade with the bank.
 	 * This may not be getLocalPlayer
 	 */
-	private Player currentPlayer = ModelFacade.facace_currentgame.getLocalPlayer();
+	private Player currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
@@ -45,11 +45,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
-		if (currentPlayer.isCurrentPlayer())
-		{
-			
-		}
 		getTradeOverlay().showModal();
+		/*if (currentPlayer.canDoTradeWithBank())
+		{
+
+		}*/
 	}
 
 	@Override
