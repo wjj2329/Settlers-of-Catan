@@ -27,6 +27,7 @@ import client.data.*;
 public class MapController extends Controller implements IMapController, Observer
 {
 	private IRobView robView;
+	//public static boolean
 	
 	public MapController(IMapView view, IRobView robView)
 	{
@@ -185,6 +186,7 @@ public class MapController extends Controller implements IMapController, Observe
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
+			System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();

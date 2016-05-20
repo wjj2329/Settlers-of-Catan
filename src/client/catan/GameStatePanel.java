@@ -3,14 +3,17 @@ package client.catan;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 import javax.swing.*;
 
 import client.base.IAction;
+import client.model.ModelFacade;
 
 
 @SuppressWarnings("serial")
-public class GameStatePanel extends JPanel
+public class GameStatePanel extends JPanel implements Observer
 {
 	private JButton button;
 	
@@ -19,7 +22,8 @@ public class GameStatePanel extends JPanel
 		this.setLayout(new FlowLayout());
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-		
+		ModelFacade.facace_currentgame.addObserver(this);
+
 		button = new JButton();
 		
 		Font font = button.getFont();
@@ -50,10 +54,19 @@ public class GameStatePanel extends JPanel
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
+				System.out.println("I pressed the button");
 				action.execute();
 			}
 		};
 		button.addActionListener(actionListener);
+	}
+
+	//I PRAY THIS DOESN"T DESTROY EVERYTHING
+	@Override
+	public void update(Observable o, Object arg)
+	{
+
+		updateGameState("Next turn",true);
 	}
 }
 
