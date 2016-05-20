@@ -767,6 +767,10 @@ public class Player
      */
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
+		/*if (isSettlementTurnOver(1)) // this needs to be fixed ASAP
+		{
+			return false;
+		}*/
 		if (hex == null || edge == null) // added the edge one
 		{
 			//System.out.println("can't build road piece: hex or edge is null");
@@ -827,6 +831,24 @@ public class Player
 		return false;
 	}
 
+	private boolean isSettlementTurnOver(int round1Or2)
+	{
+		int compare;
+		if (round1Or2 == 1)
+		{
+			compare = 1;
+		}
+		else
+		{
+			compare = 2;
+		}
+		if (settlements.size() == compare && roadPieces.size() == compare)
+		{
+			return true;
+		}
+		return false;
+	}
+
 		public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
 		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
 			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
@@ -856,6 +878,8 @@ public class Player
 
 
 	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
+		// Hey William I am going to add something here
+
 		if(hex==null||myLocation==null)
 		{
 			Exception e=new Exception();
