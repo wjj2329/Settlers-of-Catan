@@ -294,7 +294,7 @@ public class MapController extends Controller implements IMapController, Observe
 						{
 							e.printStackTrace();
 						}
-						// should we set the turn status?
+						// should we set the turn status? The server does use some of it
 						Hasplayedoneturn=true;
 					}
 					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getRoadPieces().size() == 1
