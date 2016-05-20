@@ -96,7 +96,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
             if(getView().isModalShowing())
             {
                 getView().closeModal();
-                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.GamePlayingState);
+                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.SetUpState);
                 
             }
             

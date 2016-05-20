@@ -16,6 +16,7 @@ import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
+import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
@@ -176,7 +177,11 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement", 0, insert, vertLoc).getResponse();
+		int test=1;
+		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet()) {
+			 test = ModelFacade.facace_currentgame.getMyplayers().get(loc).getPlayerID().getNumber();
+		}
+		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);

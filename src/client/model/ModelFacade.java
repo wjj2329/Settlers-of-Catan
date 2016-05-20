@@ -261,10 +261,10 @@ public class ModelFacade extends Observable
 
 		//turnTracker
 		JSONObject turnTracker=new JSONObject();
-		turnTracker.put("currentTurn", currentgame.getMyturntracker().getCurrentTurn());
-		turnTracker.put("status", currentgame.getMyturntracker().getStatus().toString());
-		turnTracker.put("longestRoad",currentgame.getMyturntracker().getLongestRoad().getNumber());
-		turnTracker.put("largestArmy", currentgame.getMyturntracker().getLargestArmy().getNumber());
+		turnTracker.put("currentTurn", currentgame.getModel().getTurntracker().getCurrentTurn());
+		turnTracker.put("status", currentgame.getModel().getTurntracker().getStatus().toString());
+		turnTracker.put("longestRoad",currentgame.getModel().getTurntracker().getLongestRoad().getNumber());
+		turnTracker.put("largestArmy", currentgame.getModel().getTurntracker().getLargestArmy().getNumber());
 
 		//last two things
 		myobject.put("version", currentgame.getVersion().getNumber());
@@ -279,6 +279,7 @@ public class ModelFacade extends Observable
 		 */
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
+		System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
 		currentgame.clear();
 		currentgame=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
@@ -580,15 +581,16 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
 		Index index = new Index(turnTracker.getInt("currentTurn"));
-		currentgame.getMyturntracker().setCurrentTurn(index,
+		System.out.println("MY TURN IS THIS" +index.getNumber());
+		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(index));
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
 		assert(status != null);
-		currentgame.getMyturntracker().setStatus(status);
+		currentgame.getModel().getTurntracker().setStatus(status);
 		// actual player who has the longest road
-		currentgame.getMyturntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
-		currentgame.getMyturntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
+		currentgame.getModel().getTurntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
+		currentgame.getModel().getTurntracker().setLargestArmy(new Index(turnTracker.getInt("largestArmy")));
 	}
 
 	private CatanColor stringToCatanColor(String color)

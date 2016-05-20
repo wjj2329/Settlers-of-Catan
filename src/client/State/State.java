@@ -99,6 +99,7 @@ public enum State {
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception
 		{
+			System.out.println("i am in the normal round to see if I can build");
 			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
 		}
 	},
@@ -108,6 +109,7 @@ public enum State {
 
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
+			System.out.println("i am in the setup to check if I can build it");
 			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
 		}
 		//First set up round player gets 2 free settlements and roads
