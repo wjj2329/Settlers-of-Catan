@@ -128,6 +128,14 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg) {
 
+		/*
+		if(currentplayer
+
+
+
+		 */
+
+
 		for(Index id:ModelFacade.facace_currentgame.getMyplayers().keySet())
 		{
 			System.out.println("MY players ids are these "+ModelFacade.facace_currentgame.getMyplayers().get(id).getPlayerID().getNumber());

@@ -184,14 +184,14 @@ public class MapController extends Controller implements IMapController, Observe
 		test=player.getPlayerIndex().getNumber();
 		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my players ID is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
+			System.out.println("my players ID " +ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
 		}
 		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my players index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
+			System.out.println("my player"+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facace_currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.getModel().getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
