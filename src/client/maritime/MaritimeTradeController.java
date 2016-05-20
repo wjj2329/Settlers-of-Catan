@@ -7,26 +7,34 @@ import client.base.*;
 import shared.game.CatanGame;
 import shared.game.player.Player;
 
+import java.util.Observable;
+import java.util.Observer;
+
 
 /**
  * Implementation for the maritime trade controller
  * Alex is working on this currently.
+ *
+ * A few important points about trading here:
+ * 1. The button will be disabled during the setup phase. It will be grayed out.
+ * 	2. Need to call the canTradeWithBank method on the Player class.
+ * 	3. I have not yet implemented the differentiation based on ports (i.e., 2:1, 3:1, and 4:1). 4:1
+ * 		is the default, though, so I will probably implement that first!
  */
-public class MaritimeTradeController extends Controller implements IMaritimeTradeController
+public class MaritimeTradeController extends Controller implements IMaritimeTradeController, Observer
 {
 	/**
 	 * This variable represents the player who is making the trade with the bank.
-	 * This may not be getLocalPlayer
+	 * AKA the current player.
 	 */
 	private Player currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
 	{
-		
 		super(tradeView);
-
 		setTradeOverlay(tradeOverlay);
+		ModelFacade.facace_currentgame.addObserver(this);
 	}
 	
 	public IMaritimeTradeView getTradeView()
@@ -43,26 +51,16 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		this.tradeOverlay = tradeOverlay;
 	}
 
-	/**
-	 * A few important points about the startTrade() function:
-	 * 1. A trade cannot be made if it is the setup phase, with the bank or otherwise, so the
-	 * 		button needs to be disabled. OR display a message that says "can't trade during setup."
-	 * 		I will probably do the second option; it seems more logical to me.
-	 *
-	 * 	2. Need to call the canTradeWithBank method on the Player class.
-	 */
 	@Override
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
-		// in setup state, you cannot make a trade.
-
 		getTradeOverlay().showModal();
-		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
+		/*if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
 		{
-			getTradeOverlay().hideGiveOptions();
+			getTradeOverlay().showGiveOptions(new ResourceType[0]);
 			return;
-		}
+		}*/
 		/*if (currentPlayer.canDoTradeWithBank())
 		{
 
@@ -117,6 +115,29 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setCurrentPlayer(Player currentPlayer)
 	{
 		this.currentPlayer = currentPlayer;
+	}
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		switch (ModelFacade.facace_currentgame.currentgame.getCurrentState())
+		{
+			case SetUpState:
+				getTradeView().enableMaritimeTrade(false);
+				break;
+			case GamePlayingState:
+				getTradeView().enableMaritimeTrade(true);
+				if (!currentPlayer.isCurrentPlayer())
+				{
+					getTradeOverlay().showGiveOptions(new ResourceType[0]);
+					// then enable that button that says "not your turn"
+
+				}
+				break;
+			default:
+				getTradeView().enableMaritimeTrade(false);
+				break;
+		}
 	}
 }
 
