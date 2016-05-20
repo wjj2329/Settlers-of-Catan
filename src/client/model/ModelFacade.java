@@ -50,6 +50,7 @@ public class ModelFacade extends Observable
 	public CatanGame currentgame = new CatanGame();
 	public static ModelFacade facace_currentgame = new ModelFacade();
 	private Player localplayer;
+	IServer server = new ServerProxy();
 	
 	public void loadGames()
 	{
@@ -853,6 +854,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		return localplayer;
 	}
 
+	public IServer getServer()
+	{
+		return server;
+	}
 	public Object listAI()
 	{
 		// TODO Auto-generated method stub

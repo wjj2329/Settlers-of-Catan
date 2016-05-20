@@ -25,6 +25,7 @@ public class ServerProxy implements IServer {
 	String usercookie;
 	String gamecookie; 
 	
+
 	/**
 	 * Logs the caller in to the server, and sets their catan.userHTTP cookie.
 	 * The passed-in username and password may correspond to the credentials of
@@ -303,7 +304,6 @@ public class ServerProxy implements IServer {
 		
 		Param param = new AddAIParam(logLevel);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		System.out.println("doop");
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
