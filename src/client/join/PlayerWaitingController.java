@@ -49,7 +49,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         aiChoices[0] = "LARGEST_ARMY";
        // ModelFacade.facace_currentgame.listAI()).toArray(aiChoices);
         getView().setAIChoices(aiChoices);
-        getView().showModal();
+        //getView().showModal();
         TimerTask timerTask = new TimerTask()
         {
             @Override
@@ -86,7 +86,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		
         if(this.numPlayers == ModelFacade.facace_currentgame.getMyplayers().size())
         {
-        	System.out.println("Oh noes");
+        	//System.out.println("Oh noes");
             return;
         }
         if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)

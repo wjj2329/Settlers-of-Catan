@@ -27,7 +27,7 @@ public class Model
 	private TurnTracker turntracker=new TurnTracker(null,null, null,null);
 	private int version;
 	private Index winner;
-	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
+	private ArrayList<CatanGame> gamelist = new ArrayList<>();
 	private IServer server;
 	
 	/**
@@ -45,7 +45,7 @@ public class Model
 	
 	/**
 	 * CreateGame function: Creates a new game.
-	 * I changed this to NewMockServer so that nothing breaks.
+	 * I changed this to NewMockServer so that nothing breaks. <- note: server is no longer taken as parameter
 	 * @param title 
 	 * @param randomPorts 
 	 * @param randomlyPlaceHexes 
