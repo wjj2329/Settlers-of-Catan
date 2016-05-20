@@ -66,6 +66,7 @@ public class GameStatePanel extends JPanel implements Observer
 	public void update(Observable o, Object arg)
 	{
 
+
 		updateGameState("Next turn",true);
 	}
 }

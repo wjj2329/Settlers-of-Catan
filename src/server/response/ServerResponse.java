@@ -9,7 +9,7 @@ public class ServerResponse {
 	String gameCookie;
 
 	public ServerResponse(int responseCode, String response){
-		System.out.println(response);
+		//System.out.println(response);
 		this.response = response;
 		this.responseCode = responseCode;
 	}

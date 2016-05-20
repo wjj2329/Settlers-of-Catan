@@ -69,7 +69,7 @@ public class ClientCommunicator
 	            requestBody.close();
 			}
 
-			System.out.println(data.getClass());
+			//System.out.println(data.getClass());
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				
 				 Map<String, List<String>> headers = connection.getHeaderFields();
@@ -84,7 +84,7 @@ public class ClientCommunicator
                 }
 
                 String responseBodyData = baos.toString();
-                System.out.println(responseBodyData);
+                //System.out.println(responseBodyData);
                 ServerResponse response = new ServerResponse(connection.getResponseCode(), responseBodyData);
                 response.setCookie(galleta);
                 return response;

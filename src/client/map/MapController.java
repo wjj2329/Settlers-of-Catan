@@ -178,10 +178,19 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		int test=1;
-		for(Index loc:ModelFacade.facace_currentgame.getMyplayers().keySet()) {
-			 test = ModelFacade.facace_currentgame.getMyplayers().get(loc).getPlayerID().getNumber();
+		int test;
+		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		test=player.getPlayerIndex().getNumber();
+		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
+		{
+			System.out.println("my players ID is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
 		}
+		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
+		{
+			System.out.println("my players index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
+		}
+		System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildSettlement("buildSettlement",test , insert, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {

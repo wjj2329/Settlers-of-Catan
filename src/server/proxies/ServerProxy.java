@@ -308,7 +308,7 @@ public class ServerProxy implements IServer {
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		System.out.println("ADD AI got back from the server");
-		System.out.println(response.getResponseCode());
+		//System.out.println(response.getResponseCode());
 		return response;
 	}
 

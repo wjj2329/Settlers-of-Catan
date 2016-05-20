@@ -44,7 +44,7 @@ public class TestingJsonImporterandExporter
    {
        try {
           JSONObject test= myfacade.serializeModel();
-           System.out.println(test);
+           //System.out.println(test);
        } catch (JSONException e) {
            e.printStackTrace();
        }
