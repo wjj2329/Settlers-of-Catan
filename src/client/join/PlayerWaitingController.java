@@ -91,7 +91,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         }
         if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)
         {
-            this.timer.cancel();
+            //this.timer.cancel();
             
             if(getView().isModalShowing())
             {
@@ -99,6 +99,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
                 ModelFacade.facace_currentgame.currentgame.setCurrentState(State.SetUpState);
                 
             }
+            this.timer.cancel();
             
 //            serverPoller.startPoller();
             return;
