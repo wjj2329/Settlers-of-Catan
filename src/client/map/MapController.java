@@ -262,6 +262,10 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		{
+			getView().startDrop(PieceType.SETTLEMENT,CatanColor.BLUE,true);
+		}
 		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
 		//getView().placeSettlement(new VertexLocation(new HexLocation(-1,1),VertexDirection.East),CatanColor.BLUE);

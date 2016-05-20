@@ -40,7 +40,7 @@ public class CatanGame
 	{
 		this.currentState = currentState;
 	}
-	private State currentState = State.SetUpState;
+	private State currentState = State.PlayerWaitingState;
 	// we will override this eventually. right now this is for testing purposes:
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
