@@ -30,7 +30,7 @@ public class DevCardController extends Controller implements IDevCardController 
 								IAction soldierAction, IAction roadAction) {
 
 		super(view);
-		server = ModelFacade.facace_currentgame.currentgame.getServer();
+		server = ModelFacade.facace_currentgame.currentgame.getModel().getServer();
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;

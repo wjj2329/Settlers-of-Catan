@@ -65,7 +65,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI() 
 	{
-			ModelFacade.facace_currentgame.currentgame.getServer().addAIPlayer("LARGEST_ARMY");
+			ModelFacade.facace_currentgame.currentgame.getModel().getServer().addAIPlayer("LARGEST_ARMY");
 	}
 	
 	public void checkGame()

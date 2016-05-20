@@ -60,7 +60,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		getTradeOverlay().showModal();
 		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
 		{
-
+			getTradeOverlay().hideGiveOptions();
 			return;
 		}
 		/*if (currentPlayer.canDoTradeWithBank())
