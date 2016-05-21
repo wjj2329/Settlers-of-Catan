@@ -459,6 +459,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)
 		{
+			System.out.println("I build another road");
 			JSONObject obj = roads.getJSONObject(i);
 			//System.out.println(obj);
 			Index playerIndex = new Index(obj.getInt("owner"));
@@ -496,8 +497,12 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			roadPiece.setLocation(edgeLocation);
 			roadPiece.setPlayerWhoOwnsRoad(playerID);
 			Hex hex = currentgame.getMymap().getHexes().get(loc);
+			// adjacent hex I AM HERE BOI
+			Hex adjacent = computeAdjacentHex(hex, edgeLocation);
+			EdgeLocation adjLoc = computeOppositeEdge(edgeLocation, adjacent);
 			edgeLocation.setRoadPiece(roadPiece);
 			hex.buildRoad(edgeLocation, playerID);
+			adjacent.buildRoad(adjLoc, playerID);
 
 			// I AM RIGHT HERE
 
@@ -774,6 +779,42 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		return null;
 	}
 
+	private Hex computeAdjacentHex(Hex initial, EdgeLocation edge)
+	{
+		Hex adjacent = null;
+		switch (edge.getDir())
+		{
+			case NorthWest:
+				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc1);
+				break;
+			case North:
+				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc2);
+				break;
+			case NorthEast:
+				HexLocation loc3 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY() - 1);
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc3);
+				break;
+			case SouthEast:
+				HexLocation loc4 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY());
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc4);
+				break;
+			case South:
+				HexLocation loc5 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() + 1);
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc5);
+				break;
+			case SouthWest:
+				HexLocation loc6 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY() + 1);
+				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc6);
+				break;
+			default:
+				assert false;
+		}
+		assert(adjacent != null);
+		return adjacent;
+	}
+
 	private EdgeDirection getDirectionFromString(String direction)
 	{
 		System.out.println("the direction is: " + direction);
@@ -816,6 +857,29 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				return PortType.THREE;
 			default:
 				assert false;
+		}
+		return null;
+	}
+
+	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
+	{
+		switch (original.getDir())
+		{
+			case NorthWest:
+				return adjacent.getSe();
+			case North:
+				return adjacent.getS();
+			case NorthEast:
+				return adjacent.getSw();
+			case SouthEast:
+				return adjacent.getNw();
+			case South:
+				return adjacent.getN();
+			case SouthWest:
+				return adjacent.getNe();
+			default:
+				assert false;
+				break;
 		}
 		return null;
 	}
