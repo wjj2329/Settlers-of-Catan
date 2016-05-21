@@ -459,7 +459,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)
 		{
-			System.out.println("I build another road");
+			//System.out.println("I build another road");
 			JSONObject obj = roads.getJSONObject(i);
 			//System.out.println(obj);
 			Index playerIndex = new Index(obj.getInt("owner"));
@@ -477,6 +477,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
+			/*
 			if(edgeLocation==null) {
 				System.out.println("THE EDGE LOCATION IS NULL FOOL");
 			}
@@ -492,16 +493,16 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			{
 				System.out.println("THIS ROAD PEICE IS NULL FOOL IN THE JSON DUDE");
 			}*/
-			System.out.println("I am building on the edge location " + edgeLocation.getDir()
-					+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
+			//System.out.println("I am building on the edge location " + edgeLocation.getDir()
+					//+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
 			//roadPiece.setLocation(edgeLocation);
 			//roadPiece.setPlayerWhoOwnsRoad(playerID);
 			Hex hex = currentgame.getMymap().getHexes().get(loc);
 			// adjacent hex I AM HERE BOI
 			Hex adjacent = computeAdjacentHex(hex, edgeLocation);
 			EdgeLocation adjLoc = computeOppositeEdge(edgeLocation, adjacent);
-			System.out.println("The location of the first hex is " + hex.getLocation().toString());
-			System.out.println("The location of the second hex is " + adjacent.getLocation().toString());
+			//System.out.println("The location of the first hex is " + hex.getLocation().toString());
+			//System.out.println("The location of the second hex is " + adjacent.getLocation().toString());
 			//System.out.println("The first edge location is " + );
 			//edgeLocation.setRoadPiece(roadPiece);
 			RoadPiece r1 = hex.buildRoad(edgeLocation, playerID);
@@ -511,8 +512,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			adjLoc.setRoadPiece(r2);
 			adjLoc.setHasRoad(true);
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
-			System.out.println("THE SIZE HOMEBRO of the road pieces is: " + currentgame.getMyplayers().get(
-					playerID).getRoadPieces().size());
+			//System.out.println("THE SIZE HOMEBRO of the road pieces is: " + currentgame.getMyplayers().get(
+					//playerID).getRoadPieces().size());
 			//currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
 
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
@@ -522,7 +523,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			System.out.println("this is a settlement I have"+obj);
+			//System.out.println("this is a settlement I have"+obj);
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
@@ -531,15 +532,15 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			mylocation.setHassettlement(true);
 			Index playerindex=new Index(obj.getInt("owner"));
 			Index myindex = null;
-			System.out.println("This is the index we received: " + playerindex.getNumber());
-			System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
+			//System.out.println("This is the index we received: " + playerindex.getNumber());
+			//System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex());
+				//System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
 					myindex = p.getPlayerID();
-					System.out.println("I set my playerID to myIndex");
+					//System.out.println("I set my playerID to myIndex");
 				}
 			}
 			assert (myindex != null);
@@ -558,8 +559,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			settle1.setOwner(myindex);
 			mylocation.setSettlement(settle1);
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
-			System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
-				currentgame.getMyplayers().get(myindex).getSettlements().size());
+			//System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
+				//currentgame.getMyplayers().get(myindex).getSettlements().size());
 
 			//facadeCurrentGame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
@@ -608,7 +609,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			if(!players.isNull(i))
 			{
 				JSONObject obj = players.getJSONObject(i);
-				System.out.println(obj);
+				//System.out.println(obj);
 				CatanColor color = stringToCatanColor(obj.getString("color"));
 				assert(color != null);
 				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
@@ -621,9 +622,9 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
 				// although this makes the most sense to me, y'know?
 				newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
-				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumRoadPiecesRemaining());
+				//System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumRoadPiecesRemaining());
 				newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
-				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumSettlementsRemaining());
+				//System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumSettlementsRemaining());
 				newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
 				newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
 		
@@ -652,7 +653,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
 		Index index = new Index(turnTracker.getInt("currentTurn"));
-		System.out.println("MY TURN IS THIS" +index.getNumber());
+		//System.out.println("MY TURN IS THIS" +index.getNumber());
 		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(index));
@@ -832,7 +833,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 
 	private EdgeDirection getDirectionFromString(String direction)
 	{
-		System.out.println("the direction is: " + direction);
+		//System.out.println("the direction is: " + direction);
 		switch (direction)
 		{
 			case "NW":
@@ -848,7 +849,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "SE":
 				return EdgeDirection.SouthEast;
 			default:
-				System.out.println("Something is screwed up with the direction");
+				//System.out.println("Something is screwed up with the direction");
 				assert false;
 		}
 		return null;

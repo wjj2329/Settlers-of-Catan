@@ -60,7 +60,7 @@ public class ServerPoller
 		@Override
 		public void run()
 		{
-			System.out.println("polling server");
+			//System.out.println("polling server");
 			int version = 0;
 			ServerResponse json = ModelFacade.facadeCurrentGame.getServer().getGameCurrentState(game.getModel().getVersion());
 			try

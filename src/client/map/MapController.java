@@ -378,6 +378,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 			}
 		}
+
 	}
 }
 
