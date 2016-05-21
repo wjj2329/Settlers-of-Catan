@@ -493,7 +493,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
-			//h.addSettlement(settle1);
+			//h.addSettlement(settle1); // yeah we don't want this
 			try {
 				h.buildSettlement(mylocation,myindex);
 			} catch (Exception e) {
