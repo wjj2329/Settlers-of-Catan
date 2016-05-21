@@ -249,7 +249,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public static boolean hasdonefirstturn=false;
+	private static boolean hasdonefirstturn=false;
 
 	private void doSetUpTurns()
 	{
@@ -279,8 +279,12 @@ public class MapController extends Controller implements IMapController, Observe
 				{
 					getView().startDrop(PieceType.ROAD, current.getColor(), false);
 				}
+				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
+				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
 				{
+					System.out.println("I COME HERE TO END THE TURN");
 					hasdonefirstturn=true;
 					System.out.println("I have finished my turn");
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
