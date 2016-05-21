@@ -119,7 +119,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 		{
 			if(server.registerUser(username,password).getResponseCode()==HttpURLConnection.HTTP_OK)
 			{
-
 				//System.out.println("i registered them");
 				server.loginUser(username, password);
 				getLoginView().closeModal();
