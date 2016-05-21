@@ -82,12 +82,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 //			
 //		}
 		
-        if(this.numPlayers == ModelFacade.facace_currentgame.getMyplayers().size())
+        if(this.numPlayers == ModelFacade.facace_currentgame.currentgame.getMyplayers().size())
         {
         	//System.out.println("Oh noes");
             return;
         }
-        if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)
+        if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
         {
             //this.timer.cancel();
             
@@ -102,8 +102,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 //            serverPoller.startPoller();
             return;
         }
-        this.numPlayers = ModelFacade.facace_currentgame.getMyplayers().size();
-        Collection<Player> currentPlayers = ModelFacade.facace_currentgame.getMyplayers().values();
+        this.numPlayers = ModelFacade.facace_currentgame.currentgame.getMyplayers().size();
+        Collection<Player> currentPlayers = ModelFacade.facace_currentgame.currentgame.getMyplayers().values();
         PlayerInfo[] playerInfo = new PlayerInfo[currentPlayers.size()];
         int idx = 0;
         for(Player player: currentPlayers)
@@ -132,7 +132,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
     @Override
     public void update(Observable o, Object arg)
     {
-        if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)
+        if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
         {
             //this.timer.cancel();
 

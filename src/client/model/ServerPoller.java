@@ -85,13 +85,13 @@ public class ServerPoller
 			//System.out.println("New version: " + version);
 			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
 			{
-				if(ModelFacade.facace_currentgame.getMyplayers().size()<4) {
+				if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size()<4) {
 					try
 					{
 						System.out.println("Old version: " + game.getModel().getVersion());
 						ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(json.getResponse()));
 						System.out.println("New version: " + game.getModel().getVersion());
-						System.out.println(ModelFacade.facace_currentgame.getMyplayers().size());
+						System.out.println(ModelFacade.facace_currentgame.currentgame.getMyplayers().size());
 						stop = true;
 
 					} catch (JSONException e) {

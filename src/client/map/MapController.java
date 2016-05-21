@@ -180,15 +180,15 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		int test;
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
 		test=player.getPlayerIndex().getNumber();
-		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
+		for(Index myindex:ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my players ID " +ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
+			System.out.println("my players ID " +ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
 		}
-		for(Index myindex:ModelFacade.facace_currentgame.getMyplayers().keySet())
+		for(Index myindex:ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my player"+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
+			System.out.println("my player"+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facace_currentgame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
@@ -323,7 +323,7 @@ public class MapController extends Controller implements IMapController, Observe
 			doSetUpTurns();
 		}
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
 
 		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
