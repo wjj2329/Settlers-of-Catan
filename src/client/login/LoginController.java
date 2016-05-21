@@ -133,9 +133,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		else
 		{
 			getMessageView().setTitle("Registration error");
-			getMessageView().setMessage("The username must be between 3 and 7 characters - " +
-					"letters, digits, _, and/or -. The password must be 5 or more characters," +
-					" and the two passwords must match.");
+			getMessageView().setMessage("The passwords must match! Please try typing again.");
 			getMessageView().showModal();
 			return;
 		}
@@ -152,20 +150,22 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//System.out.println("This should be 4, I think: " + splitCookie.length);
 		for (int i = 0; i < splitCookie.length; i++)
 		{
+			System.out.println("The split cookie thingy is " + splitCookie[i]);
 			String[] splitinfo = splitCookie[i].split(":");
 			
 			switch(i)
 			{
-			case 0:
-				localplayer.setName(splitinfo[1]);
-				break;
-			case 1:
-				break;
-			case 2:
-				splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
-				localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
-				//System.out.println("Just set local id to: " + splitinfo[1]);
-				break;
+				case 0: // authentication token - do nothing
+					break;
+				case 1: // username - set name
+					localplayer.setName(splitinfo[1]);
+					break;
+				case 2: // password - do nothing
+					break;
+				case 3: // player ID: set the ID
+					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
+					localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
+					break;
 			}
 		}
 		
