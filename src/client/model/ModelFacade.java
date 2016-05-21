@@ -167,7 +167,7 @@ public class ModelFacade extends Observable
 		{
 			for(int i=0; i<mymap.get(loc).getRoads().size(); i++)
 			{
-				roads.put("owner", mymap.get(loc).getRoads().get(i)); // RIGHT HERE ALEX
+				roads.put("owner", mymap.get(loc).getRoads().get(i));
 				JSONObject location=new JSONObject();
 				location.put("x",loc.getX());
 				location.put("y",loc.getY());
@@ -232,7 +232,7 @@ public class ModelFacade extends Observable
 			oldDevCards.put("soldier", entry.getValue().getNewDevCards().getSoldier());
 			oldDevCards.put("yearOfPlenty", entry.getValue().getNewDevCards().getYearOfPlenty());
 			players.put("oldDevCards", oldDevCards);
-			players.put("playerIndex", entry.getValue().getPlayerIndex().getNumber());
+			players.put("playerIndex", entry.getValue().getPlayerID().getNumber());
 			players.put("playedDevCard", entry.getValue().getplayedDevCard());
 			players.put("playerID", entry.getValue().getPlayerID().getNumber());
 			JSONObject resources=new JSONObject();
@@ -281,8 +281,8 @@ public class ModelFacade extends Observable
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
 		System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
-		//currentgame.clear();
-		//currentgame=new CatanGame();
+		currentgame.clear();
+		currentgame=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
 		loadBank(bank);
 
@@ -461,16 +461,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		{
 			JSONObject obj = roads.getJSONObject(i);
 			//System.out.println(obj);
-			Index playerIndex = new Index(obj.getInt("owner"));
-			Index playerID = null;
-			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
-			{
-				if (p.getPlayerIndex().equals(playerIndex))
-				{
-					playerID = p.getPlayerID();
-				}
-			}
-			assert (playerID != null);
+			Index playerID = new Index(obj.getInt("owner"));
 			RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
 			//System.out.println(location);
@@ -498,20 +489,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 				dir);
 			mylocation.setHassettlement(true);
-			Index playerindex=new Index(obj.getInt("owner"));
-			Index myindex = null;
-			System.out.println("This is the index we received: " + playerindex.getNumber());
-			System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
-			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
-			{
-				System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex());
-				if (p.getPlayerIndex().equals(playerindex))
-				{
-					myindex = p.getPlayerID();
-					System.out.println("I set my playerID to myIndex");
-				}
-			}
-			assert (myindex != null);
+			Index myindex=new Index(obj.getInt("owner"));
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
@@ -522,12 +500,19 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				e.printStackTrace();
 			}
 			currentgame.getMymap().getSettlements().add(settle1);
-			//Index owner = new Index(obj.getInt("owner"));
-			//System.out.println("I Successfully get my owner with number "+owner.getNumber());
-			settle1.setOwner(myindex);
+			Index owner = new Index(obj.getInt("owner"));
+			System.out.println("I Successfully get my owner with number "+owner.getNumber());
+			settle1.setOwner(owner);
 			mylocation.setSettlement(settle1);
-
-			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			if (currentgame.getMyplayers().get(owner) != null)
+			{
+				System.out.println("we cool");
+			}
+			else
+			{
+				System.out.println("eff");
+			}
+			currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			//facadeCurrentGame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
@@ -548,19 +533,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
 			h.getCities().add(city1);
 			currentgame.getMymap().getCities().add(city1);
-			Index owner2 = null;
-			Index playerIndex = new Index(obj.getInt("owner"));
-			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
-			{
-				if (p.getPlayerIndex().equals(playerIndex))
-				{
-					owner2 = p.getPlayerID();
-				}
-			}
-			assert (owner2 != null);
+			Index owner2 = new Index(obj.getInt("owner"));
 			city1.setOwner(owner2);
 			vertexLoc.setCity(city1);
-			currentgame.getMyplayers().get(owner).addToCities(city1);
+			//currentgame.getMyplayers().get(owner).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		currentgame.getMymap().setRadius(map.getInt("radius"));
@@ -584,7 +560,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				newPlayer.setNumMonuments(obj.getInt("monuments"));
 				newPlayer.setPlayerID(new Index(obj.getInt("playerID")));
 				newPlayer.setPlayedDevCard(obj.getBoolean("playedDevCard"));
-				newPlayer.setPlayerIndex(new Index(obj.getInt("playerIndex")));
 				// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
 				// although this makes the most sense to me, y'know?
 				newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
@@ -760,8 +735,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 
 	private EdgeDirection getDirectionFromString(String direction)
 	{
-		System.out.println("the direction is: " + direction);
-		switch (direction.toUpperCase())
+		switch (direction)
 		{
 			case "NW":
 				return EdgeDirection.NorthWest;

@@ -37,7 +37,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	public void endTurn()
 	{
 		ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
-				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber());
 	}
 
 	private void initFromModel()
@@ -55,17 +55,17 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 //		getView().setLocalPlayerColor(CatanColor.BLUE);
 		
 		//This is what is actually suppose to use, but the currentgame.getstuff is null and brings up a nullPointerException
-//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
 //		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 //		Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 
-//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
 //		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 		int currentPlayer = 0;
 		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer() != null)
 		{
-			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex() != null){
-				currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID() != null){
+				currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
 				getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			}
 		}

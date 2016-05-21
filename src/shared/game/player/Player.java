@@ -77,16 +77,6 @@ public class Player
 	private DevCardList oldDevCards= new DevCardList(DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL, DEFAULT_VAL);
 
 	/**
-	 * Each player has their own Index.
-	 * Recording this information is key for calculating turns
-	 * and getting the correct Player pointers.
-	 *
-	 * We might even want to add a list of Indexes to the main game map,
-	 * representing each player (if the need arises).
-	 */
-	private Index playerIndex = null; // don't need this I don't think
-
-	/**
 	 * ID of the player
 	 * received from JSON file
 	 *
@@ -1062,14 +1052,7 @@ public class Player
 	{
 		return this.newDevCards;
 	}
-	public Index getPlayerIndex()
-	{
-		return this.playerIndex;
-	}
-	public void setPlayerIndex(Index playerIndex)
-	{
-		this.playerIndex=playerIndex;
-	}
+
 	public boolean getplayedDevCard()
 	{
 		return this.playedDevCard;

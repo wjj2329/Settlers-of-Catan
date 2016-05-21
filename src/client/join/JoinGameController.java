@@ -297,10 +297,18 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-            //if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
-            //{
+        	System.out.println("Name: " + playerinfo.getName());
+        	System.out.println("ID: " + playerinfo.getId());
+        	System.out.println("Index: " + playerinfo.getPlayerIndex());
+        	System.out.println("Color: " + playerinfo.getColor().name());
+        	
+        	System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
+        	System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
+        	
+            if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
+            {
                 currentColorsTaken.add(playerinfo.getColor());
-            //}
+            }
         }
         if(currentColorsTaken.equals(colorsTaken))
         {
@@ -332,14 +340,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         ArrayList<CatanGame> games = ModelFacade.facadeCurrentGame.getModel().listGames();
         for(CatanGame game: games)
         {
+        	
             if(game.getGameId() == this.game.getId())
             {
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);
                     if(player.getColor().equals(color) && 
-                    		player.getPlayerIndex().getNumber() != 
-                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
+                    		player.getPlayerID().getNumber() != 
+                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
                     {
                         getMessageView().setMessage("Cannot join with that color.  Already taken.");
                         getMessageView().showModal();

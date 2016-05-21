@@ -110,7 +110,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         {
             playerInfo[idx] = new PlayerInfo();
             playerInfo[idx].setColor(player.getColor());
-            playerInfo[idx].setId(player.getPlayerIndex().getNumber());
+            playerInfo[idx].setId(player.getPlayerID().getNumber());
             playerInfo[idx].setName(player.getName());
             idx++;
         }
