@@ -157,7 +157,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facadeCurrentGame.getServer().buildRoad("buildRoad",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facadeCurrentGame.getServer().buildRoad("buildRoad",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
@@ -181,14 +181,14 @@ public class MapController extends Controller implements IMapController, Observe
 		int test;
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
-		test=player.getPlayerID().getNumber();
+		test=player.getPlayerIndex().getNumber();
 		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
 			System.out.println("my players ID " +ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
 		}
 		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
+			System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
@@ -284,7 +284,7 @@ public class MapController extends Controller implements IMapController, Observe
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
 				{
 					hasdonefirstturn=true;
-					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerID().getNumber()).getResponse();
+					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
 					try {
 						JSONObject response=new JSONObject(serverresponse);
 						ModelFacade.facadeCurrentGame.updateFromJSON(response);
