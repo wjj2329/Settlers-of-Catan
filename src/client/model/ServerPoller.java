@@ -85,7 +85,7 @@ public class ServerPoller
 			//System.out.println("New version: " + version);
 			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
 			{
-				if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<=4) { // maybe?
+				if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<=4) { // changed < to <=
 					try
 					{
 						System.out.println("Old version: " + game.getModel().getVersion());

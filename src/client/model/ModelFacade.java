@@ -312,7 +312,9 @@ public class ModelFacade extends Observable
 		loadTurnTracker(turnTracker);
 
 		int version = myObject.getInt("version");
+		currentgame.getModel().setVersion(version);
 		int winner_convertToIndex = myObject.getInt("winner");
+		currentgame.setWinner(new Index(winner_convertToIndex));
 		this.setChanged();
 		notifyObservers();
 	}
@@ -620,7 +622,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 				resources(obj, newPlayer.getResources());
 				currentgame.addPlayer(newPlayer);
-
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
@@ -652,7 +653,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		}
 		if (playerWhoseTurnItIs == null)
 		{
-			System.out.println("Could not find correct player index. Crap");
+			System.out.println("Could not find correct player index. Poopie.");
 			return;
 		}
 		// I don't THINK we need to change the index here.
