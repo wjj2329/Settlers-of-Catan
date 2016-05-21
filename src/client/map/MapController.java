@@ -296,7 +296,7 @@ public class MapController extends Controller implements IMapController, Observe
 				//first part of turn one
 				{
 					startMove(PieceType.SETTLEMENT, true, true);
-					System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
+					//System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
@@ -345,15 +345,31 @@ public class MapController extends Controller implements IMapController, Observe
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					return;
 				}
-
+// it doesn't get to this one with Pete
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
+					System.out.println("I come into the second build roads with " + current.getName());
 					startMove(PieceType.ROAD, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					//ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 
+					/*String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
+					try {
+						JSONObject response=new JSONObject(serverresponse);
+						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}*/
+					return;
+				}
+
+				if (current.getSettlements().size() == 2 && current.getRoadPieces().size() == 2
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+				{
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
 
 					try {
