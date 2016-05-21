@@ -15,8 +15,11 @@ import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
 import shared.game.map.CatanMap;
+import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
 import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
@@ -193,9 +196,9 @@ public class CatanGame
 			p.setOldDevCards(new DevCardList());
 			p.setResources(new ResourceList());
 
-			p.setSettlements(new ArrayList<>());
-			p.setCities(new ArrayList<>());
-			p.setRoadPieces(new ArrayList<>());
+			p.setSettlements(new ArrayList<Settlement>());
+			p.setCities(new ArrayList<City>());
+			p.setRoadPieces(new ArrayList<RoadPiece>());
 		}
 	}
 
