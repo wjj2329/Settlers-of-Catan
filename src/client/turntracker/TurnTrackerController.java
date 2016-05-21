@@ -37,7 +37,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	public void endTurn()
 	{
 		ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
-				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber());
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
 	private void initFromModel()
@@ -64,8 +64,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		int currentPlayer = 0;
 		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer() != null)
 		{
-			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID() != null){
-				currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
+			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex() != null){
+			currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
 				getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
