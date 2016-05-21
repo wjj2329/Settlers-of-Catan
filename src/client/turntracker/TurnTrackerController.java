@@ -75,6 +75,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 						getView().setLocalPlayerColor(player.getColor());
 						localplayer = player;
 						localcolorset =true; 
+						ModelFacade.facadeCurrentGame.setLocalPlayer(player);
 					}
 				}
 			}
