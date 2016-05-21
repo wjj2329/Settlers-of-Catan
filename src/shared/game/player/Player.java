@@ -30,6 +30,7 @@ import java.util.ArrayList;
  */
 public class Player
 {
+	private Index playerIndex = null;
 	private int roadSize=0;
 	private int armySize=0;
 	private boolean playedDevCard;
@@ -1150,5 +1151,13 @@ public class Player
 			}
 		}
 		return false;
+	}
+	public Index getPlayerIndex()
+	{
+		return this.playerIndex;
+	}
+	public void setPlayerIndex(Index playerIndex)
+	{
+		this.playerIndex=playerIndex;
 	}
 }

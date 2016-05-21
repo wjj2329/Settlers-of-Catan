@@ -347,8 +347,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 {
                     getSelectColorView().setColorEnabled(color, false);
                     if(player.getColor().equals(color) && 
-                    		player.getPlayerID().getNumber() != 
-                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
+                    		player.getPlayerIndex().getNumber() !=
+                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
                     {
                         getMessageView().setMessage("Cannot join with that color.  Already taken.");
                         getMessageView().showModal();

@@ -163,7 +163,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 				break;
 			case 3:
 				splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
-				localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
+				localplayer.setPlayerIndex(new Index(Integer.parseInt(splitinfo[1])));
 				System.out.println("Just set local id to: " + splitinfo[1]);
 				break;
 			}
