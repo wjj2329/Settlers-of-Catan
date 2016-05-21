@@ -244,7 +244,14 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
 
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
+		{
+			getView().startDrop(pieceType, CatanColor.ORANGE, false);
+		}
+		else
+		{
+			getView().startDrop(pieceType, CatanColor.ORANGE, true);
+		}
 	}
 
 	public void cancelMove() {
