@@ -155,8 +155,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
-        localPlayer.setId(playerindexforit);
-        playerindexforit++;
+//        localPlayer.setId(playerindexforit);
+//        playerindexforit++;
         getJoinGameView().setGames(games, localPlayer);
         if(shouldShowGameList)
         {
@@ -305,10 +305,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         	System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         	System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
         	
-            //if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
-            //{
+            if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
+            {
                 currentColorsTaken.add(playerinfo.getColor());
-            //}
+            }
         }
         if(currentColorsTaken.equals(colorsTaken))
         {
@@ -347,8 +347,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 {
                     getSelectColorView().setColorEnabled(color, false);
                     if(player.getColor().equals(color) && 
-                    		player.getPlayerIndex().getNumber() !=
-                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
+                    		player.getPlayerID().getNumber() !=
+                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
                     {
                         getMessageView().setMessage("Cannot join with that color.  Already taken.");
                         getMessageView().showModal();
