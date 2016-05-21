@@ -157,7 +157,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -191,7 +191,7 @@ public class MapController extends Controller implements IMapController, Observe
 			System.out.println("my player"+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facace_currentgame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.getModel().getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
@@ -214,7 +214,7 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facace_currentgame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildCity("buildCity",0,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -251,6 +251,21 @@ public class MapController extends Controller implements IMapController, Observe
 		
 	}
 
+	private void doSetUpTurns()
+	{
+		Player current = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
+		if (current == null)
+		{
+			return;
+		}
+
+		boolean hasPlayedOneTurn = false;
+		if (!hasPlayedOneTurn && ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+		{
+			getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+		}
+	}
+
 	/**
 	 * This function is important.
 	 * Essential for updating GUI.
@@ -259,77 +274,16 @@ public class MapController extends Controller implements IMapController, Observe
 	 *           Observable's interface, arg is an argument passed to the
 	 *           notifyObservers method.
      */
-	public static boolean Hasplayedoneturn=false;
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
+		{
+			doSetUpTurns();
+		}
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
-		if(player!=null && ModelFacade.facace_currentgame.getMyplayers().size() == 4)
-		{
-			System.out.println("Player is not null and there are 4 players");
-			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName()))
-			{
-				System.out.println("The names are equal. Bro.");
-				if (ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
-				{
-					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 0)
-					{
-						System.out.println("BEGIN setup: building settlements!");
-						getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
-						/*if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1)
-						{
-							getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
-						}*/
-					}
-					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1)
-					{
-						getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
-					}
-					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 1
-							&& ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getRoadPieces().size() == 1
-							&& !Hasplayedoneturn)
-					{
-						String jsonString = ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",
-								ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber()).getResponse();
-						try
-						{
-							JSONObject jsonObj = new JSONObject(jsonString);
-							ModelFacade.facace_currentgame.updateFromJSON(jsonObj);
-						}
-						catch (JSONException e)
-						{
-							e.printStackTrace();
-						}
-						// should we set the turn status? The server does use some of it
-						Hasplayedoneturn=true;
-					}
-					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getRoadPieces().size() == 1
-							&& Hasplayedoneturn)
-					{
-						getView().startDrop(PieceType.SETTLEMENT, CatanColor.GREEN, false);
-					}
-					if (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getSettlements().size() == 2)
-					{
-						getView().startDrop(PieceType.ROAD, CatanColor.GREEN, false);
-						String json=ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",
-								ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber()).getResponse();
-						try
-						{
-							JSONObject jsonObj = new JSONObject(json);
-							ModelFacade.facace_currentgame.updateFromJSON(jsonObj);
-						}
-						catch (JSONException e)
-						{
-							e.printStackTrace();
-						}
-						ModelFacade.facace_currentgame.currentgame.setCurrentState(State.GamePlayingState);
-					}
-					//end turn
-					// reverse order. DO NOT FORGET THE REVERSE ORDER. idk if the server does it automatically.
-				}
-			}
-		}
+
 		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
 		//getView().placeSettlement(new VertexLocation(new HexLocation(-1,1),VertexDirection.East),CatanColor.BLUE);
