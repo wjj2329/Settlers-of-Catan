@@ -106,10 +106,10 @@ public class CatanGame
 	
 	public void addPlayer(Player player)
 	{
-		if(canCreatePlayer(player))
-		{
+		//if(canCreatePlayer(player))
+		//{
 			myplayers.put(player.getPlayerID(), player);
-		}
+		//}
 	}
 
 	public void setTitle(String title){

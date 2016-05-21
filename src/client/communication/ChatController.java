@@ -64,12 +64,28 @@ public class ChatController extends Controller implements IChatController, Obser
 	public void update(Observable o, Object arg)
 	{
 		// We NEED to update the server communication so that everyone can see it!
-		for (int i = 0; i < allLogEntries.size(); i++)
+		// This doesn't quite do it. I don't know why it doesn't work...
+		sendChatAction = new IAction()
+		{
+			@Override
+			public void execute()
+			{
+				for (int i = 0; i < allLogEntries.size(); i++)
+				{
+					String message = allLogEntries.get(i).getMessage();
+					 ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
+							ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
+				}
+
+			}
+		};
+
+		/*for (int i = 0; i < allLogEntries.size(); i++)
 		{
 			String message = allLogEntries.get(i).getMessage();
 			ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
 					ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
-		}
+		}*/
 	}
 }
 
