@@ -351,6 +351,18 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
+				System.out.println("THIS HEX HAS THE ROAD I PLACED number is this ");
+				System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
+				System.out.println(	" the type is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
+				if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i)==null)
+				{
+					System.out.println("THIS ROAD IS NULL FOOL");
+				}
+				if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation()==null)
+				{
+					System.out.println("THIS ROAD LOCATION IS NULL FOOL");
+				}
+				System.out.println(" this road happens to be located on this at postion"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation().toString());
 				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 
 			}
