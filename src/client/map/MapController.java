@@ -146,8 +146,8 @@ public class MapController extends Controller implements IMapController, Observe
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState ||
 				ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
-			ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
-				.get(edgeLoc.getHexLoc()), edgeLoc);
+			//ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
+			//	.get(edgeLoc.getHexLoc()), edgeLoc);
 			getView().placeRoad(edgeLoc, ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 		}
 		boolean insert=false;
@@ -273,11 +273,14 @@ public class MapController extends Controller implements IMapController, Observe
 				{
 					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					System.out.println("I place a settlement");
+					return;
 				}
-
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
 				{
 					getView().startDrop(PieceType.ROAD, current.getColor(), false);
+					System.out.println("i place a road");
+					System.out.println("my road size is now "+current.getRoadPieces().size()+"my settlements size is now this "+current.getSettlements().size());
+					return;
 				}
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
 				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
@@ -294,16 +297,19 @@ public class MapController extends Controller implements IMapController, Observe
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					return;
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
 				{
 					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
+					return;
 				}
 
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
 				{
 					getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+					return;
 				}
 
 			}
