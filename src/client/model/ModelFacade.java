@@ -470,7 +470,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 					playerID = p.getPlayerID();
 				}
 			}
-			assert (playerID != null);			RoadPiece roadPiece = new RoadPiece(playerID);
+			assert (playerID != null);
+			RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
 			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
@@ -490,7 +491,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			{
 				System.out.println("THIS ROAD PEICE IS NULL FOOL IN THE JSON DUDE");
 			}
-
+			System.out.println("I am building on the edge location " + edgeLocation.getDir()
+					+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
 			roadPiece.setLocation(edgeLocation);
 			roadPiece.setPlayerWhoOwnsRoad(playerID);
 			Hex hex = currentgame.getMymap().getHexes().get(loc);
@@ -787,9 +789,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				return EdgeDirection.SouthWest;
 			case "S":
 				return EdgeDirection.South;
-			case "SE:":
+			case "SE":
 				return EdgeDirection.SouthEast;
 			default:
+				System.out.println("Something is screwed up with the direction");
 				assert false;
 		}
 		return null;

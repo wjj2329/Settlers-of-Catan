@@ -349,6 +349,12 @@ public class MapController extends Controller implements IMapController, Observe
 		//loads roads on update
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
+			System.out.println("Does this hex have a road? size: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc)
+			.getRoads().size());
+			/*for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++) {
+			System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).get)
+			}*/
+
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
 				System.out.println("THIS HEX HAS THE ROAD I PLACED number is this ");
