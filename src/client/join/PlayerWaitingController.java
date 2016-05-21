@@ -6,10 +6,7 @@ import client.data.PlayerInfo;
 import client.model.ModelFacade;
 import client.model.ServerPoller;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +19,7 @@ import shared.game.player.Player;
 /**
  * Implementation for the player waiting controller
  */
-public class PlayerWaitingController extends Controller implements IPlayerWaitingController 
+public class PlayerWaitingController extends Controller implements IPlayerWaitingController ,Observer
 {
     private Timer timer;
     private int numPlayers = 0;
@@ -36,7 +33,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public IPlayerWaitingView getView()
 	{
 
-		return (IPlayerWaitingView)super.getView();
+        ModelFacade.facace_currentgame.addObserver(this);
+        return (IPlayerWaitingView)super.getView();
 	}
 
 	@Override
@@ -131,5 +129,22 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         return aiTypes;
     }
 
+    @Override
+    public void update(Observable o, Object arg)
+    {
+        if(ModelFacade.facace_currentgame.getMyplayers().size() == 4)
+        {
+            //this.timer.cancel();
+
+            if(getView().isModalShowing()) {
+                getView().closeModal();
+                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.SetUpState);
+
+            }
+
+//            serverPoller.startPoller();
+            return;
+        }
+    }
 }
 

@@ -157,7 +157,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -191,7 +191,7 @@ public class MapController extends Controller implements IMapController, Observe
 			System.out.println("my player"+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facace_currentgame.getModel().getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
+		String mytest=ModelFacade.facace_currentgame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
@@ -214,7 +214,7 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facace_currentgame.currentgame.getModel().getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facace_currentgame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facace_currentgame.updateFromJSON(mine);
@@ -258,11 +258,18 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			return;
 		}
-
-		boolean hasPlayedOneTurn = false;
-		if (!hasPlayedOneTurn && ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+		if(current.getName()==null)
 		{
-			getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+			return;
+		}
+
+		if (ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+		{
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facace_currentgame.getLocalPlayer().getName()+" "+current.getName());
+			if(current.getName().equals(ModelFacade.facace_currentgame.getLocalPlayer().getName()))
+			{
+				getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+			}
 		}
 	}
 
@@ -279,6 +286,7 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
 		{
+			System.out.println("I come here to update the views and stuff");
 			doSetUpTurns();
 		}
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
