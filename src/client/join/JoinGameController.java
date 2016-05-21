@@ -11,8 +11,10 @@ import java.util.TimerTask;
 
 import client.State.State;
 import client.model.Model;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -36,7 +38,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
     private Collection<CatanColor> colorsTaken = null;
-    public static int playerindexforit=0;
+    //public static int playerindexforit=0;
 	//private GameInfo[] games;
 	
 	/**
@@ -115,10 +117,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	{
         ArrayList<CatanGame> gamesList = ModelFacade.facadeCurrentGame.getModel().listGames();
 
-        if (gamesList == null)
+        if (gamesList == null || ModelFacade.facadeCurrentGame.getLocalPlayer() == null)
         {
             return;
         }
+        
         GameInfo[] games = new GameInfo[gamesList.size()];
         GameInfo currentGame = null;
         int idx = 0;
@@ -155,7 +158,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
-//        localPlayer.setId(playerindexforit);
+        localPlayer.setId(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+        //System.out.println("Game list player ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+        //localPlayer.setId(0);
 //        playerindexforit++;
         getJoinGameView().setGames(games, localPlayer);
         if(shouldShowGameList)
@@ -175,6 +180,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                     if(gameInList.getPlayers().size() == 4)
                     {
                         for(PlayerInfo pInfo: gameInList.getPlayers())
+                        {
                             if(pInfo.getId() == localPlayer.getId())
                             {
                             	if(getJoinGameView().isModalShowing())
@@ -185,12 +191,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                             	{
                             		getSelectColorView().closeModal();
                             	}
-                                return;
+                                //return;
                             }
                         cancelJoinGame();
+                        }
                     }
                     else
+                    {
                         startJoinGame(gameInList);
+                    }
                     return;
                 }
             }
@@ -302,8 +311,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         	System.out.println("Index: " + playerinfo.getPlayerIndex());
         	System.out.println("Color: " + playerinfo.getColor().name());
         	
-        	System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
-        	System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
+        	//System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
+        	//System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
         	
             if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
             {

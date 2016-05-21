@@ -180,7 +180,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		localplayer.setName(newname);
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 		
-		//System.out.println("Just logged in ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
+		System.out.println("Just logged in ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
 	}
 	
 	@Override
