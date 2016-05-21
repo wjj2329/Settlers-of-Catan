@@ -71,7 +71,6 @@ public class GameStatePanel extends JPanel implements Observer
 	@Override
 	public void update(Observable o, Object arg)
 	{
-
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		Index playerWhoseTurnItIs = null;
 		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
@@ -85,7 +84,7 @@ public class GameStatePanel extends JPanel implements Observer
 		{
 			return;
 		}
-		final Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
 		if(player!=null && ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
 			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName()))

@@ -22,9 +22,9 @@ public class ChatController extends Controller implements IChatController, Obser
 	/**
 	 * Please note that the localPlayer object does NOT get a current color until later!
 	 * That's why, down below, I don't use the playerSendingChat variable. Do not change this!
-	 * EVER! :O
+	 * EVER! :O never mind...
 	 */
-	private Player playerSendingChat = ModelFacade.facadeCurrentGame.getLocalPlayer();
+	private Player playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 	//new Player("Broses", CatanColor.RED, new Index(1));
 	//ModelFacade.facadeCurrentGame
 	private List<LogEntry> allLogEntries = new ArrayList<>();
@@ -43,7 +43,7 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void sendMessage(String message)
 	{
-		LogEntry logEntry = new LogEntry(ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), message);
+		LogEntry logEntry = new LogEntry(playerSendingChat.getColor(), message);
 		allLogEntries.add(logEntry);
 		getView().setEntries(allLogEntries);
 		/*ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
@@ -65,7 +65,7 @@ public class ChatController extends Controller implements IChatController, Obser
 	{
 		// We NEED to update the server communication so that everyone can see it!
 		// This doesn't quite do it. I don't know why it doesn't work...
-		sendChatAction = new IAction()
+		/*sendChatAction = new IAction()
 		{
 			@Override
 			public void execute()
@@ -78,7 +78,7 @@ public class ChatController extends Controller implements IChatController, Obser
 				}
 
 			}
-		};
+		};*/
 
 		/*for (int i = 0; i < allLogEntries.size(); i++)
 		{

@@ -98,7 +98,14 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getMessageView().showModal();
 			return;
 		}
-		createPlayerFromCookie(username1, password1);
+		if (username1.equals("Sam") || username1.equals("Brooke") || username1.equals("Pete") || username1.equals("Mark"))
+		{
+			loginAndCreatePlayerFromCookie(username1, password1);
+		}
+		else
+		{
+			createPlayerFromCookie(username1, password1);
+		}
 	}
 
 	@Override
@@ -164,6 +171,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 					break;
 				case 3: // player ID: set the ID
 					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
+					System.out.println("Well let's see what this is: " + splitinfo[1]);
 					localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
 					break;
 			}
@@ -181,6 +189,44 @@ public class LoginController extends Controller implements ILoginController, Obs
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 		
 		//System.out.println("Just logged in ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
+	}
+
+	public void loginAndCreatePlayerFromCookie(String username, String password)
+	{
+		Player localplayer = new Player(null,null,null);
+		String decodedCookie = URLDecoder.decode(server.loginUser(username, password).getUserCookie());
+		String[] splitCookie = decodedCookie.split(",");
+		//System.out.println("This should be 4, I think: " + splitCookie.length);
+		for (int i = 0; i < splitCookie.length; i++)
+		{
+			System.out.println("The split cookie thingy is " + splitCookie[i]);
+			String[] splitinfo = splitCookie[i].split(":");
+
+			switch(i)
+			{
+				case 0: // username - set name
+					localplayer.setName(splitinfo[1]);
+					break;
+				case 1: // password - do nothing
+					localplayer.setName(splitinfo[1]);
+					break;
+				case 2: // player ID: please set it
+					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
+					localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
+					break;
+			}
+		}
+
+		StringBuilder mybuilder=new StringBuilder();
+		mybuilder.append(localplayer.getName());
+		mybuilder.deleteCharAt(0);
+		mybuilder.deleteCharAt(mybuilder.length()-1);
+		mybuilder.setCharAt(0,Character.toUpperCase(mybuilder.charAt(0)));
+		String newname=mybuilder.toString();
+		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
+		//format for names which is a problem!
+		localplayer.setName(newname);
+		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 	}
 	
 	@Override

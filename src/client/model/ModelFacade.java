@@ -623,9 +623,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
 				oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 				JSONObject resources = obj.getJSONObject("resources");
-				newPlayer.setResources(new ResourceList(resources.getInt("brick"), resources.getInt("ore"),
-						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood")));
-				//resources(obj, newPlayer.getResources());
+				newPlayer.setResources(new ResourceList());
+				resources(obj, newPlayer.getResources());
 				currentgame.addPlayer(newPlayer);
 
 			}
