@@ -17,7 +17,6 @@ import shared.game.ResourceList;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Index;
-import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.*;
 import client.base.*;
@@ -344,11 +343,7 @@ public class MapController extends Controller implements IMapController, Observe
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
 				System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
-				Map<Index, Player> myPlayers = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
-				Settlement settlement = ModelFacade.facadeCurrentGame.getMymap().getSettlements().get(i);
-				Player settlementOwner = myPlayers.get(settlement.getOwner());
-				CatanColor color = settlementOwner.getColor();
-				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), color);
+				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
 		//loads cities on update
