@@ -398,7 +398,7 @@ public class MapController extends Controller implements IMapController, Observe
 						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
 					}
 				}
-				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), mycolor);
 
 			}
 		}
@@ -438,7 +438,7 @@ public class MapController extends Controller implements IMapController, Observe
 					//System.out.println("THIS ROAD LOCATION IS NULL FOOL");
 				}
 				//System.out.println(" this road happens to be located on this at postion"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation().toString());
-				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), mycolor);
 
 			}
 		}
