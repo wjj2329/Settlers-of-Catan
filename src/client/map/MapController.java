@@ -404,8 +404,9 @@ public class MapController extends Controller implements IMapController, Observe
 				everyoneHasTheRightNumber = false;
 			}
 		}
-		if (everyoneHasTheRightNumber && ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()
-				== TurnStatus.SECONDROUND)
+		if (everyoneHasTheRightNumber && (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()
+				== TurnStatus.SECONDROUND || ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()
+				== TurnStatus.ROLLING)) // maybe it changes from secondRound and is instead something else. rolling?
 		{
 			ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 		}
