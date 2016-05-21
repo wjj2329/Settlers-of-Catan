@@ -247,11 +247,11 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
 		{
-			getView().startDrop(pieceType, CatanColor.ORANGE, false);
+			getView().startDrop(pieceType, ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), false);
 		}
 		else
 		{
-			getView().startDrop(pieceType, CatanColor.ORANGE, true);
+			getView().startDrop(pieceType, ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), true);
 		}
 	}
 
