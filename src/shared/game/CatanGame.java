@@ -192,7 +192,7 @@ public class CatanGame
 			p.setNewDevCards(new DevCardList());
 			p.setOldDevCards(new DevCardList());
 			p.setResources(new ResourceList());
-
+			// this stuff is more important.
 			p.setSettlements(new ArrayList<>());
 			p.setCities(new ArrayList<>());
 			p.setRoadPieces(new ArrayList<>());
