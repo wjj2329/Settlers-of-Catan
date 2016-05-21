@@ -17,6 +17,7 @@ import java.util.List;
  */
 public class ChatController extends Controller implements IChatController
 {
+	// We don't want this to be the current player! We want it to be the LOCAL PLAYER
 	private Player playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 	//new Player("Broses", CatanColor.RED, new Index(1));
 	//ModelFacade.facadeCurrentGame
