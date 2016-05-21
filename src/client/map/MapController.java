@@ -7,6 +7,7 @@ import client.join.JoinGameController;
 import client.login.LoginController;
 import client.model.Model;
 import client.model.ModelFacade;
+import client.model.TurnStatus;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
@@ -270,7 +271,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	private static boolean hasdonefirstturn=false;
+	//private static boolean hasdonefirstturn=false;
 
 	private void doSetUpTurns()
 	{
@@ -308,30 +309,36 @@ public class MapController extends Controller implements IMapController, Observe
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
 				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
 				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
+					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
+					/*&&!hasdonefirstturn*/ //ends first turn
 				{
 					//System.out.println("I COME HERE TO END THE TURN");
-					hasdonefirstturn=true;
+
 					//System.out.println("I have finished my turn");
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
 					try {
 						JSONObject response=new JSONObject(serverresponse);
 						ModelFacade.facadeCurrentGame.updateFromJSON(response);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
+					//hasdonefirstturn=true;
 					return;
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
+					/*&&hasdonefirstturn*///starts part 1 of second set up turn
 				{
-					startMove(PieceType.SETTLEMENT, true, true);
+					startMove(PieceType.SETTLEMENT, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					return;
 				}
 
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
 				{
-					startMove(PieceType.ROAD, true, true);
+					startMove(PieceType.ROAD, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 					return;
