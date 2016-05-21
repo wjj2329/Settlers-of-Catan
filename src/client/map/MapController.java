@@ -251,6 +251,8 @@ public class MapController extends Controller implements IMapController, Observe
 		
 	}
 
+	public static boolean hasdonefirstturn=false;
+
 	private void doSetUpTurns()
 	{
 		Player current = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
@@ -263,12 +265,43 @@ public class MapController extends Controller implements IMapController, Observe
 			return;
 		}
 
-		if (ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+		if (ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
 			System.out.println("In the set up turns thing I compare "+ModelFacade.facace_currentgame.getLocalPlayer().getName()+" "+current.getName());
-			if(current.getName().equals(ModelFacade.facace_currentgame.getLocalPlayer().getName()))
+			if(current.getName().equals(ModelFacade.facace_currentgame.getLocalPlayer().getName()))//if the current player is the local one
 			{
-				getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+
+				if (current.getSettlements().size() == 0) //first part of phase one
+				{
+					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+					System.out.println("I place a settlement");
+				}
+
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0)
+				{
+					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+				}
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn)
+				{
+					hasdonefirstturn=true;
+					String serverresponse=ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+					try {
+						JSONObject response=new JSONObject(serverresponse);
+						ModelFacade.facace_currentgame.updateFromJSON(response);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)
+				{
+					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+				}
+
+				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)
+				{
+					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+				}
+
 			}
 		}
 	}
