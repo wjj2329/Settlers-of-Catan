@@ -17,7 +17,8 @@ import java.util.List;
  */
 public class ChatController extends Controller implements IChatController
 {
-	private Player playerSendingChat = new Player("Broses", CatanColor.RED, new Index(1));
+	private Player playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
+	//new Player("Broses", CatanColor.RED, new Index(1));
 	//ModelFacade.facadeCurrentGame
 	private List<LogEntry> allLogEntries = new ArrayList<>();
 	//private IServer server = new ServerProxy();

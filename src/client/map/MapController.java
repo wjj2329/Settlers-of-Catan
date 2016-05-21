@@ -284,6 +284,7 @@ public class MapController extends Controller implements IMapController, Observe
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
 				{
 					hasdonefirstturn=true;
+					System.out.println("I have finished my turn");
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
 					try {
 						JSONObject response=new JSONObject(serverresponse);
