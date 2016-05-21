@@ -872,7 +872,6 @@ public class Player
 
 
 	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
-		// Hey William I am going to add something here
 
 		if(hex==null||myLocation==null)
 		{
@@ -986,6 +985,11 @@ public class Player
 	{
 		settlements.add(settlement);
 	}
+
+	public void setSettlements(ArrayList<Settlement> settlements) {
+		this.settlements = settlements;
+	}
+
 	public ArrayList<City> getCities()
 	{
 		return cities;
@@ -1055,6 +1059,14 @@ public class Player
 	public DevCardList getNewDevCards()
 	{
 		return this.newDevCards;
+	}
+
+	public void setOldDevCards(DevCardList oldDevCards) {
+		this.oldDevCards = oldDevCards;
+	}
+
+	public void setNewDevCards(DevCardList newDevCards) {
+		this.newDevCards = newDevCards;
 	}
 
 	public boolean getplayedDevCard()
@@ -1162,5 +1174,9 @@ public class Player
 	public void setPlayerIndex(Index playerIndex)
 	{
 		this.playerIndex=playerIndex;
+	}
+
+	public void setCities(ArrayList<City> cities) {
+		this.cities = cities;
 	}
 }
