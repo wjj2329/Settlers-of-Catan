@@ -511,7 +511,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			adjLoc.setRoadPiece(r2);
 			adjLoc.setHasRoad(true);
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
-			currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
+			//currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
 
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 			// Alex you need to do something that's not this or maybe inialize it or something

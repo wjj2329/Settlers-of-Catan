@@ -288,6 +288,7 @@ public class MapController extends Controller implements IMapController, Observe
 				{
 					System.out.println("I COME HERE TO END THE TURN");
 					hasdonefirstturn=true;
+					System.out.println("I have finished my turn");
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
 					try {
 						JSONObject response=new JSONObject(serverresponse);
