@@ -508,7 +508,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			//System.out.println("this is a settlement I have"+obj);
+			System.out.println("I HAVE A SETTLEMENT HERE: "+obj); // this is extremely important to test
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
@@ -652,15 +652,17 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		}
 		if (playerWhoseTurnItIs == null)
 		{
+			System.out.println("Could not find correct player index. Crap");
 			return;
 		}
+		// I don't THINK we need to change the index here.
 		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(playerWhoseTurnItIs));
 		if(currentgame.getMyplayers().size()==4) {// Should stop caring if first player logging in isn't the first to start the game.
 			currentgame.getMyplayers().get(playerWhoseTurnItIs).setCurrentPlayer(true);
 		}
-		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status"));
+		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status").toLowerCase());
 		assert(status != null);
 		currentgame.getModel().getTurntracker().setStatus(status);
 		// actual player who has the longest road

@@ -269,13 +269,13 @@ public class MapController extends Controller implements IMapController, Observe
 			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
-
 				if (current.getSettlements().size() == 0) //first part of turn one
 				{
 					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					System.out.println("I place a settlement");
 					return;
 				}
+				// it never gets here
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
 				{
 					getView().startDrop(PieceType.ROAD, current.getColor(), false);
