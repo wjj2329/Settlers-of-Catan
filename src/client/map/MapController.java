@@ -146,8 +146,6 @@ public class MapController extends Controller implements IMapController, Observe
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState ||
 				ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
-			System.out.println("I am in here");
-			System.out.println("current player's color is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
 				.get(edgeLoc.getHexLoc()), edgeLoc);
 			getView().placeRoad(edgeLoc, ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
@@ -273,13 +271,13 @@ public class MapController extends Controller implements IMapController, Observe
 
 				if (current.getSettlements().size() == 0) //first part of turn one
 				{
-					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					System.out.println("I place a settlement");
 				}
 
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
 				{
-					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+					getView().startDrop(PieceType.ROAD, current.getColor(), false);
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
 				{
@@ -295,12 +293,12 @@ public class MapController extends Controller implements IMapController, Observe
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
 				{
-					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
+					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 				}
 
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
 				{
-					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+					getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 				}
 

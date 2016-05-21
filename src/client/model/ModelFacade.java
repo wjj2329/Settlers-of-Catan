@@ -511,6 +511,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			adjLoc.setRoadPiece(r2);
 			adjLoc.setHasRoad(true);
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
+			System.out.println("THE SIZE HOMEBRO of the road pieces is: " + currentgame.getMyplayers().get(
+					playerID).getRoadPieces().size());
 			//currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
 
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
@@ -540,7 +542,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 					System.out.println("I set my playerID to myIndex");
 				}
 			}
-			assert (myindex != null);			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
+			assert (myindex != null);
+			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			//h.addSettlement(settle1); // yeah we don't want this
@@ -555,6 +558,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			settle1.setOwner(myindex);
 			mylocation.setSettlement(settle1);
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
+				currentgame.getMyplayers().get(myindex).getSettlements().size());
 
 			//facadeCurrentGame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
