@@ -760,7 +760,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 
 	private EdgeDirection getDirectionFromString(String direction)
 	{
-		switch (direction)
+		System.out.println("the direction is: " + direction);
+		switch (direction.toUpperCase())
 		{
 			case "NW":
 				return EdgeDirection.NorthWest;
