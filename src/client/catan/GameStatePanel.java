@@ -8,9 +8,12 @@ import java.util.Observer;
 
 import javax.swing.*;
 
+import client.State.State;
 import client.base.IAction;
 import client.login.LoginController;
 import client.model.ModelFacade;
+import org.json.JSONException;
+import org.json.JSONObject;
 import shared.game.map.Index;
 import shared.game.player.Player;
 
@@ -37,7 +40,7 @@ public class GameStatePanel extends JPanel implements Observer
 		
 		this.add(button);
 		
-		updateGameState("Waiting for other Players", false);
+		updateGameState("Not Your Turn", false);
 	}
 	
 	public void updateGameState(String stateMessage, boolean enable)
@@ -70,10 +73,44 @@ public class GameStatePanel extends JPanel implements Observer
 	{
 
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
-		if(player!=null) {
-			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName())) {
+		Index playerWhoseTurnItIs = null;
+		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (p.getPlayerIndex().equals(currentTurn))
+			{
+				playerWhoseTurnItIs = p.getPlayerID();
+			}
+		}
+		if (playerWhoseTurnItIs == null)
+		{
+			return;
+		}
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
+		if(player!=null && ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
+		{
+			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName()))
+			{
 				updateGameState("End Turn", true);
+				setButtonAction(new IAction()
+				{
+					@Override
+					public void execute()
+					{
+						String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
+								player.getPlayerIndex().getNumber()).getResponse();
+
+						try
+						{
+							JSONObject response=new JSONObject(serverresponse);
+							ModelFacade.facadeCurrentGame.updateFromJSON(response);
+						}
+						catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+						updateGameState("Not Your Turn", false);
+					}
+				});
 			}
 		}
 
