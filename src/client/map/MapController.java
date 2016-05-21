@@ -28,7 +28,7 @@ public class MapController extends Controller implements IMapController, Observe
 {
 	private IRobView robView;
 	//public static boolean
-	
+
 	public MapController(IMapView view, IRobView robView)
 	{
 		super(view);
@@ -36,12 +36,12 @@ public class MapController extends Controller implements IMapController, Observe
 		initFromModel();
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
-	
+
 	public IMapView getView() {
-		
+
 		return (IMapView)super.getView();
 	}
-	
+
 	private IRobView getRobView() {
 		return robView;
 	}
@@ -108,7 +108,7 @@ public class MapController extends Controller implements IMapController, Observe
 				return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 			}
-			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn. 
+			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn.
 		}
 			else{
 
@@ -137,7 +137,7 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
+
 		return true;
 	}
 
@@ -224,31 +224,31 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public void placeRobber(HexLocation hexLoc) {
-		
+
 		getView().placeRobber(hexLoc);
-		
+
 		getRobView().showModal();
 	}
-	
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
-		
+
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+
 		getView().startDrop(pieceType, CatanColor.ORANGE, true);
 	}
-	
+
 	public void cancelMove() {
-		
+
 	}
-	
-	public void playSoldierCard() {	
-		
+
+	public void playSoldierCard() {
+
 	}
-	
-	public void playRoadBuildingCard() {	
-		
+
+	public void playRoadBuildingCard() {
+
 	}
-	
-	public void robPlayer(RobPlayerInfo victim) {	
-		
+
+	public void robPlayer(RobPlayerInfo victim) {
+
 	}
 
 	public static boolean hasdonefirstturn=false;
@@ -350,7 +350,9 @@ public class MapController extends Controller implements IMapController, Observe
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
 			System.out.println("Does this hex have a road? size: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc)
-			.getRoads().size());
+			.getRoads().size()+"The hex location is is this"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
+			System.out.println("PLUS ITS TYPE IS THIS  "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
+			System.out.println("pluse its number token is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
 			/*for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++) {
 			System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).get)
 			}*/
