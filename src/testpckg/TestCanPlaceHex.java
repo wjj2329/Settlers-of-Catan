@@ -8,11 +8,15 @@ import static org.junit.Assert.*;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import shared.definitions.CatanColor;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
+import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.NumberToken;
+import shared.game.map.Index;
 import shared.game.map.Port;
+import shared.game.player.Player;
 import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 
@@ -55,5 +59,15 @@ public class TestCanPlaceHex
 		assertFalse(hex3.CanPlaceHex());
 
 	}
+	@Test
+	public void test3()
+	{
+		Player myplayer=new Player("BOB", CatanColor.BLUE,new Index(3));
+		myplayer.setResources(new ResourceList(4,4,3,2,1));
+		System.out.println(myplayer.getResources().toString());
+myplayer.buildRoadPiece(new Hex(new HexLocation(7,6), null, null, null),null);
+		System.out.println(myplayer.getResources().toString());
+	}
+
 
 }

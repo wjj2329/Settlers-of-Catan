@@ -14,7 +14,18 @@ public class ResourceList
 	 * to ensure that they should be integers
 	 */
 	private int brick = 0;
-	
+
+	@Override
+	public String toString() {
+		return "ResourceList{" +
+				"brick=" + brick +
+				", ore=" + ore +
+				", sheep=" + sheep +
+				", wheat=" + wheat +
+				", wood=" + wood +
+				'}';
+	}
+
 	private int ore = 0;
 	
 	private int sheep = 0;
