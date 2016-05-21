@@ -356,15 +356,37 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				//System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
-				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
+				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), mycolor);
 			}
 		}
 		//loads cities on update
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
+
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
 			{
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
 				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 
 			}
@@ -382,6 +404,17 @@ public class MapController extends Controller implements IMapController, Observe
 
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
 				//System.out.println("THIS HEX HAS THE ROAD I PLACED number is this ");
 				//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
 				//System.out.println(	" the type is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
