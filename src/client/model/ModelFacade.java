@@ -503,7 +503,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			Index owner = new Index(obj.getInt("owner"));
 			settle1.setOwner(owner);
 			mylocation.setSettlement(settle1);
-			//currentgame.getMyplayers().get(owner).addToSettlements(settle1);
+			currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
