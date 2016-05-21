@@ -10,15 +10,21 @@ import shared.game.player.Player;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 
 /**
  * Chat controller implementation
  */
-public class ChatController extends Controller implements IChatController
+public class ChatController extends Controller implements IChatController, Observer
 {
-	// We don't want this to be the current player! We want it to be the LOCAL PLAYER
-	private Player playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
+	/**
+	 * Please note that the localPlayer object does NOT get a current color until later!
+	 * That's why, down below, I don't use the playerSendingChat variable. Do not change this!
+	 * EVER! :O
+	 */
+	private Player playerSendingChat = ModelFacade.facadeCurrentGame.getLocalPlayer();
 	//new Player("Broses", CatanColor.RED, new Index(1));
 	//ModelFacade.facadeCurrentGame
 	private List<LogEntry> allLogEntries = new ArrayList<>();
@@ -37,8 +43,11 @@ public class ChatController extends Controller implements IChatController
 	@Override
 	public void sendMessage(String message)
 	{
-		allLogEntries.add(new LogEntry(playerSendingChat.getColor(), message));
+		LogEntry logEntry = new LogEntry(ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), message);
+		allLogEntries.add(logEntry);
 		getView().setEntries(allLogEntries);
+		/*ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);*/
 	}
 
 	public Player getPlayerSendingChat()
@@ -49,6 +58,18 @@ public class ChatController extends Controller implements IChatController
 	public void setPlayerSendingChat(Player playerSendingChat)
 	{
 		this.playerSendingChat = playerSendingChat;
+	}
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		// We NEED to update the server communication so that everyone can see it!
+		for (int i = 0; i < allLogEntries.size(); i++)
+		{
+			String message = allLogEntries.get(i).getMessage();
+			ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
+					ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
+		}
 	}
 }
 
