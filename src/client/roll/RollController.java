@@ -1,8 +1,6 @@
 package client.roll;
 
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import client.base.*;
 import client.model.ModelFacade;
@@ -17,7 +15,7 @@ import shared.locations.HexLocation;
 /**
  * Implementation for the roll controller
  */
-public class RollController extends Controller implements IRollController {
+public class RollController extends Controller implements IRollController,Observer {
 
 	private IRollResultView resultView;
 	private int diceRoll;
@@ -31,7 +29,7 @@ public class RollController extends Controller implements IRollController {
 	public RollController(IRollView view, IRollResultView resultView) {
 
 		super(view);
-		
+		ModelFacade.facadeCurrentGame.addObserver(this);
 		setResultView(resultView);
 	}
 	
@@ -99,6 +97,11 @@ public class RollController extends Controller implements IRollController {
 			Player corresponding = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(settlement.getOwner());
 			corresponding.getResources().incrementBasedOnHexType(resType);
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+
 	}
 }
 
