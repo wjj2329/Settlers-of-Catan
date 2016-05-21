@@ -156,9 +156,7 @@ public class Player
 	{
 		this.name = name;
 		this.color = color;
-		this.playerID = playerID;
-		resources = new ResourceList();
-	}
+		this.playerID = playerID;}
 
 	/**
 	 * Function to determine whether or not a player can trade with another player.
