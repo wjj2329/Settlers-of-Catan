@@ -305,10 +305,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         	System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         	System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
         	
-            if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
-            {
+            //if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
+            //{
                 currentColorsTaken.add(playerinfo.getColor());
-            }
+            //}
         }
         if(currentColorsTaken.equals(colorsTaken))
         {
