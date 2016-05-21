@@ -148,7 +148,6 @@ public class CatanGame
 	 */
 	public boolean canStartGame() throws Exception
 	{
-
 		if(mymap==null)
 		{
 			return false;
@@ -181,7 +180,7 @@ public class CatanGame
 	{
 		mymap=new CatanMap(RADIUS);
 		mychat=new Chat();
-		myplayers=new HashMap<>();
+		//myplayers=new HashMap<>();
 		myGameHistory = new GameHistory();
 		mybank = new Bank();
 		myrobber = new Robber();
