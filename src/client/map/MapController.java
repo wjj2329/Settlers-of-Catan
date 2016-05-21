@@ -290,15 +290,17 @@ public class MapController extends Controller implements IMapController, Observe
 			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
-				if (current.getSettlements().size() == 0) //first part of turn one
+				if (current.getSettlements().size() == 0
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
+				//first part of turn one
 				{
 					startMove(PieceType.SETTLEMENT, true, true);
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
 				}
-				// it never gets here
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND) //second part of turn two
 				{
 					startMove(PieceType.ROAD, true, true);
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
@@ -336,11 +338,21 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 
-				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
+				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)//starts part 2 of second set up turn and then changes game playing state
 				{
 					startMove(PieceType.ROAD, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
-					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+					//ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+
+					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
+					try {
+						JSONObject response=new JSONObject(serverresponse);
+						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
 					return;
 				}
 
@@ -359,11 +371,26 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		boolean everyoneHasTheRightNumber = true;
+		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (p.getSettlements().size() != 2 || p.getRoadPieces().size() != 2)
+			{
+				everyoneHasTheRightNumber = false;
+			}
+		}
+		if (everyoneHasTheRightNumber && ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()
+				== TurnStatus.SECONDROUND)
+		{
+			ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+		}
+
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
 		{
 			//System.out.println("I come here to update the views and stuff");
 			doSetUpTurns();
 		}
+
 		//Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		//Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 
