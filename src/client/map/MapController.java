@@ -271,17 +271,17 @@ public class MapController extends Controller implements IMapController, Observe
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 
-				if (current.getSettlements().size() == 0) //first part of phase one
+				if (current.getSettlements().size() == 0) //first part of turn one
 				{
 					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
 					System.out.println("I place a settlement");
 				}
 
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0)
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
 				{
 					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn)
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
 				{
 					hasdonefirstturn=true;
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
@@ -292,14 +292,15 @@ public class MapController extends Controller implements IMapController, Observe
 						e.printStackTrace();
 					}
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
 				{
 					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
 				}
 
-				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)
+				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
 				{
 					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 				}
 
 			}
