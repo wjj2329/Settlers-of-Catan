@@ -616,7 +616,9 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
 				// although this makes the most sense to me, y'know?
 				newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
+				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumRoadPiecesRemaining());
 				newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
+				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumSettlementsRemaining());
 				newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
 				newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
 		
@@ -624,6 +626,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 				resources(obj, newPlayer.getResources());
 				currentgame.addPlayer(newPlayer);
+
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
