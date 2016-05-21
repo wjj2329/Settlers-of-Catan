@@ -394,7 +394,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
 			{
-				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getOwner();
 				CatanColor mycolor=CatanColor.PUCE;
 				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
 				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
@@ -405,7 +405,7 @@ public class MapController extends Controller implements IMapController, Observe
 						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
 					}
 				}
-				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), mycolor);
 
 			}
 		}
@@ -422,7 +422,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
-				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getPlayerWhoOwnsRoad();
 				CatanColor mycolor=CatanColor.PUCE;
 				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
 				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
@@ -445,7 +445,7 @@ public class MapController extends Controller implements IMapController, Observe
 					//System.out.println("THIS ROAD LOCATION IS NULL FOOL");
 				}
 				//System.out.println(" this road happens to be located on this at postion"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation().toString());
-				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), mycolor);
 
 			}
 		}
