@@ -437,7 +437,7 @@ public class Player
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
 				//piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
 				roadPieces.add(piece);
-				roadPieces.add(piece2); // maybe
+				//roadPieces.add(piece2); // maybe
 				return true;
 			}
 		}
@@ -758,13 +758,16 @@ public class Player
      */
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
-		/*if (isSettlementTurnOver(1)) // this needs to be fixed ASAP
-		{
-			return false;
-		}*/
 		if (hex == null || edge == null) // added the edge one
 		{
-			//System.out.println("can't build road piece: hex or edge is null");
+			return false;
+		}
+		Hex adjacent = computeAdjacentHex(hex, edge);
+		EdgeLocation edge2 = computeOppositeEdge(edge, adjacent);
+		// check the other hex
+		if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
+		{
+			System.out.println("can't build road piece: both hexes are of type water");
 			return false;
 		}
 		if (numRoadPiecesRemainingForSetupPhase <= 0)
@@ -815,7 +818,7 @@ public class Player
 				numRoadPiecesRemainingForSetupPhase--; // that way they can only build 2
 				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
-				roadPieces.add(piece2);
+				//roadPieces.add(piece2);
 				return true;
 			}
 		}
