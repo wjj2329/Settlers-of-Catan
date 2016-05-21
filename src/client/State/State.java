@@ -116,7 +116,7 @@ public enum State {
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
+			ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
 		}
 
 		@Override
