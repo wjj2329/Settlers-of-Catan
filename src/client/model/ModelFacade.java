@@ -930,19 +930,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 	public void setMymap(CatanMap mymap) {
 		currentgame.setMymap(mymap);
 	}
-	
-	public void addPlayer(Player player)
-	{
-		if(canCreatePlayer(player))
-		{
-			currentgame.getMyplayers().put(player.getPlayerID(), player);
-		}
-	}
 
-	public boolean canCreatePlayer(Player newplayer)
-	{
-		return currentgame.canCreatePlayer(newplayer);
-	}
 
 	/**
 	 *  a function to see if we can start the game
