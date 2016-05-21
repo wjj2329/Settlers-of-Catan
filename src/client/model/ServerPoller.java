@@ -72,7 +72,16 @@ public class ServerPoller
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
+			boolean refresh=true;
+			if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<4)
+			{
+				refresh=true;
+			}
+			else
+			{
+				refresh=false;
+			}
 			//Model newModel = server.getGameModel(game.getModel().getVersion());
 			//if (newModel != null) 
 			//{
@@ -83,7 +92,7 @@ public class ServerPoller
 //				}
 			//}			
 			//System.out.println("New version: " + version);
-			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
+			if (version > game.getModel().getVersion() || refresh)
 			{
 				if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<=4) { // changed < to <=
 					try
