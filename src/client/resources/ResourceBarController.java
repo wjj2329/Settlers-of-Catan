@@ -130,14 +130,14 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	public void update(Observable o, Object arg) {
 
 		for (Index id : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
-			System.out.println("MY players ids are these " + ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber());
+			//System.out.println("MY players ids are these " + ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber());
 		}
 
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		System.out.println("the current players index apparently is this " + currentTurn.getNumber());
+		//System.out.println("the current players index apparently is this " + currentTurn.getNumber());
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
-			System.out.println("I compare this player " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName() + player.getName());
+			//System.out.println("I compare this player " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName() + player.getName());
 			if (!ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName())) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 
@@ -166,9 +166,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 			} else {
 
-				System.out.println("Sam should get in here ");
+				//System.out.println("Sam should get in here ");
 				//Player player=ModelFacade.facadeCurrentGame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
-				System.out.println("Sam IS HERE YEA!!!!");
+				//System.out.println("Sam IS HERE YEA!!!!");
 				ResourceList resourceCards = player.getResources();
 				this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
 				this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
