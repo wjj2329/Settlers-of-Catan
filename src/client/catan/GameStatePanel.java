@@ -70,7 +70,7 @@ public class GameStatePanel extends JPanel implements Observer
 	{
 
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
 			if (ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName())) {
 				updateGameState("End Turn", true);

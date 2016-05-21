@@ -501,6 +501,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			}
 			currentgame.getMymap().getSettlements().add(settle1);
 			Index owner = new Index(obj.getInt("owner"));
+			System.out.println("I Successfully get my owner with number "+owner.getNumber());
 			settle1.setOwner(owner);
 			mylocation.setSettlement(settle1);
 			currentgame.getMyplayers().get(owner).addToSettlements(settle1);
@@ -769,15 +770,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 	}
 
 		// TODO Auto-generated constructor stub
-	public Map<Index, Player> getMyplayers()
-	{
-		return currentgame.getMyplayers();
-	}
 
-	public void setMyplayers(Map<Index, Player> myplayers)
-	{
-		currentgame.setMyplayers(myplayers);
-	}
 
 	public Chat getMychat() 
 	{

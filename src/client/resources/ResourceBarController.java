@@ -129,13 +129,13 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg) {
 
-		for (Index id : ModelFacade.facace_currentgame.getMyplayers().keySet()) {
-			System.out.println("MY players ids are these " + ModelFacade.facace_currentgame.getMyplayers().get(id).getPlayerID().getNumber());
+		for (Index id : ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet()) {
+			System.out.println("MY players ids are these " + ModelFacade.facace_currentgame.currentgame.getMyplayers().get(id).getPlayerID().getNumber());
 		}
 
 		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		System.out.println("the current players index apparently is this " + currentTurn.getNumber());
-		Player player = ModelFacade.facace_currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
 			System.out.println("I compare this player " + ModelFacade.facace_currentgame.getLocalPlayer().getName() + player.getName());
 			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName())) {
