@@ -523,18 +523,18 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				//System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex());
+				System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
 					myindex = p.getPlayerID();
-					//System.out.println("I set my playerID to myIndex");
+					System.out.println("I set my playerID to myIndex");
 				}
 			}
 			assert (myindex != null);
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
-			//h.addSettlement(settle1); // yeah we don't want this
+			//h.addSettlement(settle1); // yeah we don't want this - it's already done inside of hex class
 			try {
 				h.buildSettlement(mylocation,myindex);
 			} catch (Exception e) {
@@ -547,6 +547,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			mylocation.setSettlement(settle1);
 			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			System.out.println("The size of the settlements is " +
+					currentgame.getMyplayers().get(myindex).getSettlements().size());
 			//System.out.println("I ADD TO MY PLAYER "+currentgame.getMyplayers().get(myindex).getName()+" a settlement");
 			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			//System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +

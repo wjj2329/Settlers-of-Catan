@@ -178,7 +178,21 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		int test;
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
+		Index idOfCurrentPlayer = null;
+		// I think this is returning their player index instead of their player ID.
+		for (Player cur : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (cur.getPlayerIndex().equals(currentTurn))
+			{
+				idOfCurrentPlayer = cur.getPlayerID();
+			}
+		}
+		if (idOfCurrentPlayer == null)
+		{
+			return;
+		}
+		// this might have fixed some huge things!!
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
 		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
@@ -332,8 +346,8 @@ public class MapController extends Controller implements IMapController, Observe
 			//System.out.println("I come here to update the views and stuff");
 			doSetUpTurns();
 		}
-		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
+		//Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		//Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 
 		//System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
