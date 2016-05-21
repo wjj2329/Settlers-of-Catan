@@ -65,18 +65,13 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	}
 
-	private void refreshTurnTracker()
-	{
+	private void refreshTurnTracker(){
 
-		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null)
-		{
+		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
 			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
-			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) 
-			{
-				if(player != null)
-				{
-					if(player.getName().equals(localplayer.getName()))
-					{
+			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) {
+				if(player != null){
+					if(player.getName().equals(localplayer.getName())){
 						getView().setLocalPlayerColor(player.getColor());
 						localplayer = player;
 						localcolorset =true; 
@@ -85,70 +80,43 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 		}
+		else{
+			if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
+			{
+				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
+				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+				for (Player jugador: players.values()) 
+				{
+					view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
+					if (jugador.getPlayerIndex().getNumber() == currentPlayer) 
+					{ 
+						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), true,
+						hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
+					}
+					else
+					{
+						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), false,
+							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
+					}
+				}	
+			}
+		}
 		
 	}
 	
-	private void initFromModel2()
-	{
-		// sets the current user's color..
-		//
-////		//This is for testing. comment later
-//		Map<Index, Player> players = new HashMap();
-//		int currentPlayer = 0;
-//		getView().setLocalPlayerColor(CatanColor.BLUE);
-		
-		
-		//This is what is actually suppose to use, but the currentgame.getstuff is null and brings up a nullPointerException
-//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
-//		Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
-
-//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
-		int currentPlayer = 0;
-		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer() != null)
-		{
-			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex() != null){
-			currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-				getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
-			}
-		}
-		else
-		{
-			getView().setLocalPlayerColor(CatanColor.RED);
-		}
-		
-		Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
-		if (players != null) 
-		{
-			if(players.size() <=4)
-			{
-				for (Index index : players.keySet()) 
-				{
-					view.initializePlayer(index.getNumber(), players.get(index).getName(), players.get(index).getColor());
-					if (index.getNumber() == currentPlayer) 
-					{
-						view.updatePlayer(index.getNumber(), players.get(index).getNumVictoryPoints(), true,
-							hasLargestArmy(index), hasLongestRoad(index));
-					}
-					view.updatePlayer(index.getNumber(), players.get(index).getNumVictoryPoints(), false,
-						hasLargestArmy(index), hasLongestRoad(index));
-				}
-			}
-		}
-	}
-
 	public boolean hasLargestArmy(Index index) {
-		if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
-			return true;
-		}
+			if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
+				return true;
+			}
+		
 		return false;
 	}
 
 	public boolean hasLongestRoad(Index index) {
-		if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLongestRoad().getNumber()) {
-			return true;
-		}
+			if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLongestRoad().getNumber()) 
+			{
+				return true;
+			}
 		return false;
 	}
 

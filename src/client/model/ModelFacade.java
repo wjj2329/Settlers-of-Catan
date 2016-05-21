@@ -472,7 +472,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				}
 			}
 			assert (playerID != null);
-			RoadPiece roadPiece = new RoadPiece(playerID);
+			//RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
 			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
@@ -488,23 +488,30 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			{
 				System.out.println("THE EDGELOCATION IS NULL FOOL");
 			}
-			if(roadPiece==null)
+			/*if(roadPiece==null)
 			{
 				System.out.println("THIS ROAD PEICE IS NULL FOOL IN THE JSON DUDE");
-			}
+			}*/
 			System.out.println("I am building on the edge location " + edgeLocation.getDir()
 					+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
-			roadPiece.setLocation(edgeLocation);
-			roadPiece.setPlayerWhoOwnsRoad(playerID);
+			//roadPiece.setLocation(edgeLocation);
+			//roadPiece.setPlayerWhoOwnsRoad(playerID);
 			Hex hex = currentgame.getMymap().getHexes().get(loc);
 			// adjacent hex I AM HERE BOI
 			Hex adjacent = computeAdjacentHex(hex, edgeLocation);
 			EdgeLocation adjLoc = computeOppositeEdge(edgeLocation, adjacent);
-			edgeLocation.setRoadPiece(roadPiece);
-			hex.buildRoad(edgeLocation, playerID);
-			adjacent.buildRoad(adjLoc, playerID);
-
-			// I AM RIGHT HERE
+			System.out.println("The location of the first hex is " + hex.getLocation().toString());
+			System.out.println("The location of the second hex is " + adjacent.getLocation().toString());
+			//System.out.println("The first edge location is " + );
+			//edgeLocation.setRoadPiece(roadPiece);
+			RoadPiece r1 = hex.buildRoad(edgeLocation, playerID);
+			RoadPiece r2 = adjacent.buildRoad(adjLoc, playerID);
+			edgeLocation.setRoadPiece(r1);
+			edgeLocation.setHasRoad(true);
+			adjLoc.setRoadPiece(r2);
+			adjLoc.setHasRoad(true);
+			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
+			currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
 
 			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
 			// Alex you need to do something that's not this or maybe inialize it or something
