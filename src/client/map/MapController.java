@@ -291,16 +291,19 @@ public class MapController extends Controller implements IMapController, Observe
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
-						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 				//first part of turn one
 				{
 					startMove(PieceType.SETTLEMENT, true, true);
+					System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0
-						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND) //second part of turn two
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) //second part of turn two
 				{
 					startMove(PieceType.ROAD, true, true);
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
@@ -312,7 +315,8 @@ public class MapController extends Controller implements IMapController, Observe
 				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
 				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
-					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
+					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 					/*&&!hasdonefirstturn*/ //ends first turn
 				{
 					//System.out.println("I COME HERE TO END THE TURN");
@@ -323,23 +327,28 @@ public class MapController extends Controller implements IMapController, Observe
 					try {
 						JSONObject response=new JSONObject(serverresponse);
 						ModelFacade.facadeCurrentGame.updateFromJSON(response);
-					} catch (JSONException e) {
+					} catch (JSONException e)
+					{
 						e.printStackTrace();
 					}
 					//hasdonefirstturn=true;
 					return;
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
-						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 					/*&&hasdonefirstturn*///starts part 1 of second set up turn
 				{
+					System.out.println("I COME INTO THE SECOND BUILD SETTLMENTS "+current.getName());
+
 					startMove(PieceType.SETTLEMENT, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					return;
 				}
 
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1
-						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)//starts part 2 of second set up turn and then changes game playing state
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
 					startMove(PieceType.ROAD, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);

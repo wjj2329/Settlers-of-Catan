@@ -523,11 +523,11 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex().getNumber());
+				//System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex().getNumber());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
 					myindex = p.getPlayerID();
-					System.out.println("I set my playerID to myIndex");
+					//System.out.println("I set my playerID to myIndex");
 				}
 			}
 			assert (myindex != null);
