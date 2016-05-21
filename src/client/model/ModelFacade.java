@@ -477,22 +477,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
-			/*
-			if(edgeLocation==null) {
-				System.out.println("THE EDGE LOCATION IS NULL FOOL");
-			}
-			if(playerID==null)
-			{
-				System.out.println("The Player ID IS NULL FOOL");
-			}
-			if(edgeLocation==null)
-			{
-				System.out.println("THE EDGELOCATION IS NULL FOOL");
-			}
-			/*if(roadPiece==null)
-			{
-				System.out.println("THIS ROAD PEICE IS NULL FOOL IN THE JSON DUDE");
-			}*/
+
 			//System.out.println("I am building on the edge location " + edgeLocation.getDir()
 					//+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
 			//roadPiece.setLocation(edgeLocation);

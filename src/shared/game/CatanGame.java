@@ -176,9 +176,27 @@ public class CatanGame
 	}
 	public void clear()
 	{
-		mymap=null;
-		mychat=null;
-		myplayers=null;
+		mymap=new CatanMap(RADIUS);
+		mychat=new Chat();
+		myplayers=new HashMap<>();
+		myGameHistory = new GameHistory();
+		mybank = new Bank();
+		myrobber = new Robber();
+		if (myplayers.size() != 4)
+		{
+			return;
+		}
+		// Resetting everything in Player that isn't a primitive, EXCEPT for index and playerID
+		for (Player p : myplayers.values())
+		{
+			p.setNewDevCards(new DevCardList());
+			p.setOldDevCards(new DevCardList());
+			p.setResources(new ResourceList());
+
+			p.setSettlements(new ArrayList<>());
+			p.setCities(new ArrayList<>());
+			p.setRoadPieces(new ArrayList<>());
+		}
 	}
 
 	public Model getModel()
