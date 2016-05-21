@@ -281,8 +281,8 @@ public class ModelFacade extends Observable
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
 		System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
-		//currentgame.clear();
-		//currentgame=new CatanGame();
+		currentgame.clear();
+		currentgame=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
 		loadBank(bank);
 
@@ -543,7 +543,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println("I Successfully get my owner with number "+owner.getNumber());
 			settle1.setOwner(myindex);
 			mylocation.setSettlement(settle1);
+			System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			System.out.println("I ADD TO MY PLAYER "+currentgame.getMyplayers().get(myindex).getName()+" a settlement");
+			System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			//System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
 				//currentgame.getMyplayers().get(myindex).getSettlements().size());
 
