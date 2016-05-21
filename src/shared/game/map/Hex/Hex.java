@@ -429,6 +429,7 @@ public class Hex
 			System.out.println("In the build road funciton in the HEX THE EDGE LOCATION IS NULL FOOOOLISH FOOL");
 		}
 		edgeLocation.setHasRoad(true);
+		roads.add(roadPiece);
 		// set hasRoad to true, then actually create the RoadPiece object and set that.
 		switch (edgeLocation.getDir())
 		{

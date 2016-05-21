@@ -88,12 +88,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		server.playMonopoly("Monopoly", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource.name());
+		server.playMonopoly("Monopoly", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(), resource.name());
 	}
 
 	@Override
 	public void playMonumentCard() {
-		server.playMonument("Monument", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+		server.playMonument("Monument", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber());
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource1.name(), resource2.name());
+		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(), resource1.name(), resource2.name());
 	}
 
 }

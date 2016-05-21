@@ -149,7 +149,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 		Player localplayer = new Player(null,null,null);
 		String decodedCookie = URLDecoder.decode(server.loginUser(username, password).getUserCookie());
 		String[] splitCookie = decodedCookie.split(",");
-		for (int i = 0; i < splitCookie.length; i++)
+		System.out.println("This should be 4, I think: " + splitCookie.length);
+		for (int i = 0; i <= splitCookie.length; i++)
 		{
 			String[] splitinfo = splitCookie[i].split(":");
 			
@@ -162,10 +163,12 @@ public class LoginController extends Controller implements ILoginController, Obs
 				break;
 			case 3:
 				splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
-				localplayer.setPlayerIndex(new Index(Integer.parseInt(splitinfo[1])));
+				localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
+				System.out.println("Just set local id to: " + splitinfo[1]);
 				break;
 			}
 		}
+		
 		StringBuilder mybuilder=new StringBuilder();
 		mybuilder.append(localplayer.getName());
 		mybuilder.deleteCharAt(0);
@@ -176,6 +179,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//format for names which is a problem!
 		localplayer.setName(newname);
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
+		
+		System.out.println("Just logged in ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
 	}
 	
 	@Override

@@ -35,7 +35,7 @@ public class TestingJsonImporterandExporter
         ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(3));
         Map<Index, Player> myplayers=new HashMap<>();
         myplayers.put(new Index(0), new Player("william", CatanColor.BLUE,new Index(3)));
-        myplayers.get(0).setPlayerIndex(new Index(0));
+        myplayers.get(0).setPlayerID(new Index(0));
         ModelFacade.facadeCurrentGame.currentgame.setMyplayers(myplayers);
     }
 
