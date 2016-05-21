@@ -284,14 +284,16 @@ public class MapController extends Controller implements IMapController, Observe
 			{
 				if (current.getSettlements().size() == 0) //first part of turn one
 				{
-					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
+					startMove(PieceType.SETTLEMENT, true, true);
+					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
 				}
 				// it never gets here
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
 				{
-					getView().startDrop(PieceType.ROAD, current.getColor(), false);
+					startMove(PieceType.ROAD, true, true);
+					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					//System.out.println("i place a road");
 					//System.out.println("my road size is now "+current.getRoadPieces().size()+"my settlements size is now this "+current.getSettlements().size());
 					return;
@@ -315,13 +317,15 @@ public class MapController extends Controller implements IMapController, Observe
 				}
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
 				{
-					getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
+					startMove(PieceType.SETTLEMENT, true, true);
+					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					return;
 				}
 
 				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
 				{
-					getView().startDrop(PieceType.ROAD, current.getColor(), false);
+					startMove(PieceType.ROAD, true, true);
+					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 					return;
 				}
