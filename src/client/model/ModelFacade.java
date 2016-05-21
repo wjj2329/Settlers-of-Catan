@@ -280,7 +280,7 @@ public class ModelFacade extends Observable
 		 */
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
-		System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
+		//System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
 		currentgame.clear();
 		//currentgame=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
@@ -508,7 +508,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			System.out.println("I HAVE A SETTLEMENT HERE: "+obj); // this is extremely important to test
+			//System.out.println("I HAVE A SETTLEMENT HERE: "+obj); // this is extremely important to test
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			assert(dir != null);
@@ -543,10 +543,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println("I Successfully get my owner with number "+owner.getNumber());
 			settle1.setOwner(myindex);
 			mylocation.setSettlement(settle1);
-			System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
+			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
-			System.out.println("I ADD TO MY PLAYER "+currentgame.getMyplayers().get(myindex).getName()+" a settlement");
-			System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
+			//System.out.println("I ADD TO MY PLAYER "+currentgame.getMyplayers().get(myindex).getName()+" a settlement");
+			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			//System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
 				//currentgame.getMyplayers().get(myindex).getSettlements().size());
 
@@ -641,7 +641,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
 	{
 		Index index = new Index(turnTracker.getInt("currentTurn"));
-		System.out.println("MY TURN INDEX IS THIS" +index.getNumber());
+		//System.out.println("MY TURN INDEX IS THIS" +index.getNumber());
 		Index playerWhoseTurnItIs = null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
@@ -652,13 +652,14 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		}
 		if (playerWhoseTurnItIs == null)
 		{
-			System.out.println("Could not find correct player index. Crap");
+			//System.out.println("Could not find correct player index. Crap");
 			return;
 		}
 		// I don't THINK we need to change the index here.
 		currentgame.getModel().getTurntracker().setCurrentTurn(index,
 				currentgame.getMyplayers());
 		currentgame.setCurrentPlayer(currentgame.getMyplayers().get(playerWhoseTurnItIs));
+		//System.out.println("I SET MY CURRENT PLAYERS WHOS TURN IT IS THIS"+currentgame.getMyplayers().get(playerWhoseTurnItIs).getName());
 		if(currentgame.getMyplayers().size()==4) {// Should stop caring if first player logging in isn't the first to start the game.
 			currentgame.getMyplayers().get(playerWhoseTurnItIs).setCurrentPlayer(true);
 		}

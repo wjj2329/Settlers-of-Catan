@@ -57,7 +57,7 @@ public class GameStatePanel extends JPanel implements Observer
 			@Override
 			public void actionPerformed(ActionEvent e)
 			{
-				System.out.println("I pressed the button");
+				//System.out.println("I pressed the button");
 				action.execute();
 			}
 		};

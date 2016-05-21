@@ -73,7 +73,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		//getTradeOverlay().setPlayerSelectionEnabled();
 				if(resource.equals(ResourceType.BRICK))
 				{
-					System.out.println("i decrease this");
+					//System.out.println("i decrease this");
 				}
 	}
 

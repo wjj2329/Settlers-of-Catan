@@ -206,7 +206,7 @@ public class Hex
 	{
 		if(canBuildSettlementHereNormal(mylocation))
 		{
-			System.out.println("i can come and build");
+			//System.out.println("i can come and build");
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
@@ -426,7 +426,7 @@ public class Hex
 		RoadPiece roadPiece = new RoadPiece(playerid);
 		if(edgeLocation==null)
 		{
-			System.out.println("In the build road funciton in the HEX THE EDGE LOCATION IS NULL FOOOOLISH FOOL");
+			//System.out.println("In the build road funciton in the HEX THE EDGE LOCATION IS NULL FOOOOLISH FOOL");
 		}
 		edgeLocation.setHasRoad(true);
 		roadPiece.setLocation(edgeLocation);
@@ -500,7 +500,7 @@ public class Hex
 							east.setHassettlement(true);
 							east.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							east.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
-							System.out.println("i come to east and add settlements to 3 hexes");
+							//System.out.println("i come to east and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
@@ -531,7 +531,7 @@ public class Hex
 							west.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							west.setHassettlement(true);
 							west.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
-							System.out.println("i come to west and add settlements to 3 hexes");
+							//System.out.println("i come to west and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.West), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthEast), owner));
@@ -563,7 +563,7 @@ public class Hex
 							northeast.setHassettlement(true);
 							northeast.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
-							System.out.println("i come to northeast and add settlements to 3 hexes");
+							//System.out.println("i come to northeast and add settlements to 3 hexes");
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.West), owner));
 						}
@@ -593,7 +593,7 @@ public class Hex
 							northwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							northwest.setHassettlement(true);
 							northwest.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
-							System.out.println("i come to NorthWest and add settlements to 3 hexes");
+							//System.out.println("i come to NorthWest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
@@ -624,7 +624,7 @@ public class Hex
 							southwest.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							southwest.setHassettlement(true);
 							southwest.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
-							System.out.println("i come to southwest and add settlements to 3 hexes");
+							//System.out.println("i come to southwest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.NorthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.East), owner));
@@ -654,7 +654,7 @@ public class Hex
 							southeast.setSettlement(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							southeast.setHassettlement(true);
 							southeast.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
-							System.out.println("i come to southwest and add settlements to 3 hexes");
+							//System.out.println("i come to southwest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.West), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthEast), owner));
@@ -692,7 +692,7 @@ public class Hex
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
 						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
-							System.out.print("i come here and I have a road at ne or se or s");
+							//System.out.print("i come here and I have a road at ne or se or s");
 							if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 								if (!this.east.isHassettlement() && !this.east.isHascity()) {
 									if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
@@ -731,14 +731,14 @@ public class Hex
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.west.isHassettlement() && !this.west.isHascity()) {
 							if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
-								System.out.print("i come here and I have a road at nw or sw or s");
+								//System.out.print("i come here and I have a road at nw or sw or s");
 								return true;
 							}
 						}
 					}
 				}
 			}
-			System.out.println("nw and sw and s don't have roads");
+			//System.out.println("nw and sw and s don't have roads");
 			return false;
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
@@ -766,14 +766,14 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 							if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
-								System.out.print("i come here and I have a road at ne or se or n");
+								//System.out.print("i come here and I have a road at ne or se or n");
 								return true;
 							}
 						}
 					}
 				}
 			}
-			System.out.println("n and ne and se don't have roads");
+			//System.out.println("n and ne and se don't have roads");
 
 			return false;
 		}
@@ -802,14 +802,14 @@ public class Hex
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 							if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
-								System.out.print("i come here and I have a road at ne or n or nw");
+								//System.out.print("i come here and I have a road at ne or n or nw");
 								return true;
 							}
 						}
 					}
 				}
 			}
-			System.out.println("nw and ne and n don't have roads");
+			//System.out.println("nw and ne and n don't have roads");
 
 			return false;
 		}
@@ -838,14 +838,14 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
 							if (!hextoupdate.getSoutheast().isHascity() && !hextoupdate.getSoutheast().isHassettlement()) {
-								System.out.print("i come here and I have a road at s or se or sw");
+								//System.out.print("i come here and I have a road at s or se or sw");
 								return true;
 							}
 						}
 					}
 				}
 			}
-			System.out.println("se and sw and s don't have roads");
+			//System.out.println("se and sw and s don't have roads");
 
 			return false;
 		}
@@ -875,14 +875,14 @@ public class Hex
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 							if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {
-								System.out.print("i come here and I have a road at nw or sw or s");
+								//System.out.print("i come here and I have a road at nw or sw or s");
 								return true;
 							}
 						}
 					}
 				}
 			}
-			System.out.println("sw and s and nw don't have roads");
+			//System.out.println("sw and s and nw don't have roads");
 
 			return false;
 		}
@@ -1310,7 +1310,7 @@ public class Hex
 
 	public void addSettlement(Settlement settlement)
 	{
-		System.out.println("i add a settlement for hex at location "+this.getLocation().getX()+" "+this.getLocation().getY());
+		//System.out.println("i add a settlement for hex at location "+this.getLocation().getX()+" "+this.getLocation().getY());
 		settlements.add(settlement);
 	}
 

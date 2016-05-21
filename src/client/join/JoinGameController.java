@@ -306,10 +306,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-        	System.out.println("Name: " + playerinfo.getName());
-        	System.out.println("ID: " + playerinfo.getId());
-        	System.out.println("Index: " + playerinfo.getPlayerIndex());
-        	System.out.println("Color: " + playerinfo.getColor().name());
+        	//System.out.println("Name: " + playerinfo.getName());
+        	//System.out.println("ID: " + playerinfo.getId());
+        	//System.out.println("Index: " + playerinfo.getPlayerIndex());
+        	//System.out.println("Color: " + playerinfo.getColor().name());
         	
         	//System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         	//System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
@@ -369,7 +369,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 break;
             }
         }
-        System.out.println("i join the game with this id "+game.getId());
+        //System.out.println("i join the game with this id "+game.getId());
 
         ModelFacade.facadeCurrentGame.getModel().joinGame(color, game.getId());
 

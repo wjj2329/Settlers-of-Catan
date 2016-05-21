@@ -40,7 +40,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void start() 
 	{
-		System.out.println("Starting waiting");
+		//System.out.println("Starting waiting");
 		serverPoller = new ServerPoller(ModelFacade.facadeCurrentGame.currentgame,ModelFacade.facadeCurrentGame.getServer());
 		serverPoller.startPoller();
         String[] aiChoices = new String[1];
