@@ -2,8 +2,10 @@ package client.roll;
 
 import java.util.*;
 
+import client.State.State;
 import client.base.*;
 import client.model.ModelFacade;
+import client.model.TurnStatus;
 import shared.definitions.HexType;
 import shared.definitions.ResourceType;
 import shared.game.map.Hex.Hex;
@@ -100,8 +102,17 @@ public class RollController extends Controller implements IRollController,Observ
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
-
+	public void update(Observable o, Object arg)
+	{
+		Player current = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
+		System.out.println(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString()+" "+ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus());
+		if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
+			if (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.ROLLING)) {
+				ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+				System.out.println("I ROLL MY DICE");
+				rollDice();
+			}
+		}
 	}
 }
 
