@@ -25,7 +25,7 @@ public class GameStatePanel extends JPanel implements Observer
 		this.setLayout(new FlowLayout());
 		this.setBackground(Color.white);
 		this.setOpaque(true);
-		ModelFacade.facace_currentgame.addObserver(this);
+		ModelFacade.facadeCurrentGame.addObserver(this);
 
 		button = new JButton();
 		
@@ -69,10 +69,10 @@ public class GameStatePanel extends JPanel implements Observer
 	public void update(Observable o, Object arg)
 	{
 
-		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
-			if (ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName())) {
+			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName())) {
 				updateGameState("End Turn", true);
 			}
 		}

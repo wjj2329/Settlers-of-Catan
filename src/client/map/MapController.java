@@ -34,7 +34,7 @@ public class MapController extends Controller implements IMapController, Observe
 		super(view);
 		setRobView(robView);
 		initFromModel();
-		ModelFacade.facace_currentgame.addObserver(this);
+		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 	
 	public IMapView getView() {
@@ -70,10 +70,10 @@ public class MapController extends Controller implements IMapController, Observe
 		return new EdgeLocation(hexLocation, EdgeDirection.North);
 	}
 	protected void initFromModel() {
-		ModelFacade.facace_currentgame.currentgame = new CatanGame();
-		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
-		ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().setResources(new ResourceList(5,5,5,5,5));
-		Map<HexLocation, Hex> mymap = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes();
+		ModelFacade.facadeCurrentGame.currentgame = new CatanGame();
+		ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(1));
+		ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().setResources(new ResourceList(5,5,5,5,5));
+		Map<HexLocation, Hex> mymap = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes();
 		for (HexLocation rec : mymap.keySet()) {
 			HexType test = mymap.get(rec).getResourcetype();
 			getView().addHex(rec, test);
@@ -90,22 +90,22 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		if (!ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
+		if (!ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().containsKey(edgeLoc.getHexLoc()))
 		{
 			return false;
 		}
-		return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildRoadPiece
-				(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
+		return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildRoadPiece
+				(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(edgeLoc.getHexLoc()), edgeLoc);
 	}
 
 	public static boolean canplace=true;
 	//have these things in States
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState)&&canplace) {
+		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.SetUpState)&&canplace) {
 			try {
-				//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
-				return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+				return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 			}
 			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn. 
@@ -113,8 +113,8 @@ public class MapController extends Controller implements IMapController, Observe
 			else{
 
 				try {
-					//System.out.println(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
-					return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+					//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()).getLocation().getY());
+					return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 				} catch (Exception e) {
 
 				}
@@ -128,7 +128,7 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		try
 		{
-			return ModelFacade.facace_currentgame.currentgame.getCurrentState().canBuildCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+			return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 
 		} catch (Exception e) {
 			//e.printStackTrace();
@@ -143,24 +143,24 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState ||
-				ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.GamePlayingState)
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState ||
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
 			System.out.println("I am in here");
-			System.out.println("current player's color is: " + ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
-			ModelFacade.facace_currentgame.currentgame.getCurrentState().buildRoad(ModelFacade.facace_currentgame.getMymap().getHexes()
+			System.out.println("current player's color is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+			ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
 				.get(edgeLoc.getHexLoc()), edgeLoc);
-			getView().placeRoad(edgeLoc, ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+			getView().placeRoad(edgeLoc, ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 		}
 		boolean insert=false;
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facace_currentgame.getServer().buildRoad("buildRoad",ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
+		String mytest=ModelFacade.facadeCurrentGame.getServer().buildRoad("buildRoad",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(mytest);
-			ModelFacade.facace_currentgame.updateFromJSON(mine);
+			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -169,55 +169,55 @@ public class MapController extends Controller implements IMapController, Observe
 	public void placeSettlement(VertexLocation vertLoc) {
 		//if current state is set up then I can do this.
 		try {
-			System.out.println("my current state is this "+ModelFacade.facace_currentgame.currentgame.getCurrentState().toString());
+			System.out.println("my current state is this "+ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		boolean insert=false;
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState))
+		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.SetUpState))
 		{
 			insert=true;
 		}
 		int test;
-		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 		test=player.getPlayerIndex().getNumber();
-		for(Index myindex:ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet())
+		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my players ID " +ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
+			System.out.println("my players ID " +ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
 		}
-		for(Index myindex:ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet())
+		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
-			System.out.println("my player"+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facace_currentgame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
+			System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
 		}
 		System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facace_currentgame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
+		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
 			System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
-			ModelFacade.facace_currentgame.updateFromJSON(mine);
+			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
-		Player currentPlayer=ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
+		Player currentPlayer=ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 		if(canPlaceCity(vertLoc))
 		{
 			try {
-				currentPlayer.buildCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				currentPlayer.buildCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facace_currentgame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
-			ModelFacade.facace_currentgame.updateFromJSON(mine);
+			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -255,7 +255,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	private void doSetUpTurns()
 	{
-		Player current = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
+		Player current = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 		if (current == null)
 		{
 			return;
@@ -265,10 +265,10 @@ public class MapController extends Controller implements IMapController, Observe
 			return;
 		}
 
-		if (ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
+		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			System.out.println("In the set up turns thing I compare "+ModelFacade.facace_currentgame.getLocalPlayer().getName()+" "+current.getName());
-			if(current.getName().equals(ModelFacade.facace_currentgame.getLocalPlayer().getName()))//if the current player is the local one
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 
 				if (current.getSettlements().size() == 0) //first part of phase one
@@ -284,10 +284,10 @@ public class MapController extends Controller implements IMapController, Observe
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn)
 				{
 					hasdonefirstturn=true;
-					String serverresponse=ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
 					try {
 						JSONObject response=new JSONObject(serverresponse);
-						ModelFacade.facace_currentgame.updateFromJSON(response);
+						ModelFacade.facadeCurrentGame.updateFromJSON(response);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
@@ -317,40 +317,40 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState)
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
 		{
 			System.out.println("I come here to update the views and stuff");
 			doSetUpTurns();
 		}
-		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 
 		System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
 		//getView().placeSettlement(new VertexLocation(new HexLocation(-1,1),VertexDirection.East),CatanColor.BLUE);
-		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
+			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
-				getView().placeSettlement(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+				System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
+				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
 		//loads cities on update
-		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
+			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
 			{
-				getView().placeCity(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 
 			}
 		}
 		//loads roads on update
-		for(HexLocation loc:ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().keySet())
+		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
-			for(int i=0; i<ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
+			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
-				getView().placeRoad(ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
+				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 
 			}
 		}

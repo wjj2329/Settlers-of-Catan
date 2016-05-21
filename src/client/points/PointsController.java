@@ -41,10 +41,10 @@ public class PointsController extends Controller implements IPointsController {
 
 	private void initFromModel() {
 		
-		int points = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getNumVictoryPoints();
+		int points = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getNumVictoryPoints();
 		getPointsView().setPoints(points);
 		
-		int winner = ModelFacade.facace_currentgame.currentgame.getWinner().getNumber();
+		int winner = ModelFacade.facadeCurrentGame.currentgame.getWinner().getNumber();
 		if(winner != -1){
 			//ends the game...
 		}

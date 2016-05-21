@@ -71,7 +71,7 @@ public class RollController extends Controller implements IRollController {
      */
 	private void updatePlayerResources(int diceRoll)
 	{
-		Map<HexLocation, Hex> hexes = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes();
+		Map<HexLocation, Hex> hexes = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes();
 		for (Map.Entry<HexLocation, Hex> entry : hexes.entrySet())
 		{
 			Hex cur = entry.getValue();
@@ -94,7 +94,7 @@ public class RollController extends Controller implements IRollController {
 		for (int i = 0; i < settlements.size(); i++)
 		{
 			Settlement settlement = settlements.get(i);
-			Player corresponding = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(settlement.getOwner());
+			Player corresponding = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(settlement.getOwner());
 			corresponding.getResources().incrementBasedOnHexType(resType);
 		}
 	}

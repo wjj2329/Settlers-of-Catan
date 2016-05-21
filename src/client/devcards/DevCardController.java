@@ -30,7 +30,7 @@ public class DevCardController extends Controller implements IDevCardController 
 								IAction soldierAction, IAction roadAction) {
 
 		super(view);
-		server = ModelFacade.facace_currentgame.getServer();
+		server = ModelFacade.facadeCurrentGame.getServer();
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
@@ -46,7 +46,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuyDevCard()){
+		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuyDevCard()){
 			getBuyCardView().showModal();
 		}
 	}
@@ -67,7 +67,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	public void startPlayCard() {
 		
 		DevCardList oldDevList = new DevCardList(2, 2, 2, 2, 1);
-//		DevCardList oldDevlist = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getOldDevCards();
+//		DevCardList oldDevlist = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getOldDevCards();
 		
 		if(oldDevList.getTotalCardNum()>0){
 			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, oldDevList.getMonopoly());
@@ -88,12 +88,12 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		server.playMonopoly("Monopoly", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource.name());
+		server.playMonopoly("Monopoly", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource.name());
 	}
 
 	@Override
 	public void playMonumentCard() {
-		server.playMonument("Monument", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+		server.playMonument("Monument", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
 	@Override
@@ -110,7 +110,7 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource1.name(), resource2.name());
+		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), resource1.name(), resource2.name());
 	}
 
 }

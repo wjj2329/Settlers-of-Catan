@@ -24,7 +24,7 @@ public class ServerPoller
 	 */
 	Timer requestTimer = null;
 	IServer server;
-	CatanGame game = ModelFacade.facace_currentgame.currentgame;
+	CatanGame game = ModelFacade.facadeCurrentGame.currentgame;
 	public static Boolean stop=false;
 	
 	public ServerPoller(CatanGame game, IServer server)
@@ -62,7 +62,7 @@ public class ServerPoller
 		{
 			System.out.println("polling server");
 			int version = 0;
-			ServerResponse json = ModelFacade.facace_currentgame.getServer().getGameCurrentState(game.getModel().getVersion());
+			ServerResponse json = ModelFacade.facadeCurrentGame.getServer().getGameCurrentState(game.getModel().getVersion());
 			try
 			{
 				JSONObject object = new JSONObject(json.getResponse());
@@ -85,13 +85,13 @@ public class ServerPoller
 			//System.out.println("New version: " + version);
 			if (version > game.getModel().getVersion() || game.getModel().getVersion() == 0)
 			{
-				if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size()<4) {
+				if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<4) {
 					try
 					{
 						System.out.println("Old version: " + game.getModel().getVersion());
-						ModelFacade.facace_currentgame.updateFromJSON(new JSONObject(json.getResponse()));
+						ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(json.getResponse()));
 						System.out.println("New version: " + game.getModel().getVersion());
-						System.out.println(ModelFacade.facace_currentgame.currentgame.getMyplayers().size());
+						System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
 						stop = true;
 
 					} catch (JSONException e) {

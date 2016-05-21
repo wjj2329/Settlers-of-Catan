@@ -87,7 +87,7 @@ public class CatanMap
 
 	public void SetDesertHexLoc(HexLocation desertHexLoc)
 	{
-		ModelFacade.facace_currentgame.currentgame.myrobber.setLocation(desertHexLoc);
+		ModelFacade.facadeCurrentGame.currentgame.myrobber.setLocation(desertHexLoc);
 		this.desertHexLoc=desertHexLoc;
 	}
 

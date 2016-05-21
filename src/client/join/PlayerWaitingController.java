@@ -33,7 +33,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public IPlayerWaitingView getView()
 	{
 
-        ModelFacade.facace_currentgame.addObserver(this);
+        ModelFacade.facadeCurrentGame.addObserver(this);
         return (IPlayerWaitingView)super.getView();
 	}
 
@@ -41,11 +41,11 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public void start() 
 	{
 		System.out.println("Starting waiting");
-		serverPoller = new ServerPoller(ModelFacade.facace_currentgame.currentgame,ModelFacade.facace_currentgame.getServer());
+		serverPoller = new ServerPoller(ModelFacade.facadeCurrentGame.currentgame,ModelFacade.facadeCurrentGame.getServer());
 		serverPoller.startPoller();
         String[] aiChoices = new String[1];
         aiChoices[0] = "LARGEST_ARMY";
-       // ModelFacade.facace_currentgame.listAI()).toArray(aiChoices);
+       // ModelFacade.facadeCurrentGame.listAI()).toArray(aiChoices);
         getView().setAIChoices(aiChoices);
         //getView().showModal();
         TimerTask timerTask = new TimerTask()
@@ -63,17 +63,17 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI() 
 	{
-			ModelFacade.facace_currentgame.getServer().addAIPlayer("LARGEST_ARMY");
+			ModelFacade.facadeCurrentGame.getServer().addAIPlayer("LARGEST_ARMY");
 	}
 	
 	public void checkGame()
     {
 //		try
 //		{
-//			String stringy = ModelFacade.facace_currentgame.getModel().getServer().getGameCurrentState(0).getResponse();
+//			String stringy = ModelFacade.facadeCurrentGame.getModel().getServer().getGameCurrentState(0).getResponse();
 //			System.out.println("This is stringy: " + stringy);
 //			JSONObject obj = new JSONObject(stringy);
-//			ModelFacade.facace_currentgame.updateFromJSON(obj);
+//			ModelFacade.facadeCurrentGame.updateFromJSON(obj);
 //			
 //		} catch (JSONException e)
 //		{
@@ -82,19 +82,19 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 //			
 //		}
 		
-        if(this.numPlayers == ModelFacade.facace_currentgame.currentgame.getMyplayers().size())
+        if(this.numPlayers == ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size())
         {
         	//System.out.println("Oh noes");
             return;
         }
-        if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+        if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
         {
             //this.timer.cancel();
             
             if(getView().isModalShowing())
             {
                 getView().closeModal();
-                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.SetUpState);
+                ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.SetUpState);
                 
             }
             this.timer.cancel();
@@ -102,8 +102,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 //            serverPoller.startPoller();
             return;
         }
-        this.numPlayers = ModelFacade.facace_currentgame.currentgame.getMyplayers().size();
-        Collection<Player> currentPlayers = ModelFacade.facace_currentgame.currentgame.getMyplayers().values();
+        this.numPlayers = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size();
+        Collection<Player> currentPlayers = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values();
         PlayerInfo[] playerInfo = new PlayerInfo[currentPlayers.size()];
         int idx = 0;
         for(Player player: currentPlayers)
@@ -132,13 +132,13 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
     @Override
     public void update(Observable o, Object arg)
     {
-        if(ModelFacade.facace_currentgame.currentgame.getMyplayers().size() == 4)
+        if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
         {
             //this.timer.cancel();
 
             if(getView().isModalShowing()) {
                 getView().closeModal();
-                ModelFacade.facace_currentgame.currentgame.setCurrentState(State.SetUpState);
+                ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.SetUpState);
 
             }
 

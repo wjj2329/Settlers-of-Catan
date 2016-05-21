@@ -36,8 +36,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn()
 	{
-		ModelFacade.facace_currentgame.getServer().finishTurn("finishTurn",
-				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+		ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
 	}
 
 	private void initFromModel()
@@ -55,18 +55,18 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 //		getView().setLocalPlayerColor(CatanColor.BLUE);
 		
 		//This is what is actually suppose to use, but the currentgame.getstuff is null and brings up a nullPointerException
-//		int currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());
-//		Map<Index, Player> players = ModelFacade.facace_currentgame.currentgame.getMyplayers();
+//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+//		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+//		Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 
-//		int currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-//		getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());	
+//		int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+//		getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 		int currentPlayer = 0;
-		if(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer() != null)
+		if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer() != null)
 		{
-			if(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex() != null){
-				currentPlayer = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-				getView().setLocalPlayerColor(ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().getColor());			
+			if(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex() != null){
+				currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+				getView().setLocalPlayerColor(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 			}
 		}
 		else
@@ -74,7 +74,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			getView().setLocalPlayerColor(CatanColor.RED);
 		}
 		
-		Map<Index, Player> players = ModelFacade.facace_currentgame.currentgame.getMyplayers();
+		Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 		if (players != null) 
 		{
 			if(players.size() <=4)
@@ -95,14 +95,14 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 
 	public boolean hasLargestArmy(Index index) {
-		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
+		if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
 			return true;
 		}
 		return false;
 	}
 
 	public boolean hasLongestRoad(Index index) {
-		if (index.getNumber() == ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getLongestRoad().getNumber()) {
+		if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLongestRoad().getNumber()) {
 			return true;
 		}
 		return false;

@@ -38,16 +38,16 @@ public class TestCanPlaceSettlement {
 
 	@Before
 	public void setup() {
-		ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(5));
-		hex1 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
-		hex2 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
-		hex3 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
-		hex4 = ModelFacade.facace_currentgame.currentgame.getMymap().getHexes().get(new HexLocation(500, 20));//invalid hex
+		ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(5));
+		hex1 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(new HexLocation(0, 1));//a genric regular hex
+		hex2 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(new HexLocation(-3, 2));//a water hex tile
+		hex3 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(new HexLocation(-2, 0));//A regular tile that borders a water tile
+		hex4 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(new HexLocation(500, 20));//invalid hex
 	}
 
 	@After
 	public void teardown() {
-		ModelFacade.facace_currentgame.currentgame.clear();
+		ModelFacade.facadeCurrentGame.currentgame.clear();
 	}
 
 	@Test

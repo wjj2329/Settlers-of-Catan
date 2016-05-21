@@ -27,7 +27,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		super(view);
 
 		elementActions = new HashMap<ResourceBarElement, IAction>();
-		ModelFacade.facace_currentgame.addObserver(this);
+		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 
 	@Override
@@ -45,10 +45,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	//needs to get update to work to overwrite the inital state when stuff happens in other controllers.
 	public void setElementAction(ResourceBarElement element, IAction action) {
 		elementActions.put(element, action);
-		Player player = ModelFacade.facace_currentgame.currentgame.getCurrentPlayer();
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 
 
-		if (ModelFacade.facace_currentgame.currentgame.getCurrentState().equals(State.SetUpState)) {
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.SetUpState)) {
 			this.getView().setElementEnabled(ResourceBarElement.CITY, false);
 			this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 			this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
@@ -72,7 +72,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			this.getView().setElementAmount(ResourceBarElement.SOLDIERS, player.getArmySize());
 
 		}
-		if (ModelFacade.facace_currentgame.currentgame.getCurrentState() != State.SetUpState) {
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() != State.SetUpState) {
 			if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 			}
@@ -129,16 +129,16 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg) {
 
-		for (Index id : ModelFacade.facace_currentgame.currentgame.getMyplayers().keySet()) {
-			System.out.println("MY players ids are these " + ModelFacade.facace_currentgame.currentgame.getMyplayers().get(id).getPlayerID().getNumber());
+		for (Index id : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
+			System.out.println("MY players ids are these " + ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber());
 		}
 
-		Index currentTurn = ModelFacade.facace_currentgame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		System.out.println("the current players index apparently is this " + currentTurn.getNumber());
-		Player player = ModelFacade.facace_currentgame.currentgame.getMyplayers().get(currentTurn);
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 		if(player!=null) {
-			System.out.println("I compare this player " + ModelFacade.facace_currentgame.getLocalPlayer().getName() + player.getName());
-			if (!ModelFacade.facace_currentgame.getLocalPlayer().getName().equals(player.getName())) {
+			System.out.println("I compare this player " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName() + player.getName());
+			if (!ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName())) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 
 				this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
@@ -167,7 +167,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			} else {
 
 				System.out.println("Sam should get in here ");
-				//Player player=ModelFacade.facace_currentgame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
+				//Player player=ModelFacade.facadeCurrentGame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
 				System.out.println("Sam IS HERE YEA!!!!");
 				ResourceList resourceCards = player.getResources();
 				this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
@@ -198,7 +198,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
 						player.canAffordDevCard());
 
-				if (ModelFacade.facace_currentgame.currentgame.getCurrentState() == State.SetUpState) {
+				if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState) {
 
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, true);
 
@@ -210,7 +210,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 					this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
 				}
-				if (ModelFacade.facace_currentgame.currentgame.getCurrentState() != State.SetUpState) {
+				if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() != State.SetUpState) {
 					if (player.getResources().getBrick() < 1 || player.getResources().getWood() < 1) {
 						this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 					}

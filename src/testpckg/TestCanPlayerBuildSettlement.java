@@ -40,8 +40,8 @@ public class TestCanPlayerBuildSettlement
 
     @Before
     public void setup() throws Exception {
-       // ModelFacade.facace_currentgame.currentgame=new CatanGame();
-        ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(1));
+       // ModelFacade.facadeCurrentGame.currentgame=new CatanGame();
+        ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(1));
         william=new Player("William", CatanColor.WHITE,new Index(3));
         william.setResources(new ResourceList(1,1,1,1,1));
 
@@ -50,7 +50,7 @@ public class TestCanPlayerBuildSettlement
     @After
     public void teardown()
     {
-        ModelFacade.facace_currentgame.currentgame.clear();
+        ModelFacade.facadeCurrentGame.currentgame.clear();
     }
 
     /**

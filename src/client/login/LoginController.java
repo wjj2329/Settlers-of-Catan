@@ -24,7 +24,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 
 	private IMessageView messageView;
 	private IAction loginAction;
-	private IServer server = ModelFacade.facace_currentgame.getServer();
+	private IServer server = ModelFacade.facadeCurrentGame.getServer();
 
 
 	/**
@@ -85,7 +85,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
 
-			ModelFacade.facace_currentgame.loadGames();
+			ModelFacade.facadeCurrentGame.loadGames();
 			server.loginUser(username1, password1);
 			// If log in succeeded
 			getLoginView().closeModal();
@@ -117,7 +117,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 				server.loginUser(username, password);
 				getLoginView().closeModal();
 				loginAction.execute();
-				ModelFacade.facace_currentgame.loadGames();
+				ModelFacade.facadeCurrentGame.loadGames();
 			}
 			else
 			{
@@ -175,7 +175,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
 		//format for names which is a problem!
 		localplayer.setName(newname);
-		ModelFacade.facace_currentgame.setLocalPlayer(localplayer);
+		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 	}
 	
 	@Override

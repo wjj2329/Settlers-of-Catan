@@ -40,8 +40,8 @@ public class TestCanPlayerBuildCity
     @Before
     public void setup() throws Exception
     {
-        //ModelFacade.facace_currentgame.currentgame=new CatanGame();
-        ModelFacade.facace_currentgame.currentgame.setMymap(new CatanMap(4));
+        //ModelFacade.facadeCurrentGame.currentgame=new CatanGame();
+        ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(4));
         william.setResources(new ResourceList(3, 3, 3, 3, 3));
         hex1.buildSettlement(new VertexLocation(hex1.getLocation(),VertexDirection.East),new Index(2));
     }
@@ -49,7 +49,7 @@ public class TestCanPlayerBuildCity
     @After
     public void teardown()
     {
-            ModelFacade.facace_currentgame.currentgame.clear();
+            ModelFacade.facadeCurrentGame.currentgame.clear();
     }
 
     @Test

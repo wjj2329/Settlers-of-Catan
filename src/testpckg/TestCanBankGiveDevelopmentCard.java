@@ -23,60 +23,60 @@ public class TestCanBankGiveDevelopmentCard {
     @Before
     public void setUp()throws Exception
     {
-        ModelFacade.facace_currentgame.currentgame.mybank.clear();
+        ModelFacade.facadeCurrentGame.currentgame.mybank.clear();
         ResourceList mylist=new ResourceList();
         mylist.setBrick(4);
         mylist.setOre(3);
         mylist.setSheep(2);
         mylist.setWheat(10);
         mylist.setWood(0);
-        ModelFacade.facace_currentgame.currentgame.mybank.setResourceCardslist(mylist);
+        ModelFacade.facadeCurrentGame.currentgame.mybank.setResourceCardslist(mylist);
     }
 
     @After
     public void tearDown() throws Exception
     {
-        ModelFacade.facace_currentgame.currentgame.mybank.clear();
+        ModelFacade.facadeCurrentGame.currentgame.mybank.clear();
     }
 
     @Test
     public void testBank4()throws Exception
     {
-        ModelFacade.facace_currentgame.currentgame.mybank.clear();
-        ModelFacade.facace_currentgame.currentgame.mybank.setDevCardList(-10, -10, -3, -4, -5);
+        ModelFacade.facadeCurrentGame.currentgame.mybank.clear();
+        ModelFacade.facadeCurrentGame.currentgame.mybank.setDevCardList(-10, -10, -3, -4, -5);
         exception.expect(Exception.class);
-        ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY);
+        ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY);
 
     }
 
     @Test
     public void testBank5() throws Exception
     {
-        ModelFacade.facace_currentgame.currentgame.mybank.clear();
-        ModelFacade.facace_currentgame.currentgame.mybank.setDevCardList(10, 15, 0, 0, 2);
-        assertTrue(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
-        assertFalse(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
-        assertFalse(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
+        ModelFacade.facadeCurrentGame.currentgame.mybank.clear();
+        ModelFacade.facadeCurrentGame.currentgame.mybank.setDevCardList(10, 15, 0, 0, 2);
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
     }
 
     @Test
     public void testBank6() throws Exception
     {
-        ModelFacade.facace_currentgame.currentgame.mybank.clear();
+        ModelFacade.facadeCurrentGame.currentgame.mybank.clear();
         DevCardList mylist=new DevCardList();
         mylist.setYearOfPlenty(1);
         mylist.setMonopoly(0);
         mylist.setSoldier(1);
         mylist.setMonument(5);
         mylist.setRoadBuilding(0);
-        ModelFacade.facace_currentgame.currentgame.mybank.setDevCardList(mylist);
-        assertTrue( ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
-        assertFalse(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
-        assertFalse(ModelFacade.facace_currentgame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
+        ModelFacade.facadeCurrentGame.currentgame.mybank.setDevCardList(mylist);
+        assertTrue( ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY));
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONOPOLY));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.SOLDIER));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.MONUMENT));
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD));
     }
 
 }

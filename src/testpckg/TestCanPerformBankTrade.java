@@ -58,9 +58,9 @@ public class TestCanPerformBankTrade
 	public void test2WayTradeYes() throws Exception
 	{
 		kesha.getResources().setBrick(2);
-		ModelFacade.facace_currentgame.currentgame.mybank.getCardslist().setWood(1);
+		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWood(1);
 		assertEquals(kesha.getResources().getBrick(), 2);
-		assertEquals(ModelFacade.facace_currentgame.currentgame.mybank.getCardslist().getWood(), 1);
+		assertEquals(ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().getWood(), 1);
 		assertTrue(kesha.canDoTradeWithBank(TradeType.BRICK, TradeType.BLANK, ResourceType.WOOD));
 	}
 
@@ -75,7 +75,7 @@ public class TestCanPerformBankTrade
 	public void test3WayTradeYes() throws Exception
 	{
 		kesha.getResources().setOre(3);
-		ModelFacade.facace_currentgame.currentgame.mybank.getCardslist().setWood(1);
+		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWood(1);
 		assertTrue(kesha.canDoTradeWithBank(TradeType.THREE, TradeType.ORE, ResourceType.WOOD));
 	}
 
@@ -92,7 +92,7 @@ public class TestCanPerformBankTrade
 	public void test4WayTradeYes() throws Exception
 	{
 		kesha.getResources().setSheep(7);
-		ModelFacade.facace_currentgame.currentgame.mybank.getCardslist().setWheat(1);
+		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWheat(1);
 		assertTrue(kesha.canDoTradeWithBank(TradeType.FOUR, TradeType.SHEEP, ResourceType.WHEAT));
 	}
 
@@ -100,7 +100,7 @@ public class TestCanPerformBankTrade
 	public void test4WayTradeNo() throws Exception
 	{
 		kesha.getResources().setWheat(1);
-		ModelFacade.facace_currentgame.currentgame.mybank.getCardslist().setSheep(1);
+		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setSheep(1);
 		assertFalse(kesha.canDoTradeWithBank(TradeType.FOUR, TradeType.WHEAT, ResourceType.SHEEP));
 		assertFalse(kesha.canDoTradeWithBank(TradeType.FOUR, TradeType.SHEEP, ResourceType.BRICK));
 	}

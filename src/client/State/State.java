@@ -34,7 +34,7 @@ public enum State {
 	GamePlayingState{
 		@Override
 		public boolean canBuildCity(Hex hex, VertexLocation mylocation) throws Exception {
-			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildCity(hex, mylocation));
+			return (ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuildCity(hex, mylocation));
 		}
 		//player is actually playing the game.
 		@Override
@@ -60,7 +60,7 @@ public enum State {
 		@Override
 		public void buildCity(Hex buildingon, VertexLocation myloaction) {
 			try {
-				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildCity(buildingon, myloaction);
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildCity(buildingon, myloaction);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -70,13 +70,13 @@ public enum State {
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildSettlementNormal(buildingon,vertexLocation);
+			ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildSettlementNormal(buildingon,vertexLocation);
 		}
 
 		@Override
 		public void buildRoad(Hex hex, EdgeLocation edge)
 		{
-			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildRoadPiece(hex, edge);
+			ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildRoadPiece(hex, edge);
 		}
 
 		@Override
@@ -93,14 +93,14 @@ public enum State {
 		@Override
 		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 		{
-			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildRoadPiece(hex, edge));
+			return (ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuildRoadPiece(hex, edge));
 		}
 
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception
 		{
 			System.out.println("i am in the normal round to see if I can build");
-			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
+			return (ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuildSettlementNormal(hex, mylocation));
 		}
 	},
 
@@ -110,19 +110,19 @@ public enum State {
 		@Override
 		public boolean canBuildSettlement(Hex hex, VertexLocation mylocation) throws Exception {
 			System.out.println("i am in the setup to check if I can build it");
-			return (ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
+			return (ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuildSettlementStartup(hex, mylocation));
 		}
 		//First set up round player gets 2 free settlements and roads
 		@Override
 		public void buildSettlement(Hex buildingon, VertexLocation vertexLocation)throws Exception
 		{
-				ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
+				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildSettlement(buildingon,vertexLocation);
 		}
 
 		@Override
 		public void buildRoad(Hex hex, EdgeLocation edge)
 		{
-			ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().buildRoadPieceSetupState(hex, edge);
+			ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().buildRoadPieceSetupState(hex, edge);
 		}
 		@Override
 		public String getState() {
@@ -132,7 +132,7 @@ public enum State {
 		@Override
 		public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 		{
-			return ModelFacade.facace_currentgame.currentgame.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
+			return ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().canBuildRoadPieceSetupState(hex, edge);
 		}
 	},
 	PlayerWaitingState{

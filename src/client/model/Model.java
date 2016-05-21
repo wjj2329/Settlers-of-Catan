@@ -53,7 +53,7 @@ public class Model
 	public void createGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception 
 	{
 		CatanGame game = new CatanGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
-		ModelFacade.facace_currentgame.getServer().createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
+		ModelFacade.facadeCurrentGame.getServer().createGame(title, randomlyPlaceHexes, randomlyPlaceNumbers, randomPorts);
 	}
 	
 	/**
@@ -77,7 +77,7 @@ public class Model
 	 */
 	public void joinGame(CatanColor color, int gameindex)
 	{
-		ModelFacade.facace_currentgame.getServer().JoinGame(gameindex, color.name().toLowerCase());
+		ModelFacade.facadeCurrentGame.getServer().JoinGame(gameindex, color.name().toLowerCase());
 		//gamelist.get(gameindex).addPlayer(player);
 	}
 	

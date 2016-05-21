@@ -39,8 +39,8 @@ public class TestCanCreatePlayer
         p2 = new Player("Matthew", CatanColor.BROWN, new Index(1));
         p3 = new Player("Alex", CatanColor.RED, new Index(2));
         p4 = new Player("Alex", CatanColor.RED, new Index(3));
-       // ModelFacade.facace_currentgame.currentgame=new CatanGame();
-        ModelFacade.facace_currentgame.currentgame.addPlayer(p1);
+       // ModelFacade.facadeCurrentGame.currentgame=new CatanGame();
+        ModelFacade.facadeCurrentGame.currentgame.addPlayer(p1);
     }
 
     /**
@@ -56,11 +56,11 @@ public class TestCanCreatePlayer
     public void test()
     {
 
-        assertFalse(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p1));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p2));
-        assertTrue(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p3));
-        ModelFacade.facace_currentgame.currentgame.addPlayer(p3);
-        assertFalse(ModelFacade.facace_currentgame.currentgame.canCreatePlayer(p4));
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.canCreatePlayer(p1));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.canCreatePlayer(p2));
+        assertTrue(ModelFacade.facadeCurrentGame.currentgame.canCreatePlayer(p3));
+        ModelFacade.facadeCurrentGame.currentgame.addPlayer(p3);
+        assertFalse(ModelFacade.facadeCurrentGame.currentgame.canCreatePlayer(p4));
     }
 
 }

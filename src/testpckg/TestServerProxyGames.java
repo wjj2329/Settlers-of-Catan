@@ -28,7 +28,7 @@ IServer iserver;
 	
 	@Test
 	public void testCrap(){
-		ModelFacade.facace_currentgame.loadGames();
+		ModelFacade.facadeCurrentGame.loadGames();
 	}
 	
 	

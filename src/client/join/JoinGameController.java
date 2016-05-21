@@ -55,7 +55,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
-		ModelFacade.facace_currentgame.addObserver(this);
+		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -113,7 +113,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
-        ArrayList<CatanGame> gamesList = ModelFacade.facace_currentgame.getModel().listGames();
+        ArrayList<CatanGame> gamesList = ModelFacade.facadeCurrentGame.getModel().listGames();
 
         if (gamesList == null)
         {
@@ -273,8 +273,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
 		try
 		{
-			ModelFacade.facace_currentgame.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
-			ModelFacade.facace_currentgame.loadGames();
+			ModelFacade.facadeCurrentGame.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
+			ModelFacade.facadeCurrentGame.loadGames();
 		} 
 		catch (Exception e)
 		{
@@ -297,7 +297,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-            //if(playerinfo.getId() != ModelFacade.facace_currentgame.getLocalPlayer().getPlayerIndex().getNumber())
+            //if(playerinfo.getId() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
             //{
                 currentColorsTaken.add(playerinfo.getColor());
             //}
@@ -329,7 +329,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void joinGame(CatanColor color)
 	{
-        ArrayList<CatanGame> games = ModelFacade.facace_currentgame.getModel().listGames();
+        ArrayList<CatanGame> games = ModelFacade.facadeCurrentGame.getModel().listGames();
         for(CatanGame game: games)
         {
             if(game.getGameId() == this.game.getId())
@@ -339,7 +339,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                     getSelectColorView().setColorEnabled(color, false);
                     if(player.getColor().equals(color) && 
                     		player.getPlayerIndex().getNumber() != 
-                    		ModelFacade.facace_currentgame.getLocalPlayer().getPlayerIndex().getNumber())
+                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber())
                     {
                         getMessageView().setMessage("Cannot join with that color.  Already taken.");
                         getMessageView().showModal();
@@ -351,7 +351,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
         System.out.println("i join the game with this id "+game.getId());
 
-        ModelFacade.facace_currentgame.getModel().joinGame(color, game.getId());
+        ModelFacade.facadeCurrentGame.getModel().joinGame(color, game.getId());
 
 
         System.out.println(game.getPlayers().size());

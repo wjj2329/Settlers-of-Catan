@@ -48,7 +48,7 @@ import java.util.Observable;
 public class ModelFacade extends Observable
 {
 	public CatanGame currentgame = new CatanGame();
-	public static ModelFacade facace_currentgame = new ModelFacade();
+	public static ModelFacade facadeCurrentGame = new ModelFacade();
 	private Player localplayer;
 	IServer server = new ServerProxy();
 	
@@ -513,7 +513,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				System.out.println("eff");
 			}
 			currentgame.getMyplayers().get(owner).addToSettlements(settle1);
-			//facace_currentgame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
+			//facadeCurrentGame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
