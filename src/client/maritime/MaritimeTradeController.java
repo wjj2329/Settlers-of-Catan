@@ -7,6 +7,7 @@ import client.base.*;
 import shared.game.CatanGame;
 import shared.game.player.Player;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -28,6 +29,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * AKA the current player.
 	 */
 	private Player currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
+	private Player localPlayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
@@ -127,11 +129,49 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			case GamePlayingState:
 				getTradeView().enableMaritimeTrade(true);
-				if (!currentPlayer.isCurrentPlayer())
+				/*if (!currentPlayer.isCurrentPlayer())
 				{
 					getTradeOverlay().showGiveOptions(new ResourceType[0]);
 					// then enable that button that says "not your turn"
-
+				}*/
+				for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+				{
+					if (!p.isCurrentPlayer())
+					{
+						getTradeOverlay().showGiveOptions(new ResourceType[0]);
+						getTradeOverlay().setStateMessage("not your turn");
+					}
+					else
+					{
+						// right now, just hard-coding a 4:1 trade until I implement the other types of trades.
+						ArrayList<ResourceType> arraysSuck = new ArrayList<>();
+						if (p.getResources().getWood() >= 4)
+						{
+							arraysSuck.add(ResourceType.WOOD);
+						}
+						if (p.getResources().getOre() >= 4)
+						{
+							arraysSuck.add(ResourceType.ORE);
+						}
+						if (p.getResources().getBrick() >= 4)
+						{
+							arraysSuck.add(ResourceType.BRICK);
+						}
+						if (p.getResources().getSheep() >= 4)
+						{
+							arraysSuck.add(ResourceType.SHEEP);
+						}
+						if (p.getResources().getWheat() >= 4)
+						{
+							arraysSuck.add(ResourceType.WHEAT);
+						}
+						ResourceType[] whichResourcesToDisplay = new ResourceType[arraysSuck.size()];
+						for (int i = 0; i < arraysSuck.size(); i++)
+						{
+							whichResourcesToDisplay[i] = arraysSuck.get(i);
+						}
+						getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
+					}
 				}
 				break;
 			default:
