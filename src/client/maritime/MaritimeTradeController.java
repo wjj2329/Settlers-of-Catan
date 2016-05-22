@@ -129,11 +129,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			case GamePlayingState:
 				getTradeView().enableMaritimeTrade(true);
-				/*if (!currentPlayer.isCurrentPlayer())
-				{
-					getTradeOverlay().showGiveOptions(new ResourceType[0]);
-					// then enable that button that says "not your turn"
-				}*/
+
+				// the below code doesn't quite work
 				for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
 				{
 					if (!p.isCurrentPlayer())
@@ -166,11 +163,21 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 							arraysSuck.add(ResourceType.WHEAT);
 						}
 						ResourceType[] whichResourcesToDisplay = new ResourceType[arraysSuck.size()];
+						// I load the arrayList elements into the array because it's of VARIABLE SIZE
+						// Because arrays SUCK and arrayLists are superior! :o
 						for (int i = 0; i < arraysSuck.size(); i++)
 						{
 							whichResourcesToDisplay[i] = arraysSuck.get(i);
 						}
 						getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
+						if (whichResourcesToDisplay.length == 0)
+						{
+							getTradeOverlay().setStateMessage("You don't have enough resources.");
+						}
+						else
+						{
+							getTradeOverlay().setStateMessage("Choose what to give up");
+						}
 					}
 				}
 				break;

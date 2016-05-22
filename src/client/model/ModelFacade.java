@@ -634,13 +634,10 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				newPlayer.setResources(new ResourceList(resources.getInt("brick"), resources.getInt("ore"),
 						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood")));
 				//resources(obj, newPlayer.getResources());
-<<<<<<< Updated upstream
-				currentgame.addPlayer(newPlayer);
-=======
+				//currentgame.addPlayer(newPlayer);
 				currentgame.setPlayerInfo(newPlayer);
 				//currentgame.addPlayer(newPlayer);
 
->>>>>>> Stashed changes
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
