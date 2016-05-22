@@ -58,15 +58,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		System.out.println("i start the trade");
 		getTradeOverlay().showModal();
-		/*if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
-		{
-			getTradeOverlay().showGiveOptions(new ResourceType[0]);
-			return;
-		}*/
-		/*if (currentPlayer.canDoTradeWithBank())
-		{
 
-		}*/
 	}
 
 	@Override
@@ -129,6 +121,43 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			case GamePlayingState:
 				getTradeView().enableMaritimeTrade(true);
+				/*ArrayList<ResourceType> arraysSuck = new ArrayList<>();
+				if (currentPlayer.getResources().getWood() >= 4)
+				{
+					arraysSuck.add(ResourceType.WOOD);
+				}
+				if (currentPlayer.getResources().getOre() >= 4)
+				{
+					arraysSuck.add(ResourceType.ORE);
+				}
+				if (currentPlayer.getResources().getBrick() >= 4)
+				{
+					arraysSuck.add(ResourceType.BRICK);
+				}
+				if (currentPlayer.getResources().getSheep() >= 4)
+				{
+					arraysSuck.add(ResourceType.SHEEP);
+				}
+				if (currentPlayer.getResources().getWheat() >= 4)
+				{
+					arraysSuck.add(ResourceType.WHEAT);
+				}
+				ResourceType[] whichResourcesToDisplay = new ResourceType[arraysSuck.size()];
+				// I load the arrayList elements into the array because it's of VARIABLE SIZE
+				// Because arrays SUCK and arrayLists are superior! :o
+				for (int i = 0; i < arraysSuck.size(); i++)
+				{
+					whichResourcesToDisplay[i] = arraysSuck.get(i);
+				}
+				getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
+				if (whichResourcesToDisplay.length == 0)
+				{
+					getTradeOverlay().setStateMessage("You don't have enough resources.");
+				}
+				else
+				{
+					getTradeOverlay().setStateMessage("Choose what to give up");
+				}
 
 				// the below code doesn't quite work
 				for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
@@ -138,52 +167,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 						getTradeOverlay().showGiveOptions(new ResourceType[0]);
 						getTradeOverlay().setStateMessage("not your turn");
 					}
-					else
-					{
-						// right now, just hard-coding a 4:1 trade until I implement the other types of trades.
-						ArrayList<ResourceType> arraysSuck = new ArrayList<>();
-						if (p.getResources().getWood() >= 4)
-						{
-							arraysSuck.add(ResourceType.WOOD);
-						}
-						if (p.getResources().getOre() >= 4)
-						{
-							arraysSuck.add(ResourceType.ORE);
-						}
-						if (p.getResources().getBrick() >= 4)
-						{
-							arraysSuck.add(ResourceType.BRICK);
-						}
-						if (p.getResources().getSheep() >= 4)
-						{
-							arraysSuck.add(ResourceType.SHEEP);
-						}
-						if (p.getResources().getWheat() >= 4)
-						{
-							arraysSuck.add(ResourceType.WHEAT);
-						}
-						ResourceType[] whichResourcesToDisplay = new ResourceType[arraysSuck.size()];
-						// I load the arrayList elements into the array because it's of VARIABLE SIZE
-						// Because arrays SUCK and arrayLists are superior! :o
-						for (int i = 0; i < arraysSuck.size(); i++)
-						{
-							whichResourcesToDisplay[i] = arraysSuck.get(i);
-						}
-						getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
-						if (whichResourcesToDisplay.length == 0)
-						{
-							getTradeOverlay().setStateMessage("You don't have enough resources.");
-						}
-						else
-						{
-							getTradeOverlay().setStateMessage("Choose what to give up");
-						}
-					}
 				}
 				break;
 			default:
 				getTradeView().enableMaritimeTrade(false);
-				break;
+				break;*/
 		}
 	}
 }
