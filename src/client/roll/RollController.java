@@ -60,7 +60,7 @@ public class RollController extends Controller implements IRollController,Observ
 		
 		getResultView().showModal();
 		diceRoll = diceRollTotal;
-		updatePlayerResources(diceRoll);
+		//updatePlayerResources(diceRoll);
 		ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber", 
 				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), diceRoll);
 	}
