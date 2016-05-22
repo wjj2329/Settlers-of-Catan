@@ -279,7 +279,7 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(playerwhoownscity.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
-			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())) {
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
 				victims.add(myplayer);
 			}
 		}
@@ -303,7 +303,7 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(player.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
-			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())) {
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
 				victims.add(myplayer);
 			}
 		}
