@@ -36,6 +36,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		super(tradeView);
 		setTradeOverlay(tradeOverlay);
+		//tradeOverlay.setStateMessage("Hi mom"); // Experiment...
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 	
@@ -79,14 +80,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGetResource(ResourceType resource)
 	{
 		System.out.println("This is the type "+resource.toString());
-
+		getTradeOverlay().selectGetOption(resource, 1);
+		// need to place the other one
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource)
 	{
 		System.out.println("This is the type "+resource.toString());
-
+		getTradeOverlay().selectGiveOption(resource, 4); // what does this do eh? o.o
 	}
 
 	@Override
@@ -111,67 +113,85 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		this.currentPlayer = currentPlayer;
 	}
 
+	/**
+	 * The ArrayList will be placed into the array.
+	 * The list is of variable size; however, the array should end up
+	 * 		being the same size as the arrayList.
+	 */
+	private void displayForCurrentTurn()
+	{
+		ArrayList<ResourceType> resourceTypes = new ArrayList<>();
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWood() >= 4)
+		{
+			resourceTypes.add(ResourceType.WOOD);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getOre() >= 4)
+		{
+			resourceTypes.add(ResourceType.ORE);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getBrick() >= 4)
+		{
+			resourceTypes.add(ResourceType.BRICK);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getSheep() >= 4)
+		{
+			resourceTypes.add(ResourceType.SHEEP);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWheat() >= 4)
+		{
+			resourceTypes.add(ResourceType.WHEAT);
+		}
+		ResourceType[] whichResourcesToDisplay = new ResourceType[resourceTypes.size()];
+		// I load the arrayList elements into the array because it's of VARIABLE SIZE
+		for (int i = 0; i < resourceTypes.size(); i++)
+		{
+			whichResourcesToDisplay[i] = resourceTypes.get(i);
+		}
+		getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
+		if (whichResourcesToDisplay.length == 0)
+		{
+			getTradeOverlay().setStateMessage("You don't have enough resources.");
+		}
+		else
+		{
+			getTradeOverlay().setStateMessage("Choose what to give up");
+			// I believe that this will only be called when you select something?
+			// I *think* that you should be able to RECEIVE anything.
+		}
+	}
+
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		System.out.println("The game's current state is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentState().getState());
 		switch (ModelFacade.facadeCurrentGame.currentgame.getCurrentState())
 		{
 			case SetUpState:
+				System.out.println("It is setup. Should match...");
+				getTradeView().enableMaritimeTrade(false);
 				getTradeView().enableMaritimeTrade(false);
 				break;
 			case GamePlayingState:
+			//default:
+				System.out.println("It is gameplaying! Should match...");
 				getTradeView().enableMaritimeTrade(true);
-				/*ArrayList<ResourceType> arraysSuck = new ArrayList<>();
-				if (currentPlayer.getResources().getWood() >= 4)
+				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().equals(
+						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
 				{
-					arraysSuck.add(ResourceType.WOOD);
-				}
-				if (currentPlayer.getResources().getOre() >= 4)
-				{
-					arraysSuck.add(ResourceType.ORE);
-				}
-				if (currentPlayer.getResources().getBrick() >= 4)
-				{
-					arraysSuck.add(ResourceType.BRICK);
-				}
-				if (currentPlayer.getResources().getSheep() >= 4)
-				{
-					arraysSuck.add(ResourceType.SHEEP);
-				}
-				if (currentPlayer.getResources().getWheat() >= 4)
-				{
-					arraysSuck.add(ResourceType.WHEAT);
-				}
-				ResourceType[] whichResourcesToDisplay = new ResourceType[arraysSuck.size()];
-				// I load the arrayList elements into the array because it's of VARIABLE SIZE
-				// Because arrays SUCK and arrayLists are superior! :o
-				for (int i = 0; i < arraysSuck.size(); i++)
-				{
-					whichResourcesToDisplay[i] = arraysSuck.get(i);
-				}
-				getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
-				if (whichResourcesToDisplay.length == 0)
-				{
-					getTradeOverlay().setStateMessage("You don't have enough resources.");
+					// keep at default for now
+					displayForCurrentTurn();
 				}
 				else
 				{
-					getTradeOverlay().setStateMessage("Choose what to give up");
-				}
-
-				// the below code doesn't quite work
-				for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
-				{
-					if (!p.isCurrentPlayer())
-					{
-						getTradeOverlay().showGiveOptions(new ResourceType[0]);
-						getTradeOverlay().setStateMessage("not your turn");
-					}
+					getTradeOverlay().showGiveOptions(new ResourceType[0]);
+					getTradeOverlay().setStateMessage("not your turn");
 				}
 				break;
-			default:
+			default: // it's this that is screwing things up...the state is not always getting set so it is reverting
+				// I MIGHT just want to set this to true! OR make the earlier case the DEFAULT! This might be the best!
+				System.out.println("Some random default crap is getting called");
 				getTradeView().enableMaritimeTrade(false);
-				break;*/
+				break;
 		}
 	}
 }
