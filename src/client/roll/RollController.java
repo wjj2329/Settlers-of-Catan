@@ -47,7 +47,8 @@ public class RollController extends Controller implements IRollController,Observ
 
 		return (IRollView)getView();
 	}
-	
+
+	public static boolean robberrolled=false;
 	@Override
 	public void rollDice()
 	{
@@ -62,6 +63,10 @@ public class RollController extends Controller implements IRollController,Observ
 		diceRoll = diceRollTotal;
 		//updatePlayerResources(diceRoll);
 		//if(!getResultView().isModalShowing())
+		if(diceRollTotal==7)
+		{
+			robberrolled=true;
+		}
 		{
 			System.out.println("MY CURRENT PLAYER WHO ROLLED THIS MAGNIFICENT NUMBER IS "+ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName());
 			ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber",

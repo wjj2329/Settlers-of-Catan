@@ -8,6 +8,7 @@ import client.login.LoginController;
 import client.model.Model;
 import client.model.ModelFacade;
 import client.model.TurnStatus;
+import client.roll.RollController;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
@@ -138,6 +139,10 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
+		if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(hexLoc).getResourcetype().equals(HexType.WATER))
+		{
+			return false;
+		}
 
 		return true;
 	}
@@ -235,12 +240,14 @@ public class MapController extends Controller implements IMapController, Observe
 			e.printStackTrace();
 		}
 	}
-
+HexLocation hexLocation=new HexLocation(1,1);
 	public void placeRobber(HexLocation hexLoc) {
 
 		getView().placeRobber(hexLoc);
 
 		getRobView().showModal();
+		hexLocation=hexLoc;
+
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
@@ -267,7 +274,15 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public void robPlayer(RobPlayerInfo victim) {
+	public void robPlayer(RobPlayerInfo victim)
+	{
+		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("RobPlayer",victim.getPlayerIndex(),hexLocation,victim.getPlayerIndex()).getResponse();
+		try {
+			JSONObject myrespose=new JSONObject(response);
+			ModelFacade.facadeCurrentGame.updateFromJSON(myrespose);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -396,6 +411,11 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(RollController.robberrolled)
+		{
+			robView.showModal();
+			RollController.robberrolled=false;
+		}
 		boolean everyoneHasTheRightNumber = true;
 		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
 		{
