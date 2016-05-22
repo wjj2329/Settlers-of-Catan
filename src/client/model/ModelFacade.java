@@ -641,7 +641,11 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				currentgame.setPlayerInfo(newPlayer);
 				System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER in the map "+currentgame.getMyplayers().get(newPlayer.getPlayerID()).toString());
 				//currentgame.addPlayer(newPlayer);
-
+				if (newPlayer.getName().equals(localplayer.getName()))
+				{
+					System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
+					localplayer = newPlayer;
+				}
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
@@ -657,6 +661,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		currentgame.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
 		currentgame.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
 		currentgame.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
+		currentgame.getMytradeoffer().getMylist().setWood(offer.getInt("wood"));
 	}
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
