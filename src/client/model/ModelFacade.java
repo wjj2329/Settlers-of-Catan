@@ -631,16 +631,17 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				newDevCards(obj.getJSONObject("newDevCards"), newPlayer);
 				oldDevCards(obj.getJSONObject("oldDevCards"), newPlayer);
 				JSONObject resources = obj.getJSONObject("resources");
-				newPlayer.setResources(new ResourceList(resources.getInt("brick"), resources.getInt("ore"),
-						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood")));
+				ResourceList mylist=new ResourceList(resources.getInt("brick"), resources.getInt("ore"),
+						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood"));
+				System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER "+resources.toString());
+				newPlayer.setResources(mylist);
+				System.out.println("HEY SO THIS IS WHAT MY PLAYER HAS! "+newPlayer.getResources().toString());
 				//resources(obj, newPlayer.getResources());
-<<<<<<< Updated upstream
-				currentgame.addPlayer(newPlayer);
-=======
+				//currentgame.addPlayer(newPlayer);
 				currentgame.setPlayerInfo(newPlayer);
+				System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER in the map "+currentgame.getMyplayers().get(newPlayer.getPlayerID()).toString());
 				//currentgame.addPlayer(newPlayer);
 
->>>>>>> Stashed changes
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}

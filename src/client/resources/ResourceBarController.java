@@ -135,8 +135,21 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
 		//System.out.println("the current players index apparently is this " + currentTurn.getNumber());
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
+		Index thepureone=null;
+		for(Index loc: ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+		{
+			if(currentTurn.getNumber()==ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getPlayerIndex().getNumber())
+			{
+				thepureone=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getPlayerID();
+			}
+		}
+		if(thepureone==null)
+		{
+			System.out.println("THE PURE ONE IS NOT PURE BUT IS EVIL");
+		}
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(thepureone);
 		if(player!=null) {
+			System.out.println("SO IN LIKE CHECK STUFF THIS IS " + player.getName() + "'s stuff they have now");
 			//System.out.println("I compare this player " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName() + player.getName());
 			if (!ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName())) {
 				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
