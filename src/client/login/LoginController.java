@@ -157,7 +157,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//System.out.println("This should be 4, I think: " + splitCookie.length);
 		for (int i = 0; i < splitCookie.length; i++)
 		{
-			System.out.println("The split cookie thingy is " + splitCookie[i]);
+			//System.out.println("The split cookie thingy is " + splitCookie[i]);
 			String[] splitinfo = splitCookie[i].split(":");
 			
 			switch(i)
@@ -171,7 +171,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 					break;
 				case 3: // player ID: set the ID
 					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
-					System.out.println("Well let's see what this is: " + splitinfo[1]);
+					//System.out.println("Well let's see what this is: " + splitinfo[1]);
 					localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
 					break;
 			}

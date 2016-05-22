@@ -177,29 +177,29 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             {
                 if(game.getId() == gameInList.getId())
                 {
-                    if(gameInList.getPlayers().size() == 4)
-                    {
-                        for(PlayerInfo pInfo: gameInList.getPlayers())
-                        {
-                            if(pInfo.getId() == localPlayer.getId())
-                            {
-                            	if(getJoinGameView().isModalShowing())
-                            	{
-                            		getJoinGameView().closeModal();
-                            	}
-                            	if(getSelectColorView().isModalShowing())
-                            	{
-                            		getSelectColorView().closeModal();
-                            	}
-                                //return;
-                            }
-                        cancelJoinGame();
-                        }
-                    }
-                    else
-                    {
+//                    if(gameInList.getPlayers().size() == 4)
+//                    {
+//                        for(PlayerInfo pInfo: gameInList.getPlayers())
+//                        {
+//                            if(pInfo.getId() == localPlayer.getId())
+//                            {
+//                            	if(getJoinGameView().isModalShowing())
+//                            	{
+//                            		getJoinGameView().closeModal();
+//                            	}
+//                            	if(getSelectColorView().isModalShowing())
+//                            	{
+//                            		getSelectColorView().closeModal();
+//                            	}
+//                                //return;
+//                            }
+//                        //cancelJoinGame();
+//                        }
+//                    }
+//                    else
+//                    {
                         startJoinGame(gameInList);
-                    }
+//                    }
                     return;
                 }
             }
