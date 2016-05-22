@@ -890,13 +890,15 @@ public class Player
 	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
 		if(hex==null||myLocation==null)
 		{
-			Exception e=new Exception();
-			//e.printStackTrace();
-			throw e;		}
-		if (!hex.canBuildSettlementHereNormal(myLocation))
-		{
+			System.out.println(" A NULL HEX");
 			return false;
 		}
+		if (!hex.canBuildSettlementHereNormal(myLocation))
+		{
+			System.out.println("MY HEX IS TOO BLAME");
+			return false;
+		}
+		/*
 		if (resources.getSheep() < 1 || resources.getWheat() < 1
 				|| resources.getBrick() < 1 || resources.getWood() < 1)
 		{
@@ -906,6 +908,7 @@ public class Player
 		{
 			return false;
 		}
+		*/
 		return true;
 	}
 
@@ -922,6 +925,7 @@ public class Player
 		{
 			return false;
 		}
+		/*
 		if (resources.getOre() < 3 || resources.getWheat() < 2)
 		{
 			return false;
@@ -930,6 +934,7 @@ public class Player
 		{
 			return false;
 		}
+		*/
 		return true;
 	}
 

@@ -109,6 +109,10 @@ public class ResourceList
 				return -1;
 		}
 	}
+	public int size()
+	{
+		return (ore+brick+sheep+wood+wheat);
+	}
 
 	/**
 	 * Helps with players obtaining the proper resources based on the hexes that they own.

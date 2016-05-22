@@ -143,8 +143,8 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			return false;
 		}
-
 		return true;
+
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc)
@@ -250,14 +250,66 @@ public class MapController extends Controller implements IMapController, Observe
 			e.printStackTrace();
 		}
 	}
-HexLocation hexLocation=new HexLocation(1,1);
+	HexLocation myhexloc;
 	public void placeRobber(HexLocation hexLoc) {
 
+		myhexloc=hexLoc;
+		//getView().placeRobber(hexLoc);
+
+		//getRobView().showModal();
+		HashSet<RobPlayerInfo>victims=new HashSet<>();
+		Hex myhex=ModelFacade.facadeCurrentGame.getMymap().getHexes().get(hexLoc);
+		for(int i=0; i<myhex.getCities().size(); i++)
+		{
+			Player playerwhoownscity=null;
+			for(Index playerid:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+			{
+				if(myhex.getCities().get(i).getOwner().getNumber()==ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid).getPlayerID().getNumber())
+				{
+					playerwhoownscity=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
+				}
+			}
+			if(playerwhoownscity==null)
+			{
+				return;
+			}
+			RobPlayerInfo myplayer=new RobPlayerInfo();
+			myplayer.setColor(playerwhoownscity.getColor());
+			myplayer.setPlayerIndex(playerwhoownscity.getPlayerIndex().getNumber());
+			myplayer.setNumCards(playerwhoownscity.getResources().size());
+			myplayer.setName(myplayer.getName());
+			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
+			victims.add(myplayer);
+		}
+		for(int i=0; i<myhex.getSettlementlist().size(); i++)
+		{
+			Player player=null;
+			for(Index playerid:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+			{
+				if(myhex.getSettlementlist().get(i).getOwner().getNumber()==ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid).getPlayerID().getNumber())
+				{
+					player=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
+				}
+			}
+			if(player==null)
+			{
+				return;
+			}
+			RobPlayerInfo myplayer=new RobPlayerInfo();
+			myplayer.setColor(player.getColor());
+			myplayer.setPlayerIndex(player.getPlayerIndex().getNumber());
+			myplayer.setNumCards(player.getResources().size());
+			myplayer.setName(myplayer.getName());
+			myplayer.setId(player.getPlayerID().getNumber());
+			victims.add(myplayer);
+		}
+		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
+		victims.toArray(victimsArray);
+
+		//ModelFacade.facadeCurrentGame.currentgame.getMymap().
 		getView().placeRobber(hexLoc);
-
+		getRobView().setPlayers(victimsArray);
 		getRobView().showModal();
-		hexLocation=hexLoc;
-
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
@@ -286,10 +338,10 @@ HexLocation hexLocation=new HexLocation(1,1);
 
 	public void robPlayer(RobPlayerInfo victim)
 	{
-		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("RobPlayer",victim.getPlayerIndex(),hexLocation,victim.getPlayerIndex()).getResponse();
+		System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
+		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex()).getResponse();
 		try {
-			JSONObject myrespose=new JSONObject(response);
-			ModelFacade.facadeCurrentGame.updateFromJSON(myrespose);
+			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response));
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
@@ -423,7 +475,7 @@ HexLocation hexLocation=new HexLocation(1,1);
 	{
 		if(RollController.robberrolled)
 		{
-			robView.showModal();
+			getView().placeRobber(ModelFacade.facadeCurrentGame.currentgame.myrobber.getLocation());
 			RollController.robberrolled=false;
 		}
 		boolean everyoneHasTheRightNumber = true;

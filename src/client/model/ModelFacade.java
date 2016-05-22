@@ -595,7 +595,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			assert (owner2 != null);
 			city1.setOwner(owner2);
 			vertexLoc.setCity(city1);
-			currentgame.getMyplayers().get(owner).addToCities(city1);
+			currentgame.getMyplayers().get(owner2).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		currentgame.getMymap().setRadius(map.getInt("radius"));
