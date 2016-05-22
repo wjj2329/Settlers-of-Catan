@@ -8,6 +8,7 @@ import client.login.LoginController;
 import client.model.Model;
 import client.model.ModelFacade;
 import client.model.TurnStatus;
+import client.roll.RollController;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
@@ -138,6 +139,10 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
+		if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(hexLoc).getResourcetype().equals(HexType.WATER))
+		{
+			return false;
+		}
 
 		return true;
 	}
@@ -195,14 +200,6 @@ public class MapController extends Controller implements IMapController, Observe
 		// this might have fixed some huge things!!
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			//System.out.println("my players ID " +ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
-		}
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			//System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
-		}
 		//System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		//System.out.println(mytest);
@@ -225,9 +222,27 @@ public class MapController extends Controller implements IMapController, Observe
 				e.printStackTrace();
 			}
 		}
+		int test;
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Index idOfCurrentPlayer = null;
+		// I think this is returning their player index instead of their player ID.
+		for (Player cur : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (cur.getPlayerIndex().equals(currentTurn))
+			{
+				idOfCurrentPlayer = cur.getPlayerID();
+			}
+		}
+		if (idOfCurrentPlayer == null)
+		{
+			return;
+		}
+		// this might have fixed some huge things!!
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
+		test=player.getPlayerIndex().getNumber();
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",test,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
@@ -235,12 +250,14 @@ public class MapController extends Controller implements IMapController, Observe
 			e.printStackTrace();
 		}
 	}
-
+HexLocation hexLocation=new HexLocation(1,1);
 	public void placeRobber(HexLocation hexLoc) {
 
 		getView().placeRobber(hexLoc);
 
 		getRobView().showModal();
+		hexLocation=hexLoc;
+
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
@@ -267,7 +284,15 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public void robPlayer(RobPlayerInfo victim) {
+	public void robPlayer(RobPlayerInfo victim)
+	{
+		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("RobPlayer",victim.getPlayerIndex(),hexLocation,victim.getPlayerIndex()).getResponse();
+		try {
+			JSONObject myrespose=new JSONObject(response);
+			ModelFacade.facadeCurrentGame.updateFromJSON(myrespose);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 
 	}
 
@@ -396,6 +421,11 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(RollController.robberrolled)
+		{
+			robView.showModal();
+			RollController.robberrolled=false;
+		}
 		boolean everyoneHasTheRightNumber = true;
 		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
 		{

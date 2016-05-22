@@ -129,36 +129,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		
-		//not local player do this
-			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())) {
-				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
-
-				this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
-
-				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
-
-				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
-
-				this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-				ResourceList resourceCards = ModelFacade.facadeCurrentGame.getLocalPlayer().getResources();
-
-				this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
-				this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
-				this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
-				this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
-				this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
-
-				// update roads/settlements/cities you have left
-				this.getView().setElementAmount(ResourceBarElement.ROAD, ModelFacade.facadeCurrentGame.getLocalPlayer().getNumRoadPiecesRemaining());
-				this.getView().setElementAmount(ResourceBarElement.SETTLEMENT,ModelFacade.facadeCurrentGame.getLocalPlayer().getNumSettlementsRemaining());
-				this.getView().setElementAmount(ResourceBarElement.CITY, ModelFacade.facadeCurrentGame.getLocalPlayer().getNumCitiesRemaining());
-
-				// update soldiers
-				this.getView().setElementAmount(ResourceBarElement.SOLDIERS, ModelFacade.facadeCurrentGame.getLocalPlayer().getArmySize());
-
-			} else {//if you are local player do this.
-
+			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName()))
+			{
 				//System.out.println("Sam should get in here ");
 				//Player player=ModelFacade.facadeCurrentGame.getLocalPlayer(); //this really needs to be the current player!!!!!!!!!
 				//System.out.println("Sam IS HERE YEA!!!!");
@@ -222,6 +194,33 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 
 				}
+
+			} else {
+				this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
+
+				this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+
+				this.getView().setElementEnabled(ResourceBarElement.CITY, false);
+
+				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+
+				this.getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+				ResourceList resourceCards = ModelFacade.facadeCurrentGame.getLocalPlayer().getResources();
+
+				this.getView().setElementAmount(ResourceBarElement.WOOD, resourceCards.getWood());
+				this.getView().setElementAmount(ResourceBarElement.BRICK, resourceCards.getBrick());
+				this.getView().setElementAmount(ResourceBarElement.SHEEP, resourceCards.getSheep());
+				this.getView().setElementAmount(ResourceBarElement.ORE, resourceCards.getOre());
+				this.getView().setElementAmount(ResourceBarElement.WHEAT, resourceCards.getWheat());
+
+				// update roads/settlements/cities you have left
+				this.getView().setElementAmount(ResourceBarElement.ROAD, ModelFacade.facadeCurrentGame.getLocalPlayer().getNumRoadPiecesRemaining());
+				this.getView().setElementAmount(ResourceBarElement.SETTLEMENT, ModelFacade.facadeCurrentGame.getLocalPlayer().getNumSettlementsRemaining());
+				this.getView().setElementAmount(ResourceBarElement.CITY, ModelFacade.facadeCurrentGame.getLocalPlayer().getNumCitiesRemaining());
+
+				// update soldiers
+				this.getView().setElementAmount(ResourceBarElement.SOLDIERS, ModelFacade.facadeCurrentGame.getLocalPlayer().getArmySize());
+
 			}
 
 			}
