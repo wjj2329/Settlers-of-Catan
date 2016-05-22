@@ -99,8 +99,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 		}
-		else{
-			if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
+		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
 			{
 				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
@@ -121,8 +120,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
 					}
 				}	
-			}
 		}
+		
 		
 	}
 
