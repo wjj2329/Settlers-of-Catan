@@ -114,9 +114,9 @@ public class Player
 	 * How many roads the Player CAN BUILD.
 	 * Updated dynamically.
 	 */
-	private int numRoadPiecesRemaining = 15;
+	private int numRoadPiecesRemaining ;
 
-	private int numRoadPiecesRemainingForSetupPhase = 2;
+	//private int numRoadPiecesRemainingForSetupPhase = 2;
 
 	/**
 	 * All the RoadPieces owned by the Player
@@ -126,18 +126,18 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = 5;
+	private int numSettlementsRemaining ;
 
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
 	 */
-	private int numSoldierCards = 0;
+	private int numSoldierCards ;
 
 	/**
 	 * How many victory points the player has
 	 * Everyone starts off with 2. 10+ on your turn to win!
 	 */
-	private int numVictoryPoints = 0;
+	private int numVictoryPoints;
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
@@ -490,11 +490,11 @@ public class Player
 		{
 			//System.out.println("the playerID is " + playerID.getNumber() + " aka " + this.playerID.getNumber());
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick()-1);
-			resources.setWheat(resources.getWheat()-1);
-			resources.setSheep(resources.getSheep()-1);
-			resources.setWood(resources.getWood()-1);
-			this.numSettlementsRemaining--;
+			//resources.setBrick(resources.getBrick()-1);
+			//resources.setWheat(resources.getWheat()-1);
+			//resources.setSheep(resources.getSheep()-1);
+			//resources.setWood(resources.getWood()-1);
+			//this.numSettlementsRemaining--;
 		}
 	}
 
@@ -502,9 +502,9 @@ public class Player
 		if(canBuildCity(buildingon,locationforcity))
 		{
 			buildingon.buildCity(locationforcity,this.getPlayerID());
-			resources.setOre(resources.getOre()-3);
-			resources.setWheat(resources.getWheat()-2);
-			this.numCitiesRemaining--;
+			//resources.setOre(resources.getOre()-3);
+			//resources.setWheat(resources.getWheat()-2);
+			//this.numCitiesRemaining--;
 		}
 	}
 	/**
@@ -768,11 +768,6 @@ public class Player
 			//System.out.println("can't build road piece: both hexes are of type water");
 			return false;
 		}
-		if (numRoadPiecesRemainingForSetupPhase <= 0)
-		{
-			//System.out.println("can't build road piece: out of pieces");
-			return false;
-		}
 		if (!currentPlayer)
 		{
 			//System.out.println("can't build road piece: not current player");
@@ -813,7 +808,6 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
-				numRoadPiecesRemainingForSetupPhase--; // that way they can only build 2
 				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
 				//roadPieces.add(piece2);
@@ -844,11 +838,11 @@ public class Player
 		public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
 		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
 			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick() - 1);
-			resources.setWheat(resources.getWheat() - 1);
-			resources.setSheep(resources.getSheep() - 1);
-			resources.setWood(resources.getWood() - 1);
-			this.numSettlementsRemaining--;
+			//resources.setBrick(resources.getBrick() - 1);
+			//resources.setWheat(resources.getWheat() - 1);
+			//resources.setSheep(resources.getSheep() - 1);
+			//resources.setWood(resources.getWood() - 1);
+			//this.numSettlementsRemaining--;
 			//System.out.println("The number of brick peices left " + resources.getBrick());
 			//System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
 		}

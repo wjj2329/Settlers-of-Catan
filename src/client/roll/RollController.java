@@ -61,8 +61,9 @@ public class RollController extends Controller implements IRollController,Observ
 		getResultView().showModal();
 		diceRoll = diceRollTotal;
 		//updatePlayerResources(diceRoll);
-		if(!getResultView().isModalShowing())
+		//if(!getResultView().isModalShowing())
 		{
+			System.out.println("MY CURRENT PLAYER WHO ROLLED THIS MAGNIFICENT NUMBER IS "+ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName());
 			ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber",
 					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), diceRoll);
 		}
