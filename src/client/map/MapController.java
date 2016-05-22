@@ -279,7 +279,9 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(playerwhoownscity.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
-			victims.add(myplayer);
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())) {
+				victims.add(myplayer);
+			}
 		}
 		for(int i=0; i<myhex.getSettlementlist().size(); i++)
 		{
@@ -301,7 +303,9 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(player.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
-			victims.add(myplayer);
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())) {
+				victims.add(myplayer);
+			}
 		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
 		victims.toArray(victimsArray);
@@ -475,9 +479,10 @@ public class MapController extends Controller implements IMapController, Observe
 	{
 		if(RollController.robberrolled)
 		{
-			getView().placeRobber(ModelFacade.facadeCurrentGame.currentgame.myrobber.getLocation());
+			getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
 			RollController.robberrolled=false;
 		}
+		getView().placeRobber(ModelFacade.facadeCurrentGame.currentgame.myrobber.getLocation());
 		boolean everyoneHasTheRightNumber = true;
 		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
 		{
