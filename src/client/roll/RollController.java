@@ -54,15 +54,18 @@ public class RollController extends Controller implements IRollController,Observ
 		Random dice1 = new Random();
 		Random dice2 = new Random();
 		int diceRoll1 = dice1.nextInt(6) + 1;
-		int diceRoll2 = dice2.nextInt(6) + 2;
+		int diceRoll2 = dice2.nextInt(6) + 1;
 		int diceRollTotal = diceRoll1 + diceRoll2;
 		getResultView().setRollValue(diceRollTotal);
 		
 		getResultView().showModal();
 		diceRoll = diceRollTotal;
 		//updatePlayerResources(diceRoll);
-		ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber", 
-				ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), diceRoll);
+		if(!getResultView().isModalShowing())
+		{
+			ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber",
+					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), diceRoll);
+		}
 	}
 
 	/**
@@ -106,6 +109,7 @@ public class RollController extends Controller implements IRollController,Observ
 	{
 		Player current = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 		System.out.println(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString()+" "+ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus());
+
 		if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
 			if (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.ROLLING)) {
 				ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
