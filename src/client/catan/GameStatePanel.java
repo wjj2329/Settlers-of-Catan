@@ -84,7 +84,7 @@ public class GameStatePanel extends JPanel implements Observer
 		{
 			return;
 		}
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
+		final Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
 		if(player!=null && ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
 			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName()))

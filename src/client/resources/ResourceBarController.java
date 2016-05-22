@@ -200,9 +200,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 				if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState) {
 
-					this.getView().setElementEnabled(ResourceBarElement.ROAD, true);
+					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 
-					this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
+					this.getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
 
 					this.getView().setElementEnabled(ResourceBarElement.CITY, false);
 
