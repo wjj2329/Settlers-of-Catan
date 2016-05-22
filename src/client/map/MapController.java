@@ -200,14 +200,6 @@ public class MapController extends Controller implements IMapController, Observe
 		// this might have fixed some huge things!!
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			//System.out.println("my players ID " +ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
-		}
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			//System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
-		}
 		//System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
 		//System.out.println(mytest);
@@ -230,9 +222,27 @@ public class MapController extends Controller implements IMapController, Observe
 				e.printStackTrace();
 			}
 		}
+		int test;
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Index idOfCurrentPlayer = null;
+		// I think this is returning their player index instead of their player ID.
+		for (Player cur : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (cur.getPlayerIndex().equals(currentTurn))
+			{
+				idOfCurrentPlayer = cur.getPlayerID();
+			}
+		}
+		if (idOfCurrentPlayer == null)
+		{
+			return;
+		}
+		// this might have fixed some huge things!!
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
+		test=player.getPlayerIndex().getNumber();
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",test,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
