@@ -657,6 +657,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		currentgame.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
 		currentgame.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
 		currentgame.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
+		currentgame.getMytradeoffer().getMylist().setWood(offer.getInt("wood"));
+		// wood
 	}
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
