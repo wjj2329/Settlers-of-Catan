@@ -54,6 +54,11 @@ public class ModelFacade extends Observable
 	
 	public void loadGames()
 	{
+		/*if (facadeCurrentGame.currentgame.getMyplayers().size() == 4)
+		{
+			return;
+		}*/
+		System.out.println("This should only be called once");
 		String JSON = server.getAllCurrentGames().getResponse();
 		//System.out.println("Here is the JSON: " + JSON);
 		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
@@ -64,7 +69,7 @@ public class ModelFacade extends Observable
 				CatanGame game = new CatanGame();
 				game.setTitle(jsonObject.getString("title"));
 				game.setID(jsonObject.getInt("id"));
-				
+
 				JSONArray players = jsonObject.getJSONArray("players");
 				for(int p=0; p<players.length(); p++){
 					JSONObject playerinfo = players.getJSONObject(p);
@@ -73,7 +78,10 @@ public class ModelFacade extends Observable
 						Player player = new Player(playerinfo.getString("name"), 
 							stringToCatanColor(playerinfo.getString("color")), 
 							new Index(playerinfo.getInt("id")));
-						game.addPlayer(player);
+						//if (facadeCurrentGame.currentgame.getMyplayers().size() != 4) // trying this out.
+						//{
+							game.addPlayer(player);
+						//}
 					}
 				}
 				games.add(game);
@@ -627,7 +635,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood")));
 				//resources(obj, newPlayer.getResources());
 				currentgame.addPlayer(newPlayer);
-
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
