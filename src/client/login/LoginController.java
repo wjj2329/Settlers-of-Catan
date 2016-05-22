@@ -98,6 +98,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getMessageView().showModal();
 			return;
 		}
+		// this is necessary because there are no auth tokens
 		if (username1.equals("Sam") || username1.equals("Brooke") || username1.equals("Pete") || username1.equals("Mark"))
 		{
 			loginAndCreatePlayerFromCookie(username1, password1);
