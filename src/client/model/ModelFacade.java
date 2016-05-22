@@ -299,13 +299,14 @@ public class ModelFacade extends Observable
 
 		JSONObject log = myObject.getJSONObject("log");
 		loadLog(log);
+		
+		JSONArray players = myObject.getJSONArray("players");
+		loadPlayers(players);
 
 		JSONObject map = myObject.getJSONObject("map");
 		loadMap(map);
 
-		JSONArray players = myObject.getJSONArray("players");
-		loadPlayers(players);
-
+		
 		try
 		{
 			JSONObject tradeOffer = myObject.getJSONObject("tradeOffer");
