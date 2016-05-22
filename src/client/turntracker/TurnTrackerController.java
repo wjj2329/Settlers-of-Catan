@@ -7,6 +7,8 @@ import shared.game.player.Player;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -16,12 +18,13 @@ import client.model.ModelFacade;
 /**
  * Implementation for the turn tracker controller
  */
-public class TurnTrackerController extends Controller implements ITurnTrackerController {
+public class TurnTrackerController extends Controller implements ITurnTrackerController, Observer {
 
 	ITurnTrackerView view;
     private Timer timer;
     private Player localplayer;
     private boolean localcolorset;
+    private boolean playersinitialized;
 
 	public TurnTrackerController(ITurnTrackerView view)
 	{
@@ -30,7 +33,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		this.view = view;
 		localplayer=null;
 		localcolorset = false;
+		playersinitialized = false; 
 		initFromModel();
+		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 
 	@Override
@@ -51,60 +56,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 	private void initFromModel()
 	{
-		
-		TimerTask timerTask = new TimerTask()
-        {
-            @Override
-            public void run()
-            {
-                refreshTurnTracker();
-            }
-        };
-        timer = new Timer();
-        timer.schedule(timerTask, 0, 1500);
 
 	}
 
-	private void refreshTurnTracker(){
-
-		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
-			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
-			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) {
-				if(player != null){
-					if(player.getName().equals(localplayer.getName())){
-						getView().setLocalPlayerColor(player.getColor());
-						localplayer = player;
-						localcolorset =true; 
-						ModelFacade.facadeCurrentGame.setLocalPlayer(player);
-					}
-				}
-			}
-			
-		}
-		else{
-			if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
-			{
-				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
-				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-				for (Player jugador: players.values()) 
-				{
-					view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
-					if (jugador.getPlayerIndex().getNumber() == currentPlayer) 
-					{ 
-						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), true,
-						hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
-					}
-					else
-					{
-						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), false,
-							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
-					}
-				}	
-			}
-		}
-		
-	}
-	
 	public boolean hasLargestArmy(Index index) {
 			if (index.getNumber() == ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getLargestArmy().getNumber()) {
 				return true;
@@ -119,6 +73,57 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 				return true;
 			}
 		return false;
+	}
+
+	public void initializePlayers(Map<Index, Player> players){
+		for (Player jugador: players.values()) 
+		{   
+			view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
+		}
+	}
+	
+	@Override
+	public void update(Observable o, Object arg) {
+		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
+			
+			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
+			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) {
+				if(player != null){
+					if(player.getName().equals(localplayer.getName())){
+						getView().setLocalPlayerColor(player.getColor());
+						localplayer = player;
+						localcolorset = true; 
+						ModelFacade.facadeCurrentGame.setLocalPlayer(player);
+					}
+				}
+			}
+			
+		}
+		else{
+			if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
+			{
+				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
+				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
+				if(!playersinitialized){
+					initializePlayers(players);
+					playersinitialized = true; 
+				}
+				for (Player jugador: players.values()) 
+				{   
+					if (jugador.getPlayerIndex().getNumber() == currentPlayer) 
+					{ 
+						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), true,
+							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
+					}
+					else
+					{
+						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), false,
+							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
+					}
+				}	
+			}
+		}
+		
 	}
 
 }
