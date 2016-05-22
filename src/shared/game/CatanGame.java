@@ -296,4 +296,25 @@ public class CatanGame
 		return title;
 	}
 
+	public void setPlayerInfo(Player jugador){
+		if(!myplayers.containsKey(jugador.getPlayerID())){
+			myplayers.put(jugador.getPlayerID(), jugador);
+		}
+		myplayers.get(jugador.getPlayerID()).setColor(jugador.getColor());
+		myplayers.get(jugador.getPlayerID()).setIsDiscarded(jugador.getIsDiscarded());
+		myplayers.get(jugador.getPlayerID()).setNumCitiesRemaining(jugador.getNumCitiesRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumMonuments(jugador.getNumMonuments());
+		myplayers.get(jugador.getPlayerID()).setPlayedDevCard(jugador.getplayedDevCard());
+		myplayers.get(jugador.getPlayerID()).setNumRoadPiecesRemaining(jugador.getNumRoadPiecesRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumSettlementsRemaining(jugador.getNumSettlementsRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumSoldierCards(jugador.getNumSoldierCards());
+		myplayers.get(jugador.getPlayerID()).setNumVictoryPoints(jugador.getNumVictoryPoints());
+		myplayers.get(jugador.getPlayerID()).setOldDevCards(jugador.getOldDevCards());
+		myplayers.get(jugador.getPlayerID()).setNewDevCards(jugador.getNewDevCards());
+		myplayers.get(jugador.getPlayerID()).setResources(jugador.getResources());
+		//System.out.println(jugador.getName() + " HASSDF " + jugador.getResources().getBrick() + jugador.getResources().getOre()+ jugador.getResources().getSheep() + jugador.getResources().getWheat() + jugador.getResources().getWood());
+		
+		
+	}
+	
 }
