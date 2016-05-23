@@ -58,10 +58,10 @@ public class RollController extends Controller implements IRollController,Observ
 		int diceRoll2 = dice2.nextInt(6) + 1;
 		diceRollTotal = diceRoll1 + diceRoll2;
 		getResultView().setRollValue(diceRollTotal);
-		if(diceRollTotal!=7) {
+		//if(diceRollTotal!=7) {
 			getResultView().showModal();
 			diceRoll = diceRollTotal;
-		}
+		//}
 		//updatePlayerResources(diceRoll);
 		//if(!getResultView().isModalShowing())
 		if(diceRollTotal==7)

@@ -49,8 +49,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	private int tradeWithPlayer;
 	private int tradeBrick;
 	private int tradeGrain;
-	private int tradeOre ;
-	private int tradeSheep ;
+	private int tradeOre;
+	private int tradeSheep;
 	private int tradeWood;
 
 	public IDomesticTradeView getTradeView() {
@@ -85,17 +85,19 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 
-		ArrayList<PlayerInfo> list = new ArrayList<PlayerInfo>();
+		ArrayList<PlayerInfo> list = new ArrayList<>();
 
 		for (Index playerid : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
-			Player player=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
-			PlayerInfo myinfo=new PlayerInfo();
-			myinfo.setId(player.getPlayerID().getNumber());
-			myinfo.setName( player.getName());
-			myinfo.setColor(player.getColor());
-			myinfo.setPlayerIndex(player.getPlayerIndex().getNumber());
-			list.add(myinfo);
+			if(list.size()<5) {
+				Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
+				PlayerInfo myinfo = new PlayerInfo();
+				myinfo.setId(player.getPlayerID().getNumber());
+				myinfo.setName(player.getName());
+				myinfo.setColor(player.getColor());
+				myinfo.setPlayerIndex(player.getPlayerIndex().getNumber());
+				list.add(myinfo);
+			}
 		}
 		PlayerInfo[] playerInfo = new PlayerInfo[list.size()];
 		getTradeOverlay().setPlayers(list.toArray(playerInfo));
@@ -242,7 +244,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void sendTradeOffer() {
-			try {
 				tradeBrick =0;
 				tradeGrain = 0;
 				tradeOre = 0;
@@ -260,16 +261,25 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 					}
 				}
 
-			} catch (Exception e) {
-
-			}
 			ResourceList list = new ResourceList(tradeBrick, tradeOre, tradeSheep, tradeGrain, tradeWood);
 			String response=ModelFacade.facadeCurrentGame.getServer().offerTrade("offerTrade",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),list,tradeWithPlayer).getResponse();
-		try {
-			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response));
-		} catch (JSONException e) {
-			e.printStackTrace();
+			System.out.println("MY response from the server when sending offer is this "+response);
+
+		if(!response.equals("")) {
+			getTradeOverlay().closeModal();
+			getWaitOverlay().showModal();
+			try {
+				ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response));
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+
 		}
+		else
+			System.out.println("failure");
+			getTradeOverlay().closeModal();
+
 	}
 
 	@Override
@@ -285,7 +295,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		resourceMap.put(resource, "RECEIVE");
 		receiveMap.put(resource, 0);
 		getTradeOverlay().setResourceAmount(resource, Integer.toString(0));
-		int amount = (int) receiveMap.get(resource);
+		int amount =  receiveMap.get(resource);
 		if (amount <= 0) {
 			getTradeOverlay().setResourceAmountChangeEnabled(resource, true, false);
 		} else {
@@ -300,7 +310,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		resourceMap.put(resource, "SEND");
 		sendMap.put(resource, 0);
 		getTradeOverlay().setResourceAmount(resource, Integer.toString(0));
-		int amount = (int) sendMap.get(resource);
+		int amount =  sendMap.get(resource);
 		if (atMaxAmount(resource, amount)) {
 			getTradeOverlay().setResourceAmountChangeEnabled(resource, false, true);
 		} else {
@@ -308,7 +318,6 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 		canDoTrade();
 	}
-
 	@Override
 	public void unsetResource(ResourceType resource) {
 		resourceMap.put(resource, "NONE");
@@ -358,6 +367,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		if(ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())&& ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.GamePlayingState))
 		{
 			if (ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer() != null) {
+				System.out.println("THE TWO NUMBERS I GET ARE "+ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer()+" and "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
 				if (ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getReceiver() == ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber()) {
 					ResourceList myresources = ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getMylist();
 					if (myresources.getBrick() != 0) {

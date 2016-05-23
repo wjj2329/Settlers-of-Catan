@@ -770,6 +770,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "playing":
 				return TurnStatus.PLAYING;
 			case "discarding":
+				System.out.println("I DO INDEED MAKE IT DISCARDING");
 				return TurnStatus.DISCARDING;
 			case "firstround":
 				return TurnStatus.FIRSTROUND;
