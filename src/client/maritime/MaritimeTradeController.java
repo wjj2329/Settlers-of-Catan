@@ -167,18 +167,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		switch (ModelFacade.facadeCurrentGame.currentgame.getCurrentState())
 		{
 			case SetUpState:
-				System.out.println("It is setup. Should match...");
-				getTradeView().enableMaritimeTrade(false);
 				getTradeView().enableMaritimeTrade(false);
 				break;
 			case GamePlayingState:
-			//default:
-				System.out.println("It is gameplaying! Should match...");
 				getTradeView().enableMaritimeTrade(true);
 				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().equals(
 						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
 				{
-					// keep at default for now
 					displayForCurrentTurn();
 				}
 				else
@@ -187,9 +182,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 					getTradeOverlay().setStateMessage("not your turn");
 				}
 				break;
-			default: // it's this that is screwing things up...the state is not always getting set so it is reverting
-				// I MIGHT just want to set this to true! OR make the earlier case the DEFAULT! This might be the best!
-				System.out.println("Some random default crap is getting called");
+			default:
 				getTradeView().enableMaritimeTrade(false);
 				break;
 		}
