@@ -36,6 +36,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		super(tradeView);
 		setTradeOverlay(tradeOverlay);
+		tradeOverlay.setCancelEnabled(true); // Maybe this will fix something.
 		//tradeOverlay.setStateMessage("Hi mom"); // Experiment...
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
@@ -80,8 +81,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGetResource(ResourceType resource)
 	{
 		System.out.println("This is the type "+resource.toString());
+		getTradeOverlay().showGetOptions(new ResourceType[0]);
 		getTradeOverlay().selectGetOption(resource, 1);
-		// need to place the other one
+
 	}
 
 	@Override
@@ -89,6 +91,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		System.out.println("This is the type "+resource.toString());
 		getTradeOverlay().selectGiveOption(resource, 4); // what does this do eh? o.o
+		// this may need to be replaced with showGetOptions for JUST that resource.
+		ResourceType[] allResources = new ResourceType[5];
+		allResources[0] = ResourceType.BRICK;
+		allResources[1] = ResourceType.SHEEP;
+		allResources[2] = ResourceType.WOOD;
+		allResources[3] = ResourceType.ORE;
+		allResources[4] = ResourceType.WHEAT;
+		getTradeOverlay().showGetOptions(allResources);
+		getTradeOverlay().setStateMessage("Choose what to get");
 	}
 
 	@Override
