@@ -31,6 +31,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private Player currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 	private Player localPlayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
+	private ResourceType giveResource;
+	private ResourceType getResource;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
 	{
@@ -59,6 +61,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
+		// Should the reset be called? I don't know
+		//getTradeOverlay().reset();
 		getTradeOverlay().showModal();
 
 	}
@@ -66,7 +70,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void makeTrade()
 	{
+		if (giveResource == null || getResource == null)
+		{
+			return;
+		}
 		System.out.println("i make the trade");
+		ModelFacade.facadeCurrentGame.getServer().maritimeTrade("maritimeTrade",
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), 4,
+				resourceTypeToString(giveResource), resourceTypeToString(getResource));
 		getTradeOverlay().closeModal();
 	}
 
@@ -80,15 +91,17 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void setGetResource(ResourceType resource)
 	{
+		getResource = resource;
 		System.out.println("This is the type "+resource.toString());
 		getTradeOverlay().showGetOptions(new ResourceType[0]);
 		getTradeOverlay().selectGetOption(resource, 1);
-
+		getTradeOverlay().setStateMessage("Trade!");
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource)
 	{
+		giveResource = resource;
 		System.out.println("This is the type "+resource.toString());
 		getTradeOverlay().selectGiveOption(resource, 4); // what does this do eh? o.o
 		// this may need to be replaced with showGetOptions for JUST that resource.
@@ -105,13 +118,35 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGetValue()
 	{
-
+		getResource = null;
+		getTradeOverlay().setTradeEnabled(false);
 	}
 
 	@Override
 	public void unsetGiveValue()
 	{
+		giveResource = null;
+		getTradeOverlay().setTradeEnabled(false);
+		startTrade();
+	}
 
+	private String resourceTypeToString(ResourceType resType)
+	{
+		switch (resType)
+		{
+			case WOOD:
+				return "wood";
+			case SHEEP:
+				return "sheep";
+			case ORE:
+				return "ore";
+			case BRICK:
+				return "brick";
+			case WHEAT:
+				return "wheat";
+			default:
+				return null;
+		}
 	}
 
 	public Player getCurrentPlayer()
