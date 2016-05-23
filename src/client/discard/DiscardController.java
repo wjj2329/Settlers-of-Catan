@@ -79,13 +79,82 @@ public class DiscardController extends Controller implements IDiscardController,
 		{
 			return;
 		}
+		maxDiscardNum=ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().size()/2;
 		updateView();
-		//getDiscardView().showModal();
+
+	}
+
+	private boolean increaseallowed(ResourceType type)
+	{
+		Player localPlayer=ModelFacade.facadeCurrentGame.getLocalPlayer();
+		switch(type)
+		{
+			case BRICK:
+			{
+				return discardList.getBrick()<localPlayer.getResources().getBrick();
+			}
+			case WHEAT:
+			{
+				return discardList.getWheat()<localPlayer.getResources().getWheat();
+
+			}
+			case WOOD:
+			{
+				return discardList.getWood()<localPlayer.getResources().getWood();
+
+			}
+			case ORE:
+			{
+				return discardList.getOre()<localPlayer.getResources().getOre();
+
+			}
+			case SHEEP:
+			{
+				return discardList.getSheep()<localPlayer.getResources().getSheep();
+
+			}
+		}
+		return false;
+	}
+
+
+	private boolean decreaseallowed(ResourceType type)
+	{
+		Player localPlayer=ModelFacade.facadeCurrentGame.getLocalPlayer();
+		switch(type)
+		{
+			case BRICK:
+			{
+				return discardList.getBrick()>localPlayer.getResources().getBrick();
+			}
+			case WHEAT:
+			{
+				return discardList.getWheat()>localPlayer.getResources().getWheat();
+
+			}
+			case WOOD:
+			{
+				return discardList.getWood()>localPlayer.getResources().getWood();
+
+			}
+			case ORE:
+			{
+				return discardList.getOre()>localPlayer.getResources().getOre();
+
+			}
+			case SHEEP:
+			{
+				return discardList.getSheep()>localPlayer.getResources().getSheep();
+
+			}
+		}
+		return false;
 
 	}
 
 	private void updateView()
 	{
+		getDiscardView().closeModal();
 		ResourceList currentHand = ModelFacade.facadeCurrentGame.getLocalPlayer().getResources();
 		int currentBricks = currentHand.getBrick();
 		int currentOres = currentHand.getOre();
@@ -107,29 +176,33 @@ public class DiscardController extends Controller implements IDiscardController,
 		getDiscardView().setResourceMaxAmount(ResourceType.WOOD, currentWoods);
 		getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, currentWheats);
 
-		getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK
-				, (currentBricks > 0 && discardBricks < currentBricks)
-				, (discardBricks > 0));
-		getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE
-				, (currentOres > 0 && discardOres < currentOres)
-				, (discardOres > 0));
-		getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP
-				, (currentSheeps > 0 && discardSheeps < currentSheeps)
-				, (discardSheeps > 0));
-		getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD
-				, (currentWoods > 0 && discardWoods < currentWoods)
-				, (discardWoods > 0));
-		getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT
-				, (currentWheats > 0 && discardWheats < currentWheats)
-				, (discardWheats > 0));
 		getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, discardBricks);
 		getDiscardView().setResourceDiscardAmount(ResourceType.ORE, discardOres);
 		getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, discardSheeps);
 		getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, discardWoods);
 		getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, discardWheats);
 
+		getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK,increaseallowed(ResourceType.BRICK),decreaseallowed(ResourceType.BRICK));
+		getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD,increaseallowed(ResourceType.WOOD),decreaseallowed(ResourceType.WOOD));
+		getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT,increaseallowed(ResourceType.WHEAT),decreaseallowed(ResourceType.WHEAT));
+		getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE,increaseallowed(ResourceType.ORE),decreaseallowed(ResourceType.ORE));
+		getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP,increaseallowed(ResourceType.SHEEP),decreaseallowed(ResourceType.SHEEP));
 
 
+
+		if(discardList.size()==maxDiscardNum)
+		{
+			getDiscardView().closeModal();
+			ModelFacade.facadeCurrentGame.getServer().discardCards("discardCards",ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(),discardList);
+			return;
+		}
+		if(getDiscardView().isModalShowing())
+		{
+			getDiscardView().closeModal();
+			getDiscardView().showModal();
+		}
+		else
+			getDiscardView().showModal();
 
 	}
 }

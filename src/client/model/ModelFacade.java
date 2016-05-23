@@ -651,6 +651,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			}
 			//System.out.println("I add a player with name " + newPlayer.getName());
 		}
+
 	}
 
 	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException

@@ -132,14 +132,19 @@ public class ResourceList
 		switch (mytype) {
 			case WOOD:
 				wood++;
+				return;
 			case ORE:
 				ore++;
+				return;
 			case BRICK:
 				brick++;
+				return;
 			case WHEAT:
 				wheat++;
+				return;
 			case SHEEP:
 				sheep++;
+				return;
 		}
 	}
 	public void decreaseby1(ResourceType mytype)
@@ -147,14 +152,19 @@ public class ResourceList
 		switch (mytype) {
 			case WOOD:
 				wood--;
+				return;
 			case ORE:
 				ore--;
+				return;
 			case BRICK:
 				brick--;
+				return;
 			case WHEAT:
 				wheat--;
+				return;
 			case SHEEP:
 				sheep--;
+				return;
 		}
 	}
 	public int size()
