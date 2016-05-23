@@ -38,6 +38,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
+		ModelFacade.facadeCurrentGame.addObserver(this);
 
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
@@ -244,6 +245,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void sendTradeOffer() {
+			try {
 				tradeBrick =0;
 				tradeGrain = 0;
 				tradeOre = 0;
@@ -261,6 +263,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 					}
 				}
 
+			} catch (Exception e) {
+
+			}
 			ResourceList list = new ResourceList(tradeBrick, tradeOre, tradeSheep, tradeGrain, tradeWood);
 			String response=ModelFacade.facadeCurrentGame.getServer().offerTrade("offerTrade",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),list,tradeWithPlayer).getResponse();
 			System.out.println("MY response from the server when sending offer is this "+response);
@@ -295,7 +300,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		resourceMap.put(resource, "RECEIVE");
 		receiveMap.put(resource, 0);
 		getTradeOverlay().setResourceAmount(resource, Integer.toString(0));
-		int amount =  receiveMap.get(resource);
+		int amount = (int) receiveMap.get(resource);
 		if (amount <= 0) {
 			getTradeOverlay().setResourceAmountChangeEnabled(resource, true, false);
 		} else {
@@ -310,7 +315,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		resourceMap.put(resource, "SEND");
 		sendMap.put(resource, 0);
 		getTradeOverlay().setResourceAmount(resource, Integer.toString(0));
-		int amount =  sendMap.get(resource);
+		int amount = (int) sendMap.get(resource);
 		if (atMaxAmount(resource, amount)) {
 			getTradeOverlay().setResourceAmountChangeEnabled(resource, false, true);
 		} else {
@@ -318,6 +323,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 		canDoTrade();
 	}
+
 	@Override
 	public void unsetResource(ResourceType resource) {
 		resourceMap.put(resource, "NONE");

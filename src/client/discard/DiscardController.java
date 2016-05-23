@@ -188,7 +188,7 @@ public class DiscardController extends Controller implements IDiscardController,
 		}
 	}
 	private int calculateDiscardNum() {
-		int n;
+		int number;
 		Player getlocalPlayer=null;
 		for(Index index:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
 		{
@@ -204,14 +204,14 @@ public class DiscardController extends Controller implements IDiscardController,
 		int totalCards = getlocalPlayer.getResources().size()/2;
 
 		if (totalCards > 7) {
-			n = totalCards/2;
+			number = totalCards/2;
 		} else
 		{
 			// If they don't need to discard anything, show waitView
-			n = 0;
+			number = 0;
 		}
 
-		return n;
+		return number;
 	}
 	private int checkDiscardNum() {
 		int n = -1;
