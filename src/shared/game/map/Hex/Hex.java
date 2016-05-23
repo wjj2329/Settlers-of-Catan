@@ -465,7 +465,8 @@ public class Hex
 				roads.add(roadPiece);
 				break;
 			default:
-				assert false;
+				break;
+				//assert false;
 		}
 		return roadPiece;
 	}

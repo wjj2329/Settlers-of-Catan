@@ -725,7 +725,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "brown":
 				return CatanColor.BROWN;
 			default:
-				assert false;
+				//assert false;
+				break;
 		}
 		return null;
 	}
@@ -778,7 +779,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "secondround":
 				return TurnStatus.SECONDROUND;
 			default:
-				assert false;
+				break;
+				//assert false;
 		}
 		return null;
 	}
@@ -802,7 +804,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "water":
 				return HexType.WATER;
 			default:
-				assert false;
+				break;
+				//assert false;
 		}
 		return null;
 	}
@@ -824,7 +827,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "SW":
 				return VertexDirection.SouthWest;
 			default:
-				assert false;
+				break;
+				//assert false;
 		}
 		return null;
 	}
@@ -859,7 +863,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc6);
 				break;
 			default:
-				assert false;
+				break;
+				//assert false;
 		}
 		//assert(adjacent != null);
 		return adjacent;
@@ -884,7 +889,8 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				return EdgeDirection.SouthEast;
 			default:
 				//System.out.println("Something is screwed up with the direction");
-				assert false;
+				//assert false;
+				break;
 		}
 		return null;
 	}
@@ -928,7 +934,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case SouthWest:
 				return adjacent.getNe();
 			default:
-				assert false;
+				//assert false;
 				break;
 		}
 		return null;

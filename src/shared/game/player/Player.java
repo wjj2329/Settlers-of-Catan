@@ -352,7 +352,7 @@ public class Player
 				}
 				break;
 			default:
-				assert false;
+				break;
 		}
 		if (ModelFacade.facadeCurrentGame.currentgame.mybank.CanBankGiveResourceCard(typeRequesting))
 		{
@@ -405,7 +405,7 @@ public class Player
 				}
 				break;
 			default:
-				assert false;
+				break;
 		}
 		return true;
 	}
@@ -478,7 +478,7 @@ public class Player
 				adjacent = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc6);
 				break;
 			default:
-				assert false;
+				break;
 		}
 		//assert(adjacent != null);
 		return adjacent;
@@ -635,7 +635,6 @@ public class Player
 			case SouthWest:
 				return adjacent.getNe();
 			default:
-				assert false;
 				break;
 		}
 		return null;
@@ -664,7 +663,7 @@ public class Player
 			case SouthWest:
 				return hex1.getWest();
 			default:
-				assert false;
+				break;
 		}
 		// This should never be executed.
 		return null;
@@ -690,7 +689,7 @@ public class Player
 			case SouthWest:
 				return hex1.getSouthwest();
 			default:
-				assert false;
+				break;
 		}
 		// This should never be executed.
 		return null;
@@ -716,7 +715,7 @@ public class Player
 			case SouthWest:
 				return hex1.getNw();
 			default:
-				assert false;
+				break;
 		}
 		// This should never be executed
 		return null;
@@ -742,7 +741,7 @@ public class Player
 			case SouthWest:
 				return hex1.getS();
 			default:
-				assert false;
+				break;
 		}
 		// This should never be executed
 		return null;

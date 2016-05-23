@@ -142,7 +142,7 @@ public class VertexLocation
 										  hexLoc.getNeighborLoc(EdgeDirection.SouthEast),
 										  VertexDirection.NorthWest);
 			default:
-				assert false;
+				//assert false;
 				return null;
 		}
 	}

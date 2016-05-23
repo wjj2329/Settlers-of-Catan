@@ -182,7 +182,8 @@ public class ResourceList
 			case SHEEP:
 				sheep++;
 			default:
-				assert false; // should NOT be any desert or water types passed here
+				break;
+				//assert false; // should NOT be any desert or water types passed here
 		}
 	}
 }
