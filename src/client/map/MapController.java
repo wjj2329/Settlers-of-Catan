@@ -279,9 +279,8 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(playerwhoownscity.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
-			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
-				victims.add(myplayer);
-			}
+			victims.add(myplayer);
+
 		}
 		for(int i=0; i<myhex.getSettlementlist().size(); i++)
 		{
@@ -303,9 +302,8 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(player.getResources().size());
 			myplayer.setName(myplayer.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
-			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
 				victims.add(myplayer);
-			}
+
 		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
 		victims.toArray(victimsArray);

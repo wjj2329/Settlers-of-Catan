@@ -780,7 +780,7 @@ public class Hex
 				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
 				Exception e = new Exception();
-				e.printStackTrace();
+				//e.printStackTrace();
 				return false;
 			}
 			if(this.n.hasRoad()||this.ne.hasRoad()||hextoupdate.se.hasRoad()) {

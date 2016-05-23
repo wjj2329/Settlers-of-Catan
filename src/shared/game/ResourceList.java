@@ -91,6 +91,24 @@ public class ResourceList
 		this.wood = wood;
 	}
 
+	public String convertresroucetypetostring(ResourceType resourceType)
+	{
+		switch (resourceType)
+		{
+			case BRICK:
+				return "brick";
+			case ORE:
+				return "ore";
+			case SHEEP:
+				return "sheep";
+			case WHEAT:
+				return "wheat";
+			case WOOD:
+				return "wood";
+
+		}
+		return null;
+	}
 	public int getRequestedType(ResourceType resourceType)
 	{
 		switch (resourceType)
@@ -107,6 +125,36 @@ public class ResourceList
 				return wood;
 			default:
 				return -1;
+		}
+	}
+	public void increaseby1(ResourceType mytype)
+	{
+		switch (mytype) {
+			case WOOD:
+				wood++;
+			case ORE:
+				ore++;
+			case BRICK:
+				brick++;
+			case WHEAT:
+				wheat++;
+			case SHEEP:
+				sheep++;
+		}
+	}
+	public void decreaseby1(ResourceType mytype)
+	{
+		switch (mytype) {
+			case WOOD:
+				wood--;
+			case ORE:
+				ore--;
+			case BRICK:
+				brick--;
+			case WHEAT:
+				wheat--;
+			case SHEEP:
+				sheep--;
 		}
 	}
 	public int size()

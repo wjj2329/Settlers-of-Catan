@@ -654,15 +654,17 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 
 	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException
 	{
-		currentgame.getMytradeoffer().setSender(tradeOffer.getInt("sender"));
-		currentgame.getMytradeoffer().setReceiver(tradeOffer.getInt("receiver"));
-		currentgame.getMytradeoffer();
+		System.out.println("I HAVE A trade offer to load");
+		TradeOffer mytradeoffer=new TradeOffer();
+		mytradeoffer.setSender(tradeOffer.getInt("sender"));
+		mytradeoffer.setReceiver(tradeOffer.getInt("receiver"));
 		JSONObject offer = tradeOffer.getJSONObject("offer");
-		currentgame.getMytradeoffer().getMylist().setBrick(offer.getInt("brick"));
-		currentgame.getMytradeoffer().getMylist().setSheep(offer.getInt("sheep"));
-		currentgame.getMytradeoffer().getMylist().setOre(offer.getInt("ore"));
-		currentgame.getMytradeoffer().getMylist().setWheat(offer.getInt("wheat"));
-		currentgame.getMytradeoffer().getMylist().setWood(offer.getInt("wood"));
+		mytradeoffer.getMylist().setBrick(offer.getInt("brick"));
+		mytradeoffer.getMylist().setSheep(offer.getInt("sheep"));
+		mytradeoffer.getMylist().setOre(offer.getInt("ore"));
+		mytradeoffer.getMylist().setWheat(offer.getInt("wheat"));
+		mytradeoffer.getMylist().setWood(offer.getInt("wood"));
+		currentgame.setMytradeoffer(mytradeoffer);
 	}
 
 	private void loadTurnTracker(JSONObject turnTracker) throws JSONException
