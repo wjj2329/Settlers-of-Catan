@@ -277,7 +277,7 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setColor(playerwhoownscity.getColor());
 			myplayer.setPlayerIndex(playerwhoownscity.getPlayerIndex().getNumber());
 			myplayer.setNumCards(playerwhoownscity.getResources().size());
-			myplayer.setName(myplayer.getName());
+			myplayer.setName(playerwhoownscity.getName());
 			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
 			victims.add(myplayer);
 
@@ -300,7 +300,7 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setColor(player.getColor());
 			myplayer.setPlayerIndex(player.getPlayerIndex().getNumber());
 			myplayer.setNumCards(player.getResources().size());
-			myplayer.setName(myplayer.getName());
+			myplayer.setName(player.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
 				victims.add(myplayer);
 
