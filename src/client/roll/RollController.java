@@ -49,6 +49,7 @@ public class RollController extends Controller implements IRollController,Observ
 	}
 	public static int diceRollTotal;
 	public static boolean robberrolled=false;
+	
 	@Override
 	public void rollDice()
 	{
@@ -68,11 +69,11 @@ public class RollController extends Controller implements IRollController,Observ
 		{
 			robberrolled=true;
 		}
-		{
-			System.out.println("MY CURRENT PLAYER WHO ROLLED THIS MAGNIFICENT NUMBER IS "+ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName());
-			ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber",
+			{
+				System.out.println("MY CURRENT PLAYER WHO ROLLED THIS MAGNIFICENT NUMBER IS "+ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName());
+				ModelFacade.facadeCurrentGame.getServer().rollNumber("rollNumber",
 					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), diceRoll);
-		}
+			}
 	}
 
 	/**
@@ -118,10 +119,14 @@ public class RollController extends Controller implements IRollController,Observ
 		System.out.println(ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString()+" "+ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus());
 
 		if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
-			if (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.ROLLING)) {
+			if (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.ROLLING) && 
+					ModelFacade.facadeCurrentGame.getModel().getTurntracker().getCurrentTurn().getNumber() == ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber()) {
+				getRollView().showModal();
 				ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
 				System.out.println("I ROLL MY DICE");
-				rollDice();
+				if(!getRollView().isModalShowing()){
+					rollDice();
+				}
 			}
 		}
 	}
