@@ -15,8 +15,11 @@ import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
 import shared.game.map.CatanMap;
+import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
 import shared.game.map.Robber;
+import shared.game.map.vertexobject.City;
+import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
@@ -25,6 +28,11 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
+
+	public void setMytradeoffer(TradeOffer mytradeoffer) {
+		this.mytradeoffer = mytradeoffer;
+	}
+
 	public Robber myrobber=new Robber();
 	// The singleton was null so I did this instead
 	/**
@@ -145,7 +153,6 @@ public class CatanGame
 	 */
 	public boolean canStartGame() throws Exception
 	{
-
 		if(mymap==null)
 		{
 			return false;
@@ -176,9 +183,29 @@ public class CatanGame
 	}
 	public void clear()
 	{
-		mymap=null;
-		mychat=null;
-		myplayers=null;
+		mymap=new CatanMap(RADIUS);
+		mychat=new Chat();
+		//myplayers=new HashMap<>();
+		myGameHistory = new GameHistory();
+		mybank = new Bank();
+		myrobber = new Robber();
+		mytradeoffer=null;
+
+		if (myplayers.size() != 4)
+		{
+			return;
+		}
+		// Resetting everything in Player that isn't a primitive, EXCEPT for index and playerID
+		for (Player p : myplayers.values())
+		{
+			p.setNewDevCards(new DevCardList());
+			p.setOldDevCards(new DevCardList());
+			p.setResources(new ResourceList());
+
+			p.setSettlements(new ArrayList<Settlement>());
+			p.setCities(new ArrayList<City>());
+			p.setRoadPieces(new ArrayList<RoadPiece>());
+		}
 	}
 
 	public Model getModel()
@@ -276,4 +303,25 @@ public class CatanGame
 		return title;
 	}
 
+	public void setPlayerInfo(Player jugador){
+		if(!myplayers.containsKey(jugador.getPlayerID())){
+			myplayers.put(jugador.getPlayerID(), jugador);
+		}
+		myplayers.get(jugador.getPlayerID()).setColor(jugador.getColor());
+		myplayers.get(jugador.getPlayerID()).setIsDiscarded(jugador.getIsDiscarded());
+		myplayers.get(jugador.getPlayerID()).setNumCitiesRemaining(jugador.getNumCitiesRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumMonuments(jugador.getNumMonuments());
+		myplayers.get(jugador.getPlayerID()).setPlayedDevCard(jugador.getplayedDevCard());
+		myplayers.get(jugador.getPlayerID()).setNumRoadPiecesRemaining(jugador.getNumRoadPiecesRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumSettlementsRemaining(jugador.getNumSettlementsRemaining());
+		myplayers.get(jugador.getPlayerID()).setNumSoldierCards(jugador.getNumSoldierCards());
+		myplayers.get(jugador.getPlayerID()).setNumVictoryPoints(jugador.getNumVictoryPoints());
+		myplayers.get(jugador.getPlayerID()).setOldDevCards(jugador.getOldDevCards());
+		myplayers.get(jugador.getPlayerID()).setNewDevCards(jugador.getNewDevCards());
+		myplayers.get(jugador.getPlayerID()).setResources(jugador.getResources());
+		//System.out.println(jugador.getName() + " HASSDF " + jugador.getResources().getBrick() + jugador.getResources().getOre()+ jugador.getResources().getSheep() + jugador.getResources().getWheat() + jugador.getResources().getWood());
+		
+		
+	}
+	
 }

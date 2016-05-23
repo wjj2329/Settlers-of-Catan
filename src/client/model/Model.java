@@ -65,9 +65,9 @@ public class Model
 	}
 	
 	public void setListGames(ArrayList<CatanGame> games){
-		System.out.println("sdfasdf");
+		//System.out.println("sdfasdf");
 		gamelist = games;
-		System.out.println("done");
+		//System.out.println("done");
 	}
 	
 	

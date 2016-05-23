@@ -7,6 +7,8 @@ import client.join.JoinGameController;
 import client.login.LoginController;
 import client.model.Model;
 import client.model.ModelFacade;
+import client.model.TurnStatus;
+import client.roll.RollController;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.proxies.IServer;
@@ -28,7 +30,7 @@ public class MapController extends Controller implements IMapController, Observe
 {
 	private IRobView robView;
 	//public static boolean
-	
+
 	public MapController(IMapView view, IRobView robView)
 	{
 		super(view);
@@ -36,12 +38,12 @@ public class MapController extends Controller implements IMapController, Observe
 		initFromModel();
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
-	
+
 	public IMapView getView() {
-		
+
 		return (IMapView)super.getView();
 	}
-	
+
 	private IRobView getRobView() {
 		return robView;
 	}
@@ -108,7 +110,7 @@ public class MapController extends Controller implements IMapController, Observe
 				return ModelFacade.facadeCurrentGame.currentgame.getCurrentState().canBuildSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 			}
-			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn. 
+			canplace=false;//can place must be reset on 2nd turn start and State MUST be updated on next turn.
 		}
 			else{
 
@@ -137,8 +139,12 @@ public class MapController extends Controller implements IMapController, Observe
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
+		if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(hexLoc).getResourcetype().equals(HexType.WATER))
+		{
+			return false;
+		}
 		return true;
+
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc)
@@ -146,10 +152,8 @@ public class MapController extends Controller implements IMapController, Observe
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState ||
 				ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
-			System.out.println("I am in here");
-			System.out.println("current player's color is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
-			ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
-				.get(edgeLoc.getHexLoc()), edgeLoc);
+			//ModelFacade.facadeCurrentGame.currentgame.getCurrentState().buildRoad(ModelFacade.facadeCurrentGame.getMymap().getHexes()
+			//	.get(edgeLoc.getHexLoc()), edgeLoc);
 			getView().placeRoad(edgeLoc, ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
 		}
 		boolean insert=false;
@@ -169,7 +173,7 @@ public class MapController extends Controller implements IMapController, Observe
 	public void placeSettlement(VertexLocation vertLoc) {
 		//if current state is set up then I can do this.
 		try {
-			System.out.println("my current state is this "+ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString());
+			//System.out.println("my current state is this "+ModelFacade.facadeCurrentGame.currentgame.getCurrentState().toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -180,22 +184,28 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 		int test;
 		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
+		Index idOfCurrentPlayer = null;
+		// I think this is returning their player index instead of their player ID.
+		for (Player cur : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (cur.getPlayerIndex().equals(currentTurn))
+			{
+				idOfCurrentPlayer = cur.getPlayerID();
+			}
+		}
+		if (idOfCurrentPlayer == null)
+		{
+			return;
+		}
+		// this might have fixed some huge things!!
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			System.out.println("my players ID " +ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerID().getNumber());
-		}
-		for(Index myindex:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
-		{
-			System.out.println("my player"+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getName()+" index is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(myindex).getPlayerIndex().getNumber());
-		}
-		System.out.println("this is my PLayer Index  to try to test with "+test);
+		//System.out.println("this is my PLayer Index  to try to test with "+test);
 		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
-		System.out.println(mytest);
+		//System.out.println(mytest);
 		try {
 			JSONObject mine=new JSONObject(mytest);
-			System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
+			//System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
 			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
 		} catch (JSONException e) {
 			e.printStackTrace();
@@ -212,9 +222,27 @@ public class MapController extends Controller implements IMapController, Observe
 				e.printStackTrace();
 			}
 		}
+		int test;
+		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		Index idOfCurrentPlayer = null;
+		// I think this is returning their player index instead of their player ID.
+		for (Player cur : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (cur.getPlayerIndex().equals(currentTurn))
+			{
+				idOfCurrentPlayer = cur.getPlayerID();
+			}
+		}
+		if (idOfCurrentPlayer == null)
+		{
+			return;
+		}
+		// this might have fixed some huge things!!
+		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
+		test=player.getPlayerIndex().getNumber();
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",0,vertLoc).getResponse();
+		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",test,vertLoc).getResponse();
 		try {
 			JSONObject mine=new JSONObject(response);
 			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
@@ -222,36 +250,107 @@ public class MapController extends Controller implements IMapController, Observe
 			e.printStackTrace();
 		}
 	}
-
+	HexLocation myhexloc;
 	public void placeRobber(HexLocation hexLoc) {
-		
+
+		myhexloc=hexLoc;
+		//getView().placeRobber(hexLoc);
+
+		//getRobView().showModal();
+		HashSet<RobPlayerInfo>victims=new HashSet<>();
+		Hex myhex=ModelFacade.facadeCurrentGame.getMymap().getHexes().get(hexLoc);
+		for(int i=0; i<myhex.getCities().size(); i++)
+		{
+			Player playerwhoownscity=null;
+			for(Index playerid:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+			{
+				if(myhex.getCities().get(i).getOwner().getNumber()==ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid).getPlayerID().getNumber())
+				{
+					playerwhoownscity=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
+				}
+			}
+			if(playerwhoownscity==null)
+			{
+				return;
+			}
+			RobPlayerInfo myplayer=new RobPlayerInfo();
+			myplayer.setColor(playerwhoownscity.getColor());
+			myplayer.setPlayerIndex(playerwhoownscity.getPlayerIndex().getNumber());
+			myplayer.setNumCards(playerwhoownscity.getResources().size());
+			myplayer.setName(playerwhoownscity.getName());
+			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
+			victims.add(myplayer);
+
+		}
+		for(int i=0; i<myhex.getSettlementlist().size(); i++)
+		{
+			Player player=null;
+			for(Index playerid:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+			{
+				if(myhex.getSettlementlist().get(i).getOwner().getNumber()==ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid).getPlayerID().getNumber())
+				{
+					player=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
+				}
+			}
+			if(player==null)
+			{
+				return;
+			}
+			RobPlayerInfo myplayer=new RobPlayerInfo();
+			myplayer.setColor(player.getColor());
+			myplayer.setPlayerIndex(player.getPlayerIndex().getNumber());
+			myplayer.setNumCards(player.getResources().size());
+			myplayer.setName(player.getName());
+			myplayer.setId(player.getPlayerID().getNumber());
+				victims.add(myplayer);
+
+		}
+		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
+		victims.toArray(victimsArray);
+
+		//ModelFacade.facadeCurrentGame.currentgame.getMymap().
 		getView().placeRobber(hexLoc);
-		
+		getRobView().setPlayers(victimsArray);
 		getRobView().showModal();
 	}
-	
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
-		
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
-	}
-	
-	public void cancelMove() {
-		
-	}
-	
-	public void playSoldierCard() {	
-		
-	}
-	
-	public void playRoadBuildingCard() {	
-		
-	}
-	
-	public void robPlayer(RobPlayerInfo victim) {	
-		
+
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+
+		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
+		{
+			getView().startDrop(pieceType, ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), false);
+		}
+		else
+		{
+			getView().startDrop(pieceType, ModelFacade.facadeCurrentGame.getLocalPlayer().getColor(), true);
+		}
 	}
 
-	public static boolean hasdonefirstturn=false;
+	public void cancelMove() {
+
+	}
+
+	public void playSoldierCard() {
+
+	}
+
+	public void playRoadBuildingCard() {
+
+	}
+
+	public void robPlayer(RobPlayerInfo victim)
+	{
+		System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
+		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex()).getResponse();
+		try {
+			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	//private static boolean hasdonefirstturn=false;
 
 	private void doSetUpTurns()
 	{
@@ -267,40 +366,98 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
-
-				if (current.getSettlements().size() == 0) //first part of turn one
+				if (current.getSettlements().size() == 0
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+				//first part of turn one
 				{
-					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
-					System.out.println("I place a settlement");
+					startMove(PieceType.SETTLEMENT, true, true);
+					//System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
+					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
+					//System.out.println("I place a settlement");
+					return;
 				}
-
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0) //second part of turn two
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) //second part of turn two
 				{
-					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
+					startMove(PieceType.ROAD, true, true);
+					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
+					//System.out.println("i place a road");
+					//System.out.println("my road size is now "+current.getRoadPieces().size()+"my settlements size is now this "+current.getSettlements().size());
+					return;
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&!hasdonefirstturn) //ends first turn
+				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
+				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
+					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+					/*&&!hasdonefirstturn*/ //ends first turn
 				{
-					hasdonefirstturn=true;
+					//System.out.println("I COME HERE TO END THE TURN");
+
+					//System.out.println("I have finished my turn");
 					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
+					try {
+						JSONObject response=new JSONObject(serverresponse);
+						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+					} catch (JSONException e)
+					{
+						e.printStackTrace();
+					}
+					//hasdonefirstturn=true;
+					return;
+				}
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+					/*&&hasdonefirstturn*///starts part 1 of second set up turn
+				{
+					System.out.println("I COME INTO THE SECOND BUILD SETTLMENTS "+current.getName());
+
+					startMove(PieceType.SETTLEMENT, true, true); // updateFromJSON
+					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
+					return;
+				}
+// it doesn't get to this one with Pete
+				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
+				{
+					System.out.println("I come into the second build roads with " + current.getName());
+					startMove(PieceType.ROAD, true, true); // updateFromJSON
+					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
+					//ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+
+					/*String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
+					try {
+						JSONObject response=new JSONObject(serverresponse);
+						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}*/
+					return;
+				}
+
+				if (current.getSettlements().size() == 2 && current.getRoadPieces().size() == 2
+						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+				{
+					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+
 					try {
 						JSONObject response=new JSONObject(serverresponse);
 						ModelFacade.facadeCurrentGame.updateFromJSON(response);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}
-				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1&&hasdonefirstturn)//starts part 1 of second set up turn
-				{
-					getView().startDrop(PieceType.SETTLEMENT, CatanColor.BLUE, false);
-				}
-
-				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1)//starts part 2 of second set up turn and then changes game playing state
-				{
-					getView().startDrop(PieceType.ROAD, CatanColor.BLUE, false);
-					ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+					return;
 				}
 
 			}
@@ -318,61 +475,119 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(RollController.robberrolled)
+		{
+			getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
+			RollController.robberrolled=false;
+		}
+		getView().placeRobber(ModelFacade.facadeCurrentGame.currentgame.myrobber.getLocation());
+		boolean everyoneHasTheRightNumber = true;
+		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (p.getSettlements().size() != 2 || p.getRoadPieces().size() != 2)
+			{
+				everyoneHasTheRightNumber = false;
+			}
+		}
+		if (everyoneHasTheRightNumber && (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()
+				== TurnStatus.ROLLING)) // maybe it changes from secondRound and is instead something else. rolling?
+		{
+			//System.out.println("Rolling now instead of second round");
+			ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+		}
+
 		if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
 		{
-			System.out.println("I come here to update the views and stuff");
+			//System.out.println("I come here to update the views and stuff");
 			doSetUpTurns();
 		}
-		Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
-		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
 
-		System.out.println("I REFRESH MY MAP CONTROLLER");
+		//Index currentTurn = ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getCurrentTurn();
+		//Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(currentTurn);
+
+		//System.out.println("I REFRESH MY MAP CONTROLLER");
 		//loads settlements on update
 		//getView().placeSettlement(new VertexLocation(new HexLocation(-1,1),VertexDirection.East),CatanColor.BLUE);
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				System.out.println("I have settlements and this hex settlement size is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size()+"at location "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
-				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
+				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), mycolor);
 			}
 		}
 		//loads cities on update
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
+
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().size();i++)
 			{
-				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getOwner();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
+				getView().placeCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getCities().get(i).getVertexLocation(), mycolor);
 
 			}
 		}
 		//loads roads on update
 		for(HexLocation loc:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().keySet())
 		{
-			System.out.println("Does this hex have a road? size: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc)
-				.getRoads().size());
+			//System.out.println("Does this hex have a road? size: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc)
+			//.getRoads().size()+"The hex location is is this"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getX()+" "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getLocation().getY());
+			//System.out.println("PLUS ITS TYPE IS THIS  "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
+			//System.out.println("pluse its number token is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
 			/*for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++) {
 			System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).get)
 			}*/
 
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().size();i++)
 			{
-				System.out.println("THIS HEX HAS THE ROAD I PLACED number is this ");
-				System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
-				System.out.println(	" the type is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
+				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getPlayerWhoOwnsRoad();
+				CatanColor mycolor=CatanColor.PUCE;
+				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
+				for(Index id:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+				{
+					//System.out.println("MY INDEX IS THIS FOR PLAYER "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getName()+" is this "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerIndex().getNumber());
+					if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getPlayerID().getNumber()==correctonecolor.getNumber())
+					{
+						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
+					}
+				}
+				//System.out.println("THIS HEX HAS THE ROAD I PLACED number is this ");
+				//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcenumber());
+				//System.out.println(	" the type is this "+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getResourcetype().toString());
 				if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i)==null)
 				{
-					System.out.println("THIS ROAD IS NULL FOOL");
+					//System.out.println("THIS ROAD IS NULL FOOL");
 				}
 				if(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation()==null)
 				{
-					System.out.println("THIS ROAD LOCATION IS NULL FOOL");
+					//System.out.println("THIS ROAD LOCATION IS NULL FOOL");
 				}
-				System.out.println(" this road happens to be located on this at postion"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation().toString());
-				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getColor());
+				//System.out.println(" this road happens to be located on this at postion"+ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation().toString());
+				getView().placeRoad(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getRoads().get(i).getLocation(), mycolor);
 
 			}
 		}
+
 	}
 }
 

@@ -114,9 +114,9 @@ public class Player
 	 * How many roads the Player CAN BUILD.
 	 * Updated dynamically.
 	 */
-	private int numRoadPiecesRemaining = 15;
+	private int numRoadPiecesRemaining ;
 
-	private int numRoadPiecesRemainingForSetupPhase = 2;
+	//private int numRoadPiecesRemainingForSetupPhase = 2;
 
 	/**
 	 * All the RoadPieces owned by the Player
@@ -126,18 +126,18 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining = 5;
+	private int numSettlementsRemaining ;
 
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
 	 */
-	private int numSoldierCards = 0;
+	private int numSoldierCards ;
 
 	/**
 	 * How many victory points the player has
 	 * Everyone starts off with 2. 10+ on your turn to win!
 	 */
-	private int numVictoryPoints = 0;
+	private int numVictoryPoints;
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
@@ -156,9 +156,7 @@ public class Player
 	{
 		this.name = name;
 		this.color = color;
-		this.playerID = playerID;
-		resources = new ResourceList();
-	}
+		this.playerID = playerID;}
 
 	/**
 	 * Function to determine whether or not a player can trade with another player.
@@ -370,10 +368,10 @@ public class Player
      */
 	private boolean multiWayTrade(TradeType theType, int threeOrFour)
 	{
-		assert(!theType.equals(TradeType.FOUR));
-		assert(!theType.equals(TradeType.THREE));
-		assert(!theType.equals(TradeType.BLANK));
-		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
+		//assert(!theType.equals(TradeType.FOUR));
+		//assert(!theType.equals(TradeType.THREE));
+		//assert(!theType.equals(TradeType.BLANK));
+		//assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
 		switch (theType)
 		{
 			case WOOD:
@@ -437,7 +435,7 @@ public class Player
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
 				//piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
 				roadPieces.add(piece);
-				roadPieces.add(piece2); // maybe
+				//roadPieces.add(piece2); // maybe
 				return true;
 			}
 		}
@@ -482,7 +480,7 @@ public class Player
 			default:
 				assert false;
 		}
-		assert(adjacent != null);
+		//assert(adjacent != null);
 		return adjacent;
 	}
 
@@ -490,13 +488,13 @@ public class Player
 	{
 		if(canBuildSettlementStartup(buildingon,locationofsettlement))
 		{
-			System.out.println("the playerID is " + playerID.getNumber() + " aka " + this.playerID.getNumber());
+			//System.out.println("the playerID is " + playerID.getNumber() + " aka " + this.playerID.getNumber());
 			buildingon.buildSettlement(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick()-1);
-			resources.setWheat(resources.getWheat()-1);
-			resources.setSheep(resources.getSheep()-1);
-			resources.setWood(resources.getWood()-1);
-			this.numSettlementsRemaining--;
+			//resources.setBrick(resources.getBrick()-1);
+			//resources.setWheat(resources.getWheat()-1);
+			//resources.setSheep(resources.getSheep()-1);
+			//resources.setWood(resources.getWood()-1);
+			//this.numSettlementsRemaining--;
 		}
 	}
 
@@ -504,9 +502,9 @@ public class Player
 		if(canBuildCity(buildingon,locationforcity))
 		{
 			buildingon.buildCity(locationforcity,this.getPlayerID());
-			resources.setOre(resources.getOre()-3);
-			resources.setWheat(resources.getWheat()-2);
-			this.numCitiesRemaining--;
+			//resources.setOre(resources.getOre()-3);
+			//resources.setWheat(resources.getWheat()-2);
+			//this.numCitiesRemaining--;
 		}
 	}
 	/**
@@ -586,15 +584,15 @@ public class Player
 		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
 		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
 		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
-		System.out.println("ENTER LOTS OF CRAP: ");
-		System.out.println("upEdge has road: " + upEdge.hasRoad());
-		System.out.println("downEdge has road: " + downEdge.hasRoad());
-		System.out.println("upEdgeAdjacent has road: " + upEdgeAdjacent.hasRoad());
-		System.out.println("downEdgeAdjacent has road: " + downEdgeAdjacent.hasRoad());
-		System.out.println("upEdge player " + upEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
-		System.out.println("downEdge player " + downEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
-		System.out.println("upEdgeAdjacent player " + upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
-		System.out.println("downEdgeAdjacent player " + downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		//System.out.println("ENTER LOTS OF CRAP: ");
+		//System.out.println("upEdge has road: " + upEdge.hasRoad());
+		//System.out.println("downEdge has road: " + downEdge.hasRoad());
+		//System.out.println("upEdgeAdjacent has road: " + upEdgeAdjacent.hasRoad());
+		//System.out.println("downEdgeAdjacent has road: " + downEdgeAdjacent.hasRoad());
+		//System.out.println("upEdge player " + upEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		//System.out.println("downEdge player " + downEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		//System.out.println("upEdgeAdjacent player " + upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		//System.out.println("downEdgeAdjacent player " + downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
 		if (upEdge != null && upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
 			return true;
@@ -611,7 +609,7 @@ public class Player
 		{
 			return true;
 		}
-		System.out.println("cannot build: at the end; nothing else became true");
+		//System.out.println("cannot build: at the end; nothing else became true");
 		return false;
 	}
 
@@ -758,18 +756,16 @@ public class Player
      */
 	public boolean canBuildRoadPieceSetupState(Hex hex, EdgeLocation edge)
 	{
-		/*if (isSettlementTurnOver(1)) // this needs to be fixed ASAP
-		{
-			return false;
-		}*/
 		if (hex == null || edge == null) // added the edge one
 		{
-			//System.out.println("can't build road piece: hex or edge is null");
 			return false;
 		}
-		if (numRoadPiecesRemainingForSetupPhase <= 0)
+		Hex adjacent = computeAdjacentHex(hex, edge);
+		EdgeLocation edge2 = computeOppositeEdge(edge, adjacent);
+		// check the other hex
+		if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 		{
-			//System.out.println("can't build road piece: out of pieces");
+			//System.out.println("can't build road piece: both hexes are of type water");
 			return false;
 		}
 		if (!currentPlayer)
@@ -787,7 +783,7 @@ public class Player
 			//System.out.println("can't build road piece: no adjacent roads or structures belonging to player");
 			return false;
 		}
-		System.out.println("it all worked");
+		//System.out.println("it all worked");
 		return true;
 	}
 
@@ -804,7 +800,7 @@ public class Player
 			// check the other hex
 			if (hex.getResourcetype() == HexType.WATER && adjacent.getResourcetype() == HexType.WATER)
 			{
-				System.out.println("can't build road piece: both hexes are of type water");
+				//System.out.println("can't build road piece: both hexes are of type water");
 				return false;
 			}
 			else
@@ -812,10 +808,9 @@ public class Player
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
-				numRoadPiecesRemainingForSetupPhase--; // that way they can only build 2
 				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this
 				roadPieces.add(piece);
-				roadPieces.add(piece2);
+				//roadPieces.add(piece2);
 				return true;
 			}
 		}
@@ -843,13 +838,13 @@ public class Player
 		public void buildSettlementNormal(Hex buildingon, VertexLocation locationofsettlement) throws Exception {
 		if (canBuildSettlementNormal(buildingon, locationofsettlement)) {
 			buildingon.buildSettlementNormal(locationofsettlement, this.playerID);
-			resources.setBrick(resources.getBrick() - 1);
-			resources.setWheat(resources.getWheat() - 1);
-			resources.setSheep(resources.getSheep() - 1);
-			resources.setWood(resources.getWood() - 1);
-			this.numSettlementsRemaining--;
-			System.out.println("The number of brick peices left " + resources.getBrick());
-			System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
+			//resources.setBrick(resources.getBrick() - 1);
+			//resources.setWheat(resources.getWheat() - 1);
+			//resources.setSheep(resources.getSheep() - 1);
+			//resources.setWood(resources.getWood() - 1);
+			//this.numSettlementsRemaining--;
+			//System.out.println("The number of brick peices left " + resources.getBrick());
+			//System.out.println("my num of settlements Remaning is " + numSettlementsRemaining);
 		}
 	}
 
@@ -869,7 +864,6 @@ public class Player
 
 
 	public boolean canBuildSettlementStartup(Hex hex, VertexLocation myLocation) throws Exception {
-		// Hey William I am going to add something here
 
 		if(hex==null||myLocation==null)
 		{
@@ -896,13 +890,15 @@ public class Player
 	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
 		if(hex==null||myLocation==null)
 		{
-			Exception e=new Exception();
-			//e.printStackTrace();
-			throw e;		}
-		if (!hex.canBuildSettlementHereNormal(myLocation))
-		{
+			System.out.println(" A NULL HEX");
 			return false;
 		}
+		if (!hex.canBuildSettlementHereNormal(myLocation))
+		{
+			System.out.println("MY HEX IS TOO BLAME");
+			return false;
+		}
+		/*
 		if (resources.getSheep() < 1 || resources.getWheat() < 1
 				|| resources.getBrick() < 1 || resources.getWood() < 1)
 		{
@@ -912,6 +908,7 @@ public class Player
 		{
 			return false;
 		}
+		*/
 		return true;
 	}
 
@@ -928,6 +925,7 @@ public class Player
 		{
 			return false;
 		}
+		/*
 		if (resources.getOre() < 3 || resources.getWheat() < 2)
 		{
 			return false;
@@ -936,6 +934,7 @@ public class Player
 		{
 			return false;
 		}
+		*/
 		return true;
 	}
 
@@ -983,6 +982,11 @@ public class Player
 	{
 		settlements.add(settlement);
 	}
+
+	public void setSettlements(ArrayList<Settlement> settlements) {
+		this.settlements = settlements;
+	}
+
 	public ArrayList<City> getCities()
 	{
 		return cities;
@@ -1052,6 +1056,14 @@ public class Player
 	public DevCardList getNewDevCards()
 	{
 		return this.newDevCards;
+	}
+
+	public void setOldDevCards(DevCardList oldDevCards) {
+		this.oldDevCards = oldDevCards;
+	}
+
+	public void setNewDevCards(DevCardList newDevCards) {
+		this.newDevCards = newDevCards;
 	}
 
 	public boolean getplayedDevCard()
@@ -1159,5 +1171,9 @@ public class Player
 	public void setPlayerIndex(Index playerIndex)
 	{
 		this.playerIndex=playerIndex;
+	}
+
+	public void setCities(ArrayList<City> cities) {
+		this.cities = cities;
 	}
 }

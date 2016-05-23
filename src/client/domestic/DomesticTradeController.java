@@ -1,14 +1,26 @@
 package client.domestic;
 
+import client.State.State;
+import client.data.PlayerInfo;
+import client.model.Model;
+import client.model.ModelFacade;
+import org.json.JSONException;
+import org.json.JSONObject;
 import shared.definitions.*;
 import client.base.*;
 import client.misc.*;
+import shared.game.CatanGame;
+import shared.game.ResourceList;
+import shared.game.map.Index;
+import shared.game.player.Player;
+
+import java.util.*;
 
 
 /**
  * Domestic trade controller implementation
  */
-public class DomesticTradeController extends Controller implements IDomesticTradeController {
+public class DomesticTradeController extends Controller implements IDomesticTradeController,Observer {
 
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
@@ -26,12 +38,13 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
-		
+		ModelFacade.facadeCurrentGame.addObserver(this);
+
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
 	}
-	
+
 	public IDomesticTradeView getTradeView() {
 		
 		return (IDomesticTradeView)super.getView();
@@ -64,18 +77,16 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void startTrade() {
 
-		getTradeOverlay().showModal();
 	}
 
 	@Override
 	public void decreaseResourceAmount(ResourceType resource)
 	{
-		//getTradeOverlay().setPlayerSelectionEnabled();
-				if(resource.equals(ResourceType.BRICK))
-				{
-					System.out.println("i decrease this");
-				}
+
 	}
+
+
+
 
 	@Override
 	public void increaseResourceAmount(ResourceType resource)
@@ -83,11 +94,22 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	}
 
+
+
+
+
+	public void canDoTrade() {
+
+	}
+
+	public void setAmount(ResourceType key, int amount) {
+
+	}
+
 	@Override
 	public void sendTradeOffer() {
 
-		getTradeOverlay().closeModal();
-//		getWaitOverlay().showModal();
+
 	}
 
 	@Override
@@ -97,12 +119,14 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 
 	@Override
-	public void setResourceToReceive(ResourceType resource) {
+	public void setResourceToReceive(ResourceType resource)
+	{
 
 	}
 
 	@Override
-	public void setResourceToSend(ResourceType resource) {
+	public void setResourceToSend(ResourceType resource)
+	{
 
 	}
 
@@ -118,10 +142,38 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 
 	@Override
-	public void acceptTrade(boolean willAccept) {
-
+	public void acceptTrade(boolean willAccept)
+	{
+		String test=ModelFacade.facadeCurrentGame.getServer().acceptTrade("acceptTrade",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),willAccept).getResponse();
+		try {
+			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(test));
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		getAcceptOverlay().closeModal();
 	}
 
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		if(ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName())&& ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.GamePlayingState))
+		{
+
+			if (ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getResources().size() == 0)
+			{
+				this.getTradeView().enableDomesticTrade(false);
+			}
+			else
+			{
+				this.getTradeView().enableDomesticTrade(true);
+				//start it
+			}
+		}
+		else
+			this.getTradeView().enableDomesticTrade(false);
+
+
+
+	}
 }
 

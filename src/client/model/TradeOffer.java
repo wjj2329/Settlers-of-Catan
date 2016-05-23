@@ -43,7 +43,7 @@ public class TradeOffer
 
 
 	private int receiver;
-	ResourceList mylist=new ResourceList();
+	private ResourceList mylist=new ResourceList();
 	
 	/**
 	 * @exception throws exception if player is Invalid/null

@@ -14,7 +14,18 @@ public class ResourceList
 	 * to ensure that they should be integers
 	 */
 	private int brick = 0;
-	
+
+	@Override
+	public String toString() {
+		return "ResourceList{" +
+				"brick=" + brick +
+				", ore=" + ore +
+				", sheep=" + sheep +
+				", wheat=" + wheat +
+				", wood=" + wood +
+				'}';
+	}
+
 	private int ore = 0;
 	
 	private int sheep = 0;
@@ -80,6 +91,24 @@ public class ResourceList
 		this.wood = wood;
 	}
 
+	public String convertresroucetypetostring(ResourceType resourceType)
+	{
+		switch (resourceType)
+		{
+			case BRICK:
+				return "brick";
+			case ORE:
+				return "ore";
+			case SHEEP:
+				return "sheep";
+			case WHEAT:
+				return "wheat";
+			case WOOD:
+				return "wood";
+
+		}
+		return null;
+	}
 	public int getRequestedType(ResourceType resourceType)
 	{
 		switch (resourceType)
@@ -97,6 +126,40 @@ public class ResourceList
 			default:
 				return -1;
 		}
+	}
+	public void increaseby1(ResourceType mytype)
+	{
+		switch (mytype) {
+			case WOOD:
+				wood++;
+			case ORE:
+				ore++;
+			case BRICK:
+				brick++;
+			case WHEAT:
+				wheat++;
+			case SHEEP:
+				sheep++;
+		}
+	}
+	public void decreaseby1(ResourceType mytype)
+	{
+		switch (mytype) {
+			case WOOD:
+				wood--;
+			case ORE:
+				ore--;
+			case BRICK:
+				brick--;
+			case WHEAT:
+				wheat--;
+			case SHEEP:
+				sheep--;
+		}
+	}
+	public int size()
+	{
+		return (ore+brick+sheep+wood+wheat);
 	}
 
 	/**

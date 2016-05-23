@@ -5,8 +5,10 @@ import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
 import shared.game.CatanGame;
+import shared.game.map.Port;
 import shared.game.player.Player;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -18,8 +20,7 @@ import java.util.Observer;
  * A few important points about trading here:
  * 1. The button will be disabled during the setup phase. It will be grayed out.
  * 	2. Need to call the canTradeWithBank method on the Player class.
- * 	3. I have not yet implemented the differentiation based on ports (i.e., 2:1, 3:1, and 4:1). 4:1
- * 		is the default, though, so I will probably implement that first!
+ * 	3. 4:1 trades are implemented; 2:1 and 3:1 are not.
  */
 public class MaritimeTradeController extends Controller implements IMaritimeTradeController, Observer
 {
@@ -28,12 +29,17 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * AKA the current player.
 	 */
 	private Player currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
+	private Player localPlayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
 	private IMaritimeTradeOverlay tradeOverlay;
+	private ResourceType giveResource;
+	private ResourceType getResource;
+	private int tradeRatio = -1;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
 	{
 		super(tradeView);
 		setTradeOverlay(tradeOverlay);
+		tradeOverlay.setCancelEnabled(true); // Maybe this will fix something.
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 	
@@ -55,23 +61,30 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void startTrade()
 	{
 		System.out.println("i start the trade");
+		// Should the reset be called? I don't know
+		//getTradeOverlay().reset();
+		tradeRatio = 4;
 		getTradeOverlay().showModal();
-		/*if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState)
-		{
-			getTradeOverlay().showGiveOptions(new ResourceType[0]);
-			return;
-		}*/
-		/*if (currentPlayer.canDoTradeWithBank())
+		ArrayList<Port> allPortsOnGameBoard = ModelFacade.facadeCurrentGame.getMymap().getPorts();
+		for (int p = 0; p < allPortsOnGameBoard.size(); p++)
 		{
 
-		}*/
+		}
 	}
 
 	@Override
 	public void makeTrade()
 	{
+		if (giveResource == null || getResource == null)
+		{
+			return;
+		}
 		System.out.println("i make the trade");
+		ModelFacade.facadeCurrentGame.getServer().maritimeTrade("maritimeTrade",
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), 4,
+				resourceTypeToString(giveResource), resourceTypeToString(getResource));
 		getTradeOverlay().closeModal();
+		setGUI();
 	}
 
 	@Override
@@ -79,32 +92,81 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		System.out.println("i cancel the trade");
 		getTradeOverlay().closeModal();
+		setGUI();
 	}
 
 	@Override
 	public void setGetResource(ResourceType resource)
 	{
+		getResource = resource;
 		System.out.println("This is the type "+resource.toString());
-
+		getTradeOverlay().showGetOptions(new ResourceType[0]);
+		getTradeOverlay().selectGetOption(resource, 1);
+		getTradeOverlay().setStateMessage("Trade!");
 	}
 
 	@Override
 	public void setGiveResource(ResourceType resource)
 	{
+		giveResource = resource;
 		System.out.println("This is the type "+resource.toString());
-
+		getTradeOverlay().selectGiveOption(resource, 4); // what does this do eh? o.o
+		// this may need to be replaced with showGetOptions for JUST that resource.
+		ResourceType[] allResources = new ResourceType[5];
+		allResources[0] = ResourceType.BRICK;
+		allResources[1] = ResourceType.SHEEP;
+		allResources[2] = ResourceType.WOOD;
+		allResources[3] = ResourceType.ORE;
+		allResources[4] = ResourceType.WHEAT;
+		getTradeOverlay().showGetOptions(allResources);
+		getTradeOverlay().setStateMessage("Choose what to get");
 	}
 
 	@Override
 	public void unsetGetValue()
 	{
-
+		System.out.println("I unset the get value");
+		getResource = null;
+		//getTradeOverlay().setTradeEnabled(false);
+		//getTradeOverlay().hideGetOptions();
+		// Loading in a new ResourceType array - undoing the selection, essentially.
+		ResourceType[] allResources = new ResourceType[5];
+		allResources[0] = ResourceType.BRICK;
+		allResources[1] = ResourceType.SHEEP;
+		allResources[2] = ResourceType.WOOD;
+		allResources[3] = ResourceType.ORE;
+		allResources[4] = ResourceType.WHEAT;
+		getTradeOverlay().showGetOptions(allResources);
+		getTradeOverlay().setStateMessage("Choose what to get");
 	}
 
 	@Override
 	public void unsetGiveValue()
 	{
+		System.out.println("I unset the give value");
+		giveResource = null;
+		//getTradeOverlay().setTradeEnabled(false);
+		//getTradeOverlay().hideGiveOptions();
+		setGUI();
+	}
 
+	private String resourceTypeToString(ResourceType resType)
+	{
+		switch (resType)
+		{
+			case WOOD:
+				return "wood";
+			case SHEEP:
+				return "sheep";
+			case ORE:
+				return "ore";
+			case BRICK:
+				return "brick";
+			case WHEAT:
+				return "wheat";
+			default:
+				return null;
+		}
 	}
 
 	public Player getCurrentPlayer()
@@ -117,8 +179,54 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		this.currentPlayer = currentPlayer;
 	}
 
-	@Override
-	public void update(Observable o, Object arg)
+	/**
+	 * The ArrayList will be placed into the array.
+	 * The list is of variable size; however, the array should end up
+	 * 		being the same size as the arrayList.
+	 */
+	private void displayForCurrentTurn()
+	{
+		ArrayList<ResourceType> resourceTypes = new ArrayList<>();
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWood() >= 4)
+		{
+			resourceTypes.add(ResourceType.WOOD);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getOre() >= 4)
+		{
+			resourceTypes.add(ResourceType.ORE);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getBrick() >= 4)
+		{
+			resourceTypes.add(ResourceType.BRICK);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getSheep() >= 4)
+		{
+			resourceTypes.add(ResourceType.SHEEP);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWheat() >= 4)
+		{
+			resourceTypes.add(ResourceType.WHEAT);
+		}
+		ResourceType[] whichResourcesToDisplay = new ResourceType[resourceTypes.size()];
+		// I load the arrayList elements into the array because it's of VARIABLE SIZE
+		for (int i = 0; i < resourceTypes.size(); i++)
+		{
+			whichResourcesToDisplay[i] = resourceTypes.get(i);
+		}
+		getTradeOverlay().showGiveOptions(whichResourcesToDisplay);
+		if (whichResourcesToDisplay.length == 0)
+		{
+			getTradeOverlay().setStateMessage("You don't have enough resources.");
+		}
+		else
+		{
+			getTradeOverlay().setStateMessage("Choose what to give up");
+			// I believe that this will only be called when you select something?
+			// I *think* that you should be able to RECEIVE anything.
+		}
+	}
+
+	private void setGUI()
 	{
 		switch (ModelFacade.facadeCurrentGame.currentgame.getCurrentState())
 		{
@@ -127,17 +235,28 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			case GamePlayingState:
 				getTradeView().enableMaritimeTrade(true);
-				if (!currentPlayer.isCurrentPlayer())
+				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(
+						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName()))
+				{
+					displayForCurrentTurn();
+				}
+				else
 				{
 					getTradeOverlay().showGiveOptions(new ResourceType[0]);
-					// then enable that button that says "not your turn"
-
+					getTradeOverlay().setStateMessage("not your turn");
 				}
 				break;
 			default:
 				getTradeView().enableMaritimeTrade(false);
 				break;
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		System.out.println("The game's current state is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentState().getState());
+		setGUI();
 	}
 }
 

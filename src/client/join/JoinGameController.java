@@ -173,29 +173,29 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             {
                 if(game.getId() == gameInList.getId())
                 {
-                    if(gameInList.getPlayers().size() == 4)
-                    {
-                        for(PlayerInfo pInfo: gameInList.getPlayers())
-                        {
-                            if(pInfo.getId() == localPlayer.getId())
-                            {
-                            	if(getJoinGameView().isModalShowing())
-                            	{
-                            		getJoinGameView().closeModal();
-                            	}
-                            	if(getSelectColorView().isModalShowing())
-                            	{
-                            		getSelectColorView().closeModal();
-                            	}
-                                //return;
-                            }
-                        cancelJoinGame();
-                        }
-                    }
-                    else
-                    {
+//                    if(gameInList.getPlayers().size() == 4)
+//                    {
+//                        for(PlayerInfo pInfo: gameInList.getPlayers())
+//                        {
+//                            if(pInfo.getId() == localPlayer.getId())
+//                            {
+//                            	if(getJoinGameView().isModalShowing())
+//                            	{
+//                            		getJoinGameView().closeModal();
+//                            	}
+//                            	if(getSelectColorView().isModalShowing())
+//                            	{
+//                            		getSelectColorView().closeModal();
+//                            	}
+//                                //return;
+//                            }
+//                        //cancelJoinGame();
+//                        }
+//                    }
+//                    else
+//                    {
                         startJoinGame(gameInList);
-                    }
+//                    }
                     return;
                 }
             }
@@ -302,10 +302,10 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         //What colors are already being used?
         for(PlayerInfo playerinfo: currentplayers)
         {
-        	System.out.println("Name: " + playerinfo.getName());
-        	System.out.println("ID: " + playerinfo.getId());
-        	System.out.println("Index: " + playerinfo.getPlayerIndex());
-        	System.out.println("Color: " + playerinfo.getColor().name());
+        	//System.out.println("Name: " + playerinfo.getName());
+        	//System.out.println("ID: " + playerinfo.getId());
+        	//System.out.println("Index: " + playerinfo.getPlayerIndex());
+        	//System.out.println("Color: " + playerinfo.getColor().name());
         	
         	//System.out.println("LocalPlayer: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         	//System.out.println("LocalPlayerIndexSam: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
@@ -351,19 +351,21 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 for(Player player: game.getMyplayers().values())
                 {
                     getSelectColorView().setColorEnabled(color, false);
-                    if(player.getColor().equals(color) && 
-                    		player.getPlayerID().getNumber() !=
-                    		ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
+                    if(player.getColor().equals(color) &&player.getPlayerID().getNumber() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber())
                     {
                         getMessageView().setMessage("Cannot join with that color.  Already taken.");
                         getMessageView().showModal();
                         return;
                     }
+                    else
+                    {
+                        ModelFacade.facadeCurrentGame.getLocalPlayer().setColor(color);
+                    }
                 }
                 break;
             }
         }
-        System.out.println("i join the game with this id "+game.getId());
+        //System.out.println("i join the game with this id "+game.getId());
 
         ModelFacade.facadeCurrentGame.getModel().joinGame(color, game.getId());
 
