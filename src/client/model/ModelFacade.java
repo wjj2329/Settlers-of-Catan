@@ -462,7 +462,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
-			assert(dir != null);
+			//assert(dir != null);
 			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
 					obj.getInt("ratio"), getPortTypeFromString(resource)); //this is not going
 			newPort.setType(getPortTypeFromString(resource));
@@ -523,7 +523,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println("I HAVE A SETTLEMENT HERE: "+obj); // this is extremely important to test
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
-			assert(dir != null);
+			//assert(dir != null);
 			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 				dir);
 			mylocation.setHassettlement(true);
@@ -577,7 +577,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
-			assert(dir != null);
+			//assert(dir != null);
 			VertexLocation vertexLoc = new VertexLocation(loc, dir);
 			City city1 = new City(loc, vertexLoc, owner);
 			vertexLoc.setHascity(true);
@@ -613,7 +613,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				JSONObject obj = players.getJSONObject(i);
 				//System.out.println(obj);
 				CatanColor color = stringToCatanColor(obj.getString("color"));
-				assert(color != null);
+				//assert(color != null);
 				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
 				newPlayer.setNumCitiesRemaining(obj.getInt("cities"));
 				newPlayer.setIsDiscarded(obj.getBoolean("discarded"));
@@ -694,7 +694,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			currentgame.getMyplayers().get(playerWhoseTurnItIs).setCurrentPlayer(true);
 		}
 		TurnStatus status = convertStringToTurnStatus(turnTracker.getString("status").toLowerCase());
-		assert(status != null);
+		//assert(status != null);
 		currentgame.getModel().getTurntracker().setStatus(status);
 		// actual player who has the longest road
 		currentgame.getModel().getTurntracker().setLongestRoad(new Index(turnTracker.getInt("longestRoad")));
@@ -861,7 +861,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			default:
 				assert false;
 		}
-		assert(adjacent != null);
+		//assert(adjacent != null);
 		return adjacent;
 	}
 

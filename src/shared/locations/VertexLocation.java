@@ -149,7 +149,7 @@ public class VertexLocation
 
 	public Settlement getSettlement()
 	{
-		assert(settlement != null);
+		//assert(settlement != null);
 		return settlement;
 	}
 
@@ -165,7 +165,7 @@ public class VertexLocation
 
 	public City getCity()
 	{
-		assert(city != null);
+		//assert(city != null);
 		return city;
 	}
 

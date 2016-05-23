@@ -5,6 +5,7 @@ import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
 import shared.game.CatanGame;
+import shared.game.map.Port;
 import shared.game.player.Player;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private IMaritimeTradeOverlay tradeOverlay;
 	private ResourceType giveResource;
 	private ResourceType getResource;
+	private int tradeRatio = -1;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
 	{
@@ -61,8 +63,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		System.out.println("i start the trade");
 		// Should the reset be called? I don't know
 		//getTradeOverlay().reset();
+		tradeRatio = 4;
 		getTradeOverlay().showModal();
+		ArrayList<Port> allPortsOnGameBoard = ModelFacade.facadeCurrentGame.getMymap().getPorts();
+		for (int p = 0; p < allPortsOnGameBoard.size(); p++)
+		{
 
+		}
 	}
 
 	@Override

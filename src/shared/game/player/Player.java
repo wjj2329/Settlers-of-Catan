@@ -368,10 +368,10 @@ public class Player
      */
 	private boolean multiWayTrade(TradeType theType, int threeOrFour)
 	{
-		assert(!theType.equals(TradeType.FOUR));
-		assert(!theType.equals(TradeType.THREE));
-		assert(!theType.equals(TradeType.BLANK));
-		assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
+		//assert(!theType.equals(TradeType.FOUR));
+		//assert(!theType.equals(TradeType.THREE));
+		//assert(!theType.equals(TradeType.BLANK));
+		//assert(threeOrFour == THREE_WAY || threeOrFour == FOUR_WAY);
 		switch (theType)
 		{
 			case WOOD:
@@ -480,7 +480,7 @@ public class Player
 			default:
 				assert false;
 		}
-		assert(adjacent != null);
+		//assert(adjacent != null);
 		return adjacent;
 	}
 
