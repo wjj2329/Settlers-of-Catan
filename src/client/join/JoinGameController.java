@@ -38,8 +38,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
     private Collection<CatanColor> colorsTaken = null;
-    //public static int playerindexforit=0;
-	//private GameInfo[] games;
 	
 	/**
 	 * JoinGameController constructor
@@ -115,6 +113,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	
 	private synchronized void refreshGameList()
 	{
+
         ArrayList<CatanGame> gamesList = ModelFacade.facadeCurrentGame.getModel().listGames();
 
         if (gamesList == null || ModelFacade.facadeCurrentGame.getLocalPlayer() == null)
@@ -159,9 +158,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
         localPlayer.setId(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
-        //System.out.println("Game list player ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
-        //localPlayer.setId(0);
-//        playerindexforit++;
         getJoinGameView().setGames(games, localPlayer);
         if(shouldShowGameList)
         {
