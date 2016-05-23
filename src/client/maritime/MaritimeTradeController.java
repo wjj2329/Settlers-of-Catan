@@ -19,8 +19,7 @@ import java.util.Observer;
  * A few important points about trading here:
  * 1. The button will be disabled during the setup phase. It will be grayed out.
  * 	2. Need to call the canTradeWithBank method on the Player class.
- * 	3. I have not yet implemented the differentiation based on ports (i.e., 2:1, 3:1, and 4:1). 4:1
- * 		is the default, though, so I will probably implement that first!
+ * 	3. 4:1 trades are implemented; 2:1 and 3:1 are not.
  */
 public class MaritimeTradeController extends Controller implements IMaritimeTradeController, Observer
 {
@@ -123,7 +122,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		getResource = null;
 		//getTradeOverlay().setTradeEnabled(false);
 		//getTradeOverlay().hideGetOptions();
-		// this may need to be replaced with showGetOptions for JUST that resource.
+		// Loading in a new ResourceType array - undoing the selection, essentially.
 		ResourceType[] allResources = new ResourceType[5];
 		allResources[0] = ResourceType.BRICK;
 		allResources[1] = ResourceType.SHEEP;

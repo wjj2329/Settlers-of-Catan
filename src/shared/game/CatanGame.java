@@ -190,6 +190,7 @@ public class CatanGame
 		mybank = new Bank();
 		myrobber = new Robber();
 		mytradeoffer=null;
+
 		if (myplayers.size() != 4)
 		{
 			return;

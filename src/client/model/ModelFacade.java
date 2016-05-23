@@ -455,15 +455,16 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println(obj);
 			int ratio=obj.getInt("ratio");
 			String resource="3:1";
-			if(ratio!=3) {
-				 resource = obj.getString("resource");
+			if(ratio != 3)
+			{
+				resource = obj.getString("resource");
 			}// this is the port type
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
 			assert(dir != null);
 			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
-					obj.getInt("ratio"),getPortTypeFromString(resource));//this is not going
+					obj.getInt("ratio"), getPortTypeFromString(resource)); //this is not going
 			newPort.setType(getPortTypeFromString(resource));
 			currentgame.getMymap().getPorts().add(newPort);
 		}
