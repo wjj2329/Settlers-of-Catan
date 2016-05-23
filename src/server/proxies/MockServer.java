@@ -655,11 +655,6 @@ public class MockServer implements IServer {
 	}
 
 	@Override
-	public Model getGameModel(double version) {
-		return null;
-	}
-
-	@Override
 	public String getUserCookie() {
 		return null;
 	}

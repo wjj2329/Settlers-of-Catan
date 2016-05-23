@@ -432,8 +432,6 @@ public interface IServer {
 	 * 
 	 */
 	ServerResponse playMonument(String type, int playerIndex);
-
-	Model getGameModel(double version);
 	
 	public String getUserCookie();
 

@@ -49,11 +49,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse loginUser(String username, String password){
 		final String URL_SUFFIX = "/user/login";
-
-		assert username != null;
-		assert username.length() > 0;
-		assert password != null;
-		assert password.length() > 0; 
 		
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
@@ -89,11 +84,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse registerUser(String username, String password){
 		final String URL_SUFFIX = "/user/register";
-		
-		assert username != null;
-		assert username.length() > 0;
-		assert password != null;
-		assert password.length() > 0; 
 		
 		Param param = new RegisterParam(username, password);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
@@ -148,9 +138,6 @@ public class ServerProxy implements IServer {
 	public ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
 		final String URL_SUFFIX = "/games/create";
 		
-		assert name != null;
-		assert name.length() > 0; 
-		
 		Param param = new CreateGameParam(name, randomTiles, randomNumbers, randomPorts);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 
@@ -185,12 +172,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse JoinGame(int gameID, String color) {
 		final String URL_SUFFIX = "/games/join";
-		
-		assert gameID >= 0;
-		assert usercookie != null;
-		assert usercookie.length() >0;
-		assert color != null;
-		assert color.length() > 0;
 		
 		Param param = new JoinGameParam(gameID, color);
 		param.addHeader("Cookie", "catan.user=" + usercookie);
@@ -230,12 +211,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse getGameCurrentState(int version) {
 		final String URL_SUFFIX = "/game/model";
-		
-		assert version >= 0;
-		assert usercookie != null;
-		assert usercookie.length() >0;
-		assert gamecookie != null;
-		assert gamecookie.length() >0;
 		
 		Param param = new GetGameCurrentStateParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
@@ -298,10 +273,6 @@ public class ServerProxy implements IServer {
 	public ServerResponse addAIPlayer(String logLevel) {
 		final String URL_SUFFIX = "/game/addAI";
 		
-		assert logLevel != null;
-		assert usercookie != null;
-		assert gamecookie !=null;
-		
 		Param param = new AddAIParam(logLevel);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
@@ -329,12 +300,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse sendChat(String type, int playerIndex, String content){
 		final String URL_SUFFIX = "/moves/sendChat";
-		
-		assert type !=null;
-		assert content != null;
-		assert playerIndex >0;
-		assert usercookie != null;
-		assert gamecookie != null;
 		
 		Param param = new SendChatParam(type, playerIndex, content);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
@@ -419,10 +384,6 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse rollNumber(String type, int playerIndex, int number){
 		final String URL_SUFFIX = "/moves/rollNumber";
-		
-		assert type != null;
-		assert playerIndex >=0;
-		assert number >= 2;
 		
 		Param param = new RollNumberParam(type, playerIndex, number);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
@@ -599,9 +560,6 @@ public class ServerProxy implements IServer {
 	public ServerResponse finishTurn(String type, int playerIndex){
 		final String URL_SUFFIX = "/moves/finishTurn";
 		
-		assert playerIndex >= 0;
-		assert type != null;
-		
 		Param param = new FinishTurnParam(type, playerIndex);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 
@@ -765,11 +723,6 @@ public class ServerProxy implements IServer {
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		return response;
-	}
-
-	@Override
-	public Model getGameModel(double version) {
-		return null;
 	}
 
 	/**
