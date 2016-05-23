@@ -66,8 +66,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	@Override
 	public void startPlayCard() {
 		
-		DevCardList oldDevList = new DevCardList(2, 2, 2, 2, 1);
-//		DevCardList oldDevlist = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getOldDevCards();
+	DevCardList oldDevList = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getOldDevCards();
 		
 		if(oldDevList.getTotalCardNum()>0){
 			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, oldDevList.getMonopoly());

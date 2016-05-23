@@ -39,7 +39,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		super(tradeView);
 		setTradeOverlay(tradeOverlay);
 		tradeOverlay.setCancelEnabled(true); // Maybe this will fix something.
-		//tradeOverlay.setStateMessage("Hi mom"); // Experiment...
 		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 	
@@ -79,6 +78,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), 4,
 				resourceTypeToString(giveResource), resourceTypeToString(getResource));
 		getTradeOverlay().closeModal();
+		setGUI();
 	}
 
 	@Override
@@ -86,6 +86,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		System.out.println("i cancel the trade");
 		getTradeOverlay().closeModal();
+		setGUI();
 	}
 
 	@Override
@@ -118,16 +119,29 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGetValue()
 	{
+		System.out.println("I unset the get value");
 		getResource = null;
-		getTradeOverlay().setTradeEnabled(false);
+		//getTradeOverlay().setTradeEnabled(false);
+		//getTradeOverlay().hideGetOptions();
+		// this may need to be replaced with showGetOptions for JUST that resource.
+		ResourceType[] allResources = new ResourceType[5];
+		allResources[0] = ResourceType.BRICK;
+		allResources[1] = ResourceType.SHEEP;
+		allResources[2] = ResourceType.WOOD;
+		allResources[3] = ResourceType.ORE;
+		allResources[4] = ResourceType.WHEAT;
+		getTradeOverlay().showGetOptions(allResources);
+		getTradeOverlay().setStateMessage("Choose what to get");
 	}
 
 	@Override
 	public void unsetGiveValue()
 	{
+		System.out.println("I unset the give value");
 		giveResource = null;
-		getTradeOverlay().setTradeEnabled(false);
-		startTrade();
+		//getTradeOverlay().setTradeEnabled(false);
+		//getTradeOverlay().hideGiveOptions();
+		setGUI();
 	}
 
 	private String resourceTypeToString(ResourceType resType)
@@ -206,10 +220,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		}
 	}
 
-	@Override
-	public void update(Observable o, Object arg)
+	private void setGUI()
 	{
-		System.out.println("The game's current state is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentState().getState());
 		switch (ModelFacade.facadeCurrentGame.currentgame.getCurrentState())
 		{
 			case SetUpState:
@@ -232,6 +244,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				getTradeView().enableMaritimeTrade(false);
 				break;
 		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		System.out.println("The game's current state is: " + ModelFacade.facadeCurrentGame.currentgame.getCurrentState().getState());
+		setGUI();
 	}
 }
 
