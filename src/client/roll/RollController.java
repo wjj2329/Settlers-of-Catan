@@ -47,7 +47,7 @@ public class RollController extends Controller implements IRollController,Observ
 
 		return (IRollView)getView();
 	}
-
+	public static int diceRollTotal;
 	public static boolean robberrolled=false;
 	@Override
 	public void rollDice()
@@ -56,11 +56,12 @@ public class RollController extends Controller implements IRollController,Observ
 		Random dice2 = new Random();
 		int diceRoll1 = dice1.nextInt(6) + 1;
 		int diceRoll2 = dice2.nextInt(6) + 1;
-		int diceRollTotal = diceRoll1 + diceRoll2;
+		diceRollTotal = diceRoll1 + diceRoll2;
 		getResultView().setRollValue(diceRollTotal);
-		
-		getResultView().showModal();
-		diceRoll = diceRollTotal;
+		if(diceRollTotal!=7) {
+			getResultView().showModal();
+			diceRoll = diceRollTotal;
+		}
 		//updatePlayerResources(diceRoll);
 		//if(!getResultView().isModalShowing())
 		if(diceRollTotal==7)

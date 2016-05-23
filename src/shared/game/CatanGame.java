@@ -28,6 +28,11 @@ import shared.game.player.Player;
 
 public class CatanGame
 {
+
+	public void setMytradeoffer(TradeOffer mytradeoffer) {
+		this.mytradeoffer = mytradeoffer;
+	}
+
 	public Robber myrobber=new Robber();
 	// The singleton was null so I did this instead
 	/**
@@ -184,6 +189,7 @@ public class CatanGame
 		myGameHistory = new GameHistory();
 		mybank = new Bank();
 		myrobber = new Robber();
+		mytradeoffer=null;
 		if (myplayers.size() != 4)
 		{
 			return;

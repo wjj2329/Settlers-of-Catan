@@ -171,8 +171,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			case GamePlayingState:
 				getTradeView().enableMaritimeTrade(true);
-				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().equals(
-						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
+				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(
+						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName()))
 				{
 					displayForCurrentTurn();
 				}
