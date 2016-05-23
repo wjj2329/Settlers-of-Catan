@@ -80,7 +80,7 @@ public class DiscardController extends Controller implements IDiscardController,
 			return;
 		}
 		updateView();
-		//if()
+		//getDiscardView().showModal();
 
 	}
 
@@ -107,12 +107,6 @@ public class DiscardController extends Controller implements IDiscardController,
 		getDiscardView().setResourceMaxAmount(ResourceType.WOOD, currentWoods);
 		getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, currentWheats);
 
-		getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, discardBricks);
-		getDiscardView().setResourceDiscardAmount(ResourceType.ORE, discardOres);
-		getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, discardSheeps);
-		getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, discardWoods);
-		getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, discardWheats);
-
 		getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK
 				, (currentBricks > 0 && discardBricks < currentBricks)
 				, (discardBricks > 0));
@@ -128,6 +122,13 @@ public class DiscardController extends Controller implements IDiscardController,
 		getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT
 				, (currentWheats > 0 && discardWheats < currentWheats)
 				, (discardWheats > 0));
+		getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, discardBricks);
+		getDiscardView().setResourceDiscardAmount(ResourceType.ORE, discardOres);
+		getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, discardSheeps);
+		getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, discardWoods);
+		getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, discardWheats);
+
+
 
 
 	}

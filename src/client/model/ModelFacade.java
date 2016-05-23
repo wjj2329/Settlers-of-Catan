@@ -906,9 +906,9 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "three":
 				return PortType.THREE;
 			default:
-				assert false;
+				return PortType.THREE;
 		}
-		return null;
+		//return null;
 	}
 
 	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
