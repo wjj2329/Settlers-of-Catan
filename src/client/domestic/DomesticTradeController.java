@@ -92,16 +92,19 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		{
 			if(list.size()<5) {
 				Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerid);
-				PlayerInfo myinfo = new PlayerInfo();
-				myinfo.setId(player.getPlayerID().getNumber());
-				myinfo.setName(player.getName());
-				myinfo.setColor(player.getColor());
-				myinfo.setPlayerIndex(player.getPlayerIndex().getNumber());
-				list.add(myinfo);
+				if(player.getPlayerID().getNumber() != ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber()){
+					PlayerInfo myinfo = new PlayerInfo();
+					myinfo.setId(player.getPlayerID().getNumber());
+					myinfo.setName(player.getName());
+					myinfo.setColor(player.getColor());
+					myinfo.setPlayerIndex(player.getPlayerIndex().getNumber());
+					list.add(myinfo);
+				}
 			}
 		}
 		PlayerInfo[] playerInfo = new PlayerInfo[list.size()];
 		getTradeOverlay().setPlayers(list.toArray(playerInfo));
+		getTradeOverlay().reset();
 		initTrade();
 		getTradeOverlay().showModal();
 	}
