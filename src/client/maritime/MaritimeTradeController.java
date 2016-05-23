@@ -175,8 +175,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			//default:
 				System.out.println("It is gameplaying! Should match...");
 				getTradeView().enableMaritimeTrade(true);
-				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().equals(
-						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
+				if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(
+						ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName()))
 				{
 					// keep at default for now
 					displayForCurrentTurn();

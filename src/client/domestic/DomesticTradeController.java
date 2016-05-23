@@ -38,7 +38,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 									IWaitView waitOverlay, IAcceptTradeOverlay acceptOverlay) {
 
 		super(tradeView);
-		
+
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);

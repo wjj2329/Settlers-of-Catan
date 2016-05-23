@@ -25,7 +25,7 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	private IWaitView waitView;
 	private ResourceList discardList=new ResourceList();
-	private int maxDiscardNum=0;
+	private int maxDiscardNum;
 
 
 	/**
@@ -77,8 +77,9 @@ public class DiscardController extends Controller implements IDiscardController,
 			}
 		}
 		String response="";
-		response=ModelFacade.facadeCurrentGame.getServer().discardCards("discardRequest",getlocalPlayer.getPlayerIndex().getNumber(),discardList).getResponse();
+		response=ModelFacade.facadeCurrentGame.getServer().discardCards("discardCards",getlocalPlayer.getPlayerIndex().getNumber(),discardList).getResponse();
 
+		System.out.println("MY RESPONSE IS THIS!"+response);
 		if(response!="") {
 			// If request succeeded
 			try {
@@ -187,8 +188,20 @@ public class DiscardController extends Controller implements IDiscardController,
 		}
 	}
 	private int calculateDiscardNum() {
-		int n = 0;
-		int totalCards = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getResources().size()/2;
+		int n;
+		Player getlocalPlayer=null;
+		for(Index index:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+		{
+			if(ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(index).getName()))
+			{
+				getlocalPlayer=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(index);
+			}
+		}
+		if(getlocalPlayer==null)
+		{
+			return -1;
+		}
+		int totalCards = getlocalPlayer.getResources().size()/2;
 
 		if (totalCards > 7) {
 			n = totalCards/2;
