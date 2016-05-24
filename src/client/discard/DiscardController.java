@@ -63,8 +63,12 @@ public class DiscardController extends Controller implements IDiscardController,
 	}
 
 	@Override
-	public void discard() {
-
+	public void discard()
+	{
+		ModelFacade.facadeCurrentGame.getServer().discardCards("discardCards",ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(),discardList);
+		getDiscardView().closeModal();
+		getDiscardView().closeModal();
+		ModelFacade.facadeCurrentGame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 	}
 
 	@Override
@@ -125,26 +129,26 @@ public class DiscardController extends Controller implements IDiscardController,
 		{
 			case BRICK:
 			{
-				return discardList.getBrick()>localPlayer.getResources().getBrick();
+				return discardList.getBrick()>0;
 			}
 			case WHEAT:
 			{
-				return discardList.getWheat()>localPlayer.getResources().getWheat();
+				return discardList.getWheat()>0;
 
 			}
 			case WOOD:
 			{
-				return discardList.getWood()>localPlayer.getResources().getWood();
+				return discardList.getWood()>0;
 
 			}
 			case ORE:
 			{
-				return discardList.getOre()>localPlayer.getResources().getOre();
+				return discardList.getOre()>0;
 
 			}
 			case SHEEP:
 			{
-				return discardList.getSheep()>localPlayer.getResources().getSheep();
+				return discardList.getSheep()>0;
 
 			}
 		}
@@ -192,10 +196,13 @@ public class DiscardController extends Controller implements IDiscardController,
 
 		if(discardList.size()==maxDiscardNum)
 		{
-			getDiscardView().closeModal();
-			ModelFacade.facadeCurrentGame.getServer().discardCards("discardCards",ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(),discardList);
-			return;
+			getDiscardView().setDiscardButtonEnabled(true);
 		}
+		else
+		{
+			getDiscardView().setDiscardButtonEnabled(false);
+		}
+
 		if(getDiscardView().isModalShowing())
 		{
 			getDiscardView().closeModal();

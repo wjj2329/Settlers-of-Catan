@@ -161,13 +161,8 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			insert=true;
 		}
-		String mytest=ModelFacade.facadeCurrentGame.getServer().buildRoad("buildRoad",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc).getResponse();
-		try {
-			JSONObject mine=new JSONObject(mytest);
-			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		ModelFacade.facadeCurrentGame.getServer().buildRoad("buildRoad",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),insert,edgeLoc);
+
 	}
 
 	public void placeSettlement(VertexLocation vertLoc) {
@@ -201,15 +196,9 @@ public class MapController extends Controller implements IMapController, Observe
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
 		//System.out.println("this is my PLayer Index  to try to test with "+test);
-		String mytest=ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc).getResponse();
-		//System.out.println(mytest);
-		try {
-			JSONObject mine=new JSONObject(mytest);
-			//System.out.println("I come in to place a settlement and should hopefully have server respond with some JSON");
-			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc);
+
+
 	}
 
 	public void placeCity(VertexLocation vertLoc) {
@@ -341,12 +330,8 @@ public class MapController extends Controller implements IMapController, Observe
 	public void robPlayer(RobPlayerInfo victim)
 	{
 		System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
-		String response=ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex()).getResponse();
-		try {
-			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
+
 
 	}
 
