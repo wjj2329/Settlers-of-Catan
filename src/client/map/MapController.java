@@ -231,13 +231,8 @@ public class MapController extends Controller implements IMapController, Observe
 		test=player.getPlayerIndex().getNumber();
 		getView().placeCity(vertLoc, currentPlayer.getColor());
 
-		String response= ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",test,vertLoc).getResponse();
-		try {
-			JSONObject mine=new JSONObject(response);
-			ModelFacade.facadeCurrentGame.updateFromJSON(mine);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		 ModelFacade.facadeCurrentGame.getServer().buildCity("buildCity",test,vertLoc);
+
 	}
 	HexLocation myhexloc;
 	public void placeRobber(HexLocation hexLoc) {
@@ -301,6 +296,10 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().placeRobber(hexLoc);
 		getRobView().setPlayers(victimsArray);
 		getRobView().showModal();
+		if(victims.size()==0)
+		{
+			ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+		}
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
