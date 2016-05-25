@@ -35,7 +35,8 @@ public class GameHistoryLine
 	 */
 	public GameHistoryLine(String line, String source)
 	{
-		
+		this.line=line;
+		this.source=source;
 	}
 	
 	/**

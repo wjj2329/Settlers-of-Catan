@@ -8,6 +8,8 @@ import client.model.ModelFacade;
 import shared.chat.GameHistory;
 import shared.chat.GameHistoryLine;
 import shared.definitions.*;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 
 /**
@@ -18,7 +20,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	public GameHistoryController(IGameHistoryView view) {
 		
 		super(view);
-		
+		ModelFacade.facadeCurrentGame.addObserver(this);
 		initFromModel();
 	}
 	
@@ -57,8 +59,17 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 
 		for(int i=0; i<gameHistories.size(); i++)
 		{
-			//entries.add(new LogEntry(g);
+			CatanColor playercolor=CatanColor.PUCE;
+			for(Index loc:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet())
+			{
+				if(gameHistories.get(i).getSource().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getName()))
+				{
+					playercolor=ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
+				}
+			}
+			entries.add(new LogEntry(playercolor,gameHistories.get(i).getLine()));
 		}
+		getView().setEntries(entries);
 	}
 }
 

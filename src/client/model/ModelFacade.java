@@ -345,6 +345,7 @@ public class ModelFacade extends Observable
 			JSONObject obj = chatLines.getJSONObject(i);
 			currentgame.getMychat().getChatMessages().getMessages().add(new
 					ChatLine(obj.getString("message"), obj.getString("source")));
+
 		}
 	}
 
@@ -356,6 +357,7 @@ public class ModelFacade extends Observable
 			JSONObject obj = logLines.getJSONObject(i);
 			currentgame.getMyGameHistory().getLines().add(new
 					GameHistoryLine(obj.getString("message"), obj.getString("source")));
+			System.out.println(" I add some more source"+obj.getString("source"));
 		}
 	}
 
