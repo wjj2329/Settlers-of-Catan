@@ -46,7 +46,6 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void sendMessage(String message)
 	{
-		System.out.println("I SEND THE MESSAGE TO THE SERVER");
 		playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 		LogEntry logEntry = new LogEntry(playerSendingChat.getColor(), message);
 		allLogEntries.add(logEntry);
@@ -62,7 +61,6 @@ public class ChatController extends Controller implements IChatController, Obser
 	{
 		List<LogEntry>entries=new ArrayList<>();
 		CatanColor playercolor=CatanColor.PUCE;
-		System.out.println("THE SIZE OF MY CHAT MESSAGES"+ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size());
 		for(int i=0; i< ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
 		{
 			for(Index loc:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
