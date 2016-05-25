@@ -4,13 +4,16 @@ import java.util.*;
 import java.util.List;
 
 import client.base.*;
+import client.model.ModelFacade;
+import shared.chat.GameHistory;
+import shared.chat.GameHistoryLine;
 import shared.definitions.*;
 
 
 /**
  * Game history controller implementation
  */
-public class GameHistoryController extends Controller implements IGameHistoryController {
+public class GameHistoryController extends Controller implements IGameHistoryController,Observer {
 
 	public GameHistoryController(IGameHistoryView view) {
 		
@@ -44,6 +47,18 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	
 		//</temp>
 	}
-	
+
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		ArrayList<GameHistoryLine> gameHistories=ModelFacade.facadeCurrentGame.currentgame.getMyGameHistory().getLines();
+		List<LogEntry> entries = new ArrayList<LogEntry>();
+
+		for(int i=0; i<gameHistories.size(); i++)
+		{
+			//entries.add(new LogEntry(g);
+		}
+	}
 }
 

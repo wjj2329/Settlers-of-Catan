@@ -77,6 +77,10 @@ public class DiscardController extends Controller implements IDiscardController,
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.DISCARDING))
 		{
 			System.out.println("IT isn't discarding time");
+			if(getDiscardView().isModalShowing())
+			{
+				getDiscardView().closeModal();
+			}
 			return;
 		}
 		if(ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().size()<8)

@@ -299,6 +299,7 @@ public class MapController extends Controller implements IMapController, Observe
 		if(victims.size()==0)
 		{
 			ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			return;
 		}
 	}
 
