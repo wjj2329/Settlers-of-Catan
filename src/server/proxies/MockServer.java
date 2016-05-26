@@ -352,11 +352,11 @@ public class MockServer implements IServer {
 	 *
 	 * @pre it is your turn, the client model's status is 'Playing'
 	 * 						road location is open, is connected to another road owned by the player, is not on
-	 * 						the water, you have the required resources(1 wood, 1 brick; 1 road) 
-	 * @post You have the required resources to build a road(1 wood, 1 brick; 1 road) 
+	 * 						the water, you have the required resources(1 wood, 1 brick; 1 road)
+	 * @post You have the required resources to build a road(1 wood, 1 brick; 1 road)
 	 * 						The road is on the map at the specified location
 	 * 						if applicable, "longest road" has been awarded to the player with the longest road
-	 * 
+	 *
 	 */
 	@Override
 	public ServerResponse buildRoad(String type, int playerIndex, boolean free, EdgeLocation roadLocation) {
