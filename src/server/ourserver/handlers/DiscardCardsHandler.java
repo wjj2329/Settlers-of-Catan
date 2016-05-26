@@ -11,8 +11,18 @@ package server.ourserver.handlers;
  * 						If you're the last one to discard, the client model status changes to 'Robbing'
  *
  */
-public class DiscardCardsHandler
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class DiscardCardsHandler implements HttpHandler
 {
 
-	
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
+	{
+		// TODO Auto-generated method stub
+		
+	}	
 }

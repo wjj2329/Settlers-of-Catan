@@ -1,21 +1,16 @@
 package server.ourserver.handlers;
-/**
 
-*  type name of move being executed
-		*playerIndex the player you are robbing or -1 if you are not robbing anyone
-		*  location new location of robber
-		*  victimIndex the player you are robbing or -1 if you are not robbing anyone
-		*
-		* @pre it is your turn, the client model's status is 'Playing'
-		* 					  robber is not being kept in the same location, if a player
-		* @postthe robber is in the new location, the player being robbed(if any) gave one
-		* 					 one of his resource cards (if randomly selected)
-		*
-		*
-*/
+import java.io.IOException;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
-public class RobPlayerHandler
+public class RobPlayerHandler implements HttpHandler
 {
-
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
+	{
+		// TODO Auto-generated method stub
+		
+	}	
 }

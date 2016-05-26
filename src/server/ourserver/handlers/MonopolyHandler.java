@@ -1,11 +1,16 @@
 package server.ourserver.handlers;
 
-public class MonopolyHandler
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class MonopolyHandler implements HttpHandler
 {
-	
-	public MonopolyHandler()
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
 	{
-		// TODO Auto-generated constructor stub
-	}
-	
+		// TODO Auto-generated method stub
+		
+	}	
 }

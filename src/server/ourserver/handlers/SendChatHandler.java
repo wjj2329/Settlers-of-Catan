@@ -1,11 +1,16 @@
 package server.ourserver.handlers;
 
-public class SendChatHandler
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class SendChatHandler implements HttpHandler
 {
-	
-	public SendChatHandler()
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
 	{
-		// TODO Auto-generated constructor stub
-	}
-	
+		// TODO Auto-generated method stub
+		
+	}	
 }

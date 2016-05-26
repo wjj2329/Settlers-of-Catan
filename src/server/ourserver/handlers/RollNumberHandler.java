@@ -1,11 +1,16 @@
 package server.ourserver.handlers;
 
-public class RollNumberHandler
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class RollNumberHandler implements HttpHandler
 {
-	
-	public RollNumberHandler()
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
 	{
-		// TODO Auto-generated constructor stub
-	}
-	
+		// TODO Auto-generated method stub
+		
+	}	
 }
