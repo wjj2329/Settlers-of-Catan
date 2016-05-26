@@ -1,5 +1,10 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
  * Created by williamjones on 5/26/16.
  Returns the current state of the game in JSON format, and also includes a
@@ -19,5 +24,9 @@ package server.ourserver.handlers;
  *                		If the operation fails,
  *                		1.The server returns an HTTP 400 error response, and the body contains an error message
  */
-public class GameModel {
+public class GameModel implements HttpHandler {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }

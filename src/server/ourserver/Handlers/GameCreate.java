@@ -1,5 +1,10 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
  * Created by williamjones on 5/26/16.
  * Creates a new game on the server.
@@ -14,6 +19,10 @@ package server.ourserver.handlers;
  *                response, and the body contains an error message
  */
 
-public class GameCreate
+public class GameCreate implements HttpHandler
 {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }

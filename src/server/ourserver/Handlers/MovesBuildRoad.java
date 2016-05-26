@@ -1,5 +1,10 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
  * Created by williamjones on 5/26/16.
  * * @param type name of move being executed
@@ -15,5 +20,9 @@ package server.ourserver.handlers;
  * 						if applicable, "longest road" has been awarded to the player with the longest road
  *
  */
-public class MovesBuildRoad {
+public class MovesBuildRoad implements HttpHandler {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }

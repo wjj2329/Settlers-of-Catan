@@ -1,5 +1,10 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
  * Created by williamjones on 5/26/16.
  * /**
@@ -11,5 +16,9 @@ package server.ourserver.handlers;
  * @post The client model's status is now in 'Discarding' or 'Robbing' or 'Playing'
  *
  */
-public class MovesRollNumber {
+public class MovesRollNumber implements HttpHandler {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }

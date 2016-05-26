@@ -1,5 +1,10 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
 /**
  * Created by williamjones on 5/26/16.
  *  Adds the player to the specified game and sets their catan.game cookie.
@@ -24,5 +29,9 @@ package server.ourserver.handlers;
  *                server returns an HTTP 400 error response, and the body
  *                contains an error message
  */
-public class GamesJoin {
+public class GamesJoin implements HttpHandler {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 }
