@@ -329,8 +329,8 @@ public interface IServer {
 	 * 
 	 * 
 	 */
-	//@Override
-	public ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex);
+
+	ServerResponse robPlayer(String type, int playerIndex, HexLocation location, int victimIndex);
 
 	/**
 	 * @param type name of move being executed
