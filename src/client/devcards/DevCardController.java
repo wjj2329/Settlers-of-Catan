@@ -63,7 +63,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	public void buyCard() 
 	{		
 		Index index = ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex();
-    	server.buyDevCard("Soldier", index.getNumber());
+    	server.buyDevCard("buyDevCard", index.getNumber());
 	}
 
 	@Override
