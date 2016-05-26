@@ -456,7 +456,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject obj = ports.getJSONObject(i);
 			//System.out.println(obj);
 			int ratio=obj.getInt("ratio");
-			String resource="3:1"; // if not 3:1 port, then it's "wood" or "sheep" or something.
+			String resource="three"; // if not 3:1 port, then it's "wood" or "sheep" or something.
 			if(ratio != 3)
 			{
 				resource = obj.getString("resource");
