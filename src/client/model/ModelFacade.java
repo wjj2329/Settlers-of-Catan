@@ -454,7 +454,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject obj = ports.getJSONObject(i);
 			//System.out.println(obj);
 			int ratio=obj.getInt("ratio");
-			String resource="3:1";
+			String resource="3:1"; // if not 3:1 port, then it's "wood" or "sheep" or something.
 			if(ratio != 3)
 			{
 				resource = obj.getString("resource");
@@ -871,6 +871,13 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		return adjacent;
 	}
 
+	/**
+	 * Converts a String to an EdgeDirection. Useful for loading JSON data into the model.
+	 * @pre: the string is only one of those listed in the switch case.
+	 * @post: the returned EdgeDirection is one of the six directions
+	 * 		listed in EdgeDirection.java.
+	 * @param direction: string to be converted to EdgeDirection.
+     */
 	private EdgeDirection getDirectionFromString(String direction)
 	{
 		//System.out.println("the direction is: " + direction);
@@ -896,6 +903,20 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		return null;
 	}
 
+	/**
+	 * This function gets a String object from the JSON and converts it
+	 * into an object of type PortType.
+	 *
+	 * One thing I am uncertain of: The default case. How are
+	 * 4:1 ports specified here? My guess is that they are not listed
+	 * as ports at all, from the JSON or in the model. The reasoning
+	 * behind this is that you don't need to even have a port to do
+	 * a 4:1 maritime trade; it's only the reduced ratios of 3:1 and 2:1
+	 * that require this.
+	 * @param type: the string to be converted into a PortType. Should
+	 *            only be one of the port types specified in the PortType.java
+	 *            enumerated type class.
+     */
 	private PortType getPortTypeFromString(String type)
 	{
 		switch (type)
