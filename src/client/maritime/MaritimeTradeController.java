@@ -160,8 +160,12 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * Port Types: WOOD, BRICK, SHEEP, WHEAT, ORE, THREE
 	 * @param port: the port that is being used to influence
 	 *               the trading ratio
+	 *
+	 *            Need to add the following algorithm: For all the ports,
+	 *            if their type is one of the resourceTypes (i.e. not 3), then return
+	 *            the ratio of said port (since we get that from the JSON).
      */
-	private void setResourceAmount(Port port) // Sam doesn't get here with his 3:1 port
+	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
 		System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + tradeRatio); // no
 		switch (port.getType())
@@ -237,7 +241,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				for (int q = 0; q < allPortsOnGameBoard.size(); q++)
 				{
 					Port currentPort = allPortsOnGameBoard.get(q);
-					if (isSettlementOnPort(currentSettlement, currentPort))
+					if (currentPort.getType().equals(PortType.THREE) ||
+							isSettlementOnPort(currentSettlement, currentPort))
 					{
 						setResourceAmount(currentPort);
 					}
