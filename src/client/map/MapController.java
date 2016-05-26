@@ -389,7 +389,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 					try {
 						JSONObject response=new JSONObject(serverresponse);
-						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+						//ModelFacade.facadeCurrentGame.updateFromJSON(response);
 					} catch (JSONException e)
 					{
 						e.printStackTrace();
@@ -437,7 +437,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 					try {
 						JSONObject response=new JSONObject(serverresponse);
-						ModelFacade.facadeCurrentGame.updateFromJSON(response);
+						//ModelFacade.facadeCurrentGame.updateFromJSON(response);
 					} catch (JSONException e) {
 						e.printStackTrace();
 					}

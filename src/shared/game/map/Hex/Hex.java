@@ -693,9 +693,13 @@ public class Hex
 					System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 					return false;
 				}
+				if(hextoupdate.southeast.isHassettlement()||hextoupdate.southeast.isHascity())
+				{
+					return false;
+				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
-						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
+						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
 						{
 							if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER)
 							{
@@ -718,7 +722,7 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.West))
 		{
-			if(west.isHascity()||northwest.isHascity()||southeast.isHascity())
+			if(west.isHascity()||northwest.isHascity()||southwest.isHascity())
 			{
 				System.out.println("I return false because of distance on same hex rule for city");
 
@@ -740,9 +744,13 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.southwest.isHassettlement()||hextoupdate.southwest.isHascity())
+			{
+				return false;
+			}
 			if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
 			{
-				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
+				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.west.isHassettlement() && !this.west.isHascity()) {
 							//if (!hextoupdate.getSouthwest().isHascity() && !hextoupdate.getSouthwest().isHassettlement()) {
@@ -784,8 +792,12 @@ public class Hex
 				//e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.east.isHassettlement()||hextoupdate.east.isHascity())
+			{
+				return false;
+			}
 			if(this.n.hasRoad()||this.ne.hasRoad()||hextoupdate.se.hasRoad()) {
-				if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
+				if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
 							//if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) //{
@@ -831,8 +843,12 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.northeast.isHassettlement()||hextoupdate.northeast.isHascity())
+			{
+				return false;
+			}
 			if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
-				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
+				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
 						if (!this.northwest.isHassettlement() && !this.northwest.isHascity()) {
 							//if (!hextoupdate.getNortheast().isHascity() && !hextoupdate.getNortheast().isHassettlement()) {
@@ -874,9 +890,13 @@ public class Hex
 
 				return false;
 			}
+			if(hextoupdate.southwest.isHassettlement()||hextoupdate.southwest.isHascity())
+			{
+				return false;
+			}
 			if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
 			{
-				if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
+				if(s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southeast.isHassettlement() && !this.southeast.isHascity()) {
@@ -897,7 +917,7 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.SouthWest))
 		{
-			if(southwest.isHascity()||southeast.isHascity()||east.isHascity())
+			if(southwest.isHascity()||southeast.isHascity()||west.isHascity())
 			{
 				System.out.println("I return false because of distance on same hex rule for city");
 
@@ -921,9 +941,13 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.west.isHassettlement()||hextoupdate.west.isHascity())
+			{
+				return false;
+			}
 			if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
 
-				if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
+				if(sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
 						if (!this.southwest.isHassettlement() && !this.southwest.isHascity()) {
 							//if (!hextoupdate.getWest().isHascity() && !hextoupdate.getWest().isHassettlement()) {

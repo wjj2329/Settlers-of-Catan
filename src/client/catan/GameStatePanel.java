@@ -101,7 +101,7 @@ public class GameStatePanel extends JPanel implements Observer
 						try
 						{
 							JSONObject response=new JSONObject(serverresponse);
-							ModelFacade.facadeCurrentGame.updateFromJSON(response);
+							//ModelFacade.facadeCurrentGame.updateFromJSON(response);
 						}
 						catch (JSONException e)
 						{

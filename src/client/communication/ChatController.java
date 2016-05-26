@@ -5,6 +5,7 @@ import client.model.ModelFacade;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
 import shared.definitions.CatanColor;
+import shared.game.CatanGame;
 import shared.game.map.Index;
 import shared.game.player.Player;
 
@@ -33,6 +34,8 @@ public class ChatController extends Controller implements IChatController, Obser
 	public ChatController(IChatView view)
 	{
 		super(view);
+		ModelFacade.facadeCurrentGame.addObserver(this);
+
 	}
 
 	@Override
@@ -43,49 +46,32 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void sendMessage(String message)
 	{
+		playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
 		LogEntry logEntry = new LogEntry(playerSendingChat.getColor(), message);
 		allLogEntries.add(logEntry);
 		getView().setEntries(allLogEntries);
-		/*ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
-				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);*/
+		ModelFacade.facadeCurrentGame.getServer().sendChat("sendChat",
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
 	}
 
-	public Player getPlayerSendingChat()
-	{
-		return playerSendingChat;
-	}
 
-	public void setPlayerSendingChat(Player playerSendingChat)
-	{
-		this.playerSendingChat = playerSendingChat;
-	}
 
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		// We NEED to update the server communication so that everyone can see it!
-		// This doesn't quite do it. I don't know why it doesn't work...
-		/*sendChatAction = new IAction()
+		List<LogEntry>entries=new ArrayList<>();
+		CatanColor playercolor=CatanColor.PUCE;
+		for(int i=0; i< ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
 		{
-			@Override
-			public void execute()
-			{
-				for (int i = 0; i < allLogEntries.size(); i++)
-				{
-					String message = allLogEntries.get(i).getMessage();
-					 ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
-							ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
+			for(Index loc:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
+				if (ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().get(i).getSource().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getName())) {
+					playercolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
 				}
-
 			}
-		};*/
+			entries.add(new LogEntry(playercolor,ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
+		}
+		getView().setEntries(entries);
 
-		/*for (int i = 0; i < allLogEntries.size(); i++)
-		{
-			String message = allLogEntries.get(i).getMessage();
-			ModelFacade.facadeCurrentGame.getServer().sendChat("Chat",
-					ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
-		}*/
 	}
 }
 

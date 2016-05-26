@@ -67,7 +67,11 @@ public class DiscardController extends Controller implements IDiscardController,
 	{
 		ModelFacade.facadeCurrentGame.getServer().discardCards("discardCards",ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(),discardList);
 		getDiscardView().closeModal();
-		getDiscardView().closeModal();
+		if(getDiscardView().isModalShowing()) {
+			getDiscardView().closeModal();
+		}
+
+		discardList = new ResourceList();
 		ModelFacade.facadeCurrentGame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 	}
 
@@ -76,7 +80,7 @@ public class DiscardController extends Controller implements IDiscardController,
 	{
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.DISCARDING))
 		{
-			System.out.println("IT isn't discarding time");
+
 			return;
 		}
 		if(ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().size()<8)
