@@ -1,11 +1,16 @@
 package server.ourserver.handlers;
 
-public class AddAIHandler
+import java.io.IOException;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+public class AddAIHandler implements HttpHandler
 {
-	
-	public AddAIHandler()
+	@Override
+	public void handle(HttpExchange exchange) throws IOException
 	{
-		// TODO Auto-generated constructor stub
-	}
-	
+		// TODO Auto-generated method stub
+		
+	}	
 }
