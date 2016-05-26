@@ -161,7 +161,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * @param port: the port that is being used to influence
 	 *               the trading ratio
      */
-	private void setResourceAmount(Port port)
+	private void setResourceAmount(Port port) // Sam doesn't get here with his 3:1 port
 	{
 		System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + tradeRatio); // no
 		switch (port.getType())
@@ -204,14 +204,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private boolean isSettlementOnPort(Settlement settlement, Port port)
 	{
-		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().toString()
+		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
+				(port.getDirection().getOppositeDirection()).toString()
 			+ " with the hex location " + port.getLocation().toString());
-		// The locations are never equal...
-		if (settlement.getHexLocation().equals(port.getLocation()))
+		// The locations are never equal...Now they are! It's the second one that will have issues now...
+		if (settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).equals(port.getLocation()))
 		{
-			System.out.println("Hex locations are the same");
+			System.out.println("Hex locations are the same for port and settlement's adjacent hex");
 			// Then we need to check the edge direction / vertex location
-			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection()))
+			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection().getOppositeDirection()))
 			{
 				System.out.println("CORRECT! The vertex is on the port location ");
 				return true;
@@ -251,7 +252,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * 		is (3:1, or 2:1 with the various resource types).
 	 *
 	 * 	This function will only get called if the settlement and port exist
-	 * 		on the same hex location.
+	 * 		on adjacent hex locations.
 	 *
 	 * @param vertex: the vertex on which the settlement lies
 	 * @param edge: the edge on which the port is
