@@ -693,6 +693,10 @@ public class Hex
 					System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 					return false;
 				}
+				if(hextoupdate.southeast.isHassettlement()||hextoupdate.southeast.isHascity())
+				{
+					return false;
+				}
 				if(this.ne.hasRoad()||this.se.hasRoad()||hextoupdate.s.hasRoad())
 				{
 						if(ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||se.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID()))
@@ -740,6 +744,10 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.southwest.isHassettlement()||hextoupdate.southwest.isHascity())
+			{
+				return false;
+			}
 			if(this.nw.hasRoad()||this.sw.hasRoad()||hextoupdate.s.hasRoad())
 			{
 				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||sw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.s.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
@@ -782,6 +790,10 @@ public class Hex
 
 				Exception e = new Exception();
 				//e.printStackTrace();
+				return false;
+			}
+			if(hextoupdate.east.isHassettlement()||hextoupdate.east.isHascity())
+			{
 				return false;
 			}
 			if(this.n.hasRoad()||this.ne.hasRoad()||hextoupdate.se.hasRoad()) {
@@ -831,6 +843,10 @@ public class Hex
 				e.printStackTrace();
 				return false;
 			}
+			if(hextoupdate.northeast.isHassettlement()||hextoupdate.northeast.isHascity())
+			{
+				return false;
+			}
 			if(this.nw.hasRoad()||this.n.hasRoad()||hextoupdate.ne.hasRoad()) {
 				if(nw.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||n.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())||hextoupdate.ne.getRoadPiece().getPlayerWhoOwnsRoad().equals(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID())) {
 					if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
@@ -872,6 +888,10 @@ public class Hex
 			{
 				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
+				return false;
+			}
+			if(hextoupdate.southwest.isHassettlement()||hextoupdate.southwest.isHascity())
+			{
 				return false;
 			}
 			if(this.se.hasRoad()||this.s.hasRoad()||hextoupdate.sw.hasRoad())
@@ -919,6 +939,10 @@ public class Hex
 
 				Exception e = new Exception();
 				e.printStackTrace();
+				return false;
+			}
+			if(hextoupdate.west.isHassettlement()||hextoupdate.west.isHascity())
+			{
 				return false;
 			}
 			if(this.sw.hasRoad()||this.s.hasRoad()||hextoupdate.nw.hasRoad()) {
