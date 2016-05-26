@@ -204,6 +204,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private boolean isSettlementOnPort(Settlement settlement, Port port)
 	{
+		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().toString()
+			+ " with the hex location " + port.getLocation().toString());
+		// The locations are never equal...
 		if (settlement.getHexLocation().equals(port.getLocation()))
 		{
 			System.out.println("Hex locations are the same");
