@@ -430,12 +430,15 @@ public class Player
 			}
 			else
 			{
+				edge.setHasRoad(true);
+				edge2.setHasRoad(true);
 				RoadPiece piece = hex.buildRoad(edge, playerID);
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
 				//piece2.setLocation(edge2.getNormalizedLocation()); // just changed this
 				roadPieces.add(piece);
 				//roadPieces.add(piece2); // maybe
+
 				return true;
 			}
 		}
@@ -805,6 +808,8 @@ public class Player
 			else
 			{
 				RoadPiece piece = hex.buildRoad(edge, playerID);
+				edge.setHasRoad(true);
+				edge2.setHasRoad(true);
 				//piece.setLocation(edge.getNormalizedLocation());
 				RoadPiece piece2 = adjacent.buildRoad(edge2, playerID);
 				//piece2.setLocation(edge2.getNormalizedLocation()); // changed this

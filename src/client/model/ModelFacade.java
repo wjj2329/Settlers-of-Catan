@@ -491,6 +491,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
+			edgeLocation.setHasRoad(true);
 
 			//System.out.println("I am building on the edge location " + edgeLocation.getDir()
 					//+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
