@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import static shared.definitions.ResourceType.*;
+
 
 /**
  * Implementation for the maritime trade controller
@@ -38,7 +40,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private IMaritimeTradeOverlay tradeOverlay;
 	private ResourceType giveResource;
 	private ResourceType getResource;
-	private int tradeRatio = -1;
+	private int defaultTradeRatio = 4; // this is either 4 or 3
+	private int brickTradeRatio = 4; // can be as low as 2
+	private int oreTradeRatio = 4;
+	private int wheatTradeRatio = 4;
+	private int sheepTradeRatio = 4;
+	private int woodTradeRatio = 4;
+	private ArrayList<ResourceType> twoToOnePortResources = new ArrayList<>();
+	//private ArrayList<Port> portsOwnedByPlayer = new ArrayList<>();
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay)
 	{
@@ -46,7 +55,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		setTradeOverlay(tradeOverlay);
 		tradeOverlay.setCancelEnabled(true); // this might be redundant
 		ModelFacade.facadeCurrentGame.addObserver(this);
-		tradeRatio = 4; // this is necessary; it was staying at -1 otherwise -_-
+		//defaultTradeRatio = 4; // this is necessary; it was staying at -1 otherwise -_-
 		//placePorts(); // let's see if this method call fixes it
 	}
 	
@@ -70,7 +79,12 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		System.out.println("i start the trade");
 		// Should the reset be called? I don't know
 		//getTradeOverlay().reset();
-		tradeRatio = 4;
+		defaultTradeRatio = 4; // idk...should these all be reset here? ._.
+		oreTradeRatio = 4;
+		brickTradeRatio = 4;
+		wheatTradeRatio = 4;
+		woodTradeRatio = 4;
+		sheepTradeRatio = 4;
 		placePorts();
 		// Do I need to call setGUI? It may be necessary
 		getTradeOverlay().showModal();
@@ -84,9 +98,19 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			return;
 		}
 		System.out.println("i make the trade");
+		int tradeRatioToUse;
+		if (twoToOnePortResources.contains(giveResource)) // changing getResource to giveResource
+		{
+			tradeRatioToUse = computeTradeRatioToUse(giveResource);
+		}
+		else
+		{
+			tradeRatioToUse = defaultTradeRatio;
+		}
 		// changing 4 to tradeRatio so it can be more dynamic
+		// defaultTradeRatio used to be the integer param; now it's our function which may or may not work...
 		ModelFacade.facadeCurrentGame.getServer().maritimeTrade("maritimeTrade",
-				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), tradeRatio,
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), tradeRatioToUse,
 				resourceTypeToString(giveResource), resourceTypeToString(getResource));
 		getTradeOverlay().closeModal();
 		setGUI();
@@ -115,12 +139,21 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	{
 		giveResource = resource;
 		System.out.println("This is the type "+resource.toString());
-		getTradeOverlay().selectGiveOption(giveResource, tradeRatio); // what does this do eh? o.o
+		int tradeRatioToUse;
+		if (twoToOnePortResources.contains(giveResource)) // This may not quite work - should it be giveResource instead?
+		{
+			tradeRatioToUse = computeTradeRatioToUse(giveResource);
+		}
+		else
+		{
+			tradeRatioToUse = defaultTradeRatio;
+		}
+		getTradeOverlay().selectGiveOption(giveResource, tradeRatioToUse); // what does this do eh? o.o
 		// this may need to be replaced with showGetOptions for JUST that resource.
 		ResourceType[] allResources = new ResourceType[5];
 		allResources[0] = ResourceType.BRICK;
 		allResources[1] = ResourceType.SHEEP;
-		allResources[2] = ResourceType.WOOD;
+		allResources[2] = WOOD;
 		allResources[3] = ResourceType.ORE;
 		allResources[4] = ResourceType.WHEAT;
 		getTradeOverlay().showGetOptions(allResources);
@@ -138,7 +171,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		ResourceType[] allResources = new ResourceType[5];
 		allResources[0] = ResourceType.BRICK;
 		allResources[1] = ResourceType.SHEEP;
-		allResources[2] = ResourceType.WOOD;
+		allResources[2] = WOOD;
 		allResources[3] = ResourceType.ORE;
 		allResources[4] = ResourceType.WHEAT;
 		getTradeOverlay().showGetOptions(allResources);
@@ -155,6 +188,26 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		setGUI();
 	}
 
+	private int computeTradeRatioToUse(ResourceType giveResource)
+	{
+		// need to account for the fact that it might be 3. -_- I don't think the default is ever executed.
+		switch (giveResource)
+		{
+			case WOOD:
+				return woodTradeRatio;
+			case WHEAT:
+				return wheatTradeRatio;
+			case SHEEP:
+				return sheepTradeRatio;
+			case ORE:
+				return oreTradeRatio;
+			case BRICK:
+				return brickTradeRatio;
+			default:
+				return defaultTradeRatio;
+		}
+	}
+
 	/**
 	 * Special function used for 3:1 and 2:1 ports.
 	 * Port Types: WOOD, BRICK, SHEEP, WHEAT, ORE, THREE
@@ -167,31 +220,42 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
-		System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + tradeRatio); // no
+		System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + defaultTradeRatio); // no
 		switch (port.getType())
 		{
 			case THREE:
-				tradeRatio = 3;
+				System.out.println("SHE HAS A THREE");
+				defaultTradeRatio = 3;
 				break;
 			case WOOD:
-				tradeRatio = 2;
+				System.out.println("SHE HAS A WOOD 2:1 ");
+				twoToOnePortResources.add(WOOD);
+				woodTradeRatio = 2;
 				// Also set the resourceType to be wood
-				getResource = ResourceType.WOOD;
+				getResource = WOOD;
 				break;
-			case BRICK:
-				tradeRatio = 2;
+			case BRICK: // this never got executed for Brooke. needs to be. -_-
+				System.out.println("SHE'S A BRICK HOUSE 2:1");
+				twoToOnePortResources.add(BRICK);
+				brickTradeRatio = 2;
 				getResource = ResourceType.BRICK;
 				break;
 			case SHEEP:
-				tradeRatio = 2;
+				System.out.println("SHE HAS A SHEEP 2:1");
+				twoToOnePortResources.add(SHEEP);
+				sheepTradeRatio = 2;
 				getResource = ResourceType.SHEEP;
 				break;
 			case WHEAT:
-				tradeRatio = 2;
+				System.out.println("SHE HAS A WHEAT 2:1");
+				twoToOnePortResources.add(WHEAT);
+				wheatTradeRatio = 2;
 				getResource = ResourceType.WHEAT;
 				break;
 			case ORE:
-				tradeRatio = 2;
+				System.out.println("SHE HAS AN ORE 2:1");
+				twoToOnePortResources.add(ORE);
+				oreTradeRatio = 2;
 				getResource = ResourceType.ORE;
 				break;
 			default:
@@ -241,10 +305,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				for (int q = 0; q < allPortsOnGameBoard.size(); q++)
 				{
 					Port currentPort = allPortsOnGameBoard.get(q);
-					if (currentPort.getType().equals(PortType.THREE) ||
+					if (/*currentPort.getType().equals(PortType.THREE) ||*/ // no...
 							isSettlementOnPort(currentSettlement, currentPort))
 					{
 						setResourceAmount(currentPort);
+						//portsOwnedByPlayer.add(currentPort);
 					}
 				}
 			}
@@ -346,25 +411,62 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 */
 	private void displayForCurrentTurn()
 	{
-		System.out.println("Displaying for current turn with trade ratio of " + tradeRatio);
+		System.out.println("Displaying for current turn with trade ratio of " + defaultTradeRatio);
 		ArrayList<ResourceType> resourceTypes = new ArrayList<>();
-		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWood() >= tradeRatio)
+		int woodRat = defaultTradeRatio;
+		int oreRat = defaultTradeRatio;
+		int brickRat = defaultTradeRatio;
+		int sheepRat = defaultTradeRatio;
+		int wheatRat = defaultTradeRatio;
+		System.out.println("Here is the twoToOnePortResources: " + twoToOnePortResources.toString());
+		if (twoToOnePortResources.contains(WOOD))
 		{
-			resourceTypes.add(ResourceType.WOOD);
+			System.out.println("We have a wood!");
+			woodRat = woodTradeRatio;
 		}
-		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getOre() >= tradeRatio)
+		if (twoToOnePortResources.contains(BRICK))
+		{
+			System.out.println("We have a brick!");
+			brickRat = brickTradeRatio;
+		}
+		if (twoToOnePortResources.contains(ORE))
+		{
+			System.out.println("We have an ore!");
+			oreRat = oreTradeRatio;
+		}
+		if (twoToOnePortResources.contains(WHEAT))
+		{
+			System.out.println("We have a wheat!");
+			wheatRat = wheatTradeRatio;
+		}
+		if (twoToOnePortResources.contains(SHEEP))
+		{
+			System.out.println("We have a SHEEP! WAHOO!");
+			sheepRat = sheepTradeRatio;
+		}
+		// If the player has a 3:1, these should all be 3...except for any 2:1s
+		System.out.println("Using the following ratio for wood: " + woodRat);
+		System.out.println("Using the following ratio for brick: " + brickRat);
+		System.out.println("Using the following ratio for ore: " + oreRat);
+		System.out.println("Using the following ratio for wheat: " + wheatRat);
+		System.out.println("Using the following ratio for sheep: " + sheepRat);
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWood() >= woodRat)
+		{
+			resourceTypes.add(WOOD);
+		}
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getOre() >= oreRat)
 		{
 			resourceTypes.add(ResourceType.ORE);
 		}
-		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getBrick() >= tradeRatio)
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getBrick() >= brickRat)
 		{
 			resourceTypes.add(ResourceType.BRICK);
 		}
-		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getSheep() >= tradeRatio)
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getSheep() >= sheepRat)
 		{
 			resourceTypes.add(ResourceType.SHEEP);
 		}
-		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWheat() >= tradeRatio)
+		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWheat() >= wheatRat)
 		{
 			resourceTypes.add(ResourceType.WHEAT);
 		}
