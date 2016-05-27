@@ -84,7 +84,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 		String password1 = getLoginView().getLoginPassword();
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
-
 			ModelFacade.facadeCurrentGame.loadGames();
 			server.loginUser(username1, password1);
 			// If log in succeeded

@@ -114,15 +114,19 @@ public class ServerFacade
 
 	/**
 	 * Logs in the user.
-	 * @param username: login name
-	 * @param password: login password
      * @return the player who has just logged in
 	 * Go through array of registered users, to see if it finds something with the same
 	 * 	username and password.
 	 */
-	public Player logIn(String username, String password)
+	public Player logIn(Player player)
 	{
-		
+		for (Player p : allRegisteredUsers)
+		{
+			if (p.equals(player))
+			{
+				return p;
+			}
+		}
 		return null;
 	}
 

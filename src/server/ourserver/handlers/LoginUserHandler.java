@@ -1,10 +1,15 @@
 package server.ourserver.handlers;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.nio.charset.StandardCharsets;
 
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.apache.sanselan.util.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
@@ -50,12 +55,24 @@ public class LoginUserHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		// TODO Auto-generated method stub
-		JSONObject data = new JSONObject(exchange.getRequestBody());
+		System.out.println("I begin handling loginUser");
+		System.out.println("Exchange: " + exchange.getRequestBody().toString());
+		JSONObject data = null;
+		try
+		{
+			String result = CharStreams.toString(new InputStreamReader(
+					exchange.getRequestBody(), Charsets.UTF_8));
+			data = new JSONObject(result);
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		//System.out.println("This is our JSON Object: " + data.toString());
 		LoginParam loginParam = null;
 		Player newPlayer = null;
-		String username = "";
-		String password = "";
+		String username;
+		String password;
 		try
 		{
 			username = data.getString("username");
@@ -63,14 +80,16 @@ public class LoginUserHandler implements HttpHandler
 			loginParam = new LoginParam(username, password);
 			newPlayer = new Player(username, CatanColor.PUCE, new Index(-1));
 			newPlayer.setPassword(password);
-			newPlayer = ServerFacade.getInstance().logIn(username, password);
+			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
 			if (newPlayer == null)
 			{
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
 				// serialize with FAILED message
+				System.out.println("User does not exist!");
 				data.append("FAILURE", exchange.getResponseBody());
 				return;
 			}
+			System.out.println("User exists!");
 			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/";

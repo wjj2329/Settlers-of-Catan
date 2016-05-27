@@ -79,7 +79,7 @@ public class Server
 		
 		server.setExecutor(null); // use the default executor
 		
-		server.createContext("/login", loginUserHandler);
+		server.createContext("/user/login", loginUserHandler);
 		server.createContext("/register", registerUserHandler);
 		server.createContext("/list", listGamesHandler);
 		server.createContext("/create", createGameHandler);
