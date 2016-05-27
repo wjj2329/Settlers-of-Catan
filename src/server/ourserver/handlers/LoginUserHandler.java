@@ -5,8 +5,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
-import com.google.common.base.Charsets;
-import com.google.common.io.CharStreams;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONException;

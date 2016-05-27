@@ -137,7 +137,9 @@ public class ServerFacade
      */
 	public void register(String username, String password)
 	{
-
+		Player p=new Player(username,CatanColor.PUCE,new Index(3));
+		p.setPassword(password);
+		allRegisteredUsers.add(p);
 	}
 
 	/**
