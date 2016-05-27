@@ -80,20 +80,13 @@ public class PointsController extends Controller implements IPointsController, O
 		}
 		Player local = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID());
 		int winner = ModelFacade.facadeCurrentGame.currentgame.getWinner().getNumber();
-		if(winner != -1)
+		if(winner != -1 && !getFinishedView().isModalShowing())
 		{
-			Player daWinner = null;
-			for(Player player : jugadores.values())
+			Player daWinner = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(new Index(winner));
+			//System.out.println("GANO: " + winner + " "+ daWinner.getName());
+			if(winner == local.getPlayerID().getNumber())
 			{
-				if(player.getPlayerIndex().getNumber() == winner){
-					//System.out.println("DOES THIS EVEN SET THE NUMBER? " + player.getPlayerIndex());
-					daWinner = player;
-				}
-			}
-				
-			if(winner == local.getPlayerIndex().getNumber())
-			{
-				getFinishedView().setWinner(daWinner.getName(), true);
+				getFinishedView().setWinner(local.getName(), true);
 				//System.out.println("THE LOCAL PLAYAH WINS!");
 			}
 			else{
