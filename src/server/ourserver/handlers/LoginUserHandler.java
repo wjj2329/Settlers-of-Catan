@@ -3,13 +3,12 @@ package server.ourserver.handlers;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.nio.charset.StandardCharsets;
+import java.util.Scanner;
 
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.apache.sanselan.util.IOUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
@@ -60,8 +59,10 @@ public class LoginUserHandler implements HttpHandler
 		JSONObject data = null;
 		try
 		{
-			String result = CharStreams.toString(new InputStreamReader(
-					exchange.getRequestBody(), Charsets.UTF_8));
+			/*String result = CharStreams.toString(new InputStreamReader(
+					exchange.getRequestBody(), Charsets.UTF_8));*/
+			Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
+			String result = s.hasNext() ? s.next() : "";
 			data = new JSONObject(result);
 		}
 		catch (JSONException e)
