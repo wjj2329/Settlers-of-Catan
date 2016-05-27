@@ -1,9 +1,18 @@
 package server.ourserver.handlers;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
+import server.ourserver.ServerFacade;
+import server.param.user.LoginParam;
+import server.results.LoginUserResponse;
+import shared.definitions.CatanColor;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 /** Logs the caller in to the server, and sets their catan.userHTTP cookie.
  * The passed-in username and password may correspond to the credentials of
@@ -29,10 +38,51 @@ import com.sun.net.httpserver.HttpHandler;
  */
 public class LoginUserHandler implements HttpHandler
 {
+	/**
+	 * Handler:
+	 * 1. Deserializes what class is received (input object)
+	 * 2. Calls Facade; gives login info
+	 * 3. Method in facade needs to return T or F; whether or not was successful - collect result
+	 * 4. serialize it - make a cookie - and send it back.
+	 * @param exchange: exchange that the ServerProxy is giving to it
+	 * @throws IOException: if there was an error deserializing
+     */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
 		// TODO Auto-generated method stub
-		
+		JSONObject data = new JSONObject(exchange.getRequestBody());
+		LoginParam loginParam = null;
+		Player newPlayer = null;
+		String username = "";
+		String password = "";
+		try
+		{
+			username = data.getString("username");
+			password = data.getString("password");
+			loginParam = new LoginParam(username, password);
+			newPlayer = new Player(username, CatanColor.PUCE, new Index(-1));
+			newPlayer.setPassword(password);
+			newPlayer = ServerFacade.getInstance().logIn(username, password);
+			if (newPlayer == null)
+			{
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
+				// serialize with FAILED message
+				data.append("FAILURE", exchange.getResponseBody());
+				return;
+			}
+			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
+			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
+					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/";
+			// How to add cookie to response headers?
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			// am not sure what to append or what to do with userCookie
+			data.append(userCookie, exchange.getResponseBody());
+			exchange.close();
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
 	}	
 }

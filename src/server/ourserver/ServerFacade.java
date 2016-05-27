@@ -2,8 +2,10 @@ package server.ourserver;
 
 import client.model.Model;
 import server.ourserver.commands.*;
+import shared.definitions.CatanColor;
 import shared.game.Card;
 import shared.game.CatanGame;
+import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -21,7 +23,8 @@ import java.util.Collection;
  * 		All methods are of type POST unless otherwise specified.
  *
  * 	This should probably have Command objects that are called inside of the functions. I will fix this.
- * 	This also may need to be a singleton.
+ * 	This also should be a singleton.
+ * 	This is in reality the real server. Essentially. For all intents and purposes.
  */
 public class ServerFacade
 {
@@ -29,7 +32,7 @@ public class ServerFacade
 	 * All the games stored in the server. Until phase 4, this will only persist
 	 * 	until we restart the server.
 	 */
-	private ArrayList<CatanGame> gamesInServer = new ArrayList<>();
+	//private ArrayList<CatanGame> gamesInServer = new ArrayList<>();
 	/**
 	 * All the registered users in the server. See above comment.
 	 */
@@ -40,6 +43,8 @@ public class ServerFacade
 	 * 	of all the requisite data.
 	 */
 	private Model serverModel = new Model();
+
+	private static ServerFacade singleton = null;
 
 	/**
 	 * Command objects.
@@ -66,6 +71,38 @@ public class ServerFacade
 	private SendChatCommand sendChatCommand;*/
 
 	/**
+	 * Constructor is private in order to avoid multiple instantiations.
+	 * We have hard-coded the four default players for testing purposes.
+	 */
+	private ServerFacade()
+	{
+		Player sam = new Player("Sam", CatanColor.BLUE, new Index(1));
+		sam.setPassword("sam");
+		Player mark = new Player("Mark", CatanColor.GREEN, new Index(2));
+		mark.setPassword("mark");
+		Player brooke = new Player("Brooke", CatanColor.BROWN, new Index(3));
+		brooke.setPassword("brooke");
+		Player pete = new Player("Pete", CatanColor.WHITE, new Index(4));
+		pete.setPassword("pete");
+		allRegisteredUsers.add(sam);
+		allRegisteredUsers.add(mark);
+		allRegisteredUsers.add(brooke);
+		allRegisteredUsers.add(pete);
+	}
+
+	/**
+	 * Returns the singleton instance of ServerFacade.
+     */
+	public static ServerFacade getInstance()
+	{
+		if (singleton == null)
+		{
+			singleton = new ServerFacade();
+		}
+		return singleton;
+	}
+
+	/**
 	 * Initializes the serverFacade
 	 * @throws ServerException: if the server is invalid or an error occurs
      */
@@ -79,10 +116,14 @@ public class ServerFacade
 	 * Logs in the user.
 	 * @param username: login name
 	 * @param password: login password
-     */
-	public void login(String username, String password)
+     * @return the player who has just logged in
+	 * Go through array of registered users, to see if it finds something with the same
+	 * 	username and password.
+	 */
+	public Player logIn(String username, String password)
 	{
-
+		
+		return null;
 	}
 
 	/**
@@ -326,7 +367,7 @@ public class ServerFacade
 	 * Getters and setters:
 	 */
 
-	public ArrayList<CatanGame> getGamesInServer()
+	/*public ArrayList<CatanGame> getGamesInServer()
 	{
 		return gamesInServer;
 	}
@@ -334,7 +375,7 @@ public class ServerFacade
 	public void setGamesInServer(ArrayList<CatanGame> gamesInServer)
 	{
 		this.gamesInServer = gamesInServer;
-	}
+	}*/
 
 	public ArrayList<Player> getAllRegisteredUsers()
 	{

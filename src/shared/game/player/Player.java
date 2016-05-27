@@ -34,6 +34,7 @@ public class Player
 	private int roadSize=0;
 	private int armySize=0;
 	private boolean playedDevCard;
+	private String password = "";
 
 	/**
 	 * numCities: How many cities an individual player has.
@@ -1179,5 +1180,15 @@ public class Player
 
 	public void setCities(ArrayList<City> cities) {
 		this.cities = cities;
+	}
+
+	public String getPassword()
+	{
+		return password;
+	}
+
+	public void setPassword(String password)
+	{
+		this.password = password;
 	}
 }
