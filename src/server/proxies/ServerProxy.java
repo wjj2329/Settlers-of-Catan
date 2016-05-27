@@ -49,12 +49,24 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse loginUser(String username, String password){
 		final String URL_SUFFIX = "/user/login";
-		
+		System.out.println("Server proxy gives UN " + username + " and password " + password);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
 		Param param = new LoginParam(username, password);
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		usercookie = response.getUserCookie();
+		if (response == null)
+		{
+			System.out.println("null response");
+		}
+		else if (usercookie == null)
+		{
+			System.out.println("The user cookie null boi");
+		}
+		else
+		{
+			System.out.println("Eff");
+		}
 		return response;
 	}
 
@@ -111,8 +123,10 @@ public class ServerProxy implements IServer {
 		
 		Param param = new ListAllGamesParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		
+
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
+		System.out.println("The response code is as follows: " + response.getResponseCode() + " and " +
+				response.getResponse());
 		return response;
 	}
 

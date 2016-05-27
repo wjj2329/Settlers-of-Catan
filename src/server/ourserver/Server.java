@@ -80,30 +80,30 @@ public class Server
 		server.setExecutor(null); // use the default executor
 		
 		server.createContext("/user/login", loginUserHandler);
-		server.createContext("/register", registerUserHandler);
-		server.createContext("/list", listGamesHandler);
-		server.createContext("/create", createGameHandler);
-		server.createContext("/join", joinGameHandler);
-		server.createContext("/model", getModelHandler);
-		server.createContext("/addAI", addAIHandler);
-		server.createContext("/listAI", listAIHandler);
-		server.createContext("/sendChat", sendChatHandler);
-		server.createContext("/rollNumber", rollNumberHandler);
-		server.createContext("/robPlayer", robPlayerHandler);
-		server.createContext("/finishTurn", finishTurnHandler);
-		server.createContext("/buyDevCard", buyDevCardHander);
-		server.createContext("/Year_of_Plenty", yearOfPlentyHandler);
-		server.createContext("/Road_Building", roadBuildingHandler);
-		server.createContext("/Soldier", soldierHandler);
-		server.createContext("/Monopoly", monopolyHandler);
-		server.createContext("/Monument", monumentHandler);
-		server.createContext("/buildRoad", buildRoadHandler);
-		server.createContext("/buildSettlement", buildSettlementHandler);
-		server.createContext("/buildCity", buildCityHandler);
-		server.createContext("/offerTrade", offerTradeHandler);
-		server.createContext("/acceptTrade", acceptTradeHandler);
-		server.createContext("/maritimeTrade", maritimeTradeHandler);
-		server.createContext("/discardCards", discardCardsHandler);		
+		server.createContext("/user/register", registerUserHandler);
+		server.createContext("/games/list", listGamesHandler); // maybe this?
+		server.createContext("/games/create", createGameHandler);
+		server.createContext("/games/join", joinGameHandler);
+		server.createContext("/game/model", getModelHandler);
+		server.createContext("/game/addAI", addAIHandler);
+		server.createContext("/game/listAI", listAIHandler);
+		server.createContext("/moves/sendChat", sendChatHandler);
+		server.createContext("/moves/rollNumber", rollNumberHandler);
+		server.createContext("/moves/robPlayer", robPlayerHandler);
+		server.createContext("/moves/finishTurn", finishTurnHandler);
+		server.createContext("/moves/buyDevCard", buyDevCardHander);
+		server.createContext("/moves/Year_of_Plenty", yearOfPlentyHandler);
+		server.createContext("/moves/Road_Building", roadBuildingHandler);
+		server.createContext("/moves/Soldier", soldierHandler);
+		server.createContext("/moves/Monopoly", monopolyHandler);
+		server.createContext("/moves/Monument", monumentHandler);
+		server.createContext("/moves/buildRoad", buildRoadHandler);
+		server.createContext("/moves/buildSettlement", buildSettlementHandler);
+		server.createContext("/moves/buildCity", buildCityHandler);
+		server.createContext("/moves/offerTrade", offerTradeHandler);
+		server.createContext("/moves/acceptTrade", acceptTradeHandler);
+		server.createContext("/moves/maritimeTrade", maritimeTradeHandler);
+		server.createContext("/moves/discardCards", discardCardsHandler);
 		/*
 		 * Uncomment for PHASE 4 
 		 * server.createContext("/save", SaveGameHandler);

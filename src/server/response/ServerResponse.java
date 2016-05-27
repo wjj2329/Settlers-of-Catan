@@ -21,6 +21,7 @@ public class ServerResponse {
 
 	public void setCookie(String cookie){
 		if(cookie!=null){
+			System.out.println("We be setting cookie");
 			if(cookie.contains("catan.user")){
 				userCookie = cookie.substring(cookie.indexOf("=")+1, cookie.indexOf(";"));
 				

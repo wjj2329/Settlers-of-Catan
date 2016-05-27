@@ -59,8 +59,8 @@ public class ModelFacade extends Observable
 			return;
 		}*/
 		System.out.println("This should only be called once");
-		String JSON = server.getAllCurrentGames().getResponse();
-		//System.out.println("Here is the JSON: " + JSON);
+		String JSON = server.getAllCurrentGames().getResponse(); // This is empty
+		System.out.println("Here is the JSON: " + JSON);
 		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
 		 try {
 			JSONArray array = new JSONArray(JSON);

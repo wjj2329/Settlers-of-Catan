@@ -93,10 +93,11 @@ public class LoginUserHandler implements HttpHandler
 			System.out.println("User exists!");
 			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
-					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/";
+					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/;";
 			// How to add cookie to response headers?
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			// am not sure what to append or what to do with userCookie
+			// we append to data but we don't do anything with it
 			data.append(userCookie, exchange.getResponseBody());
 			exchange.close();
 		}

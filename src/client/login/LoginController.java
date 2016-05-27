@@ -82,10 +82,13 @@ public class LoginController extends Controller implements ILoginController, Obs
 		System.out.println("Logging in");
 		String username1 = getLoginView().getLoginUsername();
 		String password1 = getLoginView().getLoginPassword();
+		System.out.println("Username is " + username1 + " and password is " + password1);
 		if(server.loginUser(username1, password1).getResponseCode() == HttpURLConnection.HTTP_OK)
 		{
+			System.out.println("Server logged them in successfully");
 			ModelFacade.facadeCurrentGame.loadGames();
 			server.loginUser(username1, password1);
+			System.out.println("This succeeded");
 			// If log in succeeded
 			getLoginView().closeModal();
 			loginAction.execute();
@@ -193,6 +196,8 @@ public class LoginController extends Controller implements ILoginController, Obs
 	public void loginAndCreatePlayerFromCookie(String username, String password)
 	{
 		Player localplayer = new Player(null,null,null);
+		System.out.println("In the LoginController, we have the username " + username + " and password " + password);
+		// Why the heck is this getting a null pointer exception?
 		String decodedCookie = URLDecoder.decode(server.loginUser(username, password).getUserCookie());
 		String[] splitCookie = decodedCookie.split(",");
 		//System.out.println("This should be 4, I think: " + splitCookie.length);

@@ -47,6 +47,8 @@ public class ClientCommunicator
 	 */
 	public ServerResponse send(String urlsuffix, Param data) {
 		URL url;
+		System.out.println("I am sending stuff with the URL " + urlsuffix + " and the param " + data.getRequestType());
+		System.out.println("The url as a whole is " + urlprefix+serverhost+":"+serverport+urlsuffix);
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -58,8 +60,9 @@ public class ClientCommunicator
 					connection.addRequestProperty(string, data.getHeaders().get(string));
 				}
 			}
-			
+			System.out.println("I am here in the try and before the connection");
 			connection.connect();
+			System.out.println("After the connection");
 
 			
 
@@ -68,10 +71,18 @@ public class ClientCommunicator
 	            requestBody.write(data.getRequest().getBytes());
 	            requestBody.close();
 			}
-
+			System.out.println("Am I here eh?");
+			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				System.out.println("this is a crap response code. ");
+			}
+			else
+			{
+				System.out.println("A-OK");
+			}
 			//System.out.println(data.getClass());
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				
+				System.out.println("Http was okay");
 				 Map<String, List<String>> headers = connection.getHeaderFields();
 				String galleta = connection.getHeaderField("Set-cookie");
                 InputStream responseBody = connection.getInputStream();
@@ -90,6 +101,7 @@ public class ClientCommunicator
                 return response;
             }
             else {
+				System.out.println("This was a bad request");
             	ServerResponse response = new ServerResponse();
             	response.setResponseCode(HttpURLConnection.HTTP_BAD_REQUEST);
                 return response;
