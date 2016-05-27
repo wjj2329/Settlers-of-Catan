@@ -2,6 +2,7 @@ package server.ourserver.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONObject;
 
 import java.io.IOException;
 
@@ -18,14 +19,18 @@ import java.io.IOException;
  * 						except during setup. You have the required resources(1 wood, 1 brick, 1 wheat, 1 sheep; 1 settlement)
  * 						the settlement cannot be placed adjacent to another settlement
  * @post You lost the required resources to build a settlement(1 wood, 1 brick, 1 wheat, 1 sheep; 1 settlement)
- * 						the settlement is on the map at the specified locatoin
+ * 						the settlement is on the map at the specified location
  *
  */
 public class MovesBuildSettlementHandler implements HttpHandler
 {
 
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
-
+    public void handle(HttpExchange httpExchange) throws IOException
+    {
+      String command=  httpExchange.getRequestURI().toString();
+        JSONObject myobject=new JSONObject(httpExchange.getRequestBody());//gets body   //get cookie   //get type
+            //he's given a ulr he parse thrrough exchange a json a commmand type and a cookie.   The Server Facade looks at the command type
+        //and t
     }
 }

@@ -25,7 +25,8 @@ import java.io.IOException;
  */
 public class MovesSoldierHandler  implements HttpHandler {
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange httpExchange) throws IOException
+    {
 
     }
 }

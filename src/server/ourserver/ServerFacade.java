@@ -36,7 +36,7 @@ public class ServerFacade
 	 * Commands object to execute the server commands.
 	 * We will probably need more specific ones in the near future. 
 	 */
-	private Commands commands = new Commands();
+	//private Commands commands = new Commands();
 
 	/**
 	 * Initializes the serverFacade
@@ -319,13 +319,13 @@ public class ServerFacade
 		this.allRegisteredUsers = allRegisteredUsers;
 	}
 
-	public Commands getCommands()
+	//public Commands getCommands()
 	{
-		return commands;
+	//	return commands;
 	}
 
-	public void setCommands(Commands commands)
+	//public void setCommands(Commands commands)
 	{
-		this.commands = commands;
+		//this.commands = commands;
 	}
 }

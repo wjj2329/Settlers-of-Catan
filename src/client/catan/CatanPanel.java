@@ -1,11 +1,10 @@
 package client.catan;
 
-import java.awt.BorderLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import shared.definitions.ResourceType;
 import client.discard.DiscardController;
@@ -43,7 +42,9 @@ public class CatanPanel extends JPanel
 		this.add(titlePanel, BorderLayout.NORTH);
 		this.add(leftPanel, BorderLayout.WEST);
 		this.add(midPanel, BorderLayout.CENTER);
-		this.add(rightPanel, BorderLayout.EAST);
+		JScrollPane myPane = new JScrollPane(rightPanel);
+		myPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		this.add(myPane, BorderLayout.EAST);
 		
 		discardView = new DiscardView();
 		discardWaitView = new WaitView();

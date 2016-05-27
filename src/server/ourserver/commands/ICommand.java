@@ -1,7 +1,7 @@
 package server.ourserver.commands;
 
 /**
- * Created by williamjones on 5/26/16.
+ * Created by william jones on 5/26/16.
  * Interface for the Command Objects 
  */
 public interface ICommand {
