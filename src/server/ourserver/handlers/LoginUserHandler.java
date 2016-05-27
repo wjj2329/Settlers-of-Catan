@@ -29,6 +29,15 @@ import com.sun.net.httpserver.HttpHandler;
  */
 public class LoginUserHandler implements HttpHandler
 {
+	/**
+	 * Handler:
+	 * 1. Deserializes what class is received (input object)
+	 * 2. Calls Facade; gives login info
+	 * 3. Method in facade needs to return T or F; whether or not was successful - collect result
+	 * 4. serialize it - make a cookie - and send it back.
+	 * @param exchange: exchange that the ServerProxy is giving to it
+	 * @throws IOException: if there was an error deserializing
+     */
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
