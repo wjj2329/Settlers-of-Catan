@@ -46,7 +46,26 @@ public class Player
 	 */
 	private CatanColor color = null;
 
-	/**
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) {return false;}
+
+        Player player = (Player) o;
+
+        if (!password.equals(player.password)){ return false;}
+        return name.equals(player.name);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = password.hashCode();
+        result = 31 * result + name.hashCode();
+        return result;
+    }
+
+    /**
 	 * discarded: whether or not they discarded a card
 	 */
 	private boolean discarded = false;
