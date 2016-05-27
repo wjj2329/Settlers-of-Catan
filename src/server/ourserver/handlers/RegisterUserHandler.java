@@ -73,7 +73,7 @@ public class RegisterUserHandler implements HttpHandler
 			loginParam = new LoginParam(username, password);
 			newPlayer = new Player(username, CatanColor.PUCE, new Index(-1));
 			newPlayer.setPassword(password);
-			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
+			ServerFacade.getInstance().register(username,password);
 			if (newPlayer == null)
 			{
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
