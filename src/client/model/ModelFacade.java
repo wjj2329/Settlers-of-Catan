@@ -59,44 +59,43 @@ public class ModelFacade extends Observable
 			return;
 		}*/
 		System.out.println("This should only be called once");
-		String JSON = server.getAllCurrentGames().getResponse(); // This is empty
-		System.out.println("Here is the JSON: " + JSON);
-		ArrayList<CatanGame> games = new ArrayList<CatanGame>();
-		 try {
-			JSONArray array = new JSONArray(JSON);
-			for(int i = 0; i < array.length(); i++){
-				JSONObject jsonObject = array.getJSONObject(i);
-				CatanGame game = new CatanGame();
-				game.setTitle(jsonObject.getString("title"));
-				game.setID(jsonObject.getInt("id"));
+		String JSON = server.getAllCurrentGames().getResponse();
+		//System.out.println("Here is the JSON: " + JSON);
+		if(!JSON.equals("")&&JSON!=null) {//Stops adding games if there are none too add!
+			ArrayList<CatanGame> games = new ArrayList<CatanGame>();
+			try {
+				JSONArray array = new JSONArray(JSON);
+				for (int i = 0; i < array.length(); i++) {
+					JSONObject jsonObject = array.getJSONObject(i);
+					CatanGame game = new CatanGame();
+					game.setTitle(jsonObject.getString("title"));
+					game.setID(jsonObject.getInt("id"));
 
-				JSONArray players = jsonObject.getJSONArray("players");
-				for(int p=0; p<players.length(); p++){
-					JSONObject playerinfo = players.getJSONObject(p);
-					if(!playerinfo.isNull("name"))
-					{
-						Player player = new Player(playerinfo.getString("name"), 
-							stringToCatanColor(playerinfo.getString("color")), 
-							new Index(playerinfo.getInt("id")));
-						//if (facadeCurrentGame.currentgame.getMyplayers().size() != 4) // trying this out.
-						//{
+					JSONArray players = jsonObject.getJSONArray("players");
+					for (int p = 0; p < players.length(); p++) {
+						JSONObject playerinfo = players.getJSONObject(p);
+						if (!playerinfo.isNull("name")) {
+							Player player = new Player(playerinfo.getString("name"),
+									stringToCatanColor(playerinfo.getString("color")),
+									new Index(playerinfo.getInt("id")));
+							//if (facadeCurrentGame.currentgame.getMyplayers().size() != 4) // trying this out.
+							//{
 							game.addPlayer(player);
-						//}
+							//}
+						}
 					}
+					games.add(game);
 				}
-				games.add(game);
+
+				getModel().setListGames(games);
+
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			
-			getModel().setListGames(games);
-			
-			
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
-		 
-		
 	}
 
 	public JSONObject serializeModel() throws JSONException
