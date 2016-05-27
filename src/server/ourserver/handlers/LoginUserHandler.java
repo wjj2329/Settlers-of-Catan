@@ -99,7 +99,8 @@ public class LoginUserHandler implements HttpHandler
 
 			// am not sure what to append or what to do with userCookie
 			// we append to data but we don't do anything with it
-			data.append(userCookie, exchange.getResponseBody());
+			//data.append(userCookie, exchange.getResponseBody());
+			exchange.getRequestHeaders().set("Set-cookie",userCookie);
 			exchange.close();
 		}
 		catch (JSONException e)

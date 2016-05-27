@@ -46,7 +46,7 @@ public class RegisterUserHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		System.out.println("I begin handling Resigster");
+		System.out.println("I begin handling Resister");
 		System.out.println("Exchange: " + exchange.getRequestBody().toString());
 		JSONObject data = null;
 		try
