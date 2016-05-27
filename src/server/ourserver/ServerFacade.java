@@ -22,6 +22,7 @@ import java.util.Collection;
  *
  * 	This should probably have Command objects that are called inside of the functions. I will fix this.
  * 	This also may need to be a singleton.
+ * 	This is in reality the real server. Essentially. For all intents and purposes.
  */
 public class ServerFacade
 {
