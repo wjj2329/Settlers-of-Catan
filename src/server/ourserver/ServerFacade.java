@@ -70,6 +70,10 @@ public class ServerFacade
 	private RollNumberCommand rollNumberCommand;
 	private SendChatCommand sendChatCommand;*/
 
+	/**
+	 * Constructor is private in order to avoid multiple instantiations.
+	 * We have hard-coded the four default players for testing purposes.
+	 */
 	private ServerFacade()
 	{
 		Player sam = new Player("Sam", CatanColor.BLUE, new Index(1));
@@ -86,7 +90,10 @@ public class ServerFacade
 		allRegisteredUsers.add(pete);
 	}
 
-	public ServerFacade getInstance()
+	/**
+	 * Returns the singleton instance of ServerFacade.
+     */
+	public static ServerFacade getInstance()
 	{
 		if (singleton == null)
 		{
@@ -109,10 +116,14 @@ public class ServerFacade
 	 * Logs in the user.
 	 * @param username: login name
 	 * @param password: login password
-     */
-	public void login(String username, String password)
+     * @return the player who has just logged in
+	 * Go through array of registered users, to see if it finds something with the same
+	 * 	username and password.
+	 */
+	public Player logIn(String username, String password)
 	{
-
+		
+		return null;
 	}
 
 	/**
