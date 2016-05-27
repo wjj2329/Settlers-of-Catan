@@ -1,5 +1,6 @@
 package server.ourserver;
 
+import server.ourserver.commands.*;
 import shared.game.Card;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -19,6 +20,7 @@ import java.util.Collection;
  * 		All methods are of type POST unless otherwise specified.
  *
  * 	This should probably have Command objects that are called inside of the functions. I will fix this.
+ * 	This also may need to be a singleton.
  */
 public class ServerFacade
 {
@@ -34,9 +36,29 @@ public class ServerFacade
 
 	/**
 	 * Commands object to execute the server commands.
-	 * We will probably need more specific ones in the near future. 
+	 * We will probably need more specific ones in the near future.
 	 */
-	private Commands commands = new Commands();
+	//private Commands commands = new Commands();
+	private AcceptTradeCommand acceptTradeCommand;
+	private AddAICommand addAICommand;
+	private BuildCityCommand buildCityCommand;
+	private BuildRoadCommand buildRoadCommand;
+	private BuildSettlementCommand buildSettlementCommand;
+	private BuyDevCardCommand buyDevCardCommand;
+	private CreateGameCommand createGameCommand;
+	private DiscardCardsCommand discardCardsCommand;
+	private FinishTurnCommand finishTurnCommand;
+	private GetModelCommand getModelCommand;
+	private MaritimeTradeCommand maritimeTradeCommand;
+	private OfferTradeCommand offerTradeCommand;
+	private PlayMonopolyCommand playMonopolyCommand;
+	private PlayMonumentCommand playMonumentCommand;
+	private PlayRoadBuildingCommand playRoadBuildingCommand;
+	private PlaySoldierCommand playSoldierCommand;
+	private PlayYearOfPlentyCommand playYearOfPlentyCommand;
+	private RobPlayerCommand robPlayerCommand;
+	private RollNumberCommand rollNumberCommand;
+	private SendChatCommand sendChatCommand;
 
 	/**
 	 * Initializes the serverFacade
@@ -319,7 +341,7 @@ public class ServerFacade
 		this.allRegisteredUsers = allRegisteredUsers;
 	}
 
-	public Commands getCommands()
+	/*//public Commands getCommands()
 	{
 		return commands;
 	}
@@ -327,5 +349,5 @@ public class ServerFacade
 	public void setCommands(Commands commands)
 	{
 		this.commands = commands;
-	}
+	}*/
 }
