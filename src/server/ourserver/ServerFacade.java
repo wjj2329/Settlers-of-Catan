@@ -1,5 +1,7 @@
 package server.ourserver;
 
+import client.model.Model;
+import server.ourserver.commands.*;
 import shared.game.Card;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -19,6 +21,7 @@ import java.util.Collection;
  * 		All methods are of type POST unless otherwise specified.
  *
  * 	This should probably have Command objects that are called inside of the functions. I will fix this.
+ * 	This also may need to be a singleton.
  */
 public class ServerFacade
 {
@@ -26,17 +29,41 @@ public class ServerFacade
 	 * All the games stored in the server. Until phase 4, this will only persist
 	 * 	until we restart the server.
 	 */
-	ArrayList<CatanGame> gamesInServer = new ArrayList<>();
+	private ArrayList<CatanGame> gamesInServer = new ArrayList<>();
 	/**
 	 * All the registered users in the server. See above comment.
 	 */
-	ArrayList<Player> allRegisteredUsers = new ArrayList<>();
+	private ArrayList<Player> allRegisteredUsers = new ArrayList<>();
 
 	/**
-	 * Commands object to execute the server commands.
-	 * We will probably need more specific ones in the near future. 
+	 * Model for the server side. Used to process input and keep track
+	 * 	of all the requisite data.
 	 */
-	//private Commands commands = new Commands();
+	private Model serverModel = new Model();
+
+	/**
+	 * Command objects.
+	 */
+	/*private AcceptTradeCommand acceptTradeCommand;
+	private AddAICommand addAICommand;
+	private BuildCityCommand buildCityCommand;
+	private BuildRoadCommand buildRoadCommand;
+	private BuildSettlementCommand buildSettlementCommand;
+	private BuyDevCardCommand buyDevCardCommand;
+	private CreateGameCommand createGameCommand;
+	private DiscardCardsCommand discardCardsCommand;
+	private FinishTurnCommand finishTurnCommand;
+	private GetModelCommand getModelCommand;
+	private MaritimeTradeCommand maritimeTradeCommand;
+	private OfferTradeCommand offerTradeCommand;
+	private PlayMonopolyCommand playMonopolyCommand;
+	private PlayMonumentCommand playMonumentCommand;
+	private PlayRoadBuildingCommand playRoadBuildingCommand;
+	private PlaySoldierCommand playSoldierCommand;
+	private PlayYearOfPlentyCommand playYearOfPlentyCommand;
+	private RobPlayerCommand robPlayerCommand;
+	private RollNumberCommand rollNumberCommand;
+	private SendChatCommand sendChatCommand;*/
 
 	/**
 	 * Initializes the serverFacade
@@ -285,7 +312,7 @@ public class ServerFacade
 	}
 
 	/**
-	 * Allows us to dicsard cards
+	 * Allows us to discard cards
 	 * @param playerIndex: player who is playing card
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
@@ -317,15 +344,5 @@ public class ServerFacade
 	public void setAllRegisteredUsers(ArrayList<Player> allRegisteredUsers)
 	{
 		this.allRegisteredUsers = allRegisteredUsers;
-	}
-
-	//public Commands getCommands()
-	{
-	//	return commands;
-	}
-
-	//public void setCommands(Commands commands)
-	{
-		//this.commands = commands;
 	}
 }
