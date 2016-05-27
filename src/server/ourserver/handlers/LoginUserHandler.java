@@ -19,7 +19,7 @@ import shared.game.player.Player;
 /** Logs the caller in to the server, and sets their catan.userHTTP cookie.
  * The passed-in username and password may correspond to the credentials of
  * any registered user.
- *
+ * 
  *  username:
  *            the player's username
  *  password:
