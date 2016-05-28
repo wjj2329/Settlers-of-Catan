@@ -570,6 +570,13 @@ public class Player
 		return true;
 	}
 
+	/**
+	 * Helped fix the bug in which you could build a road on top of another road.
+	 * 	I hadn't gotten the correct pointer. This function's purpose is to grab the correct
+	 * 	pointer.
+	 * @param loc: We really just need the direction from this.
+	 * @param hex: The hex where we actually want to grab the EdgeLocation pointer from.
+     */
 	private EdgeLocation getCorrectEdgePointer(EdgeLocation loc, Hex hex)
 	{
 		switch (loc.getDir())
@@ -825,7 +832,13 @@ public class Player
 			//System.out.println("can't build road piece: not current player");
 			return false;
 		}
-		if (edge.hasRoad())
+		EdgeLocation truth = getCorrectEdgePointer(edge, hex);
+		// don't want this to be null!
+		if (truth == null)
+		{
+			return false;
+		}
+		if (truth.hasRoad())
 		{
 			//System.out.println("can't build road piece: edge already has a road on it");
 			return false;
