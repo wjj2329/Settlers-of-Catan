@@ -30,7 +30,7 @@ public class BuildSettlementCommand implements ICommand {
 
 	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex)
 	{
-		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  willswap this variable with that
+		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  will swap this variable with that
 		Index myindex=new Index(playerIndex);
 		Player playertoupdate=null;
 		for(Index myind:currentgame.getMyplayers().keySet())
@@ -45,6 +45,7 @@ public class BuildSettlementCommand implements ICommand {
 		newlist.setSheep(newlist.getSheep()-1);
 		newlist.setWheat(newlist.getWheat()-1);
 		newlist.setWood(newlist.getWood()-1);
+		playertoupdate.setResources(newlist);//not sure if this is necessary or not.
 		vertex.setHassettlement(true);
 		Settlement settle1 = new Settlement(location, vertex, myindex);
 		Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
@@ -57,6 +58,7 @@ public class BuildSettlementCommand implements ICommand {
 		settle1.setOwner(myindex);
 		vertex.setSettlement(settle1);
 		currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+		currentgame.getMyplayers().get(myindex).setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
 	}
 
 }

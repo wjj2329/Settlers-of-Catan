@@ -554,7 +554,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < cities.length(); i++)
 		{
 			JSONObject obj = cities.getJSONObject(i);
-			//System.out.println(obj);
 			int owner_convertToIndex = obj.getInt("owner");
 			Index owner = new Index(owner_convertToIndex);
 			JSONObject location = obj.getJSONObject("location");
