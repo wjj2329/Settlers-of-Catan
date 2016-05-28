@@ -49,7 +49,7 @@ public class ClientCommunicator
 		URL url;
 		System.out.println("I am sending stuff with the URL " + urlsuffix + " and the param " + data.getRequestType());
 		System.out.println("The url as a whole is " + urlprefix+serverhost+":"+serverport+urlsuffix);
-		System.out.println("MY DATA IS THIS" +data.toString());
+		//System.out.println("MY DATA IS THIS" +data.toString());
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -85,7 +85,7 @@ public class ClientCommunicator
 			{
 				System.out.println("CLIENT COMMUNICATOR: A-OK");
 			}
-			//System.out.println(data.getClass());
+			System.out.println(connection.getResponseCode());
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				System.out.println("CLIENT COMMUNICATOR: Http was okay");
 				 Map<String, List<String>> headers = connection.getHeaderFields();
@@ -100,9 +100,9 @@ public class ClientCommunicator
                 while ((length = responseBody.read(buffer)) != -1) {
                     baos.write(buffer, 0, length);
                 }
-
+				System.out.println("I COMHE ERER");
                 String responseBodyData = baos.toString();
-                System.out.println("CLIENT COMMUNICATOR: "+responseBodyData + " y la galleta " + galleta);
+                //System.out.println("CLIENT COMMUNICATOR: "+responseBodyData + " y la galleta " + galleta);
                 ServerResponse response = new ServerResponse(connection.getResponseCode(), responseBodyData);
                 response.setCookie(galleta);
                 return response;

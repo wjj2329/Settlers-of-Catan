@@ -49,7 +49,7 @@ public class ServerFacade
 	private Model serverModel = new Model();
 
 	private static ServerFacade singleton = null;
-	private static int NEXT_USER_ID = 5;
+	public static int NEXT_USER_ID = 5;
 
 	/**
 	 * Command objects.
