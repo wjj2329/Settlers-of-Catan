@@ -21,16 +21,21 @@ public class ServerResponse {
 
 	public void setCookie(String cookie){
 		if(cookie!=null){
-			System.out.println("We be setting cookie");
+			//System.out.println("We be setting cookie");
 			if(cookie.contains("catan.user")){
 				userCookie = cookie.substring(cookie.indexOf("=")+1, cookie.indexOf(";"));
 				
 			}
 			else if(cookie.contains("catan.game")){
 				gameCookie =cookie.substring(cookie.indexOf("=")+1, cookie.indexOf(";"));
+				System.out.println("HERE IS THE GAME COOKIE HOMEBRO: " + gameCookie);
 			}
 			
 			
+		}
+		else
+		{
+			System.out.println("This cookie was null");
 		}
 	}
 	

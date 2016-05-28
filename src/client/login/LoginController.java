@@ -100,14 +100,22 @@ public class LoginController extends Controller implements ILoginController, Obs
 			getMessageView().showModal();
 			return;
 		}
-		// this is necessary because there are no auth tokens
+		// this is necessary because there are no auth tokens. do not change this.
 		if (username1.equals("Sam") || username1.equals("Brooke") || username1.equals("Pete") || username1.equals("Mark"))
 		{
 			loginAndCreatePlayerFromCookie(username1, password1);
 		}
 		else
 		{
-			createPlayerFromCookie(username1, password1);
+			/*
+				Use this if running OUR server
+			 */
+			loginAndCreatePlayerFromCookie(username1, password1);
+
+			/*
+				Use this if running ANT server
+			 */
+			//createPlayerFromCookie(username1, password1);
 		}
 	}
 
@@ -212,7 +220,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 					localplayer.setName(splitinfo[1]);
 					break;
 				case 1: // password - do nothing
-					localplayer.setName(splitinfo[1]);
+					localplayer.setPassword(splitinfo[1]);
 					break;
 				case 2: // player ID: please set it
 					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);

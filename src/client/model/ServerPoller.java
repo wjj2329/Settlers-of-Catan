@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import server.proxies.IServer;
 import server.response.ServerResponse;
 import shared.game.CatanGame;
+import shared.game.player.Player;
 
 /**
  * ServerPoller class: Polls the server to see if there is an update.

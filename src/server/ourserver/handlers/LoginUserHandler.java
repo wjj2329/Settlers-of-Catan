@@ -59,8 +59,6 @@ public class LoginUserHandler implements HttpHandler
 		JSONObject data = null;
 		try
 		{
-			/*String result = CharStreams.toString(new InputStreamReader(
-					exchange.getRequestBody(), Charsets.UTF_8));*/
 			Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
 			String result = s.hasNext() ? s.next() : "";
 			data = new JSONObject(result);
@@ -94,7 +92,7 @@ public class LoginUserHandler implements HttpHandler
 				exchange.close();
 				return;
 			}
-			System.out.println("User exists!");
+			//System.out.println("User exists!");
 			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
 			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +

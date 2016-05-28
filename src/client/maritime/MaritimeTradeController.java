@@ -76,7 +76,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade()
 	{
-		System.out.println("i start the trade");
+		System.out.println("i start the trade and reset each trade ratio");
 		// Should the reset be called? I don't know
 		//getTradeOverlay().reset();
 		defaultTradeRatio = 4; // idk...should these all be reset here? ._.
@@ -101,13 +101,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		int tradeRatioToUse;
 		if (twoToOnePortResources.contains(giveResource)) // changing getResource to giveResource
 		{
+			System.out.println("I am making the trade, and the arrayList contains the resource " + giveResource.toString());
 			tradeRatioToUse = computeTradeRatioToUse(giveResource);
 		}
 		else
 		{
+			System.out.println("Making the trade, but the arrayList don't got no res " + giveResource.toString());
 			tradeRatioToUse = defaultTradeRatio;
 		}
-		// changing 4 to tradeRatio so it can be more dynamic
+		// changing 4 to tradeRatioToUse so it can be more dynamic
 		// defaultTradeRatio used to be the integer param; now it's our function which may or may not work...
 		ModelFacade.facadeCurrentGame.getServer().maritimeTrade("maritimeTrade",
 				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), tradeRatioToUse,
@@ -128,7 +130,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGetResource(ResourceType resource)
 	{
 		getResource = resource;
-		System.out.println("This is the type "+resource.toString());
+		System.out.println("setGetResource: This is the type "+resource.toString());
 		getTradeOverlay().showGetOptions(new ResourceType[0]);
 		getTradeOverlay().selectGetOption(getResource, 1);
 		getTradeOverlay().setStateMessage("Trade!");
@@ -138,14 +140,17 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGiveResource(ResourceType resource)
 	{
 		giveResource = resource;
-		System.out.println("This is the type "+resource.toString());
+		System.out.println("setGiveResource: This is the type "+resource.toString());
 		int tradeRatioToUse;
+		// Is the contains okay? Maybe it's not becoming true. This could be what is causing it!
 		if (twoToOnePortResources.contains(giveResource)) // This may not quite work - should it be giveResource instead?
 		{
+			System.out.println("It is in the 2:1 port ArrayList");
 			tradeRatioToUse = computeTradeRatioToUse(giveResource);
 		}
 		else
 		{
+			System.out.println("It ain't in the arrayList home diggity");
 			tradeRatioToUse = defaultTradeRatio;
 		}
 		getTradeOverlay().selectGiveOption(giveResource, tradeRatioToUse); // what does this do eh? o.o
@@ -190,20 +195,27 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	private int computeTradeRatioToUse(ResourceType giveResource)
 	{
+		System.out.println("I am computing the trade ratio to use");
 		// need to account for the fact that it might be 3. -_- I don't think the default is ever executed.
 		switch (giveResource)
 		{
 			case WOOD:
+				System.out.println("Trade ratio is wood trade ratio of " + woodTradeRatio);
 				return woodTradeRatio;
 			case WHEAT:
+				System.out.println("Trade ratio is wheat trade ratio of " + wheatTradeRatio);
 				return wheatTradeRatio;
 			case SHEEP:
+				System.out.println("Trade ratio is sheep trade ratio of " + sheepTradeRatio);
 				return sheepTradeRatio;
 			case ORE:
+				System.out.println("Trade ratio is ore trade ratio of " + oreTradeRatio);
 				return oreTradeRatio;
 			case BRICK:
+				System.out.println("Trade ratio is brick trade ratio of " + brickTradeRatio);
 				return brickTradeRatio;
 			default:
+				System.out.println("It should not get to this point with default trade ratio of " + defaultTradeRatio);
 				return defaultTradeRatio;
 		}
 	}
@@ -217,6 +229,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 *            Need to add the following algorithm: For all the ports,
 	 *            if their type is one of the resourceTypes (i.e. not 3), then return
 	 *            the ratio of said port (since we get that from the JSON).
+	 *
      */
 	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
