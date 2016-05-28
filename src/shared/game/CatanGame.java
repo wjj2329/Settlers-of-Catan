@@ -73,7 +73,6 @@ public class CatanGame
 
 	public CatanGame()
 	{
-
 	}
 
 	public CatanGame(boolean randomlyPlaceNumbers, boolean randomlyPlaceHexes, boolean randomPorts, String title) throws Exception

@@ -50,6 +50,7 @@ public class ServerFacade
 
 	private static ServerFacade singleton = null;
 	public static int NEXT_USER_ID = 5;
+	public static int NEXT_GAME_ID=0;
 
 	/**
 	 * Command objects.
@@ -97,14 +98,12 @@ public class ServerFacade
 		allRegisteredUsers.add(mark);
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
-		
 		CatanGame defaultgame = new CatanGame();
-		defaultgame.setTitle("Default Game");
-		defaultgame.setID(0);
 		defaultgame.addPlayer(sam);
 		defaultgame.addPlayer(mark);
 		defaultgame.addPlayer(brooke);
 		defaultgame.addPlayer(pete);
+		defaultgame.setTitle("Default Game");
 		ArrayList<CatanGame> games = new ArrayList<>();
 		games.add(defaultgame);
 		serverModel.setListGames(games);
@@ -212,13 +211,18 @@ public class ServerFacade
      */
 	public void createGame(String name, boolean randomHexes, boolean randomPorts, boolean randomHexValues)
 	{
-
+		System.out.println("I add a new Catan Game");
+		CatanGame mynewgame=new CatanGame();
+		mynewgame.setTitle(name);
+		NEXT_GAME_ID++;
+		mynewgame.setID(NEXT_GAME_ID);
+		serverModel.addGame(mynewgame);
 	}
 
 	/**
 	 * JoinGame: A particular player joins a particular game.
 	 * @param gameID: ID of the game to join.
-	 * @param playerIndex: ID of the player who is joining.
+	 * @param : ID of the player who is joining.
      */
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
