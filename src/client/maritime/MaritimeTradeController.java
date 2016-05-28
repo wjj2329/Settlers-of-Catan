@@ -76,7 +76,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void startTrade()
 	{
-		System.out.println("i start the trade and reset each trade ratio");
+		//System.out.println("i start the trade and reset each trade ratio");
 		// Should the reset be called? I don't know
 		//getTradeOverlay().reset();
 		defaultTradeRatio = 4; // idk...should these all be reset here? ._.
@@ -86,6 +86,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		woodTradeRatio = 4;
 		sheepTradeRatio = 4;
 		placePorts();
+		//getTradeOverlay().showGiveOptions(new ResourceType[0]); // this breaks it
 		// Do I need to call setGUI? It may be necessary
 		getTradeOverlay().showModal();
 	}
@@ -97,16 +98,16 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		{
 			return;
 		}
-		System.out.println("i make the trade");
+		//System.out.println("i make the trade");
 		int tradeRatioToUse;
-		if (twoToOnePortResources.contains(giveResource)) // changing getResource to giveResource
+		if (doesTwoToOnePortResourcesContainResType(giveResource)) // changing getResource to giveResource
 		{
-			System.out.println("I am making the trade, and the arrayList contains the resource " + giveResource.toString());
+			//System.out.println("I am making the trade, and the arrayList contains the resource " + giveResource.toString());
 			tradeRatioToUse = computeTradeRatioToUse(giveResource);
 		}
 		else
 		{
-			System.out.println("Making the trade, but the arrayList don't got no res " + giveResource.toString());
+			//System.out.println("Making the trade, but the arrayList don't got no res " + giveResource.toString());
 			tradeRatioToUse = defaultTradeRatio;
 		}
 		// changing 4 to tradeRatioToUse so it can be more dynamic
@@ -116,6 +117,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				resourceTypeToString(giveResource), resourceTypeToString(getResource));
 		getTradeOverlay().closeModal();
 		setGUI();
+		// trying to reset trade ratios. this should work.
+		defaultTradeRatio = 4;
+		oreTradeRatio = 4;
+		brickTradeRatio = 4;
+		sheepTradeRatio = 4;
+		wheatTradeRatio = 4;
+		woodTradeRatio = 4;
+		getTradeOverlay().reset();
 	}
 
 	@Override
@@ -130,7 +139,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGetResource(ResourceType resource)
 	{
 		getResource = resource;
-		System.out.println("setGetResource: This is the type "+resource.toString());
+		//System.out.println("setGetResource: This is the type "+resource.toString());
 		getTradeOverlay().showGetOptions(new ResourceType[0]);
 		getTradeOverlay().selectGetOption(getResource, 1);
 		getTradeOverlay().setStateMessage("Trade!");
@@ -140,17 +149,17 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void setGiveResource(ResourceType resource)
 	{
 		giveResource = resource;
-		System.out.println("setGiveResource: This is the type "+resource.toString());
+		////System.out.println("setGiveResource: This is the type "+resource.toString());
 		int tradeRatioToUse;
 		// Is the contains okay? Maybe it's not becoming true. This could be what is causing it!
-		if (twoToOnePortResources.contains(giveResource)) // This may not quite work - should it be giveResource instead?
+		if (doesTwoToOnePortResourcesContainResType(giveResource)) // This may not quite work - should it be giveResource instead?
 		{
-			System.out.println("It is in the 2:1 port ArrayList");
+			////System.out.println("It is in the 2:1 port ArrayList");
 			tradeRatioToUse = computeTradeRatioToUse(giveResource);
 		}
 		else
 		{
-			System.out.println("It ain't in the arrayList home diggity");
+			////System.out.println("It ain't in the arrayList home diggity");
 			tradeRatioToUse = defaultTradeRatio;
 		}
 		getTradeOverlay().selectGiveOption(giveResource, tradeRatioToUse); // what does this do eh? o.o
@@ -168,7 +177,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGetValue()
 	{
-		System.out.println("I unset the get value");
+		////System.out.println("I unset the get value");
 		getResource = null;
 		//getTradeOverlay().setTradeEnabled(false);
 		//getTradeOverlay().hideGetOptions();
@@ -186,36 +195,49 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void unsetGiveValue()
 	{
-		System.out.println("I unset the give value");
+		////System.out.println("I unset the give value");
 		giveResource = null;
+		getTradeOverlay().showGetOptions(new ResourceType[0]); // i just added this. hopefully it will work
 		//getTradeOverlay().setTradeEnabled(false);
 		//getTradeOverlay().hideGiveOptions();
 		setGUI();
 	}
 
+	private boolean doesTwoToOnePortResourcesContainResType(ResourceType resType)
+	{
+		for (ResourceType res : twoToOnePortResources)
+		{
+			if (res == resType)
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+
 	private int computeTradeRatioToUse(ResourceType giveResource)
 	{
-		System.out.println("I am computing the trade ratio to use");
+		////System.out.println("I am computing the trade ratio to use");
 		// need to account for the fact that it might be 3. -_- I don't think the default is ever executed.
 		switch (giveResource)
 		{
 			case WOOD:
-				System.out.println("Trade ratio is wood trade ratio of " + woodTradeRatio);
+				//System.out.println("Trade ratio is wood trade ratio of " + woodTradeRatio);
 				return woodTradeRatio;
 			case WHEAT:
-				System.out.println("Trade ratio is wheat trade ratio of " + wheatTradeRatio);
+				//System.out.println("Trade ratio is wheat trade ratio of " + wheatTradeRatio);
 				return wheatTradeRatio;
 			case SHEEP:
-				System.out.println("Trade ratio is sheep trade ratio of " + sheepTradeRatio);
+				//System.out.println("Trade ratio is sheep trade ratio of " + sheepTradeRatio);
 				return sheepTradeRatio;
 			case ORE:
-				System.out.println("Trade ratio is ore trade ratio of " + oreTradeRatio);
+				//System.out.println("Trade ratio is ore trade ratio of " + oreTradeRatio);
 				return oreTradeRatio;
 			case BRICK:
-				System.out.println("Trade ratio is brick trade ratio of " + brickTradeRatio);
+				//System.out.println("Trade ratio is brick trade ratio of " + brickTradeRatio);
 				return brickTradeRatio;
 			default:
-				System.out.println("It should not get to this point with default trade ratio of " + defaultTradeRatio);
+				//System.out.println("It should not get to this point with default trade ratio of " + defaultTradeRatio);
 				return defaultTradeRatio;
 		}
 	}
@@ -233,40 +255,40 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
-		System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + defaultTradeRatio); // no
+		//System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + defaultTradeRatio); // no
 		switch (port.getType())
 		{
 			case THREE:
-				System.out.println("SHE HAS A THREE");
+				//System.out.println("SHE HAS A THREE");
 				defaultTradeRatio = 3;
 				break;
 			case WOOD:
-				System.out.println("SHE HAS A WOOD 2:1 ");
+				//System.out.println("SHE HAS A WOOD 2:1 ");
 				twoToOnePortResources.add(WOOD);
 				woodTradeRatio = 2;
 				// Also set the resourceType to be wood
 				getResource = WOOD;
 				break;
 			case BRICK: // this never got executed for Brooke. needs to be. -_-
-				System.out.println("SHE'S A BRICK HOUSE 2:1");
+				//System.out.println("SHE'S A BRICK HOUSE 2:1");
 				twoToOnePortResources.add(BRICK);
 				brickTradeRatio = 2;
 				getResource = ResourceType.BRICK;
 				break;
 			case SHEEP:
-				System.out.println("SHE HAS A SHEEP 2:1");
+				//System.out.println("SHE HAS A SHEEP 2:1");
 				twoToOnePortResources.add(SHEEP);
 				sheepTradeRatio = 2;
 				getResource = ResourceType.SHEEP;
 				break;
 			case WHEAT:
-				System.out.println("SHE HAS A WHEAT 2:1");
+				//System.out.println("SHE HAS A WHEAT 2:1");
 				twoToOnePortResources.add(WHEAT);
 				wheatTradeRatio = 2;
 				getResource = ResourceType.WHEAT;
 				break;
 			case ORE:
-				System.out.println("SHE HAS AN ORE 2:1");
+				//System.out.println("SHE HAS AN ORE 2:1");
 				twoToOnePortResources.add(ORE);
 				oreTradeRatio = 2;
 				getResource = ResourceType.ORE;
@@ -285,21 +307,21 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private boolean isSettlementOnPort(Settlement settlement, Port port)
 	{
-		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
-				(port.getDirection().getOppositeDirection()).toString()
-			+ " with the hex location " + port.getLocation().toString());
+		//System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
+				//(port.getDirection().getOppositeDirection()).toString()
+			//+ " with the hex location " + port.getLocation().toString());
 		// The locations are never equal...Now they are! It's the second one that will have issues now...
 		if (settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).equals(port.getLocation()))
 		{
-			System.out.println("Hex locations are the same for port and settlement's adjacent hex");
+			//System.out.println("Hex locations are the same for port and settlement's adjacent hex");
 			// Then we need to check the edge direction / vertex location
 			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection().getOppositeDirection()))
 			{
-				System.out.println("CORRECT! The vertex is on the port location ");
+				//System.out.println("CORRECT! The vertex is on the port location ");
 				return true;
 			}
 		}
-		System.out.println("Vertex is not on the port location :( ");
+		//System.out.println("Vertex is not on the port location :( ");
 		return false;
 	}
 
@@ -424,45 +446,45 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 */
 	private void displayForCurrentTurn()
 	{
-		System.out.println("Displaying for current turn with trade ratio of " + defaultTradeRatio);
+		//System.out.println("Displaying for current turn with trade ratio of " + defaultTradeRatio);
 		ArrayList<ResourceType> resourceTypes = new ArrayList<>();
 		int woodRat = defaultTradeRatio;
 		int oreRat = defaultTradeRatio;
 		int brickRat = defaultTradeRatio;
 		int sheepRat = defaultTradeRatio;
 		int wheatRat = defaultTradeRatio;
-		System.out.println("Here is the twoToOnePortResources: " + twoToOnePortResources.toString());
+		//System.out.println("Here is the twoToOnePortResources: " + twoToOnePortResources.toString());
 		if (twoToOnePortResources.contains(WOOD))
 		{
-			System.out.println("We have a wood!");
+			//System.out.println("We have a wood!");
 			woodRat = woodTradeRatio;
 		}
 		if (twoToOnePortResources.contains(BRICK))
 		{
-			System.out.println("We have a brick!");
+			//System.out.println("We have a brick!");
 			brickRat = brickTradeRatio;
 		}
 		if (twoToOnePortResources.contains(ORE))
 		{
-			System.out.println("We have an ore!");
+			//System.out.println("We have an ore!");
 			oreRat = oreTradeRatio;
 		}
 		if (twoToOnePortResources.contains(WHEAT))
 		{
-			System.out.println("We have a wheat!");
+			//System.out.println("We have a wheat!");
 			wheatRat = wheatTradeRatio;
 		}
 		if (twoToOnePortResources.contains(SHEEP))
 		{
-			System.out.println("We have a SHEEP! WAHOO!");
+			//System.out.println("We have a SHEEP! WAHOO!");
 			sheepRat = sheepTradeRatio;
 		}
 		// If the player has a 3:1, these should all be 3...except for any 2:1s
-		System.out.println("Using the following ratio for wood: " + woodRat);
-		System.out.println("Using the following ratio for brick: " + brickRat);
-		System.out.println("Using the following ratio for ore: " + oreRat);
-		System.out.println("Using the following ratio for wheat: " + wheatRat);
-		System.out.println("Using the following ratio for sheep: " + sheepRat);
+		//System.out.println("Using the following ratio for wood: " + woodRat);
+		//System.out.println("Using the following ratio for brick: " + brickRat);
+		//System.out.println("Using the following ratio for ore: " + oreRat);
+		//System.out.println("Using the following ratio for wheat: " + wheatRat);
+		//System.out.println("Using the following ratio for sheep: " + sheepRat);
 		if (ModelFacade.facadeCurrentGame.getLocalPlayer().getResources().getWood() >= woodRat)
 		{
 			resourceTypes.add(WOOD);
