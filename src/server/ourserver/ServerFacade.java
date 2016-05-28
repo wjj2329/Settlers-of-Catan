@@ -45,6 +45,7 @@ public class ServerFacade
 	private Model serverModel = new Model();
 
 	private static ServerFacade singleton = null;
+	private static int NEXT_USER_ID = 5;
 
 	/**
 	 * Command objects.
@@ -137,7 +138,7 @@ public class ServerFacade
      */
 	public void register(String username, String password)
 	{
-		Player p=new Player(username,CatanColor.PUCE,new Index(-10));//not sure what the index should initially be.
+		Player p=new Player(username,CatanColor.PUCE,new Index(NEXT_USER_ID++));
 		p.setPassword(password);
 		System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
@@ -169,9 +170,9 @@ public class ServerFacade
 	 * @param gameID: ID of the game to join.
 	 * @param playerIndex: ID of the player who is joining.
      */
-	public void joinGame(int gameID, int playerIndex)
+	public void joinGame(int gameID, Player player)
 	{
-
+		serverModel.listGames().get(gameID).addPlayer(player);
 	}
 
 	/**
