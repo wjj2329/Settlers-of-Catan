@@ -3,6 +3,7 @@ package shared.game.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import client.model.ModelFacade;
 import shared.definitions.HexType;
@@ -95,6 +96,75 @@ public class CatanMap
 	{
 		this.hexes=hexes;
 		this.radius=radius;
+	}
+
+	public void shuffleHexes()
+	{
+		System.out.println("i shuffle my hexes");
+		Random myrandom=new Random();
+		ArrayList<HexLocation>nonwaterhexes=new ArrayList<>();
+		for(HexLocation loc: hexes.keySet())
+		{
+			if(!hexes.get(loc).getResourcetype().equals(HexType.WATER))
+			{
+				nonwaterhexes.add(loc);
+			}
+		}
+		for(int i=0; i<100; i++)
+		{
+			int numberswap=myrandom.nextInt(nonwaterhexes.size()-1);
+			int numberswap2=myrandom.nextInt(nonwaterhexes.size()-1);
+			Hex hex=hexes.get(nonwaterhexes.get(numberswap));
+			Hex hex2=hexes.get(nonwaterhexes.get(numberswap2));
+			HexType mytype=hexes.get(nonwaterhexes.get(numberswap)).getResourcetype();
+			HexType mytype2=hexes.get(nonwaterhexes.get(numberswap2)).getResourcetype();
+			hex.setResourcetype(mytype2);
+			hex2.setResourcetype(mytype);
+		}
+	}
+
+	public void shuffleNumbers()
+	{
+		System.out.println("i shuffle my numbers");
+		Random myrandom=new Random();
+		ArrayList<HexLocation>nonwaterhexes=new ArrayList<>();
+		for(HexLocation loc: hexes.keySet())
+		{
+			if(!hexes.get(loc).getResourcetype().equals(HexType.WATER)&&!hexes.get(loc).getResourcetype().equals(HexType.DESERT))
+			{
+				nonwaterhexes.add(loc);
+			}
+		}
+		for(int i=0; i<100; i++)
+		{
+			int numberswap=myrandom.nextInt(nonwaterhexes.size()-1);
+			int numberswap2=myrandom.nextInt(nonwaterhexes.size()-1);
+			Hex hex=hexes.get(nonwaterhexes.get(numberswap));
+			Hex hex2=hexes.get(nonwaterhexes.get(numberswap2));
+			int mytype=hexes.get(nonwaterhexes.get(numberswap)).getResourcenumber();
+			int mytype2=hexes.get(nonwaterhexes.get(numberswap2)).getResourcenumber();
+			hex.setResourcenumber(new NumberToken(mytype2));
+			hex2.setResourcenumber(new NumberToken(mytype));
+		}
+	}
+
+	public void shufflePorts()
+	{
+		System.out.println(" i shuffle my ports ");
+		Random myrandom=new Random();
+		ArrayList<HexLocation>nonwaterporthexs=new ArrayList<>();
+		for(HexLocation loc: hexes.keySet())
+		{
+			if(hexes.get(loc).getPortType()!=null)
+			{
+				nonwaterporthexs.add(loc);
+			}
+		}
+		for(int i=0; i<100; i++)
+		{
+			int numberswap=myrandom.nextInt(nonwaterporthexs.size()-1);
+			int numberswap2=myrandom.nextInt(nonwaterporthexs.size()-1);
+		}
 	}
 
 	public CatanMap(int radius)
