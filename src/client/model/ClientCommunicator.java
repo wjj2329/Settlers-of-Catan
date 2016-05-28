@@ -53,38 +53,44 @@ public class ClientCommunicator
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+			
+			//Sets it the request method as a POST or a GET depending on the param
 			connection.setRequestMethod(data.getRequestType());
 			connection.setDoOutput(true);
 			
+			//only the Param that use this are those that require cookies(some of the moves, and game operations)
+			//it basically does addRequestProperty("Cookie", the user and game cookie string)
 			if(data.getHeaders() != null){
 				for(String string: data.getHeaders().keySet()){
 					System.out.println("i come in the this thing and stuff"+string);
 					connection.addRequestProperty(string, data.getHeaders().get(string));
 				}
 			}
-			System.out.println("I am here in the try and before the connection");
+			System.out.println("CLIENT COMMUNICATOR: I am here in the try and before the connection");
 			connection.connect();
-			System.out.println("After the connection");
+			System.out.println("CLIENT COMMUNICATOR: After the connection");
 
-
+			//If the Param is a POST request it gives the request body that is formed in the Param Object. 
 			if(data.getRequestType().equals("POST")){
 				OutputStream requestBody = connection.getOutputStream();
 	            requestBody.write(data.getRequest().getBytes());
 	            requestBody.close();
 			}
-			System.out.println("Am I here eh?");
+			System.out.println("CLIENT COMMUNICATOR: Am I here eh?");
 			if (connection.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				System.out.println("this is a crap response code. ");
+				System.out.println("CLIENT COMMUNICATOR: this is a crap response code. ");
 			}
 			else
 			{
-				System.out.println("A-OK");
+				System.out.println("CLIENT COMMUNICATOR: A-OK");
 			}
 			//System.out.println(data.getClass());
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-				System.out.println("Http was okay");
+				System.out.println("CLIENT COMMUNICATOR: Http was okay");
 				 Map<String, List<String>> headers = connection.getHeaderFields();
+				 
+				 //This is where it gets the cookies. 
 				String galleta = connection.getHeaderField("Set-cookie");
                 InputStream responseBody = connection.getInputStream();
 
@@ -96,7 +102,7 @@ public class ClientCommunicator
                 }
 
                 String responseBodyData = baos.toString();
-                //System.out.println(responseBodyData);
+                System.out.println("CLIENT COMMUNICATOR: "+responseBodyData + " y la galleta " + galleta);
                 ServerResponse response = new ServerResponse(connection.getResponseCode(), responseBodyData);
                 response.setCookie(galleta);
                 return response;
