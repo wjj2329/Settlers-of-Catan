@@ -2,9 +2,16 @@ package server.ourserver.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONException;
 import org.json.JSONObject;
+import server.ourserver.ServerFacade;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Scanner;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -25,12 +32,62 @@ import java.io.IOException;
 public class MovesBuildSettlementHandler implements HttpHandler
 {
 
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException
+    private VertexLocation convertToVertexDirection(String direction, HexLocation myhexloc)
     {
-      String command=  httpExchange.getRequestURI().toString();
-        JSONObject myobject=new JSONObject(httpExchange.getRequestBody());//gets body   //get cookie   //get type
-            //he's given a ulr he parse thrrough exchange a json a commmand type and a cookie.   The Server Facade looks at the command type
-        //and t
+        switch (direction)
+        {
+            case "W":
+                return new VertexLocation(myhexloc,VertexDirection.West);
+            case "NW":
+                return new VertexLocation(myhexloc,VertexDirection.NorthWest);
+            case "NE":
+                return new VertexLocation(myhexloc,VertexDirection.NorthEast);
+            case "E":
+                return new VertexLocation(myhexloc,VertexDirection.East);
+            case "SE":
+                return new VertexLocation(myhexloc,VertexDirection.SouthEast);
+            case "SW":
+                return new VertexLocation(myhexloc,VertexDirection.SouthWest);
+            default:
+                break;
+            //assert false;
+        }
+        return null;
+    }
+    @Override
+    public void handle(HttpExchange exchange) throws IOException
+    {
+        int playerindex=-50;
+        int x=-10000000;
+        int y=-10000000;
+        String direction=null;
+        JSONObject data = null;
+        try
+        {
+            Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
+            String result = s.hasNext() ? s.next() : "";
+            data = new JSONObject(result);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        try {
+
+            playerindex=data.getInt("playerIndex");
+            JSONObject myobject=data.getJSONObject("vertexLocation");
+            x=myobject.getInt("x");
+            y=myobject.getInt("y");
+            direction=data.getString("direction");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)));
+        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        exchange.getResponseBody().write(response.getBytes());
+        exchange.close();
+
     }
 }

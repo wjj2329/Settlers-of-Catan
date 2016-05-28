@@ -20,6 +20,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import javax.activation.CommandObject;
+
 /**
  * Created by williamjones on 5/26/16.
  * @author Alex
@@ -48,6 +50,7 @@ public class ServerFacade
 	 * 	of all the requisite data.
 	 */
 	private Model serverModel = new Model();
+
 
 	private static ServerFacade singleton = null;
 	public static int NEXT_USER_ID = 5;
@@ -257,9 +260,9 @@ public class ServerFacade
 	/**
 	 * Gets the game model.
 	 */
-	public void getGameModel()
+	public  Model getGameModel()
 	{
-
+		return this.serverModel;
 	}
 
 	/**
@@ -388,9 +391,10 @@ public class ServerFacade
 	 * @param location: where it is being built (which hex)
 	 * @param vertex: which vertex it is being built on
      */
+	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex)
 	{
-
+		buildsettlement.buildsettlement(playerIndex,location,vertex);
 	}
 
 	/**

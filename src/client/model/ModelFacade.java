@@ -522,52 +522,33 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
-			//System.out.println("I HAVE A SETTLEMENT HERE: "+obj); // this is extremely important to test
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
-			//assert(dir != null);
 			VertexLocation mylocation=new VertexLocation(new HexLocation(location.getInt("x"), location.getInt("y")),
 				dir);
 			mylocation.setHassettlement(true);
 			Index playerindex=new Index(obj.getInt("owner"));
 			Index myindex = null;
-			//System.out.println("This is the index we received: " + playerindex.getNumber());
-			//System.out.println("the size of current players is: " + facadeCurrentGame.currentgame.getMyplayers().size());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				//System.out.println("Index for player " + p.getName() + " is " + p.getPlayerIndex().getNumber());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
 					myindex = p.getPlayerID();
-					//System.out.println("I set my playerID to myIndex");
 				}
 			}
 			assert (myindex != null);
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, myindex);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
-			//h.addSettlement(settle1); // yeah we don't want this - it's already done inside of hex class
 			try {
 				h.buildSettlement(mylocation,myindex);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			currentgame.getMymap().getSettlements().add(settle1);
-			//Index owner = new Index(obj.getInt("owner"));
-			//System.out.println("I Successfully get my owner with number "+owner.getNumber());
 			settle1.setOwner(myindex);
 			mylocation.setSettlement(settle1);
-			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
-			System.out.println("The size of the settlements is " +
-					currentgame.getMyplayers().get(myindex).getSettlements().size());
-			//System.out.println("I ADD TO MY PLAYER "+currentgame.getMyplayers().get(myindex).getName()+" a settlement");
-			//System.out.println("HE NOW HAS "+currentgame.getMyplayers().get(myindex).getSettlements().size()+" number of settlements");
-			//System.out.println("THE SIZE OF THE SETTLEMENTS HOMEBRO is: " +
-				//currentgame.getMyplayers().get(myindex).getSettlements().size());
-
-			//facadeCurrentGame.currentgame.getMyplayers().get(owner).addToSettlements(settle1);
-			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
