@@ -110,12 +110,12 @@ public class LoginController extends Controller implements ILoginController, Obs
 			/*
 				Use this if running OUR server
 			 */
-			loginAndCreatePlayerFromCookie(username1, password1);
+			//loginAndCreatePlayerFromCookie(username1, password1);
 
 			/*
 				Use this if running ANT server
 			 */
-			//createPlayerFromCookie(username1, password1);
+			createPlayerFromCookie(username1, password1);
 		}
 	}
 
@@ -155,7 +155,14 @@ public class LoginController extends Controller implements ILoginController, Obs
 			return;
 		}
 
-		createPlayerFromCookie(username,password);
+		/*
+			Use if running OUR server
+		 */
+		loginAndCreatePlayerFromCookie(username, password);
+		/*
+			Use if running ANT server
+		 */
+		//createPlayerFromCookie(username,password);
 	}
 
 	public void createPlayerFromCookie(String username, String password)
