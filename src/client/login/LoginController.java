@@ -178,6 +178,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 					localplayer.setName(splitinfo[1]);
 					break;
 				case 2: // password - do nothing
+					localplayer.setPassword(splitinfo[2]);
 					break;
 				case 3: // player ID: set the ID
 					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
