@@ -57,6 +57,7 @@ public class ClientCommunicator
 			
 			if(data.getHeaders() != null){
 				for(String string: data.getHeaders().keySet()){
+					System.out.println("The string is " + string);
 					connection.addRequestProperty(string, data.getHeaders().get(string));
 				}
 			}
@@ -84,9 +85,10 @@ public class ClientCommunicator
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				System.out.println("Http was okay");
 				 Map<String, List<String>> headers = connection.getHeaderFields();
-				String galleta = connection.getHeaderField("Set-cookie");
+				String galleta = connection.getHeaderField("Set-cookie"); // what is getHeaderField??
+				System.out.println("What is the cookie? " + galleta); // why is the cookie null?
                 InputStream responseBody = connection.getInputStream();
-
+				System.out.println("Printing responseBody toString: " + responseBody.toString());
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 byte[] buffer = new byte[1024];
                 int length = 0;
@@ -95,6 +97,7 @@ public class ClientCommunicator
                 }
 
                 String responseBodyData = baos.toString();
+				System.out.println("responseBodyData: " + responseBodyData);
                 //System.out.println(responseBodyData);
                 ServerResponse response = new ServerResponse(connection.getResponseCode(), responseBodyData);
                 response.setCookie(galleta);
