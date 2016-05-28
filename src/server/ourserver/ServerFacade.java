@@ -15,6 +15,10 @@ import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by williamjones on 5/26/16.
  * @author Alex
@@ -89,6 +93,17 @@ public class ServerFacade
 		allRegisteredUsers.add(mark);
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
+		
+		CatanGame defaultgame = new CatanGame();
+		defaultgame.setTitle("Default Game");
+		defaultgame.setID(0);
+		defaultgame.addPlayer(sam);
+		defaultgame.addPlayer(mark);
+		defaultgame.addPlayer(brooke);
+		defaultgame.addPlayer(pete);
+		ArrayList<CatanGame> games = new ArrayList<>();
+		games.add(defaultgame);
+		serverModel.setListGames(games);
 	}
 
 	/**
@@ -146,10 +161,40 @@ public class ServerFacade
 
 	/**
 	 * Gets the list of all the games in the server.
-	 * GET request.
+	 * GET request so I made it return something...
 	 */
-	public void getGameList()
+	public JSONArray getGameList()
 	{
+
+		JSONArray games = new JSONArray();
+		try {
+			for(CatanGame juego : serverModel.listGames())
+			{
+				JSONObject game = new JSONObject();
+				game.put("title", juego.getTitle());
+				game.put("id", juego.getGameId());
+				JSONArray players = new JSONArray();
+				for(Player jugador : juego.getMyplayers().values())
+				{
+					JSONObject player = new JSONObject();
+					if(jugador != null)
+					{
+						player.put("color", jugador.getColor().name().toLowerCase());
+						player.put("name", jugador.getName());
+						player.put("id", jugador.getPlayerID().getNumber());
+					}
+					players.put(player);
+				}
+				game.put("players", players);
+				games.put(game);
+			}
+			return games;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(games);
+		return games;
 
 	}
 

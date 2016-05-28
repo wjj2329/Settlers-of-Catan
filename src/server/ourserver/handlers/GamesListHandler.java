@@ -3,7 +3,12 @@ package server.ourserver.handlers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import server.ourserver.ServerFacade;
+
 import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import org.json.JSONArray;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -25,6 +30,17 @@ public class GamesListHandler implements HttpHandler
 {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
+       	JSONArray games = ServerFacade.getInstance().getGameList();
+        
+        if(games == null){
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+            String response = "Could not get game list";
+            httpExchange.getResponseBody().write(response.getBytes());
+            return;
+        }
+        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        httpExchange.getResponseBody().write(games.toString().getBytes());
+       
+        httpExchange.close();
     }
 }
