@@ -6,17 +6,20 @@ import server.param.Param;
 public class JoinGameParam extends Param {
 
 	int gameID;
+	int userID;
 	String color;
 	
-	public  JoinGameParam(int gameID, String color){
+	public  JoinGameParam(int gameID, int userID, String color){
 		this.gameID = gameID;
+		this.userID = userID;
 		this.color = color; 
+		
 	}
 	
 	@Override
 	public String getRequest() {
-		return "{id:" + gameID + ", "+
-				"color: \"" + color + "\"}";
+		return "{id:" + gameID + ", player id: " + userID +
+				", color: \"" + color + "\"}";
 	}
 
 	@Override

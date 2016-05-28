@@ -4,6 +4,7 @@ package server.proxies;
 import client.data.*;
 import client.model.ClientCommunicator;
 import client.model.Model;
+import client.model.ModelFacade;
 import server.param.user.*;
 import server.response.ServerResponse;
 import server.param.moves.*;
@@ -194,12 +195,14 @@ public class ServerProxy implements IServer {
 	public ServerResponse JoinGame(int gameID, String color) {
 		final String URL_SUFFIX = "/games/join";
 		
-		Param param = new JoinGameParam(gameID, color);
+		Param param = new JoinGameParam(gameID, 
+				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber(), color);
 		param.addHeader("Cookie", "catan.user=" + usercookie);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		gamecookie = response.getGameCookie();
+		System.out.println("Gamecookie: " + gamecookie + "\n\n\n");
 		//System.out.println(response.getResponseCode());
 		return response;
 	}

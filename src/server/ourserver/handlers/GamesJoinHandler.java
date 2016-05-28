@@ -1,9 +1,22 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Scanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import server.ourserver.ServerFacade;
+import server.param.user.LoginParam;
+import server.results.LoginUserResponse;
+import shared.definitions.CatanColor;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -29,9 +42,63 @@ import java.io.IOException;
  *                server returns an HTTP 400 error response, and the body
  *                contains an error message
  */
-public class GamesJoinHandler implements HttpHandler {
+public class GamesJoinHandler implements HttpHandler 
+{
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange exchange) throws IOException 
+    {
+		System.out.println("I begin handling joinGame");
+		JSONObject data = null;
+		try
+		{
+			Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
+			String result = s.hasNext() ? s.next() : "";
+			data = new JSONObject(result);
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
+		System.out.println("This is our JSON Object: " + data.toString());
+		Player newPlayer = null;
+		String username = "";
+		int gameid;
+		int userid;
+		String color;
+		try
+		{
+			gameid = data.getInt("id"); //What game am I joining?
+			userid = data.getInt("player id"); //What game am I joining?
+			color = data.getString("color"); //What game am I joining?
+			
+			boolean success = ServerFacade.getInstance().joinGame(gameid,userid,color);
+			if (!success)
+			{
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+				exchange.getResponseBody().write("Failed to join".getBytes());
+				data.append("FAILURE", exchange.getResponseBody());
+				exchange.close();
+				return;
+			}
+			
+			String gameCookie = "catan.game=" + gameid + ";Path=/;";
+			
+			//Add gamecookie to response header
+			Headers responseHeaders = exchange.getResponseHeaders();
+			responseHeaders.set("Set-Cookie", gameCookie);
+			
+			//How you add a response: send response headers first then getresponsebody.write, you need to put something
+			//in order for the clientcommunicator to work. 
+			String response = "Success! :D";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			exchange.getResponseBody().write(response.getBytes());
 
+
+			exchange.close();
+		}
+		catch (JSONException e)
+		{
+			e.printStackTrace();
+		}
     }
 }
