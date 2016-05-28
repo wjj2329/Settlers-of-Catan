@@ -1423,4 +1423,7 @@ public class Hex
 		return this.cities;
 	}
 
+	public void setResourcetype(HexType resourcetype) {
+		this.resourcetype = resourcetype;
+	}
 }

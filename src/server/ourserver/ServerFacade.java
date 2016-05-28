@@ -5,6 +5,7 @@ import server.ourserver.commands.*;
 import shared.definitions.CatanColor;
 import shared.game.Card;
 import shared.game.CatanGame;
+import shared.game.map.CatanMap;
 import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.EdgeLocation;
@@ -216,6 +217,21 @@ public class ServerFacade
 		mynewgame.setTitle(name);
 		NEXT_GAME_ID++;
 		mynewgame.setID(NEXT_GAME_ID);
+		mynewgame.setMymap(new CatanMap(10));
+		if(randomHexes)
+		{
+			mynewgame.getMymap().shuffleHexes();
+		}
+		if(randomPorts)
+		{
+			mynewgame.getMymap().shufflePorts();
+		}
+		if(randomHexValues)
+		{
+			mynewgame.getMymap().shuffleNumbers();
+		}
+
+
 		serverModel.addGame(mynewgame);
 	}
 
