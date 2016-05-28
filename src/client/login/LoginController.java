@@ -169,7 +169,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		{
 			//System.out.println("The split cookie thingy is " + splitCookie[i]);
 			String[] splitinfo = splitCookie[i].split(":");
-			
+
 			switch(i)
 			{
 				case 0: // authentication token - do nothing

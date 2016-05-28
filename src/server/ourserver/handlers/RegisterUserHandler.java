@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONException;
@@ -46,7 +47,7 @@ public class RegisterUserHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		System.out.println("I begin handling Resister");
+		System.out.println("I begin handling loginUser");
 		System.out.println("Exchange: " + exchange.getRequestBody().toString());
 		JSONObject data = null;
 		try
@@ -71,25 +72,39 @@ public class RegisterUserHandler implements HttpHandler
 			username = data.getString("username");
 			password = data.getString("password");
 			loginParam = new LoginParam(username, password);
-			newPlayer = new Player(username, CatanColor.PUCE, new Index(-1));
+			newPlayer = new Player(username, CatanColor.PUCE, new Index(1));
 			newPlayer.setPassword(password);
-			ServerFacade.getInstance().register(username,password);
+			ServerFacade.getInstance().register(username, password);
 			if (newPlayer == null)
 			{
-				exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, -1);
+				//This is how you add a response object (most things need one)
+				String response = "Failed to login - invalid username or password";
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+				exchange.getResponseBody().write(response.getBytes());
 				// serialize with FAILED message
 				System.out.println("User does not exist!");
 				data.append("FAILURE", exchange.getResponseBody());
+				exchange.close();
 				return;
 			}
 			System.out.println("User exists!");
-			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
+			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
-					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/";
+					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID().getNumber() + "%7D;Path=/;";
 			// How to add cookie to response headers?
+			// This how bro~  only needed in login(add usercookie) and joingame(add gamecookie)
+			Headers responseHeaders = exchange.getResponseHeaders();
+			responseHeaders.set("Set-Cookie", userCookie);
+
+			//How you add a response: send response headers first then getresponsebody.write, you need to put something
+			//in order for the clientcommunicator to work.
+			String response = "Success! :D";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			exchange.getResponseBody().write(response.getBytes());
+
 			// am not sure what to append or what to do with userCookie
-			data.append(userCookie, exchange.getResponseBody());
+			// we append to data but we don't do anything with it
+			//data.append(userCookie, exchange.getResponseBody());
 			exchange.close();
 		}
 		catch (JSONException e)

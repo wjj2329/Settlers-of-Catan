@@ -49,7 +49,7 @@ public class ServerFacade
 	private Model serverModel = new Model();
 
 	private static ServerFacade singleton = null;
-	private static int NEXT_USER_ID = 5;
+	public static int NEXT_USER_ID = 5;
 
 	/**
 	 * Command objects.
@@ -82,13 +82,17 @@ public class ServerFacade
 	private ServerFacade()
 	{
 		Player sam = new Player("Sam", CatanColor.BLUE, new Index(1));
+		sam.setPlayerID(new Index(1));
 		sam.setPassword("sam");
 		Player mark = new Player("Mark", CatanColor.GREEN, new Index(2));
+		mark.setPlayerID(new Index(2));
 		mark.setPassword("mark");
 		Player brooke = new Player("Brooke", CatanColor.BROWN, new Index(3));
 		brooke.setPassword("brooke");
+		brooke.setPlayerID(new Index(3));
 		Player pete = new Player("Pete", CatanColor.WHITE, new Index(4));
 		pete.setPassword("pete");
+		pete.setPlayerID(new Index(4));
 		allRegisteredUsers.add(sam);
 		allRegisteredUsers.add(mark);
 		allRegisteredUsers.add(brooke);
@@ -153,7 +157,8 @@ public class ServerFacade
      */
 	public void register(String username, String password)
 	{
-		Player p=new Player(username,CatanColor.PUCE,new Index(NEXT_USER_ID++));
+		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
+		p.setPlayerID(new Index(NEXT_USER_ID++));
 		p.setPassword(password);
 		System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
