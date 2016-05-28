@@ -24,5 +24,13 @@ public abstract class Param {
 	}
 	
 	public abstract String getRequestType();
-	
+
+	@Override
+	public String toString() {
+		return "Param{" +
+				"headers=" + headers +
+				", POST='" + POST + '\'' +
+				", GET='" + GET + '\'' +
+				'}';
+	}
 }

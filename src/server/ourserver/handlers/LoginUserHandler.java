@@ -90,6 +90,7 @@ public class LoginUserHandler implements HttpHandler
 			}
 			System.out.println("User exists!");
 			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
+			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/;";
 			// How to add cookie to response headers?

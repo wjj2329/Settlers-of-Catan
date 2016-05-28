@@ -49,6 +49,7 @@ public class ClientCommunicator
 		URL url;
 		System.out.println("I am sending stuff with the URL " + urlsuffix + " and the param " + data.getRequestType());
 		System.out.println("The url as a whole is " + urlprefix+serverhost+":"+serverport+urlsuffix);
+		System.out.println("MY DATA IS THIS" +data.toString());
 		try {
 			url = new URL(urlprefix+serverhost+":"+serverport+urlsuffix);
 			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
@@ -57,6 +58,7 @@ public class ClientCommunicator
 			
 			if(data.getHeaders() != null){
 				for(String string: data.getHeaders().keySet()){
+					System.out.println("i come in the this thing and stuff"+string);
 					connection.addRequestProperty(string, data.getHeaders().get(string));
 				}
 			}
@@ -64,7 +66,6 @@ public class ClientCommunicator
 			connection.connect();
 			System.out.println("After the connection");
 
-			
 
 			if(data.getRequestType().equals("POST")){
 				OutputStream requestBody = connection.getOutputStream();
