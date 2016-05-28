@@ -2,6 +2,7 @@ package server.ourserver.handlers;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
 
@@ -19,7 +20,7 @@ import shared.game.player.Player;
 /** Logs the caller in to the server, and sets their catan.userHTTP cookie.
  * The passed-in username and password may correspond to the credentials of
  * any registered user.
- * 
+ *
  *  username:
  *            the player's username
  *  password:
@@ -77,7 +78,7 @@ public class LoginUserHandler implements HttpHandler
 			username = data.getString("username");
 			password = data.getString("password");
 			loginParam = new LoginParam(username, password);
-			newPlayer = new Player(username, CatanColor.PUCE, new Index(-1));
+			newPlayer = new Player(username, CatanColor.PUCE, new Index(1));
 			newPlayer.setPassword(password);
 			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
 			if (newPlayer == null)
@@ -95,6 +96,8 @@ public class LoginUserHandler implements HttpHandler
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID() + "%7D;Path=/;";
 			// How to add cookie to response headers?
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+			// set responseHeader
+
 			// am not sure what to append or what to do with userCookie
 			// we append to data but we don't do anything with it
 			//data.append(userCookie, exchange.getResponseBody());

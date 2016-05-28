@@ -55,6 +55,7 @@ public class ServerProxy implements IServer {
 		Param param = new LoginParam(username, password);
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		usercookie = response.getUserCookie();
+
 		if (response == null)
 		{
 			System.out.println("null response");
