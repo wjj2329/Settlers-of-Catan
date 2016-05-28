@@ -1379,6 +1379,14 @@ public class Hex
 		return this.resourcenumber.getValue();
 	}
 
+	public void setPortType(PortType mytype)
+	{
+		if(myport!=null)
+		{
+			myport.setType(mytype);
+		}
+	}
+
 	public PortType getPortType()
 	{
 		if(myport==null)

@@ -164,6 +164,12 @@ public class CatanMap
 		{
 			int numberswap=myrandom.nextInt(nonwaterporthexs.size()-1);
 			int numberswap2=myrandom.nextInt(nonwaterporthexs.size()-1);
+			Hex hex=hexes.get(nonwaterporthexs.get(numberswap));
+			Hex hex2=hexes.get(nonwaterporthexs.get(numberswap2));
+			PortType mytype=hexes.get(nonwaterporthexs.get(numberswap)).getPortType();
+			PortType mytype2=hexes.get(nonwaterporthexs.get(numberswap2)).getPortType();
+			hex.setPortType(mytype2);
+			hex2.setPortType(mytype);
 		}
 	}
 
