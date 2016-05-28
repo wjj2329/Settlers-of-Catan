@@ -9,7 +9,6 @@ import java.io.*;
 import java.util.*;
 import java.lang.reflect.*;
 
-import server.ourserver.ServerFacade;
 import server.proxies.*;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -162,20 +161,20 @@ public class LoginController extends Controller implements ILoginController, Obs
 		{
 			//System.out.println("The split cookie thingy is " + splitCookie[i]);
 			String[] splitinfo = splitCookie[i].split(":");
+
 			switch(i)
 			{
 				case 0: // authentication token - do nothing
+					break;
+				case 1: // username - set name
 					localplayer.setName(splitinfo[1]);
 					break;
-				case 1: // username - set name;
-					break;
 				case 2: // password - do nothing
+					break;
+				case 3: // player ID: set the ID
 					splitinfo[1] = splitinfo[1].substring(0, splitinfo[1].length()-1);
 					//System.out.println("Well let's see what this is: " + splitinfo[1]);
 					localplayer.setPlayerID(new Index(Integer.parseInt(splitinfo[1])));
-					break;
-				case 3: // player ID: set the ID
-
 					break;
 			}
 		}
@@ -231,7 +230,6 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
 		//format for names which is a problem!
 		localplayer.setName(newname);
-		localplayer.setPlayerID(new Index(ServerFacade.NEXT_USER_ID));
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 	}
 	
