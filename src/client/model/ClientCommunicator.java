@@ -93,7 +93,7 @@ public class ClientCommunicator
 				 //This is where it gets the cookies. 
 				String galleta = connection.getHeaderField("Set-cookie");
                 InputStream responseBody = connection.getInputStream();
-
+				System.out.println(" I SURVIVE THE COOKIE ORDEAL");
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 byte[] buffer = new byte[1024];
                 int length = 0;

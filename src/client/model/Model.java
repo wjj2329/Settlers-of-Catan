@@ -29,6 +29,10 @@ public class Model
 	private Index winner;
 	private ArrayList<CatanGame> gamelist = new ArrayList<CatanGame>();
 
+	public void addGame(CatanGame adding)
+	{
+		gamelist.add(adding);
+	}
 	/**
 	 * Map of players in the game.
 	 */

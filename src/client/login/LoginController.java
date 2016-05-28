@@ -158,11 +158,11 @@ public class LoginController extends Controller implements ILoginController, Obs
 		/*
 			Use if running OUR server
 		 */
-		loginAndCreatePlayerFromCookie(username, password);
+		//loginAndCreatePlayerFromCookie(username, password);
 		/*
 			Use if running ANT server
 		 */
-		//createPlayerFromCookie(username,password);
+		createPlayerFromCookie(username,password);
 	}
 
 	public void createPlayerFromCookie(String username, String password)
