@@ -215,9 +215,18 @@ public class ServerFacade
 	 * @param gameID: ID of the game to join.
 	 * @param playerIndex: ID of the player who is joining.
      */
-	public void joinGame(int gameID, Player player)
+	public boolean joinGame(int gameID, int playerid, String color)
 	{
-		serverModel.listGames().get(gameID).addPlayer(player);
+		for (Player p : allRegisteredUsers)
+		{
+			if(p.getPlayerID().getNumber() == playerid)
+			{
+				serverModel.listGames().get(gameID).addPlayer(p);
+				return true;
+			}
+		}
+		return false;
+		
 	}
 
 	/**

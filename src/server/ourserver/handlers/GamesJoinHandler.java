@@ -60,36 +60,30 @@ public class GamesJoinHandler implements HttpHandler
 			e.printStackTrace();
 		}
 		System.out.println("This is our JSON Object: " + data.toString());
-		LoginParam loginParam = null;
 		Player newPlayer = null;
-		String username;
-		String password;
+		String username = "";
+		int gameid;
+		int userid;
+		String color;
 		try
 		{
-			username = data.getString("username");
-			password = data.getString("password");
-			loginParam = new LoginParam(username, password);
-			newPlayer = new Player(username, CatanColor.PUCE, new Index(1));
-			newPlayer.setPassword(password);
-			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
-			if (newPlayer == null)
+			gameid = data.getInt("id"); //What game am I joining?
+			userid = data.getInt("player id"); //What game am I joining?
+			color = data.getString("color"); //What game am I joining?
+			
+			boolean success = ServerFacade.getInstance().joinGame(gameid,userid,color);
+			if (!success)
 			{
-				//This is how you add a response object (most things need one)
-				String response = "Failed to login - invalid username or password";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-				exchange.getResponseBody().write(response.getBytes());
-				// serialize with FAILED message
-				System.out.println("User does not exist!");
+				exchange.getResponseBody().write("Failed to join".getBytes());
 				data.append("FAILURE", exchange.getResponseBody());
 				exchange.close();
 				return;
 			}
-			System.out.println("User exists!");
-			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
-			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
-			String gameCookie = "catan.game=" + ";Path=/;";
-			// How to add cookie to response headers? 
-			// This how bro~  only needed in login(add usercookie) and joingame(add gamecookie)
+			
+			String gameCookie = "catan.game=" + gameid + ";Path=/;";
+			
+			//Add gamecookie to response header
 			Headers responseHeaders = exchange.getResponseHeaders();
 			responseHeaders.set("Set-Cookie", gameCookie);
 			
@@ -99,9 +93,7 @@ public class GamesJoinHandler implements HttpHandler
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			exchange.getResponseBody().write(response.getBytes());
 
-			// am not sure what to append or what to do with userCookie
-			// we append to data but we don't do anything with it
-			//data.append(userCookie, exchange.getResponseBody());
+
 			exchange.close();
 		}
 		catch (JSONException e)
