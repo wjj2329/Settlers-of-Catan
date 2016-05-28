@@ -542,6 +542,7 @@ public class Player
 	 */
 	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 	{
+		System.out.println("I am calling canBuildRoadPiece");
 		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
 		{
 			return false;
@@ -550,8 +551,16 @@ public class Player
 		{
 			return false;
 		}
-		if (edge.hasRoad())
+		// Try this: The corresponding edge on the hex
+		EdgeLocation truth = getCorrectEdgePointer(edge, hex);
+		// don't want this to be null!
+		if (truth == null)
 		{
+			return false;
+		}
+		if (truth.hasRoad())//(edge.hasRoad()) // might want to compute adjacent
+		{
+			//System.out.println("This edge has a road!");
 			return false;
 		}
 		if (!checkForOtherRoadsAndStructures(hex, edge))
@@ -559,6 +568,27 @@ public class Player
 			return false;
 		}
 		return true;
+	}
+
+	private EdgeLocation getCorrectEdgePointer(EdgeLocation loc, Hex hex)
+	{
+		switch (loc.getDir())
+		{
+			case NorthWest:
+				return hex.getNw();
+			case North:
+				return hex.getN();
+			case NorthEast:
+				return hex.getNe();
+			case SouthEast:
+				return hex.getSe();
+			case South:
+				return hex.getS();
+			case SouthWest:
+				return hex.getSw();
+			default:
+				return null;
+		}
 	}
 
 	/**

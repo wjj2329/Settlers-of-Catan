@@ -62,19 +62,6 @@ public class ServerProxy implements IServer {
 		}
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		usercookie = response.getUserCookie();
-
-		if (response == null)
-		{
-			System.out.println("null response");
-		}
-		else if (usercookie == null)
-		{
-			System.out.println("The user cookie null boi");
-		}
-		else
-		{
-			System.out.println("Eff");
-		}
 		return response;
 	}
 
