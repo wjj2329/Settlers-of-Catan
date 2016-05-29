@@ -430,7 +430,7 @@ public class Hex
 		}
 		edgeLocation.setHasRoad(true);
 		roadPiece.setLocation(edgeLocation);
-		roads.add(roadPiece);
+		//roads.add(roadPiece); //this statement is called twice(this and in switch statement) so i comment this one out.
 		// set hasRoad to true, then actually create the RoadPiece object and set that.
 		switch (edgeLocation.getDir())
 		{
@@ -1433,5 +1433,9 @@ public class Hex
 
 	public void setResourcetype(HexType resourcetype) {
 		this.resourcetype = resourcetype;
+	}
+	
+	public Port getPort(){
+		return myport; 
 	}
 }

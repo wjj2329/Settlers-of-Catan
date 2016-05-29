@@ -1,9 +1,16 @@
 package server.ourserver.handlers;
 
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import server.ourserver.ServerFacade;
+
 import java.io.IOException;
+import java.net.HttpURLConnection;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -25,8 +32,36 @@ import java.io.IOException;
  *                		1.The server returns an HTTP 400 error response, and the body contains an error message
  */
 public class GameModelHandler implements HttpHandler {
+	
+	
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+    	String cookie = httpExchange.getRequestHeaders().getFirst("Cookie");
+    	int gameID = getGameIDfromCookie(cookie);
+		System.out.println("TIS THE GAME ID FROM COOKIE " + gameID);
+		
+    	JSONObject model = ServerFacade.getInstance().getGameModel(gameID);
+        
+        if(model == null){
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+            String response = "Could not get Game model.";
+            httpExchange.getResponseBody().write(response.getBytes());
+            httpExchange.close();
+            //System.out.println("Well this is embarrasing there was a problem");
+            return;
+        }
+        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        httpExchange.getResponseBody().write(model.toString().getBytes());
+       // System.out.println("YO IT'S DONE!");
+        httpExchange.close();
+    }
+    
+    
+    public int getGameIDfromCookie(String cookie){
+//    	
+//    	System.out.println(cookie.indexOf("game="));
+//    	System.out.println(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
+    	return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
 
     }
 }

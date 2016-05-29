@@ -112,7 +112,7 @@ public class Player
 	 * ResourceList: List of all the resource cards
 	 * (brick, ore, sheep, wheat, wood)
 	 */
-	private ResourceList resources = null;
+	private ResourceList resources = new ResourceList();
 
 	/**
 	 * List of all the ports that the player currently has.
