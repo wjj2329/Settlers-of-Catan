@@ -38,6 +38,14 @@ public class BuildCityCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
+		Index owner2=null;
+		for (Player p : currentgame.getMyplayers().values())
+		{
+			if (p.getPlayerIndex().equals(playerIndex))
+			{
+				owner2 = p.getPlayerID();
+			}
+		}
 		ResourceList newlist=playertoupdate.getResources();
 		newlist.setSheep(newlist.getOre()-3);
 		newlist.setWheat(newlist.getWheat()-2);
@@ -47,10 +55,10 @@ public class BuildCityCommand implements ICommand {
 		Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
 		h.getCities().add(city1);
 		currentgame.getMymap().getCities().add(city1);
-		city1.setOwner(owner);
+		city1.setOwner(owner2);
 		vertex.setCity(city1);
-		currentgame.getMyplayers().get(owner).addToCities(city1);
-		currentgame.getMyplayers().get(owner).setNumCitiesRemaining(currentgame.getMyplayers().get(owner).getNumCitiesRemaining()-1);
+		currentgame.getMyplayers().get(owner2).addToCities(city1);
+		currentgame.getMyplayers().get(owner2).setNumCitiesRemaining(currentgame.getMyplayers().get(owner2).getNumCitiesRemaining()-1);
 	}
 
 }

@@ -61,6 +61,7 @@ public class MovesBuildSettlementHandler implements HttpHandler
         int x=-10000000;
         int y=-10000000;
         String direction=null;
+        boolean freebe=false;
         JSONObject data = null;
         try
         {
@@ -78,12 +79,13 @@ public class MovesBuildSettlementHandler implements HttpHandler
             JSONObject myobject=data.getJSONObject("vertexLocation");
             x=myobject.getInt("x");
             y=myobject.getInt("y");
+            freebe=data.getBoolean("free");
             direction=data.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)));
+        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

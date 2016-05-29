@@ -2,8 +2,14 @@ package server.ourserver.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import org.json.JSONException;
+import org.json.JSONObject;
+import server.ourserver.ServerFacade;
+import shared.locations.*;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Scanner;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -20,9 +26,69 @@ import java.io.IOException;
  * 						if applicable, "longest road" has been awarded to the player with the longest road
  *
  */
-public class MovesBuildRoadHandler implements HttpHandler {
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+public class MovesBuildRoadHandler implements HttpHandler
+{
 
+    private EdgeLocation getEdgeDirectionFromString(String direction, HexLocation myloc)
+    {
+        //System.out.println("the direction is: " + direction);
+        switch (direction)
+        {
+            case "NW":
+                return new EdgeLocation(myloc,EdgeDirection.NorthWest);
+            case "N":
+                return new EdgeLocation(myloc,EdgeDirection.North);
+            case "NE":
+                return new EdgeLocation(myloc,EdgeDirection.NorthEast);
+            case "SW":
+                return new EdgeLocation(myloc,EdgeDirection.SouthWest);
+            case "S":
+                return new EdgeLocation(myloc,EdgeDirection.South);
+            case "SE":
+                return new EdgeLocation(myloc,EdgeDirection.SouthEast);
+            default:
+                //System.out.println("Something is screwed up with the direction");
+                //assert false;
+                break;
+        }
+        return null;
     }
+    @Override
+    public void handle(HttpExchange exchange) throws IOException
+    {
+        int playerindex=-50;
+        int x=-10000000;
+        int y=-10000000;
+        String direction=null;
+        JSONObject data = null;
+        boolean freebe=false;
+        try
+        {
+            Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
+            String result = s.hasNext() ? s.next() : "";
+            data = new JSONObject(result);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        try {
+
+            playerindex=data.getInt("playerIndex");
+            JSONObject myobject=data.getJSONObject("vertexLocation");
+            x=myobject.getInt("x");
+            y=myobject.getInt("y");
+            direction=data.getString("direction");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ServerFacade.getInstance().buildRoad(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe);
+        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        exchange.getResponseBody().write(response.getBytes());
+        exchange.close();
+
+        }
 }
+

@@ -380,9 +380,10 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param edge: the edge it is being built on
      */
-	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge)
+	private BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
+	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free)
 	{
-
+		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free);
 	}
 
 	/**
@@ -392,9 +393,9 @@ public class ServerFacade
 	 * @param vertex: which vertex it is being built on
      */
 	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
-	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex)
+	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free)
 	{
-		buildsettlement.buildsettlement(playerIndex,location,vertex);
+		buildsettlement.buildsettlement(playerIndex,location,vertex,free);
 	}
 
 	/**

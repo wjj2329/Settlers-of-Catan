@@ -453,7 +453,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		for (int i = 0; i < ports.length(); i++)
 		{
 			JSONObject obj = ports.getJSONObject(i);
-			//System.out.println(obj);
 			int ratio=obj.getInt("ratio");
 			String resource="three"; // if not 3:1 port, then it's "wood" or "sheep" or something.
 			if(ratio != 3)
@@ -463,7 +462,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
-			//assert(dir != null);
 			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
 					obj.getInt("ratio"), getPortTypeFromString(resource)); //this is not going
 			newPort.setType(getPortTypeFromString(resource));
@@ -472,9 +470,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		JSONArray roads = map.getJSONArray("roads");
 		for (int i = 0; i < roads.length(); i++)
 		{
-			//System.out.println("I build another road");
 			JSONObject obj = roads.getJSONObject(i);
-			//System.out.println(obj);
 			Index playerIndex = new Index(obj.getInt("owner"));
 			Index playerID = null;
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
@@ -485,25 +481,13 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				}
 			}
 			assert (playerID != null);
-			//RoadPiece roadPiece = new RoadPiece(playerID);
 			JSONObject location = obj.getJSONObject("location");
-			//System.out.println(location);
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
 			edgeLocation.setHasRoad(true);
-
-			//System.out.println("I am building on the edge location " + edgeLocation.getDir()
-					//+ ": " + edgeLocation.getHexLoc().getX() + ", " + edgeLocation.getHexLoc().getY());
-			//roadPiece.setLocation(edgeLocation);
-			//roadPiece.setPlayerWhoOwnsRoad(playerID);
 			Hex hex = currentgame.getMymap().getHexes().get(loc);
-			// adjacent hex I AM HERE BOI
 			Hex adjacent = computeAdjacentHex(hex, edgeLocation);
 			EdgeLocation adjLoc = computeOppositeEdge(edgeLocation, adjacent);
-			//System.out.println("The location of the first hex is " + hex.getLocation().toString());
-			//System.out.println("The location of the second hex is " + adjacent.getLocation().toString());
-			//System.out.println("The first edge location is " + );
-			//edgeLocation.setRoadPiece(roadPiece);
 			RoadPiece r1 = hex.buildRoad(edgeLocation, playerID);
 			RoadPiece r2 = adjacent.buildRoad(adjLoc, playerID);
 			edgeLocation.setRoadPiece(r1);
@@ -511,12 +495,6 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			adjLoc.setRoadPiece(r2);
 			adjLoc.setHasRoad(true);
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
-			//System.out.println("THE SIZE HOMEBRO of the road pieces is: " + currentgame.getMyplayers().get(
-					//playerID).getRoadPieces().size());
-			//currentgame.getMyplayers().get(playerID).addToRoadPieces(r2);
-
-			//currentgame.getMyplayers().get(roadPiece.getPlayerWhoOwnsRoad()).addToRoadPieces(roadPiece);
-			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
