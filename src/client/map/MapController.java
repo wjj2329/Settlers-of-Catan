@@ -391,7 +391,7 @@ public class MapController extends Controller implements IMapController, Observe
 					//hasdonefirstturn=true;
 					return;
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==1
+				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 					/*&&hasdonefirstturn*///starts part 1 of second set up turn
@@ -403,7 +403,7 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 // it doesn't get to this one with Pete
-				if(current.getSettlements().size()==2&&current.getRoadPieces().size()==1
+				if(current.getSettlements().size()==2&&current.getRoadPieces().size()/2==1
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
@@ -423,7 +423,7 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 
-				if (current.getSettlements().size() == 2 && current.getRoadPieces().size() == 2
+				if (current.getSettlements().size() == 2 && current.getRoadPieces().size()/2 == 2
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 				{
