@@ -620,13 +620,6 @@ public class Player
 		/*
 			In the second round, you must build off of your second settlement!
 		 */
-		/*if (ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
-		{
-			if (!secondRound(up, down, upEdge, downEdge, upEdgeAdjacent, downEdgeAdjacent, adjacent))
-			{
-				return false; // HERE to delete maybe
-			}
-		}*/
 		if (!round2CaseVertex(up) || !round2CaseVertex(down) || !round2CaseEdge(upEdge) || !round2CaseEdge(downEdge)
 			|| !round2CaseEdge(upEdgeAdjacent) || !round2CaseEdge(downEdgeAdjacent))
 		{
