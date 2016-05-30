@@ -724,9 +724,10 @@ public class ServerFacade
 	 * Sends a chat to the server and stores it there.
 	 * @param message: the chat message we are sending
      */
-	public void sendChat(String message)
+	private SendChatCommand mychat=new SendChatCommand();
+	public void sendChat(String message, int playerindex)
 	{
-
+		mychat.sendChat(message,playerindex);
 	}
 
 	/**

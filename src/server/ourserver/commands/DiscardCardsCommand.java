@@ -22,7 +22,7 @@ public class DiscardCardsCommand implements ICommand {
 	}
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard)
 	{
-		CatanGame currentgame=new CatanGame();//Again needs to hook up to the current game object. 
+		CatanGame currentgame=new CatanGame();//Again needs to hook up to the current game object.
 		Player playertodiscard=null;
 		for(Index id:currentgame.getMyplayers().keySet())
 		{
