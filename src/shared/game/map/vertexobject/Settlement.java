@@ -21,7 +21,9 @@ public class Settlement
 	/**
 	 * direction: the direction that the settlement is in.
 	 */
-	String direction = "";
+	private String direction = "";
+
+	private boolean canBuildFromMeInRound2 = true;
 	
 	/**
 	 * Constructor
@@ -74,5 +76,15 @@ public class Settlement
 	public void setOwner(Index owner)
 	{
 		this.owner = owner;
+	}
+
+	public boolean canBuildFromMeInRound2()
+	{
+		return canBuildFromMeInRound2;
+	}
+
+	public void setCanBuildFromMeInRound2(boolean canBuildFromMeInRound2)
+	{
+		this.canBuildFromMeInRound2 = canBuildFromMeInRound2;
 	}
 }

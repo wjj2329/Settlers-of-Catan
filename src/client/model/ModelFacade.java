@@ -523,10 +523,18 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			currentgame.getMymap().getSettlements().add(settle1);
+			//currentgame.getMymap().getSettlements().add(settle1);
 			settle1.setOwner(myindex);
-			mylocation.setSettlement(settle1);
+			//mylocation.setSettlement(settle1);
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			/*if (getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND && currentgame.getMyplayers().get(myindex).getSettlements().size() == 1)
+			{
+				settle1.setCanBuildFromMeInRound2(false);
+			}*/
+			System.out.println("Is this ever set to false? " + settle1.canBuildFromMeInRound2());
+			currentgame.getMymap().getSettlements().add(settle1);
+			mylocation.setSettlement(settle1);
+			//vertexLocationOnHex(mylocation, h);
 		}
 		JSONArray cities = map.getJSONArray("cities");
 		for (int i = 0; i < cities.length(); i++)
@@ -562,6 +570,31 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		currentgame.getMymap().setRadius(map.getInt("radius"));
 		JSONObject robber = map.getJSONObject("robber");
 		currentgame.myrobber.setLocation(new HexLocation(robber.getInt("x"), robber.getInt("y")));
+	}
+
+	private void vertexLocationOnHex(VertexLocation vertexLocation, Hex h)
+	{
+		switch (vertexLocation.getDir())
+		{
+			case NorthEast:
+				h.setNortheast(vertexLocation);
+				break;
+			case NorthWest:
+				h.setNorthwest(vertexLocation);
+				break;
+			case East:
+				h.setEast(vertexLocation);
+				break;
+			case West:
+				h.setWest(vertexLocation);
+				break;
+			case SouthEast:
+				h.setSoutheast(vertexLocation);
+				break;
+			case SouthWest:
+				h.setSouthwest(vertexLocation);
+				break;
+		}
 	}
 
 	private void loadPlayers(JSONArray players) throws JSONException
