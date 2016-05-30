@@ -31,7 +31,7 @@ public class MovesFinishTurnHandler implements HttpHandler
     public void handle(HttpExchange exchange) throws IOException
     {
 
-        System.out.println("I COME HERE TO HANDLE ENDDING A TURN");
+        System.out.println("I COME HERE TO HANDLE ENDING A TURN");
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
         int playerindex=-50;
@@ -46,8 +46,8 @@ public class MovesFinishTurnHandler implements HttpHandler
         {
             e.printStackTrace();
         }
-        try {
-
+        try
+        {
             playerindex=data.getInt("playerIndex");
         } catch (JSONException e) {
             e.printStackTrace();

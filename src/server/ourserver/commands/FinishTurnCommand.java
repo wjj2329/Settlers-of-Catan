@@ -19,7 +19,7 @@ public class FinishTurnCommand implements ICommand {
 		
 		return null;
 	}
-	public void  endturn(int playerIndex, int gameid)
+	public void endturn(int playerIndex, int gameid)
 	{
 		System.out.println("I call the end turn command");
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);

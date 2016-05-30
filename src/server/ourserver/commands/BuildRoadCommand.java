@@ -128,6 +128,7 @@ public class BuildRoadCommand implements ICommand {
 		adjLoc.setHasRoad(true);
 		System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
 		currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
+		System.out.println("I have this many road pieces: " + currentgame.getMyplayers().get(playerID).getRoadPieces().size());
 		currentgame.getMyplayers().get(playerID).setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
 		System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
