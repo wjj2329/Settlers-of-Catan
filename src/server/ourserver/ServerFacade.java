@@ -409,7 +409,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = p;
+					Player copy = p; //this is bad
 					switch(color.toLowerCase())
 					{
 					case "red":
@@ -439,7 +439,7 @@ public class ServerFacade
 					case "brown":
 						copy.setColor(CatanColor.BROWN);
 						break;
-					}				
+					}
 					serverModel.listGames().get(gameID).addPlayer(copy);
 					return true;
 				}
