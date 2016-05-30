@@ -531,7 +531,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			{
 				settle1.setCanBuildFromMeInRound2(false);
 			}*/
-			System.out.println("Is this ever set to false? " + settle1.canBuildFromMeInRound2());
+			//System.out.println("Is this ever set to false? " + settle1.canBuildFromMeInRound2());
 			currentgame.getMymap().getSettlements().add(settle1);
 			mylocation.setSettlement(settle1);
 			//vertexLocationOnHex(mylocation, h);

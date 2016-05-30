@@ -4,8 +4,8 @@ import server.param.Param;
 
 public class FinishTurnParam extends Param{
 
-	String type;
-	int playerIndex;
+	private String type;
+	private int playerIndex;
 
 	public FinishTurnParam(String type, int playerIndex) {
 		this.type = type;

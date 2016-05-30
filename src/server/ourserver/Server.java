@@ -1,12 +1,13 @@
 package server.ourserver;
 
-import java.io.*;
-import java.net.*;
-import java.rmi.ServerException;
-import java.util.logging.*;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 import server.ourserver.handlers.*;
 
-import com.sun.net.httpserver.*;
+import java.io.IOException;
+import java.net.InetSocketAddress;
+import java.rmi.ServerException;
+import java.util.logging.*;
 
 public class Server
 {
