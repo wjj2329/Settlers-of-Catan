@@ -617,20 +617,11 @@ public class Player
 		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
 		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
 		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);
-		/*
-			In the second round, you must build off of your second settlement!
-		 */
-		if (!round2CaseVertex(up) || !round2CaseVertex(down) || !round2CaseEdge(upEdge) || !round2CaseEdge(downEdge)
-			|| !round2CaseEdge(upEdgeAdjacent) || !round2CaseEdge(downEdgeAdjacent))
-		{
-			return false;
-		}
 		if (hex1 == null)
 		{
 			//System.out.println("cannot build: the hex is null");
 			return false;
 		}
-		//Hex adjacent = computeAdjacentHex(hex1, edgeIAmTryingToPlaceRoadOn);
 		if (adjacent == null)
 		{
 			//System.out.println("cannot build: the adjacent edge is null");
@@ -645,24 +636,18 @@ public class Player
 		{
 			if (up.getSettlement().getOwner().equals(playerID))
 			{
-				System.out.println("Setting true because same up owner");
-				return true;
+				return !(doesSettlementHaveRoadsAttached_New(edgeIAmTryingToPlaceRoadOn, up, hex1, adjacent)
+						&& ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND);
 			}
 		}
 		if (down != null && down.isHassettlement())
 		{
 			if (down.getSettlement().getOwner().equals(playerID))
 			{
-				System.out.println("Setting true because same down owner");
-				return true;
+				return !(doesSettlementHaveRoadsAttached_New(edgeIAmTryingToPlaceRoadOn, down, hex1, adjacent)
+						&& ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND);
 			}
 		}
-		/*EdgeLocation upEdge = getUpEdge(edgeIAmTryingToPlaceRoadOn, hex1);
-		EdgeLocation downEdge = getDownEdge(edgeIAmTryingToPlaceRoadOn, hex1);
-		// Now need to do this with adjacent hex
-		EdgeLocation oppositeEdge = computeOppositeEdge(edgeIAmTryingToPlaceRoadOn, adjacent);
-		EdgeLocation upEdgeAdjacent = getUpEdge(oppositeEdge, adjacent);
-		EdgeLocation downEdgeAdjacent = getDownEdge(oppositeEdge, adjacent);*/
 		//System.out.println("ENTER LOTS OF CRAP: "); // <- this is beautiful
 		//System.out.println("upEdge has road: " + upEdge.hasRoad());
 		//System.out.println("downEdge has road: " + downEdge.hasRoad());
@@ -672,103 +657,240 @@ public class Player
 		//System.out.println("downEdge player " + downEdge.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
 		//System.out.println("upEdgeAdjacent player " + upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
 		//System.out.println("downEdgeAdjacent player " + downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().getNumber());
+		/**
+		 * At this point in the second round, they cannot build off of roads.
+		 * One exception: this may not work.
+		 */
+		if (ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
+		{
+			return false;
+		}
 		if (upEdge != null && upEdge.hasRoad() && upEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
-			System.out.println("Setting true because same up edge owner");
 			return true;
 		}
 		if (downEdge != null && downEdge.hasRoad() && downEdge.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
-			System.out.println("Setting true because same down edge owner");
 			return true;
 		}
 		if (upEdgeAdjacent != null && upEdgeAdjacent.hasRoad() && upEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
-			System.out.println("Setting true because same up adjacent edge owner");
 			return true;
 		}
 		if (downEdgeAdjacent != null && downEdgeAdjacent.hasRoad() && downEdgeAdjacent.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID))
 		{
-			System.out.println("Setting true because same down adjacent owner");
 			return true;
 		}
 		//System.out.println("cannot build: at the end; nothing else became true");
 		return false;
 	}
 
-	private boolean round2CaseVertex(VertexLocation v)
+	/**
+	 * Function to test if each of the four edges has a road.
+	 * If one of them returns true, we can't build a piece there in round 2.
+     */
+	private boolean checkHasRoads(EdgeLocation e1, EdgeLocation e2, EdgeLocation e3, EdgeLocation e4)
 	{
-		if (ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
+		if (e1.hasRoad() || e2.hasRoad() || e3.hasRoad() || e4.hasRoad())
 		{
-			if (v.isHassettlement() && v.getSettlement().getOwner().equals(playerID) &&
-					v.equals(settlements.get(0).getVertexLocation())) // this equals probably isn't the best way.
-			{
-				return false;
-			}
+			return true;
 		}
-		return true;
+		return false;
 	}
 
-	private boolean round2CaseEdge(EdgeLocation e)
+	/**
+	 * If this function returns true, then we CANNOT build a road here in round 2! :)
+	 * THIS WORKS LIKE AMAZINGNESS. THOU SHALT NOT DELETE THIS FUNCTION
+	 * THOU SHALT PRAISE THIS FUNCTION FOR ITS BEAUTY
+	 * @param edgeTryingToBuildRoadOn: the edge we are trying to build the road on
+	 * @param v: the vertex location which contains our settlement
+	 * @param hex: the hex
+	 * @param adj: the adjacent hex
+     */
+	private boolean doesSettlementHaveRoadsAttached_New(EdgeLocation edgeTryingToBuildRoadOn, VertexLocation v,
+														Hex hex, Hex adj)
 	{
-		if (ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND)
+		switch (edgeTryingToBuildRoadOn.getDir())
 		{
-			System.out.println("YAY! It's the second round!");
-			System.out.println("The size of roadPieces is: " + roadPieces.size());
-			System.out.println("The location of the initial road piece is " + roadPieces.get(0).getLocation().getDir() + ", "
-				+ roadPieces.get(0).getLocation().getHexLoc());
-			System.out.println("The location of EdgeLocation e is " + e.getDir() + ", " + e.getHexLoc());
-			if (e.hasRoad() && e.getRoadPiece().getPlayerWhoOwnsRoad().equals(playerID)
-				&& e.equals(roadPieces.get(0).getLocation()))
-			{
-				return false;
-			}
-		}
-		return true;
-	}
-
-	private EdgeLocation getOppositeEdgeLocation(Hex adjacent, EdgeLocation findMyOpposite)
-	{
-		switch (findMyOpposite.getDir())
-		{
-			case NorthWest:
-				return adjacent.getSe();
+			// Adjacent hex is +0, -1
 			case North:
-				return adjacent.getS();
+				switch (v.getDir())
+				{
+					// Up Vertex
+					case NorthEast:
+						// Hex:
+						EdgeLocation e1 = hex.getNe();
+						EdgeLocation e2 = hex.getN();
+						// Adjacent:
+						EdgeLocation e3 = adj.getSe();
+						EdgeLocation e4 = adj.getS();
+						if (checkHasRoads(e1, e2, e3, e4))
+						{
+							return true;
+						}
+						break;
+					// Down Vertex
+					case NorthWest:
+						// Hex:
+						EdgeLocation e5 = hex.getN();
+						EdgeLocation e6 = hex.getNw();
+						// Adjacent:
+						EdgeLocation e7 = adj.getSw();
+						EdgeLocation e8 = adj.getS();
+						if (checkHasRoads(e5, e6, e7, e8))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
+			// Adjacent hex is +1, -1
 			case NorthEast:
-				return adjacent.getSw();
+				switch (v.getDir())
+				{
+					// Up vertex:
+					case East:
+						EdgeLocation e9 = hex.getNe();
+						EdgeLocation e10 = hex.getSe();
+						EdgeLocation e11 = adj.getSw();
+						EdgeLocation e12 = adj.getS();
+						if (checkHasRoads(e9, e10, e11, e12))
+						{
+							return true;
+						}
+						break;
+					// Down vertex:
+					case NorthEast:
+						EdgeLocation e13 = hex.getNe();
+						EdgeLocation e14 = hex.getN();
+						EdgeLocation e15 = adj.getSw();
+						EdgeLocation e16 = adj.getNw();
+						if (checkHasRoads(e13, e14, e15, e16))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
+			// Adjacent hex is +1, +0.
 			case SouthEast:
-				return adjacent.getNw();
+				switch (v.getDir())
+				{
+					// Up vertex:
+					case SouthEast:
+						EdgeLocation e17 = hex.getS();
+						EdgeLocation e18 = hex.getSe();
+						EdgeLocation e19 = adj.getNw();
+						EdgeLocation e20 = adj.getSw();
+						if (checkHasRoads(e17, e18, e19, e20))
+						{
+							return true;
+						}
+						break;
+					// Down vertex:
+					case East:
+						EdgeLocation e21 = hex.getNe();
+						EdgeLocation e22 = hex.getSe();
+						EdgeLocation e23 = adj.getNw();
+						EdgeLocation e24 = adj.getN();
+						if (checkHasRoads(e21, e22, e23, e24))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
+			// Adjacent is +0, +1
 			case South:
-				return adjacent.getN();
+				switch (v.getDir())
+				{
+					// Up vertex:
+					case SouthWest:
+						EdgeLocation e25 = hex.getSw();
+						EdgeLocation e26 = hex.getS();
+						EdgeLocation e27 = adj.getN();
+						EdgeLocation e28 = adj.getNw();
+						if (checkHasRoads(e25, e26, e27, e28))
+						{
+							return true;
+						}
+						break;
+					// Down vertex:
+					case SouthEast:
+						EdgeLocation e29 = hex.getSe();
+						EdgeLocation e30 = hex.getS();
+						EdgeLocation e31 = adj.getN();
+						EdgeLocation e32 = adj.getNe();
+						if (checkHasRoads(e29, e30, e31, e32))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
+			// Adjacent is -1, +1
 			case SouthWest:
-				return adjacent.getNe();
+				switch (v.getDir())
+				{
+					// Up vertex:
+					case West:
+						EdgeLocation e33 = hex.getNw();
+						EdgeLocation e34 = hex.getSw();
+						EdgeLocation e35 = adj.getNe();
+						EdgeLocation e36 = adj.getN();
+						if (checkHasRoads(e33, e34, e35, e36))
+						{
+							return true;
+						}
+						break;
+					// Down vertex:
+					case SouthWest:
+						EdgeLocation e37 = hex.getSw();
+						EdgeLocation e38 = hex.getS();
+						EdgeLocation e39 = adj.getNe();
+						EdgeLocation e40 = adj.getSe();
+						if (checkHasRoads(e37, e38, e39, e40))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
+			// Adjacent hex is -1, +0.
+			case NorthWest:
+				switch (v.getDir())
+				{
+					// Up vertex:
+					case NorthWest:
+						EdgeLocation e41= hex.getN();
+						EdgeLocation e42 = hex.getNw();
+						EdgeLocation e43 = adj.getSe();
+						EdgeLocation e44 = adj.getNe();
+						if (checkHasRoads(e41, e42, e43, e44))
+						{
+							return true;
+						}
+						break;
+					// Down vertex:
+					case West:
+						EdgeLocation e45 = hex.getNw();
+						EdgeLocation e46 = hex.getSw();
+						EdgeLocation e47 = adj.getSe();
+						EdgeLocation e48 = adj.getS();
+						if (checkHasRoads(e45, e46, e47, e48))
+						{
+							return true;
+						}
+						break;
+				}
+				break;
 			default:
-				return null;
+				return false;
 		}
+		// If there is nothing nearby, return false.
+		return false;
 	}
 
-	private VertexLocation getOppositeVertexLocation(Hex adjacent, VertexLocation findMyOpposite)
-	{
-		// need opposite direction
-		switch (findMyOpposite.getDir())
-		{
-			case West:
-				return adjacent.getEast();
-			case NorthWest:
-				return adjacent.getSoutheast();
-			case NorthEast:
-				return adjacent.getSouthwest();
-			case East:
-				return adjacent.getWest();
-			case SouthEast:
-				return adjacent.getNorthwest();
-			case SouthWest:
-				return adjacent.getNortheast();
-			default:
-				return null;
-		}
-	}
 	/**
 	 * Computes the opposite edge in the neighboring hexagon.
 	 * @param original: original edge
@@ -1148,6 +1270,12 @@ public class Player
      */
 	public void addToSettlements(Settlement settlement)
 	{
+		if (settlements.size() == 0 &&
+				ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
+		{
+			System.out.println("Setting canBuildFromMeInRound2 to false");
+			settlement.setCanBuildFromMeInRound2(false);
+		}
 		settlements.add(settlement);
 	}
 

@@ -1,6 +1,11 @@
 package shared.game;
 
+import java.util.Random;
+
+import client.resources.ResourceCard;
+import server.ourserver.ServerFacade;
 import shared.definitions.DevCardType;
+import shared.definitions.HexType;
 import shared.definitions.ResourceType;
 import shared.game.Card;
 //import shared.game.PlayerNotFoundException;
@@ -11,27 +16,32 @@ import shared.game.ResourceList;
  */
 public class Bank
 {
-	private ResourceList cardslist= null;
-
-	public DevCardList getDevCardList() {
-		return devCardList;
+	private ResourceList resourcelist;
+	private DevCardList devcardlist;
+	
+	
+	public DevCardList getDevCardList()
+	{
+		return devcardlist;
 	}
 
-	private DevCardList devCardList=null;
+	
 	
 	/**
 	 * Bank constructor
 	 */
 	public Bank()
 	{
-		// TODO Auto-generated constructor stub
+		//Initialize cards to full deck
+		clear();
 	}
 
 
 
 	public void clear()
 	{
-		cardslist = null;
+		resourcelist = new ResourceList(19,19,19,19,19);
+		devcardlist = new DevCardList(2,5,2,14,2);
 	}
 
 	/**
@@ -40,168 +50,108 @@ public class Bank
 	 */
 
 
-	public boolean CanBankGiveDevelopmentCard(DevCardType mytype)throws Exception
+	public boolean CanBankGiveDevelopmentCard(DevCardType mytype)
 	{
-		if(devCardList==null)
-		{
-			devCardList=new DevCardList();
-		}
 		switch(mytype)
 		{
 			case MONOPOLY:
-				if(devCardList.getMonopoly()<0)
-				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(devCardList.getMonopoly()>0)
+				if(devcardlist.getMonopoly()>0)
 				{
 					return true;
 				}
 				else
+				{
 					return false;
+				}				
 			case SOLDIER:
-				if(devCardList.getSoldier()<0)
-				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(devCardList.getSoldier()>0)
+				if(devcardlist.getSoldier()>0)
 				{
 					return true;
 				}
 				else
+				{
 					return false;
+				}
 			case YEAR_OF_PLENTY:
-				if(devCardList.getYearOfPlenty()<0)
-				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(devCardList.getYearOfPlenty()>=1)
+				if(devcardlist.getYearOfPlenty()>=1)
 				{
 					return true;
 				}
 				else
-					return false;
-			case ROAD_BUILD:
-				if(devCardList.getRoadBuilding()<0)
 				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
+					return false;
 				}
-				if(devCardList.getRoadBuilding()>=1)
+			case ROAD_BUILD:		
+				if(devcardlist.getRoadBuilding()>=1)
 				{
 					return true;
 				}
 				else
-					return false;
-			case MONUMENT:
-			{
-				if(devCardList.getMonument()<0)
 				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
+					return false;
 				}
-				if(devCardList.getMonument()>0)
+			case MONUMENT:			
+				if(devcardlist.getMonument()>0)
 				{
 					return true;
 				}
 				else
+				{
 					return false;
-			}
+				}
 		}
 
 		return false;
 	}
-	public boolean CanBankGiveResourceCard(ResourceType mytype) throws Exception
+	public boolean CanBankGiveResourceCard(ResourceType mytype)
 	{
-		if (cardslist == null)
-		{
-			cardslist = new ResourceList();
-		}
 		switch(mytype)
 		{
 			case WOOD:
-			{
-				if(cardslist.getWood()<0)
-				{
-					Exception e=new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(cardslist.getWood()>0)
+				if(resourcelist.getWood()>0)
 				{
 					return true;
 				}
-				else return false;
-			}
+				else
+				{
+					return false;
+				}
 			case BRICK:
-			{
-				if(cardslist.getBrick()<0)
-				{
-					Exception e = new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(cardslist.getBrick()>0)
+				if(resourcelist.getBrick()>0)
 				{
 					return true;
 				}
-				else return false;
-			}
+				else
+				{
+					return false;
+				}
 			case WHEAT:
-			{
-				if(cardslist.getWheat()<0)
-				{
-					Exception e = new Exception();
-					e.printStackTrace();
-					throw e;
-
-				}
-				if(cardslist.getWheat()>0)
+				if(resourcelist.getWheat()>0)
 				{
 					return true;
 				}
-				else return false;
-			}
+				else
+				{
+					return false;
+				}
 			case SHEEP:
-			{
-				if(cardslist.getSheep()<0)
-				{
-					Exception e = new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(cardslist.getSheep()>0)
+				if(resourcelist.getSheep()>0)
 				{
 					return true;
 				}
 				else
+				{
 					return false;
-
-			}
+				}
 			case ORE:
-			{
-				if(cardslist.getOre()<0)
-				{
-					Exception e = new Exception();
-					e.printStackTrace();
-					throw e;
-				}
-				if(cardslist.getOre()>0)
+				if(resourcelist.getOre()>0)
 				{
 					return true;
 				}
 				else
+				{
 					return false;
-
-			}
+				}
 		}
 		return false;
 	}
@@ -210,75 +160,173 @@ public class Bank
 	 */
 	public ResourceList getCardslist()
 	{
-		if (this.cardslist == null)
+		if (this.resourcelist == null)
 		{
-			this.cardslist = new ResourceList();
+			this.resourcelist = new ResourceList();
 		}
-		return cardslist;
+		return resourcelist;
 	}
 
 
 	public void setDevCardList(DevCardList devCardList)
 	{
-		if(this.devCardList==null)
-		{
-			this.devCardList=new DevCardList();
-		}
-		this.devCardList=devCardList;
+		this.devcardlist=devCardList;
 	}
 	public void setDevCardList(int monopoly, int monument, int roadBuilding, int soldier, int yearOfPlenty)
 	{
-		if(this.devCardList==null)
-		{
-			this.devCardList=new DevCardList();
-		}
-		devCardList.setMonopoly(monopoly);
-		devCardList.setMonument(monument);
-		devCardList.setRoadBuilding(roadBuilding);
-		devCardList.setSoldier(soldier);
-		devCardList.setYearOfPlenty(yearOfPlenty);
+		devcardlist.setMonopoly(monopoly);
+		devcardlist.setMonument(monument);
+		devcardlist.setRoadBuilding(roadBuilding);
+		devcardlist.setSoldier(soldier);
+		devcardlist.setYearOfPlenty(yearOfPlenty);
 	}
 	/**
 	 * @param cardslist the cardslist to set
 	 */
 	public void setResourceCardslist(ResourceList cardslist)
 	{
-		if (this.cardslist == null)
-		{
-			this.cardslist = new ResourceList();
-		}
-		this.cardslist = cardslist;
+		this.resourcelist = cardslist;
 	}
 
 	public void setResourceCardslist(int brick, int wheat, int sheep, int wood, int ore)
 	{
-		if (this.cardslist == null)
-		{
-			this.cardslist = new ResourceList();
-		}
-		cardslist.setBrick(brick);
-		cardslist.setWheat(wheat);
-		cardslist.setSheep(sheep);
-		cardslist.setWood(wood);
-		cardslist.setOre(ore);
+		resourcelist.setBrick(brick);
+		resourcelist.setWheat(wheat);
+		resourcelist.setSheep(sheep);
+		resourcelist.setWood(wood);
+		resourcelist.setOre(ore);
 	}
 	
-	/**
-	 * @return returns a NON null valid Card object to the player
-	 * A function that gives a player a card
-	 * @throws if there is no corresponding player object
-	 * with the said playerid 
-	 * @pre playerid is nonnegative
-	 */
-	Card giveplayercard(int playerid)
+
+	public String buyDevCard()
 	{
-		if (this.cardslist == null)
+		if(devcardlist.isEmpty())
 		{
-			this.cardslist = new ResourceList();
+			return "dry";
 		}
-		Card cardtogive=null;
-		return cardtogive;
+		Random rnd = new Random();
+		int random = rnd.nextInt(5);
+		String type = "";
+		switch(random)
+		{
+		case 0:
+			if(CanBankGiveDevelopmentCard(DevCardType.MONOPOLY))
+			{
+				devcardlist.setMonopoly(devcardlist.getMonopoly()-1);
+				type = "monopoly";
+			}
+			else
+			{
+				type = buyDevCard();
+			}
+			break;
+		case 1:
+			if(CanBankGiveDevelopmentCard(DevCardType.MONUMENT))
+			{
+				devcardlist.setMonument(devcardlist.getMonument()-1);
+				type = "monument";
+			}
+			else
+			{
+				type = buyDevCard();
+			}
+			break;
+		case 2:
+			if(CanBankGiveDevelopmentCard(DevCardType.ROAD_BUILD))
+			{
+				devcardlist.setRoadBuilding(devcardlist.getRoadBuilding()-1);
+				type = "roadbuilding";
+			}
+			else
+			{
+				type = buyDevCard();
+			}
+			break;
+		case 3:
+			if(CanBankGiveDevelopmentCard(DevCardType.SOLDIER))
+			{
+				devcardlist.setSoldier(devcardlist.getSoldier()-1);
+				type = "soldier";
+			}
+			else
+			{
+				type = buyDevCard();
+			}
+			break;
+		case 4:
+			if(CanBankGiveDevelopmentCard(DevCardType.YEAR_OF_PLENTY))
+			{
+				devcardlist.setYearOfPlenty(devcardlist.getYearOfPlenty()-1);
+				type = "yearofplenty";
+			}
+			break;
+		}
+		
+		return type;
 	}
+	
+	public boolean getResourceCard(HexType type)
+	{
+		 switch(type)
+		 {
+		 case WOOD:
+			 if(CanBankGiveResourceCard(ResourceType.WOOD))
+			 {
+				 resourcelist.setWood(resourcelist.getWood()-1);
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 case SHEEP:
+			 if(CanBankGiveResourceCard(ResourceType.SHEEP))
+			 {
+				 resourcelist.setSheep(resourcelist.getSheep()-1);
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 case ORE:
+			 if(CanBankGiveResourceCard(ResourceType.ORE))
+			 {
+				 resourcelist.setOre(resourcelist.getOre()-1);
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 case WHEAT:
+			 if(CanBankGiveResourceCard(ResourceType.WHEAT))
+			 {
+				 resourcelist.setWheat(resourcelist.getWheat()-1);
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 case BRICK:
+			 if(CanBankGiveResourceCard(ResourceType.BRICK))
+			 {
+				 resourcelist.setBrick(resourcelist.getBrick()-1);
+				 return true;
+			 }
+			 else
+			 {
+				 return false;
+			 }
+		 }
+		 
+		 return false;
+	}
+	
+	
+	
+	
 	
 	
 }
