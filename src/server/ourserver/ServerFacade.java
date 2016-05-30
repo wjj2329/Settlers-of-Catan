@@ -731,7 +731,7 @@ public class ServerFacade
 			model.put("version", game.getModel().getVersion());
 			model.put("winner", game.getWinner().getNumber());
 
-			System.out.println("THE MODEL SO FAR WIT EVERYTHANG " + model.toString());
+			//System.out.println("THE MODEL SO FAR WIT EVERYTHANG " + model.toString());
 			//System.out.println("GAME TITLE" + game.getTitle());
 			return model;
 		} catch (JSONException e) {
