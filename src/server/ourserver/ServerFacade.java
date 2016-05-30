@@ -405,7 +405,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = new Player(p.getName(), p.getColor(), p.getPlayerID()); // = p;
+					Player copy = p;//new Player(p.getName(), p.getColor(), p.getPlayerID()); // = p;
 					switch(color.toLowerCase())
 					{
 					case "red":
