@@ -100,7 +100,7 @@ public class ClientCommunicator
                 while ((length = responseBody.read(buffer)) != -1) {
                     baos.write(buffer, 0, length);
                 }
-				System.out.println("I COMHE ERER");
+				//System.out.println("I COMHE ERER");
                 String responseBodyData = baos.toString();
                 //System.out.println("CLIENT COMMUNICATOR: "+responseBodyData + " y la galleta " + galleta);
                 ServerResponse response = new ServerResponse(connection.getResponseCode(), responseBodyData);

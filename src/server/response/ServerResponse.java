@@ -28,14 +28,14 @@ public class ServerResponse {
 			}
 			else if(cookie.contains("catan.game")){
 				gameCookie =cookie.substring(cookie.indexOf("=")+1, cookie.indexOf(";"));
-				System.out.println("HERE IS THE GAME COOKIE HOMEBRO: " + gameCookie);
+				//System.out.println("HERE IS THE GAME COOKIE HOMEBRO: " + gameCookie);
 			}
 			
 			
 		}
 		else
 		{
-			System.out.println("This cookie was null");
+			//System.out.println("This cookie was null");
 		}
 	}
 	

@@ -225,7 +225,7 @@ public class ServerProxy implements IServer {
 		
 		Param param = new GetGameCurrentStateParam();
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
-		System.out.println("The user cookie is " + usercookie + " and the game cookie is " + gamecookie);
+		//System.out.println("The user cookie is " + usercookie + " and the game cookie is " + gamecookie);
 
 		param.addHeader("Cookie", "catan.user=" + usercookie + "; catan.game=" + gamecookie);
 		param.addHeader("version", String.valueOf(version));

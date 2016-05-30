@@ -1,11 +1,7 @@
 package server.ourserver;
 
 import client.main.Catan;
-import client.model.MessageLine;
-import client.model.Model;
-import client.model.TradeOffer;
-import client.model.TurnStatus;
-import client.model.TurnTracker;
+import client.model.*;
 import client.points.IGameFinishedView;
 import server.ourserver.commands.*;
 import shared.chat.GameHistoryLine;
@@ -409,7 +405,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = p;
+					Player copy = new Player(p.getName(), p.getColor(), p.getPlayerID()); // = p;
 					switch(color.toLowerCase())
 					{
 					case "red":

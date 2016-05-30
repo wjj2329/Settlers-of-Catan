@@ -1273,7 +1273,7 @@ public class Player
 		if (settlements.size() == 0 &&
 				ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND)
 		{
-			System.out.println("Setting canBuildFromMeInRound2 to false");
+			//System.out.println("Setting canBuildFromMeInRound2 to false");
 			settlement.setCanBuildFromMeInRound2(false);
 		}
 		settlements.add(settlement);
