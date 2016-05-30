@@ -10,8 +10,10 @@ import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.*;
+import sun.print.resources.serviceui_fr;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * @author William
@@ -1437,5 +1439,44 @@ public class Hex
 	
 	public Port getPort(){
 		return myport; 
+	}
+	
+	public boolean hasSettlement(VertexDirection vertexDirection){
+		for(Settlement settlement : settlements)
+		{
+			if(settlement.getVertexLocation().getDir().name().equals(vertexDirection.name())){
+				return true;
+			}
+		}
+		return false;
+	}
+	public boolean hasCity(VertexDirection vertexDirection){
+		for(City city : cities)
+		{
+			if(city.getVertexLocation().getDir().name().equals(vertexDirection.name())){
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Settlement getSettlement(VertexDirection vertexDirection){
+		for(Settlement settlement : settlements)
+		{
+			if(settlement.getVertexLocation().getDir().name().equals(vertexDirection.name())){
+				return settlement;
+			}
+		}
+		return null;
+	}
+	
+	public City getCity(VertexDirection vertexDirection){
+		for(City city : cities)
+		{
+			if(city.getVertexLocation().getDir().name().equals(vertexDirection.name())){
+				return city;
+			}
+		}
+		return null; 
 	}
 }

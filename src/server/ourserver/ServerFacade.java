@@ -135,11 +135,11 @@ public class ServerFacade
 		defaultgame.addPlayer(allRegisteredUsers.get(2));
 		defaultgame.addPlayer(allRegisteredUsers.get(3));
 		
-		defaultgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
-		defaultgame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
-		defaultgame.getMyplayers().get(new Index(1)).setPlayerIndex(new Index(1));
-		defaultgame.getMyplayers().get(new Index(2)).setPlayerIndex(new Index(2));
-		defaultgame.getMyplayers().get(new Index(3)).setPlayerIndex(new Index(3));
+		defaultgame.mybank.setResourceCardslist(18,17,15,17,16); //it has 95 resource cards right? 
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
 		
 		defaultgame.getMyplayers().get(new Index(0)).setResources(new ResourceList(0,0,1,1,1));
 		defaultgame.getMyplayers().get(new Index(1)).setResources(new ResourceList(1,1,1,0,0));
@@ -815,9 +815,10 @@ public class ServerFacade
 	 * This number is randomized and is either computed here or on the model side.
 	 * @param number: randomized number between 2 and 12.
      */
-	public void rollNumber(int number)
+	public void rollNumber(int number, int gameid)
 	{
-
+		ICommand rollNumber = new RollNumberCommand(number, gameid);
+		rollNumber.execute(); 
 	}
 
 	/**

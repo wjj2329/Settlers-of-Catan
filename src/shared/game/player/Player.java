@@ -136,7 +136,7 @@ public class Player
 	 * How many roads the Player CAN BUILD.
 	 * Updated dynamically.
 	 */
-	private int numRoadPiecesRemaining ;
+	private int numRoadPiecesRemaining = MAX_NUM_ROADS;
 
 	//private int numRoadPiecesRemainingForSetupPhase = 2;
 
@@ -148,7 +148,7 @@ public class Player
 	/**
 	 * How many settlements the player CAN BUILD.
 	 */
-	private int numSettlementsRemaining ;
+	private int numSettlementsRemaining = MAX_NUM_SETTLEMENTS;
 
 	/**
 	 * How many soldiers (soldier cards) the player CAN BUILD.
@@ -159,7 +159,7 @@ public class Player
 	 * How many victory points the player has
 	 * Everyone starts off with 2. 10+ on your turn to win!
 	 */
-	private int numVictoryPoints;
+	private int numVictoryPoints = 0;
 
 	/**
 	 * CurrentPlayer: Tracks whether or not this player is the current one!
@@ -1306,7 +1306,8 @@ public class Player
 	private static final int FOUR_WAY = 4;
 	private static final int MAX_NUM_CITIES = 4;
 	private static final int MAX_NUM_SETTLEMENTS = 5;
-
+	private static final int MAX_NUM_ROADS = 15;
+	
 	public void setIsDiscarded(boolean discarded)
 	{
 		this.discarded = discarded;
