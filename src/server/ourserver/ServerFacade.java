@@ -823,9 +823,10 @@ public class ServerFacade
 	 * @param playerIndex: the player who is finishing the turn
 	 * @return: the index of the next player. who will become the current player.
      */
-	public int finishTurn(int playerIndex)
+	FinishTurnCommand endturn=new FinishTurnCommand();
+	public void  finishTurn(int playerIndex, int gameid)
 	{
-		return -1;
+		endturn.endturn(playerIndex,gameid);
 	}
 
 	/**

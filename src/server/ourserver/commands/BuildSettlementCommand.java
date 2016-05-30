@@ -73,6 +73,7 @@ public class BuildSettlementCommand implements ICommand {
 		vertex.setSettlement(settle1);
 		currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
 		currentgame.getMyplayers().get(myindex).setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
+		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 	}
 
 }
