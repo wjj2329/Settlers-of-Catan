@@ -377,6 +377,7 @@ public class ServerFacade
 	{
 		JSONObject model = new JSONObject();
 		CatanGame game = getGameByID(gameID);
+		System.out.println("THE GAME GETS LOADED");
 		
 		try {
 			//THE BANK
