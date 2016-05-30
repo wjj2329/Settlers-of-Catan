@@ -62,7 +62,8 @@ public class BuildSettlementCommand implements ICommand {
 		}
 		vertex.setHassettlement(true);
 		Settlement settle1 = new Settlement(location, vertex, myindex);
-		Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
+		Hex h = currentgame.getMymap().getHexes().get(location);
+		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		try {
 			h.buildSettlement(vertex, myindex);
 		} catch (Exception e) {
