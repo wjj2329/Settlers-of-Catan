@@ -890,9 +890,10 @@ public class ServerFacade
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
      */
-	public void discardCards(int playerIndex, Collection<Card> cardsToDiscard)
+	private DiscardCardsCommand mydiscard=new DiscardCardsCommand();
+	public void discardCards(int playerIndex, ResourceList cardsToDiscard)
 	{
-
+		mydiscard.discardCards(playerIndex,cardsToDiscard);
 	}
 
 	/**
