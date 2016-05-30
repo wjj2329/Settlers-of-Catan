@@ -14,6 +14,8 @@ import server.proxies.ServerProxy;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
+import shared.definitions.HexType;
+import shared.definitions.ResourceType;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
@@ -21,6 +23,8 @@ import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
+import shared.locations.HexLocation;
+
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
  */
@@ -62,7 +66,6 @@ public class CatanGame
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
-	private Index version=new Index(0); 
 	private Index winner=new Index(-1);
 	private TradeOffer mytradeoffer = null;
 	private boolean randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts;
@@ -70,6 +73,16 @@ public class CatanGame
 	private static int masterid = 0;
 	private int myid;
 	
+	public void setRobberlocation()
+	{
+		for(HexLocation loc:mymap.getHexes().keySet())
+		{
+			if(mymap.getHexes().get(loc).getResourcetype().equals(HexType.DESERT))
+			{
+				myrobber.setLocation(mymap.getHexes().get(loc).getLocation());
+			}
+		}
+	}
 
 	public CatanGame()
 	{
@@ -252,10 +265,7 @@ public class CatanGame
 		this.currentPlayer = currentPlayer;
 	}
 
-	public Index getVersion()
-	{
-		return version;
-	}
+
 
 	public Index getWinner()
 	{
@@ -267,10 +277,6 @@ public class CatanGame
 		this.winner = winner;
 	}
 
-	public void setVersion(Index version)
-	{
-		this.version = version;
-	}
 
 	public TradeOffer getMytradeoffer()
 	{

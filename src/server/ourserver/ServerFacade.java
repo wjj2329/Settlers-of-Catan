@@ -18,6 +18,7 @@ import shared.game.map.CatanMap;
 import shared.game.map.Index;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.RoadPiece;
+import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
@@ -30,6 +31,7 @@ import shared.locations.VertexLocation;
 import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -331,9 +333,14 @@ public class ServerFacade
 		System.out.println("I add a new Catan Game");
 		CatanGame mynewgame=new CatanGame();
 		mynewgame.setTitle(name);
+		mynewgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right?
+		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
+		mynewgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
+		mynewgame.myrobber=new Robber();
 		NEXT_GAME_ID++;
 		mynewgame.setID(NEXT_GAME_ID);
 		mynewgame.setMymap(new CatanMap(10));
+		mynewgame.setMyplayers(new HashMap<Index, Player>());
 		if(randomHexes)
 		{
 			mynewgame.getMymap().shuffleHexes();
@@ -346,8 +353,9 @@ public class ServerFacade
 		{
 			mynewgame.getMymap().shuffleNumbers();
 		}
-
-
+		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
+		mynewgame.setRobberlocation();
+		mynewgame.getModel().getTurntracker().setCurrentTurn(new Index(0), mynewgame.getMyplayers());
 		serverModel.addGame(mynewgame);
 	}
 
@@ -358,16 +366,83 @@ public class ServerFacade
      */
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
-		for (Player p : allRegisteredUsers)
-		{
-			if(p.getPlayerID().getNumber() == playerid)
+		if(getGameByID(gameID).getMyplayers().containsKey(playerid))
+		{		
+			switch(color.toLowerCase())
 			{
-				serverModel.listGames().get(gameID).addPlayer(p);
-				return true;
+			case "red":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.RED);
+				break;
+			case "orange":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.ORANGE);
+				break;
+			case "yellow":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.YELLOW);
+				break;
+			case "blue":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BLUE);
+				break;
+			case "green":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.GREEN);
+				break;
+			case "purple":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PURPLE);
+				break;
+			case "puce":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PUCE);
+				break;
+			case "white":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.WHITE);
+				break;
+			case "brown":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BROWN);
+				break;
+			}				
+			return true;		
+		}
+		else
+		{
+			for (Player p : allRegisteredUsers)
+			{
+				if(p.getPlayerID().getNumber() == playerid)
+				{
+					Player copy = p;
+					switch(color.toLowerCase())
+					{
+					case "red":
+						copy.setColor(CatanColor.RED);
+						break;
+					case "orange":
+						copy.setColor(CatanColor.ORANGE);
+						break;
+					case "yellow":
+						copy.setColor(CatanColor.YELLOW);
+						break;
+					case "blue":
+						copy.setColor(CatanColor.BLUE);
+						break;
+					case "green":
+						copy.setColor(CatanColor.GREEN);
+						break;
+					case "purple":
+						copy.setColor(CatanColor.PURPLE);
+						break;
+					case "puce":
+						copy.setColor(CatanColor.PUCE);
+						break;
+					case "white":
+						copy.setColor(CatanColor.WHITE);
+						break;
+					case "brown":
+						copy.setColor(CatanColor.BROWN);
+						break;
+					}				
+					serverModel.listGames().get(gameID).addPlayer(copy);
+					return true;
+				}
 			}
 		}
-		return false;
-		
+		return false;		
 	}
 
 	/**
@@ -377,7 +452,9 @@ public class ServerFacade
 	{
 		JSONObject model = new JSONObject();
 		CatanGame game = getGameByID(gameID);
+		System.out.println("this is the pointer to the game object" +game);
 		System.out.println("THE GAME GETS LOADED");
+		System.out.println("THIS IS MY GAME ID THAT I GET "+gameID);
 		
 		try {
 			//THE BANK
@@ -755,9 +832,10 @@ public class ServerFacade
 	 * @param playerIndex: the player who is finishing the turn
 	 * @return: the index of the next player. who will become the current player.
      */
-	public int finishTurn(int playerIndex)
+	FinishTurnCommand endturn=new FinishTurnCommand();
+	public void  finishTurn(int playerIndex, int gameid)
 	{
-		return -1;
+		endturn.endturn(playerIndex,gameid);
 	}
 
 	/**
@@ -821,9 +899,9 @@ public class ServerFacade
 	 * @param edge: the edge it is being built on
      */
 	private BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
-	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free)
+	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free);
+		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free, gameid);
 	}
 
 	/**
@@ -833,9 +911,9 @@ public class ServerFacade
 	 * @param vertex: which vertex it is being built on
      */
 	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
-	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free)
+	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-		buildsettlement.buildsettlement(playerIndex,location,vertex,free);
+		buildsettlement.buildsettlement(playerIndex,location,vertex,free,gameid);
 	}
 
 	/**
@@ -845,9 +923,9 @@ public class ServerFacade
 	 * @param vertex: needs to already have a settlement on it + required resources for player
      */
 	private BuildCityCommand buildCityCommand=new BuildCityCommand();
-	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex)
+	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
-		buildCityCommand.buildCityCommand(playerIndex,location,vertex);
+		buildCityCommand.buildCityCommand(playerIndex,location,vertex, gameid);
 	}
 
 	/**

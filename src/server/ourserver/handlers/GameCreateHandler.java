@@ -61,7 +61,5 @@ public class GameCreateHandler implements HttpHandler
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
-
-
     }
 }

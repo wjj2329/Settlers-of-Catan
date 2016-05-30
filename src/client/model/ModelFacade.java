@@ -275,7 +275,7 @@ public class ModelFacade extends Observable
 		turnTracker.put("largestArmy", currentgame.getModel().getTurntracker().getLargestArmy().getNumber());
 
 		//last two things
-		myobject.put("version", currentgame.getVersion().getNumber());
+		myobject.put("version", currentgame.getModel().getVersion());
 		myobject.put("winner", currentgame.getWinner().getNumber());
 
 		return myobject;

@@ -82,4 +82,17 @@ public class DevCardList
 	{
 
 	}
+
+	public boolean isEmpty()
+	{
+		if(monopoly == 0 && monument == 0 && roadBuilding == 0 &&
+				soldier == 0 && yearOfPlenty == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }

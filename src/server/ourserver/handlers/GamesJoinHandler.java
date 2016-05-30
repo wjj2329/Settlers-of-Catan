@@ -1,6 +1,7 @@
 package server.ourserver.handlers;
 
 import client.model.ModelFacade;
+
 import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -48,13 +49,16 @@ public class GamesJoinHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException 
     {
-		System.out.println("I begin handling joinGame");
+    	String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+    	int userID = Integer.parseInt(cookie.substring(cookie.indexOf("playerID")+14, cookie.length()-3));
+    	
 		JSONObject data = null;
 		try
 		{
 			Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
 			String result = s.hasNext() ? s.next() : "";
 			data = new JSONObject(result);
+			s.close();
 		}
 		catch (JSONException e)
 		{
@@ -64,17 +68,13 @@ public class GamesJoinHandler implements HttpHandler
 		Player newPlayer = null;
 		String username = "";
 		int gameid;
-		int userid;
 		String color;
 		try
 		{
 			gameid = data.getInt("id"); //What game am I joining?
-			System.out.println("I now give the game id its crap"+gameid);
-			userid = 0;//THIS IS WRONG BUT WHAT WAS THERE BEFORE WAS NOT RIGHT  THE JSON CONTAINS NO USER ID
-			System.out.println("I GIVE THE PLAYER HIS ID"+userid);
-			color = data.getString("color"); //What game am I joining?
-			boolean success = ServerFacade.getInstance().joinGame(gameid,userid,color);
-			System.out.println("I get me boolean success which is this "+success);
+			color = data.getString("color"); //My color
+			boolean success = ServerFacade.getInstance().joinGame(gameid,userID,color);
+			System.out.println("Joined successfully?: " + success);
 			if (!success)
 			{
 				System.out.println("I FAIL TO JOIN THE GAME");
@@ -93,10 +93,9 @@ public class GamesJoinHandler implements HttpHandler
 			
 			//How you add a response: send response headers first then getresponsebody.write, you need to put something
 			//in order for the clientcommunicator to work. 
-			String response = "Success! :Dfsdfsa";
+			String response = "Success!";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			exchange.getResponseBody().write(response.getBytes());
-			System.out.println("I LEAVE THE JOIN GAMES HANDLER");
 
 			exchange.close();
 		}
