@@ -30,7 +30,49 @@ public class BuildSettlementCommand implements ICommand {
 
 	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-
+		System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
+		CatanGame currentgame=ServerFacade.getInstance().getGameByID(gameid);
+		System.out.println("this is the pointer to the game object" +currentgame);
+		Index myindex = null;
+		for (Player p : currentgame.getMyplayers().values())
+		{
+			if (p.getPlayerIndex().equals(new Index(playerIndex)))
+			{
+				myindex = p.getPlayerID();
+			}
+		}
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
+		System.out.println("THIS IS NOW THE NEW MODEL VERSION "+currentgame.getModel().getVersion());
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		System.out.println("I UPDATE THIS PLAYER "+playertoupdate.getName());
+		if(!free) {
+			ResourceList newlist = playertoupdate.getResources();
+			newlist.setBrick(newlist.getBrick() - 1);
+			newlist.setSheep(newlist.getSheep() - 1);
+			newlist.setWheat(newlist.getWheat() - 1);
+			newlist.setWood(newlist.getWood() - 1);
+			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
+		}
+		vertex.setHassettlement(true);
+		Settlement settle1 = new Settlement(location, vertex, myindex);
+		Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
+		try {
+			h.buildSettlement(vertex, myindex);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		currentgame.getMymap().getSettlements().add(settle1);
+		settle1.setOwner(myindex);
+		vertex.setSettlement(settle1);
+		currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+		currentgame.getMyplayers().get(myindex).setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
 	}
 
 }
