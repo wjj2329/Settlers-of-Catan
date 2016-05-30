@@ -127,14 +127,16 @@ public class BuildRoadCommand implements ICommand {
 		adjLoc.setRoadPiece(r2);
 		adjLoc.setHasRoad(true);
 		System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
-		currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
-		currentgame.getMyplayers().get(playerID).setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
+		playertoupdate.addToRoadPieces(r1);
+		System.out.println("MY PLAYER NOW HAS "+playertoupdate.getRoadPieces().size()+"Number of roads");
+		playertoupdate.setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
 		System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			turnstogo++;
+			System.out.println("I INCREASE THE TURNS TO GO STATIC MEMEBER to "+turnstogo);
 		}
-		if(turnstogo==4)
+		if(turnstogo==5)
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
 			turnstogo=1;

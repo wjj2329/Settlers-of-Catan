@@ -71,8 +71,8 @@ public class BuildSettlementCommand implements ICommand {
 		currentgame.getMymap().getSettlements().add(settle1);
 		settle1.setOwner(myindex);
 		vertex.setSettlement(settle1);
-		currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
-		currentgame.getMyplayers().get(myindex).setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
+		playertoupdate.addToSettlements(settle1);
+		playertoupdate.setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 	}
 
