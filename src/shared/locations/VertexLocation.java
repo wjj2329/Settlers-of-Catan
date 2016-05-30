@@ -102,7 +102,7 @@ public class VertexLocation
 			if(other.hexLoc != null)
 				return false;
 		}
-		else if(!hexLoc.equals(other.hexLoc))
+		else if(!hexLoc.equals(other.hexLoc)) // I think this may be our issue.
 			return false;
 		return true;
 	}
@@ -158,7 +158,7 @@ public class VertexLocation
 		// make sure that settlement isn't null
 		if (this.settlement == null)
 		{
-			this.settlement = new Settlement(settlement.getHexLocation(), settlement.getVertexLocation(),new Index(2));
+			this.settlement = new Settlement(settlement.getHexLocation(), settlement.getVertexLocation(), settlement.getOwner());
 		}
 		this.settlement = settlement;
 	}
