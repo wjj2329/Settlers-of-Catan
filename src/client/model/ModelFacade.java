@@ -604,7 +604,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			if(!players.isNull(i))
 			{
 				JSONObject obj = players.getJSONObject(i);
-				//System.out.println(obj);
+				System.out.println("THIS IS TO CHECK IF THE COLOR IS INSERTED"+obj.toString());
 				CatanColor color = stringToCatanColor(obj.getString("color"));
 				//assert(color != null);
 				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
