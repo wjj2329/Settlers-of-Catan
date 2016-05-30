@@ -443,7 +443,9 @@ public class ServerFacade
 	{
 		JSONObject model = new JSONObject();
 		CatanGame game = getGameByID(gameID);
+		System.out.println("this is the pointer to the game object" +game);
 		System.out.println("THE GAME GETS LOADED");
+		System.out.println("THIS IS MY GAME ID THAT I GET "+gameID);
 		
 		try {
 			//THE BANK
@@ -887,9 +889,9 @@ public class ServerFacade
 	 * @param edge: the edge it is being built on
      */
 	private BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
-	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free)
+	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free);
+		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free, gameid);
 	}
 
 	/**
@@ -899,9 +901,9 @@ public class ServerFacade
 	 * @param vertex: which vertex it is being built on
      */
 	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
-	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free)
+	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-		buildsettlement.buildsettlement(playerIndex,location,vertex,free);
+		buildsettlement.buildsettlement(playerIndex,location,vertex,free,gameid);
 	}
 
 	/**

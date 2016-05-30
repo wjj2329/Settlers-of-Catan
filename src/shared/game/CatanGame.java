@@ -62,7 +62,6 @@ public class CatanGame
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();
-	private Index version=new Index(0); 
 	private Index winner=new Index(-1);
 	private TradeOffer mytradeoffer = null;
 	private boolean randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts;
@@ -252,10 +251,7 @@ public class CatanGame
 		this.currentPlayer = currentPlayer;
 	}
 
-	public Index getVersion()
-	{
-		return version;
-	}
+
 
 	public Index getWinner()
 	{
@@ -267,10 +263,6 @@ public class CatanGame
 		this.winner = winner;
 	}
 
-	public void setVersion(Index version)
-	{
-		this.version = version;
-	}
 
 	public TradeOffer getMytradeoffer()
 	{

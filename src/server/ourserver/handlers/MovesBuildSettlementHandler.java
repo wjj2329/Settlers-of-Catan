@@ -57,6 +57,9 @@ public class MovesBuildSettlementHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
+
+        String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        int gameID = getGameIDfromCookie(cookie);
         int playerindex=-50;
         int x=-10000000;
         int y=-10000000;
@@ -80,16 +83,23 @@ public class MovesBuildSettlementHandler implements HttpHandler
             x=myobject.getInt("x");
             y=myobject.getInt("y");
             freebe=data.getBoolean("free");
-            direction=data.getString("direction");
+            direction=myobject.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe);
+        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe,gameID);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
+
+    }
+    public int getGameIDfromCookie(String cookie){
+//
+//    	System.out.println(cookie.indexOf("game="));
+//    	System.out.println(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
+        return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
 
     }
 }

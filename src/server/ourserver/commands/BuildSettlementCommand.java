@@ -28,10 +28,11 @@ public class BuildSettlementCommand implements ICommand {
 		return null;
 	}
 
-	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free)
+	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-
-		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  will swap this variable with that
+		System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
+		CatanGame currentgame=ServerFacade.getInstance().getGameByID(gameid);
+		System.out.println("this is the pointer to the game object" +currentgame);
 		Index myindex = null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
@@ -40,6 +41,8 @@ public class BuildSettlementCommand implements ICommand {
 				myindex = p.getPlayerID();
 			}
 		}
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
+		System.out.println("THIS IS NOW THE NEW MODEL VERSION "+currentgame.getModel().getVersion());
 		Player playertoupdate=null;
 		for(Index myind:currentgame.getMyplayers().keySet())
 		{
@@ -48,6 +51,7 @@ public class BuildSettlementCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
+		System.out.println("I UPDATE THIS PLAYER "+playertoupdate.getName());
 		if(!free) {
 			ResourceList newlist = playertoupdate.getResources();
 			newlist.setBrick(newlist.getBrick() - 1);

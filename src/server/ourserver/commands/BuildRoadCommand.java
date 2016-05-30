@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.TurnStatus;
 import org.json.JSONObject;
+import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -88,13 +89,15 @@ public class BuildRoadCommand implements ICommand {
 		return adjacent;
 	}
 	private static int turnstogo=1;
-	public void buildRoadincommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free)
+	public void buildRoadincommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  will swap this variable with that
+		System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
+		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Index playerID = null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
-			if (p.getPlayerIndex().equals(playerIndex))
+			if (p.getPlayerIndex().equals(new Index(playerIndex)))
 			{
 				playerID = p.getPlayerID();
 			}
@@ -123,8 +126,10 @@ public class BuildRoadCommand implements ICommand {
 		edge.setHasRoad(true);
 		adjLoc.setRoadPiece(r2);
 		adjLoc.setHasRoad(true);
+		System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
 		currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
-
+		currentgame.getMyplayers().get(playerID).setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
+		System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			turnstogo++;
