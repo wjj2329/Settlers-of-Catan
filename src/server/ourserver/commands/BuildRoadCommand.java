@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import client.model.TurnStatus;
 import org.json.JSONObject;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -86,6 +87,7 @@ public class BuildRoadCommand implements ICommand {
 		//assert(adjacent != null);
 		return adjacent;
 	}
+	private static int turnstogo=1;
 	public void buildRoadincommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free)
 	{
 		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  will swap this variable with that
@@ -122,6 +124,26 @@ public class BuildRoadCommand implements ICommand {
 		adjLoc.setRoadPiece(r2);
 		adjLoc.setHasRoad(true);
 		currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
+
+		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
+		{
+			turnstogo++;
+		}
+		if(turnstogo==4)
+		{
+			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
+			turnstogo=1;
+			return;
+		}
+		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
+		{
+			turnstogo++;
+		}
+		if(turnstogo==4)
+		{
+			currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+		}
+
 	}
 
 }

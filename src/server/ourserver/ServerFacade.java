@@ -346,8 +346,7 @@ public class ServerFacade
 		{
 			mynewgame.getMymap().shuffleNumbers();
 		}
-
-
+		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
 		serverModel.addGame(mynewgame);
 	}
 
