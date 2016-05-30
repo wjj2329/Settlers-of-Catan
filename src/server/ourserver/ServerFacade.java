@@ -846,9 +846,9 @@ public class ServerFacade
 	 * @param vertex: needs to already have a settlement on it + required resources for player
      */
 	private BuildCityCommand buildCityCommand=new BuildCityCommand();
-	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex)
+	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
-		buildCityCommand.buildCityCommand(playerIndex,location,vertex);
+		buildCityCommand.buildCityCommand(playerIndex,location,vertex, gameid);
 	}
 
 	/**

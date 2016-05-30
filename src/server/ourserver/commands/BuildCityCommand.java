@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import org.json.JSONObject;
+import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -26,11 +27,12 @@ public class BuildCityCommand implements ICommand {
 		return null;
 	}
 
-	public void buildCityCommand(int playerIndex, HexLocation location, VertexLocation vertex)
+	public void buildCityCommand(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
-		CatanGame currentgame=new CatanGame();//this won't work I need a current game some how.  Will wait till that is implemented.  will swap this variable with that
+		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		Index owner = new Index(playerIndex);
 		Player playertoupdate=null;
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		for(Index myind:currentgame.getMyplayers().keySet())
 		{
 			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
@@ -41,7 +43,7 @@ public class BuildCityCommand implements ICommand {
 		Index owner2=null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
-			if (p.getPlayerIndex().equals(playerIndex))
+			if (p.getPlayerIndex().equals(new Index(playerIndex)))
 			{
 				owner2 = p.getPlayerID();
 			}

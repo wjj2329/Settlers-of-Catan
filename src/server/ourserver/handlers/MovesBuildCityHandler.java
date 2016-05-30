@@ -57,6 +57,8 @@ public class MovesBuildCityHandler implements HttpHandler {
         int playerindex=-50;
         int x=-10000000;
         int y=-10000000;
+        String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        int gameID = getGameIDfromCookie(cookie);
         String direction=null;
         JSONObject data = null;
         try
@@ -80,11 +82,15 @@ public class MovesBuildCityHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        ServerFacade.getInstance().buildCity(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)));
+        ServerFacade.getInstance().buildCity(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),gameID);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
+
+    }
+    private int getGameIDfromCookie(String cookie){
+        return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
 
     }
 }
