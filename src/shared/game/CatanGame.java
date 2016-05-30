@@ -14,6 +14,8 @@ import server.proxies.ServerProxy;
 import shared.chat.Chat;
 import shared.chat.GameHistory;
 import shared.definitions.CatanColor;
+import shared.definitions.HexType;
+import shared.definitions.ResourceType;
 import shared.game.map.CatanMap;
 import shared.game.map.Hex.RoadPiece;
 import shared.game.map.Index;
@@ -21,6 +23,8 @@ import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
+import shared.locations.HexLocation;
+
 /**
  * Catan Game object so that we can have a game accessible to be modified. 
  */
@@ -69,6 +73,16 @@ public class CatanGame
 	private static int masterid = 0;
 	private int myid;
 	
+	public void setRobberlocation()
+	{
+		for(HexLocation loc:mymap.getHexes().keySet())
+		{
+			if(mymap.getHexes().get(loc).getResourcetype().equals(HexType.DESERT))
+			{
+				myrobber.setLocation(mymap.getHexes().get(loc).getLocation());
+			}
+		}
+	}
 
 	public CatanGame()
 	{

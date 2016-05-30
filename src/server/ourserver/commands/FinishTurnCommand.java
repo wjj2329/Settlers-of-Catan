@@ -3,7 +3,6 @@ package server.ourserver.commands;
 import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.map.Index;
-import shared.game.player.Player;
 
 /**
  * The FinishTurnCommand
@@ -24,12 +23,27 @@ public class FinishTurnCommand implements ICommand {
 	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
-		Player playertoupdate=null;
-		for(Index myind:currentgame.getMyplayers().keySet())
+		switch (playerIndex)
 		{
-			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
+			case(0):
 			{
-				playertoupdate=currentgame.getMyplayers().get(myind);
+				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1),currentgame.getMyplayers());
+				break;
+			}
+			case(1):
+			{
+				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2),currentgame.getMyplayers());
+				break;
+			}
+			case(2):
+			{
+				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3),currentgame.getMyplayers());
+				break;
+			}
+			case(3):
+			{
+				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0),currentgame.getMyplayers());
+				break;
 			}
 		}
 	}

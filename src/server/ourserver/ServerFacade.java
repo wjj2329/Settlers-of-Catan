@@ -18,6 +18,7 @@ import shared.game.map.CatanMap;
 import shared.game.map.Index;
 import shared.game.map.Hex.Hex;
 import shared.game.map.Hex.RoadPiece;
+import shared.game.map.Robber;
 import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
@@ -30,6 +31,7 @@ import shared.locations.VertexLocation;
 import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -331,9 +333,14 @@ public class ServerFacade
 		System.out.println("I add a new Catan Game");
 		CatanGame mynewgame=new CatanGame();
 		mynewgame.setTitle(name);
+		mynewgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right?
+		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
+		mynewgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
+		mynewgame.myrobber=new Robber();
 		NEXT_GAME_ID++;
 		mynewgame.setID(NEXT_GAME_ID);
 		mynewgame.setMymap(new CatanMap(10));
+		mynewgame.setMyplayers(new HashMap<Index, Player>());
 		if(randomHexes)
 		{
 			mynewgame.getMymap().shuffleHexes();
@@ -347,6 +354,8 @@ public class ServerFacade
 			mynewgame.getMymap().shuffleNumbers();
 		}
 		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
+		mynewgame.setRobberlocation();
+		mynewgame.getModel().getTurntracker().setCurrentTurn(new Index(0), mynewgame.getMyplayers());
 		serverModel.addGame(mynewgame);
 	}
 
