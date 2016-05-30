@@ -72,7 +72,9 @@ public class ServerFacade
 	 */
 	private Model serverModel = new Model();
 
-
+	/**
+	 * The singleton instance of ServerFacade.
+	 */
 	private static ServerFacade singleton = null;
 	public static int NEXT_USER_ID = 5;
 	public static int NEXT_GAME_ID=1;
@@ -361,41 +363,42 @@ public class ServerFacade
 
 	/**
 	 * JoinGame: A particular player joins a particular game.
+	 * Changing the ints to an index.
 	 * @param gameID: ID of the game to join.
 	 * @param : ID of the player who is joining.
      */
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
-		if(getGameByID(gameID).getMyplayers().containsKey(playerid))
+		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
 		{		
 			switch(color.toLowerCase())
 			{
 			case "red":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.RED);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.RED);
 				break;
 			case "orange":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.ORANGE);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.ORANGE);
 				break;
 			case "yellow":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.YELLOW);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.YELLOW);
 				break;
 			case "blue":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BLUE);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.BLUE);
 				break;
 			case "green":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.GREEN);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.GREEN);
 				break;
 			case "purple":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PURPLE);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.PURPLE);
 				break;
 			case "puce":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PUCE);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.PUCE);
 				break;
 			case "white":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.WHITE);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.WHITE);
 				break;
 			case "brown":
-				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BROWN);
+				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.BROWN);
 				break;
 			}				
 			return true;		

@@ -50,7 +50,6 @@ public class MovesBuildSettlementHandler implements HttpHandler
                 return new VertexLocation(myhexloc,VertexDirection.SouthWest);
             default:
                 break;
-            //assert false;
         }
         return null;
     }
