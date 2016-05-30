@@ -377,6 +377,7 @@ public class ServerFacade
 	{
 		JSONObject model = new JSONObject();
 		CatanGame game = getGameByID(gameID);
+		System.out.println("THE GAME GETS LOADED");
 		
 		try {
 			//THE BANK
@@ -723,9 +724,10 @@ public class ServerFacade
 	 * Sends a chat to the server and stores it there.
 	 * @param message: the chat message we are sending
      */
-	public void sendChat(String message)
+	private SendChatCommand mychat=new SendChatCommand();
+	public void sendChat(String message, int playerindex)
 	{
-
+		mychat.sendChat(message,playerindex);
 	}
 
 	/**
@@ -889,9 +891,10 @@ public class ServerFacade
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
      */
-	public void discardCards(int playerIndex, Collection<Card> cardsToDiscard)
+	private DiscardCardsCommand mydiscard=new DiscardCardsCommand();
+	public void discardCards(int playerIndex, ResourceList cardsToDiscard)
 	{
-
+		mydiscard.discardCards(playerIndex,cardsToDiscard);
 	}
 
 	/**
