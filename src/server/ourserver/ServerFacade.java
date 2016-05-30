@@ -357,16 +357,83 @@ public class ServerFacade
      */
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
-		for (Player p : allRegisteredUsers)
-		{
-			if(p.getPlayerID().getNumber() == playerid)
+		if(getGameByID(gameID).getMyplayers().containsKey(playerid))
+		{		
+			switch(color.toLowerCase())
 			{
-				serverModel.listGames().get(gameID).addPlayer(p);
-				return true;
+			case "red":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.RED);
+				break;
+			case "orange":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.ORANGE);
+				break;
+			case "yellow":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.YELLOW);
+				break;
+			case "blue":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BLUE);
+				break;
+			case "green":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.GREEN);
+				break;
+			case "purple":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PURPLE);
+				break;
+			case "puce":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.PUCE);
+				break;
+			case "white":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.WHITE);
+				break;
+			case "brown":
+				getGameByID(gameID).getMyplayers().get(playerid).setColor(CatanColor.BROWN);
+				break;
+			}				
+			return true;		
+		}
+		else
+		{
+			for (Player p : allRegisteredUsers)
+			{
+				if(p.getPlayerID().getNumber() == playerid)
+				{
+					Player copy = p;
+					switch(color.toLowerCase())
+					{
+					case "red":
+						copy.setColor(CatanColor.RED);
+						break;
+					case "orange":
+						copy.setColor(CatanColor.ORANGE);
+						break;
+					case "yellow":
+						copy.setColor(CatanColor.YELLOW);
+						break;
+					case "blue":
+						copy.setColor(CatanColor.BLUE);
+						break;
+					case "green":
+						copy.setColor(CatanColor.GREEN);
+						break;
+					case "purple":
+						copy.setColor(CatanColor.PURPLE);
+						break;
+					case "puce":
+						copy.setColor(CatanColor.PUCE);
+						break;
+					case "white":
+						copy.setColor(CatanColor.WHITE);
+						break;
+					case "brown":
+						copy.setColor(CatanColor.BROWN);
+						break;
+					}				
+					serverModel.listGames().get(gameID).addPlayer(copy);
+					return true;
+				}
 			}
 		}
-		return false;
-		
+		return false;		
 	}
 
 	/**
