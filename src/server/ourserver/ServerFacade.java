@@ -854,9 +854,43 @@ public class ServerFacade
 	 * Buys a dev card
 	 * @param playerIndex: player who is buying
      */
-	public void buyDevCard(int playerIndex)
+	public void buyDevCard(int playerid, int gameid)
 	{
-
+		CatanGame currentgame = getGameByID(gameid);
+		Player player = currentgame.getMyplayers().get(playerid);		
+		String buyresult = currentgame.mybank.buyDevCard();
+		
+		//Update the player with the new card
+		switch(buyresult)
+		{
+		case "soldier":
+			player.getOldDevCards().setSoldier(player.getOldDevCards().getSoldier() + 1);
+			break;
+		case "monument":
+			player.getNewDevCards().setMonument(player.getNewDevCards().getMonument() + 1);
+			player.setNumVictoryPoints(player.getNumVictoryPoints() + 1);
+			break;
+		case "monopoly":
+			player.getOldDevCards().setMonopoly(player.getOldDevCards().getMonopoly() + 1);
+			break;
+		case "roadbuilding":
+			player.getOldDevCards().setRoadBuilding(player.getOldDevCards().getRoadBuilding() + 1);
+			break;
+		case "yearofplenty":
+			player.getOldDevCards().setYearOfPlenty(player.getOldDevCards().getYearOfPlenty() + 1);
+			break;
+			default:
+				return;				
+		}
+		
+		//Remove the resources needed to purchase new card
+		ResourceList resources = player.getResources();
+		resources.setOre(resources.getOre() - 1);
+		resources.setWheat(resources.getWheat() - 1);
+		resources.setSheep(resources.getSheep() - 1);
+		
+		//Increment game version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
 
 	/**
