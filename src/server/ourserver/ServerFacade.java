@@ -110,16 +110,16 @@ public class ServerFacade
 	private ServerFacade()
 	{
 		Player sam = new Player("Sam", CatanColor.ORANGE, new Index(0));
-		sam.setPlayerIndex(new Index(100));
+		sam.setPlayerIndex(new Index(10));
 		sam.setPassword("sam");
 		Player mark = new Player("Brooke", CatanColor.BLUE, new Index(1));
-		mark.setPlayerIndex(new Index(200));
+		mark.setPlayerIndex(new Index(20));
 		mark.setPassword("brooke");
 		Player brooke = new Player("Pete", CatanColor.RED, new Index(2));
-		mark.setPlayerIndex(new Index(300));
+		mark.setPlayerIndex(new Index(30));
 		brooke.setPassword("pete");
 		Player pete = new Player("Mark", CatanColor.GREEN, new Index(3));
-		pete.setPlayerIndex(new Index(400));
+		pete.setPlayerIndex(new Index(40));
 		pete.setPassword("mark");
 		allRegisteredUsers.add(sam);
 		allRegisteredUsers.add(mark);
@@ -375,7 +375,7 @@ public class ServerFacade
 	 * @param gameID: ID of the game to join.
 	 * @param : ID of the player who is joining.
      */
-	private static int playerindex=0;
+	private static int playerindexforit=0;
 	private static int playeridvariable=100;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
@@ -450,11 +450,11 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
-					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindex+"and PLAYER ID"+playeridvariable);
+					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable);
 					copy.setResources(new ResourceList(0,0,0,0,0));
-					copy.setPlayerIndex(new Index(playerindex));
+					copy.setPlayerIndex(new Index(playerindexforit));
 					copy.setPlayerID(new Index(playeridvariable));
-					playerindex++;
+					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
 
@@ -474,7 +474,7 @@ public class ServerFacade
 		CatanGame game = getGameByID(gameID);
 		//System.out.println("this is the pointer to the game object" +game);
 		//System.out.println("THE GAME GETS LOADED");
-		//System.out.println("THIS IS MY GAME ID THAT I GET "+gameID);
+		System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
 		
 		try {
 			//THE BANK
@@ -587,11 +587,12 @@ public class ServerFacade
 			{
 				for(Settlement colonia : mapa.get(elHex).getSettlementlist())
 				{
-					if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
+					System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
+					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
+						System.out.println("I DO INDEED INSERT SETTLMENT STUFF FOR PLAYER I GIVE HIM THE ID OF"+colonia.getOwner().getNumber());
 						JSONObject settlement = new JSONObject();
 						settlement.put("owner", colonia.getOwner().getNumber());
-						
 						JSONObject location = new JSONObject();
 						location.put("x", elHex.getX());
 						location.put("y", elHex.getY());						
@@ -861,7 +862,6 @@ public class ServerFacade
 
 	/**
 	 * Buys a dev card
-	 * @param playerIndex: player who is buying
      */
 	public void buyDevCard(int playerid, int gameid)
 	{
@@ -985,10 +985,7 @@ public class ServerFacade
 
 	/**
 	 * Function to offer trade to another player
-	 * @param getResource: what you want
-	 * @param giveResource: what you give
-	 * @param playerIndex: player offering
-	 * @param playerOffered: player receiving
+	 *
      */
 	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver)
 	{

@@ -120,8 +120,8 @@ public class BuildRoadCommand implements ICommand {
 		Hex hex = currentgame.getMymap().getHexes().get(location);
 		Hex adjacent = computeAdjacentHex(hex, edge,currentgame);
 		EdgeLocation adjLoc = computeOppositeEdge(edge, adjacent);
-		RoadPiece r1 = hex.buildRoad(edge, playerID);
-		RoadPiece r2 = adjacent.buildRoad(adjLoc, playerID);
+		RoadPiece r1 = hex.buildRoad(edge, playertoupdate.getPlayerIndex());
+		RoadPiece r2 = adjacent.buildRoad(adjLoc, playertoupdate.getPlayerIndex());
 		edge.setRoadPiece(r1);
 		edge.setHasRoad(true);
 		adjLoc.setRoadPiece(r2);

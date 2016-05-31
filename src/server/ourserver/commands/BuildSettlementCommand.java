@@ -30,6 +30,7 @@ public class BuildSettlementCommand implements ICommand {
 
 	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
+		System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 		System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
 		CatanGame currentgame=ServerFacade.getInstance().getGameByID(gameid);
 		System.out.println("this is the pointer to the game object" +currentgame);
@@ -61,19 +62,21 @@ public class BuildSettlementCommand implements ICommand {
 			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
 		}
 		vertex.setHassettlement(true);
-		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerID());
+		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerIndex());
 		Hex h = currentgame.getMymap().getHexes().get(location);
 		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		try {
-			h.buildSettlement(vertex, myindex);
+			h.buildSettlement(vertex, playertoupdate.getPlayerIndex());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		currentgame.getMymap().getSettlements().add(settle1);
-		settle1.setOwner(playertoupdate.getPlayerID());
+		System.out.println("I GIVE THE  SETTLEMENT THE INDEX WHICH IS THIS "+playertoupdate.getPlayerID().getNumber());
+		settle1.setOwner(playertoupdate.getPlayerIndex());
 		vertex.setSettlement(settle1);
 		playertoupdate.addToSettlements(settle1);
-		playertoupdate.setNumSettlementsRemaining(currentgame.getMyplayers().get(playertoupdate.getPlayerID()).getNumSettlementsRemaining()-1);
+		System.out.println("I NOW UPDATE THIS player he now has "+playertoupdate.getSettlements().size());
+		playertoupdate.setNumSettlementsRemaining(playertoupdate.getNumSettlementsRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 	}
 

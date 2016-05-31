@@ -457,27 +457,29 @@ public class ModelFacade extends Observable
 				dir);
 			mylocation.setHassettlement(true);
 			Index playerindex=new Index(obj.getInt("owner"));
-			Index myindex = null;
+			System.out.println("MY PLAYER INDEX FROM THE JSON IS THIS" +playerindex.getNumber());
+			Index playerid = null;
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
+				System.out.println("I COMPARE "+p.getPlayerIndex().getNumber()+" with this "+playerindex.getNumber());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
-					myindex = p.getPlayerID();
+					playerid = p.getPlayerID();
 				}
 			}
-			assert (myindex != null);
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
-					mylocation, myindex);
+					mylocation, playerid);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			try {
-				h.buildSettlement(mylocation,myindex);
+				h.buildSettlement(mylocation,playerid);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			//currentgame.getMymap().getSettlements().add(settle1);
-			settle1.setOwner(myindex);
+			settle1.setOwner(playerid);
 			//mylocation.setSettlement(settle1);
-			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
+			System.out.println("MY PLAYER ID IS THIS "+playerid);
+			currentgame.getMyplayers().get(playerid).addToSettlements(settle1);
 			/*if (getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND && currentgame.getMyplayers().get(myindex).getSettlements().size() == 1)
 			{
 				settle1.setCanBuildFromMeInRound2(false);

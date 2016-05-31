@@ -352,7 +352,10 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+			System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
@@ -509,6 +512,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
+				System.out.println("I MY MAP LOADER THINGY I LOAD A SETTLEMENT");
 				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
 				CatanColor mycolor=CatanColor.PUCE;
 				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
@@ -519,6 +523,7 @@ public class MapController extends Controller implements IMapController, Observe
 					{
 						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
 					}
+
 				}
 				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), mycolor);
 			}
