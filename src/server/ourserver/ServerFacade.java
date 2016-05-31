@@ -1002,9 +1002,10 @@ public class ServerFacade
 	 * @param giveResource: resource
 	 * @param playerIndex: player who is playing card
      */
-	public void acceptTrade(String getResource, String giveResource, int playerIndex)
+	public void acceptTrade(int gameid, int playerIndex, boolean willAccept)
 	{
-
+		ICommand command = new AcceptTradeCommand(gameid, playerIndex, willAccept);
+		command.execute();
 	}
 
 	/**
