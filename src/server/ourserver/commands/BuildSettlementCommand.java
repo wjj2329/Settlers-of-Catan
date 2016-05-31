@@ -31,9 +31,9 @@ public class BuildSettlementCommand implements ICommand {
 	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
 		System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
-		System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
+		//System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
 		CatanGame currentgame=ServerFacade.getInstance().getGameByID(gameid);
-		System.out.println("this is the pointer to the game object" +currentgame);
+		//System.out.println("this is the pointer to the game object" +currentgame);
 		Index myindex = null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
@@ -43,7 +43,7 @@ public class BuildSettlementCommand implements ICommand {
 			}
 		}
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
-		System.out.println("THIS IS NOW THE NEW MODEL VERSION "+currentgame.getModel().getVersion());
+		//System.out.println("THIS IS NOW THE NEW MODEL VERSION "+currentgame.getModel().getVersion());
 		Player playertoupdate=null;
 		for(Index myind:currentgame.getMyplayers().keySet())
 		{
@@ -65,19 +65,23 @@ public class BuildSettlementCommand implements ICommand {
 		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerIndex());
 		Hex h = currentgame.getMymap().getHexes().get(location);
 		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
+		System.out.println("THE HEX I HAPPEN TO UPDATE IS A "+h.getResourcetype().toString()+" HIS Number token is "+h.getResourcenumber()+" his location is "+h.getLocation().toString());
 		try {
 			h.buildSettlement(vertex, playertoupdate.getPlayerIndex());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println("THE HEX HAS A SETTLEMENT with this" +h.getSettlementlist().get(0).getVertexLocation().getDir().toString());
 		currentgame.getMymap().getSettlements().add(settle1);
-		System.out.println("I GIVE THE  SETTLEMENT THE INDEX WHICH IS THIS "+playertoupdate.getPlayerID().getNumber());
+		//System.out.println("I GIVE THE  SETTLEMENT THE INDEX WHICH IS THIS "+playertoupdate.getPlayerID().getNumber());
 		settle1.setOwner(playertoupdate.getPlayerIndex());
 		vertex.setSettlement(settle1);
 		playertoupdate.addToSettlements(settle1);
-		System.out.println("I NOW UPDATE THIS player he now has "+playertoupdate.getSettlements().size());
+		//System.out.println("I NOW UPDATE THIS player he now has "+playertoupdate.getSettlements().size());
 		playertoupdate.setNumSettlementsRemaining(playertoupdate.getNumSettlementsRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
+		System.out.println(" The Settlement I happen to have created has location "+settle1.getVertexLocation().toString());
+		System.out.println(" The Settlement I happen to have created has location after using getter "+settle1.getVertexLocation().getDir().toString());
 	}
 
 }

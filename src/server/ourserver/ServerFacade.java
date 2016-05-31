@@ -590,7 +590,9 @@ public class ServerFacade
 					//System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
 					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
-						//System.out.println("I DO INDEED INSERT SETTLMENT STUFF FOR PLAYER I GIVE HIM THE ID OF"+colonia.getOwner().getNumber());
+						System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
+						System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
+						System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
 						JSONObject settlement = new JSONObject();
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();
@@ -799,6 +801,7 @@ public class ServerFacade
 			default:
 				break;
 		}
+		System.out.println(" I RETURN A NULL LOCATION!");
 		return null;
 	}
 	
@@ -995,8 +998,8 @@ public class ServerFacade
 
 	/**
 	 * Accepts a trade that was offered to you.
-	 * @param getResource: resource player is getting
-	 * @param giveResource: resource
+	 //* @param getResource: resource player is getting
+	 //* @param giveResource: resource
 	 * @param playerIndex: player who is playing card
      */
 	public void acceptTrade(int gameid, int playerIndex, boolean willAccept)

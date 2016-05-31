@@ -597,7 +597,7 @@ public class Hex
 							northwest.setHassettlement(true);
 							northwest.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
 							//System.out.println("i come to NorthWest and add settlements to 3 hexes");
-							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.East), owner));
+							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
 						}
