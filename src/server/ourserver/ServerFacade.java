@@ -981,9 +981,10 @@ public class ServerFacade
 	 * @param playerIndex: player offering
 	 * @param playerOffered: player receiving
      */
-	public void offerTrade(String getResource, String giveResource, int playerIndex, int playerOffered)
+	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver)
 	{
-
+		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
+		command.execute();
 	}
 
 	/**
