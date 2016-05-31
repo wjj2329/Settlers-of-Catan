@@ -474,7 +474,7 @@ public class ServerFacade
 		CatanGame game = getGameByID(gameID);
 		//System.out.println("this is the pointer to the game object" +game);
 		//System.out.println("THE GAME GETS LOADED");
-		System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
+		//System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
 		
 		try {
 			//THE BANK
@@ -587,10 +587,10 @@ public class ServerFacade
 			{
 				for(Settlement colonia : mapa.get(elHex).getSettlementlist())
 				{
-					System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
+					//System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
 					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
-						System.out.println("I DO INDEED INSERT SETTLMENT STUFF FOR PLAYER I GIVE HIM THE ID OF"+colonia.getOwner().getNumber());
+						//System.out.println("I DO INDEED INSERT SETTLMENT STUFF FOR PLAYER I GIVE HIM THE ID OF"+colonia.getOwner().getNumber());
 						JSONObject settlement = new JSONObject();
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();

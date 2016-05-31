@@ -380,8 +380,8 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
-				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
-				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
+				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				//System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
 					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
@@ -512,7 +512,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
-				System.out.println("I MY MAP LOADER THINGY I LOAD A SETTLEMENT");
+				//System.out.println("I MY MAP LOADER THINGY I LOAD A SETTLEMENT");
 				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
 				CatanColor mycolor=CatanColor.PUCE;
 				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
