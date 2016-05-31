@@ -85,7 +85,7 @@ public class ClientCommunicator
 			{
 				//System.out.println("CLIENT COMMUNICATOR: A-OK");
 			}
-			System.out.println(connection.getResponseCode());
+			//System.out.println(connection.getResponseCode());
 			if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
 				//System.out.println("CLIENT COMMUNICATOR: Http was okay");
 				 Map<String, List<String>> headers = connection.getHeaderFields();

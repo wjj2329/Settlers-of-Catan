@@ -544,7 +544,7 @@ public class Player
 	 */
 	public boolean canBuildRoadPiece(Hex hex, EdgeLocation edge)
 	{
-		System.out.println("I am calling canBuildRoadPiece");
+		//System.out.println("I am calling canBuildRoadPiece");
 		if (resources.getBrick() < MIN || resources.getWood() < MIN || numRoadPiecesRemaining < MIN)
 		{
 			return false;
@@ -1040,7 +1040,7 @@ public class Player
 		Hex adjacent = computeAdjacentHex(hex, edge);
 		if (adjacent == null)
 		{
-			System.out.println("The adjacent hex is null..."); // maybe?
+			//System.out.println("The adjacent hex is null..."); // maybe?
 			return false;
 		}
 		EdgeLocation edge2 = computeOppositeEdge(edge, adjacent);
@@ -1180,12 +1180,12 @@ public class Player
 	public boolean canBuildSettlementNormal(Hex hex, VertexLocation myLocation) throws Exception {
 		if(hex==null||myLocation==null)
 		{
-			System.out.println(" A NULL HEX");
+			//System.out.println(" A NULL HEX");
 			return false;
 		}
 		if (!hex.canBuildSettlementHereNormal(myLocation))
 		{
-			System.out.println("MY HEX IS TOO BLAME");
+			//System.out.println("MY HEX IS TOO BLAME");
 			return false;
 		}
 		/*

@@ -72,6 +72,7 @@ public class MapController extends Controller implements IMapController, Observe
 		return new EdgeLocation(hexLocation, EdgeDirection.North);
 	}
 	protected void initFromModel() {
+		/*
 		ModelFacade.facadeCurrentGame.currentgame = new CatanGame();
 		ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(1));
 		ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().setResources(new ResourceList(5,5,5,5,5));
@@ -87,6 +88,7 @@ public class MapController extends Controller implements IMapController, Observe
 			}
 		}
 		getView().placeRobber(new HexLocation(0, -2));
+		*/
 
 	}
 
@@ -328,7 +330,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void robPlayer(RobPlayerInfo victim)
 	{
-		System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
+		//System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
 		ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
 
 
@@ -375,9 +377,9 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
-				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
-				System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
-				System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
+				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
+				//System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
 					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
@@ -396,7 +398,7 @@ public class MapController extends Controller implements IMapController, Observe
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 					/*&&hasdonefirstturn*///starts part 1 of second set up turn
 				{
-					System.out.println("I COME INTO THE SECOND BUILD SETTLMENTS "+current.getName());
+					//System.out.println("I COME INTO THE SECOND BUILD SETTLMENTS "+current.getName());
 
 					startMove(PieceType.SETTLEMENT, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
@@ -407,7 +409,7 @@ public class MapController extends Controller implements IMapController, Observe
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
-					System.out.println("I come into the second build roads with " + current.getName());
+					//System.out.println("I come into the second build roads with " + current.getName());
 					startMove(PieceType.ROAD, true, true); // updateFromJSON
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
 					//ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
@@ -453,6 +455,23 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(ModelFacade.facadeCurrentGame.currentgame.getMymap()!=null)
+		{
+			Map<HexLocation, Hex> mymap = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes();
+			for (HexLocation rec : mymap.keySet())
+			{
+				HexType test = mymap.get(rec).getResourcetype();
+				getView().addHex(rec, test);
+				if (mymap.get(rec).getResourcenumber() != 0) {
+					getView().addNumber(rec, mymap.get(rec).getResourcenumber());
+				}
+				if (mymap.get(rec).getPortType() != null)
+				{
+					//System.out.println("I ADD A NON NULL PORT");
+					getView().addPort(converttoedgelocation(mymap.get(rec).getPortLocation(), rec), mymap.get(rec).getPortType());
+				}
+			}
+		}
 		if(RollController.robberrolled)
 		{
 			getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);

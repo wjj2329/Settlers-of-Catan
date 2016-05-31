@@ -15,6 +15,7 @@ import shared.game.map.vertexobject.City;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.map.vertexobject.VertexObject;
 import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 /**
@@ -103,11 +104,16 @@ public class CatanMap
 		System.out.println("i shuffle my hexes");
 		Random myrandom=new Random();
 		ArrayList<HexLocation>nonwaterhexes=new ArrayList<>();
+		HexLocation desserthex=null;
 		for(HexLocation loc: hexes.keySet())
 		{
-			if(!hexes.get(loc).getResourcetype().equals(HexType.WATER))
+			if(!hexes.get(loc).getResourcetype().equals(HexType.WATER)&&!hexes.get(loc).getResourcetype().equals(HexType.DESERT))
 			{
 				nonwaterhexes.add(loc);
+			}
+			if(hexes.get(loc).getResourcetype().equals(HexType.DESERT))
+			{
+				desserthex=loc;
 			}
 		}
 		for(int i=0; i<100; i++)
@@ -121,6 +127,18 @@ public class CatanMap
 			hex.setResourcetype(mytype2);
 			hex2.setResourcetype(mytype);
 		}
+		System.out.println("I DO SUFFULE 100 times");
+		int numberswap=myrandom.nextInt(nonwaterhexes.size()-1);
+		HexLocation swapping=nonwaterhexes.get(numberswap);
+		int swappingvalue=hexes.get(swapping).getResourcenumber();
+		HexType swapstype=hexes.get(swapping).getResourcetype();
+		hexes.get(swapping).setResourcenumber(new NumberToken(0));
+		hexes.get(swapping).setResourcetype(HexType.DESERT);
+		hexes.get(desserthex).setResourcenumber(new NumberToken(swappingvalue));
+		hexes.get(desserthex).setResourcetype(swapstype);
+
+		System.out.println("I SURVIVED");
+
 	}
 
 	public void shuffleNumbers()
@@ -155,11 +173,12 @@ public class CatanMap
 		ArrayList<HexLocation>nonwaterporthexs=new ArrayList<>();
 		for(HexLocation loc: hexes.keySet())
 		{
-			if(hexes.get(loc).getPortType()!=null)
+			if(hexes.get(loc).getPortType()==PortType.BRICK||hexes.get(loc).getPortType()==PortType.WHEAT||hexes.get(loc).getPortType()==PortType.SHEEP||hexes.get(loc).getPortType()==PortType.THREE||hexes.get(loc).getPortType()==PortType.ORE||hexes.get(loc).getPortType()==PortType.WOOD)
 			{
 				nonwaterporthexs.add(loc);
 			}
 		}
+		//System.out.println("this size of the ports" +nonwaterporthexs.size());
 		for(int i=0; i<100; i++)
 		{
 			int numberswap=myrandom.nextInt(nonwaterporthexs.size()-1);
@@ -168,8 +187,18 @@ public class CatanMap
 			Hex hex2=hexes.get(nonwaterporthexs.get(numberswap2));
 			PortType mytype=hexes.get(nonwaterporthexs.get(numberswap)).getPortType();
 			PortType mytype2=hexes.get(nonwaterporthexs.get(numberswap2)).getPortType();
+			EdgeDirection myloc1=hexes.get(nonwaterporthexs.get(numberswap)).getPort().getDirection();
+			EdgeDirection myloc2=hexes.get(nonwaterporthexs.get(numberswap2)).getPort().getDirection();
+			hex.getPort().setDirection(myloc2);
+			hex2.getPort().setDirection(myloc1);
 			hex.setPortType(mytype2);
 			hex2.setPortType(mytype);
+			//System.out.println("HEX 1 is now "+numberswap+" "+hex.getPortType());
+			//System.out.println("HEX 2 is now "+numberswap2+" "+hex2.getPortType());
+		}
+		for(int i=0; i<nonwaterporthexs.size();i++)
+		{
+			System.out.println(hexes.get(nonwaterporthexs.get(i)).getPortType());
 		}
 	}
 
@@ -222,7 +251,7 @@ public class CatanMap
 		HexLocation hexLoc37 = new HexLocation(3, -3);
 
 		hexes.put(hexLoc1, new Hex(hexLoc1, HexType.WATER, new NumberToken(0), null));
-		hexes.put(hexLoc2, new Hex(hexLoc2, HexType.WATER, new NumberToken(0), new Port(hexLoc2, EdgeDirection.South,3,PortType.WOOD)));
+		hexes.put(hexLoc2, new Hex(hexLoc2, HexType.WATER, new NumberToken(0), new Port(hexLoc2, EdgeDirection.South,2,PortType.WOOD)));
 		hexes.put(hexLoc3, new Hex(hexLoc3, HexType.WATER, new NumberToken(0), null));
 		hexes.put(hexLoc4, new Hex(hexLoc4, HexType.WATER, new NumberToken(0), new Port(hexLoc4, EdgeDirection.SouthEast,3,PortType.THREE)));
 
@@ -230,14 +259,14 @@ public class CatanMap
 		hexes.put(hexLoc6, new Hex(hexLoc6, HexType.ORE, new NumberToken(5), null));
 		hexes.put(hexLoc7, new Hex(hexLoc7, HexType.WHEAT, new NumberToken(2), null));
 		hexes.put(hexLoc8, new Hex(hexLoc8, HexType.WOOD, new NumberToken(6), null));
-		hexes.put(hexLoc9, new Hex(hexLoc9, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.SouthWest,3,PortType.BRICK)));
+		hexes.put(hexLoc9, new Hex(hexLoc9, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.SouthWest,2,PortType.BRICK)));
 
 		hexes.put(hexLoc10, new Hex(hexLoc10, HexType.WATER, new NumberToken(0), null));
 		hexes.put(hexLoc11, new Hex(hexLoc11, HexType.ORE, new NumberToken(3), null));
 		hexes.put(hexLoc12, new Hex(hexLoc12, HexType.SHEEP, new NumberToken(9), null));
 		hexes.put(hexLoc13, new Hex(hexLoc13, HexType.SHEEP, new NumberToken(10), null));
 		hexes.put(hexLoc14, new Hex(hexLoc14, HexType.BRICK, new NumberToken(8), null));
-		hexes.put(hexLoc15, new Hex(hexLoc15, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.South,3,PortType.WHEAT)));
+		hexes.put(hexLoc15, new Hex(hexLoc15, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.South,2,PortType.WHEAT)));
 
 		hexes.put(hexLoc16, new Hex(hexLoc16, HexType.WATER,new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.North,3,PortType.THREE)));
 		hexes.put(hexLoc17, new Hex(hexLoc17, HexType.WHEAT, new NumberToken(8), null));
@@ -247,7 +276,7 @@ public class CatanMap
 		hexes.put(hexLoc21, new Hex(hexLoc21,HexType.DESERT,new NumberToken(0), null));
 		hexes.put(hexLoc22, new Hex(hexLoc22, HexType.WATER, new NumberToken(0), null));
 
-		hexes.put(hexLoc23, new Hex(hexLoc23, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.South,3,PortType.ORE)));
+		hexes.put(hexLoc23, new Hex(hexLoc23, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.South,2,PortType.ORE)));
 		hexes.put(hexLoc24, new Hex(hexLoc24, HexType.BRICK, new NumberToken(4), null));
 		hexes.put(hexLoc25, new Hex(hexLoc25, HexType.ORE, new NumberToken(9), null));
 		hexes.put(hexLoc26, new Hex(hexLoc26, HexType.BRICK, new NumberToken(5), null));
@@ -261,7 +290,7 @@ public class CatanMap
 		hexes.put(hexLoc33, new Hex(hexLoc33, HexType.WATER,new NumberToken(0),new Port(new HexLocation(3, 3), EdgeDirection.NorthWest,3,PortType.THREE)));
 
 		hexes.put(hexLoc34, new Hex(hexLoc34, HexType.WATER, new NumberToken(0), null));
-		hexes.put(hexLoc35, new Hex(hexLoc35, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.NorthWest,3,PortType.SHEEP)));
+		hexes.put(hexLoc35, new Hex(hexLoc35, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.NorthWest,2,PortType.SHEEP)));
 		hexes.put(hexLoc36, new Hex(hexLoc36, HexType.WATER, new NumberToken(0), null));
 		hexes.put(hexLoc37, new Hex(hexLoc37, HexType.WATER, new NumberToken(0), new Port(new HexLocation(3, 3), EdgeDirection.SouthWest,3,PortType.THREE)));
 

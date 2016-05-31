@@ -58,7 +58,7 @@ public class ModelFacade extends Observable
 		{
 			return;
 		}*/
-		System.out.println("This should only be called once");
+		//System.out.println("This should only be called once");
 		String JSON = server.getAllCurrentGames().getResponse();
 		//System.out.println("Here is the JSON: " + JSON);
 		if(!JSON.equals("")&&JSON!=null) {//Stops adding games if there are none too add!
@@ -356,7 +356,7 @@ public class ModelFacade extends Observable
 			JSONObject obj = logLines.getJSONObject(i);
 			currentgame.getMyGameHistory().getLines().add(new
 					GameHistoryLine(obj.getString("message"), obj.getString("source")));
-			System.out.println(" I add some more source"+obj.getString("source"));
+			//System.out.println(" I add some more source"+obj.getString("source"));
 		}
 	}
 
@@ -454,6 +454,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 		{
 			JSONObject obj = ports.getJSONObject(i);
 			int ratio=obj.getInt("ratio");
+			System.out.println("This is the ratio"+ratio);
 			String resource="three"; // if not 3:1 port, then it's "wood" or "sheep" or something.
 			if(ratio != 3)
 			{
@@ -462,8 +463,12 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			JSONObject location = obj.getJSONObject("location");
 			String direction = obj.getString("direction");
 			EdgeDirection dir = getDirectionFromString(direction);
-			Port newPort = new Port(new HexLocation(location.getInt("x"), location.getInt("y")), dir,
+			HexLocation hexLocation=new HexLocation(location.getInt("x"), location.getInt("y"));
+			System.out.println("I SET A HEX PORT LOCATION AS THIS"+getPortTypeFromString(resource).toString());
+			currentgame.getMymap().getHexes().get(hexLocation).setPortType(getPortTypeFromString(resource));
+			Port newPort = new Port(hexLocation, dir,
 					obj.getInt("ratio"), getPortTypeFromString(resource)); //this is not going
+			currentgame.getMymap().getHexes().get(hexLocation).setPortlocation(newPort);
 			newPort.setType(getPortTypeFromString(resource));
 			currentgame.getMymap().getPorts().add(newPort);
 		}
@@ -608,7 +613,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				{
 					return;
 				}
-				System.out.println("THIS IS TO CHECK IF THE COLOR IS INSERTED"+obj.toString());
+				//System.out.println("THIS IS TO CHECK IF THE COLOR IS INSERTED"+obj.toString());
 				CatanColor color = stringToCatanColor(obj.getString("color"));
 				//assert(color != null);
 				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
@@ -632,17 +637,17 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				JSONObject resources = obj.getJSONObject("resources");
 				ResourceList mylist=new ResourceList(resources.getInt("brick"), resources.getInt("ore"),
 						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood"));
-				System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER "+resources.toString());
+				//System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER "+resources.toString());
 				newPlayer.setResources(mylist);
-				System.out.println("HEY SO THIS IS WHAT MY PLAYER HAS! "+newPlayer.getResources().toString());
+				//System.out.println("HEY SO THIS IS WHAT MY PLAYER HAS! "+newPlayer.getResources().toString());
 				//resources(obj, newPlayer.getResources());
 				//currentgame.addPlayer(newPlayer);
 				currentgame.setPlayerInfo(newPlayer);
-				System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER in the map "+currentgame.getMyplayers().get(newPlayer.getPlayerID()).toString());
+				//System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER in the map "+currentgame.getMyplayers().get(newPlayer.getPlayerID()).toString());
 				//currentgame.addPlayer(newPlayer);
 				if (newPlayer.getName().equals(localplayer.getName()))
 				{
-					System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
+					//System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
 					localplayer = newPlayer;
 				}
 			}
@@ -653,7 +658,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 
 	private void loadTradeOffer(JSONObject tradeOffer) throws JSONException
 	{
-		System.out.println("I HAVE A trade offer to load");
+		//System.out.println("I HAVE A trade offer to load");
 		TradeOffer mytradeoffer=new TradeOffer();
 		mytradeoffer.setSender(tradeOffer.getInt("sender"));
 		mytradeoffer.setReceiver(tradeOffer.getInt("receiver"));
@@ -770,7 +775,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 			case "playing":
 				return TurnStatus.PLAYING;
 			case "discarding":
-				System.out.println("I DO INDEED MAKE IT DISCARDING");
+				//System.out.println("I DO INDEED MAKE IT DISCARDING");
 				return TurnStatus.DISCARDING;
 			case "firstround":
 				return TurnStatus.FIRSTROUND;

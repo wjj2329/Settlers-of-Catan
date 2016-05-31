@@ -279,7 +279,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
 		try
 		{
-            System.out.println("I Call the create game call to the server");
+            //System.out.println("I Call the create game call to the server");
 			ModelFacade.facadeCurrentGame.getModel().createGame(randomlyPlaceNumbers, randomlyPlaceHexes, randomPorts, title);
 			ModelFacade.facadeCurrentGame.loadGames();
 		} 
@@ -372,7 +372,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         ModelFacade.facadeCurrentGame.getModel().joinGame(color, game.getId());
 
 
-        System.out.println(game.getPlayers().size());
+        //System.out.println(game.getPlayers().size());
 
 
 

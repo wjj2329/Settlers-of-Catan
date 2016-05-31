@@ -305,7 +305,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	}
 	else
 	{
-		System.out.println("failure");
+		//System.out.println("failure");
 		getTradeOverlay().closeModal();
 	}
 
@@ -400,7 +400,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			if(ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer() == null && getWaitOverlay().isModalShowing()&&trading){
 				getWaitOverlay().closeModal();
 				trading=false;
-				System.out.println(":DLKSJFSLLSKJF:WEOIUEP");
+				//System.out.println(":DLKSJFSLLSKJF:WEOIUEP");
 			}
 		}
 		else{

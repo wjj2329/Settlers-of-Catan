@@ -671,18 +671,18 @@ public class Hex
 
 	public boolean canBuildSettlementHereNormal(VertexLocation mylocation)
 	{
-		System.out.println("i come here to check for normal settlement placement");
+		//System.out.println("i come here to check for normal settlement placement");
 
 		if(mylocation.getDir().equals(VertexDirection.East))
 		{
 			if(east.isHascity()||northeast.isHascity()||southeast.isHascity())
 			{
-				System.out.println("I return false because of distance on same hex rule for city");
+				//System.out.println("I return false because of distance on same hex rule for city");
 				return false;
 			}
 			if(east.isHassettlement()||northeast.isHassettlement()||southeast.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 				return false;
 			}
 			{
@@ -692,7 +692,7 @@ public class Hex
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 				if(hextoupdate==null||hextoupdate2==null)
 				{
-					System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+					//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 					return false;
 				}
 				if(hextoupdate.southeast.isHassettlement()||hextoupdate.southeast.isHascity())
@@ -718,7 +718,7 @@ public class Hex
 						}
 					return false;
 				}
-				System.out.println("I RETURN FALSE BECAUSE OF ROAD REQUIREMENTS");
+				//System.out.println("I RETURN FALSE BECAUSE OF ROAD REQUIREMENTS");
 				return false;
 			}
 		}
@@ -726,13 +726,13 @@ public class Hex
 		{
 			if(west.isHascity()||northwest.isHascity()||southwest.isHascity())
 			{
-				System.out.println("I return false because of distance on same hex rule for city");
+				//System.out.println("I return false because of distance on same hex rule for city");
 
 				return false;
 			}
 			if(west.isHassettlement()||northwest.isHassettlement()||southwest.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 				return false;
 			}
 			HexLocation location1=new HexLocation(this.location.getX()-1, this.location.getY());
@@ -741,7 +741,7 @@ public class Hex
 			Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
-				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+				//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 				Exception e = new Exception();
 				e.printStackTrace();
 				return false;
@@ -772,13 +772,13 @@ public class Hex
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
 			if (northeast.isHascity()||east.isHascity()||northwest.isHascity())
-			{				System.out.println("I return false because of distance on same hex rule for city");
+			{				//System.out.println("I return false because of distance on same hex rule for city");
 
 				return false;
 			}
 			if(northeast.isHassettlement()||east.isHassettlement()||northwest.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 
 				return false;
 			}
@@ -788,7 +788,7 @@ public class Hex
 			Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
-				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+				//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
 				Exception e = new Exception();
 				//e.printStackTrace();
@@ -813,7 +813,7 @@ public class Hex
 					}
 				}
 			}
-			System.out.println("I RETURN FALSE BECAUSE OF ROAD REQUIREMENTS");
+			//System.out.println("I RETURN FALSE BECAUSE OF ROAD REQUIREMENTS");
 
 			//System.out.println("n and ne and se don't have roads");
 
@@ -823,13 +823,13 @@ public class Hex
 		{
 			if (northeast.isHascity()||northwest.isHascity()||west.isHascity())
 			{
-				System.out.println("I return false because of distance on same hex rule for city");
+				//System.out.println("I return false because of distance on same hex rule for city");
 
 				return false;
 			}
 			if(northwest.isHassettlement()||northeast.isHassettlement()||west.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 
 				return false;
 			}
@@ -839,7 +839,7 @@ public class Hex
 			Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
-				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+				//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
 				Exception e = new Exception();
 				e.printStackTrace();
@@ -872,13 +872,13 @@ public class Hex
 		{
 			if(southwest.isHascity()||east.isHascity()||southeast.isHascity())
 			{
-				System.out.println("I return false because of distance on same hex rule for city");
+				//System.out.println("I return false because of distance on same hex rule for city");
 
 				return false;
 			}
 			if(southeast.isHassettlement()||southwest.isHassettlement()||east.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 
 				return false;
 			}
@@ -888,7 +888,7 @@ public class Hex
 			Hex hextoupdate2 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
-				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+				//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
 				return false;
 			}
@@ -921,13 +921,13 @@ public class Hex
 		{
 			if(southwest.isHascity()||southeast.isHascity()||west.isHascity())
 			{
-				System.out.println("I return false because of distance on same hex rule for city");
+				//System.out.println("I return false because of distance on same hex rule for city");
 
 				return false;
 			}
 			if(southwest.isHassettlement()||southeast.isHassettlement()||west.isHassettlement())
 			{
-				System.out.println("I return false because of distance on same hex rule for settlement");
+				//System.out.println("I return false because of distance on same hex rule for settlement");
 
 				return false;
 			}
@@ -937,7 +937,7 @@ public class Hex
 			Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
-				System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
+				//System.out.println("I RETURN FALSE BECAUSE TWO HEXES NEXT TO ME ARE NULL IN THE HEX CHCECK");
 
 				Exception e = new Exception();
 				e.printStackTrace();

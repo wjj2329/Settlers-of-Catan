@@ -40,7 +40,7 @@ public class ServerPoller
 	 */
 	public void startPoller()
 	{
-		System.out.println("Polling has started...");
+		//System.out.println("Polling has started...");
 		requestTimer.scheduleAtFixedRate(new Poll(this), 0, 2*1000);
 		
 	}
@@ -103,10 +103,10 @@ public class ServerPoller
 				if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size()<=4) { // changed < to <=
 					try
 					{
-						System.out.println("Old version: " + game.getModel().getVersion());
+						//System.out.println("Old version: " + game.getModel().getVersion());
 						ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(json.getResponse()));
-						System.out.println("New version: " + game.getModel().getVersion());
-						System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
+						//System.out.println("New version: " + game.getModel().getVersion());
+						//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
 						stop = true;
 
 					} catch (JSONException e) {

@@ -66,7 +66,7 @@ public class MovesRollNumberHandler implements HttpHandler {
 				return;
 			}			
 			
-			ServerFacade.getInstance().rollNumber(rolledNumber, gameID);
+			ServerFacade.getInstance().rollNumber(rolledNumber);
 			String response = "Success! :D";
 			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			httpExchange.getResponseBody().write(response.getBytes());

@@ -292,7 +292,7 @@ public class ResourceBarView extends PanelView implements IResourceBarView
 						getController().playCard();
 						break;
 					default:
-						System.out.println(e.getActionCommand());
+						//System.out.println(e.getActionCommand());
 						break;
 				}
 			}

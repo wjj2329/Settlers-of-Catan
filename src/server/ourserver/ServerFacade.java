@@ -280,7 +280,7 @@ public class ServerFacade
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
 		p.setPlayerID(new Index(NEXT_USER_ID++));
 		p.setPassword(password);
-		System.out.println("I add a new player");
+		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
 	}
 
@@ -332,7 +332,7 @@ public class ServerFacade
      */
 	public void createGame(String name, boolean randomHexes, boolean randomPorts, boolean randomHexValues)
 	{
-		System.out.println("I add a new Catan Game");
+		//System.out.println("I add a new Catan Game");
 		CatanGame mynewgame=new CatanGame();
 		mynewgame.setTitle(name);
 		mynewgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right?
@@ -345,14 +345,17 @@ public class ServerFacade
 		mynewgame.setMyplayers(new HashMap<Index, Player>());
 		if(randomHexes)
 		{
+			System.out.println("I randomize the hexes");
 			mynewgame.getMymap().shuffleHexes();
 		}
 		if(randomPorts)
 		{
+			System.out.println("I randomize the ports");
 			mynewgame.getMymap().shufflePorts();
 		}
 		if(randomHexValues)
 		{
+			System.out.println("I randomize the values");
 			mynewgame.getMymap().shuffleNumbers();
 		}
 		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
@@ -367,6 +370,7 @@ public class ServerFacade
 	 * @param gameID: ID of the game to join.
 	 * @param : ID of the player who is joining.
      */
+	private static int playerindex=0;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
@@ -409,7 +413,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = p; //this is bad
+					Player copy = new Player(p.getName(),p.getColor(),p.getPlayerID()); //this is bad
 					switch(color.toLowerCase())
 					{
 					case "red":
@@ -440,7 +444,11 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
+					copy.setResources(new ResourceList(0,0,0,0,0));
+					copy.setPlayerIndex(new Index(playerindex));
+					playerindex++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
+
 					return true;
 				}
 			}
@@ -455,9 +463,9 @@ public class ServerFacade
 	{
 		JSONObject model = new JSONObject();
 		CatanGame game = getGameByID(gameID);
-		System.out.println("this is the pointer to the game object" +game);
-		System.out.println("THE GAME GETS LOADED");
-		System.out.println("THIS IS MY GAME ID THAT I GET "+gameID);
+		//System.out.println("this is the pointer to the game object" +game);
+		//System.out.println("THE GAME GETS LOADED");
+		//System.out.println("THIS IS MY GAME ID THAT I GET "+gameID);
 		
 		try {
 			//THE BANK
@@ -692,7 +700,7 @@ public class ServerFacade
 			{
 				JSONObject player = new JSONObject();
 				players.put(player);
-				System.out.println("THE PLAYERS SO FAR WIT NULL PLAYAH  " + players.toString());
+				//System.out.println("THE PLAYERS SO FAR WIT NULL PLAYAH  " + players.toString());
 				numPlayahs++;
 			}
 			model.put("players", players);
