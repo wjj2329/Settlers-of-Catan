@@ -120,8 +120,8 @@ public class BuildRoadCommand implements ICommand {
 		Hex hex = currentgame.getMymap().getHexes().get(location);
 		Hex adjacent = computeAdjacentHex(hex, edge,currentgame);
 		EdgeLocation adjLoc = computeOppositeEdge(edge, adjacent);
-		RoadPiece r1 = hex.buildRoad(edge, playerID);
-		RoadPiece r2 = adjacent.buildRoad(adjLoc, playerID);
+		RoadPiece r1 = hex.buildRoad(edge, playertoupdate.getPlayerIndex());
+		RoadPiece r2 = adjacent.buildRoad(adjLoc, playertoupdate.getPlayerIndex());
 		edge.setRoadPiece(r1);
 		edge.setHasRoad(true);
 		adjLoc.setRoadPiece(r2);
@@ -134,7 +134,7 @@ public class BuildRoadCommand implements ICommand {
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			turnstogo++;
-			System.out.println("I INCREASE THE TURNS TO GO STATIC MEMEBER to "+turnstogo);
+			System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
 		}
 		if(turnstogo==5)
 		{
@@ -146,7 +146,7 @@ public class BuildRoadCommand implements ICommand {
 		{
 			turnstogo++;
 		}
-		if(turnstogo==4)
+		if(turnstogo==4&&currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 		}

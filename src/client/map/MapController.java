@@ -352,8 +352,10 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" with "+current.getName());
-			System.out.println("The size of his/her settlements is as follows: " + current.getSettlements().size());
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+			System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
@@ -362,7 +364,7 @@ public class MapController extends Controller implements IMapController, Observe
 				//first part of turn one
 				{
 					startMove(PieceType.SETTLEMENT, true, true);
-					System.out.println("I COME INTO THE FIRST BUILD SETTLEMENTS"+current.getName());
+					//System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
@@ -373,13 +375,13 @@ public class MapController extends Controller implements IMapController, Observe
 				{
 					startMove(PieceType.ROAD, true, true);
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
-					System.out.println("i place a road");
+					//System.out.println("i place a road");
 					//System.out.println("my road size is now "+current.getRoadPieces().size()+"my settlements size is now this "+current.getSettlements().size());
 					return;
 				}
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
-				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
-				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
+				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				//System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
 					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
@@ -510,6 +512,7 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			for(int i=0; i<ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().size();i++)
 			{
+				//System.out.println("I MY MAP LOADER THINGY I LOAD A SETTLEMENT");
 				Index correctonecolor=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner();
 				CatanColor mycolor=CatanColor.PUCE;
 				//System.out.println("MY settlements index for owner is" +ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getOwner().getNumber());
@@ -520,6 +523,7 @@ public class MapController extends Controller implements IMapController, Observe
 					{
 						mycolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(id).getColor();
 					}
+
 				}
 				getView().placeSettlement(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(loc).getSettlementlist().get(i).getVertexLocation(), mycolor);
 			}
