@@ -361,60 +361,6 @@ public class ModelFacade extends Observable
 	}
 
 
-	public void loadhexesdifferent(JSONObject hexGrid) throws JSONException
-	{
-		JSONArray hexes=hexGrid.getJSONArray("hexes");
-		for (int i = 0; i < hexes.length(); i++)
-		{
-			JSONObject Location=hexes.getJSONObject(i).getJSONObject("location");
-			HexLocation mylocation=new HexLocation(Location.getInt("x"),Location.getInt("y"));
-			boolean isLand=hexes.getJSONObject(i).getBoolean("isLand");
-			String landtype;
-			if(isLand)
-			{
-			landtype=hexes.getJSONObject(i).getString("landtype");
-			}
-			else
-			{
-				landtype="water";
-			}
-			Hex myhex=new Hex(mylocation,convertToHexType(landtype),new NumberToken(-1),null);
-			currentgame.getMymap().getHexes().put(mylocation,myhex);
-		}
-
-	}
-public void loadnumbersdifferent(JSONObject numbers) throws JSONException {
-	for(Integer i=2; i<12; i++)
-	{
-		if(i!=7) {
-			JSONObject number = numbers.getJSONObject(i.toString());
-			HexLocation location=new HexLocation(number.getInt("x"),number.getInt("y"));
-			currentgame.getMymap().getHexes().get(location).setResourcenumber(new NumberToken(i));
-		}
-	}
-}
-
-public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
-
-	currentgame.clear();
-	JSONObject deck=mygame.getJSONObject("deck");
-	int yearofplenty=deck.getInt("yearOfPlenty");
-	int monopoly=deck.getInt("monopoly");
-	int soldier=deck.getInt("soldier");
-	int roadBuilding=deck.getInt("roadBuilding");
-	int monument=deck.getInt("monument");
-	DevCardList mylist=new DevCardList(monopoly,monument,roadBuilding,soldier,yearofplenty);
-	currentgame.mybank.setDevCardList(mylist);
-	JSONObject map=mygame.getJSONObject("map");
-
-	JSONObject hexGrid=mygame.getJSONObject("hexGrid");
-	loadhexesdifferent(hexGrid);
-
-	JSONObject numbers=mygame.getJSONObject("numbers");
-	loadnumbersdifferent(numbers);
-
-
-}
 
 	private void loadMap(JSONObject map) throws JSONException
 	{
@@ -647,7 +593,7 @@ public void loadGameDifferentJson(JSONObject mygame) throws JSONException {
 				//currentgame.addPlayer(newPlayer);
 				if (newPlayer.getName().equals(localplayer.getName()))
 				{
-					//System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
+					System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
 					localplayer = newPlayer;
 				}
 			}

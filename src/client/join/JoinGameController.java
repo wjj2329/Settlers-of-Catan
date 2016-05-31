@@ -158,6 +158,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         lastList = games;
         PlayerInfo localPlayer = new PlayerInfo();
        // System.out.println("I come here and I DIE "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
+        if(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID()==null)
+        {
+            System.out.println("ITS NULL NOOB");
+            return;
+        }
         localPlayer.setId(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
         getJoinGameView().setGames(games, localPlayer);
         if(shouldShowGameList)

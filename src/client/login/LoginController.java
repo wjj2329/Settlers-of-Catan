@@ -110,12 +110,12 @@ public class LoginController extends Controller implements ILoginController, Obs
 			/*
 				Use this if running OUR server
 			 */
-			//loginAndCreatePlayerFromCookie(username1, password1);
+			loginAndCreatePlayerFromCookie(username1, password1);
 
 			/*
 				Use this if running ANT server
 			 */
-			createPlayerFromCookie(username1, password1);
+			//createPlayerFromCookie(username1, password1);
 		}
 	}
 
@@ -158,11 +158,11 @@ public class LoginController extends Controller implements ILoginController, Obs
 		/*
 			Use if running OUR server
 		 */
-		//loginAndCreatePlayerFromCookie(username, password);
+		loginAndCreatePlayerFromCookie(username, password);
 		/*
 			Use if running ANT server
 		 */
-		createPlayerFromCookie(username,password);
+		//createPlayerFromCookie(username,password);
 	}
 
 	public void createPlayerFromCookie(String username, String password)
@@ -246,6 +246,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
 		//format for names which is a problem!
 		localplayer.setName(newname);
+		System.out.println("I SET UP THE LOCAL PLAYER");
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 	}
 	
