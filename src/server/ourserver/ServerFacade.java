@@ -845,11 +845,12 @@ public class ServerFacade
 	/**
 	 * Robs another player
 	 * @param location: Where the robber is at
-	 * @param playerIndex: Player who is doing the robber
      */
-	public void robPlayer(HexLocation location, int playerIndex)
-	{
 
+	private RobPlayerCommand robbing=new RobPlayerCommand();
+	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
+	{
+		robbing.robplayerofresources(location,playerRobbing,playerbeingrobbed, gameid);
 	}
 
 	/**

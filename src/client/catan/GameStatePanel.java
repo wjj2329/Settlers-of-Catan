@@ -95,18 +95,8 @@ public class GameStatePanel extends JPanel implements Observer
 					@Override
 					public void execute()
 					{
-						String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
-								player.getPlayerIndex().getNumber()).getResponse();
-
-						try
-						{
-							JSONObject response=new JSONObject(serverresponse);
-							//ModelFacade.facadeCurrentGame.updateFromJSON(response);
-						}
-						catch (JSONException e)
-						{
-							e.printStackTrace();
-						}
+						 ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",
+								player.getPlayerIndex().getNumber());
 						updateGameState("Not Your Turn", false);
 					}
 				});
