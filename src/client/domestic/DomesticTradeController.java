@@ -277,7 +277,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				String value = entry.getValue();
 				if (value.equals("SEND")) {
 					int amount = ((int) sendMap.get(key));
-					setAmount(key, amount);
+					setAmount(key, (amount));
 				} else if (value.equals("RECEIVE")) {
 					int amount = (int) receiveMap.get(key);
 					setAmount(key, (amount*-1));
@@ -289,6 +289,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 		}
 		ResourceList list = new ResourceList(tradeBrick, tradeOre, tradeSheep, tradeGrain, tradeWood);
+		//System.out.println(list.toString());
 		ServerResponse response=ModelFacade.facadeCurrentGame.getServer().offerTrade("offerTrade",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),list,tradeWithPlayer);
 		//System.out.println("MY response from the server when sending offer is this "+response);
 
@@ -380,6 +381,17 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		
 	}
 
+	public Player getPlayerByIndex(int index){
+		for(Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if(player.getPlayerIndex().getNumber() == index)
+			{
+				return player;
+			}
+		}
+		return null;
+	}
+	
 	@Override
 	public void update(Observable o, Object arg)
 	{
@@ -408,38 +420,56 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer() != null) {
+			
 			//System.out.println("THE TWO NUMBERS I GET ARE "+ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer()+" and "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
 			if (ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getReceiver() == ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber()) {
-				ResourceList myresources = ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getMylist();
+				Player receiver = getPlayerByIndex(ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getReceiver());
+				getAcceptOverlay().setPlayerName(getPlayerByIndex(ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getSender()).getName());
+				ResourceList myresources = ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getMylist();								
 				if (myresources.getBrick() != 0) {
 					if (myresources.getBrick() < 0) {
-						getAcceptOverlay().addGetResource(ResourceType.BRICK, myresources.getBrick() * -1);
+						getAcceptOverlay().addGiveResource(ResourceType.BRICK, myresources.getBrick() * -1);
 					} else
-						getAcceptOverlay().addGiveResource(ResourceType.BRICK, myresources.getBrick());
+						getAcceptOverlay().addGetResource(ResourceType.BRICK, myresources.getBrick());
+					if(myresources.getBrick()*-1 > receiver.getResources().getBrick()){
+						getAcceptOverlay().setAcceptEnabled(false);
+					}
 				}
 				if (myresources.getOre() != 0) {
 					if (myresources.getOre() < 0) {
-						getAcceptOverlay().addGetResource(ResourceType.ORE, myresources.getOre() * -1);
+						getAcceptOverlay().addGiveResource(ResourceType.ORE, myresources.getOre() * -1);
 					} else
-						getAcceptOverlay().addGiveResource(ResourceType.ORE, myresources.getOre());
+						getAcceptOverlay().addGetResource(ResourceType.ORE, myresources.getOre());
+					if(myresources.getOre()*-1 > receiver.getResources().getOre()){
+						getAcceptOverlay().setAcceptEnabled(false);
+					}
 				}
 				if (myresources.getSheep() != 0) {
 					if (myresources.getSheep() < 0) {
-						getAcceptOverlay().addGetResource(ResourceType.SHEEP, myresources.getSheep() * -1);
+						getAcceptOverlay().addGiveResource(ResourceType.SHEEP, myresources.getSheep() * -1);
 					} else
-						getAcceptOverlay().addGiveResource(ResourceType.SHEEP, myresources.getSheep());
+						getAcceptOverlay().addGetResource(ResourceType.SHEEP, myresources.getSheep());
+					if(myresources.getSheep()*-1 > receiver.getResources().getSheep()){
+						getAcceptOverlay().setAcceptEnabled(false);
+					}
 				}
 				if (myresources.getWheat() != 0) {
 					if (myresources.getWheat() < 0) {
-						getAcceptOverlay().addGetResource(ResourceType.WHEAT, myresources.getWheat() * -1);
+						getAcceptOverlay().addGiveResource(ResourceType.WHEAT, myresources.getWheat() * -1);
 					} else
-						getAcceptOverlay().addGiveResource(ResourceType.WHEAT, myresources.getWheat());
+						getAcceptOverlay().addGetResource(ResourceType.WHEAT, myresources.getWheat());
+					if(myresources.getWheat()*-1 > receiver.getResources().getWheat()){
+						getAcceptOverlay().setAcceptEnabled(false);
+					}
 				}
 				if (myresources.getWood() != 0) {
 					if (myresources.getWood() < 0) {
-						getAcceptOverlay().addGetResource(ResourceType.WOOD, myresources.getWood() * -1);
+						getAcceptOverlay().addGiveResource(ResourceType.WOOD, myresources.getWood() * -1);
 					} else
-						getAcceptOverlay().addGiveResource(ResourceType.WOOD, myresources.getWood());
+						getAcceptOverlay().addGetResource(ResourceType.WOOD, myresources.getWood());
+					if(myresources.getWood()*-1 > receiver.getResources().getWood()){
+						getAcceptOverlay().setAcceptEnabled(false);
+					}
 				}
 				getAcceptOverlay().showModal();
 			}
