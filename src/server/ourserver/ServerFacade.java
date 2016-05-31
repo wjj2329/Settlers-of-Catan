@@ -371,6 +371,7 @@ public class ServerFacade
 	 * @param : ID of the player who is joining.
      */
 	private static int playerindex=0;
+	private static int playeridvariable=100;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
@@ -413,7 +414,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = new Player(p.getName(),p.getColor(),p.getPlayerID()); //this is bad
+					Player copy = new Player(p.getName(),p.getColor(),p.getPlayerID());
 					switch(color.toLowerCase())
 					{
 					case "red":
@@ -444,9 +445,12 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
+					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindex+"and PLAYER ID"+playeridvariable);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(playerindex));
+					copy.setPlayerID(new Index(playeridvariable));
 					playerindex++;
+					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
 
 					return true;
@@ -854,9 +858,43 @@ public class ServerFacade
 	 * Buys a dev card
 	 * @param playerIndex: player who is buying
      */
-	public void buyDevCard(int playerIndex)
+	public void buyDevCard(int playerid, int gameid)
 	{
-
+		CatanGame currentgame = getGameByID(gameid);
+		Player player = currentgame.getMyplayers().get(playerid);		
+		String buyresult = currentgame.mybank.buyDevCard();
+		
+		//Update the player with the new card
+		switch(buyresult)
+		{
+		case "soldier":
+			player.getOldDevCards().setSoldier(player.getOldDevCards().getSoldier() + 1);
+			break;
+		case "monument":
+			player.getNewDevCards().setMonument(player.getNewDevCards().getMonument() + 1);
+			player.setNumVictoryPoints(player.getNumVictoryPoints() + 1);
+			break;
+		case "monopoly":
+			player.getOldDevCards().setMonopoly(player.getOldDevCards().getMonopoly() + 1);
+			break;
+		case "roadbuilding":
+			player.getOldDevCards().setRoadBuilding(player.getOldDevCards().getRoadBuilding() + 1);
+			break;
+		case "yearofplenty":
+			player.getOldDevCards().setYearOfPlenty(player.getOldDevCards().getYearOfPlenty() + 1);
+			break;
+			default:
+				return;				
+		}
+		
+		//Remove the resources needed to purchase new card
+		ResourceList resources = player.getResources();
+		resources.setOre(resources.getOre() - 1);
+		resources.setWheat(resources.getWheat() - 1);
+		resources.setSheep(resources.getSheep() - 1);
+		
+		//Increment game version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
 
 	/**
@@ -947,9 +985,10 @@ public class ServerFacade
 	 * @param playerIndex: player offering
 	 * @param playerOffered: player receiving
      */
-	public void offerTrade(String getResource, String giveResource, int playerIndex, int playerOffered)
+	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver)
 	{
-
+		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
+		command.execute();
 	}
 
 	/**
