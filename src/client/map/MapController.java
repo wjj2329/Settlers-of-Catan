@@ -352,7 +352,8 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" with "+current.getName());
+			System.out.println("The size of his/her settlements is as follows: " + current.getSettlements().size());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
@@ -361,7 +362,7 @@ public class MapController extends Controller implements IMapController, Observe
 				//first part of turn one
 				{
 					startMove(PieceType.SETTLEMENT, true, true);
-					//System.out.println("I COME INTO THE FIRST BUILD SETTLMENTS"+current.getName());
+					System.out.println("I COME INTO THE FIRST BUILD SETTLEMENTS"+current.getName());
 					//getView().startDrop(PieceType.SETTLEMENT, current.getColor(), false);
 					//System.out.println("I place a settlement");
 					return;
@@ -372,7 +373,7 @@ public class MapController extends Controller implements IMapController, Observe
 				{
 					startMove(PieceType.ROAD, true, true);
 					//getView().startDrop(PieceType.ROAD, current.getColor(), false);
-					//System.out.println("i place a road");
+					System.out.println("i place a road");
 					//System.out.println("my road size is now "+current.getRoadPieces().size()+"my settlements size is now this "+current.getSettlements().size());
 					return;
 				}

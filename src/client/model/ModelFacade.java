@@ -448,6 +448,7 @@ public class ModelFacade extends Observable
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
+		System.out.println("THESE ARE THE SETTLEMENTS: " + settlements.toString());
 		for (int i = 0; i < settlements.length(); i++)
 		{
 			JSONObject obj = settlements.getJSONObject(i);
@@ -477,6 +478,9 @@ public class ModelFacade extends Observable
 			//currentgame.getMymap().getSettlements().add(settle1);
 			settle1.setOwner(myindex);
 			//mylocation.setSettlement(settle1);
+			/*System.out.println("Let's see that index!" + myindex.getNumber());
+			System.out.println("Adding settlement to player " + currentgame.getMyplayers().get(myindex).getName() +
+				", with ID " + myindex.getNumber());*/
 			currentgame.getMyplayers().get(myindex).addToSettlements(settle1);
 			/*if (getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND && currentgame.getMyplayers().get(myindex).getSettlements().size() == 1)
 			{

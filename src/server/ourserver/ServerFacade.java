@@ -456,6 +456,8 @@ public class ServerFacade
 					copy.setPlayerID(new Index(playeridvariable));
 					playerindex++;
 					playeridvariable++;
+					/*System.out.println("How long is the listGames arrayList?" + serverModel.listGames().size());
+					System.out.println("What is the game ID? " + gameID);*/
 					serverModel.listGames().get(gameID).addPlayer(copy);
 
 					return true;
@@ -587,7 +589,7 @@ public class ServerFacade
 			{
 				for(Settlement colonia : mapa.get(elHex).getSettlementlist())
 				{
-					if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
+					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
 						JSONObject settlement = new JSONObject();
 						settlement.put("owner", colonia.getOwner().getNumber());
@@ -861,7 +863,7 @@ public class ServerFacade
 
 	/**
 	 * Buys a dev card
-	 * @param playerIndex: player who is buying
+	 * @param playerid: player who is buying
      */
 	public void buyDevCard(int playerid, int gameid)
 	{
