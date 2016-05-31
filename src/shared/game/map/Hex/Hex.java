@@ -554,7 +554,7 @@ public class Hex
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
+				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=HexType.WATER||hextoupdate2.getResourcetype()!=HexType.WATER) {
 					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
 						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
 							hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthEast),owner));
@@ -566,7 +566,7 @@ public class Hex
 							northeast.setHassettlement(true);
 							northeast.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthEast), owner));
-							//System.out.println("i come to northeast and add settlements to 3 hexes");
+							System.out.println("i come to northeast and add settlements to 3 hexes");
 							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthEast), owner));
 							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.West), owner));
 						}
@@ -598,8 +598,8 @@ public class Hex
 							northwest.getSettlement().setOwner(ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID());
 							//System.out.println("i come to NorthWest and add settlements to 3 hexes");
 							settlements.add(new Settlement(this.getLocation(), new VertexLocation(this.getLocation(), VertexDirection.NorthWest), owner));
-							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.SouthWest), owner));
-							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.NorthWest), owner));
+							hextoupdate.addSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(), VertexDirection.East), owner));
+							hextoupdate2.addSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(), VertexDirection.SouthWest), owner));
 						}
 					}
 				}
