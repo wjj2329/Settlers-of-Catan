@@ -1,12 +1,17 @@
 package shared.game.map;
 
+
 /**
  * Index: A class that contains an Index number that can be accessed to grab people.  
  * Kind of pointless now but in the future may come in handy for exception handling. 
  */
-public class Index 
+public class Index implements Comparable<Index>
 {
-	int number = 0;
+	/**
+	 * Number stored for the index.
+	 * Important for both playerIndex and playerID.
+	 */
+	private int number = 0;
 	
 	/**
 	 * The constructor!
@@ -24,6 +29,12 @@ public class Index
 	private boolean hasNumber()
 	{
 		return true;
+	}
+
+	@Override
+	public int compareTo(Index o)
+	{
+		return this.getNumber() - o.getNumber();
 	}
 
 	@Override

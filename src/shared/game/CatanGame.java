@@ -60,7 +60,7 @@ public class CatanGame
 	private Player currentPlayer = new Player("OscarTheSharkSlayer", CatanColor.BLUE, new Index(1));
 	private Model gameModel = new Model();
 	private ServerPoller poller;
-	private Map<Index, Player> myplayers=new HashMap<>();
+	private Map<Index, Player> myplayers=new TreeMap<>(); // trying to change this to a TreeMap
 	private CatanMap mymap = new CatanMap(RADIUS);
 	private Chat mychat=new Chat();
 	private GameHistory myGameHistory = new GameHistory();

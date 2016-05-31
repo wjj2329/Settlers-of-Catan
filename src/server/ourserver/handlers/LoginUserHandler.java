@@ -42,6 +42,7 @@ import shared.game.player.Player;
  */
 public class LoginUserHandler implements HttpHandler
 {
+	private static int idTracker = 1;
 	/**
 	 * Handler:
 	 * 1. Deserializes what class is received (input object)
@@ -77,8 +78,12 @@ public class LoginUserHandler implements HttpHandler
 			username = data.getString("username");
 			password = data.getString("password");
 			loginParam = new LoginParam(username, password);
-			newPlayer = new Player(username, CatanColor.PUCE, new Index(1));
+			// This might be necessary to create a new playerID for each new player who logs in.
+			// However, possibly not. We might want to keep that ID for when they register, actually,
+			// in which case we need a method for remembering them.
+			newPlayer = new Player(username, CatanColor.PUCE, new Index(idTracker));
 			newPlayer.setPassword(password);
+			idTracker++;
 			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
 			if (newPlayer == null)
 			{
