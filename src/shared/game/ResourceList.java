@@ -183,14 +183,19 @@ public class ResourceList
 		{
 			case WOOD:
 				wood++;
+				break;
 			case ORE:
 				ore++;
+				break;
 			case BRICK:
 				brick++;
+				break;
 			case WHEAT:
 				wheat++;
+				break;
 			case SHEEP:
 				sheep++;
+				break;
 			default:
 				break;
 				//assert false; // should NOT be any desert or water types passed here
