@@ -400,7 +400,7 @@ public class ModelFacade extends Observable
 		{
 			JSONObject obj = ports.getJSONObject(i);
 			int ratio=obj.getInt("ratio");
-			System.out.println("This is the ratio"+ratio);
+			//System.out.println("This is the ratio"+ratio);
 			String resource="three"; // if not 3:1 port, then it's "wood" or "sheep" or something.
 			if(ratio != 3)
 			{

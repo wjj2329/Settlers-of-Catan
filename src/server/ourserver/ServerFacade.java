@@ -371,6 +371,7 @@ public class ServerFacade
 	 * @param : ID of the player who is joining.
      */
 	private static int playerindex=0;
+	private static int playeridvariable=100;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
@@ -413,7 +414,7 @@ public class ServerFacade
 			{
 				if(p.getPlayerID().getNumber() == playerid)
 				{
-					Player copy = new Player(p.getName(),p.getColor(),p.getPlayerID()); //this is bad
+					Player copy = new Player(p.getName(),p.getColor(),p.getPlayerID());
 					switch(color.toLowerCase())
 					{
 					case "red":
@@ -444,9 +445,12 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
+					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindex+"and PLAYER ID"+playeridvariable);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(playerindex));
+					copy.setPlayerID(new Index(playeridvariable));
 					playerindex++;
+					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
 
 					return true;
