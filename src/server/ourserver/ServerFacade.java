@@ -110,12 +110,16 @@ public class ServerFacade
 	private ServerFacade()
 	{
 		Player sam = new Player("Sam", CatanColor.ORANGE, new Index(0));
+		sam.setPlayerIndex(new Index(100));
 		sam.setPassword("sam");
 		Player mark = new Player("Brooke", CatanColor.BLUE, new Index(1));
+		mark.setPlayerIndex(new Index(200));
 		mark.setPassword("brooke");
 		Player brooke = new Player("Pete", CatanColor.RED, new Index(2));
+		mark.setPlayerIndex(new Index(300));
 		brooke.setPassword("pete");
 		Player pete = new Player("Mark", CatanColor.GREEN, new Index(3));
+		pete.setPlayerIndex(new Index(400));
 		pete.setPassword("mark");
 		allRegisteredUsers.add(sam);
 		allRegisteredUsers.add(mark);

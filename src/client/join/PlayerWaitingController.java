@@ -106,7 +106,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
         Collection<Player> currentPlayers = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values();
         PlayerInfo[] playerInfo = new PlayerInfo[currentPlayers.size()];
         int idx = 0;
-        for(Player player: currentPlayers)
+        Set <Player>ordering=new TreeSet<>();
+        for(Player player:currentPlayers)
+        {
+            ordering.add(player);
+        }
+        for(Player player: ordering)
         {
             System.out.println("I Add a player to waiting view "+player.getName()+"HIS ID IS "+player.getPlayerID().getNumber());
             playerInfo[idx] = new PlayerInfo();
