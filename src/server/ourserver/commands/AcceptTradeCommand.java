@@ -43,22 +43,22 @@ public class AcceptTradeCommand implements ICommand {
 		{
 			if(player.getPlayerIndex().getNumber() == tradeOffer.getSender()){
 
-				System.out.println("B4 SENDER: " + player.getName()+ " " + player.getResources().toString());
+				//System.out.println("B4 SENDER: " + player.getName()+ " " + player.getResources().toString());
 				player.getResources().setBrick(player.getResources().getBrick() - offer.getBrick());
-				player.getResources().setOre(player.getResources().getBrick() - offer.getOre());
-				player.getResources().setSheep(player.getResources().getBrick() - offer.getSheep());
-				player.getResources().setWheat(player.getResources().getBrick() - offer.getWheat());
-				player.getResources().setWood(player.getResources().getBrick() - offer.getWood());
-				System.out.println("RECEIVER: " + player.getName()+ " " + player.getResources().toString());
+				player.getResources().setOre(player.getResources().getOre() - offer.getOre());
+				player.getResources().setSheep(player.getResources().getSheep() - offer.getSheep());
+				player.getResources().setWheat(player.getResources().getWheat() - offer.getWheat());
+				player.getResources().setWood(player.getResources().getWood() - offer.getWood());
+				//System.out.println("sENDER: " + player.getName()+ " " + player.getResources().toString());
 			}
 			if(player.getPlayerIndex().getNumber() == tradeOffer.getReceiver()){
-				System.out.println("B4 SENDER: " + player.getName()+ " " + player.getResources().toString());
+				//System.out.println("B4 RECEIVER: " + player.getName()+ " " + player.getResources().toString());
 				player.getResources().setBrick(player.getResources().getBrick() + offer.getBrick());
-				player.getResources().setOre(player.getResources().getBrick() + offer.getOre());
-				player.getResources().setSheep(player.getResources().getBrick() + offer.getSheep());
-				player.getResources().setWheat(player.getResources().getBrick() + offer.getWheat());
-				player.getResources().setWood(player.getResources().getBrick() + offer.getWood());
-				System.out.println("SENDER: " + player.getName()+ " " + player.getResources().toString());
+				player.getResources().setOre(player.getResources().getOre() + offer.getOre());
+				player.getResources().setSheep(player.getResources().getSheep() + offer.getSheep());
+				player.getResources().setWheat(player.getResources().getWheat() + offer.getWheat());
+				player.getResources().setWood(player.getResources().getWood() + offer.getWood());
+				//System.out.println("RECEIVER: " + player.getName()+ " " + player.getResources().toString());
 				
 			}
 		}
