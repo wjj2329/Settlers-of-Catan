@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.map.Index;
@@ -48,7 +49,13 @@ public class FinishTurnCommand implements ICommand {
 			case(3):
 			{
 				System.out.println("I update for case 3");
-				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0),currentgame.getMyplayers());
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3),currentgame.getMyplayers());
+				}
+				else {
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+				}
 				break;
 			}
 		}

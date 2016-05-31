@@ -86,6 +86,7 @@ public class MovesBuildSettlementHandler implements HttpHandler
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        System.out.println("I MY Settlement handler I get a Hex location of "+x+y+" my direction is "+direction);
         ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe,gameID);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
