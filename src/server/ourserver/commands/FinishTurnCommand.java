@@ -36,8 +36,9 @@ public class FinishTurnCommand implements ICommand {
 				}
 				else
 				{
-					currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+
 				}
 				break;
 			}
