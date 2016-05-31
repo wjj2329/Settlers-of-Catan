@@ -48,10 +48,12 @@ public class RollNumberCommand implements ICommand {
 		CatanMap map = game.getMymap();
 		
 		for(HexLocation hexLocation : map.getHexes().keySet())
-		{		
+		{	
+			Hex estamera = map.getHexes().get(hexLocation);
 			if(map.getHexes().get(hexLocation).getResourcenumber() == rollNumber)			
 			{
-				Hex estamera = map.getHexes().get(hexLocation);
+				
+				//System.out.println("THERE IS A " + estamera.getResourcetype().name()  + "HEX THAT HAS A " + rollNumber);
 				if(estamera.hasSettlement(VertexDirection.NorthWest))
 				{	
 					incrementPlayerCrap(estamera.getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
@@ -85,7 +87,7 @@ public class RollNumberCommand implements ICommand {
 					}
 				}
 				
-				System.out.println("CHECKED NORTH");
+				//System.out.println("CHECKED NORTH");
 				
 				if(estamera.hasSettlement(VertexDirection.NorthEast))
 				{
@@ -120,17 +122,17 @@ public class RollNumberCommand implements ICommand {
 					}
 				}
 				
-				System.out.println("CHECKED NORTHEAST");
+				//System.out.println("CHECKED NORTHEAST");
 				
 				if(estamera.hasSettlement(VertexDirection.West))
 				{
 					incrementPlayerCrap(estamera.getSettlement(VertexDirection.West).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-					System.out.println("GOT HERE");
+					//System.out.println("GOT HERE");
 				}
 				else if(estamera.hasCity(VertexDirection.West))
 				{
 					incrementPlayerCrap(estamera.getCity(VertexDirection.West).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
-					System.out.println("GOT HERE ELSE IF");
+					//System.out.println("GOT HERE ELSE IF");
 				}
 				else
 				{
@@ -159,7 +161,7 @@ public class RollNumberCommand implements ICommand {
 				
 				}
 				
-				System.out.println("CHECKED WEST");
+				//System.out.println("CHECKED WEST");
 
 				
 				if(estamera.hasSettlement(VertexDirection.East))
@@ -194,7 +196,7 @@ public class RollNumberCommand implements ICommand {
 					}
 				}
 				
-				System.out.println("CHECKED East");
+				//System.out.println("CHECKED East");
 
 				
 				if(estamera.hasSettlement(VertexDirection.SouthWest))
@@ -231,7 +233,7 @@ public class RollNumberCommand implements ICommand {
 				
 				}
 				
-				System.out.println("CHECKED SouthWest");
+				//System.out.println("CHECKED SouthWest");
 
 				
 				if(estamera.hasSettlement(VertexDirection.SouthEast))
@@ -269,14 +271,14 @@ public class RollNumberCommand implements ICommand {
 			
 				}
 				
-				System.out.println("CHECKED SouthEast");
+				//System.out.println("CHECKED SouthEast");
 
 			
 			}				
 		}
 		if (rollNumber == 7) 
 		{			
-			System.out.println("ROLLED A 7 YO.");			
+			//System.out.println("ROLLED A 7 YO.");			
 			game.getModel().getTurntracker().setStatus(TurnStatus.ROBBING);		
 		}
 		
@@ -295,13 +297,14 @@ public class RollNumberCommand implements ICommand {
 		{		
 			if(player.getPlayerIndex().getNumber() == index)	
 			{
-				System.out.println(player.getName() + " GETS A " + hexType.name());		
+				//System.out.println(player.getName() + " GETS A " + hexType.name());		
 				if(game.mybank.getResourceCard(hexType))
 				{
 					player.getResources().incrementBasedOnHexType(hexType);
 				}
 				if(times == 2 && game.mybank.getResourceCard(hexType))
 				{
+					//System.out.println(player.getName() + " GETS ANOTHER " + hexType.name());	
 					player.getResources().incrementBasedOnHexType(hexType);
 				}
 				return;

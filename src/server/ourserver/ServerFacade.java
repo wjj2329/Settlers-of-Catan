@@ -130,10 +130,10 @@ public class ServerFacade
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
 		defaultgame.setID(0);
-		defaultgame.addPlayer(allRegisteredUsers.get(0));
-		defaultgame.addPlayer(allRegisteredUsers.get(1));
-		defaultgame.addPlayer(allRegisteredUsers.get(2));
-		defaultgame.addPlayer(allRegisteredUsers.get(3));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
+		defaultgame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
 		
 		defaultgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
 		defaultgame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
@@ -201,10 +201,10 @@ public class ServerFacade
 		CatanGame emptygame = new CatanGame();
 		emptygame.setTitle("Empty Game");
 		emptygame.setID(1);
-		emptygame.addPlayer(allRegisteredUsers.get(0));
-		emptygame.addPlayer(allRegisteredUsers.get(1));
-		emptygame.addPlayer(allRegisteredUsers.get(2));
-		emptygame.addPlayer(allRegisteredUsers.get(3));
+		emptygame.addPlayer(new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID()));
+		emptygame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
+		emptygame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
+		emptygame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
 		
 		emptygame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
 		emptygame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
@@ -823,9 +823,10 @@ public class ServerFacade
 	 * This number is randomized and is either computed here or on the model side.
 	 * @param number: randomized number between 2 and 12.
      */
-	public void rollNumber(int number)
+	public void rollNumber(int number, int gameID)
 	{
-
+		ICommand command = new RollNumberCommand(number, gameID);
+		command.execute();
 	}
 
 	/**

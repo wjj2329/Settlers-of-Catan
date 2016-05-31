@@ -50,7 +50,7 @@ public class MovesRollNumberHandler implements HttpHandler {
 		{
 			e.printStackTrace();
 		}
-		System.out.println("This is our JSON Object: " + data.toString());
+		//System.out.println("This is our JSON Object: " + data.toString());
 		int rolledNumber = -1;
 		try
 		{
@@ -61,15 +61,16 @@ public class MovesRollNumberHandler implements HttpHandler {
 				String response = "Roll number not valid";
 				httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				httpExchange.getResponseBody().write(response.getBytes());
-				
+				//System.out.println("Something bad happened...");
 				httpExchange.close();
 				return;
 			}			
 			
-			ServerFacade.getInstance().rollNumber(rolledNumber);
+			ServerFacade.getInstance().rollNumber(rolledNumber, gameID);
 			String response = "Success! :D";
 			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			httpExchange.getResponseBody().write(response.getBytes());
+			//System.out.println("So it worked! :D ");
 			httpExchange.close();
 		}
 		catch (JSONException e)
