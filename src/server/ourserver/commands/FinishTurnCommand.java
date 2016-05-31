@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.map.Index;
+import shared.game.player.Player;
 
 /**
  * The FinishTurnCommand
@@ -21,7 +22,7 @@ public class FinishTurnCommand implements ICommand {
 	}
 	public void endturn(int playerIndex, int gameid)
 	{
-		System.out.println("I call the end turn command");
+		System.out.println("I call the end turn command for player with player index"+playerIndex);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		switch (playerIndex)

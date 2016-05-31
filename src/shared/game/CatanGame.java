@@ -1,8 +1,6 @@
 package shared.game;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import client.State.State;
 import client.model.*;

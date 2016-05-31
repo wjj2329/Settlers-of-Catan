@@ -38,7 +38,7 @@ public class GameModelHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
     	String cookie = httpExchange.getRequestHeaders().getFirst("Cookie");
     	int gameID = getGameIDfromCookie(cookie);
-		System.out.println("TIS THE GAME ID FROM COOKIE " + gameID);
+		//System.out.println("TIS THE GAME ID FROM COOKIE " + gameID);
 		
     	JSONObject model = ServerFacade.getInstance().getGameModel(gameID);
         

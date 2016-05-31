@@ -36,7 +36,7 @@ public class BuildSettlementCommand implements ICommand {
 		Index myindex = null;
 		for (Player p : currentgame.getMyplayers().values())
 		{
-			if (p.getPlayerIndex().equals(new Index(playerIndex)))
+			if (p.getPlayerIndex().getNumber()==(new Index(playerIndex).getNumber()))
 			{
 				myindex = p.getPlayerID();
 			}
@@ -61,7 +61,7 @@ public class BuildSettlementCommand implements ICommand {
 			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
 		}
 		vertex.setHassettlement(true);
-		Settlement settle1 = new Settlement(location, vertex, myindex);
+		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerID());
 		Hex h = currentgame.getMymap().getHexes().get(location);
 		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		try {
@@ -70,10 +70,10 @@ public class BuildSettlementCommand implements ICommand {
 			e.printStackTrace();
 		}
 		currentgame.getMymap().getSettlements().add(settle1);
-		settle1.setOwner(myindex);
+		settle1.setOwner(playertoupdate.getPlayerID());
 		vertex.setSettlement(settle1);
 		playertoupdate.addToSettlements(settle1);
-		playertoupdate.setNumSettlementsRemaining(currentgame.getMyplayers().get(myindex).getNumSettlementsRemaining()-1);
+		playertoupdate.setNumSettlementsRemaining(currentgame.getMyplayers().get(playertoupdate.getPlayerID()).getNumSettlementsRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 	}
 
