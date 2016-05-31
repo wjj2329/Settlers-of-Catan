@@ -268,6 +268,7 @@ public class ServerFacade
 		{
 			if (p.equals(player))
 			{
+				p.setPlayerID(player.getPlayerID());
 				return p;
 			}
 		}
