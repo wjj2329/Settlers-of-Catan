@@ -30,7 +30,7 @@ import java.util.ArrayList;
  * There are 4 players in each game; thus, there are 4 objects of type
  * Player in each game.
  */
-public class Player
+public class Player implements Comparable<Player>
 {
 	private Index playerIndex = null;
 	private int roadSize=0;
@@ -1482,5 +1482,14 @@ public class Player
 	public void setPassword(String password)
 	{
 		this.password = password;
+	}
+
+	/**
+	 * Overriding the CompareTo method!
+	 */
+	@Override
+	public int compareTo(Player o)
+	{
+		return playerID.compareTo(o.getPlayerID());
 	}
 }
