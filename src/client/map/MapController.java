@@ -432,15 +432,8 @@ public class MapController extends Controller implements IMapController, Observe
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 				{
-					String serverresponse=ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber()).getResponse();
+					ModelFacade.facadeCurrentGame.getServer().finishTurn("finishTurn",current.getPlayerIndex().getNumber());
 
-					try {
-						JSONObject response=new JSONObject(serverresponse);
-						//ModelFacade.facadeCurrentGame.updateFromJSON(response);
-					} catch (JSONException e) {
-						e.printStackTrace();
-					}
-					return;
 				}
 
 			}

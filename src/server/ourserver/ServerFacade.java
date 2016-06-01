@@ -590,9 +590,9 @@ public class ServerFacade
 					//System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
 					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
-						System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
-						System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
-						System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
+						//System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
+						//System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
+						//System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
 						JSONObject settlement = new JSONObject();
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();
@@ -845,11 +845,12 @@ public class ServerFacade
 	/**
 	 * Robs another player
 	 * @param location: Where the robber is at
-	 * @param playerIndex: Player who is doing the robber
      */
-	public void robPlayer(HexLocation location, int playerIndex)
-	{
 
+	private RobPlayerCommand robbing=new RobPlayerCommand();
+	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
+	{
+		robbing.robplayerofresources(location,playerRobbing,playerbeingrobbed, gameid);
 	}
 
 	/**

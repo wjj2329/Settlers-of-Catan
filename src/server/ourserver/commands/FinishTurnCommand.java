@@ -30,31 +30,76 @@ public class FinishTurnCommand implements ICommand {
 		{
 			case(0):
 			{
-				System.out.println("I update for case 0");
-				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1),currentgame.getMyplayers());
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING))
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					return;
+				}
+				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
+					System.out.println("I update for case 0");
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
+				}
+				else
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+				}
 				break;
 			}
 			case(1):
 			{
-				System.out.println("I update for case 1");
-				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2),currentgame.getMyplayers());
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING))
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					return;
+				}
+				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
+					System.out.println("I update for case 1");
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2), currentgame.getMyplayers());
+				}
+				else
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+
+				}
 				break;
 			}
 			case(2):
 			{
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING))
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					return;
+				}
 				System.out.println("I update for case 2");
-				currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3),currentgame.getMyplayers());
+				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3), currentgame.getMyplayers());
+				}
+				else
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
+
+				}
 				break;
 			}
 			case(3):
 			{
-				System.out.println("I update for case 3");
-				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING))
 				{
-					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3),currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					return;
+				}
+				System.out.println("I update for case 3");
+				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
+				{
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0),currentgame.getMyplayers());
 				}
 				else {
-					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
+					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2), currentgame.getMyplayers());
 				}
 				break;
 			}
