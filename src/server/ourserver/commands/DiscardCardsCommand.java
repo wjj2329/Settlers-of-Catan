@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import server.ourserver.ServerFacade;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Index;
@@ -20,9 +21,9 @@ public class DiscardCardsCommand implements ICommand {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	public void discardCards(int playerIndex, ResourceList cardsToDiscard)
+	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
-		CatanGame currentgame=new CatanGame();//Again needs to hook up to the current game object.
+		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		Player playertodiscard=null;
 		for(Index id:currentgame.getMyplayers().keySet())
 		{

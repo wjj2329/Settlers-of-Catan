@@ -31,6 +31,8 @@ public class MovesDiscardCardHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
+        String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        int gameID = getGameIDfromCookie(cookie);
         int playerindex=-50;
         int brick=-10000000;
         int sheep=-10000000;
@@ -61,10 +63,17 @@ public class MovesDiscardCardHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        ServerFacade.getInstance().discardCards(playerindex, new ResourceList( brick, ore, sheep, wheat, wood));
+        ServerFacade.getInstance().discardCards(playerindex, new ResourceList( brick, ore, sheep, wheat, wood),gameID);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
+    }
+    public int getGameIDfromCookie(String cookie){
+//
+//    	System.out.println(cookie.indexOf("game="));
+//    	System.out.println(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
+        return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
+
     }
 }

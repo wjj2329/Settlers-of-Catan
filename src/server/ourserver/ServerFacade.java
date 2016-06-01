@@ -1028,9 +1028,9 @@ public class ServerFacade
 	 *                      will probably change the data storage
      */
 	private DiscardCardsCommand mydiscard=new DiscardCardsCommand();
-	public void discardCards(int playerIndex, ResourceList cardsToDiscard)
+	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
-		mydiscard.discardCards(playerIndex,cardsToDiscard);
+		mydiscard.discardCards(playerIndex,cardsToDiscard,gameid);
 	}
 
 	/**

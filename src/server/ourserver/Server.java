@@ -144,7 +144,7 @@ public class Server
 	private HttpHandler offerTradeHandler = new MovesOfferTradeHandler();
 	private HttpHandler acceptTradeHandler = new MovesAcceptTradeHandler();
 	private HttpHandler maritimeTradeHandler = new MovesMaritimeTradeHandler();
-	private HttpHandler discardCardsHandler = new MovesYearOfPlentyHandler();
+	private HttpHandler discardCardsHandler = new MovesDiscardCardHandler();
 	/*
 	 * Uncomment for PHASE 4
 	 * private HttpHandler saveGameHandler = new ListAIHandler();
