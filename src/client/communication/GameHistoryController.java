@@ -41,7 +41,7 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 	public void update(Observable o, Object arg)
 	{
 		ArrayList<GameHistoryLine> gameHistories=ModelFacade.facadeCurrentGame.currentgame.getMyGameHistory().getLines();
-		List<LogEntry> entries = new ArrayList<LogEntry>();
+		List<LogEntry> entries = new ArrayList<>();
 
 		for(int i=0; i<gameHistories.size(); i++)
 		{

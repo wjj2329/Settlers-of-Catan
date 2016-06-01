@@ -94,7 +94,6 @@ public class BuildSettlementCommand implements ICommand {
 			ArrayList<HexType>resourcestogive=new ArrayList<>();
 			resourcestogive.add(h.getResourcetype());
 
-				System.out.println("I come here to do some stuff");
 				if(vertex.getDir().equals(VertexDirection.East))
 				{
 					HexLocation location1=new HexLocation(location.getX()+1, location.getY()-1);
@@ -155,14 +154,12 @@ public class BuildSettlementCommand implements ICommand {
 					resourcestogive.add(hextoupdate2.getResourcetype());
 				}
 			ResourceList updating=playertoupdate.getResources();
-			System.out.println("THIS ARRAY WITH CRAP IN IT IS SIZE "+resourcestogive.size());
 			for(int i=0; i<resourcestogive.size(); i++)
 			{
 				switch(resourcestogive.get(i))
 				{
 					case BRICK:
 					{
-						System.out.println("I increase the brick");
 						updating.setBrick(updating.getBrick()+1);
 						break;
 					}
@@ -172,25 +169,21 @@ public class BuildSettlementCommand implements ICommand {
 					}
 					case WHEAT:
 					{
-						System.out.println("I increase the wheat");
 						updating.setWheat(updating.getWheat()+1);
 						break;
 					}
 					case ORE:
 					{
-						System.out.println("I increase the ore");
 						updating.setOre(updating.getOre()+1);
 						break;
 					}
 					case SHEEP:
 					{
-						System.out.println("I increase the sheep");
 						updating.setSheep(updating.getSheep()+1);
 						break;
 					}
 					case WOOD:
 					{
-						System.out.println("I increase the wood");
 						updating.setWood(updating.getWood()+1);
 						break;
 					}

@@ -2,6 +2,7 @@ package client.communication;
 
 import client.base.*;
 import client.model.ModelFacade;
+import client.model.TurnStatus;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
 import shared.definitions.CatanColor;
@@ -46,10 +47,6 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void sendMessage(String message)
 	{
-		playerSendingChat = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer();
-		LogEntry logEntry = new LogEntry(playerSendingChat.getColor(), message);
-		allLogEntries.add(logEntry);
-		getView().setEntries(allLogEntries);
 		ModelFacade.facadeCurrentGame.getServer().sendChat("sendChat",
 				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
 	}
@@ -59,18 +56,19 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		List<LogEntry>entries=new ArrayList<>();
-		CatanColor playercolor=CatanColor.PUCE;
-		for(int i=0; i< ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
-		{
-			for(Index loc:ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
-				if (ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().get(i).getSource().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getName())) {
-					playercolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
+		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
+			List<LogEntry> entries = new ArrayList<>();
+			CatanColor playercolor = CatanColor.PUCE;
+			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++) {
+				for (Index loc : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
+					if (ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().get(i).getSource().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getName())) {
+						playercolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
+					}
 				}
+				entries.add(new LogEntry(playercolor, ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
 			}
-			entries.add(new LogEntry(playercolor,ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
+			getView().setEntries(entries);
 		}
-		getView().setEntries(entries);
 
 	}
 }
