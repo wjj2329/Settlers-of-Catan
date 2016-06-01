@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import server.ourserver.ServerFacade;
 import shared.chat.Chat;
 import shared.chat.ChatLine;
 import shared.game.CatanGame;
@@ -21,9 +22,10 @@ public class SendChatCommand implements ICommand {
 		return null;
 	}
 
-	public void sendChat(String message, int playerindex)
+	public void sendChat(String message, int playerindex, int gameid)
 	{
-		CatanGame currentgame=new CatanGame();//again I need a specfic object of it. 
+		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Chat mychat=currentgame.getMychat();
 		mychat.getChatMessages().getMessages().add(playerindex,new ChatLine(message,message));//not sure if this is correct. lol
 	}

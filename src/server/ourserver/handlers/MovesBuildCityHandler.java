@@ -77,7 +77,7 @@ public class MovesBuildCityHandler implements HttpHandler {
             JSONObject myobject=data.getJSONObject("vertexLocation");
             x=myobject.getInt("x");
             y=myobject.getInt("y");
-            direction=data.getString("direction");
+            direction=myobject.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
         }

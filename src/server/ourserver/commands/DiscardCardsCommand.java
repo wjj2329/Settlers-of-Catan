@@ -24,6 +24,7 @@ public class DiscardCardsCommand implements ICommand {
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Player playertodiscard=null;
 		for(Index id:currentgame.getMyplayers().keySet())
 		{

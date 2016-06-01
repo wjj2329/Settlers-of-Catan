@@ -23,6 +23,8 @@ public class MovesSendChatHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
+        String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        int gameID = getGameIDfromCookie(cookie);
         int playerindex=-1;
         String message="";
         JSONObject data = null;
@@ -44,11 +46,15 @@ public class MovesSendChatHandler implements HttpHandler {
             e.printStackTrace();
         }
 
-        ServerFacade.getInstance().sendChat(message,playerindex);
+        ServerFacade.getInstance().sendChat(message,playerindex,gameID);
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
+
+    }
+    private int getGameIDfromCookie(String cookie){
+        return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
 
     }
 }

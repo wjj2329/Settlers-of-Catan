@@ -826,9 +826,10 @@ public class ServerFacade
 	 * @param message: the chat message we are sending
      */
 	private SendChatCommand mychat=new SendChatCommand();
-	public void sendChat(String message, int playerindex)
+	public void sendChat(String message, int playerindex,int gameid)
 	{
-		mychat.sendChat(message,playerindex);
+
+		mychat.sendChat(message,playerindex,gameid);
 	}
 
 	/**

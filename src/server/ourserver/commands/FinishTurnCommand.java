@@ -30,7 +30,7 @@ public class FinishTurnCommand implements ICommand {
 		{
 			case(0):
 			{
-				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING))
+				if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.PLAYING)||currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.ROBBING))
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);

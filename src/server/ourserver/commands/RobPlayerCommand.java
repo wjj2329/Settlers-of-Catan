@@ -30,6 +30,7 @@ public class RobPlayerCommand implements ICommand {
 	{
 		System.out.println("I ROB! in that player with index "+playerRobbing+" Robs player with index "+playerbeingrobbed);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Player criminal=null;
 		Player victim=null;
 		for(Player player: currentgame.getMyplayers().values())
@@ -68,10 +69,15 @@ public class RobPlayerCommand implements ICommand {
 		{
 			possibiliestosteal.add(ResourceType.WOOD);
 		}
+		if(possibiliestosteal.size()==0)
+		{
+			return;
+		}
 		Random myrandom=new Random();
 		int index=myrandom.nextInt(possibiliestosteal.size());
 		System.out.println(" my index to take is "+index+" the size of the array is "+possibiliestosteal.size());
 		System.out.println("I Steal this");
+
 		ResourceType tobestolen=possibiliestosteal.get(index);
 		switch(tobestolen)
 		{
