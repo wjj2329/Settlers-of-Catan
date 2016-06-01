@@ -14,6 +14,8 @@ import java.util.Scanner;
  * Created by williamjones on 5/26/16.
  * @author Alex
  *
+ * MaritimeTradeHandler! This class helps the MaritimeTrade work with our server!
+ *
  * type name of move being executed
  *  playerIndex the player's position in the game's turn order
  *  ratio integer(2,3, or 4)
@@ -57,8 +59,8 @@ public class MovesMaritimeTradeHandler implements HttpHandler
             int playerIndex_thisIs_NOT_AnID = data.getInt("playerIndex");
             int ratio = data.getInt("ratio");
             String inputResource = data.getString("inputResource");
-            String outputResource = data.getString("outputResource");
-            ServerFacade.getInstance().maritimeTrade(inputResource, outputResource, playerIndex_thisIs_NOT_AnID, ratio,
+            String outputResource = data.getString("outputResource"); // get, give - trying to switch them
+            ServerFacade.getInstance().maritimeTrade(outputResource, inputResource, playerIndex_thisIs_NOT_AnID, ratio,
                     gameID);
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
             httpExchange.getResponseBody().write(DEFAULT_RESPONSE.getBytes());

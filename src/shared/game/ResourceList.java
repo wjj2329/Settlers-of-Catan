@@ -51,27 +51,48 @@ public class ResourceList
 		this.wood=wood;
 	}
 
+	/**
+	 * Getters and setters
+	 * We do NOT want negative resources!!
+     */
 	public int getBrick() {
 		return brick;
 	}
 
-	public void setBrick(int brick) {
+	public void setBrick(int brick)
+	{
+		if (brick < 0)
+		{
+			return;
+		}
 		this.brick = brick;
 	}
 
-	public int getOre() {
+	public int getOre()
+	{
 		return ore;
 	}
 
-	public void setOre(int ore) {
+	public void setOre(int ore)
+	{
+		if (ore < 0)
+		{
+			return;
+		}
 		this.ore = ore;
 	}
 
-	public int getSheep() {
+	public int getSheep()
+	{
 		return sheep;
 	}
 
-	public void setSheep(int sheep) {
+	public void setSheep(int sheep)
+	{
+		if (sheep < 0)
+		{
+			return;
+		}
 		this.sheep = sheep;
 	}
 
@@ -79,7 +100,12 @@ public class ResourceList
 		return wheat;
 	}
 
-	public void setWheat(int wheat) {
+	public void setWheat(int wheat)
+	{
+		if (wheat < 0)
+		{
+			return;
+		}
 		this.wheat = wheat;
 	}
 
@@ -87,7 +113,12 @@ public class ResourceList
 		return wood;
 	}
 
-	public void setWood(int wood) {
+	public void setWood(int wood)
+	{
+		if (wood < 0)
+		{
+			return;
+		}
 		this.wood = wood;
 	}
 
@@ -152,18 +183,28 @@ public class ResourceList
 		switch (mytype) {
 			case WOOD:
 				wood--;
+				if (wood < 0)
+					wood = 0;
 				return;
 			case ORE:
 				ore--;
+				if (ore < 0)
+					ore = 0;
 				return;
 			case BRICK:
 				brick--;
+				if (brick < 0)
+					brick = 0;
 				return;
 			case WHEAT:
 				wheat--;
+				if (wheat < 0)
+					wheat = 0;
 				return;
 			case SHEEP:
 				sheep--;
+				if (sheep < 0)
+					sheep = 0;
 				return;
 		}
 	}

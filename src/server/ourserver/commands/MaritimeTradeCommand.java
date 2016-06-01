@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -36,18 +37,33 @@ public class MaritimeTradeCommand implements ICommand {
 		throws Exception
 	{
 		CatanGame currentCatan = ServerFacade.getInstance().getGameByID(gameID);
-		// Incrementing version number
 		incrementVersion(currentCatan);
-		Bank cashFlow = currentCatan.mybank;
 		Player playerWhoIsTrading = getPlayerFromPlayerIndex(playerIndex_NOT_ID, currentCatan);
 		if (playerWhoIsTrading == null)
 		{
 			// Exception thrown if no player with given playerIndex exists in the map.
 			throw new Exception(NOT_FOUND_MSG);
 		}
-		decrementMyResources(playerWhoIsTrading, ratio, giveResource);
-		incrementMyResources(playerWhoIsTrading, getResource);
-		// May need to work with bank here. DO NOT FORGET. We must NOT run out of cards!
+
+		ResourceList playerResources = playerWhoIsTrading.getResources();
+		Bank myBank = currentCatan.mybank;
+		ResourceList bankResources = myBank.getCardslist();
+		ResourceType resType = stringToResourceType(getResource);
+		if (resType == null)
+		{
+			throw new Exception(INVALID_RES);
+		}
+		// Only execute the actions if the bank can actually give the card.
+		// Ideally, we would gray out the options, but we don't have a client-side
+		if (myBank.CanBankGiveResourceCard(resType))
+		{
+			System.out.println("Here are the player resources before: " + playerResources.toString());
+			updateResourceList(playerResources, -ratio, giveResource);
+			updateResourceList(playerResources, PLAYER_INCREMENT, getResource);
+			updateResourceList(bankResources, BANK_DECREMENT, getResource);
+			updateResourceList(bankResources, ratio, giveResource);
+			System.out.println("Here are the player resources after: " + playerResources.toString());
+		}
 	}
 
 	/**
@@ -69,60 +85,29 @@ public class MaritimeTradeCommand implements ICommand {
 	}
 
 	/**
-	 * Decrements the amount of the given resource by the given ratio, r, in the player's resourceList.
-	 * @param p: the player making the maritime trade
-	 * @param ratio: the ratio at which the maritime trade is being performed
-	 * @param giveResource: The resource that the player is giving to the bank in exchange
+	 * Function to update the ResourceList, usually of the player or the bank.
+	 * @param res: resource list we are updating
+	 * @param ratio: the ratio by which we are updating the list
+	 * @param resource: which resource we are updating
      */
-	private void decrementMyResources(Player p, int ratio, String giveResource)
+	private void updateResourceList(ResourceList res, int ratio, String resource)
 	{
-		ResourceList resList = p.getResources();
-		switch (giveResource.toLowerCase())
+		switch (resource.toLowerCase())
 		{
-			case "brick":
-				resList.setBrick(resList.getBrick() - ratio);
+			case BRICK:
+				res.setBrick(res.getBrick() + ratio);
 				break;
-			case "ore":
-				resList.setOre(resList.getOre() - ratio);
+			case ORE:
+				res.setOre(res.getOre() + ratio);
 				break;
-			case "sheep":
-				resList.setSheep(resList.getSheep() - ratio);
+			case SHEEP:
+				res.setSheep(res.getSheep() + ratio);
 				break;
-			case "wheat":
-				resList.setWheat(resList.getWheat() - ratio);
+			case WHEAT:
+				res.setWheat(res.getWheat() + ratio);
 				break;
-			case "wood":
-				resList.setWood(resList.getWood() - ratio);
-				break;
-			default:
-				break;
-		}
-	}
-
-	/**
-	 * The ratio is always 1 here!
-	 * @param p: the player who is making the trade
-	 * @param getResource: which resource the player is getting
-     */
-	private void incrementMyResources(Player p, String getResource)
-	{
-		ResourceList resList = p.getResources();
-		switch (getResource.toLowerCase())
-		{
-			case "brick":
-				resList.setBrick(resList.getBrick() + 1);
-				break;
-			case "ore":
-				resList.setOre(resList.getOre() + 1);
-				break;
-			case "sheep":
-				resList.setSheep(resList.getSheep() + 1);
-				break;
-			case "wheat":
-				resList.setWheat(resList.getWheat() + 1);
-				break;
-			case "wood":
-				resList.setWood(resList.getWood() + 1);
+			case WOOD:
+				res.setWood(res.getWood() + ratio);
 				break;
 			default:
 				break;
@@ -139,7 +124,37 @@ public class MaritimeTradeCommand implements ICommand {
 	}
 
 	/**
+	 * Converts a string to a resource type.
+     */
+	private ResourceType stringToResourceType(String res)
+	{
+		switch (res.toLowerCase())
+		{
+			case BRICK:
+				return ResourceType.BRICK;
+			case ORE:
+				return ResourceType.ORE;
+			case SHEEP:
+				return ResourceType.SHEEP;
+			case WHEAT:
+				return ResourceType.WHEAT;
+			case WOOD:
+				return ResourceType.WOOD;
+			default:
+				return null;
+		}
+	}
+
+	/**
 	 * Private static data members, stored here for ease of reference.
 	 */
 	private static final String NOT_FOUND_MSG = "Player not found in map!";
+	private static final String INVALID_RES = "Invalid resource type!";
+	private static final int PLAYER_INCREMENT = 1;
+	private static final int BANK_DECREMENT = -1;
+	private static final String BRICK = "brick";
+	private static final String ORE = "ore";
+	private static final  String SHEEP = "sheep";
+	private static final String WHEAT = "wheat";
+	private static final String WOOD = "wood";
 }
