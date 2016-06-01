@@ -71,6 +71,8 @@ public class RobPlayerCommand implements ICommand {
 		}
 		if(possibiliestosteal.size()==0)
 		{
+			currentgame.myrobber.setLocation(location);
+			currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 			return;
 		}
 		Random myrandom=new Random();
