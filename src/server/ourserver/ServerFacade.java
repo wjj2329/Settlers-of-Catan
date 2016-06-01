@@ -1015,10 +1015,12 @@ public class ServerFacade
 	 * @param giveResource: resource receiving
 	 * @param playerIndex: player who is playing card
      * @param ratio: ratio at which we are making the trade
+	 * @param gameID: ID for the current game
      */
-	public void maritimeTrade(String getResource, String giveResource, int playerIndex, int ratio)
+	private MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand();
+	public void maritimeTrade(String getResource, String giveResource, int playerIndex, int ratio, int gameID) throws Exception
 	{
-
+		maritimeTradeCommand.doMaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
 	}
 
 	/**
