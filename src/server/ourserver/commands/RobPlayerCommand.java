@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
 import shared.definitions.ResourceType;
 import shared.game.CatanGame;
@@ -27,6 +28,7 @@ public class RobPlayerCommand implements ICommand {
 	}
 	public void robplayerofresources(HexLocation location, int playerRobbing, int playerbeingrobbed ,int gameid)
 	{
+		System.out.println("I ROB! in that player with index "+playerRobbing+" Robs player with index "+playerbeingrobbed);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		Player criminal=null;
 		Player victim=null;
@@ -34,10 +36,12 @@ public class RobPlayerCommand implements ICommand {
 		{
 			if(player.getPlayerIndex().getNumber()==playerRobbing)
 			{
+				System.out.println("I set the criminal");
 				criminal=player;
 			}
 			if(player.getPlayerIndex().getNumber()==playerbeingrobbed)
 			{
+				System.out.println("I set the victim");
 				victim=player;
 			}
 		}
@@ -67,6 +71,7 @@ public class RobPlayerCommand implements ICommand {
 		Random myrandom=new Random();
 		int index=myrandom.nextInt(possibiliestosteal.size());
 		System.out.println(" my index to take is "+index+" the size of the array is "+possibiliestosteal.size());
+		System.out.println("I Steal this");
 		ResourceType tobestolen=possibiliestosteal.get(index);
 		switch(tobestolen)
 		{
@@ -99,8 +104,9 @@ public class RobPlayerCommand implements ICommand {
 		}
 		criminal.setResources(criminalslist);
 		victim.setResources(victimslist);
+		System.out.println("I rob a player at"+location.toString());
 		currentgame.myrobber.setLocation(location);
-
+		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 
 	}
 
