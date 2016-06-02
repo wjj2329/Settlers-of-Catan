@@ -81,6 +81,7 @@ public class MovesBuildRoadHandler implements HttpHandler
             x=myobject.getInt("x");
             y=myobject.getInt("y");
             direction=myobject.getString("direction");
+            freebe=data.getBoolean("free");
         } catch (JSONException e) {
             e.printStackTrace();
         }

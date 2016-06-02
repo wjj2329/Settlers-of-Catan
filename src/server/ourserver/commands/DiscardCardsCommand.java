@@ -40,6 +40,14 @@ public class DiscardCardsCommand implements ICommand {
 		mylist.setSheep(mylist.getSheep()-cardsToDiscard.getSheep());
 		mylist.setOre(mylist.getOre()-cardsToDiscard.getOre());
 		playertodiscard.setResources(mylist);
+
+		ResourceList mybankslist=currentgame.mybank.getCardslist();
+		mybankslist.setBrick(mybankslist.getBrick()+cardsToDiscard.getBrick());
+		mybankslist.setWood(mybankslist.getWood()+cardsToDiscard.getWood());
+		mybankslist.setWheat(mybankslist.getWheat()+cardsToDiscard.getWheat());
+		mybankslist.setSheep(mybankslist.getSheep()+cardsToDiscard.getSheep());
+		mybankslist.setOre(mybankslist.getOre()+cardsToDiscard.getOre());
+		currentgame.mybank.setResourceCardslist(mybankslist);
 	}
 
 }

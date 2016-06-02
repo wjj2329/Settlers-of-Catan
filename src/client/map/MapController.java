@@ -288,7 +288,10 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(player.getResources().size());
 			myplayer.setName(player.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+			{
 				victims.add(myplayer);
+			}
 
 		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];

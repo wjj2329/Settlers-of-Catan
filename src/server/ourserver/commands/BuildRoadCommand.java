@@ -111,11 +111,19 @@ public class BuildRoadCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
-		if(!free) {
+		if(!free)
+		{
+			System.out.println("THIS ISN'T FREE");
 			ResourceList newlist = playertoupdate.getResources();
 			newlist.setBrick(newlist.getBrick() - 1);
 			newlist.setWood(newlist.getWood() - 1);
 			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
+			//updates banks crap now
+
+			ResourceList mybankslist=currentgame.mybank.getCardslist();
+			mybankslist.setBrick(mybankslist.getBrick()+1);
+			mybankslist.setWood(mybankslist.getWood()+1);
+			currentgame.mybank.setResourceCardslist(mybankslist);
 		}
 		edge.setHasRoad(true);
 		Hex hex = currentgame.getMymap().getHexes().get(location);

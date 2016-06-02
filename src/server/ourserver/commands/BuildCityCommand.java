@@ -50,10 +50,18 @@ public class BuildCityCommand implements ICommand {
 			}
 		}
 
+		//updates player
 		ResourceList newlist=playertoupdate.getResources();
 		newlist.setOre(newlist.getOre()-3);
 		newlist.setWheat(newlist.getWheat()-2);
 		playertoupdate.setResources(newlist);
+
+		//updates bank
+		ResourceList mybankslist=currentgame.mybank.getCardslist();
+		mybankslist.setOre(mybankslist.getOre()+3);
+		mybankslist.setWheat(mybankslist.getWheat()+2);
+		currentgame.mybank.setResourceCardslist(mybankslist);
+
 		City city1 = new City(location, vertex, playertoupdate.getPlayerIndex());
 		vertex.setHascity(true);
 		Hex h = currentgame.getMymap().getHexes().get(city1.getHexLocation());
@@ -64,7 +72,8 @@ public class BuildCityCommand implements ICommand {
 		vertex.setCity(city1);
 		currentgame.getMyplayers().get(owner2).addToCities(city1);
 		currentgame.getMyplayers().get(owner2).setNumCitiesRemaining(currentgame.getMyplayers().get(owner2).getNumCitiesRemaining()-1);
-		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
+		currentgame.getMyplayers().get(owner2).setNumSettlementsRemaining(currentgame.getMyplayers().get(owner2).getNumSettlementsRemaining()+1);
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a City",playertoupdate.getName()));
 
 	}
