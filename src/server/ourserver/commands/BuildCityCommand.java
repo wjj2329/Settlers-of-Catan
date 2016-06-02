@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -48,6 +49,7 @@ public class BuildCityCommand implements ICommand {
 				owner2 = p.getPlayerID();
 			}
 		}
+		
 		ResourceList newlist=playertoupdate.getResources();
 		newlist.setSheep(newlist.getOre()-3);
 		newlist.setWheat(newlist.getWheat()-2);
@@ -63,6 +65,7 @@ public class BuildCityCommand implements ICommand {
 		currentgame.getMyplayers().get(owner2).addToCities(city1);
 		currentgame.getMyplayers().get(owner2).setNumCitiesRemaining(currentgame.getMyplayers().get(owner2).getNumCitiesRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a City",playertoupdate.getName()));
 
 	}
 

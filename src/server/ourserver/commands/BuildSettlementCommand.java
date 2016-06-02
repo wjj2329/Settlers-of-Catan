@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import client.model.ModelFacade;
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
 import shared.definitions.HexType;
 import shared.definitions.ResourceType;
 import shared.game.CatanGame;
@@ -89,6 +90,7 @@ public class BuildSettlementCommand implements ICommand {
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 		System.out.println(" The Settlement I happen to have created has location "+settle1.getVertexLocation().toString());
 		System.out.println(" The Settlement I happen to have created has location after using getter "+settle1.getVertexLocation().getDir().toString());
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Settlement",playertoupdate.getName()));
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
 			ArrayList<HexType>resourcestogive=new ArrayList<>();
