@@ -475,25 +475,30 @@ public class Hex
 
 	public void buildSettlement(VertexLocation mylocation, Index owner) throws Exception
 	{
-		/*System.out.println("i build a settlement in start up");
-		System.out.println("Magic the index is... " + owner.getNumber());*/
-		if(canBuildSettlementHereStartup(mylocation))
+		System.out.println("MY LOCATION TO CHECK IN THIS THING IS "+mylocation.getDir().toString());
+		//if(canBuildSettlementHereStartup(mylocation))
 		{
+			System.out.println("I PASS CAN BUILD SETTLEMENT START UP");
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
 				HexLocation location1=new HexLocation(this.location.getX()+1, this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY());
 				Hex hextoupdate=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.east.isHassettlement()&&!this.east.isHascity()) {
-						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+				*/
+				//if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+					//if(!this.east.isHassettlement()&&!this.east.isHascity())
+					{
+						//if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement())
+						{
 							hextoupdate.getSouthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthWest),owner));
 							hextoupdate2.getNorthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthWest),owner));
 
@@ -517,15 +522,20 @@ public class Hex
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
 				Hex hextoupdate=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.west.isHassettlement()&&!this.west.isHascity()) {
-						if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement()) {
+				*/
+				//if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+				//	if(!this.west.isHassettlement()&&!this.west.isHascity())
+					{
+				//		if(!hextoupdate.getSouthwest().isHascity()&&!hextoupdate.getSouthwest().isHassettlement())
+						{
 							hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthEast),owner));
 							hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthEast),owner));
 
@@ -544,19 +554,29 @@ public class Hex
 			}
 			if(mylocation.getDir().equals(VertexDirection.NorthEast))
 			{
+				System.out.println("I DO ENTER THE NORHT EAST THING");
 				HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
 				HexLocation locatoin2=new HexLocation(this.location.getX()+1, this.location.getY()-1);
+				System.out.println(" I COME HERE");
 				Hex hextoupdate=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				System.out.println(" I Come here too but");
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
+					System.out.println("I DIE");
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=HexType.WATER||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.northeast.isHassettlement()&&!this.northeast.isHascity()) {
-						if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement()) {
+				*/
+				System.out.println("I SURVIVE THIS ORDEAL");
+				//if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=HexType.WATER||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+					//if(!this.northeast.isHassettlement()&&!this.northeast.isHascity())
+					{
+						//if(!hextoupdate.getEast().isHascity()&&!hextoupdate.getEast().isHassettlement())
+						{
 							hextoupdate.getSoutheast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthEast),owner));
 							hextoupdate2.getWest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.West),owner));
 
@@ -579,15 +599,20 @@ public class Hex
 				HexLocation locatoin2=new HexLocation(this.location.getX(), this.location.getY()-1);
 				Hex hextoupdate=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.northwest.isHassettlement()&&!this.northwest.isHascity()) {
-						if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement()) {
+				*/
+				//if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+				//	if(!this.northwest.isHassettlement()&&!this.northwest.isHascity())
+					{
+				//		if(!hextoupdate.getNortheast().isHascity()&&!hextoupdate.getNortheast().isHassettlement())
+						{
 							hextoupdate.getEast().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.East),owner));
 							hextoupdate2.getSouthwest().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.SouthWest),owner));
 
@@ -610,15 +635,20 @@ public class Hex
 				HexLocation locatoin2=new HexLocation(this.location.getX()-1, this.location.getY()+1);
 				Hex hextoupdate=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER) {
-					if(!this.southwest.isHassettlement()&&!this.southwest.isHascity()) {
-						if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement()) {
+				*/
+				//if(this.resourcetype!=HexType.WATER||hextoupdate.getResourcetype()!=(HexType.WATER)||hextoupdate2.getResourcetype()!=HexType.WATER)
+				{
+				//	if(!this.southwest.isHassettlement()&&!this.southwest.isHascity())
+					{
+				//		if(!hextoupdate.getWest().isHascity()&&!hextoupdate.getWest().isHassettlement())
+						{
 							hextoupdate.getNorthwest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.NorthWest),owner));
 							hextoupdate2.getEast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.East),owner));
 
@@ -640,15 +670,20 @@ public class Hex
 				HexLocation locatoin2 = new HexLocation(this.location.getX(), this.location.getY() + 1);
 				Hex hextoupdate = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(location1);
 				Hex hextoupdate2 = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
+				/*
 				if(hextoupdate==null||hextoupdate2==null)
 				{
 					Exception e = new Exception();
 					e.printStackTrace();
 					throw e;
 				}
-				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
-					if(!this.southeast.isHassettlement()&&!this.southeast.isHascity()) {
-						if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement()) {
+				*/
+				//if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER)
+				{
+				//	if(!this.southeast.isHassettlement()&&!this.southeast.isHascity())
+					{
+				//		if(!hextoupdate.getSoutheast().isHascity()&&!hextoupdate.getSoutheast().isHassettlement())
+						{
 							hextoupdate.getWest().setSettlement(new Settlement(hextoupdate.getLocation(), new VertexLocation(hextoupdate.getLocation(),VertexDirection.West),owner));
 							hextoupdate2.getNortheast().setSettlement(new Settlement(hextoupdate2.getLocation(), new VertexLocation(hextoupdate2.getLocation(),VertexDirection.NorthEast),owner));
 
@@ -1040,12 +1075,15 @@ public class Hex
 		}
 		if(mylocation.getDir().equals(VertexDirection.NorthEast))
 		{
+			System.out.println("I COME TO CHECK IF I CAN IN THE NORTH EAST");
 			if (northeast.isHascity()||east.isHascity()||northwest.isHascity())
 			{
+				System.out.println("I FAIL BECAUSE OF CITIES");
 				return false;
 			}
 			if(northeast.isHassettlement()||east.isHassettlement()||northwest.isHassettlement())
 			{
+				System.out.println("I FAIL BECAUSE I HAVE A SETTLEMENT");
 				return false;
 			}
 			HexLocation location1=new HexLocation(this.location.getX(), this.location.getY()-1);
@@ -1054,16 +1092,28 @@ public class Hex
 			Hex hextoupdate2=ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(locatoin2);
 			if(hextoupdate==null||hextoupdate2==null)
 			{
+				System.out.println("I FAIL BECAUSE OF NULL");
 				Exception e = new Exception();
-				//e.printStackTrace();
+				e.printStackTrace();
 				return false;
 			}
-				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != (HexType.WATER) || hextoupdate2.getResourcetype() != HexType.WATER) {
-					if (!this.northeast.isHassettlement() && !this.northeast.isHascity()) {
-						if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement()) {
+				if (this.resourcetype != HexType.WATER || hextoupdate.getResourcetype() != HexType.WATER || hextoupdate2.getResourcetype() != HexType.WATER) {
+					if (!this.northeast.isHassettlement() && !this.northeast.isHascity())
+					{
+
+						if (!hextoupdate.getEast().isHascity() && !hextoupdate.getEast().isHassettlement())
+						{
 							return true;
 						}
+						else{
+							System.out.println("I HAVE A CITY OR SETTLEMENT ON ADDJACENT HEX");
+						}
 					}
+					else
+					{
+						System.out.println("I HAVE CITY OR SETTLEMENT HERE ON HEX");
+					}
+
 				}
 
 				return false;

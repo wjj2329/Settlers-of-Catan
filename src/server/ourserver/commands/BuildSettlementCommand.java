@@ -74,7 +74,12 @@ public class BuildSettlementCommand implements ICommand {
 		Hex h = currentgame.getMymap().getHexes().get(location);
 		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		System.out.println("THE HEX I HAPPEN TO UPDATE IS A "+h.getResourcetype().toString()+" HIS Number token is "+h.getResourcenumber()+" his location is "+h.getLocation().toString());
+		if(h==null)
+		{
+			System.out.println("FAILURE");
+		}
 		try {
+			System.out.println(" I COME HERE TO TRY TO DO THIS");
 			h.buildSettlement(vertex, playertoupdate.getPlayerIndex());
 		} catch (Exception e) {
 			e.printStackTrace();

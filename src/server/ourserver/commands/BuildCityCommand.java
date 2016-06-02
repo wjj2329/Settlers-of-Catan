@@ -49,7 +49,7 @@ public class BuildCityCommand implements ICommand {
 				owner2 = p.getPlayerID();
 			}
 		}
-		
+
 		ResourceList newlist=playertoupdate.getResources();
 		newlist.setSheep(newlist.getOre()-3);
 		newlist.setWheat(newlist.getWheat()-2);
