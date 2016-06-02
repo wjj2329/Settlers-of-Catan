@@ -13,7 +13,7 @@ public class FileUtils {
 	
 	private static Map<String, String> makeMimeTypes() {
 		Map<String, String> mimeTypes = new HashMap<String, String>();
-		mimeTypes.put("js", "application/javascript");
+		mimeTypes.put(".js", "application/javascript");
 		mimeTypes.put(".css", "text/css");
 		mimeTypes.put(".html", "text/html");
 		

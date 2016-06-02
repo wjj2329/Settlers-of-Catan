@@ -541,12 +541,13 @@ public class ServerFacade
 			{
 				if(mapa.get(elHex).getPortType() != null)
 				{
-					JSONObject port = new JSONObject();		
+					JSONObject port = new JSONObject();
+					//System.out.println("What is the resource type of the port? " + mapa.get(elHex).getPortType().name().toLowerCase());
 					port.put("resource", mapa.get(elHex).getPortType().name().toLowerCase());
 
 					JSONObject location = new JSONObject();
 					location.put("x", elHex.getX());
-					location.put("y", elHex.getY()); 
+					location.put("y", elHex.getY());
 					port.put("location", location);
 					port.put("direction", getDirFromEdgeDir(mapa.get(elHex).getPort().getDirection()));
 					port.put("ratio", mapa.get(elHex).getPort().getRatio());
@@ -871,9 +872,18 @@ public class ServerFacade
      */
 	public void buyDevCard(int playerid, int gameid)
 	{
+		playerid -= 100;
 		CatanGame currentgame = getGameByID(gameid);
-		Player player = currentgame.getMyplayers().get(playerid);		
 		String buyresult = currentgame.mybank.buyDevCard();
+		
+		Player player = null;
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerid)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
 		
 		//Update the player with the new card
 		switch(buyresult)
@@ -919,11 +929,15 @@ public class ServerFacade
 
 	/**
 	 * Plays a road building card
+	 * @param gameID 
+	 * @param freebe 
+	 * @param edgeDirectionFromString 
+	 * @param hexLocation 
 	 * @param playerIndex: player who is playing card
      */
-	public void playRoadBuilding(int playerIndex)
+	public void playRoadBuilding(int playerIndex, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameID)
 	{
-
+		//buildRoad(playerIndex, hexLocation, edgeDirectionFromString, freebe, gameID);
 	}
 
 	/**
@@ -932,7 +946,7 @@ public class ServerFacade
      */
 	public void playSoldier(int playerIndex)
 	{
-
+		//robPlayer(location, playerRobbing, playerbeingrobbed, gameid);
 	}
 
 	/**
