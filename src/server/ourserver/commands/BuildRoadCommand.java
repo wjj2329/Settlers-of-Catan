@@ -141,6 +141,7 @@ public class BuildRoadCommand implements ICommand {
 		if(turnstogo==5)
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
+			turnstogo++;
 		}
 
 	}

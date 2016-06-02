@@ -85,7 +85,7 @@ public class Hex
 	 */
 	public void buildCity(VertexLocation mylocation, Index owner)
 	{
-		if(canBuildCityHere(mylocation.getDir()))
+		//dif(canBuildCityHere(mylocation.getDir()))
 		{
 			if(mylocation.getDir().equals(VertexDirection.East))
 			{
