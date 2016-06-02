@@ -51,7 +51,7 @@ public class BuildCityCommand implements ICommand {
 		}
 
 		ResourceList newlist=playertoupdate.getResources();
-		newlist.setSheep(newlist.getOre()-3);
+		newlist.setOre(newlist.getOre()-3);
 		newlist.setWheat(newlist.getWheat()-2);
 		playertoupdate.setResources(newlist);
 		City city1 = new City(location, vertex, playertoupdate.getPlayerIndex());

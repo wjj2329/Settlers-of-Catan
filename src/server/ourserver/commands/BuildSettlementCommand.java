@@ -61,6 +61,14 @@ public class BuildSettlementCommand implements ICommand {
 			}
 		}
 		System.out.println("I UPDATE THIS PLAYER "+playertoupdate.getName());
+		if(free)
+		{
+			System.out.println(" THIS IS BUILT FOR FREE!!!!");
+		}
+		else
+		{
+			System.out.println(" THIS IS NOT BUILT FOR FREE!!!!");
+		}
 		if(!free) {
 			ResourceList newlist = playertoupdate.getResources();
 			newlist.setBrick(newlist.getBrick() - 1);

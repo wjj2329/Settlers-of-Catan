@@ -198,7 +198,7 @@ public class MapController extends Controller implements IMapController, Observe
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
 		//System.out.println("this is my PLayer Index  to try to test with "+test);
-		ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc);
+		ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , insert, vertLoc);
 
 
 	}
