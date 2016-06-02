@@ -2,6 +2,7 @@ package server.ourserver;
 
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+
 import server.ourserver.handlers.*;
 
 import java.io.IOException;
@@ -134,7 +135,7 @@ public class Server
 	private HttpHandler finishTurnHandler = new MovesFinishTurnHandler();
 	private HttpHandler buyDevCardHander = new MovesBuyDevCardHandler();
 	private HttpHandler yearOfPlentyHandler = new MovesYearOfPlentyHandler();
-	private HttpHandler roadBuildingHandler = new MovesYearOfPlentyHandler();
+	private HttpHandler roadBuildingHandler = new MovesRoadBuildingHandler();
 	private HttpHandler soldierHandler = new MovesSoldierHandler();
 	private HttpHandler monopolyHandler = new MovesMonopolyHandler();
 	private HttpHandler monumentHandler = new MovesMonumentHandler();

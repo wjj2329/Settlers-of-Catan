@@ -16,7 +16,9 @@ public class BuyDevCardCommand implements ICommand
 	@Override
 	public Object execute() {
 		// TODO Auto-generated method stub
+		System.out.println("NOW BUYING DEV CARD IN COMMAND");
 		ServerFacade.getInstance().buyDevCard(playerIndex, gameid);
+		System.out.println("Card was bought");
 		return null;
 	}
 	
