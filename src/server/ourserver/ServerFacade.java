@@ -617,6 +617,7 @@ public class ServerFacade
 					if(cuidad.getOwner() != null)
 					{
 						JSONObject city = new JSONObject();
+						System.out.println("I INSERT IN THE SERVER FACADE A CITY WITH OWNER "+cuidad.getOwner().getNumber());
 						city.put("owner", cuidad.getOwner().getNumber());
 						
 						JSONObject location = new JSONObject();

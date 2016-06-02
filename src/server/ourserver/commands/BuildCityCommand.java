@@ -60,7 +60,7 @@ public class BuildCityCommand implements ICommand {
 		h.getCities().add(city1);
 		h.buildCity(vertex,playertoupdate.getPlayerIndex());
 		currentgame.getMymap().getCities().add(city1);
-		city1.setOwner(owner2);
+		city1.setOwner(playertoupdate.getPlayerIndex());
 		vertex.setCity(city1);
 		currentgame.getMyplayers().get(owner2).addToCities(city1);
 		currentgame.getMyplayers().get(owner2).setNumCitiesRemaining(currentgame.getMyplayers().get(owner2).getNumCitiesRemaining()-1);

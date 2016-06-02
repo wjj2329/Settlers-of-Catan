@@ -507,9 +507,11 @@ public class ModelFacade extends Observable
 			currentgame.getMymap().getCities().add(city1);
 			Index owner2 = null;
 			Index playerIndex = new Index(obj.getInt("owner"));
+			System.out.println("I AM GRABBING THIS INDEX TO CHECK THORUGH MY PLAYERS"+playerIndex.getNumber());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				if (p.getPlayerIndex().equals(playerIndex))
+				System.out.println("I COMPARE THIS "+p.getPlayerIndex().getNumber()+" WITH THIS "+playerIndex.getNumber());
+				if (p.getPlayerIndex().getNumber()==playerIndex.getNumber())
 				{
 					owner2 = p.getPlayerID();
 				}
@@ -517,6 +519,7 @@ public class ModelFacade extends Observable
 			assert (owner2 != null);
 			city1.setOwner(owner2);
 			vertexLoc.setCity(city1);
+			System.out.println("I AM THE OWNER "+owner2.getNumber());
 			currentgame.getMyplayers().get(owner2).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
