@@ -4,6 +4,8 @@ import server.ourserver.ServerFacade;
 import shared.chat.Chat;
 import shared.chat.ChatLine;
 import shared.game.CatanGame;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 /**
  * The SendChatCommand
@@ -27,7 +29,16 @@ public class SendChatCommand implements ICommand {
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Chat mychat=currentgame.getMychat();
-		mychat.getChatMessages().getMessages().add(playerindex,new ChatLine(message,message));//not sure if this is correct. lol
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerindex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		System.out.println("the message I got is this " +message);
+		mychat.getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message,playertoupdate.getName()));//not sure if this is correct. lol
 	}
 
 }

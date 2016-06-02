@@ -106,6 +106,13 @@ public class Server
 		server.createContext("/moves/acceptTrade", acceptTradeHandler);
 		server.createContext("/moves/maritimeTrade", maritimeTradeHandler);
 		server.createContext("/moves/discardCards", discardCardsHandler);
+		
+		//For dat Swagger thing 
+		server.createContext("/docs/api/view", new Handlers.BasicFile(""));
+		server.createContext("/docs/api/view", new Handlers.JSONAppender(""));
+		
+		System.out.println(" LUGAR" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+		
 		/*
 		 * Uncomment for PHASE 4 
 		 * server.createContext("/save", SaveGameHandler);

@@ -20,6 +20,10 @@ public class GameHistory
 	/**
 	 * GameHistory constructor
 	 */
+	public void addtolines(GameHistoryLine myline)
+	{
+		lines.add(myline);
+	}
 	public GameHistory()
 	{
 		

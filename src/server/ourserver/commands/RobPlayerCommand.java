@@ -71,6 +71,8 @@ public class RobPlayerCommand implements ICommand {
 		}
 		if(possibiliestosteal.size()==0)
 		{
+			currentgame.myrobber.setLocation(location);
+			currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 			return;
 		}
 		Random myrandom=new Random();
@@ -85,27 +87,32 @@ public class RobPlayerCommand implements ICommand {
 			{
 				victimslist.setBrick(victimslist.getBrick()-1);
 				criminalslist.setBrick(criminalslist.getBrick()+1);
+				break;
 			}
 			case WHEAT:
 			{
 				victimslist.setWheat(victimslist.getWheat()-1);
 				criminalslist.setWheat(criminalslist.getWheat()+1);
+				break;
 			}
 			case WOOD:
 			{
 				victimslist.setWood(victimslist.getWood()-1);
 				criminalslist.setWood(criminalslist.getWood()+1);
+				break;
 
 			}
 			case SHEEP:
 			{
 				victimslist.setSheep(victimslist.getSheep()-1);
 				criminalslist.setSheep(criminalslist.getSheep()+1);
+				break;
 			}
 			case ORE:
 			{
 				victimslist.setOre(victimslist.getOre()-1);
 				criminalslist.setOre(criminalslist.getOre()+1);
+				break;
 			}
 		}
 		criminal.setResources(criminalslist);

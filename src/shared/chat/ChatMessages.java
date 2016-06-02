@@ -21,6 +21,10 @@ public class ChatMessages
 	{
 		return lines;
 	}
+	public void addmessage(ChatLine message)
+	{
+		lines.add(message);
+	}
 	
 	/**
 	 * Displays all chat lines in chat.

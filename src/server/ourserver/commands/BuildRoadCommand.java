@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import client.model.TurnStatus;
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -131,6 +132,7 @@ public class BuildRoadCommand implements ICommand {
 		System.out.println("MY PLAYER NOW HAS "+playertoupdate.getRoadPieces().size()+"Number of roads");
 		playertoupdate.setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
 		System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Road",playertoupdate.getName()));
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			turnstogo++;
@@ -139,6 +141,7 @@ public class BuildRoadCommand implements ICommand {
 		if(turnstogo==5)
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
+			turnstogo++;
 		}
 
 	}

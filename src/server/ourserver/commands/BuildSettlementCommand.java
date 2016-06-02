@@ -1,6 +1,11 @@
 package server.ourserver.commands;
 
+import client.model.ModelFacade;
+import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
+import shared.definitions.HexType;
+import shared.definitions.ResourceType;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Hex.Hex;
@@ -8,7 +13,10 @@ import shared.game.map.Index;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+
+import java.util.ArrayList;
 
 /**
  * The BuildSettlementCommand class
@@ -66,7 +74,12 @@ public class BuildSettlementCommand implements ICommand {
 		Hex h = currentgame.getMymap().getHexes().get(location);
 		System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		System.out.println("THE HEX I HAPPEN TO UPDATE IS A "+h.getResourcetype().toString()+" HIS Number token is "+h.getResourcenumber()+" his location is "+h.getLocation().toString());
+		if(h==null)
+		{
+			System.out.println("FAILURE");
+		}
 		try {
+			System.out.println(" I COME HERE TO TRY TO DO THIS");
 			h.buildSettlement(vertex, playertoupdate.getPlayerIndex());
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -82,6 +95,114 @@ public class BuildSettlementCommand implements ICommand {
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 		System.out.println(" The Settlement I happen to have created has location "+settle1.getVertexLocation().toString());
 		System.out.println(" The Settlement I happen to have created has location after using getter "+settle1.getVertexLocation().getDir().toString());
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Settlement",playertoupdate.getName()));
+		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
+		{
+			ArrayList<HexType>resourcestogive=new ArrayList<>();
+			resourcestogive.add(h.getResourcetype());
+
+				if(vertex.getDir().equals(VertexDirection.East))
+				{
+					HexLocation location1=new HexLocation(location.getX()+1, location.getY()-1);
+					HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY());
+					Hex hextoupdate= currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			else
+				if(vertex.getDir().equals(VertexDirection.West))
+				{
+					HexLocation location1=new HexLocation(location.getX()-1, location.getY());
+					HexLocation locatoin2=new HexLocation(location.getX()-1, location.getY()+1);
+					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			else
+				if(vertex.getDir().equals(VertexDirection.NorthEast))
+				{
+					HexLocation location1=new HexLocation(location.getX(), location.getY()-1);
+					HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY()-1);
+					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			else
+				if(vertex.getDir().equals(VertexDirection.NorthWest))
+				{
+					HexLocation location1=new HexLocation(location.getX()-1, location.getY());
+					HexLocation locatoin2=new HexLocation(location.getX(), location.getY()-1);
+					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			else
+				if(vertex.getDir().equals(VertexDirection.SouthWest))
+				{
+					HexLocation location1=new HexLocation(location.getX(), location.getY()+1);
+					HexLocation locatoin2=new HexLocation(location.getX()-1,location.getY()+1);
+					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			else
+				if(vertex.getDir().equals(VertexDirection.SouthEast))
+				{
+					HexLocation location1 = new HexLocation(location.getX() + 1, location.getY());
+					HexLocation locatoin2 = new HexLocation(location.getX(), location.getY() + 1);
+					Hex hextoupdate = currentgame.getMymap().getHexes().get(location1);
+					Hex hextoupdate2 = currentgame.getMymap().getHexes().get(locatoin2);
+					resourcestogive.add(hextoupdate.getResourcetype());
+					resourcestogive.add(hextoupdate2.getResourcetype());
+				}
+			ResourceList updating=playertoupdate.getResources();
+			for(int i=0; i<resourcestogive.size(); i++)
+			{
+				switch(resourcestogive.get(i))
+				{
+					case BRICK:
+					{
+						updating.setBrick(updating.getBrick()+1);
+						break;
+					}
+					case WATER:
+					{
+						break;
+					}
+					case WHEAT:
+					{
+						updating.setWheat(updating.getWheat()+1);
+						break;
+					}
+					case ORE:
+					{
+						updating.setOre(updating.getOre()+1);
+						break;
+					}
+					case SHEEP:
+					{
+						updating.setSheep(updating.getSheep()+1);
+						break;
+					}
+					case WOOD:
+					{
+						updating.setWood(updating.getWood()+1);
+						break;
+					}
+					case DESERT:
+					{
+						break;
+					}
+				}
+			}
+			playertoupdate.setResources(updating);
+		}
+
 	}
 
 }
