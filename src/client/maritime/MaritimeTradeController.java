@@ -255,6 +255,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
+		System.out.println("The port type is: " + portToString(port.getType()));
 		//System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + defaultTradeRatio); // no
 		switch (port.getType())
 		{
@@ -298,6 +299,25 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		}
 	}
 
+	private String portToString(PortType port)
+	{
+		switch (port)
+		{
+			case WOOD:
+				return "wood";
+			case BRICK:
+				return "brick";
+			case SHEEP:
+				return "sheep";
+			case ORE:
+				return "ore";
+			case WHEAT:
+				return "wheat";
+			default:
+				return null;
+		}
+	}
+
 	/**
 	 * Function to determine whether or not the settlement in question
 	 * 		exists on the port in question.
@@ -307,17 +327,19 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private boolean isSettlementOnPort(Settlement settlement, Port port)
 	{
-		//System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
-				//(port.getDirection().getOppositeDirection()).toString()
-			//+ " with the hex location " + port.getLocation().toString());
+		System.out.println("calling isSettlementOnPort");
+		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
+				(port.getDirection().getOppositeDirection()).toString()
+			+ " with the hex location " + port.getLocation().toString());
+		System.out.println("Port's direction is " + port.getDirection().toString() + " and opposite is " + port.getDirection().getOppositeDirection().toString());
 		// The locations are never equal...Now they are! It's the second one that will have issues now...
 		if (settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).equals(port.getLocation()))
 		{
-			//System.out.println("Hex locations are the same for port and settlement's adjacent hex");
+			System.out.println("Hex locations are the same for port and settlement's adjacent hex");
 			// Then we need to check the edge direction / vertex location
 			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection().getOppositeDirection()))
 			{
-				//System.out.println("CORRECT! The vertex is on the port location ");
+				System.out.println("CORRECT! The vertex is on the port location ");
 				return true;
 			}
 		}
@@ -334,12 +356,16 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		{
 			ArrayList<Settlement> settlementsForPlayer =
 					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getSettlements();
+			System.out.println("This is how many settlements " +
+					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName() + " has: " + settlementsForPlayer.size());
+			System.out.println("This is how many ports are on the board: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getPorts().size());
 			for (int p = 0; p < settlementsForPlayer.size(); p++)
 			{
 				Settlement currentSettlement = settlementsForPlayer.get(p);
 				for (int q = 0; q < allPortsOnGameBoard.size(); q++)
 				{
 					Port currentPort = allPortsOnGameBoard.get(q);
+					System.out.println("There is a port with type " + currentPort.getType().name());
 					if (/*currentPort.getType().equals(PortType.THREE) ||*/ // no...
 							isSettlementOnPort(currentSettlement, currentPort))
 					{
