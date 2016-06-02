@@ -32,7 +32,8 @@ public class RollNumberCommand implements ICommand {
 	int rollNumber;
 	int gameid;
 
-	public RollNumberCommand(int rollNumber, int gameid) {
+	public RollNumberCommand(int rollNumber, int gameid)
+	{
 		this.rollNumber = rollNumber;
 		this.gameid = gameid; 
 		//System.out.println("THIS IS THE ROLLED NUMBER " + rollNumber);
@@ -80,7 +81,7 @@ public class RollNumberCommand implements ICommand {
 		if (rollNumber == 7) 
 		{			
 			//System.out.println("ROLLED A 7 YO.");			
-			game.getModel().getTurntracker().setStatus(TurnStatus.ROBBING);		
+			game.getModel().getTurntracker().setStatus(TurnStatus.DISCARDING);
 		}
 		
 		else 
