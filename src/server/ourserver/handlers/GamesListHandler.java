@@ -33,14 +33,14 @@ public class GamesListHandler implements HttpHandler
        	JSONArray games = ServerFacade.getInstance().getGameList();
         
         if(games == null){
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             String response = "Could not get game list";
             httpExchange.getResponseBody().write(response.getBytes());
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             return;
         }
+        httpExchange.getResponseHeaders().add("Content-type", "application/json");
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         httpExchange.getResponseBody().write(games.toString().getBytes());
-       
         httpExchange.close();
     }
 }
