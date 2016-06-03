@@ -111,6 +111,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void buyCard() {
 		executeElementAction(ResourceBarElement.BUY_CARD);
+
 	}
 
 	@Override
