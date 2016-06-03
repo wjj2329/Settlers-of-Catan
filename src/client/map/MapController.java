@@ -323,12 +323,14 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public void playSoldierCard() {
-
+	public void playSoldierCard()
+	{
+		getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
 	}
 
-	public void playRoadBuildingCard() {
-
+	public void playRoadBuildingCard()
+	{
+		startMove(PieceType.ROAD, true, true);
 	}
 
 	public void robPlayer(RobPlayerInfo victim)
