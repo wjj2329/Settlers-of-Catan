@@ -152,6 +152,31 @@ public class BuildRoadCommand implements ICommand {
 			turnstogo++;
 		}
 
+		if(playertoupdate.getRoadPieces().size()>=5)
+		{
+			Index playerindexcurrentlywithlongestroad=currentgame.getModel().getTurntracker().getLongestRoad();
+			if(playerindexcurrentlywithlongestroad.getNumber()==-1)
+			{
+				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
+				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+				return;
+			}
+			Player playerwithlongestroad=null;
+			for(Player player:currentgame.getMyplayers().values())
+			{
+				if(playerindexcurrentlywithlongestroad.getNumber()==player.getPlayerIndex().getNumber()) {
+					playerwithlongestroad = player;
+				}
+			}
+			if(playertoupdate.getRoadPieces().size()>playerwithlongestroad.getRoadPieces().size())
+			{
+				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+				playerwithlongestroad.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()-2);
+				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
+			}
+
+		}
+
 	}
 
 }
