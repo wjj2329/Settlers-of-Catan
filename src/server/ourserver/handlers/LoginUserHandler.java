@@ -88,6 +88,8 @@ public class LoginUserHandler implements HttpHandler
 			if (newPlayer == null)
 			{
 				//This is how you add a response object (most things need one)
+
+		        exchange.getResponseHeaders().add("Content-type", "text/html");
 				String response = "Failed to login - invalid username or password";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write(response.getBytes());
@@ -109,6 +111,8 @@ public class LoginUserHandler implements HttpHandler
 			
 			//How you add a response: send response headers first then getresponsebody.write, you need to put something
 			//in order for the clientcommunicator to work. 
+
+	        exchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "Success! :D";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			exchange.getResponseBody().write(response.getBytes());
