@@ -95,27 +95,17 @@ public class RollNumberCommand implements ICommand {
 	
 	public void checkNorthWestVertex(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game)
 	{
-		if(estamera.hasSettlement(VertexDirection.NorthWest))
-		{	
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-		}
-		else if(estamera.hasCity(VertexDirection.NorthWest))
+		if(estamera.hasCity(VertexDirection.NorthWest))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.NorthWest).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
-		}				
+		}
+		else if(estamera.hasSettlement(VertexDirection.NorthWest))
+		{	
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+		}			
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasSettlement(VertexDirection.SouthWest))
-			{	
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasSettlement(VertexDirection.East))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getSettlement(VertexDirection.East).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasCity(VertexDirection.SouthWest))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasCity(VertexDirection.SouthWest))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getCity(VertexDirection.SouthWest).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
@@ -126,21 +116,41 @@ public class RollNumberCommand implements ICommand {
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getCity(VertexDirection.East).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
 			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasSettlement(VertexDirection.SouthWest))
+			{	
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasSettlement(VertexDirection.East))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getSettlement(VertexDirection.East).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
 		}
 	}
 	
 	public void checkNorthEastVertex(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game){
-		if(estamera.hasSettlement(VertexDirection.NorthEast))
-		{
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-		}
-		else if(estamera.hasCity(VertexDirection.NorthEast))
+		if(estamera.hasCity(VertexDirection.NorthEast))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.NorthEast).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
 		}
+		else if(estamera.hasSettlement(VertexDirection.NorthEast))
+		{
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+		}
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasSettlement(VertexDirection.SouthEast))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasCity(VertexDirection.SouthEast))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getCity(VertexDirection.SouthEast).getOwner().getNumber(), 
+				estamera.getResourcetype(), 2, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).hasCity(VertexDirection.West))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getCity(VertexDirection.West).getOwner().getNumber(), 
+				estamera.getResourcetype(), 2, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasSettlement(VertexDirection.SouthEast))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getSettlement(VertexDirection.SouthEast).getOwner().getNumber(), 
 						estamera.getResourcetype(), 1, game);
@@ -151,44 +161,23 @@ public class RollNumberCommand implements ICommand {
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getSettlement(VertexDirection.West).getOwner().getNumber(), 
 				estamera.getResourcetype(), 1, game);
 			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).hasCity(VertexDirection.SouthEast))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.North)).getCity(VertexDirection.SouthEast).getOwner().getNumber(), 
-				estamera.getResourcetype(), 2, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).hasCity(VertexDirection.West))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getCity(VertexDirection.West).getOwner().getNumber(), 
-				estamera.getResourcetype(), 2, game);
-			}
 		}
 	}
 	
 	public void checkWestVertex(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game){
-		if(estamera.hasSettlement(VertexDirection.West))
-		{
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.West).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-			//System.out.println("GOT HERE");
-		}
-		else if(estamera.hasCity(VertexDirection.West))
+		if(estamera.hasCity(VertexDirection.West))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.West).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
 			//System.out.println("GOT HERE ELSE IF");
 		}
+		else if(estamera.hasSettlement(VertexDirection.West))
+		{
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.West).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+			//System.out.println("GOT HERE");
+		}
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasSettlement(VertexDirection.SouthEast))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getSettlement(VertexDirection.SouthEast).getOwner().getNumber(), 
-						estamera.getResourcetype(), 1, game);
-			}
-			
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasSettlement(VertexDirection.NorthEast))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), 
-						estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasCity(VertexDirection.SouthEast))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasCity(VertexDirection.SouthEast))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getCity(VertexDirection.SouthEast).getOwner().getNumber(), 
 						estamera.getResourcetype(), 2, game);
@@ -199,32 +188,32 @@ public class RollNumberCommand implements ICommand {
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getCity(VertexDirection.NorthEast).getOwner().getNumber(), 
 						estamera.getResourcetype(), 2, game);
 			}
-		
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).hasSettlement(VertexDirection.SouthEast))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthWest)).getSettlement(VertexDirection.SouthEast).getOwner().getNumber(), 
+						estamera.getResourcetype(), 1, game);
+			}
+			
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasSettlement(VertexDirection.NorthEast))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), 
+						estamera.getResourcetype(), 1, game);
+			}
 		}
 	}
 
 	public void checkEastVertex(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game){
-		if(estamera.hasSettlement(VertexDirection.East))
-		{
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.East).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-		}
-		else if(estamera.hasCity(VertexDirection.East))
+		if(estamera.hasCity(VertexDirection.East))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.East).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
 		}
+		else if(estamera.hasSettlement(VertexDirection.East))
+		{
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.East).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+		}
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasSettlement(VertexDirection.NorthWest))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).hasSettlement(VertexDirection.SouthWest))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasCity(VertexDirection.NorthWest))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasCity(VertexDirection.NorthWest))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getCity(VertexDirection.NorthWest).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
@@ -234,32 +223,31 @@ public class RollNumberCommand implements ICommand {
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getCity(VertexDirection.SouthWest).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
 			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasSettlement(VertexDirection.NorthWest))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).hasSettlement(VertexDirection.SouthWest))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.NorthEast)).getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
 		}
 	}
 
 	public void checkSouthWestVertext(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game){
-		if(estamera.hasSettlement(VertexDirection.SouthWest))
-		{
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-		}
-		else if(estamera.hasCity(VertexDirection.SouthWest))
+		if(estamera.hasCity(VertexDirection.SouthWest))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.SouthWest).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
 		}
+		else if(estamera.hasSettlement(VertexDirection.SouthWest))
+		{
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.SouthWest).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+		}
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasSettlement(VertexDirection.East))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getSettlement(VertexDirection.East).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).hasSettlement(VertexDirection.NorthWest))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasCity(VertexDirection.East))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasCity(VertexDirection.East))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getCity(VertexDirection.East).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
@@ -269,34 +257,32 @@ public class RollNumberCommand implements ICommand {
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getCity(VertexDirection.NorthWest).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
 			}
-		
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).hasSettlement(VertexDirection.East))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthWest)).getSettlement(VertexDirection.East).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).hasSettlement(VertexDirection.NorthWest))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getSettlement(VertexDirection.NorthWest).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}		
 		}
 	}
 	
 	public void checkSouthEastVertext(Hex estamera, CatanMap map, HexLocation hexLocation, CatanGame game){
-		if(estamera.hasSettlement(VertexDirection.SouthEast))
-		{
-			incrementPlayerCrap(estamera.getSettlement(VertexDirection.SouthEast).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
-		}
-		
-		else if(estamera.hasCity(VertexDirection.SouthEast))
+		if(estamera.hasCity(VertexDirection.SouthEast))
 		{
 			incrementPlayerCrap(estamera.getCity(VertexDirection.SouthEast).getOwner().getNumber(), estamera.getResourcetype(), 2, game);
 		}
 		
+		else if(estamera.hasSettlement(VertexDirection.SouthEast))
+		{
+			incrementPlayerCrap(estamera.getSettlement(VertexDirection.SouthEast).getOwner().getNumber(), estamera.getResourcetype(), 1, game);
+		}
 		else
 		{
-			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasSettlement(VertexDirection.West))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getSettlement(VertexDirection.West).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).hasSettlement(VertexDirection.NorthEast))
-			{
-				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), 
-				estamera.getResourcetype(), 1, game);
-			}
-			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasCity(VertexDirection.West))
+			if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasCity(VertexDirection.West))
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getCity(VertexDirection.West).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
@@ -305,6 +291,16 @@ public class RollNumberCommand implements ICommand {
 			{
 				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getCity(VertexDirection.NorthEast).getOwner().getNumber(), 
 				estamera.getResourcetype(), 2, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).hasSettlement(VertexDirection.West))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.SouthEast)).getSettlement(VertexDirection.West).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
+			}
+			else if(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).hasSettlement(VertexDirection.NorthEast))
+			{
+				incrementPlayerCrap(map.getHexes().get(hexLocation.getNeighborLoc(EdgeDirection.South)).getSettlement(VertexDirection.NorthEast).getOwner().getNumber(), 
+				estamera.getResourcetype(), 1, game);
 			}
 	
 		}
