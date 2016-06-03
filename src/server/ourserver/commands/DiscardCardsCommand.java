@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.map.Index;
@@ -48,6 +49,17 @@ public class DiscardCardsCommand implements ICommand {
 		mybankslist.setSheep(mybankslist.getSheep()+cardsToDiscard.getSheep());
 		mybankslist.setOre(mybankslist.getOre()+cardsToDiscard.getOre());
 		currentgame.mybank.setResourceCardslist(mybankslist);
+
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " discards cards ",playertoupdate.getName()));
+
 	}
 
 }
