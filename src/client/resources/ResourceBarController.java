@@ -5,6 +5,7 @@ import java.util.*;
 import client.State.State;
 import client.login.LoginController;
 import client.model.Model;
+import client.model.TurnStatus;
 import shared.game.ResourceList;
 import shared.game.map.Index;
 import shared.game.player.Player;
@@ -165,7 +166,8 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 				this.getView().setElementEnabled(ResourceBarElement.BUY_CARD,
 						ModelFacade.facadeCurrentGame.getLocalPlayer().canAffordDevCard());
 
-				if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState) {
+				if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.SetUpState||ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.DISCARDING))
+				{
 
 					this.getView().setElementEnabled(ResourceBarElement.ROAD, false);
 

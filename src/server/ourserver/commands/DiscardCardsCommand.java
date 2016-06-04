@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
 import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
@@ -59,6 +60,7 @@ public class DiscardCardsCommand implements ICommand {
 			}
 		}
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " discards cards ",playertoupdate.getName()));
+		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
 
 	}
 

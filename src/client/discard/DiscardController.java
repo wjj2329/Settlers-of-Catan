@@ -127,7 +127,6 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	private boolean decreaseallowed(ResourceType type)
 	{
-		Player localPlayer=ModelFacade.facadeCurrentGame.getLocalPlayer();
 		switch(type)
 		{
 			case BRICK:
