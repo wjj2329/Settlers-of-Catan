@@ -208,7 +208,7 @@ public class MapController extends Controller implements IMapController, Observe
 		if(canPlaceCity(vertLoc))
 		{
 			try {
-				currentPlayer.buildCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
+				//currentPlayer.buildCity(ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(vertLoc.getHexLoc()), vertLoc);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -294,6 +294,10 @@ public class MapController extends Controller implements IMapController, Observe
 			}
 
 		}
+		for(RobPlayerInfo myinfo:victims)
+		{
+			System.out.println("Player "+myinfo.getName()+" is currently on this hex");
+		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
 		victims.toArray(victimsArray);
 
@@ -323,12 +327,14 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public void playSoldierCard() {
-
+	public void playSoldierCard()
+	{
+		getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
 	}
 
-	public void playRoadBuildingCard() {
-
+	public void playRoadBuildingCard()
+	{
+		startMove(PieceType.ROAD, true, true);
 	}
 
 	public void robPlayer(RobPlayerInfo victim)
@@ -355,10 +361,10 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
-			System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
-			System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
-			System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
+			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			//System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+			//System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			//System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
@@ -383,8 +389,8 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 				//System.out.print("MY PLAYERS IN THE GAME IS THIS "+ModelFacade.facadeCurrentGame.currentgame.get)
-				System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
-				System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
+				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
+				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				//System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
 				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
 					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
@@ -443,6 +449,26 @@ public class MapController extends Controller implements IMapController, Observe
 		}
 	}
 
+	private void lookathexes()
+	{
+		System.out.println();
+		System.out.println();
+		System.out.println();
+		System.out.println();
+
+		for(Hex hex:ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().values())
+		{
+			if(hex.getSettlementlist().size()>0)
+			{
+				for(int i=0; i<hex.getSettlementlist().size();i++)
+				{
+					System.out.println("MY HEX IS TYPE "+hex.getResourcetype().toString()+" his token number is "+hex.getResourcenumber());
+					System.out.println("The Settlement on this said hex is located at "+hex.getSettlementlist().get(i).getVertexLocation().getDir().toString()+
+							" his owner is "+hex.getSettlementlist().get(i).getOwner().getNumber());
+				}
+			}
+		}
+	}
 	/**
 	 * This function is important.
 	 * Essential for updating GUI.
@@ -451,9 +477,12 @@ public class MapController extends Controller implements IMapController, Observe
 	 *           Observable's interface, arg is an argument passed to the
 	 *           notifyObservers method.
      */
+
+
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		//lookathexes();
 		if(ModelFacade.facadeCurrentGame.currentgame.getMymap()!=null)
 		{
 			Map<HexLocation, Hex> mymap = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes();

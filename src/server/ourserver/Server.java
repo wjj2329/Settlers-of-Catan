@@ -22,7 +22,7 @@ public class Server
 			initLog();
 		} catch (IOException e)
 		{
-			System.out.println("Could not initialize log: " + e.getMessage());
+			//System.out.println("Could not initialize log: " + e.getMessage());
 		}
 	}
 	
@@ -111,7 +111,7 @@ public class Server
 		server.createContext("/docs/api/view", new Handlers.BasicFile(""));
 		server.createContext("/docs/api/data", new Handlers.JSONAppender(""));
 		
-		System.out.println(" LUGAR" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
+		//System.out.println(" LUGAR" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 		
 		/*
 		 * Uncomment for PHASE 4 

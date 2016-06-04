@@ -56,7 +56,8 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
+		//if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
+		{
 			List<LogEntry> entries = new ArrayList<>();
 			CatanColor playercolor = CatanColor.PUCE;
 			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++) {

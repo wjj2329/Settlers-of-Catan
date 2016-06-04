@@ -101,7 +101,7 @@ public class CatanMap
 
 	public void shuffleHexes()
 	{
-		System.out.println("i shuffle my hexes");
+		//System.out.println("i shuffle my hexes");
 		Random myrandom=new Random();
 		ArrayList<HexLocation>nonwaterhexes=new ArrayList<>();
 		HexLocation desserthex=null;
@@ -127,7 +127,7 @@ public class CatanMap
 			hex.setResourcetype(mytype2);
 			hex2.setResourcetype(mytype);
 		}
-		System.out.println("I DO SUFFULE 100 times");
+		//System.out.println("I DO SUFFULE 100 times");
 		int numberswap=myrandom.nextInt(nonwaterhexes.size()-1);
 		HexLocation swapping=nonwaterhexes.get(numberswap);
 		int swappingvalue=hexes.get(swapping).getResourcenumber();
@@ -137,13 +137,13 @@ public class CatanMap
 		hexes.get(desserthex).setResourcenumber(new NumberToken(swappingvalue));
 		hexes.get(desserthex).setResourcetype(swapstype);
 
-		System.out.println("I SURVIVED");
+		//System.out.println("I SURVIVED");
 
 	}
 
 	public void shuffleNumbers()
 	{
-		System.out.println("i shuffle my numbers");
+		//System.out.println("i shuffle my numbers");
 		Random myrandom=new Random();
 		ArrayList<HexLocation>nonwaterhexes=new ArrayList<>();
 		for(HexLocation loc: hexes.keySet())
@@ -168,7 +168,7 @@ public class CatanMap
 
 	public void shufflePorts()
 	{
-		System.out.println(" i shuffle my ports ");
+		//System.out.println(" i shuffle my ports ");
 		Random myrandom=new Random();
 		ArrayList<HexLocation>nonwaterporthexs=new ArrayList<>();
 		for(HexLocation loc: hexes.keySet())
@@ -198,7 +198,7 @@ public class CatanMap
 		}
 		for(int i=0; i<nonwaterporthexs.size();i++)
 		{
-			System.out.println(hexes.get(nonwaterporthexs.get(i)).getPortType());
+			//System.out.println(hexes.get(nonwaterporthexs.get(i)).getPortType());
 		}
 	}
 

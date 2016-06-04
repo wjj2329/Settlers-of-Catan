@@ -9,11 +9,14 @@ import client.base.*;
 import client.model.ModelFacade;
 import server.proxies.IServer;
 
+import java.util.Observable;
+import java.util.Observer;
+
 
 /**
  * "Dev card" controller implementation
  */
-public class DevCardController extends Controller implements IDevCardController {
+public class DevCardController extends Controller implements IDevCardController,Observer{
 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
@@ -36,6 +39,7 @@ public class DevCardController extends Controller implements IDevCardController 
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
+		ModelFacade.facadeCurrentGame.addObserver(this);
 	}
 
 	public IPlayDevCardView getPlayCardView() {
@@ -55,8 +59,9 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void cancelBuyCard() {
-		
-		getBuyCardView().closeModal();
+		if(getBuyCardView().isModalShowing()) {
+			getBuyCardView().closeModal();
+		}
 	}
 
 	@Override
@@ -64,7 +69,9 @@ public class DevCardController extends Controller implements IDevCardController 
 	{		
 		Index index = ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID();
     	server.buyDevCard("buyDevCard", index.getNumber());
-    	//getBuyCardView().closeModal();
+		if(getBuyCardView().isModalShowing()) {
+			getBuyCardView().closeModal();
+		}
 	}
 
 	@Override
@@ -129,14 +136,15 @@ public class DevCardController extends Controller implements IDevCardController 
 			getPlayCardView().setCardAmount(DevCardType.YEAR_OF_PLENTY, cards.getYearOfPlenty() + newcards.getYearOfPlenty());	
 		}
 		
-		getPlayCardView().showModal();
+		//getPlayCardView().showModal();
 	}
 
 	@Override
 	public void cancelPlayCard() 
 	{
-
-		getPlayCardView().closeModal();
+		if(getPlayCardView().isModalShowing()) {
+			getPlayCardView().closeModal();
+		}
 	}
 
 	@Override
@@ -156,6 +164,7 @@ public class DevCardController extends Controller implements IDevCardController 
 	{
 		getPlayCardView().closeModal();
 		roadAction.execute();
+		roadAction.execute();
 	}
 
 	@Override
@@ -171,5 +180,10 @@ public class DevCardController extends Controller implements IDevCardController 
 		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(), resource1.name(), resource2.name());
 	}
 
+	@Override
+	public void update(Observable o, Object arg)
+	{
+
+	}
 }
 

@@ -55,8 +55,8 @@ public class LoginUserHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		System.out.println("I begin handling loginUser");
-		System.out.println("Exchange: " + exchange.getRequestBody().toString());
+		//System.out.println("I begin handling loginUser");
+		//System.out.println("Exchange: " + exchange.getRequestBody().toString());
 		JSONObject data = null;
 		try
 		{
@@ -67,8 +67,15 @@ public class LoginUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+
+	        exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Why do you give me empty data?";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
+			return;
 		}
-		System.out.println("This is our JSON Object: " + data.toString());
+		//System.out.println("This is our JSON Object: " + data.toString());
 		LoginParam loginParam = null;
 		Player newPlayer = null;
 		String username;
@@ -88,18 +95,20 @@ public class LoginUserHandler implements HttpHandler
 			if (newPlayer == null)
 			{
 				//This is how you add a response object (most things need one)
+
+		        exchange.getResponseHeaders().add("Content-type", "text/html");
 				String response = "Failed to login - invalid username or password";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write(response.getBytes());
 				// serialize with FAILED message
-				System.out.println("User does not exist!");
+				//System.out.println("User does not exist!");
 				data.append("FAILURE", exchange.getResponseBody());
 				exchange.close();
 				return;
 			}
 			//System.out.println("User exists!");
 			LoginUserResponse loginUserResponse = new LoginUserResponse(newPlayer);
-			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
+			//System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID().getNumber() + "%7D;Path=/;";
 			// How to add cookie to response headers? 
@@ -109,6 +118,8 @@ public class LoginUserHandler implements HttpHandler
 			
 			//How you add a response: send response headers first then getresponsebody.write, you need to put something
 			//in order for the clientcommunicator to work. 
+
+	        exchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "Success! :D";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			exchange.getResponseBody().write(response.getBytes());
@@ -121,6 +132,12 @@ public class LoginUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Information is missing. Rethink your life decisions.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
+			return;
 		}
 	}	
 }

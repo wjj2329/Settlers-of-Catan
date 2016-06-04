@@ -246,7 +246,7 @@ public class LoginController extends Controller implements ILoginController, Obs
 		//We MAY HAVE A SERIOUS BUG but not because of this.  Need to talk about the player name format.  We have different
 		//format for names which is a problem!
 		localplayer.setName(newname);
-		System.out.println("I SET UP THE LOCAL PLAYER");
+		//System.out.println("I SET UP THE LOCAL PLAYER");
 		ModelFacade.facadeCurrentGame.setLocalPlayer(localplayer);
 	}
 	

@@ -32,12 +32,13 @@ public class MovesBuyDevCardHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
-    	System.out.println("NOW BUYING DEV CARD IN HANDLER");
+    	//System.out.println("NOW BUYING DEV CARD IN HANDLER");
     	String cookie = exchange.getRequestHeaders().getFirst("Cookie");
     	int playerid = 9999;
     	int gameid = Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
     	
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -47,17 +48,25 @@ public class MovesBuyDevCardHandler implements HttpHandler
         }
         catch (JSONException e)
         {
-        	System.out.println("Ah balls, something happened");
+        	//System.out.println("Ah balls, something happened");
             e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna buy dev cards.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try 
         {
             playerid = data.getInt("playerIndex");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to buy a dev card bro.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         
-        System.out.println("playerid: " + playerid + "\ngameid: " + gameid);
+        //System.out.println("playerid: " + playerid + "\ngameid: " + gameid);
         BuyDevCardCommand buyCommand = new BuyDevCardCommand(playerid, gameid);
         buyCommand.execute();
         

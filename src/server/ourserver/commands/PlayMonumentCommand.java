@@ -1,9 +1,20 @@
 package server.ourserver.commands;
 
+import server.ourserver.ServerFacade;
+
 /**
  * The PlayMonumentCommand class
  */
 public class PlayMonumentCommand implements ICommand {
+
+	private int playerindex;
+	private int gameID;
+
+	public PlayMonumentCommand(int playerindex, int gameID)
+	{
+		this.playerindex = playerindex;
+		this.gameID = gameID;
+	}
 
 	/**
 	 * Executes the task:
@@ -11,7 +22,7 @@ public class PlayMonumentCommand implements ICommand {
 	 */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
+		ServerFacade.getInstance().playMonument(playerindex, gameID);
 		return null;
 	}
 

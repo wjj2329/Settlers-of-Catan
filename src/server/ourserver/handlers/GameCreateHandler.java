@@ -30,7 +30,7 @@ public class GameCreateHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
-        System.out.println("Exchange for Game create handler is now coming alive" + exchange.getRequestBody().toString());
+        //System.out.println("Exchange for Game create handler is now coming alive" + exchange.getRequestBody().toString());
         JSONObject data = null;
         String name=null;
         boolean randomHexes=false;
@@ -45,6 +45,11 @@ public class GameCreateHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+            exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Just because your soul is empty doesn't mean you have to give me empty data.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
             name=data.getString("name");
@@ -53,11 +58,18 @@ public class GameCreateHandler implements HttpHandler
             randomHexValues=data.getBoolean("randomNumbers");
         } catch (JSONException e) {
             e.printStackTrace();
+            System.out.println(e);
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Why do you not meet my information needs? Give me the correct info.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         ServerFacade.getInstance().createGame(name,randomHexes,randomPorts,randomHexValues);
 
+        exchange.getResponseHeaders().add("Content-type", "text/html");
         String response = "Success! :D   YEA YEA YEA";
-        System.out.println("I COME HERE TO NOW SEND MY A OKAY TO GO WITH THE CREATE GAME HANDLER");
+        //System.out.println("I COME HERE TO NOW SEND MY A OKAY TO GO WITH THE CREATE GAME HANDLER");
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();

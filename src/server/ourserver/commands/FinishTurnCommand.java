@@ -24,9 +24,17 @@ public class FinishTurnCommand implements ICommand {
 	}
 	public void endturn(int playerIndex, int gameid)
 	{
-		System.out.println("I call the end turn command for player with player index"+playerIndex);
+		//System.out.println("I call the end turn command for player with player index"+playerIndex);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
 		switch (playerIndex)
 		{
 			case(0):
@@ -35,16 +43,20 @@ public class FinishTurnCommand implements ICommand {
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
+
 					return;
 				}
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
-					System.out.println("I update for case 0");
+					//System.out.println("I update for case 0");
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(1), currentgame.getMyplayers());
 				}
 				else
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
+
 				}
 				break;
 			}
@@ -54,10 +66,12 @@ public class FinishTurnCommand implements ICommand {
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
+
 					return;
 				}
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
-					System.out.println("I update for case 1");
+					//System.out.println("I update for case 1");
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(2), currentgame.getMyplayers());
 				}
 				else
@@ -73,9 +87,11 @@ public class FinishTurnCommand implements ICommand {
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
+
 					return;
 				}
-				System.out.println("I update for case 2");
+				//System.out.println("I update for case 2");
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(3), currentgame.getMyplayers());
 				}
@@ -92,9 +108,10 @@ public class FinishTurnCommand implements ICommand {
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
+					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
 					return;
 				}
-				System.out.println("I update for case 3");
+				//System.out.println("I update for case 3");
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 				{
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0),currentgame.getMyplayers());
@@ -105,14 +122,7 @@ public class FinishTurnCommand implements ICommand {
 				break;
 			}
 		}
-		Player playertoupdate=null;
-		for(Index myind:currentgame.getMyplayers().keySet())
-		{
-			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
-			{
-				playertoupdate=currentgame.getMyplayers().get(myind);
-			}
-		}
+
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
 	}
 

@@ -50,7 +50,7 @@ public class ServerProxy implements IServer {
 	@Override
 	public ServerResponse loginUser(String username, String password){
 		final String URL_SUFFIX = "/user/login";
-		System.out.println("Server proxy gives UN " + username + " and password " + password);
+		//System.out.println("Server proxy gives UN " + username + " and password " + password);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		
 		Param param = new LoginParam(username, password);
@@ -120,8 +120,8 @@ public class ServerProxy implements IServer {
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
-		System.out.println("The response code is as follows: " + response.getResponseCode() + " and " +
-				response.getResponse());
+		//System.out.println("The response code is as follows: " + response.getResponseCode() + " and " +
+				//response.getResponse());
 		return response;
 	}
 
@@ -189,7 +189,7 @@ public class ServerProxy implements IServer {
 		
 		ServerResponse response = clientCommunicator.send(URL_SUFFIX, param);
 		gamecookie = response.getGameCookie();
-		System.out.println("Gamecookie: " + gamecookie + "\n\n\n");
+		//System.out.println("Gamecookie: " + gamecookie + "\n\n\n");
 		//System.out.println(response.getResponseCode());
 		return response;
 	}

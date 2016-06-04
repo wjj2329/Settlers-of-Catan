@@ -52,6 +52,7 @@ public class MovesRoadBuildingHandler implements HttpHandler
         String direction=null;
         JSONObject data = null;
         boolean freebe=true;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -61,6 +62,10 @@ public class MovesRoadBuildingHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with to play Road Building";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -71,12 +76,16 @@ public class MovesRoadBuildingHandler implements HttpHandler
             direction=myobject.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to play road building bro.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         
         ICommand roadbuildingcommand = new PlayRoadBuildingCommand(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe,gameID);
         roadbuildingcommand.execute();
         
-        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+        String response = "You successfully played RoadBuiling!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();

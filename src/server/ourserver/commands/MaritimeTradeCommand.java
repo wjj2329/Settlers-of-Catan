@@ -57,12 +57,12 @@ public class MaritimeTradeCommand implements ICommand {
 		// Ideally, we would gray out the options, but we don't have a client-side
 		if (myBank.CanBankGiveResourceCard(resType))
 		{
-			System.out.println("Here are the player resources before: " + playerResources.toString());
+			//System.out.println("Here are the player resources before: " + playerResources.toString());
 			updateResourceList(playerResources, -ratio, giveResource);
 			updateResourceList(playerResources, PLAYER_INCREMENT, getResource);
 			updateResourceList(bankResources, BANK_DECREMENT, getResource);
 			updateResourceList(bankResources, ratio, giveResource);
-			System.out.println("Here are the player resources after: " + playerResources.toString());
+			//System.out.println("Here are the player resources after: " + playerResources.toString());
 		}
 	}
 

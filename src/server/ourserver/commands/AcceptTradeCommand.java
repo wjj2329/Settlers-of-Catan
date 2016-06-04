@@ -37,7 +37,7 @@ public class AcceptTradeCommand implements ICommand {
 		TradeOffer tradeOffer = game.getMytradeoffer(); 
 		ResourceList offer = tradeOffer.getMylist();
 
-		System.out.println("THE LIST " + offer.toString());
+		//System.out.println("THE LIST " + offer.toString());
 		if(willAccept)
 		{
 			for(Player player : game.getMyplayers().values())
