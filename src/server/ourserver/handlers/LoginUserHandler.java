@@ -88,10 +88,11 @@ public class LoginUserHandler implements HttpHandler
 			// This might be necessary to create a new playerID for each new player who logs in.
 			// However, possibly not. We might want to keep that ID for when they register, actually,
 			// in which case we need a method for remembering them.
-			newPlayer = new Player(username, CatanColor.PUCE, new Index(idTracker));
+			newPlayer = new Player(username, CatanColor.PUCE, new Index(1));
 			newPlayer.setPassword(password);
-			idTracker++;
-			newPlayer = ServerFacade.getInstance().logIn(newPlayer);
+			//idTracker++;
+			//System.out.println("ID Tracker is now at " + idTracker);
+			newPlayer = ServerFacade.getInstance().logIn(username, password);
 			if (newPlayer == null)
 			{
 				//This is how you add a response object (most things need one)
