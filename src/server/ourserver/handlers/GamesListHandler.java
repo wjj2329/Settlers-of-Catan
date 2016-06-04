@@ -20,7 +20,7 @@ import org.json.JSONArray;
  * @post If the operation succeeds, 1.The server returns an
  *                HTTP 200 success response. 2.The body contains a JSON
  *                array containing a list of objects that contain
- *                information about the serverâ€™s games @post If the operation
+ *                information about the server’s games @post If the operation
  *                fails, 1.The server returns an HTTP 400 error response,
  *                and the body contains an error message
  *

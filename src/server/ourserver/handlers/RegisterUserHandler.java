@@ -61,6 +61,11 @@ public class RegisterUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+	        exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Why do you give me empty data? D:";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
 		}
 		//System.out.println("This is our JSON Object: " + data.toString());
 		LoginParam loginParam = null;
@@ -78,7 +83,7 @@ public class RegisterUserHandler implements HttpHandler
 			if (newPlayer == null)
 			{
 				//This is how you add a response object (most things need one)
-				String response = "Failed to login - invalid username or password";
+				String response = "Failed to register. Sad day.";
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write(response.getBytes());
 				// serialize with FAILED message
@@ -110,6 +115,11 @@ public class RegisterUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Information is missing yo. Rethink your life decisions.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
 		}
 	}
 
