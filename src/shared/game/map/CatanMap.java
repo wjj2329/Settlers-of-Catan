@@ -189,17 +189,14 @@ public class CatanMap
 			PortType mytype2=hexes.get(nonwaterporthexs.get(numberswap2)).getPortType();
 			EdgeDirection myloc1=hexes.get(nonwaterporthexs.get(numberswap)).getPort().getDirection();
 			EdgeDirection myloc2=hexes.get(nonwaterporthexs.get(numberswap2)).getPort().getDirection();
-			hex.getPort().setDirection(myloc2);
-			hex2.getPort().setDirection(myloc1);
+			hex.getPort().setDirection(myloc1);
+			hex2.getPort().setDirection(myloc2);
 			hex.setPortType(mytype2);
 			hex2.setPortType(mytype);
 			//System.out.println("HEX 1 is now "+numberswap+" "+hex.getPortType());
 			//System.out.println("HEX 2 is now "+numberswap2+" "+hex2.getPortType());
 		}
-		for(int i=0; i<nonwaterporthexs.size();i++)
-		{
-			//System.out.println(hexes.get(nonwaterporthexs.get(i)).getPortType());
-		}
+
 	}
 
 	public CatanMap(int radius)
