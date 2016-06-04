@@ -40,6 +40,7 @@ public class MovesRollNumberHandler implements HttpHandler {
     	String cookie = httpExchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
     	JSONObject data = null;
+		httpExchange.getResponseHeaders().add("Content-type", "text/html");
 		try
 		{
 			Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");
@@ -49,8 +50,6 @@ public class MovesRollNumberHandler implements HttpHandler {
 		catch (JSONException e)
 		{
 			e.printStackTrace();
-
-			httpExchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "You gotta give me something to work with to roll.";
 			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 			httpExchange.getResponseBody().write(response.getBytes());
@@ -64,7 +63,6 @@ public class MovesRollNumberHandler implements HttpHandler {
 			if (rolledNumber < 2 || rolledNumber > 12)
 			{
 				//This is how you add a response object (most things need one)
-				httpExchange.getResponseHeaders().add("Content-type", "text/html");
 				String response = "Roll number not valid";
 				httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				httpExchange.getResponseBody().write(response.getBytes());
@@ -74,7 +72,6 @@ public class MovesRollNumberHandler implements HttpHandler {
 			}			
 			
 			ServerFacade.getInstance().rollNumber(rolledNumber, gameID);
-			httpExchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "You just rolled! :D";
 			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			httpExchange.getResponseBody().write(response.getBytes());
@@ -84,7 +81,6 @@ public class MovesRollNumberHandler implements HttpHandler {
 		catch (JSONException e)
 		{
 			e.printStackTrace();
-			httpExchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "Looks like your are missing something.";
 			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 			httpExchange.getResponseBody().write(response.getBytes());

@@ -39,6 +39,7 @@ public class MovesRobPlayerHandler implements HttpHandler {
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -48,7 +49,6 @@ public class MovesRobPlayerHandler implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
-			exchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "You gotta give me something to work with to rob.";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 			exchange.getResponseBody().write(response.getBytes());
@@ -64,7 +64,6 @@ public class MovesRobPlayerHandler implements HttpHandler {
             y=myobject.getInt("y");
         } catch (JSONException e) {
             e.printStackTrace();
-			exchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "Looks like your are missing something.";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 			exchange.getResponseBody().write(response.getBytes());
@@ -72,7 +71,7 @@ public class MovesRobPlayerHandler implements HttpHandler {
         }
 
         ServerFacade.getInstance().robPlayer(new HexLocation(x,y),playerindex,victimindex,gameID);
-		exchange.getResponseHeaders().add("Content-type", "text/html");
+		
         String response = "You seem to have robbed a player.";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
