@@ -56,18 +56,43 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		//if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
+		System.out.println("I GET UPDATED in the chat update");
+		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
+			System.out.println("I GET THROUGH THE IF");
 			List<LogEntry> entries = new ArrayList<>();
 			CatanColor playercolor = CatanColor.PUCE;
-			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++) {
+			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
+			{
 				for (Index loc : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
 					if (ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().get(i).getSource().equals(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getName())) {
 						playercolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
 					}
 				}
+				System.out.println("I Add to the entries this "+playercolor.toString()+" this message "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage());
+				System.out.println("THE SIZE OF THIS CHAT ARRAY IS ALSO "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().size());
 				entries.add(new LogEntry(playercolor, ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
 			}
+			/*
+			List<LogEntry> entries2 = new ArrayList<>();
+
+			while(!entries.isEmpty())
+			{
+				int smallest=100000;
+				int indexforsmallest=0;
+				for (int i = 0; i < entries.size(); i++)
+				{
+					int check=entries.get(i).getMessage().charAt(entries.get(i).getMessage().length()-1);
+					if(check<smallest)
+					{
+						smallest=check;
+						indexforsmallest=i;
+					}
+				}
+				entries2.add(entries.get(indexforsmallest));
+				entries.remove(indexforsmallest);
+			}
+			*/
 			getView().setEntries(entries);
 		}
 

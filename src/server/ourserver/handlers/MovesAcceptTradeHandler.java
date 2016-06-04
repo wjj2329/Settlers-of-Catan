@@ -35,6 +35,7 @@ public class MovesAcceptTradeHandler implements HttpHandler {
     	String cookie = httpExchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
     	JSONObject data = null;
+		httpExchange.getResponseHeaders().add("Content-type", "text/html");
 		try
 		{
 			Scanner s = new Scanner(httpExchange.getRequestBody()).useDelimiter("\\A");
@@ -44,6 +45,10 @@ public class MovesAcceptTradeHandler implements HttpHandler {
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna accept the trade offer.";
+			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			httpExchange.getResponseBody().write(response.getBytes());
+			httpExchange.close();
 		}
 		//System.out.println("This is our JSON Object: " + data.toString());
 		int playerIndex = -1;
@@ -73,6 +78,10 @@ public class MovesAcceptTradeHandler implements HttpHandler {
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			String response = "So you are missing some info accept a trade offer.";
+			httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			httpExchange.getResponseBody().write(response.getBytes());
+			httpExchange.close();
 		}
     }
     

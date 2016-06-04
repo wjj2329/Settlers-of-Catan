@@ -37,7 +37,8 @@ public class SendChatCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
-		//System.out.println("the message I got is this " +message);
+		System.out.println("MY message is this"+message);
+		System.out.println("The player who sent this message is this "+playertoupdate.getName());
 		mychat.getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message,playertoupdate.getName()));//not sure if this is correct. lol
 	}
 

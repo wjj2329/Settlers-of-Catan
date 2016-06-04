@@ -61,6 +61,7 @@ public class MovesBuildCityHandler implements HttpHandler {
         int gameID = getGameIDfromCookie(cookie);
         String direction=null;
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -70,6 +71,10 @@ public class MovesBuildCityHandler implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna build a city.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -80,6 +85,10 @@ public class MovesBuildCityHandler implements HttpHandler {
             direction=myobject.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to build city.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().buildCity(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),gameID);
