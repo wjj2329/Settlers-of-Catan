@@ -16,25 +16,28 @@ public class Handlers {
 		private static Logger LOGGER = Logger.getLogger(BaseFile.class.getName());
 		public BaseFile(String rootPath){this.rootPath = rootPath;}
 		protected String rootPath;
-		protected String getRequestPath(HttpExchange exchange){return exchange.getRequestURI().getPath().substring(1);}
+		protected String getRequestPath(HttpExchange exchange){
+			return exchange.getRequestURI().getPath().substring(1);
+		}
 		protected void sendFile(HttpExchange exchange, String filepath)throws IOException{
 			try{
-				LOGGER.log(Level.FINE, "Requesting" + filepath);
+				LOGGER.log(Level.FINE, "Requesting " + filepath);
 				byte[] response = FileUtils.readFile(filepath);
+				
 				ArrayList<String> mimetypes=new ArrayList<String>();
 				mimetypes.add(FileUtils.getMimeType(filepath));
-				exchange.getResponseHeaders().put("Content-type", mimetypes);
+				exchange.getResponseHeaders().put("Content-Type", mimetypes);
 				exchange.sendResponseHeaders(200, response.length);
 
 				OutputStream os = exchange.getResponseBody();
 				os.write(response);
 				os.close();
 			}catch(IOException ioe){
-				LOGGER.log(Level.SEVERE, "Failed to retrieve" + filepath);
-				exchange.sendResponseHeaders(404, 1);
-				OutputStream os=exchange.getResponseBody();
+				LOGGER.log(Level.SEVERE, "Failed to retrieve " + filepath);
+				exchange.sendResponseHeaders(404, -1);
+				OutputStream os = exchange.getResponseBody();
 				os.close();
-				System.out.println("Couldn't find the file"+ new File(filepath).getAbsolutePath());
+				System.out.println("Couldn't find the file "+ new File(filepath).getAbsolutePath());
 				}
 		}
 	}

@@ -61,6 +61,14 @@ public class BuildSettlementCommand implements ICommand {
 			}
 		}
 		System.out.println("I UPDATE THIS PLAYER "+playertoupdate.getName());
+		if(free)
+		{
+			System.out.println(" THIS IS BUILT FOR FREE!!!!");
+		}
+		else
+		{
+			System.out.println(" THIS IS NOT BUILT FOR FREE!!!!");
+		}
 		if(!free) {
 			ResourceList newlist = playertoupdate.getResources();
 			newlist.setBrick(newlist.getBrick() - 1);
@@ -68,6 +76,14 @@ public class BuildSettlementCommand implements ICommand {
 			newlist.setWheat(newlist.getWheat() - 1);
 			newlist.setWood(newlist.getWood() - 1);
 			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
+
+			//updates bank
+			ResourceList mybankslist=currentgame.mybank.getCardslist();
+			mybankslist.setBrick(mybankslist.getBrick()+1);
+			mybankslist.setWood(mybankslist.getWood()+1);
+			mybankslist.setWheat(mybankslist.getWheat()+1);
+			mybankslist.setSheep(mybankslist.getSheep()+1);
+			currentgame.mybank.setResourceCardslist(mybankslist);
 		}
 		vertex.setHassettlement(true);
 		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerIndex());

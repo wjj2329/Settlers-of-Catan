@@ -541,12 +541,13 @@ public class ServerFacade
 			{
 				if(mapa.get(elHex).getPortType() != null)
 				{
-					JSONObject port = new JSONObject();		
+					JSONObject port = new JSONObject();
+					//System.out.println("What is the resource type of the port? " + mapa.get(elHex).getPortType().name().toLowerCase());
 					port.put("resource", mapa.get(elHex).getPortType().name().toLowerCase());
 
 					JSONObject location = new JSONObject();
 					location.put("x", elHex.getX());
-					location.put("y", elHex.getY()); 
+					location.put("y", elHex.getY());
 					port.put("location", location);
 					port.put("direction", getDirFromEdgeDir(mapa.get(elHex).getPort().getDirection()));
 					port.put("ratio", mapa.get(elHex).getPort().getRatio());

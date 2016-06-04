@@ -198,7 +198,7 @@ public class MapController extends Controller implements IMapController, Observe
 		Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(idOfCurrentPlayer);
 		test=player.getPlayerIndex().getNumber();
 		//System.out.println("this is my PLayer Index  to try to test with "+test);
-		ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , true, vertLoc);
+		ModelFacade.facadeCurrentGame.getServer().buildSettlement("buildSettlement",test , insert, vertLoc);
 
 
 	}
@@ -288,7 +288,10 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(player.getResources().size());
 			myplayer.setName(player.getName());
 			myplayer.setId(player.getPlayerID().getNumber());
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+			{
 				victims.add(myplayer);
+			}
 
 		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
@@ -320,12 +323,14 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 
-	public void playSoldierCard() {
-
+	public void playSoldierCard()
+	{
+		getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
 	}
 
-	public void playRoadBuildingCard() {
-
+	public void playRoadBuildingCard()
+	{
+		startMove(PieceType.ROAD, true, true);
 	}
 
 	public void robPlayer(RobPlayerInfo victim)

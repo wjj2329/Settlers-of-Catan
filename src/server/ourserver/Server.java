@@ -109,7 +109,7 @@ public class Server
 		
 		//For dat Swagger thing 
 		server.createContext("/docs/api/view", new Handlers.BasicFile(""));
-		server.createContext("/docs/api/view", new Handlers.JSONAppender(""));
+		server.createContext("/docs/api/data", new Handlers.JSONAppender(""));
 		
 		System.out.println(" LUGAR" + this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath());
 		

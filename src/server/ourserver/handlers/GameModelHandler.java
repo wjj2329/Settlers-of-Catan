@@ -43,13 +43,14 @@ public class GameModelHandler implements HttpHandler {
     	JSONObject model = ServerFacade.getInstance().getGameModel(gameID);
         
         if(model == null){
-            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             String response = "Could not get Game model.";
             httpExchange.getResponseBody().write(response.getBytes());
+            httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
             httpExchange.close();
             //System.out.println("Well this is embarrasing there was a problem");
             return;
         }
+        httpExchange.getResponseHeaders().add("Content-type", "application/json");
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         httpExchange.getResponseBody().write(model.toString().getBytes());
        // System.out.println("YO IT'S DONE!");

@@ -110,14 +110,16 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		
 		this.messageView = messageView;
 	}
-	
+
+    //boolean startgame=true;
 	private synchronized void refreshGameList()
 	{
-
+        ModelFacade.facadeCurrentGame.loadGames();
         ArrayList<CatanGame> gamesList = ModelFacade.facadeCurrentGame.getModel().listGames();
 
         if (gamesList == null || ModelFacade.facadeCurrentGame.getLocalPlayer() == null)
         {
+            System.out.println("I RETURN NULL AND DIE");
             return;
         }
         
@@ -145,10 +147,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             }
             idx++;   
         }
+
         if(currentGame != null)
         {
+            System.out.println("I COME HERE TO DIE");
             startJoinGame(currentGame);
         }
+
         
         if(Arrays.equals(games, lastList))
         {
@@ -217,6 +222,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             @Override
             public void run()
             {
+
                 refreshGameList();
             }
         };
@@ -337,13 +343,14 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         {
             getSelectColorView().showModal();
         }
-	}
+        //startgame=true;
+
+    }
     
 	@Override
 	public void cancelJoinGame() 
 	{
-	
-		getJoinGameView().closeModal();
+        getJoinGameView().showModal();
 	}
 
 	@Override
@@ -416,7 +423,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             {
                 getSelectColorView().closeModal();
             }
-        }		
+        }
+
 	}
 
 }

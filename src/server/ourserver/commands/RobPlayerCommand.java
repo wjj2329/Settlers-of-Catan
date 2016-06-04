@@ -2,9 +2,12 @@ package server.ourserver.commands;
 
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import shared.chat.GameHistoryLine;
+import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
+import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.HexLocation;
 
@@ -120,6 +123,23 @@ public class RobPlayerCommand implements ICommand {
 		System.out.println("I rob a player at"+location.toString());
 		currentgame.myrobber.setLocation(location);
 		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerRobbing)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		Player nothing=new Player("No One ", CatanColor.BLUE,new Index(playerbeingrobbed));
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerbeingrobbed)
+			{
+				nothing=currentgame.getMyplayers().get(myind);
+			}
+		}
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " Robs "+nothing.getName(),playertoupdate.getName()));
 
 	}
 
