@@ -615,11 +615,8 @@ public class ModelFacade extends Observable
 		mytradeoffer.setSender(tradeOffer.getInt("sender"));
 		mytradeoffer.setReceiver(tradeOffer.getInt("receiver"));
 		JSONObject offer = tradeOffer.getJSONObject("offer");
-		mytradeoffer.getMylist().setBrick(offer.getInt("brick"));
-		mytradeoffer.getMylist().setSheep(offer.getInt("sheep"));
-		mytradeoffer.getMylist().setOre(offer.getInt("ore"));
-		mytradeoffer.getMylist().setWheat(offer.getInt("wheat"));
-		mytradeoffer.getMylist().setWood(offer.getInt("wood"));
+		mytradeoffer.setMylist(new ResourceList(offer.getInt("brick"), offer.getInt("ore"), 
+				offer.getInt("sheep"), offer.getInt("wheat"), offer.getInt("wood")));
 		currentgame.setMytradeoffer(mytradeoffer);
 	}
 
