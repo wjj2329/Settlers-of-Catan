@@ -51,7 +51,7 @@ public class GamesJoinHandler implements HttpHandler
     {
     	String cookie = exchange.getRequestHeaders().getFirst("Cookie");
     	int userID = Integer.parseInt(cookie.substring(cookie.indexOf("playerID")+14, cookie.length()-3));
-    	
+		System.out.println( "This is the cookie: " +  cookie);    	
 		JSONObject data = null;
 		try
 		{
@@ -63,6 +63,11 @@ public class GamesJoinHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Actually put the right data to join.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
 		}
 		//System.out.println("This is our JSON Object: " + data.toString());
 		Player newPlayer = null;
@@ -78,6 +83,7 @@ public class GamesJoinHandler implements HttpHandler
 			if (!success)
 			{
 				//System.out.println("I FAIL TO JOIN THE GAME");
+				exchange.getResponseHeaders().add("Content-type", "text/html");
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write("Failed to join".getBytes());
 				data.append("FAILURE", exchange.getResponseBody());
@@ -93,6 +99,7 @@ public class GamesJoinHandler implements HttpHandler
 			
 			//How you add a response: send response headers first then getresponsebody.write, you need to put something
 			//in order for the clientcommunicator to work. 
+			exchange.getResponseHeaders().add("Content-type", "text/html");
 			String response = "Success!";
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 			exchange.getResponseBody().write(response.getBytes());
@@ -102,6 +109,17 @@ public class GamesJoinHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "So you are missing some data fields. Don't really want to join huh?";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
 		}
+		
+		exchange.getResponseHeaders().add("Content-type", "text/html");
+		String response = "You are missing cookies. I like the girl scout kind.";
+		exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+		exchange.getResponseBody().write(response.getBytes());
+		exchange.close();
     }
 }

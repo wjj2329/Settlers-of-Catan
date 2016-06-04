@@ -37,6 +37,11 @@ public class MovesSendChatHandler implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "You gotta give me something to work with to send chat.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -44,10 +49,16 @@ public class MovesSendChatHandler implements HttpHandler {
             message=data.getString("content");
         } catch (JSONException e) {
             e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "So you are missing some info to send chat.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().sendChat(message,playerindex,gameID);
-        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+		exchange.getResponseHeaders().add("Content-type", "text/html");
+        String response = "SSSucccccesssssssssssssss (a snake said it)";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();

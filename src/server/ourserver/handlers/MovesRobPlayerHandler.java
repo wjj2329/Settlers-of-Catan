@@ -48,6 +48,11 @@ public class MovesRobPlayerHandler implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "You gotta give me something to work with to rob.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try
         {
@@ -59,10 +64,16 @@ public class MovesRobPlayerHandler implements HttpHandler {
             y=myobject.getInt("y");
         } catch (JSONException e) {
             e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Looks like your are missing something.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().robPlayer(new HexLocation(x,y),playerindex,victimindex,gameID);
-        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+		exchange.getResponseHeaders().add("Content-type", "text/html");
+        String response = "You seem to have robbed a player.";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
