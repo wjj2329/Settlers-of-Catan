@@ -262,16 +262,23 @@ public class ServerFacade
 	 * Go through array of registered users, to see if it finds something with the same
 	 * 	username and password.
 	 */
-	public Player logIn(Player player)
+	public Player logIn(String username, String password)
 	{
 		for (Player p : allRegisteredUsers)
+		{
+			if (p.getName().equals(username) && p.getPassword().equals(password))
+			{
+				return p;
+			}
+		}
+		/*for (Player p : allRegisteredUsers)
 		{
 			if (p.equals(player))
 			{
 				p.setPlayerID(player.getPlayerID());
 				return p;
 			}
-		}
+		}*/
 		return null;
 	}
 
@@ -283,7 +290,15 @@ public class ServerFacade
 	public void register(String username, String password)
 	{
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
-		p.setPlayerID(new Index(NEXT_USER_ID++));
+		for (Player p2 : allRegisteredUsers)
+		{
+			if (p2.getPlayerID().getNumber() == NEXT_USER_ID)
+			{
+				NEXT_USER_ID++;
+			}
+		}
+		p.setPlayerID(new Index(NEXT_USER_ID));
+		NEXT_USER_ID++;
 		p.setPassword(password);
 		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
@@ -465,6 +480,13 @@ public class ServerFacade
 		return false;		
 	}
 
+	private int getOwnerIndexFromPlayerID(int playerID)
+	{
+		//for (Player p :  game.getMymap().)
+
+		return -1;
+	}
+
 	/**
 	 * Gets the game model.
 	 */
@@ -595,6 +617,7 @@ public class ServerFacade
 						//System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
 						//System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
 						JSONObject settlement = new JSONObject();
+						//System.out.println("The owner's playerIndex (or is it playerID?) is " + colonia.getOwner().getNumber());
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();
 						location.put("x", elHex.getX());
@@ -983,7 +1006,6 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
-	 * @param : player who is playing card
      */
 	public void playSoldier(int playerid, int gameid)
 	{
@@ -1019,7 +1041,6 @@ public class ServerFacade
 
 	/**
 	 * Plays a monument card
-	 * @param playerIndex: player who is playing card
      */
 	public void playMonument(int playerid, int gameid)
 	{
