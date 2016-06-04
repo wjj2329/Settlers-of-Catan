@@ -473,19 +473,16 @@ public class ModelFacade extends Observable
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			try {
 				h.buildSettlement(mylocation,playerid);
+				//h.buildSettlement(mylocation, playerindex); // did this instead
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 			//currentgame.getMymap().getSettlements().add(settle1);
 			settle1.setOwner(playerid);
+			//settle1.setOwner(playerindex); // this will probably break as we are using this for other things.
 			//mylocation.setSettlement(settle1);
-			System.out.println("MY PLAYER ID IS THIS "+playerid);
+			System.out.println("MY PLAYER ID IS THIS "+playerid.getNumber());
 			currentgame.getMyplayers().get(playerid).addToSettlements(settle1);
-			/*if (getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND && currentgame.getMyplayers().get(myindex).getSettlements().size() == 1)
-			{
-				settle1.setCanBuildFromMeInRound2(false);
-			}*/
-			//System.out.println("Is this ever set to false? " + settle1.canBuildFromMeInRound2());
 			currentgame.getMymap().getSettlements().add(settle1);
 			mylocation.setSettlement(settle1);
 			//vertexLocationOnHex(mylocation, h);
@@ -508,10 +505,10 @@ public class ModelFacade extends Observable
 			currentgame.getMymap().getCities().add(city1);
 			Index owner2 = null;
 			Index playerIndex = new Index(obj.getInt("owner"));
-			System.out.println("I AM GRABBING THIS INDEX TO CHECK THORUGH MY PLAYERS"+playerIndex.getNumber());
+			//System.out.println("I AM GRABBING THIS INDEX TO CHECK THORUGH MY PLAYERS"+playerIndex.getNumber());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				System.out.println("I COMPARE THIS "+p.getPlayerIndex().getNumber()+" WITH THIS "+playerIndex.getNumber());
+				//System.out.println("I COMPARE THIS "+p.getPlayerIndex().getNumber()+" WITH THIS "+playerIndex.getNumber());
 				if (p.getPlayerIndex().getNumber()==playerIndex.getNumber())
 				{
 					owner2 = p.getPlayerID();
@@ -522,7 +519,6 @@ public class ModelFacade extends Observable
 			vertexLoc.setCity(city1);
 			System.out.println("I AM THE OWNER "+owner2.getNumber());
 			currentgame.getMyplayers().get(owner2).addToCities(city1);
-			// Alex you need to do something that's not this or maybe inialize it or something
 		}
 		currentgame.getMymap().setRadius(map.getInt("radius"));
 		JSONObject robber = map.getJSONObject("robber");

@@ -1,17 +1,17 @@
 package client.maritime;
 
 import client.State.State;
+import client.main.Catan;
 import client.model.ModelFacade;
 import shared.definitions.*;
 import client.base.*;
 import shared.game.CatanGame;
+import shared.game.map.Hex.Hex;
+import shared.game.map.Index;
 import shared.game.map.Port;
 import shared.game.map.vertexobject.Settlement;
 import shared.game.player.Player;
-import shared.locations.EdgeDirection;
-import shared.locations.EdgeLocation;
-import shared.locations.VertexDirection;
-import shared.locations.VertexLocation;
+import shared.locations.*;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -255,7 +255,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private void setResourceAmount(Port port) // The problem with 2:1 still exists
 	{
-		System.out.println("The port type is: " + portToString(port.getType()));
+		//System.out.println("The port type is: " + portToString(port.getType()));
 		//System.out.println("Do I ever get here? Setting resource amount with trade ratio of..." + defaultTradeRatio); // no
 		switch (port.getType())
 		{
@@ -313,6 +313,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				return "ore";
 			case WHEAT:
 				return "wheat";
+			case THREE:
+				return "three";
 			default:
 				return null;
 		}
@@ -327,24 +329,127 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
      */
 	private boolean isSettlementOnPort(Settlement settlement, Port port)
 	{
-		System.out.println("calling isSettlementOnPort");
-		System.out.println("I am comparing the settlement location " + settlement.getHexLocation().getNeighborLoc
-				(port.getDirection().getOppositeDirection()).toString()
-			+ " with the hex location " + port.getLocation().toString());
-		System.out.println("Port's direction is " + port.getDirection().toString() + " and opposite is " + port.getDirection().getOppositeDirection().toString());
-		// The locations are never equal...Now they are! It's the second one that will have issues now...
-		if (settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).equals(port.getLocation()))
+		/*System.out.println("The player ID of whoever owns this settlement: " + settlement.getOwner().getNumber());
+		System.out.println("The settlement's hex location: " + settlement.getHexLocation().toString());
+		System.out.println("The direction of the settlement: " + settlement.getVertexLocation().getDir());
+		System.out.println("The neighboring hex's location: " +
+				settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).toString());*/
+		/*if (cur.getPort() != null)
 		{
-			System.out.println("Hex locations are the same for port and settlement's adjacent hex");
+			System.out.println("The neighboring hex has a port.");
+		}
+		else
+		{
+			System.out.println("no port");
+		}*/
+		//System.out.println("Does the neighboring hex have a port on it? " + (cur.getPort() != null));
+		//System.out.println("What is the neighboring hex's type? " + cur.getResourcetype().toString());
+		// these two are null pointer exceptions -_-
+		/*System.out.println("The port's direction: " + port.getDirection().toString());
+		System.out.println("The port's opposite direction: " + port.getDirection().getOppositeDirection());
+		System.out.println("The PORT'S location is " + port.getLocation().toString() + ", with a type of " +
+				port.getType().toString());*/
+		// Will this make it come true too often?
+		if (settlement.getHexLocation().getNeighborLoc(port.getDirection().getOppositeDirection()).equals(port.getLocation())
+				|| settlement.getHexLocation().equals(port.getLocation()) || nearbyHexCase(port, settlement.getOwner()))
+		{
+			//System.out.println("Hex locations are the same for port and settlement's adjacent hex");
 			// Then we need to check the edge direction / vertex location
-			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection().getOppositeDirection()))
+			if (isVertexOnPortLocation(settlement.getVertexLocation(), port.getDirection().getOppositeDirection())
+					|| nearbyHexCase(port, settlement.getOwner())) // you HAVE to test this twice
 			{
-				System.out.println("CORRECT! The vertex is on the port location ");
+				//System.out.println("CORRECT! The vertex is on the port location ");
 				return true;
 			}
 		}
 		//System.out.println("Vertex is not on the port location :( ");
 		return false;
+	}
+
+	private boolean nearbyHexCase(Port port, Index owner)
+	{
+		HexLocation portLocation = port.getLocation();
+		EdgeDirection e = port.getDirection();
+		Hex correspondingHex = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes().get(portLocation);
+		Hex nearby1;
+		Hex nearby2;
+		switch (e)
+		{
+			case SouthEast:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.South);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.NorthEast);
+				if ((nearby1.hasSettlement(VertexDirection.NorthEast) &&
+						nearby1.getSettlement(VertexDirection.NorthEast).getOwner().equals(owner))
+						|| nearby2.hasSettlement(VertexDirection.SouthWest) && nearby2.getSettlement(VertexDirection.
+							SouthWest).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			case South:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.SouthEast);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.SouthWest);
+				if ((nearby1.hasSettlement(VertexDirection.West) && nearby1.getSettlement(VertexDirection.West).getOwner()
+						.equals(owner)) || nearby2.hasSettlement(VertexDirection.East) &&
+						nearby2.getSettlement(VertexDirection.East).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			case SouthWest:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.NorthWest);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.South);
+				if ((nearby1.hasSettlement(VertexDirection.SouthEast) &&
+						nearby1.getSettlement(VertexDirection.SouthEast).getOwner()
+						.equals(owner)) || nearby2.hasSettlement(VertexDirection.NorthWest) &&
+						nearby2.getSettlement(VertexDirection.NorthWest).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			case NorthWest:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.North);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.SouthWest);
+				if ((nearby1.hasSettlement(VertexDirection.SouthWest) &&
+						nearby1.getSettlement(VertexDirection.SouthWest).getOwner()
+						.equals(owner)) || nearby2.hasSettlement(VertexDirection.NorthEast) &&
+						nearby2.getSettlement(VertexDirection.NorthEast).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			case North:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.NorthWest);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.NorthEast);
+				if ((nearby1.hasSettlement(VertexDirection.East) &&
+						nearby1.getSettlement(VertexDirection.East).getOwner()
+								.equals(owner)) || nearby2.hasSettlement(VertexDirection.West) &&
+						nearby2.getSettlement(VertexDirection.West).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			case NorthEast:
+				nearby1 = getNearbyHex(correspondingHex, EdgeDirection.North);
+				nearby2 = getNearbyHex(correspondingHex, EdgeDirection.SouthEast);
+				if ((nearby1.hasSettlement(VertexDirection.SouthEast) &&
+						nearby1.getSettlement(VertexDirection.SouthEast).getOwner()
+								.equals(owner)) || nearby2.hasSettlement(VertexDirection.NorthWest) &&
+						nearby2.getSettlement(VertexDirection.NorthWest).getOwner().equals(owner))
+				{
+					return true;
+				}
+				break;
+			default:
+				break;
+		}
+		return false;
+	}
+
+	private Hex getNearbyHex(Hex baseHex, EdgeDirection whichNeighbor)
+	{
+		return ModelFacade.facadeCurrentGame.currentgame.getMymap().
+				getHexes().get(baseHex.getLocation().getNeighborLoc(whichNeighbor));
 	}
 
 	private void placePorts()
@@ -356,16 +461,16 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		{
 			ArrayList<Settlement> settlementsForPlayer =
 					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getSettlements();
-			System.out.println("This is how many settlements " +
-					ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName() + " has: " + settlementsForPlayer.size());
-			System.out.println("This is how many ports are on the board: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getPorts().size());
+			//S/*ystem.out.println("This is how many settlements " +
+					//ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getName() + " has: " + settlementsForPlayer.size());
+			//System.out.println("This is how many ports are on the board: " + ModelFacade.facadeCurrentGame.currentgame.getMymap().getPorts().size());*/
 			for (int p = 0; p < settlementsForPlayer.size(); p++)
 			{
 				Settlement currentSettlement = settlementsForPlayer.get(p);
 				for (int q = 0; q < allPortsOnGameBoard.size(); q++)
 				{
 					Port currentPort = allPortsOnGameBoard.get(q);
-					System.out.println("There is a port with type " + currentPort.getType().name());
+					//System.out.println("There is a port with type " + currentPort.getType().name());
 					if (/*currentPort.getType().equals(PortType.THREE) ||*/ // no...
 							isSettlementOnPort(currentSettlement, currentPort))
 					{
@@ -386,7 +491,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	 * 		on adjacent hex locations.
 	 *
 	 * @param vertex: the vertex on which the settlement lies
-	 * @param edge: the edge on which the port is
+	 * @param edge: the edge OPPOSITE OF the edge on which the port is
      */
 	private boolean isVertexOnPortLocation(VertexLocation vertex, EdgeDirection edge)
 	{

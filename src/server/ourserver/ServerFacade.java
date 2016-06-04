@@ -465,6 +465,13 @@ public class ServerFacade
 		return false;		
 	}
 
+	private int getOwnerIndexFromPlayerID(int playerID)
+	{
+		//for (Player p :  game.getMymap().)
+
+		return -1;
+	}
+
 	/**
 	 * Gets the game model.
 	 */
@@ -595,6 +602,7 @@ public class ServerFacade
 						//System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
 						//System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
 						JSONObject settlement = new JSONObject();
+						System.out.println("The owner's playerIndex (or is it playerID?) is " + colonia.getOwner().getNumber());
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();
 						location.put("x", elHex.getX());
