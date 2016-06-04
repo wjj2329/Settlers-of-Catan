@@ -898,6 +898,10 @@ public class Player implements Comparable<Player>
      */
 	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
 	{
+		if(adjacent==null)
+		{
+			return null;
+		}
 		switch (original.getDir())
 		{
 			case NorthWest:
