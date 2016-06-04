@@ -920,6 +920,7 @@ public class ServerFacade
 		}
 		
 		//Update the player with the new card
+		System.out.println("I MAKE IT THIS FAR TO BUY A NEW CARD");
 		switch(buyresult)
 		{
 		case "soldier":
@@ -1034,9 +1035,10 @@ public class ServerFacade
 	 * Plays a monopoly card
 	 * @param playerIndex: player who is playing card
      */
-	public void playMonopoly(int playerIndex)
+	private PlayMonopolyCommand mymonopoly=new PlayMonopolyCommand();
+	public void playMonopoly(int playerIndex, int gameid, String resource)
 	{
-
+		mymonopoly.playthemonopolycard(playerIndex,gameid, resource);
 	}
 
 	/**
