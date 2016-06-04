@@ -290,17 +290,18 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		}
 		ResourceList list = new ResourceList(tradeBrick, tradeOre, tradeSheep, tradeGrain, tradeWood);
 		//System.out.println(list.toString());
+		System.out.println("THE TRADE OFFER: " +  list.toString());
 		ServerResponse response=ModelFacade.facadeCurrentGame.getServer().offerTrade("offerTrade",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),list,tradeWithPlayer);
 		//System.out.println("MY response from the server when sending offer is this "+response);
 
 	if(response.getResponseCode() == HttpURLConnection.HTTP_OK) {
 		getTradeOverlay().closeModal();
 		getWaitOverlay().showModal();
-		try {
-			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response.getResponse()));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			//ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(response.getResponse()));
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		}
 
 
 	}
