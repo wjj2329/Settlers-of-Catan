@@ -65,6 +65,7 @@ public class MovesBuildSettlementHandler implements HttpHandler
         String direction=null;
         boolean freebe=false;
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -74,6 +75,10 @@ public class MovesBuildSettlementHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna build a settlement.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -85,6 +90,10 @@ public class MovesBuildSettlementHandler implements HttpHandler
             direction=myobject.getString("direction");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to build settlements.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         //System.out.println("I MY Settlement handler I get a Hex location of "+x+y+" my direction is "+direction);
         ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe,gameID);

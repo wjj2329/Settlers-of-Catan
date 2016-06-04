@@ -64,6 +64,7 @@ public class MovesBuildRoadHandler implements HttpHandler
         String direction=null;
         JSONObject data = null;
         boolean freebe=false;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -73,6 +74,10 @@ public class MovesBuildRoadHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna build a road.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -84,6 +89,10 @@ public class MovesBuildRoadHandler implements HttpHandler
             freebe=data.getBoolean("free");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to build roads.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().buildRoad(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe,gameID);

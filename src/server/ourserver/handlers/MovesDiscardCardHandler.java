@@ -40,6 +40,7 @@ public class MovesDiscardCardHandler implements HttpHandler {
         int wood=-1000000;
         int ore=-100000;
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -49,6 +50,10 @@ public class MovesDiscardCardHandler implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with if you wanna discard cards.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try {
 
@@ -61,6 +66,10 @@ public class MovesDiscardCardHandler implements HttpHandler {
             sheep=myobject.getInt("sheep");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to discard cards.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().discardCards(playerindex, new ResourceList( brick, ore, sheep, wheat, wood),gameID);
