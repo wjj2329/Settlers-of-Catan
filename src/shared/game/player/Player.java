@@ -982,6 +982,10 @@ public class Player implements Comparable<Player>
      */
 	private EdgeLocation getUpEdge(EdgeLocation edgeIAmTryingToPlaceRoadOn, Hex hex1)
 	{
+		if(hex1==null||edgeIAmTryingToPlaceRoadOn==null)
+		{
+			return null;
+		}
 		switch (edgeIAmTryingToPlaceRoadOn.getDir())
 		{
 			case NorthWest:

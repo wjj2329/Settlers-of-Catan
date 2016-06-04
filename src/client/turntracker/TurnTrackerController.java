@@ -94,7 +94,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 				{
 					System.out.println("I 'm not null and I compare "+player.getName()+" with "+localplayer.getName() );
 
-					if(player.getName().equals(localplayer.getName()))
+					if(player.getName().toUpperCase().equals(localplayer.getName().toUpperCase()))
 					{
 						getView().setLocalPlayerColor(player.getColor());
 						localplayer = player;
