@@ -67,6 +67,13 @@ public class LoginUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+
+	        exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Why do you give me empty data?";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
+			return;
 		}
 		System.out.println("This is our JSON Object: " + data.toString());
 		LoginParam loginParam = null;
@@ -125,6 +132,12 @@ public class LoginUserHandler implements HttpHandler
 		catch (JSONException e)
 		{
 			e.printStackTrace();
+			exchange.getResponseHeaders().add("Content-type", "text/html");
+			String response = "Information is missing. Rethink your life decisions.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
+			return;
 		}
 	}	
 }

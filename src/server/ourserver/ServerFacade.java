@@ -750,6 +750,8 @@ public class ServerFacade
 			model.put("turnTracker", turnTracker);
 			//System.out.println("THE MODEL SO FAR WIT TURNTRACKER " + model.toString());
 			
+			
+			updateWinner(game);
 			model.put("version", game.getModel().getVersion());
 			model.put("winner", game.getWinner().getNumber());
 
@@ -762,6 +764,15 @@ public class ServerFacade
 			System.out.println(e.toString());
 		}
 		return null;
+	}
+	
+	public void updateWinner(CatanGame game){
+		Map<Index, Player> players = game.getMyplayers();
+		for(Index index : players.keySet()){
+			if(players.get(index).getNumVictoryPoints() >= 10){
+				game.setWinner(index);
+			}
+		}
 	}
 
 	public String getDirFromEdgeDir(EdgeDirection direction){
