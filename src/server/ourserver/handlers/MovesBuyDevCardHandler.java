@@ -32,7 +32,7 @@ public class MovesBuyDevCardHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
-    	System.out.println("NOW BUYING DEV CARD IN HANDLER");
+    	//System.out.println("NOW BUYING DEV CARD IN HANDLER");
     	String cookie = exchange.getRequestHeaders().getFirst("Cookie");
     	int playerid = 9999;
     	int gameid = Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
@@ -47,7 +47,7 @@ public class MovesBuyDevCardHandler implements HttpHandler
         }
         catch (JSONException e)
         {
-        	System.out.println("Ah balls, something happened");
+        	//System.out.println("Ah balls, something happened");
             e.printStackTrace();
         }
         try 
@@ -57,11 +57,11 @@ public class MovesBuyDevCardHandler implements HttpHandler
             e.printStackTrace();
         }
         
-        System.out.println("playerid: " + playerid + "\ngameid: " + gameid);
+        //System.out.println("playerid: " + playerid + "\ngameid: " + gameid);
         BuyDevCardCommand buyCommand = new BuyDevCardCommand(playerid, gameid);
         buyCommand.execute();
         
-        System.out.println("Success!");
+        //System.out.println("Success!");
 		String response = "Success!";
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 		exchange.getResponseBody().write(response.getBytes());

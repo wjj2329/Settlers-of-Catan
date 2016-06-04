@@ -13,6 +13,8 @@ import shared.game.player.Player;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
+import java.util.Set;
+
 import static client.model.ModelFacade.facadeCurrentGame;
 
 /**
@@ -92,7 +94,7 @@ public class BuildRoadCommand implements ICommand {
 	private static int turnstogo=1;
 	public void buildRoadincommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
+		//System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Index playerID = null;
@@ -113,7 +115,7 @@ public class BuildRoadCommand implements ICommand {
 		}
 		if(!free)
 		{
-			System.out.println("THIS ISN'T FREE");
+			//System.out.println("THIS ISN'T FREE");
 			ResourceList newlist = playertoupdate.getResources();
 			newlist.setBrick(newlist.getBrick() - 1);
 			newlist.setWood(newlist.getWood() - 1);
@@ -135,23 +137,22 @@ public class BuildRoadCommand implements ICommand {
 		edge.setHasRoad(true);
 		adjLoc.setRoadPiece(r2);
 		adjLoc.setHasRoad(true);
-		System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
+		//System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
 		playertoupdate.addToRoadPieces(r1);
-		System.out.println("MY PLAYER NOW HAS "+playertoupdate.getRoadPieces().size()+"Number of roads");
+		//System.out.println("MY PLAYER NOW HAS "+playertoupdate.getRoadPieces().size()+"Number of roads");
 		playertoupdate.setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
-		System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
+		//System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Road",playertoupdate.getName()));
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			turnstogo++;
-			System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
+			//System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
 		}
 		if(turnstogo==5)
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
 			turnstogo++;
 		}
-
 		if(playertoupdate.getRoadPieces().size()>=5)
 		{
 			Index playerindexcurrentlywithlongestroad=currentgame.getModel().getTurntracker().getLongestRoad();

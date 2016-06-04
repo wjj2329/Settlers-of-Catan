@@ -34,7 +34,7 @@ public class OfferTradeCommand implements ICommand {
 		mytradeoffer.setMylist(offer);
 		mytradeoffer.setReceiver(receiver);
 		mytradeoffer.setSender(playerIndex);
-		System.out.println(offer.toString());
+		//System.out.println(offer.toString());
 		game.setMytradeoffer(mytradeoffer);
 		game.getModel().setVersion(game.getModel().getVersion()+1);
 		

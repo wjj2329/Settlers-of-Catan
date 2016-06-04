@@ -458,11 +458,11 @@ public class ModelFacade extends Observable
 				dir);
 			mylocation.setHassettlement(true);
 			Index playerindex=new Index(obj.getInt("owner"));
-			System.out.println("MY PLAYER INDEX FROM THE JSON IS THIS" +playerindex.getNumber());
+			//System.out.println("MY PLAYER INDEX FROM THE JSON IS THIS" +playerindex.getNumber());
 			Index playerid = null;
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				System.out.println("I COMPARE "+p.getPlayerIndex().getNumber()+" with this "+playerindex.getNumber());
+				//System.out.println("I COMPARE "+p.getPlayerIndex().getNumber()+" with this "+playerindex.getNumber());
 				if (p.getPlayerIndex().equals(playerindex))
 				{
 					playerid = p.getPlayerID();
@@ -479,7 +479,7 @@ public class ModelFacade extends Observable
 			//currentgame.getMymap().getSettlements().add(settle1);
 			settle1.setOwner(playerid);
 			//mylocation.setSettlement(settle1);
-			System.out.println("MY PLAYER ID IS THIS "+playerid);
+			//System.out.println("MY PLAYER ID IS THIS "+playerid);
 			currentgame.getMyplayers().get(playerid).addToSettlements(settle1);
 			/*if (getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND && currentgame.getMyplayers().get(myindex).getSettlements().size() == 1)
 			{
@@ -508,10 +508,10 @@ public class ModelFacade extends Observable
 			currentgame.getMymap().getCities().add(city1);
 			Index owner2 = null;
 			Index playerIndex = new Index(obj.getInt("owner"));
-			System.out.println("I AM GRABBING THIS INDEX TO CHECK THORUGH MY PLAYERS"+playerIndex.getNumber());
+			//System.out.println("I AM GRABBING THIS INDEX TO CHECK THORUGH MY PLAYERS"+playerIndex.getNumber());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
-				System.out.println("I COMPARE THIS "+p.getPlayerIndex().getNumber()+" WITH THIS "+playerIndex.getNumber());
+				//System.out.println("I COMPARE THIS "+p.getPlayerIndex().getNumber()+" WITH THIS "+playerIndex.getNumber());
 				if (p.getPlayerIndex().getNumber()==playerIndex.getNumber())
 				{
 					owner2 = p.getPlayerID();
@@ -520,7 +520,7 @@ public class ModelFacade extends Observable
 			assert (owner2 != null);
 			city1.setOwner(owner2);
 			vertexLoc.setCity(city1);
-			System.out.println("I AM THE OWNER "+owner2.getNumber());
+			//System.out.println("I AM THE OWNER "+owner2.getNumber());
 			currentgame.getMyplayers().get(owner2).addToCities(city1);
 			// Alex you need to do something that's not this or maybe inialize it or something
 		}
@@ -599,7 +599,7 @@ public class ModelFacade extends Observable
 				//currentgame.addPlayer(newPlayer);
 				if (newPlayer.getName().equals(localplayer.getName()))
 				{
-					System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
+					//System.out.println("THIS IS THE LOCAL PLAYER: " + localplayer.getName());
 					localplayer = newPlayer;
 				}
 			}

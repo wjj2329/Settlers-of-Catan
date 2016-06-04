@@ -47,8 +47,8 @@ public class RegisterUserHandler implements HttpHandler
 	@Override
 	public void handle(HttpExchange exchange) throws IOException
 	{
-		System.out.println("I begin handling loginUser");
-		System.out.println("Exchange: " + exchange.getRequestBody().toString());
+		//System.out.println("I begin handling loginUser");
+		//System.out.println("Exchange: " + exchange.getRequestBody().toString());
 		JSONObject data = null;
 		try
 		{
@@ -62,7 +62,7 @@ public class RegisterUserHandler implements HttpHandler
 		{
 			e.printStackTrace();
 		}
-		System.out.println("This is our JSON Object: " + data.toString());
+		//System.out.println("This is our JSON Object: " + data.toString());
 		LoginParam loginParam = null;
 		Player newPlayer = null;
 		String username;
@@ -82,13 +82,13 @@ public class RegisterUserHandler implements HttpHandler
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write(response.getBytes());
 				// serialize with FAILED message
-				System.out.println("User does not exist!");
+				//System.out.println("User does not exist!");
 				data.append("FAILURE", exchange.getResponseBody());
 				exchange.close();
 				return;
 			}
-			System.out.println("User exists!");
-			System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
+			//System.out.println("User exists!");
+			//System.out.println("In my Login User thing the username is "+username+" my Password is "+password);
 			String userCookie = "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + newPlayer.getPlayerID().getNumber() + "%7D;Path=/;";
 			// How to add cookie to response headers?

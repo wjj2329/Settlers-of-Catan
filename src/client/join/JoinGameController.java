@@ -119,7 +119,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
         if (gamesList == null || ModelFacade.facadeCurrentGame.getLocalPlayer() == null)
         {
-            System.out.println("I RETURN NULL AND DIE");
+            //System.out.println("I RETURN NULL AND DIE");
             return;
         }
         
@@ -150,7 +150,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 
         if(currentGame != null)
         {
-            System.out.println("I COME HERE TO DIE");
+            //System.out.println("I COME HERE TO DIE");
             startJoinGame(currentGame);
         }
 
@@ -165,7 +165,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
        // System.out.println("I come here and I DIE "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         if(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID()==null)
         {
-            System.out.println("ITS NULL NOOB");
+            //System.out.println("ITS NULL NOOB");
             return;
         }
         localPlayer.setId(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());

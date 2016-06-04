@@ -31,7 +31,7 @@ public class MovesRobPlayerHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
-        System.out.println("I GO TO THE ROB PLAYER HAANDLER");
+        //System.out.println("I GO TO THE ROB PLAYER HAANDLER");
         int playerindex=-10;
         int victimindex=-10;
         int x=-100000;

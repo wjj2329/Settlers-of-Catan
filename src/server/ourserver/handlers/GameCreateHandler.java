@@ -30,7 +30,7 @@ public class GameCreateHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
-        System.out.println("Exchange for Game create handler is now coming alive" + exchange.getRequestBody().toString());
+        //System.out.println("Exchange for Game create handler is now coming alive" + exchange.getRequestBody().toString());
         JSONObject data = null;
         String name=null;
         boolean randomHexes=false;
@@ -57,7 +57,7 @@ public class GameCreateHandler implements HttpHandler
         ServerFacade.getInstance().createGame(name,randomHexes,randomPorts,randomHexValues);
 
         String response = "Success! :D   YEA YEA YEA";
-        System.out.println("I COME HERE TO NOW SEND MY A OKAY TO GO WITH THE CREATE GAME HANDLER");
+        //System.out.println("I COME HERE TO NOW SEND MY A OKAY TO GO WITH THE CREATE GAME HANDLER");
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();

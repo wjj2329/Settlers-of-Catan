@@ -64,9 +64,9 @@ public class TestCanPlaceHex
 	{
 		Player myplayer=new Player("BOB", CatanColor.BLUE,new Index(3));
 		myplayer.setResources(new ResourceList(4,4,3,2,1));
-		System.out.println(myplayer.getResources().toString());
+		//System.out.println(myplayer.getResources().toString());
 myplayer.buildRoadPiece(new Hex(new HexLocation(7,6), null, null, null),null);
-		System.out.println(myplayer.getResources().toString());
+		//System.out.println(myplayer.getResources().toString());
 	}
 
 

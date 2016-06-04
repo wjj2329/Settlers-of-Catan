@@ -323,7 +323,7 @@ public class ServerFacade
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(games);
+		//System.out.println(games);
 		return games;
 
 	}
@@ -350,17 +350,17 @@ public class ServerFacade
 		mynewgame.setMyplayers(new HashMap<Index, Player>());
 		if(randomHexes)
 		{
-			System.out.println("I randomize the hexes");
+			//System.out.println("I randomize the hexes");
 			mynewgame.getMymap().shuffleHexes();
 		}
 		if(randomPorts)
 		{
-			System.out.println("I randomize the ports");
+			//System.out.println("I randomize the ports");
 			mynewgame.getMymap().shufflePorts();
 		}
 		if(randomHexValues)
 		{
-			System.out.println("I randomize the values");
+			//System.out.println("I randomize the values");
 			mynewgame.getMymap().shuffleNumbers();
 		}
 		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
@@ -450,7 +450,7 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
-					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable);
+					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(playerindexforit));
 					copy.setPlayerID(new Index(playeridvariable));
@@ -618,7 +618,7 @@ public class ServerFacade
 					if(cuidad.getOwner() != null)
 					{
 						JSONObject city = new JSONObject();
-						System.out.println("I INSERT IN THE SERVER FACADE A CITY WITH OWNER "+cuidad.getOwner().getNumber());
+						//System.out.println("I INSERT IN THE SERVER FACADE A CITY WITH OWNER "+cuidad.getOwner().getNumber());
 						city.put("owner", cuidad.getOwner().getNumber());
 						
 						JSONObject location = new JSONObject();
@@ -759,7 +759,7 @@ public class ServerFacade
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println(e.toString());
+			//System.out.println(e.toString());
 		}
 		return null;
 	}
@@ -803,7 +803,7 @@ public class ServerFacade
 			default:
 				break;
 		}
-		System.out.println(" I RETURN A NULL LOCATION!");
+		//System.out.println(" I RETURN A NULL LOCATION!");
 		return null;
 	}
 	

@@ -64,7 +64,7 @@ public class GamesJoinHandler implements HttpHandler
 		{
 			e.printStackTrace();
 		}
-		System.out.println("This is our JSON Object: " + data.toString());
+		//System.out.println("This is our JSON Object: " + data.toString());
 		Player newPlayer = null;
 		String username = "";
 		int gameid;
@@ -74,10 +74,10 @@ public class GamesJoinHandler implements HttpHandler
 			gameid = data.getInt("id"); //What game am I joining?
 			color = data.getString("color"); //My color
 			boolean success = ServerFacade.getInstance().joinGame(gameid,userID,color);
-			System.out.println("Joined successfully?: " + success);
+			//System.out.println("Joined successfully?: " + success);
 			if (!success)
 			{
-				System.out.println("I FAIL TO JOIN THE GAME");
+				//System.out.println("I FAIL TO JOIN THE GAME");
 				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 				exchange.getResponseBody().write("Failed to join".getBytes());
 				data.append("FAILURE", exchange.getResponseBody());
