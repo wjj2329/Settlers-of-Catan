@@ -36,6 +36,7 @@ public class MovesFinishTurnHandler implements HttpHandler
         int gameID = getGameIDfromCookie(cookie);
         int playerindex=-50;
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -45,16 +46,24 @@ public class MovesFinishTurnHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with to finish a turn.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try
         {
             playerindex=data.getInt("playerIndex");
         } catch (JSONException e) {
             e.printStackTrace();
+			String response = "So you are missing some info to finish turn.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ServerFacade.getInstance().finishTurn(playerindex,gameID);
-        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+        String response = "You managed to finish the turn. Congrats.";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         //System.out.println("I SUCCESSFULLY END THE TURN");
