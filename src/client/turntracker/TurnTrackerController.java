@@ -87,9 +87,15 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
 			
 			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
-			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) {
-				if(player != null){
-					if(player.getName().equals(localplayer.getName())){
+			System.out.println("I COME TO UPDATE THE TURN TRACKER"+" the size of the players is "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
+			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+			{
+				if(player != null)
+				{
+					System.out.println("I 'm not null and I compare "+player.getName()+" with "+localplayer.getName() );
+
+					if(player.getName().equals(localplayer.getName()))
+					{
 						getView().setLocalPlayerColor(player.getColor());
 						localplayer = player;
 						localcolorset = true; 

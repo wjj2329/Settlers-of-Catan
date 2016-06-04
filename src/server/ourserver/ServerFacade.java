@@ -983,7 +983,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
-	 * @param playerIndex: player who is playing card
+	 * @param : player who is playing card
      */
 	public void playSoldier(int playerid, int gameid)
 	{
