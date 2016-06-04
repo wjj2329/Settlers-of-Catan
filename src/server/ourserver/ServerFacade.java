@@ -290,7 +290,15 @@ public class ServerFacade
 	public void register(String username, String password)
 	{
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
-		p.setPlayerID(new Index(NEXT_USER_ID++));
+		for (Player p2 : allRegisteredUsers)
+		{
+			if (p2.getPlayerID().getNumber() == NEXT_USER_ID)
+			{
+				NEXT_USER_ID++;
+			}
+		}
+		p.setPlayerID(new Index(NEXT_USER_ID));
+		NEXT_USER_ID++;
 		p.setPassword(password);
 		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);

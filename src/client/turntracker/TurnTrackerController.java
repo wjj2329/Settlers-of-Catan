@@ -108,9 +108,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 					playersinitialized = true; 
 				}
 				for (Player jugador: players.values()) 
-				{   
+				{
 					if (jugador.getPlayerIndex().getNumber() == currentPlayer) 
-					{ 
+					{
 						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), true,
 							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));
 					}
