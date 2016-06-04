@@ -1492,4 +1492,9 @@ public class Player implements Comparable<Player>
 	{
 		return playerID.compareTo(o.getPlayerID());
 	}
+
+	public void setArmySize(int armySize)
+	{
+		this.armySize = armySize;		
+	}
 }

@@ -889,20 +889,19 @@ public class ServerFacade
 		switch(buyresult)
 		{
 		case "soldier":
-			player.getOldDevCards().setSoldier(player.getOldDevCards().getSoldier() + 1);
+			player.getNewDevCards().setSoldier(player.getNewDevCards().getSoldier() + 1);
 			break;
 		case "monument":
-			player.getNewDevCards().setMonument(player.getNewDevCards().getMonument() + 1);
-			player.setNumVictoryPoints(player.getNumVictoryPoints() + 1);
+			player.getOldDevCards().setMonument(player.getOldDevCards().getMonument() + 1);
 			break;
 		case "monopoly":
-			player.getOldDevCards().setMonopoly(player.getOldDevCards().getMonopoly() + 1);
+			player.getNewDevCards().setMonopoly(player.getNewDevCards().getMonopoly() + 1);
 			break;
 		case "roadbuilding":
-			player.getOldDevCards().setRoadBuilding(player.getOldDevCards().getRoadBuilding() + 1);
+			player.getNewDevCards().setRoadBuilding(player.getNewDevCards().getRoadBuilding() + 1);
 			break;
 		case "yearofplenty":
-			player.getOldDevCards().setYearOfPlenty(player.getOldDevCards().getYearOfPlenty() + 1);
+			player.getNewDevCards().setYearOfPlenty(player.getNewDevCards().getYearOfPlenty() + 1);
 			break;
 			default:
 				return;				
@@ -935,18 +934,67 @@ public class ServerFacade
 	 * @param hexLocation 
 	 * @param playerIndex: player who is playing card
      */
-	public void playRoadBuilding(int playerIndex, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameID)
+	int roadscounter = 1;
+	public void playRoadBuilding(int playerid, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameid)
 	{
-		//buildRoad(playerIndex, hexLocation, edgeDirectionFromString, freebe, gameID);
+		//Setup
+		playerid -= 100;
+		CatanGame currentgame = getGameByID(gameid);
+		String buyresult = currentgame.mybank.buyDevCard();		
+		Player player = null;
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerid)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
+		
+		//Call build road
+		buildRoad(playerid, hexLocation, edgeDirectionFromString, freebe, gameid);
+		
+		//Cleanup after both roads have been built 
+		if(roadscounter == 2)
+		{			
+			//Take away used card
+			player.getOldDevCards().setRoadBuilding(player.getOldDevCards().getRoadBuilding() - 1);
+			
+			//Increment game version
+			currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
+			
+			//Reset counter for next time a road building card is played
+			roadscounter = 1;
+			return;
+			
+		}
+		roadscounter++;
 	}
 
 	/**
 	 * Plays a soldier card
 	 * @param playerIndex: player who is playing card
      */
-	public void playSoldier(int playerIndex)
+	public void playSoldier(int playerid, int gameid)
 	{
+		//Setup
+		playerid -= 100;
+		CatanGame currentgame = getGameByID(gameid);
+		String buyresult = currentgame.mybank.buyDevCard();		
+		Player player = null;
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerid)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
+		
 		//robPlayer(location, playerRobbing, playerbeingrobbed, gameid);
+		
+		player.getNewDevCards().setSoldier(player.getNewDevCards().getSoldier() + 1);
+		
+		player.setArmySize(player.getArmySize());
+		
 	}
 
 	/**
@@ -962,9 +1010,27 @@ public class ServerFacade
 	 * Plays a monument card
 	 * @param playerIndex: player who is playing card
      */
-	public void playMonument(int playerIndex)
+	public void playMonument(int playerid, int gameid)
 	{
+		//Setup
+		playerid -= 100;
+		CatanGame currentgame = getGameByID(gameid);
+		String buyresult = currentgame.mybank.buyDevCard();		
+		Player player = null;
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerid)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
 
+		//Increment VP/Take away card
+		player.setNumVictoryPoints(player.getNumVictoryPoints() + 1);
+		player.getOldDevCards().setMonument(player.getOldDevCards().getMonument() + 1);
+		
+		//Increment model version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
 
 	/**

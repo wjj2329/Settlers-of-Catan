@@ -164,6 +164,7 @@ public class DevCardController extends Controller implements IDevCardController,
 	{
 		getPlayCardView().closeModal();
 		roadAction.execute();
+		roadAction.execute();
 	}
 
 	@Override
