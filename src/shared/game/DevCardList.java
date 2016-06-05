@@ -95,4 +95,13 @@ public class DevCardList
 			return false;
 		}
 	}
+
+	public void clear()
+	{
+		monopoly = 0;
+		monument = 0;
+		roadBuilding = 0;
+		soldier = 0;
+		yearOfPlenty = 0;		
+	}
 }

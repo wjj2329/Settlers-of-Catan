@@ -127,7 +127,7 @@ public class DevCardController extends Controller implements IDevCardController,
     	}
 		
     	//Set card amounts
-		if(cards.getTotalCardNum() > 0)
+		if(cards.getTotalCardNum() + newcards.getTotalCardNum() > 0)
 		{
 			getPlayCardView().setCardAmount(DevCardType.MONOPOLY, cards.getMonopoly() + newcards.getMonopoly());
 			getPlayCardView().setCardAmount(DevCardType.MONUMENT, cards.getMonument() + newcards.getMonument());
