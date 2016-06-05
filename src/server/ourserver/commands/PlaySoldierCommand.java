@@ -1,9 +1,25 @@
 package server.ourserver.commands;
 
+import server.ourserver.ServerFacade;
+import shared.locations.HexLocation;
+
 /**
  * The PlaySoldierCommand class
  */
-public class PlaySoldierCommand implements ICommand {
+public class PlaySoldierCommand implements ICommand 
+{
+	private HexLocation location;
+	private int playerRobbing;
+	private int playerBeingRobbed;
+	private int gameid;
+	
+	public PlaySoldierCommand(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
+	{
+		this.location = location;
+		this.playerRobbing = playerRobbing;
+		this.playerBeingRobbed = playerBeingRobbed;
+		this.gameid = gameid;
+	}
 
 	/**
 	 * Executes the task:
@@ -13,7 +29,7 @@ public class PlaySoldierCommand implements ICommand {
 	 */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
+		ServerFacade.getInstance().playSoldier(location, playerRobbing, playerBeingRobbed, gameid);
 		return null;
 	}
 

@@ -2,14 +2,17 @@ package server.ourserver.handlers;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import org.json.JSONException;
-import org.json.JSONObject;
-import server.ourserver.ServerFacade;
-import shared.locations.HexLocation;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.util.Scanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import server.ourserver.commands.ICommand;
+import server.ourserver.commands.PlayMonopolyCommand;
+import server.ourserver.commands.PlayYearOfPlentyCommand;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -27,17 +30,14 @@ import java.util.Scanner;
 
 public class MovesMonopolyHandler implements HttpHandler
 {
-
-    @Override
+	@Override
     public void handle(HttpExchange exchange) throws IOException
     {
-        //System.out.println("Called handle in BuildSettlementHandler");
+    	int playerindex=-10;
+        String resource = "";
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
-        int playerindex=-50;
-        String resource=null;
         JSONObject data = null;
-        exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -47,33 +47,28 @@ public class MovesMonopolyHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
-            String response = "You gotta give me something to work with if you wanna build a settlement.";
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-            exchange.getResponseBody().write(response.getBytes());
-            exchange.close();
         }
         try
         {
-
-            playerindex=data.getInt("playerIndex");
-            resource=data.getString("resource");
-        } catch (JSONException e) {
+            playerindex = data.getInt("playerIndex");
+            resource = data.getString("resource");
+        } 
+        catch (JSONException e) 
+        {
             e.printStackTrace();
-            String response = "So you are missing some info to build settlements.";
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
-            exchange.getResponseBody().write(response.getBytes());
-            exchange.close();
         }
-        //System.out.println("I MY Settlement handler I get a Hex location of "+x+y+" my direction is "+direction);
-        ServerFacade.getInstance().playMonopoly(playerindex,gameID, resource);
-        String response = "WHY DOES THIS EXIST!!!!!!!!!!";
+
+        ICommand monopolyCommand = new PlayMonopolyCommand(playerindex,resource ,gameID);
+        monopolyCommand.execute();
+        
+        String response = "Success";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());
         exchange.close();
-
     }
     public int getGameIDfromCookie(String cookie)
     {
         return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
+
     }
 }

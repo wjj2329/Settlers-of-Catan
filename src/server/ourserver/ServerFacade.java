@@ -920,7 +920,6 @@ public class ServerFacade
 		}
 		
 		//Update the player with the new card
-		System.out.println("I MAKE IT THIS FAR TO BUY A NEW CARD");
 		switch(buyresult)
 		{
 		case "soldier":
@@ -942,11 +941,16 @@ public class ServerFacade
 				return;				
 		}
 		
+		System.out.println("Card bought: " + buyresult);
+		
 		//Remove the resources needed to purchase new card
 		ResourceList resources = player.getResources();
 		resources.setOre(resources.getOre() - 1);
+		currentgame.mybank.getCardslist().setOre(currentgame.mybank.getCardslist().getOre() + 1);
 		resources.setWheat(resources.getWheat() - 1);
+		currentgame.mybank.getCardslist().setWheat(currentgame.mybank.getCardslist().getWheat() + 1);
 		resources.setSheep(resources.getSheep() - 1);
+		currentgame.mybank.getCardslist().setSheep(currentgame.mybank.getCardslist().getSheep() + 1);
 		
 		//Increment game version
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
@@ -954,11 +958,58 @@ public class ServerFacade
 
 	/**
 	 * Plays a year of plenty card
+	 * @param gameID 
+	 * @param resource2 
+	 * @param resource1 
 	 * @param playerIndex: player who is playing card
      */
-	public void playYearOfPlenty(int playerIndex)
+	public void playYearOfPlenty(int playerid, String resource1, String resource2, int gameid)
 	{
-
+		playerid -= 100;
+		CatanGame currentgame = getGameByID(gameid);
+		String buyresult = currentgame.mybank.buyDevCard();
+		
+		Player player = null;
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerid)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
+		ArrayList<String> obtaining = new ArrayList<String>();
+		obtaining.add(resource1);
+		obtaining.add(resource2);
+		
+		for (String resource : obtaining)
+		{
+			switch(resource)
+			{
+			case "wheat":
+				player.getResources().setWheat(player.getResources().getWheat() + 1);
+				break;
+			case "sheep":
+				player.getResources().setSheep(player.getResources().getSheep() + 1);
+				break;
+			case "ore":
+				player.getResources().setOre(player.getResources().getOre() + 1);
+				break;
+			case "brick":
+				player.getResources().setBrick(player.getResources().getBrick() + 1);
+				break;
+			case "wood":
+				player.getResources().setWood(player.getResources().getWood() + 1);
+				break;
+				default:
+					return;				
+			}
+		}
+		
+		//Take away used card
+		player.getOldDevCards().setYearOfPlenty(player.getOldDevCards().getYearOfPlenty() - 1);
+		
+		//Increment game version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
 
 	/**
@@ -1007,10 +1058,44 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
+	 * @param playerIndex: player who is playing card
      */
-	public void playSoldier(int playerid, int gameid)
+	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
 	{
 		//Setup
+		CatanGame currentgame = getGameByID(gameid);
+		String buyresult = currentgame.mybank.buyDevCard();		
+		Player player = null;
+		
+		robPlayer(location, playerRobbing, playerBeingRobbed, gameid);
+		
+		playerRobbing -= 100;
+		
+		for(Index myind : currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerRobbing)
+			{
+				player = currentgame.getMyplayers().get(myind);
+			}
+		}
+		
+		//Increment player's army size
+		player.setArmySize(player.getArmySize() + 1);
+		
+		//Take away used card
+		player.getOldDevCards().setSoldier(player.getOldDevCards().getSoldier() - 1);
+		
+		//Increment game version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
+		
+	}
+
+	/**
+	 * Plays a monopoly card
+	 * @param playerIndex: player who is playing card
+     */
+	public void playMonopoly(int playerid, String resource, int gameid)
+	{
 		playerid -= 100;
 		CatanGame currentgame = getGameByID(gameid);
 		String buyresult = currentgame.mybank.buyDevCard();		
@@ -1023,26 +1108,56 @@ public class ServerFacade
 			}
 		}
 		
-		//robPlayer(location, playerRobbing, playerbeingrobbed, gameid);
+		int numStealing;
+		for (Player victim : currentgame.getMyplayers().values())
+		{
+			numStealing = 0;
+			
+			if(victim.getPlayerID().getNumber() != playerid)
+			{
+				switch(resource)
+				{
+				case "wheat":
+					numStealing += victim.getResources().getWheat();
+					victim.getResources().setWheat(0);
+					player.getResources().setWheat(player.getResources().getWheat() + numStealing);
+					break;
+				case "sheep":
+					numStealing += victim.getResources().getBrick();
+					victim.getResources().setBrick(0);
+					player.getResources().setBrick(player.getResources().getBrick() + numStealing);
+					break;
+				case "ore":
+					numStealing += victim.getResources().getOre();
+					victim.getResources().setOre(0);
+					player.getResources().setOre(player.getResources().getOre() + numStealing);
+					break;
+				case "brick":
+					numStealing += victim.getResources().getBrick();
+					victim.getResources().setBrick(0);
+					player.getResources().setBrick(player.getResources().getBrick() + numStealing);
+					break;
+				case "wood":
+					numStealing += victim.getResources().getWood();
+					victim.getResources().setWood(0);
+					player.getResources().setWood(player.getResources().getWood() + numStealing);
+					break;
+					default:
+						return;				
+				}				
+			}
+		}
 		
-		player.getNewDevCards().setSoldier(player.getNewDevCards().getSoldier() + 1);
+		//Take away card
+		player.getOldDevCards().setMonopoly(player.getOldDevCards().getMonopoly() + 1);
 		
-		player.setArmySize(player.getArmySize());
-		
-	}
-
-	/**
-	 * Plays a monopoly card
-	 * @param playerIndex: player who is playing card
-     */
-	private PlayMonopolyCommand mymonopoly=new PlayMonopolyCommand();
-	public void playMonopoly(int playerIndex, int gameid, String resource)
-	{
-		mymonopoly.playthemonopolycard(playerIndex,gameid, resource);
+		//Increment model version
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
 
 	/**
 	 * Plays a monument card
+	 * @param playerIndex: player who is playing card
      */
 	public void playMonument(int playerid, int gameid)
 	{
@@ -1066,6 +1181,7 @@ public class ServerFacade
 		//Increment model version
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
 	}
+
 
 	/**
 	 * Builds a road on the map.
