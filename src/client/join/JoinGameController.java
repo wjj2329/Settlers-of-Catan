@@ -375,6 +375,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                     else
                     {
                         ModelFacade.facadeCurrentGame.getLocalPlayer().setColor(color);
+                        ModelFacade.facadeCurrentGame.getLocalPlayer().setJoinedGame(true); // hope this works
+                        //player.setColor(color);
                     }
                 }
                 break;

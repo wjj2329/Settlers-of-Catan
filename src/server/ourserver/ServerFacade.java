@@ -134,10 +134,18 @@ public class ServerFacade
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
 		defaultgame.setID(0);
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
+		Player p1 = new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID());
+		Player p2 = new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID());
+		Player p3 = new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID());
+		Player p4 = new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID());
+		defaultgame.addPlayer(p1);
+		defaultgame.addPlayer(p2);
+		defaultgame.addPlayer(p3);
+		defaultgame.addPlayer(p4);
+		p1.setJoinedGame(false);
+		p2.setJoinedGame(false);
+		p3.setJoinedGame(false);
+		p4.setJoinedGame(false);
 		
 		defaultgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
 		defaultgame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
@@ -199,6 +207,10 @@ public class ServerFacade
 		defaultgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
 		defaultgame.getModel().getTurntracker().setCurrentTurn(new Index(0), defaultgame.getMyplayers());
 		serverModel.addGame(defaultgame);
+		/*p1.setJoinedGame(false);
+		p2.setJoinedGame(false);
+		p3.setJoinedGame(false);
+		p4.setJoinedGame(false);*/
 	}
 	
 	public void loadEmptyGame(){
@@ -395,7 +407,8 @@ public class ServerFacade
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
-		{		
+		{
+			//getGameByID(gameID).getMyplayers().get(new Index(playerid)).setJoinedGame(true);
 			switch(color.toLowerCase())
 			{
 			case "red":

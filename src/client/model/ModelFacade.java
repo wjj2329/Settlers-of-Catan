@@ -591,6 +591,7 @@ public class ModelFacade extends Observable
 						resources.getInt("sheep"), resources.getInt("wheat"), resources.getInt("wood"));
 				//System.out.println("HEY SO THIS IS WHAT I GIVE MY PLAYER "+resources.toString());
 				newPlayer.setResources(mylist);
+				//newPlayer.setJoinedGame(true);
 				//System.out.println("HEY SO THIS IS WHAT MY PLAYER HAS! "+newPlayer.getResources().toString());
 				//resources(obj, newPlayer.getResources());
 				//currentgame.addPlayer(newPlayer);

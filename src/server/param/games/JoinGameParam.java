@@ -17,11 +17,11 @@ public class JoinGameParam extends Param {
 	}
 
 	/**
-	 * Comment out the userID if running ANT
+	 * User ID is not necessary here.
      */
 	@Override
 	public String getRequest() {
-		return "{id:" + gameID /*+ ", player id: " + userID*/ +
+		return "{id:" + gameID +
 				", color: \"" + color + "\"}";
 	}
 
