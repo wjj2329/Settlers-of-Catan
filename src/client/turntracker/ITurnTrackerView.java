@@ -57,5 +57,7 @@ public interface ITurnTrackerView extends IView
 	 *            Whether or not the game state button should be enabled
 	 */
 	void updateGameState(String stateMessage, boolean enable);
+
+	void updateColor(int playerIndex, CatanColor playerColor, String playerName, int points); // i added this
 }
 

@@ -81,6 +81,18 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
 		}
 	}
+
+	private boolean haveAllPlayersJoined() // not quite working.
+	{
+		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+		{
+			if (!p.hasJoinedGame())
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 	
 	@Override
 	public void update(Observable o, Object arg) {

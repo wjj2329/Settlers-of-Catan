@@ -56,7 +56,6 @@ public class ServerProxy implements IServer {
 		Param param = new LoginParam(username, password);
 		if (param.getHeaders() == null)
 		{
-			//System.out.println("poo");
 			param.addHeader("User-cookie", "catan.user=%7B%22name%22%3A%22" + username + "%22%2C%22password" +
 					"%22%3A%22" + password + "%22%2C%22playerID%22%3A" + 1 + "%7D;Path=/;");
 		}

@@ -81,6 +81,7 @@ public class Model
 	 */
 	public void joinGame(CatanColor color, int gameindex)
 	{
+		System.out.println("joining game with the color " + color.name().toLowerCase());
 		ModelFacade.facadeCurrentGame.getServer().JoinGame(gameindex, color.name().toLowerCase());
 		//gamelist.get(gameindex).addPlayer(player);
 	}
