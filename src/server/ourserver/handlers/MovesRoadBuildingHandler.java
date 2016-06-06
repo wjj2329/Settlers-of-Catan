@@ -44,6 +44,7 @@ public class MovesRoadBuildingHandler implements HttpHandler
     @Override
     public void handle(HttpExchange exchange) throws IOException
     {
+    	System.out.println("Starting road building handler");
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
         int playerindex=-50;

@@ -33,6 +33,7 @@ public class MovesMonopolyHandler implements HttpHandler
 	@Override
     public void handle(HttpExchange exchange) throws IOException
     {
+		System.out.println("Starting monopoly handler");
     	int playerindex=-10;
         String resource = "";
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
@@ -58,7 +59,7 @@ public class MovesMonopolyHandler implements HttpHandler
             e.printStackTrace();
         }
 
-        ICommand monopolyCommand = new PlayMonopolyCommand(playerindex,resource ,gameID);
+        ICommand monopolyCommand = new PlayMonopolyCommand(playerindex,resource.toLowerCase(),gameID);
         monopolyCommand.execute();
         
         String response = "Success";

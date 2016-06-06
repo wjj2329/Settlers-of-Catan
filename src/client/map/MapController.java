@@ -237,6 +237,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	}
 	HexLocation myhexloc;
+	private boolean robbing;
 	public void placeRobber(HexLocation hexLoc) {
 
 		myhexloc=hexLoc;
@@ -329,6 +330,7 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void playSoldierCard()
 	{
+		robbing = true;
 		getView().startDrop(PieceType.ROBBER,CatanColor.BROWN,true);
 	}
 
@@ -339,10 +341,16 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void robPlayer(RobPlayerInfo victim)
 	{
-		//System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");
-		ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
-
-
+		//System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");		
+		if(robbing)
+		{
+			ModelFacade.facadeCurrentGame.getServer().playSoldier("soldier",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
+			robbing = false;
+		}
+		else
+		{
+			ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
+		}
 	}
 
 	//private static boolean hasdonefirstturn=false;
