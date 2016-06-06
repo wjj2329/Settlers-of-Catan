@@ -862,10 +862,10 @@ public class ServerFacade
 	 * Sends a chat to the server and stores it there.
 	 * @param message: the chat message we are sending
      */
-	private SendChatCommand mychat=new SendChatCommand();
+
 	public void sendChat(String message, int playerindex,int gameid)
 	{
-
+		SendChatCommand mychat=new SendChatCommand();
 		mychat.sendChat(message,playerindex,gameid);
 	}
 
@@ -885,9 +885,9 @@ public class ServerFacade
 	 * @param location: Where the robber is at
      */
 
-	private RobPlayerCommand robbing=new RobPlayerCommand();
 	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
 	{
+		RobPlayerCommand robbing=new RobPlayerCommand();
 		robbing.robplayerofresources(location,playerRobbing,playerbeingrobbed, gameid);
 	}
 
@@ -896,9 +896,9 @@ public class ServerFacade
 	 * @param playerIndex: the player who is finishing the turn
 	 * @return: the index of the next player. who will become the current player.
      */
-	FinishTurnCommand endturn=new FinishTurnCommand();
 	public void  finishTurn(int playerIndex, int gameid)
 	{
+		FinishTurnCommand endturn=new FinishTurnCommand();
 		endturn.endturn(playerIndex,gameid);
 	}
 
@@ -959,10 +959,10 @@ public class ServerFacade
 
 	/**
 	 * Plays a year of plenty card
-	 * @param gameID 
+	 * @param gameid
 	 * @param resource2 
 	 * @param resource1 
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playYearOfPlenty(int playerid, String resource1, String resource2, int gameid)
 	{
@@ -1068,7 +1068,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
-	 * @param playerIndex: player who is playing card
+	 * @param playerRobbing: player who is playing card
      */
 	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
 	{
@@ -1108,7 +1108,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monopoly card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonopoly(int playerid, String resource, int gameid)
 	{
@@ -1184,7 +1184,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monument card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonument(int playerid, int gameid)
 	{
@@ -1218,9 +1218,9 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param edge: the edge it is being built on
      */
-	private BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
+		BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
 		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free, gameid);
 	}
 
@@ -1230,9 +1230,9 @@ public class ServerFacade
 	 * @param location: where it is being built (which hex)
 	 * @param vertex: which vertex it is being built on
      */
-	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
+		BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
 		buildsettlement.buildsettlement(playerIndex,location,vertex,free,gameid);
 	}
 
@@ -1242,9 +1242,9 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param vertex: needs to already have a settlement on it + required resources for player
      */
-	private BuildCityCommand buildCityCommand=new BuildCityCommand();
 	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
+		BuildCityCommand buildCityCommand=new BuildCityCommand();
 		buildCityCommand.buildCityCommand(playerIndex,location,vertex, gameid);
 	}
 
@@ -1278,9 +1278,9 @@ public class ServerFacade
      * @param ratio: ratio at which we are making the trade
 	 * @param gameID: ID for the current game
      */
-	private MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand();
 	public void maritimeTrade(String getResource, String giveResource, int playerIndex, int ratio, int gameID) throws Exception
 	{
+		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand();
 		maritimeTradeCommand.doMaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
 	}
 
@@ -1290,9 +1290,9 @@ public class ServerFacade
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
      */
-	private DiscardCardsCommand mydiscard=new DiscardCardsCommand();
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
+		DiscardCardsCommand mydiscard=new DiscardCardsCommand();
 		mydiscard.discardCards(playerIndex,cardsToDiscard,gameid);
 	}
 
