@@ -36,6 +36,7 @@ public class MovesYearOfPlentyHandler implements HttpHandler
 	@Override
     public void handle(HttpExchange exchange) throws IOException
     {
+		System.out.println("Starting year of plenty handler");
     	int playerindex=-10;
         String resource1 = "";
         String resource2 = "";
@@ -63,7 +64,7 @@ public class MovesYearOfPlentyHandler implements HttpHandler
             e.printStackTrace();
         }
 
-        ICommand yopcommand = new PlayYearOfPlentyCommand(playerindex,resource1,resource2,gameID);
+        ICommand yopcommand = new PlayYearOfPlentyCommand(playerindex,resource1.toLowerCase(),resource2.toLowerCase(),gameID);
         yopcommand.execute();
         
         String response = "Success";
