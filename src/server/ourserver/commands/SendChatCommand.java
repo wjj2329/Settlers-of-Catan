@@ -44,7 +44,7 @@ public class SendChatCommand implements ICommand {
 		//System.out.println("MY message is this "+message);
 		//System.out.println("The player who sent this message is this "+playertoupdate.getName());
 		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
-		currentgame.getMychat().getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message+"#"+pos,playertoupdate.getName()));//not sure if this is correct. lol
+		currentgame.getMychat().getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message+"#$%"+pos,playertoupdate.getName()));//not sure if this is correct. lol
 		//System.out.println("I ADD TO SERVER");
 		pos++;
 		return null;

@@ -60,6 +60,18 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(ModelFacade.facadeCurrentGame.getModel()==null)
+		{
+			return;
+		}
+		if(ModelFacade.facadeCurrentGame.getModel().getTurntracker()==null)
+		{
+			return;
+		}
+		if(ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()==null)
+		{
+			return;
+		}
 		//System.out.println("I GET UPDATED in the chat update");
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
@@ -91,7 +103,7 @@ public class ChatController extends Controller implements IChatController, Obser
 				{
 
 					String message=entries.get(i).getMessage();
-					mywords=message.split("#");
+					mywords=message.split("#$%");
 					int check=Integer.parseInt(mywords[1]);
 					if(check<smallest)
 					{

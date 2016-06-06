@@ -739,7 +739,7 @@ public class ServerFacade
 				
 				player.put("roads", jugador.getNumRoadPiecesRemaining());
 				player.put("settlements", jugador.getNumSettlementsRemaining());
-				player.put("soldiers", jugador.getNumSoldierCards());
+				player.put("soldiers", jugador.getArmySize());
 				player.put("victoryPoints", jugador.getNumVictoryPoints());
 
 				//System.out.println("THE PLAYER SO FAR WIT MORE RESOURCES " + player.toString());
