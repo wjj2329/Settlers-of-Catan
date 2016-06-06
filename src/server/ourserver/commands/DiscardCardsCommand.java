@@ -17,13 +17,18 @@ public class DiscardCardsCommand implements ICommand {
 	 * Executes the task:
 	 * 	player to discard cards if they have 7+ and gets rid of them in their resources
 	 */
+	int playerIndex;
+	ResourceList cardsToDiscard;
+	int gameid;
+	public DiscardCardsCommand(int playerIndex, ResourceList cardsToDiscard, int gameid)
+	{
+		this.playerIndex=playerIndex;
+		this.cardsToDiscard=cardsToDiscard;
+		this.gameid=gameid;
+	}
+
 	@Override
 	public Object execute()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
@@ -60,8 +65,7 @@ public class DiscardCardsCommand implements ICommand {
 			}
 		}
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " discards cards ",playertoupdate.getName()));
-		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
-
+		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);		return null;
 	}
 
 }

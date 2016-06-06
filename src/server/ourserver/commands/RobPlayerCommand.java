@@ -23,15 +23,20 @@ public class RobPlayerCommand implements ICommand {
 	 * Executes the task:
 	 * 	player robs another player and is randomly given one of their resource cards 
 	 */
+	HexLocation location;
+	int playerRobbing;
+	int playerbeingrobbed;
+	int gameid;
+	public RobPlayerCommand(HexLocation location, int playerRobbing, int playerbeingrobbed ,int gameid)
+	{
+		this.location=location;
+		this.playerRobbing=playerRobbing;
+		this.playerbeingrobbed=playerbeingrobbed;
+		this.gameid=gameid;
+	}
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-
-		return null;
-	}
-	public void robplayerofresources(HexLocation location, int playerRobbing, int playerbeingrobbed ,int gameid)
-	{
-		//System.out.println("I ROB! in that player with index "+playerRobbing+" Robs player with index "+playerbeingrobbed);
+//System.out.println("I ROB! in that player with index "+playerRobbing+" Robs player with index "+playerbeingrobbed);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Player criminal=null;
@@ -76,7 +81,7 @@ public class RobPlayerCommand implements ICommand {
 		{
 			currentgame.myrobber.setLocation(location);
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
-			return;
+			return null;
 		}
 		Random myrandom=new Random();
 		int index=myrandom.nextInt(possibiliestosteal.size());
@@ -147,7 +152,8 @@ public class RobPlayerCommand implements ICommand {
 		else {
 			currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName() + " Robs " + nothing.getName(), playertoupdate.getName()));
 		}
-
+		return null;
 	}
+
 
 }

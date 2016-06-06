@@ -878,8 +878,8 @@ public class ServerFacade
 
 	public void sendChat(String message, int playerindex,int gameid)
 	{
-		SendChatCommand mychat=new SendChatCommand();
-		mychat.sendChat(message,playerindex,gameid);
+		SendChatCommand mychat=new SendChatCommand(message,playerindex,gameid);
+		mychat.execute();
 	}
 
 	/**
@@ -900,8 +900,8 @@ public class ServerFacade
 
 	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
 	{
-		RobPlayerCommand robbing=new RobPlayerCommand();
-		robbing.robplayerofresources(location,playerRobbing,playerbeingrobbed, gameid);
+		RobPlayerCommand robbing=new RobPlayerCommand(location,playerRobbing,playerbeingrobbed, gameid);
+		robbing.execute();
 	}
 
 	/**
@@ -911,8 +911,8 @@ public class ServerFacade
      */
 	public void  finishTurn(int playerIndex, int gameid)
 	{
-		FinishTurnCommand endturn=new FinishTurnCommand();
-		endturn.endturn(playerIndex,gameid);
+		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
+		endturn.execute();
 	}
 
 	/**
@@ -1233,8 +1233,8 @@ public class ServerFacade
      */
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
-		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free, gameid);
+		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
+		buildRoadCommand.execute();
 	}
 
 	/**
@@ -1245,8 +1245,8 @@ public class ServerFacade
      */
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-		BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
-		buildsettlement.buildsettlement(playerIndex,location,vertex,free,gameid);
+		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
+		buildsettlement.execute();
 	}
 
 	/**
@@ -1257,8 +1257,8 @@ public class ServerFacade
      */
 	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
-		BuildCityCommand buildCityCommand=new BuildCityCommand();
-		buildCityCommand.buildCityCommand(playerIndex,location,vertex, gameid);
+		BuildCityCommand buildCityCommand=new BuildCityCommand(playerIndex,location,vertex, gameid);
+		buildCityCommand.execute();
 	}
 
 	/**
@@ -1293,8 +1293,8 @@ public class ServerFacade
      */
 	public void maritimeTrade(String getResource, String giveResource, int playerIndex, int ratio, int gameID) throws Exception
 	{
-		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand();
-		maritimeTradeCommand.doMaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
+		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
+		maritimeTradeCommand.execute();
 	}
 
 	/**
@@ -1305,8 +1305,8 @@ public class ServerFacade
      */
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
-		DiscardCardsCommand mydiscard=new DiscardCardsCommand();
-		mydiscard.discardCards(playerIndex,cardsToDiscard,gameid);
+		DiscardCardsCommand mydiscard=new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid);
+		mydiscard.execute();
 	}
 
 	/**

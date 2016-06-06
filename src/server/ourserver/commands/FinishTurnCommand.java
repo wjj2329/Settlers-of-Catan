@@ -17,15 +17,16 @@ public class FinishTurnCommand implements ICommand {
 	 * Executes the task: 
 	 * 	player to finish turn, new dev cards added to old dev cards
 	 */
+	int playerIndex;
+	int gameid;
+	public FinishTurnCommand(int playerIndex, int gameid)
+	{
+		this.playerIndex=playerIndex;
+		this.gameid=gameid;
+	}
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		
-		return null;
-	}
-	public void endturn(int playerIndex, int gameid)
-	{
-		//System.out.println("I call the end turn command for player with player index"+playerIndex);
+//System.out.println("I call the end turn command for player with player index"+playerIndex);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Player playertoupdate=null;
@@ -36,22 +37,22 @@ public class FinishTurnCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
-		
+
 		//Code for dev cards
-    	DevCardList cards = playertoupdate.getOldDevCards();
-    	DevCardList newcards = playertoupdate.getNewDevCards();
-    	
-    	if(newcards.getTotalCardNum() > 0)
-    	{
-    		cards.setMonopoly(cards.getMonopoly() + newcards.getMonopoly());
-    		cards.setMonument(cards.getMonument() + newcards.getMonument());
-    		cards.setRoadBuilding(cards.getRoadBuilding() + newcards.getRoadBuilding());
-    		cards.setSoldier(cards.getSoldier() + newcards.getSoldier());
-    		cards.setYearOfPlenty(cards.getYearOfPlenty() + newcards.getYearOfPlenty());
-    		
-    		newcards.clear();
-    	}
-		
+		DevCardList cards = playertoupdate.getOldDevCards();
+		DevCardList newcards = playertoupdate.getNewDevCards();
+
+		if(newcards.getTotalCardNum() > 0)
+		{
+			cards.setMonopoly(cards.getMonopoly() + newcards.getMonopoly());
+			cards.setMonument(cards.getMonument() + newcards.getMonument());
+			cards.setRoadBuilding(cards.getRoadBuilding() + newcards.getRoadBuilding());
+			cards.setSoldier(cards.getSoldier() + newcards.getSoldier());
+			cards.setYearOfPlenty(cards.getYearOfPlenty() + newcards.getYearOfPlenty());
+
+			newcards.clear();
+		}
+
 		switch (playerIndex)
 		{
 			case(0):
@@ -62,7 +63,7 @@ public class FinishTurnCommand implements ICommand {
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
 					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
 
-					return;
+					return null;
 				}
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
 					//System.out.println("I update for case 0");
@@ -85,7 +86,7 @@ public class FinishTurnCommand implements ICommand {
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
 					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
 
-					return;
+					return null;
 				}
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
 					//System.out.println("I update for case 1");
@@ -106,7 +107,7 @@ public class FinishTurnCommand implements ICommand {
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
 					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
 
-					return;
+					return null;
 				}
 				//System.out.println("I update for case 2");
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND)) {
@@ -126,7 +127,7 @@ public class FinishTurnCommand implements ICommand {
 					currentgame.getModel().getTurntracker().setCurrentTurn(new Index(0), currentgame.getMyplayers());
 					currentgame.getModel().getTurntracker().setStatus(TurnStatus.ROLLING);
 					currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
-					return;
+					return null;
 				}
 				//System.out.println("I update for case 3");
 				if(!currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
@@ -141,6 +142,7 @@ public class FinishTurnCommand implements ICommand {
 		}
 
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " ends his or her turn",playertoupdate.getName()));
+		return null;
 	}
 
 }

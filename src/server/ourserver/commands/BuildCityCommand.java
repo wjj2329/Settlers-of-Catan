@@ -22,14 +22,20 @@ public class BuildCityCommand implements ICommand {
 	 * Executes the task
 	 * 	the player building a city in vertex location where there is a settlemetn
 	 */
+	int playerIndex;
+	HexLocation location;
+	VertexLocation vertex;
+	int gameid;
+	public BuildCityCommand(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
+	{
+		this.playerIndex=playerIndex;
+		this.location=location;
+		this.vertex=vertex;
+		this.gameid=gameid;
+	}
 	@Override
 	public Object execute() {
 		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void buildCityCommand(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
-	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		Index owner = new Index(playerIndex);
 		Player playertoupdate=null;
@@ -75,7 +81,7 @@ public class BuildCityCommand implements ICommand {
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 		currentgame.getMyplayers().get(owner2).setNumSettlementsRemaining(currentgame.getMyplayers().get(owner2).getNumSettlementsRemaining()+1);
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a City",playertoupdate.getName()));
-
+		return null;
 	}
 
 }
