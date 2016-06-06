@@ -1081,7 +1081,7 @@ public class ServerFacade
 		robPlayer(location, playerRobbing, playerBeingRobbed, gameid);
 		System.out.println("Right after I rob!");
 		
-		playerRobbing -= 100;		
+		System.out.println("id: " + playerRobbing);
 		for(Index myind : currentgame.getMyplayers().keySet())
 		{
 			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber() == playerRobbing)
@@ -1089,7 +1089,7 @@ public class ServerFacade
 				player = currentgame.getMyplayers().get(myind);
 			}
 		}
-		
+		System.out.println(player.getName());
 		System.out.println("Army size before: " + player.getArmySize());
 		//Increment player's army size
 		player.setArmySize(player.getArmySize() + 1);
@@ -1111,7 +1111,6 @@ public class ServerFacade
      */
 	public void playMonopoly(int playerid, String resource, int gameid)
 	{
-		System.out.println("Starting monopoly facade");
 		playerid -= 100;
 		CatanGame currentgame = getGameByID(gameid);
 		String buyresult = currentgame.mybank.buyDevCard();		
@@ -1124,31 +1123,23 @@ public class ServerFacade
 			}
 		}
 		
-		System.out.println("Starting stealing from players...");
 		int numStealing;
 		for (Player victim : currentgame.getMyplayers().values())
 		{
 			numStealing = 0;
-			System.out.println("Victim's name: " + victim.getName());
 			if(victim.getPlayerID().getNumber() != playerid)
 			{
 				switch(resource)
 				{
 				case "wheat":
 					numStealing += victim.getResources().getWheat();
-					System.out.println("I'm stealing " + numStealing + " from " + victim.getName());
 					victim.getResources().setWheat(0);
-					System.out.println("Victim's resources are gone!");
 					player.getResources().setWheat(player.getResources().getWheat() + numStealing);
-					System.out.println("My resources are now at: " + player.getResources().getWheat());
 					break;
 				case "sheep":
 					numStealing += victim.getResources().getBrick();
-					System.out.println("I'm stealing " + numStealing + " from " + victim.getName());
 					victim.getResources().setBrick(0);
-					System.out.println("Victim's resources are gone!");
 					player.getResources().setBrick(player.getResources().getBrick() + numStealing);
-					System.out.println("My resources are now at: " + player.getResources().getSheep());
 					break;
 				case "ore":
 					numStealing += victim.getResources().getOre();

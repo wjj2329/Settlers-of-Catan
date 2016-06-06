@@ -142,7 +142,8 @@ public class DevCardController extends Controller implements IDevCardController,
 	@Override
 	public void cancelPlayCard() 
 	{
-		if(getPlayCardView().isModalShowing()) {
+		if(getPlayCardView().isModalShowing()) 
+		{
 			getPlayCardView().closeModal();
 		}
 	}
@@ -150,18 +151,21 @@ public class DevCardController extends Controller implements IDevCardController,
 	@Override
 	public void playMonopolyCard(ResourceType resource)
 	{
+		System.out.println("Starting monopoly");
 		server.playMonopoly("Monopoly", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(), resource.name());
 	}
 
 	@Override
 	public void playMonumentCard()
 	{
+		System.out.println("Starting monument");
 		server.playMonument("Monument", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber());
 	}
 
 	@Override
 	public void playRoadBuildCard()
 	{
+		System.out.println("Starting road building");
 		getPlayCardView().closeModal();
 		roadAction.execute();
 		roadAction.execute();
@@ -170,6 +174,7 @@ public class DevCardController extends Controller implements IDevCardController,
 	@Override
 	public void playSoldierCard() 
 	{
+		System.out.println("Starting soldier");
 		getPlayCardView().closeModal();
 		soldierAction.execute();
 	}
@@ -177,6 +182,7 @@ public class DevCardController extends Controller implements IDevCardController,
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) 
 	{
+		System.out.println("Starting year of plenty");
 		server.playYearofPlenty("Year_of_Plenty", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerID().getNumber(), resource1.name(), resource2.name());
 	}
 
