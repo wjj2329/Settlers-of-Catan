@@ -139,7 +139,14 @@ public class RobPlayerCommand implements ICommand {
 				nothing=currentgame.getMyplayers().get(myind);
 			}
 		}
-		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " Robs "+nothing.getName(),playertoupdate.getName()));
+		if(playertoupdate.getName().equals(nothing.getName()))
+		{
+			currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName() + " Robs No One", playertoupdate.getName()));
+
+		}
+		else {
+			currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName() + " Robs " + nothing.getName(), playertoupdate.getName()));
+		}
 
 	}
 

@@ -514,6 +514,7 @@ public class ServerFacade
 			JSONArray chatlines = new JSONArray();
 			for(MessageLine mensaje : game.getMychat().getChatMessages().getMessages())
 			{
+				System.out.println("I Export the name  and source which are "+mensaje.getMessage()+" and "+mensaje.getSource());
 				JSONObject chatline = new JSONObject();
 				chatline.put("message", mensaje.getMessage());
 				chatline.put("source", mensaje.getSource());

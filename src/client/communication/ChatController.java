@@ -47,8 +47,12 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void sendMessage(String message)
 	{
-		ModelFacade.facadeCurrentGame.getServer().sendChat("sendChat",
-				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
+		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().equals(TurnStatus.SECONDROUND))
+		{
+			System.out.println("MY Player Index is this "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			ModelFacade.facadeCurrentGame.getServer().sendChat("sendChat",
+					ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
+		}
 	}
 
 
@@ -56,12 +60,13 @@ public class ChatController extends Controller implements IChatController, Obser
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		System.out.println("I GET UPDATED in the chat update");
+		//System.out.println("I GET UPDATED in the chat update");
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
 			System.out.println("I GET THROUGH THE IF");
 			List<LogEntry> entries = new ArrayList<>();
 			CatanColor playercolor = CatanColor.PUCE;
+			System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size());
 			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
 			{
 				for (Index loc : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
@@ -73,27 +78,37 @@ public class ChatController extends Controller implements IChatController, Obser
 				System.out.println("THE SIZE OF THIS CHAT ARRAY IS ALSO "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().size());
 				entries.add(new LogEntry(playercolor, ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
 			}
-			/*
+
 			List<LogEntry> entries2 = new ArrayList<>();
 
 			while(!entries.isEmpty())
 			{
 				int smallest=100000;
 				int indexforsmallest=0;
+				String[]mywords= new String[50];
+				String realmessage="";
 				for (int i = 0; i < entries.size(); i++)
 				{
-					int check=entries.get(i).getMessage().charAt(entries.get(i).getMessage().length()-1);
+
+					String message=entries.get(i).getMessage();
+					mywords=message.split("#");
+					int check=Integer.parseInt(mywords[1]);
 					if(check<smallest)
 					{
+						realmessage=mywords[0];
 						smallest=check;
 						indexforsmallest=i;
 					}
 				}
-				entries2.add(entries.get(indexforsmallest));
+				System.out.println("I ADD SOMETHING "+mywords[0]);
+				entries2.add(new LogEntry(entries.get(indexforsmallest).getColor(),realmessage));
 				entries.remove(indexforsmallest);
 			}
-			*/
-			getView().setEntries(entries);
+
+
+			if(entries2.size()!=0) {
+				getView().setEntries(entries2);
+			}
 		}
 
 	}
