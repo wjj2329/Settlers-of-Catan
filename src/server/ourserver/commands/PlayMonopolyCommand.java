@@ -1,9 +1,23 @@
 package server.ourserver.commands;
 
+import server.ourserver.ServerFacade;
+
+
 /**
  * The PlayMonopolyCommand class
  */
 public class PlayMonopolyCommand implements ICommand {
+
+	private int playerindex;
+	private String resource;
+	private int gameID;
+
+	public PlayMonopolyCommand(int playerindex, String resource, int gameID)
+	{
+		this.playerindex = playerindex;
+		this.resource = resource;
+		this.gameID = gameID;
+	}
 
 	/**
 	 * Executes the task:
@@ -11,8 +25,9 @@ public class PlayMonopolyCommand implements ICommand {
 	 * 	of the specified type. 
 	 */
 	@Override
-	public Object execute() {
-		// TODO Auto-generated method stub
+	public Object execute() 
+	{
+		ServerFacade.getInstance().playMonopoly(playerindex, resource, gameID);
 		return null;
 	}
 

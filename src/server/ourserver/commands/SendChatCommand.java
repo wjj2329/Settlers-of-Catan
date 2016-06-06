@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
 import shared.chat.Chat;
 import shared.chat.ChatLine;
@@ -24,11 +25,11 @@ public class SendChatCommand implements ICommand {
 		return null;
 	}
 
+	private static int pos=0;
 	public void sendChat(String message, int playerindex, int gameid)
 	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
-		Chat mychat=currentgame.getMychat();
 		Player playertoupdate=null;
 		for(Index myind:currentgame.getMyplayers().keySet())
 		{
@@ -37,9 +38,12 @@ public class SendChatCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
-		System.out.println("MY message is this"+message);
-		System.out.println("The player who sent this message is this "+playertoupdate.getName());
-		mychat.getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message,playertoupdate.getName()));//not sure if this is correct. lol
+		//System.out.println("MY message is this "+message);
+		//System.out.println("The player who sent this message is this "+playertoupdate.getName());
+		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+		currentgame.getMychat().getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message+"#"+pos,playertoupdate.getName()));//not sure if this is correct. lol
+		//System.out.println("I ADD TO SERVER");
+		pos++;
 	}
 
 }

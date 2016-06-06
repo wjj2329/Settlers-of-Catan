@@ -72,8 +72,9 @@ public class PointsController extends Controller implements IPointsController, O
 				for(Player player: jugadores.values()){
 					//System.out.println(player.getName() + " TIENE " + player.getNumVictoryPoints());
 				}
-				
-				getPointsView().setPoints(local.getNumVictoryPoints());
+				if(local!=null) {
+					getPointsView().setPoints(local.getNumVictoryPoints());
+				}
 				//System.out.println("THE PERSON " + local.getPlayerID().getNumber() + " HAS THIS MANY POINTS: "+local.getNumVictoryPoints());
 				//System.out.println(ModelFacade.facadeCurrentGame.getServer().getGameCurrentState(0).getResponse());	
 			}

@@ -19,6 +19,7 @@ public class BuyDevCardCommand implements ICommand
 		System.out.println("NOW BUYING DEV CARD IN COMMAND");
 		ServerFacade.getInstance().buyDevCard(playerIndex, gameid);
 		System.out.println("Card was bought");
+
 		return null;
 	}
 	

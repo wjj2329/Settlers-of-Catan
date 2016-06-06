@@ -4,6 +4,15 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.util.Scanner;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import server.ourserver.commands.ICommand;
+import server.ourserver.commands.PlayMonopolyCommand;
+import server.ourserver.commands.PlayYearOfPlentyCommand;
 
 /**
  * Created by williamjones on 5/26/16.
@@ -21,9 +30,46 @@ import java.io.IOException;
 
 public class MovesMonopolyHandler implements HttpHandler
 {
+	@Override
+    public void handle(HttpExchange exchange) throws IOException
+    {
+		System.out.println("Starting monopoly handler");
+    	int playerindex=-10;
+        String resource = "";
+        String cookie = exchange.getRequestHeaders().getFirst("Cookie");
+        int gameID = getGameIDfromCookie(cookie);
+        JSONObject data = null;
+        try
+        {
+            Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
+            String result = s.hasNext() ? s.next() : "";
+            data = new JSONObject(result);
+        }
+        catch (JSONException e)
+        {
+            e.printStackTrace();
+        }
+        try
+        {
+            playerindex = data.getInt("playerIndex");
+            resource = data.getString("resource");
+        } 
+        catch (JSONException e) 
+        {
+            e.printStackTrace();
+        }
 
-    @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+        ICommand monopolyCommand = new PlayMonopolyCommand(playerindex,resource.toLowerCase(),gameID);
+        monopolyCommand.execute();
+        
+        String response = "Success";
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        exchange.getResponseBody().write(response.getBytes());
+        exchange.close();
+    }
+    public int getGameIDfromCookie(String cookie)
+    {
+        return Integer.parseInt(cookie.substring(cookie.indexOf("game=")+5, cookie.length()));
 
     }
 }

@@ -4,6 +4,7 @@ import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
 import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
+import shared.game.DevCardList;
 import shared.game.map.Index;
 import shared.game.player.Player;
 
@@ -35,6 +36,22 @@ public class FinishTurnCommand implements ICommand {
 				playertoupdate=currentgame.getMyplayers().get(myind);
 			}
 		}
+		
+		//Code for dev cards
+    	DevCardList cards = playertoupdate.getOldDevCards();
+    	DevCardList newcards = playertoupdate.getNewDevCards();
+    	
+    	if(newcards.getTotalCardNum() > 0)
+    	{
+    		cards.setMonopoly(cards.getMonopoly() + newcards.getMonopoly());
+    		cards.setMonument(cards.getMonument() + newcards.getMonument());
+    		cards.setRoadBuilding(cards.getRoadBuilding() + newcards.getRoadBuilding());
+    		cards.setSoldier(cards.getSoldier() + newcards.getSoldier());
+    		cards.setYearOfPlenty(cards.getYearOfPlenty() + newcards.getYearOfPlenty());
+    		
+    		newcards.clear();
+    	}
+		
 		switch (playerIndex)
 		{
 			case(0):

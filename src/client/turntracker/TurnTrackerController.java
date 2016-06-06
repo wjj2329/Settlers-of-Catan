@@ -81,65 +81,41 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
 		}
 	}
-
-	private boolean haveAllPlayersJoined()
-	{
-		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
-		{
-			if (!p.hasJoinedGame())
-			{
-				return false;
-			}
-		}
-		return true;
-	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
 		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
-
+			
 			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
-			System.out.println("This is the local player's color: " + localplayer.getColor().name());
-			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values()) {
-				if(player != null){
-					if(player.getName().equals(localplayer.getName())){
-						System.out.println("What is the color of the player in the modelFacade? " + player.getColor());
+			System.out.println("I COME TO UPDATE THE TURN TRACKER"+" the size of the players is "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
+			for (Player player : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
+			{
+				if(player != null)
+				{
+					System.out.println("I 'm not null and I compare "+player.getName()+" with "+localplayer.getName() );
+
+					if(player.getName().toUpperCase().equals(localplayer.getName().toUpperCase()))
+					{
 						getView().setLocalPlayerColor(player.getColor());
 						localplayer = player;
 						localcolorset = true; 
 						ModelFacade.facadeCurrentGame.setLocalPlayer(player);
-						System.out.println("Does the player's color randomly get changed? " + player.getColor());
 					}
 				}
 			}
-			for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
-			{
-				System.out.println("The color HERE for " + p.getName() + " is " + p.getColor());
-			}
-			System.out.println("This is the local player's color AFTER: " + localplayer.getColor().name());
 			
 		}
-		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4 /*&& haveAllPlayersJoined()*/)
+		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
 			{
 				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-				if(!playersinitialized)
-				{
-					//System.out.println("I am initializing the players here"); // only gets called once; good
+				if(!playersinitialized){
 					initializePlayers(players);
 					playersinitialized = true; 
 				}
-				// need to put something here
 				for (Player jugador: players.values()) 
 				{
-					// This is incorrect at times...
-					System.out.println("The color for " + jugador.getName() + " is " + jugador.getColor().toString());
-					/*view.updateColor(jugador.getPlayerIndex().getNumber(), jugador.getColor(), jugador.getName(),
-							jugador.getNumVictoryPoints());*/
-					//view.setLocalPlayerColor(jugador.getColor()); // all this does is update the title bar.
-
-
-					if (jugador.getPlayerIndex().getNumber() == currentPlayer)
+					if (jugador.getPlayerIndex().getNumber() == currentPlayer) 
 					{
 						view.updatePlayer(jugador.getPlayerIndex().getNumber(), jugador.getNumVictoryPoints(), true,
 							hasLargestArmy(jugador.getPlayerIndex()), hasLongestRoad(jugador.getPlayerIndex()));

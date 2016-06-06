@@ -372,11 +372,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	{
 
 		String test=ModelFacade.facadeCurrentGame.getServer().acceptTrade("acceptTrade", ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), willAccept).getResponse();
-		try {
-			ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(test));
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		//try {
+	//		ModelFacade.facadeCurrentGame.updateFromJSON(new JSONObject(test));
+		//} catch (JSONException e) {
+		//	e.printStackTrace();
+	//	}
 		getAcceptOverlay().closeModal();
 		getAcceptOverlay().reset();
 		
@@ -426,7 +426,7 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			if (ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getReceiver() == ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber()) {
 				Player receiver = getPlayerByIndex(ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getReceiver());
 				getAcceptOverlay().setPlayerName(getPlayerByIndex(ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getSender()).getName());
-				ResourceList myresources = ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getMylist();								
+				ResourceList myresources = ModelFacade.facadeCurrentGame.currentgame.getMytradeoffer().getMylist();
 				if (myresources.getBrick() != 0) {
 					if (myresources.getBrick() < 0) {
 						getAcceptOverlay().addGiveResource(ResourceType.BRICK, myresources.getBrick() * -1);
