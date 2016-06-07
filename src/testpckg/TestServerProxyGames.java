@@ -68,8 +68,6 @@ IServer iserver;
 		iserver.loginUser("Sam", "sam");
 		assertEquals(iserver.JoinGame(0, "orange").getResponseCode(), HttpURLConnection.HTTP_OK);
 		
-		iserver.loginUser("Mark", "mark");
-		assertEquals(iserver.JoinGame(2, "orange").getResponseCode(), HttpURLConnection.HTTP_OK);
 		
 	}
 	

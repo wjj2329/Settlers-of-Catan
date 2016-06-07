@@ -29,12 +29,9 @@ public class TestServerProxyUser {
 		//loginUser returns true when the login is successful using default users
 		
 		assertEquals(iserver.loginUser("Sam", "sam").getResponseCode(), HttpURLConnection.HTTP_OK);
-		assertEquals(iserver.loginUser("Mark","mark").getResponseCode(), HttpURLConnection.HTTP_OK);
-		assertEquals(iserver.loginUser("Brooke", "brooke").getResponseCode(), HttpURLConnection.HTTP_OK);
-		assertEquals(iserver.loginUser("Pete", "pete").getResponseCode(), HttpURLConnection.HTTP_OK);
 	}
 	
-	@Test(expected = AssertionError.class)
+	@Test
 	public void testBadLogin() throws JSONException{
 		//tests for inputs as null and empty strings and when username and password don't match
 		
@@ -46,7 +43,7 @@ public class TestServerProxyUser {
 		assertEquals(iserver.loginUser(null, null).getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);	
 	}
 	
-	@Test
+	@Test(expected = AssertionError.class)
 	public void testBadRegisters() throws JSONException{
 		//tests for inputs  empty strings and repeated username
 		assertEquals(iserver.registerUser("Mark", "marco").getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);		

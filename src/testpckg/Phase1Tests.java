@@ -47,7 +47,8 @@ public class Phase1Tests
 				"testpckg.TestServerProxyGame",
 				"testpckg.TestServerProxyGames",
 				"testpckg.TestServerProxyMoves",
-				"testpckg.TestServerProxyUser"
+				"testpckg.TestServerProxyUser",
+				"testpckg.TestDevCardCommands"
 		};
 
 		org.junit.runner.JUnitCore.main(testClasses);

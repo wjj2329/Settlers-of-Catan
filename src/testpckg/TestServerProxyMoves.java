@@ -9,7 +9,9 @@ import org.json.JSONException;
 import org.junit.Test;
 
 import server.proxies.IServer;
+import server.proxies.MockServer;
 import server.proxies.ServerProxy;
+import server.response.ServerResponse;
 import shared.game.ResourceList;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -29,8 +31,8 @@ public class TestServerProxyMoves {
 		//These will be needing cookies so it will login user and rejoin a game
 		
 		iserver = new ServerProxy();
-		iserver.loginUser("Sam", "sam");
-		iserver.JoinGame(0, "orange");
+		ServerResponse response = iserver.loginUser("Sam", "sam");
+		response = iserver.JoinGame(0, "orange");
 	}
 	
 	@After
@@ -40,6 +42,7 @@ public class TestServerProxyMoves {
 	
 	@Test
 	public void TestSendChat(){
+		iserver = new MockServer();
 		assertEquals(iserver.sendChat("sendChat", 2, "YO").getResponseCode(), HttpURLConnection.HTTP_OK);
 	
 	}
@@ -58,16 +61,19 @@ public class TestServerProxyMoves {
 	
 	@Test
 	public void TestBuyDevCard(){
+		iserver = new MockServer();
 		assertEquals(iserver.buyDevCard("buyDevCard", 0).getResponseCode(), HttpURLConnection.HTTP_OK);
 	}
 	
 	@Test
 	public void TestPlayYearofPlenty(){
+		iserver = new MockServer();
 		assertEquals(iserver.playYearofPlenty("Year_of_Plenty", 0, "brick", "sheep").getResponseCode(), HttpURLConnection.HTTP_OK);
 	}
 	
 	@Test
 	public void TestPlayRoadBuilding(){
+		iserver = new MockServer();
 		EdgeLocation spot1 = new EdgeLocation(new HexLocation(0,1), EdgeDirection.North);
 		EdgeLocation spot2 = new EdgeLocation(new HexLocation(0,1), EdgeDirection.NorthEast);
 		
@@ -76,18 +82,21 @@ public class TestServerProxyMoves {
 	
 	@Test
 	public void TestPlaySoldier(){
+
 		HexLocation hexLocation = new HexLocation(2,2);
 		assertEquals(iserver.playSoldier("Soldier", 0, hexLocation, 2).getResponseCode(), HttpURLConnection.HTTP_OK);				
 	}
 	
 	@Test
 	public void TestPlayMonopoly(){
+		iserver = new MockServer();
 		assertEquals(iserver.playMonopoly("Monopoly", 0, "brick").getResponseCode(), HttpURLConnection.HTTP_OK);		
 		
 	}
 	
 	@Test
 	public void TestPlayMonument(){
+		iserver = new MockServer();
 		assertEquals(iserver.playMonument("Monument", 0).getResponseCode(), HttpURLConnection.HTTP_OK);		
 	}
 	
