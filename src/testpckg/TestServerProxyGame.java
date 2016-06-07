@@ -42,11 +42,4 @@ public class TestServerProxyGame {
 		assertEquals(iserver.getGameCurrentState(-1).getResponseCode(), HttpURLConnection.HTTP_BAD_REQUEST);
 	}
 	
-	
-	@Test
-	public void testlistAI(){
-		//tests to see if it is working, it is just a GET 
-		assertEquals(iserver.listAI().getResponseCode(), HttpURLConnection.HTTP_OK);
-
-	}
 }

@@ -181,8 +181,7 @@ public class ServerProxy implements IServer {
 	public ServerResponse JoinGame(int gameID, String color) {
 		final String URL_SUFFIX = "/games/join";
 		
-		Param param = new JoinGameParam(gameID, 
-				ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber(), color);
+		Param param = new JoinGameParam(gameID,  color);
 		param.addHeader("Cookie", "catan.user=" + usercookie);
 		ClientCommunicator clientCommunicator = new ClientCommunicator();
 		

@@ -1,5 +1,7 @@
 package server.proxies;
 
+import java.net.HttpURLConnection;
+
 import client.model.Model;
 import server.response.ServerResponse;
 import shared.game.ResourceList;
@@ -36,13 +38,10 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse loginUser(String username, String password) {
-			return proxy.loginUser(username, password);
 			
-//			for a bad response for testing purposes uncomment
-//			ServerResponse response = new ServerResponse();
-//			response.setResponseCode(400);
-			
-//			return null;
+			ServerResponse response = new ServerResponse();
+			response.setResponseCode(HttpURLConnection.HTTP_OK);
+			return response;
 			
 	}
 
@@ -74,13 +73,10 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse registerUser(String username, String password) {
-		return proxy.registerUser(username, password);
-		
-//		for a bad response for testing purposes uncomment
-//		ServerResponse response = new ServerResponse();
-//		response.setResponseCode(400);
-		
-//		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -97,13 +93,10 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse getAllCurrentGames() {
-//		return proxy.getAllCurrentGames();
-		
-//		for a bad response for testing purposes uncomment
-//		ServerResponse response = new ServerResponse();
-//		response.setResponseCode(400);
-		
-		return null;
+//		
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -130,13 +123,10 @@ public class MockServer implements IServer {
 	 */
 	@Override
 	public ServerResponse createGame(String name, boolean randomTiles, boolean randomNumbers, boolean randomPorts) {
-//		return proxy.createGame(name, randomTiles, randomNumbers, randomPorts);
-		
-//		for a bad response for testing purposes uncomment
-//		ServerResponse response = new ServerResponse();
-//		response.setResponseCode(400);
-		
-		return null;
+//		
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -172,7 +162,10 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 		
-		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 
@@ -205,7 +198,10 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 		
-		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -227,7 +223,10 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 		
-		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -254,8 +253,10 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 		
-		
-		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -274,8 +275,10 @@ public class MockServer implements IServer {
 //		for a bad response for testing purposes uncomment
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
-		
-		return null;
+
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -299,7 +302,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -321,7 +326,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -341,7 +348,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -366,7 +375,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -392,7 +403,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -415,7 +428,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -437,7 +452,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -464,7 +481,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -488,7 +507,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -510,7 +531,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -529,8 +552,10 @@ public class MockServer implements IServer {
 //		for a bad response for testing purposes uncomment
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
-
-		return null;
+		
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -557,7 +582,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -581,7 +608,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -607,7 +636,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -629,7 +660,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	/**
@@ -651,7 +684,9 @@ public class MockServer implements IServer {
 //		ServerResponse response = new ServerResponse();
 //		response.setResponseCode(400);
 
-		return null;
+		ServerResponse response = new ServerResponse();
+		response.setResponseCode(HttpURLConnection.HTTP_OK);
+		return response;
 	}
 
 	@Override
