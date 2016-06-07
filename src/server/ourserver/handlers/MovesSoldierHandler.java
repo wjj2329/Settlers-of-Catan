@@ -46,6 +46,7 @@ public class MovesSoldierHandler  implements HttpHandler {
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -55,6 +56,10 @@ public class MovesSoldierHandler  implements HttpHandler {
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with to play soldier.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try
         {
@@ -67,6 +72,10 @@ public class MovesSoldierHandler  implements HttpHandler {
         catch (JSONException e) 
         {
             e.printStackTrace();
+			String response = "So you are missing some info to play soldier.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ICommand soldiercommand = new PlaySoldierCommand(new HexLocation(x,y),playerindex,victimindex,gameID);

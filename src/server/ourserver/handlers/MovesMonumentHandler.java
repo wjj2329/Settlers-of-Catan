@@ -40,6 +40,7 @@ public class MovesMonumentHandler implements HttpHandler
 	        int playerindex=-50;
 
 	        JSONObject data = null;
+			exchange.getResponseHeaders().add("Content-type", "text/html");
 	        try
 	        {
 	            Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -49,6 +50,10 @@ public class MovesMonumentHandler implements HttpHandler
 	        catch (JSONException e)
 	        {
 	            e.printStackTrace();
+				String response = "You gotta give me something to work with if you wanna play monument.";
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+				exchange.getResponseBody().write(response.getBytes());
+				exchange.close();
 	        }
 	        try 
 	        {
@@ -57,6 +62,10 @@ public class MovesMonumentHandler implements HttpHandler
 	        catch (JSONException e) 
 	        {
 	            e.printStackTrace();
+				String response = "So you are missing some info to play monument bro.";
+				exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+				exchange.getResponseBody().write(response.getBytes());
+				exchange.close();
 	        }
 	        
 	        ICommand command = new PlayMonumentCommand(playerindex, gameID);
