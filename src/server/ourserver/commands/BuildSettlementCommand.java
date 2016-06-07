@@ -28,17 +28,25 @@ public class BuildSettlementCommand implements ICommand {
 	 * Executes the task
 	 * 	player builds a settlement at the vertex location 
 	 */
+	int playerIndex;
+	HexLocation location;
+	VertexLocation vertex;
+	boolean free;
+	int gameid;
+	public BuildSettlementCommand(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
+	{
+		this.playerIndex=playerIndex;
+		this.location=location;
+		this.vertex=vertex;
+		this.free=free;
+		this.gameid=gameid;
+	}
+
 	@Override
 	public Object execute()
 	{
 
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public void buildsettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
-	{
-		//System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
+//System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 		//System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
 		CatanGame currentgame=ServerFacade.getInstance().getGameByID(gameid);
 		//System.out.println("this is the pointer to the game object" +currentgame);
@@ -117,65 +125,65 @@ public class BuildSettlementCommand implements ICommand {
 			ArrayList<HexType>resourcestogive=new ArrayList<>();
 			resourcestogive.add(h.getResourcetype());
 
-				if(vertex.getDir().equals(VertexDirection.East))
-				{
-					HexLocation location1=new HexLocation(location.getX()+1, location.getY()-1);
-					HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY());
-					Hex hextoupdate= currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.East))
+			{
+				HexLocation location1=new HexLocation(location.getX()+1, location.getY()-1);
+				HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY());
+				Hex hextoupdate= currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			else
-				if(vertex.getDir().equals(VertexDirection.West))
-				{
-					HexLocation location1=new HexLocation(location.getX()-1, location.getY());
-					HexLocation locatoin2=new HexLocation(location.getX()-1, location.getY()+1);
-					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.West))
+			{
+				HexLocation location1=new HexLocation(location.getX()-1, location.getY());
+				HexLocation locatoin2=new HexLocation(location.getX()-1, location.getY()+1);
+				Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			else
-				if(vertex.getDir().equals(VertexDirection.NorthEast))
-				{
-					HexLocation location1=new HexLocation(location.getX(), location.getY()-1);
-					HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY()-1);
-					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.NorthEast))
+			{
+				HexLocation location1=new HexLocation(location.getX(), location.getY()-1);
+				HexLocation locatoin2=new HexLocation(location.getX()+1, location.getY()-1);
+				Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			else
-				if(vertex.getDir().equals(VertexDirection.NorthWest))
-				{
-					HexLocation location1=new HexLocation(location.getX()-1, location.getY());
-					HexLocation locatoin2=new HexLocation(location.getX(), location.getY()-1);
-					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.NorthWest))
+			{
+				HexLocation location1=new HexLocation(location.getX()-1, location.getY());
+				HexLocation locatoin2=new HexLocation(location.getX(), location.getY()-1);
+				Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			else
-				if(vertex.getDir().equals(VertexDirection.SouthWest))
-				{
-					HexLocation location1=new HexLocation(location.getX(), location.getY()+1);
-					HexLocation locatoin2=new HexLocation(location.getX()-1,location.getY()+1);
-					Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.SouthWest))
+			{
+				HexLocation location1=new HexLocation(location.getX(), location.getY()+1);
+				HexLocation locatoin2=new HexLocation(location.getX()-1,location.getY()+1);
+				Hex hextoupdate=currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2=currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			else
-				if(vertex.getDir().equals(VertexDirection.SouthEast))
-				{
-					HexLocation location1 = new HexLocation(location.getX() + 1, location.getY());
-					HexLocation locatoin2 = new HexLocation(location.getX(), location.getY() + 1);
-					Hex hextoupdate = currentgame.getMymap().getHexes().get(location1);
-					Hex hextoupdate2 = currentgame.getMymap().getHexes().get(locatoin2);
-					resourcestogive.add(hextoupdate.getResourcetype());
-					resourcestogive.add(hextoupdate2.getResourcetype());
-				}
+			if(vertex.getDir().equals(VertexDirection.SouthEast))
+			{
+				HexLocation location1 = new HexLocation(location.getX() + 1, location.getY());
+				HexLocation locatoin2 = new HexLocation(location.getX(), location.getY() + 1);
+				Hex hextoupdate = currentgame.getMymap().getHexes().get(location1);
+				Hex hextoupdate2 = currentgame.getMymap().getHexes().get(locatoin2);
+				resourcestogive.add(hextoupdate.getResourcetype());
+				resourcestogive.add(hextoupdate2.getResourcetype());
+			}
 			ResourceList updating=playertoupdate.getResources();
 			for(int i=0; i<resourcestogive.size(); i++)
 			{
@@ -218,7 +226,7 @@ public class BuildSettlementCommand implements ICommand {
 			}
 			playertoupdate.setResources(updating);
 		}
-
+		return null;
 	}
 
 }

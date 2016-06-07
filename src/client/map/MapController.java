@@ -241,11 +241,10 @@ public class MapController extends Controller implements IMapController, Observe
 	public void placeRobber(HexLocation hexLoc) {
 
 		myhexloc=hexLoc;
-		//getView().placeRobber(hexLoc);
-
-		//getRobView().showModal();
+		System.out.println("THE ROBBER IS PLACED AT HEX LOCATION "+hexLoc.toString());
 		HashSet<RobPlayerInfo>victims=new HashSet<>();
 		Hex myhex=ModelFacade.facadeCurrentGame.getMymap().getHexes().get(hexLoc);
+		System.out.println("THe Hex happens to be "+myhex.getResourcetype().toString()+" its number token "+myhex.getResourcenumber());
 		for(int i=0; i<myhex.getCities().size(); i++)
 		{
 			Player playerwhoownscity=null;
@@ -258,7 +257,7 @@ public class MapController extends Controller implements IMapController, Observe
 			}
 			if(playerwhoownscity==null)
 			{
-				return;
+				continue;
 			}
 			RobPlayerInfo myplayer=new RobPlayerInfo();
 			myplayer.setColor(playerwhoownscity.getColor());
@@ -266,7 +265,10 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setNumCards(playerwhoownscity.getResources().size());
 			myplayer.setName(playerwhoownscity.getName());
 			myplayer.setId(playerwhoownscity.getPlayerID().getNumber());
-			victims.add(myplayer);
+			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) {
+				System.out.println("I add a victim "+myplayer.getName());
+				victims.add(myplayer);
+			}
 
 		}
 		for(int i=0; i<myhex.getSettlementlist().size(); i++)
@@ -281,7 +283,7 @@ public class MapController extends Controller implements IMapController, Observe
 			}
 			if(player==null)
 			{
-				return;
+				continue;
 			}
 			RobPlayerInfo myplayer=new RobPlayerInfo();
 			myplayer.setColor(player.getColor());
@@ -291,6 +293,7 @@ public class MapController extends Controller implements IMapController, Observe
 			myplayer.setId(player.getPlayerID().getNumber());
 			if(!myplayer.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 			{
+				System.out.println("I add a victim "+myplayer.getName());
 				victims.add(myplayer);
 			}
 
@@ -299,10 +302,22 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			System.out.println("Player "+myinfo.getName()+" is currently on this hex");
 		}
+		if(victims.size()==0)
+		{
+			RobPlayerInfo dude=new RobPlayerInfo();
+			dude.setName("None");
+			dude.setNumCards(0);
+			dude.setPlayerIndex(-1);
+			dude.setId(-1);
+			dude.setColor(CatanColor.WHITE);
+			victims.add(dude);
+		}
 		RobPlayerInfo[] victimsArray = new RobPlayerInfo[victims.size()];
 		victims.toArray(victimsArray);
-
 		//ModelFacade.facadeCurrentGame.currentgame.getMymap().
+		if(getRobView().isModalShowing()) {
+			getRobView().closeModal();
+		}
 		getView().placeRobber(hexLoc);
 		getRobView().setPlayers(victimsArray);
 		getRobView().showModal();
@@ -310,6 +325,8 @@ public class MapController extends Controller implements IMapController, Observe
 		{
 			ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
 		}
+		victims.clear();
+		victimsArray=null;
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
@@ -341,15 +358,30 @@ public class MapController extends Controller implements IMapController, Observe
 
 	public void robPlayer(RobPlayerInfo victim)
 	{
-		//System.out.println("I ROB THE PLAYER NOW and tell the server I have done so");		
+		if(getRobView().isModalShowing())
+		{
+			getRobView().closeModal();
+		}
 		if(robbing)
 		{
-			ModelFacade.facadeCurrentGame.getServer().playSoldier("soldier",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
-			robbing = false;
+			if(victim.getPlayerIndex()!=-1) {
+				ModelFacade.facadeCurrentGame.getServer().playSoldier("soldier", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), myhexloc, victim.getPlayerIndex());
+				robbing = false;
+			}
+			else
+			{
+				ModelFacade.facadeCurrentGame.getServer().playSoldier("soldier", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), myhexloc,ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+			}
 		}
 		else
 		{
-			ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer",ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(),myhexloc,victim.getPlayerIndex());
+			if(victim.getPlayerIndex()!=-1) {
+				ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), myhexloc, victim.getPlayerIndex());
+			}
+			else
+			{
+				ModelFacade.facadeCurrentGame.getServer().robPlayer("robPlayer", ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber(), myhexloc, ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber());
+			}
 		}
 	}
 
@@ -490,7 +522,7 @@ public class MapController extends Controller implements IMapController, Observe
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		//lookathexes();
+		lookathexes();
 		if(ModelFacade.facadeCurrentGame.currentgame.getMymap()!=null)
 		{
 			Map<HexLocation, Hex> mymap = ModelFacade.facadeCurrentGame.currentgame.getMymap().getHexes();

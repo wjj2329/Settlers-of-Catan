@@ -38,6 +38,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     private boolean shouldShowGameList = true;
     private GameInfo[] lastList = null;
     private Collection<CatanColor> colorsTaken = null;
+	private boolean cancelled;
 	
 	/**
 	 * JoinGameController constructor
@@ -148,9 +149,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             idx++;   
         }
 
-        if(currentGame != null)
+        if(currentGame != null && !cancelled)
         {
-            //System.out.println("I COME HERE TO DIE");
+            System.out.println("I COME HERE TO DIE");
             startJoinGame(currentGame);
         }
 
@@ -351,6 +352,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void cancelJoinGame() 
 	{
+		this.game = null;
+        this.shouldShowGameList = true;
+        this.colorsTaken = null;
         getJoinGameView().showModal();
 	}
 

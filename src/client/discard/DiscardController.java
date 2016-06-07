@@ -78,6 +78,18 @@ public class DiscardController extends Controller implements IDiscardController,
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(ModelFacade.facadeCurrentGame.getModel()==null)
+		{
+			return;
+		}
+		if(ModelFacade.facadeCurrentGame.getModel().getTurntracker()==null)
+		{
+			return;
+		}
+		if(ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus()==null)
+		{
+			return;
+		}
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.DISCARDING))
 		{
 			return;
