@@ -214,15 +214,15 @@ public class ServerFacade
 		emptygame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
 		emptygame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
 		emptygame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
-		
-		emptygame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
+
+		emptygame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right?
 		emptygame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
 		emptygame.getMyplayers().get(new Index(1)).setPlayerIndex(new Index(1));
 		emptygame.getMyplayers().get(new Index(2)).setPlayerIndex(new Index(2));
 		emptygame.getMyplayers().get(new Index(3)).setPlayerIndex(new Index(3));
-		
+
 		emptygame.myrobber.setLocation(new HexLocation(0, -2));
-		
+
 		emptygame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
 		emptygame.getModel().getTurntracker().setLongestRoad(new Index(-1));
 		emptygame.getModel().getTurntracker().setLargestArmy(new Index(-1));
@@ -1101,8 +1101,31 @@ public class ServerFacade
 		
 		//Increment game version
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion() + 1);
-		
-		
+		if(player.getArmySize()>=3)
+		{
+			Index playerindexcurrentlywithlargetstarmy=currentgame.getModel().getTurntracker().getLargestArmy();
+			if(playerindexcurrentlywithlargetstarmy.getNumber()==-1)
+			{
+				currentgame.getModel().getTurntracker().setLargestArmy(player.getPlayerIndex());
+				player.setNumVictoryPoints(player.getNumVictoryPoints()+2);
+				return;
+			}
+			Player playerwithlargestarmy=null;
+			for(Player player1:currentgame.getMyplayers().values())
+			{
+				if(playerindexcurrentlywithlargetstarmy.getNumber()==player.getPlayerIndex().getNumber()) {
+					playerwithlargestarmy = player1;
+				}
+			}
+			if(player.getArmySize()>playerwithlargestarmy.getArmySize())
+			{
+				player.setNumVictoryPoints(player.getNumVictoryPoints()+2);
+				playerwithlargestarmy.setNumVictoryPoints(playerwithlargestarmy.getNumVictoryPoints()-2);
+				currentgame.getModel().getTurntracker().setLongestRoad(player.getPlayerIndex());
+			}
+
+		}
+
 		System.out.println("Done soldier facade");
 	}
 
