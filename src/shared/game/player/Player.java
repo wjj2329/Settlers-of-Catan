@@ -37,7 +37,6 @@ public class Player implements Comparable<Player>
 	private int armySize=0;
 	private boolean playedDevCard;
 	private String password = "";
-	private boolean joinedGame = false;
 
 	/**
 	 * numCities: How many cities an individual player has.
@@ -1507,13 +1506,4 @@ public class Player implements Comparable<Player>
 		this.armySize = armySize;		
 	}
 
-	public boolean hasJoinedGame()
-	{
-		return joinedGame;
-	}
-
-	public void setJoinedGame(boolean joinedGame)
-	{
-		this.joinedGame = joinedGame;
-	}
 }

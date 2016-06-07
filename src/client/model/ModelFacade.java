@@ -569,6 +569,7 @@ public class ModelFacade extends Observable
 				CatanColor color = stringToCatanColor(obj.getString("color"));
 				//assert(color != null);
 				Player newPlayer = new Player(obj.getString("name"), color, new Index(obj.getInt("playerID")));
+
 				newPlayer.setNumCitiesRemaining(obj.getInt("cities"));
 				newPlayer.setIsDiscarded(obj.getBoolean("discarded"));
 				newPlayer.setNumMonuments(obj.getInt("monuments"));

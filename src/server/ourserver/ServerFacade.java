@@ -1,5 +1,6 @@
 package server.ourserver;
 
+import client.State.State;
 import client.main.Catan;
 import client.model.MessageLine;
 import client.model.Model;
@@ -142,10 +143,6 @@ public class ServerFacade
 		defaultgame.addPlayer(p2);
 		defaultgame.addPlayer(p3);
 		defaultgame.addPlayer(p4);
-		p1.setJoinedGame(false);
-		p2.setJoinedGame(false);
-		p3.setJoinedGame(false);
-		p4.setJoinedGame(false);
 		
 		defaultgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
 		defaultgame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
@@ -207,10 +204,6 @@ public class ServerFacade
 		defaultgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
 		defaultgame.getModel().getTurntracker().setCurrentTurn(new Index(0), defaultgame.getMyplayers());
 		serverModel.addGame(defaultgame);
-		/*p1.setJoinedGame(false);
-		p2.setJoinedGame(false);
-		p3.setJoinedGame(false);
-		p4.setJoinedGame(false);*/
 	}
 	
 	public void loadEmptyGame(){
@@ -406,6 +399,7 @@ public class ServerFacade
 	private static int playeridvariable=100;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
+		System.out.println("I call joinGame eh?");
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
 		{
 			//getGameByID(gameID).getMyplayers().get(new Index(playerid)).setJoinedGame(true);
@@ -438,7 +432,8 @@ public class ServerFacade
 			case "brown":
 				getGameByID(gameID).getMyplayers().get(new Index(playerid)).setColor(CatanColor.BROWN);
 				break;
-			}				
+			}
+
 			return true;		
 		}
 		else
@@ -485,19 +480,11 @@ public class ServerFacade
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
-
 					return true;
 				}
 			}
 		}
 		return false;		
-	}
-
-	private int getOwnerIndexFromPlayerID(int playerID)
-	{
-		//for (Player p :  game.getMymap().)
-
-		return -1;
 	}
 
 	/**
@@ -972,10 +959,10 @@ public class ServerFacade
 
 	/**
 	 * Plays a year of plenty card
-	 * @param gameID 
+	 * @param gameid
 	 * @param resource2 
 	 * @param resource1 
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playYearOfPlenty(int playerid, String resource1, String resource2, int gameid)
 	{
@@ -1081,7 +1068,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
-	 * @param playerIndex: player who is playing card
+	 * @param playerRobbing: player who is playing card
      */
 	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
 	{
@@ -1121,7 +1108,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monopoly card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonopoly(int playerid, String resource, int gameid)
 	{
@@ -1197,7 +1184,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monument card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonument(int playerid, int gameid)
 	{

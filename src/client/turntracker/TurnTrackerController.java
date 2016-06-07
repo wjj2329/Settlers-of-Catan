@@ -1,5 +1,6 @@
 package client.turntracker;
 
+import client.State.State;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
 import shared.game.map.Index;
@@ -81,21 +82,14 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			view.initializePlayer(jugador.getPlayerIndex().getNumber(), jugador.getName(), jugador.getColor());
 		}
 	}
-
-	private boolean haveAllPlayersJoined() // not quite working.
-	{
-		for (Player p : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().values())
-		{
-			if (!p.hasJoinedGame())
-			{
-				return false;
-			}
-		}
-		return true;
-	}
 	
 	@Override
 	public void update(Observable o, Object arg) {
+		/*if (ModelFacade.facadeCurrentGame.currentgame.getCurrentState().equals(State.SetUpState))
+		{
+			System.out.println("It's set up state. Don't do jack"); // idk
+			return;
+		}*/
 		if(localcolorset == false && ModelFacade.facadeCurrentGame.getLocalPlayer() != null){
 			
 			localplayer = ModelFacade.facadeCurrentGame.getLocalPlayer();
@@ -117,11 +111,18 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			}
 			
 		}
-		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)
+		/*if (ModelFacade.facadeCurrentGame.currentgame.getMymap().getRoadPieces().size() == 9)
+		{
+			playersinitialized = false; // try this and see if it at least changes the colors. it will definitely screw up points.
+			// you will have to build one extra.
+		}*/
+		// if startup phase, return?
+		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4 /*&& haveAllPlayersJoined()*/) // before I test anything else.
 			{
 				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
 				int currentPlayer = ModelFacade.facadeCurrentGame.currentgame.getCurrentPlayer().getPlayerIndex().getNumber();
-				if(!playersinitialized){
+				if(!playersinitialized)
+				{
 					initializePlayers(players);
 					playersinitialized = true; 
 				}
