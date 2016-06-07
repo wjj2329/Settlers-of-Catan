@@ -134,10 +134,18 @@ public class ServerFacade
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
 		defaultgame.setID(0);
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID()));
-		defaultgame.addPlayer(new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID()));
+		Player p1 = new Player(allRegisteredUsers.get(0).getName(), allRegisteredUsers.get(0).getColor(), allRegisteredUsers.get(0).getPlayerID());
+		Player p2 = new Player(allRegisteredUsers.get(1).getName(), allRegisteredUsers.get(1).getColor(), allRegisteredUsers.get(1).getPlayerID());
+		Player p3 = new Player(allRegisteredUsers.get(2).getName(), allRegisteredUsers.get(2).getColor(), allRegisteredUsers.get(2).getPlayerID());
+		Player p4 = new Player(allRegisteredUsers.get(3).getName(), allRegisteredUsers.get(3).getColor(), allRegisteredUsers.get(3).getPlayerID());
+		defaultgame.addPlayer(p1);
+		defaultgame.addPlayer(p2);
+		defaultgame.addPlayer(p3);
+		defaultgame.addPlayer(p4);
+		p1.setJoinedGame(false);
+		p2.setJoinedGame(false);
+		p3.setJoinedGame(false);
+		p4.setJoinedGame(false);
 		
 		defaultgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right? 
 		defaultgame.getMyplayers().get(new Index(0)).setPlayerIndex(new Index(0));
@@ -199,6 +207,10 @@ public class ServerFacade
 		defaultgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
 		defaultgame.getModel().getTurntracker().setCurrentTurn(new Index(0), defaultgame.getMyplayers());
 		serverModel.addGame(defaultgame);
+		/*p1.setJoinedGame(false);
+		p2.setJoinedGame(false);
+		p3.setJoinedGame(false);
+		p4.setJoinedGame(false);*/
 	}
 	
 	public void loadEmptyGame(){
@@ -395,7 +407,8 @@ public class ServerFacade
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
-		{		
+		{
+			//getGameByID(gameID).getMyplayers().get(new Index(playerid)).setJoinedGame(true);
 			switch(color.toLowerCase())
 			{
 			case "red":
@@ -514,6 +527,7 @@ public class ServerFacade
 			JSONArray chatlines = new JSONArray();
 			for(MessageLine mensaje : game.getMychat().getChatMessages().getMessages())
 			{
+				System.out.println("I Export the name  and source which are "+mensaje.getMessage()+" and "+mensaje.getSource());
 				JSONObject chatline = new JSONObject();
 				chatline.put("message", mensaje.getMessage());
 				chatline.put("source", mensaje.getSource());
@@ -725,7 +739,7 @@ public class ServerFacade
 				
 				player.put("roads", jugador.getNumRoadPiecesRemaining());
 				player.put("settlements", jugador.getNumSettlementsRemaining());
-				player.put("soldiers", jugador.getNumSoldierCards());
+				player.put("soldiers", jugador.getArmySize());
 				player.put("victoryPoints", jugador.getNumVictoryPoints());
 
 				//System.out.println("THE PLAYER SO FAR WIT MORE RESOURCES " + player.toString());
@@ -861,11 +875,11 @@ public class ServerFacade
 	 * Sends a chat to the server and stores it there.
 	 * @param message: the chat message we are sending
      */
-	private SendChatCommand mychat=new SendChatCommand();
+
 	public void sendChat(String message, int playerindex,int gameid)
 	{
-
-		mychat.sendChat(message,playerindex,gameid);
+		SendChatCommand mychat=new SendChatCommand(message,playerindex,gameid);
+		mychat.execute();
 	}
 
 	/**
@@ -884,10 +898,10 @@ public class ServerFacade
 	 * @param location: Where the robber is at
      */
 
-	private RobPlayerCommand robbing=new RobPlayerCommand();
 	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
 	{
-		robbing.robplayerofresources(location,playerRobbing,playerbeingrobbed, gameid);
+		RobPlayerCommand robbing=new RobPlayerCommand(location,playerRobbing,playerbeingrobbed, gameid);
+		robbing.execute();
 	}
 
 	/**
@@ -895,10 +909,10 @@ public class ServerFacade
 	 * @param playerIndex: the player who is finishing the turn
 	 * @return: the index of the next player. who will become the current player.
      */
-	FinishTurnCommand endturn=new FinishTurnCommand();
 	public void  finishTurn(int playerIndex, int gameid)
 	{
-		endturn.endturn(playerIndex,gameid);
+		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
+		endturn.execute();
 	}
 
 	/**
@@ -958,10 +972,10 @@ public class ServerFacade
 
 	/**
 	 * Plays a year of plenty card
-	 * @param gameID 
+	 * @param gameid
 	 * @param resource2 
 	 * @param resource1 
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playYearOfPlenty(int playerid, String resource1, String resource2, int gameid)
 	{
@@ -1067,7 +1081,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a soldier card
-	 * @param playerIndex: player who is playing card
+	 * @param playerRobbing: player who is playing card
      */
 	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
 	{
@@ -1107,7 +1121,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monopoly card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonopoly(int playerid, String resource, int gameid)
 	{
@@ -1183,7 +1197,7 @@ public class ServerFacade
 
 	/**
 	 * Plays a monument card
-	 * @param playerIndex: player who is playing card
+	 * @param playerid: player who is playing card
      */
 	public void playMonument(int playerid, int gameid)
 	{
@@ -1217,10 +1231,10 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param edge: the edge it is being built on
      */
-	private BuildRoadCommand buildRoadCommand=new BuildRoadCommand();
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
 	{
-		buildRoadCommand.buildRoadincommand(playerIndex,location,edge,free, gameid);
+		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
+		buildRoadCommand.execute();
 	}
 
 	/**
@@ -1229,10 +1243,10 @@ public class ServerFacade
 	 * @param location: where it is being built (which hex)
 	 * @param vertex: which vertex it is being built on
      */
-	private BuildSettlementCommand buildsettlement=new BuildSettlementCommand();
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
 	{
-		buildsettlement.buildsettlement(playerIndex,location,vertex,free,gameid);
+		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
+		buildsettlement.execute();
 	}
 
 	/**
@@ -1241,10 +1255,10 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param vertex: needs to already have a settlement on it + required resources for player
      */
-	private BuildCityCommand buildCityCommand=new BuildCityCommand();
 	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
 	{
-		buildCityCommand.buildCityCommand(playerIndex,location,vertex, gameid);
+		BuildCityCommand buildCityCommand=new BuildCityCommand(playerIndex,location,vertex, gameid);
+		buildCityCommand.execute();
 	}
 
 	/**
@@ -1277,10 +1291,10 @@ public class ServerFacade
      * @param ratio: ratio at which we are making the trade
 	 * @param gameID: ID for the current game
      */
-	private MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand();
 	public void maritimeTrade(String getResource, String giveResource, int playerIndex, int ratio, int gameID) throws Exception
 	{
-		maritimeTradeCommand.doMaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
+		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
+		maritimeTradeCommand.execute();
 	}
 
 	/**
@@ -1289,10 +1303,10 @@ public class ServerFacade
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
      */
-	private DiscardCardsCommand mydiscard=new DiscardCardsCommand();
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
 	{
-		mydiscard.discardCards(playerIndex,cardsToDiscard,gameid);
+		DiscardCardsCommand mydiscard=new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid);
+		mydiscard.execute();
 	}
 
 	/**

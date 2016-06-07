@@ -27,74 +27,25 @@ public class BuildRoadCommand implements ICommand {
 	 * 	player building a road at the edge location if its open, not on water, 
 	 *  and connected to another road owned by the player.
 	 */
-	@Override
-	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+	int playerIndex;
+	HexLocation location;
+	EdgeLocation edge;
+	boolean free;
+	int gameid;
+	private static int turnstogo=1;
+	public BuildRoadCommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
+	{
+		this.playerIndex=playerIndex;
+		this.location=location;
+		this.edge=edge;
+		this.free=free;
+		this.gameid=gameid;
 	}
 
-	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
-	{
-		switch (original.getDir())
-		{
-			case NorthWest:
-				return adjacent.getSe();
-			case North:
-				return adjacent.getS();
-			case NorthEast:
-				return adjacent.getSw();
-			case SouthEast:
-				return adjacent.getNw();
-			case South:
-				return adjacent.getN();
-			case SouthWest:
-				return adjacent.getNe();
-			default:
-				//assert false;
-				break;
-		}
-		return null;
-	}
-	private Hex computeAdjacentHex(Hex initial, EdgeLocation edge,CatanGame mycurrentgame)
-	{
-		Hex adjacent = null;
-		switch (edge.getDir())
-		{
-			case NorthWest:
-				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc1);
-				break;
-			case North:
-				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc2);
-				break;
-			case NorthEast:
-				HexLocation loc3 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY() - 1);
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc3);
-				break;
-			case SouthEast:
-				HexLocation loc4 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY());
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc4);
-				break;
-			case South:
-				HexLocation loc5 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() + 1);
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc5);
-				break;
-			case SouthWest:
-				HexLocation loc6 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY() + 1);
-				adjacent = mycurrentgame.getMymap().getHexes().get(loc6);
-				break;
-			default:
-				break;
-			//assert false;
-		}
-		//assert(adjacent != null);
-		return adjacent;
-	}
-	private static int turnstogo=1;
-	public void buildRoadincommand(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
-	{
-		//System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
+
+	@Override
+	public Object execute() {
+//System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Index playerID = null;
@@ -160,7 +111,7 @@ public class BuildRoadCommand implements ICommand {
 			{
 				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
 				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
-				return;
+				return null;
 			}
 			Player playerwithlongestroad=null;
 			for(Player player:currentgame.getMyplayers().values())
@@ -176,8 +127,67 @@ public class BuildRoadCommand implements ICommand {
 				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
 			}
 
-		}
-
+		}		return null;
 	}
+
+	private EdgeLocation computeOppositeEdge(EdgeLocation original, Hex adjacent)
+	{
+		switch (original.getDir())
+		{
+			case NorthWest:
+				return adjacent.getSe();
+			case North:
+				return adjacent.getS();
+			case NorthEast:
+				return adjacent.getSw();
+			case SouthEast:
+				return adjacent.getNw();
+			case South:
+				return adjacent.getN();
+			case SouthWest:
+				return adjacent.getNe();
+			default:
+				//assert false;
+				break;
+		}
+		return null;
+	}
+	private Hex computeAdjacentHex(Hex initial, EdgeLocation edge,CatanGame mycurrentgame)
+	{
+		Hex adjacent = null;
+		switch (edge.getDir())
+		{
+			case NorthWest:
+				HexLocation loc1 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY());
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc1);
+				break;
+			case North:
+				HexLocation loc2 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() - 1);
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc2);
+				break;
+			case NorthEast:
+				HexLocation loc3 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY() - 1);
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc3);
+				break;
+			case SouthEast:
+				HexLocation loc4 = new HexLocation(initial.getLocation().getX() + 1, initial.getLocation().getY());
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc4);
+				break;
+			case South:
+				HexLocation loc5 = new HexLocation(initial.getLocation().getX(), initial.getLocation().getY() + 1);
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc5);
+				break;
+			case SouthWest:
+				HexLocation loc6 = new HexLocation(initial.getLocation().getX() - 1, initial.getLocation().getY() + 1);
+				adjacent = mycurrentgame.getMymap().getHexes().get(loc6);
+				break;
+			default:
+				break;
+			//assert false;
+		}
+		//assert(adjacent != null);
+		return adjacent;
+	}
+
 
 }
