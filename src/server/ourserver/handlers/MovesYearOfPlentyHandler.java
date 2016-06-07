@@ -43,6 +43,7 @@ public class MovesYearOfPlentyHandler implements HttpHandler
         String cookie = exchange.getRequestHeaders().getFirst("Cookie");
         int gameID = getGameIDfromCookie(cookie);
         JSONObject data = null;
+		exchange.getResponseHeaders().add("Content-type", "text/html");
         try
         {
             Scanner s = new Scanner(exchange.getRequestBody()).useDelimiter("\\A");
@@ -52,6 +53,10 @@ public class MovesYearOfPlentyHandler implements HttpHandler
         catch (JSONException e)
         {
             e.printStackTrace();
+			String response = "You gotta give me something to work with to play YOP.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
         try
         {
@@ -62,6 +67,10 @@ public class MovesYearOfPlentyHandler implements HttpHandler
         catch (JSONException e) 
         {
             e.printStackTrace();
+			String response = "So you are missing some info to play year of plenty.";
+			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
+			exchange.getResponseBody().write(response.getBytes());
+			exchange.close();
         }
 
         ICommand yopcommand = new PlayYearOfPlentyCommand(playerindex,resource1.toLowerCase(),resource2.toLowerCase(),gameID);
