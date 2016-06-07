@@ -49,7 +49,7 @@ public class ChatController extends Controller implements IChatController, Obser
 	{
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().equals(TurnStatus.SECONDROUND))
 		{
-			System.out.println("MY Player Index is this "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			//System.out.println("MY Player Index is this "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
 			ModelFacade.facadeCurrentGame.getServer().sendChat("sendChat",
 					ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber(), message);
 		}
@@ -75,10 +75,10 @@ public class ChatController extends Controller implements IChatController, Obser
 		//System.out.println("I GET UPDATED in the chat update");
 		if(!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND)&&!ModelFacade.facadeCurrentGame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
-			System.out.println("I GET THROUGH THE IF");
+			//System.out.println("I GET THROUGH THE IF");
 			List<LogEntry> entries = new ArrayList<>();
 			CatanColor playercolor = CatanColor.PUCE;
-			System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size());
+			//System.out.println(ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size());
 			for (int i = 0; i < ModelFacade.facadeCurrentGame.currentgame.getMychat().getChatMessages().getMessages().size(); i++)
 			{
 				for (Index loc : ModelFacade.facadeCurrentGame.currentgame.getMyplayers().keySet()) {
@@ -86,8 +86,8 @@ public class ChatController extends Controller implements IChatController, Obser
 						playercolor = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(loc).getColor();
 					}
 				}
-				System.out.println("I Add to the entries this "+playercolor.toString()+" this message "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage());
-				System.out.println("THE SIZE OF THIS CHAT ARRAY IS ALSO "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().size());
+				//System.out.println("I Add to the entries this "+playercolor.toString()+" this message "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage());
+				//System.out.println("THE SIZE OF THIS CHAT ARRAY IS ALSO "+ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().size());
 				entries.add(new LogEntry(playercolor, ModelFacade.facadeCurrentGame.getMychat().getChatMessages().getMessages().get(i).getMessage()));
 			}
 
@@ -112,7 +112,7 @@ public class ChatController extends Controller implements IChatController, Obser
 						indexforsmallest=i;
 					}
 				}
-				System.out.println("I ADD SOMETHING "+mywords[0]);
+				//System.out.println("I ADD SOMETHING "+mywords[0]);
 				entries2.add(new LogEntry(entries.get(indexforsmallest).getColor(),realmessage));
 				entries.remove(indexforsmallest);
 			}
