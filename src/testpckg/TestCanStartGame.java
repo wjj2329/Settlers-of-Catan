@@ -62,7 +62,7 @@ public class TestCanStartGame
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
 		assertFalse(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
-		assertFalse(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
+		assertTrue(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
 		assertTrue(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
 		ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(1));
@@ -78,7 +78,7 @@ public class TestCanStartGame
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Brian", CatanColor.GREEN, new Index(4)));
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Ryan", CatanColor.WHITE, new Index(1)));
-		assertFalse(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
+		assertTrue(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
 		ModelFacade.facadeCurrentGame.currentgame.addPlayer(new Player("Dude", CatanColor.RED, new Index(2)));
 		assertTrue(ModelFacade.facadeCurrentGame.currentgame.canStartGame());
 		exception.expect(Exception.class);

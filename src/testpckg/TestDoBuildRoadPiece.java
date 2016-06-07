@@ -2,6 +2,7 @@ package testpckg;
 
 import client.model.ModelFacade;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import shared.definitions.CatanColor;
@@ -116,7 +117,7 @@ public class TestDoBuildRoadPiece
     public void testSuccess_OneHexIsWater() throws Exception
     {
         initialize1();
-        assertTrue(hex1.getResourcetype().equals(HexType.WHEAT));
+        Assert.assertFalse(hex1.getResourcetype().equals(HexType.WHEAT));
         assertTrue(p1.buildRoadPiece(hex1, new EdgeLocation(loc1, EdgeDirection.NorthWest)));
     }
 
