@@ -276,14 +276,6 @@ public class ServerFacade
 				return p;
 			}
 		}
-		/*for (Player p : allRegisteredUsers)
-		{
-			if (p.equals(player))
-			{
-				p.setPlayerID(player.getPlayerID());
-				return p;
-			}
-		}*/
 		return null;
 	}
 
@@ -399,7 +391,6 @@ public class ServerFacade
 	private static int playeridvariable=100;
 	public boolean joinGame(int gameID, int playerid, String color)
 	{
-		System.out.println("I call joinGame eh?");
 		if(getGameByID(gameID).getMyplayers().containsKey(new Index(playerid)))
 		{
 			//getGameByID(gameID).getMyplayers().get(new Index(playerid)).setJoinedGame(true);
@@ -1043,6 +1034,10 @@ public class ServerFacade
 		}
 		
 		System.out.println("Right before I call buildRoad...");
+		System.out.println("The player id is " + playerid);
+		System.out.println("the edge direction is " + edgeDirectionFromString.getDir().name());
+		System.out.println("it should be free here: " + freebe);
+		System.out.println("aaaand the gameID is " + gameid);
 		//Call build road
 		buildRoad(playerid, hexLocation, edgeDirectionFromString, freebe, gameid);
 		System.out.println("Right after I call buildRoad!");

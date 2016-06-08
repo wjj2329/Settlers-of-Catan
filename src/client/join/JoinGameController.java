@@ -149,7 +149,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
             idx++;   
         }
 
-        if(currentGame != null && !cancelled)
+        if(currentGame != null/* && !cancelled*/)
         {
             System.out.println("I COME HERE TO DIE");
             startJoinGame(currentGame);
@@ -309,6 +309,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
     @Override
     public void startJoinGame(GameInfo game) 
     {
+        /*System.out.println("I am joining the game!");
+        System.out.println("The game has " + game.getPlayers().size() + " players");*/
         this.game = game;
         shouldShowGameList = false;
         Collection<PlayerInfo> currentplayers = game.getPlayers();
@@ -330,11 +332,14 @@ public class JoinGameController extends Controller implements IJoinGameControlle
                 currentColorsTaken.add(playerinfo.getColor());
             }
         }
+        //System.out.println("CurrentColorsTaken is size " + currentColorsTaken.size());
+        //System.out.println("ColorsTaken is size " + colorsTaken.size());
         if(currentColorsTaken.equals(colorsTaken))
         {
+            //System.out.println("I return early");
             return;
         }
-        
+        //System.out.println("is the modal showing? " + getMessageView().isModalShowing());
         //Color now assigned to client player
         colorsTaken = currentColorsTaken;
         for(CatanColor color: CatanColor.values())
@@ -343,7 +348,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
         }
         if(!getMessageView().isModalShowing())
         {
-            getSelectColorView().showModal();
+            //System.out.println("I'm here! :D ");
+            getSelectColorView().showModal(); // not showing this modal probably.
         }
         //startgame=true;
 
@@ -352,15 +358,26 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void cancelJoinGame() 
 	{
+       /* if (selectColorView.isModalShowing())
+        {
+            selectColorView.closeModal();
+        }
 		this.game = null;
         this.shouldShowGameList = true;
-        this.colorsTaken = null;
+        for(CatanColor color: CatanColor.values())
+        {
+            getSelectColorView().setColorEnabled(color, true);
+        }
+        colorsTaken.clear();
+        //cancelled = true;
+        //this.colorsTaken = null;*/
         getJoinGameView().showModal();
 	}
 
 	@Override
 	public void joinGame(CatanColor color)
 	{
+        //System.out.println("I call joinGame");
         ArrayList<CatanGame> games = ModelFacade.facadeCurrentGame.getModel().listGames();
         for(CatanGame game: games)
         {
