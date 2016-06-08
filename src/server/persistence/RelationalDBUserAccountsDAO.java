@@ -1,6 +1,10 @@
 package server.persistence;
 
 import com.google.gson.Gson;
+
+import shared.definitions.CatanColor;
+import shared.game.player.Player;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,14 +28,31 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     {
         // TODO take stuff out of the db to give to server facade model to load
     }
+    
 	@Override
-	public void clearInfo() {
+	public void addUser() {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void loadInfo() {
+	public Object getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void addPlayer() {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public CatanColor getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public void setColor(Player player, CatanColor color) {
+		// TODO Auto-generated method stub
+		
+	}
+    
 }

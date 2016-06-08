@@ -1,6 +1,10 @@
 package server.persistence;
 
 import com.google.gson.Gson;
+
+import server.ourserver.commands.ICommand;
+import shared.game.CatanGame;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -30,14 +34,30 @@ public class TextDBGameManagerDAO implements IGameManager
     {
         // TODO take stuff out of the db to give to server facade model to load
     }
+    
 	@Override
-	public void clearInfo() {
+	public void storeGameModel() {
 		// TODO Auto-generated method stub
 		
 	}
 	@Override
-	public void loadInfo() {
+	public void addCommand(ICommand command) {
 		// TODO Auto-generated method stub
 		
+	}
+	@Override
+	public ICommand getCommand() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public CatanGame getGameModel(int gameid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public Object getGameList() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
