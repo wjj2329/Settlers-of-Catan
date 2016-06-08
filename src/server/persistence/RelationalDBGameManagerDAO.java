@@ -4,9 +4,11 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.commands.PlayRoadBuildingCommand;
+import shared.game.CatanGame;
 
 import javax.activation.CommandObject;
 import java.sql.SQLData;
+import java.util.ArrayList;
 
 /**
  * Created by williamjones on 6/7/16.
@@ -41,4 +43,29 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void storeGame() {
+
+    }
+
+    @Override
+    public void addCommand() {
+
+    }
+
+    @Override
+    public ArrayList<CatanGame> getCommandsList() {
+        return null;
+    }
+
+    @Override
+    public void getGameModel() {
+
+    }
+
+    @Override
+    public void getGameList() {
+
+    }
 }

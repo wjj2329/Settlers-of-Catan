@@ -16,6 +16,7 @@ public class PluginRegistry implements IFactory
    {
         return null;
    }
+
    public void createPlugin(Descriptor descriptor)
    {
 
@@ -27,6 +28,16 @@ public class PluginRegistry implements IFactory
     public void SaveConfiguration()
     {
 
+    }
+
+    public String pathToConfigFile()
+    {
+        return "Not yet implemented";
+    }
+
+    public Object getPlugin(String pluginName)
+    {
+        return "Not yet implemented";
     }
 
     @Override

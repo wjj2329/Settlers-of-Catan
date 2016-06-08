@@ -3,6 +3,7 @@ package server.persistence;
 import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
+import shared.game.player.Player;
 
 import javax.activation.CommandObject;
 import java.sql.SQLData;
@@ -34,4 +35,34 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 		// TODO Auto-generated method stub
 		
 	}
+
+    @Override
+    public void validateUser() {
+
+    }
+
+    @Override
+    public void addUser() {
+
+    }
+
+    @Override
+    public void getAllUsers() {
+
+    }
+
+    @Override
+    public void addPlayer() {
+
+    }
+
+    @Override
+    public void setColor() {
+
+    }
+
+    @Override
+    public boolean isUserInGame(Player user) {
+        return false;
+    }
 }
