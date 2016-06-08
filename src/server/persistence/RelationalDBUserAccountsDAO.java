@@ -31,30 +31,14 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     }
 
     @Override
-    public void addUser() {
+    public void clearInfo() {
 
     }
 
-    public Object getAllUsers() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void addPlayer() {
-		// TODO Auto-generated method stub
-		
-	}
-	@Override
-	public CatanColor getColor() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	@Override
-	public void setColor(Player player, CatanColor color) {
-		// TODO Auto-generated method stub
-		
-	}
-<<<<<<< HEAD
+    @Override
+    public void loadInfo() {
+
+    }
 
     @Override
     public void validateUser() {
@@ -71,10 +55,12 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 
     }
 
-    @Override
-    public void addPlayer() {
 
-    }
+    @Override
+	public void addPlayer() {
+		// TODO Auto-generated method stub
+		
+	}
 
     @Override
     public void setColor() {
@@ -85,7 +71,6 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     public boolean isUserInGame(Player user) {
         return false;
     }
-=======
-    
->>>>>>> origin/master
+
+
 }
