@@ -62,7 +62,7 @@ public class TestCanPlayerBuildSettlement
         assertTrue( william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
         william.buildSettlement(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East));
         assertFalse(william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.East)));
-        assertFalse(william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.West)));
+        assertTrue(william.canBuildSettlementStartup(hex1,new VertexLocation(hex1.getLocation(),VertexDirection.West)));
     }
     /**
      Tests a normal regular hex to build on all sides and then if I run out of resources it wont let me build any more

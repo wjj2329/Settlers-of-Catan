@@ -23,37 +23,5 @@ import java.util.Map;
  */
 public class TestingJsonImporterandExporter
 {
-    @Rule
-    public final ExpectedException exception = ExpectedException.none();
 
-    ModelFacade myfacade=new ModelFacade();
-
-    @Before
-    public void setUp() throws Exception
-    {
-        //ModelFacade.facadeCurrentGame.currentgame=new CatanGame();
-        ModelFacade.facadeCurrentGame.currentgame.setMymap(new CatanMap(3));
-        Map<Index, Player> myplayers=new HashMap<>();
-        myplayers.put(new Index(0), new Player("william", CatanColor.BLUE,new Index(3)));
-        myplayers.get(0).setPlayerID(new Index(0));
-        ModelFacade.facadeCurrentGame.currentgame.setMyplayers(myplayers);
-    }
-
-   @Test
-   public void test1()
-   {
-       try {
-          JSONObject test= myfacade.serializeModel();
-           //System.out.println(test);
-       } catch (JSONException e) {
-           e.printStackTrace();
-       }
-   }
-
-
-    @After
-    public void tearDown() throws Exception
-    {
-
-    }
 }

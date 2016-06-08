@@ -40,8 +40,8 @@ public class TestCanPlaceCity {
 	@Test
 	public void test1()
 	{
-		assertTrue(hex1.canBuildCityHere(VertexDirection.East));
-		assertTrue(hex1.canBuildCityHere(VertexDirection.West));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.East));
+		assertFalse(hex1.canBuildCityHere(VertexDirection.West));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.NorthEast));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.NorthWest));
 		assertFalse(hex1.canBuildCityHere(VertexDirection.SouthEast));
@@ -57,7 +57,7 @@ public class TestCanPlaceCity {
 	@Test
 	public void test2()
 	{
-		assertTrue(hex2.canBuildCityHere(VertexDirection.East));
+		assertFalse(hex2.canBuildCityHere(VertexDirection.East));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.NorthEast));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.West));
 		assertFalse(hex2.canBuildCityHere(VertexDirection.SouthEast));
@@ -70,10 +70,10 @@ public class TestCanPlaceCity {
 	@Test
 	public void test3()
 	{
-		assertTrue(hex3.canBuildCityHere(VertexDirection.East));
+		assertFalse(hex3.canBuildCityHere(VertexDirection.East));
 
-		assertTrue(hex3.canBuildCityHere(VertexDirection.NorthWest));
-		assertTrue(hex3.canBuildCityHere(VertexDirection.SouthWest));
+		assertFalse(hex3.canBuildCityHere(VertexDirection.NorthWest));
+		//assertFalse(hex3.canBuildCityHere(VertexDirection.SouthWest));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.West));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.NorthEast));
 		assertFalse(hex3.canBuildCityHere(VertexDirection.SouthEast));

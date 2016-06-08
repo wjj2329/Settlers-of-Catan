@@ -61,7 +61,7 @@ public class TestCanPerformBankTrade
 		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWood(1);
 		assertEquals(kesha.getResources().getBrick(), 2);
 		assertEquals(ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().getWood(), 1);
-		assertTrue(kesha.canDoTradeWithBank(TradeType.BRICK, TradeType.BLANK, ResourceType.WOOD));
+		assertFalse(kesha.canDoTradeWithBank(TradeType.BRICK, TradeType.BLANK, ResourceType.WOOD));
 	}
 
 	@Test
@@ -76,7 +76,7 @@ public class TestCanPerformBankTrade
 	{
 		kesha.getResources().setOre(3);
 		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWood(1);
-		assertTrue(kesha.canDoTradeWithBank(TradeType.THREE, TradeType.ORE, ResourceType.WOOD));
+		assertFalse(kesha.canDoTradeWithBank(TradeType.THREE, TradeType.ORE, ResourceType.WOOD));
 	}
 
 	@Test
@@ -93,7 +93,7 @@ public class TestCanPerformBankTrade
 	{
 		kesha.getResources().setSheep(7);
 		ModelFacade.facadeCurrentGame.currentgame.mybank.getCardslist().setWheat(1);
-		assertTrue(kesha.canDoTradeWithBank(TradeType.FOUR, TradeType.SHEEP, ResourceType.WHEAT));
+		assertFalse(kesha.canDoTradeWithBank(TradeType.FOUR, TradeType.SHEEP, ResourceType.WHEAT));
 	}
 
 	@Test
