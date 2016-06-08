@@ -103,6 +103,7 @@ public class ServerFacade
 	private RobPlayerCommand robPlayerCommand;
 	private RollNumberCommand rollNumberCommand;
 	private SendChatCommand sendChatCommand;*/
+	//plugin stored somewhere with the configuration file.
 
 	/**
 	 * Constructor is private in order to avoid multiple instantiations.

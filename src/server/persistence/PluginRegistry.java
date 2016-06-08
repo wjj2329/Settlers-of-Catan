@@ -7,11 +7,12 @@ import javax.management.Descriptor;
  */
 public class PluginRegistry implements IFactory
 {
-    //Descrptor consits of name, class Name and descriptoin
+    //Descriptor consists of name, class Name and description
     public void RegisterPlugin(Descriptor descriptor)
     {
 
     }
+
    public  Descriptor getAvailablePlugins()
    {
         return null;

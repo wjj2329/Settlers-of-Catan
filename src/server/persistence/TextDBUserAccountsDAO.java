@@ -1,9 +1,14 @@
 package server.persistence;
 
+<<<<<<< HEAD
+=======
+import shared.definitions.CatanColor;
+>>>>>>> origin/master
 import shared.game.player.Player;
 
 /**
  * Created by williamjones on 6/7/16.
+<<<<<<< HEAD
  *
  */
 public class TextDBUserAccountsDAO implements IUserAccount
@@ -50,4 +55,40 @@ public class TextDBUserAccountsDAO implements IUserAccount
     public boolean isUserInGame(Player user) {
         return false;
     }
+=======
+ */
+public class TextDBUserAccountsDAO implements IUserAccount {
+
+	@Override
+	public void addUser() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Object getAllUsers() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addPlayer() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public CatanColor getColor() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void setColor(Player player, CatanColor color) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+>>>>>>> origin/master
 }
