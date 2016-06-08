@@ -7,15 +7,17 @@ import javax.management.Descriptor;
  */
 public class PluginRegistry implements IFactory
 {
-    //Descrptor consits of name, class Name and descriptoin
+    //Descriptor consists of name, class Name and description
     public void RegisterPlugin(Descriptor descriptor)
     {
 
     }
+
    public  Descriptor getAvailablePlugins()
    {
         return null;
    }
+
    public void createPlugin(Descriptor descriptor)
    {
 
@@ -27,5 +29,15 @@ public class PluginRegistry implements IFactory
     public void SaveConfiguration()
     {
 
+    }
+
+    @Override
+    public IGameManager getGameManager() {
+        return null;
+    }
+
+    @Override
+    public IUserAccount getUserAccount() {
+        return null;
     }
 }
