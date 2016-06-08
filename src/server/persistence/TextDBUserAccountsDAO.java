@@ -1,5 +1,7 @@
 package server.persistence;
 
+import shared.game.player.Player;
+
 <<<<<<< HEAD
 =======
 import shared.definitions.CatanColor;
@@ -55,7 +57,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
     public boolean isUserInGame(Player user) {
         return false;
     }
-=======
+======= // this is poop
  */
 public class TextDBUserAccountsDAO implements IUserAccount {
 
