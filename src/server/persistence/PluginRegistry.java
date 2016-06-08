@@ -28,4 +28,14 @@ public class PluginRegistry implements IFactory
     {
 
     }
+
+    @Override
+    public IGameManager getGameManager() {
+        return null;
+    }
+
+    @Override
+    public IUserAccount getUserAccount() {
+        return null;
+    }
 }
