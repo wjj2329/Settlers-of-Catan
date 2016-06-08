@@ -168,7 +168,7 @@ public class DevCardController extends Controller implements IDevCardController,
 		System.out.println("Starting road building");
 		getPlayCardView().closeModal();
 		roadAction.execute();
-		roadAction.execute();
+		roadAction.execute(); // this is sketchy.
 	}
 
 	@Override
