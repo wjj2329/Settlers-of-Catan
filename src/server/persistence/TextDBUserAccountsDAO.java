@@ -7,7 +7,6 @@ import shared.game.player.Player;
 
 /**
  * Created by williamjones on 6/7/16.
-<<<<<<< HEAD
  *
  */
 public class TextDBUserAccountsDAO implements IUserAccount

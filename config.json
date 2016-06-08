@@ -1,0 +1,15 @@
+{
+  "json":
+  {
+    "txt":
+    {
+      "file": "pathfile",
+      "jar": "jarthing"
+    },
+    "sql":
+    {
+      "file": "pathfile",
+      "jar": "harthing"
+    }
+  }
+}

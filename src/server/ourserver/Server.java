@@ -3,11 +3,16 @@ package server.ourserver;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import server.ourserver.handlers.*;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.rmi.ServerException;
+import java.util.Scanner;
 import java.util.logging.*;
 
 public class Server
@@ -165,13 +170,38 @@ public class Server
 	
 	public static void main(String[] args)
 	{
-		if(args.length == 0 || args[0].equals(""))
-		{
+		//if(args.length == 0 || args[0].equals(""))
+		//{
 			new Server().run(8081);
-		}
-		else
+		//}
+		//else
+		//{
+		//	new Server().run(Integer.parseInt(args[0]));
+		//}
+		String type=args[0];
+		JSONObject parsing=null;
+		try {
+			FileReader fr=new FileReader("config.json");
+			Scanner myscan=new Scanner(fr);
+			StringBuilder mybuilder=new StringBuilder();
+			while(myscan.hasNext())
+			{
+				mybuilder.append(myscan.next());
+			}
+			//System.out.println(mybuilder.toString());
+			parsing=new JSONObject(mybuilder.toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e)
 		{
-			new Server().run(Integer.parseInt(args[0]));
+			e.printStackTrace();
 		}
+		try {
+			JSONObject myobject=parsing.getJSONObject("json");
+			JSONObject therealdeal=myobject.getJSONObject(type);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
 	}
 }
