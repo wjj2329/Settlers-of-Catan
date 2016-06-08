@@ -24,4 +24,14 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     {
         // TODO take stuff out of the db to give to server facade model to load
     }
+	@Override
+	public void clearInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void loadInfo() {
+		// TODO Auto-generated method stub
+		
+	}
 }

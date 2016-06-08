@@ -11,7 +11,7 @@ import java.sql.SQLData;
 /**
  * Created by williamjones on 6/7/16.
  */
-public class RelationalDBGameManagerDAO
+public class RelationalDBGameManagerDAO implements IGameManager
 {
     private SQLData db;
     private static int increment=0;
@@ -31,4 +31,14 @@ public class RelationalDBGameManagerDAO
     {
         // TODO take stuff out of the db to give to server facade model to load
     }
+	@Override
+	public void clearInfo() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void loadInfo() {
+		// TODO Auto-generated method stub
+		
+	}
 }
