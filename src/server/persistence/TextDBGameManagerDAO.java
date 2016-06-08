@@ -58,19 +58,18 @@ public class TextDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		return null;
 	}
-	@Override
-	public Object getGameList() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
-    @Override
     public void storeGame() {
 
     }
 
     @Override
-    public void addCommand() {
+    public void clearInfo() {
+
+    }
+
+    @Override
+    public void loadInfo() {
 
     }
 
@@ -85,7 +84,7 @@ public class TextDBGameManagerDAO implements IGameManager
     }
 
     @Override
-    public void getGameList() {
-
+    public Object getGameList() {
+        return "Not yet implemented";
     }
 }

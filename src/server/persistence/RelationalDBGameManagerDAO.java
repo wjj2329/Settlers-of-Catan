@@ -10,12 +10,9 @@ import shared.game.CatanGame;
 
 import javax.activation.CommandObject;
 import java.sql.SQLData;
-<<<<<<< HEAD
 import java.util.ArrayList;
-=======
 //import android.database.sqlite.SQLiteDatabase;
 
->>>>>>> origin/master
 
 /**
  * Created by williamjones on 6/7/16.
@@ -46,11 +43,6 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		
 	}
 
-    @Override
-    public void addCommand() {
-
-    }
-
 	@Override
 	public ICommand getCommand() {
 		// TODO Auto-generated method stub
@@ -66,12 +58,6 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		return null;
 	}
-<<<<<<< HEAD
-
-    @Override
-    public void storeGame() {
-
-    }
 
     @Override
     public void addCommand() {
@@ -89,10 +75,12 @@ public class RelationalDBGameManagerDAO implements IGameManager
     }
 
     @Override
-    public void getGameList() {
+    public void clearInfo() {
 
     }
-=======
-	
->>>>>>> origin/master
+
+    @Override
+    public void loadInfo() {
+
+    }
 }
