@@ -110,7 +110,7 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 		ResultSet keyRS = null;
 		try
 		{
-			String query = "insert into User (username, password) values (?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into User (username, password) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setString(1, user.getName());
 			stmt.setString(2, user.getPassword());
