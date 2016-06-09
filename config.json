@@ -3,12 +3,12 @@
   {
     "txt":
     {
-      "file": "pathfile",
+      "file": "persitance/RelationalDBFactory.java",
       "jar": "jarthing"
     },
     "sql":
     {
-      "file": "pathfile",
+      "file": "persitance/TextDBFactory.java",
       "jar": "harthing"
     }
   }

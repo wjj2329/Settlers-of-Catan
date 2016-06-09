@@ -96,7 +96,11 @@ public class MovesBuildSettlementHandler implements HttpHandler
 			exchange.close();
         }
         //System.out.println("I MY Settlement handler I get a Hex location of "+x+y+" my direction is "+direction);
-        ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe,gameID);
+        try {
+            ServerFacade.getInstance().buildSettlement(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),freebe,gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

@@ -9,6 +9,7 @@ import server.ourserver.commands.PlayRoadBuildingCommand;
 import shared.game.CatanGame;
 
 import javax.activation.CommandObject;
+import java.io.IOException;
 import java.sql.SQLData;
 import java.util.ArrayList;
 //import android.database.sqlite.SQLiteDatabase;
@@ -43,7 +44,12 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		
 	}
 
-	@Override
+    @Override
+    public void addCommand(ICommand commandObject) throws JSONException, IOException {
+
+    }
+
+    @Override
 	public ICommand getCommand() {
 		// TODO Auto-generated method stub
 		return null;
@@ -59,10 +65,6 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		return null;
 	}
 
-    @Override
-    public void addCommand() {
-
-    }
 
     @Override
     public ArrayList<CatanGame> getCommandsList() {

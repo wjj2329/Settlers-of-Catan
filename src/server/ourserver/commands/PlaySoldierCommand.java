@@ -1,7 +1,10 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import shared.locations.HexLocation;
+
+import java.io.IOException;
 
 /**
  * The PlaySoldierCommand class
@@ -28,7 +31,7 @@ public class PlaySoldierCommand implements ICommand
 	 *  no other dev cards are played during the turn soldier is played
 	 */
 	@Override
-	public Object execute() {
+	public Object execute() throws IOException, JSONException {
 		ServerFacade.getInstance().playSoldier(location, playerRobbing, playerBeingRobbed, gameid);
 		return null;
 	}

@@ -79,8 +79,12 @@ public class MovesSoldierHandler  implements HttpHandler {
         }
 
         ICommand soldiercommand = new PlaySoldierCommand(new HexLocation(x,y),playerindex,victimindex,gameID);
-        soldiercommand.execute();
-        
+        try {
+            soldiercommand.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String response = "Success";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

@@ -91,7 +91,11 @@ public class MovesBuildCityHandler implements HttpHandler {
 			exchange.close();
         }
 
-        ServerFacade.getInstance().buildCity(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),gameID);
+        try {
+            ServerFacade.getInstance().buildCity(playerindex,new HexLocation(x,y),convertToVertexDirection(direction, new HexLocation(x,y)),gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

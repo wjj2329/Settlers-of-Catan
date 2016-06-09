@@ -72,7 +72,11 @@ public class MovesDiscardCardHandler implements HttpHandler {
 			exchange.close();
         }
 
-        ServerFacade.getInstance().discardCards(playerindex, new ResourceList( brick, ore, sheep, wheat, wood),gameID);
+        try {
+            ServerFacade.getInstance().discardCards(playerindex, new ResourceList( brick, ore, sheep, wheat, wood),gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

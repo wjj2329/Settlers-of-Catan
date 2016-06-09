@@ -69,8 +69,12 @@ public class MovesMonopolyHandler implements HttpHandler
         }
 
         ICommand monopolyCommand = new PlayMonopolyCommand(playerindex,resource.toLowerCase(),gameID);
-        monopolyCommand.execute();
-        
+        try {
+            monopolyCommand.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String response = "Success";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

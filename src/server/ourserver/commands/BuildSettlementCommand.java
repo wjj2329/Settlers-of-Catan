@@ -21,7 +21,7 @@ import java.util.ArrayList;
 /**
  * The BuildSettlementCommand class
  */
-public class BuildSettlementCommand implements ICommand {
+public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 
 	
 	/**

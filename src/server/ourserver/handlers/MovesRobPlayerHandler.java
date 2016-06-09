@@ -70,8 +70,12 @@ public class MovesRobPlayerHandler implements HttpHandler {
 			exchange.close();
         }
 
-        ServerFacade.getInstance().robPlayer(new HexLocation(x,y),playerindex,victimindex,gameID);
-		
+        try {
+            ServerFacade.getInstance().robPlayer(new HexLocation(x,y),playerindex,victimindex,gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String response = "You seem to have robbed a player.";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

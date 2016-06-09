@@ -95,7 +95,11 @@ public class MovesBuildRoadHandler implements HttpHandler
 			exchange.close();
         }
 
-        ServerFacade.getInstance().buildRoad(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe,gameID);
+        try {
+            ServerFacade.getInstance().buildRoad(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe,gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

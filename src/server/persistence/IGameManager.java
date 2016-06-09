@@ -1,13 +1,17 @@
 package server.persistence;
 
+import org.json.JSONException;
 import shared.game.CatanGame;
 
 import shared.game.CatanGame;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import server.ourserver.commands.ICommand;
 import shared.game.CatanGame;
+
+import javax.activation.CommandObject;
 
 /**
  * Created by williamjones on 6/7/16.
@@ -23,7 +27,7 @@ public interface IGameManager
 
 	void storeGameModel();
 
-	void addCommand();
+	void addCommand(ICommand commandObject) throws JSONException, IOException;
 
 	ArrayList<CatanGame> getCommandsList();
 

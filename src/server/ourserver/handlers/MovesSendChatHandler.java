@@ -55,7 +55,11 @@ public class MovesSendChatHandler implements HttpHandler {
 			exchange.close();
         }
 
-        ServerFacade.getInstance().sendChat(message,playerindex,gameID);
+        try {
+            ServerFacade.getInstance().sendChat(message,playerindex,gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "SSSucccccesssssssssssssss (a snake said it)";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

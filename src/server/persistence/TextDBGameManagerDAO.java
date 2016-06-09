@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import shared.game.CatanGame;
 
 import javax.activation.CommandObject;
+import java.io.*;
 import java.sql.SQLData;
 import java.util.ArrayList;
 
@@ -18,8 +19,14 @@ import java.util.ArrayList;
  */
 public class TextDBGameManagerDAO implements IGameManager
 {
-    private SQLData db;
+    private File db=new File("textfortest.txt");
     private static int increment=0;
+
+    public TextDBGameManagerDAO() throws IOException
+    {
+
+    }
+
     void addcommandinfo(CommandObject commandObject) throws JSONException
     {
         Gson myobject=new Gson();
@@ -42,10 +49,14 @@ public class TextDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		
 	}
+    //private FileOutputStream fileout=new FileOutputStream("myfile.ser");
+   // ObjectOutputStream out=new ObjectOutputStream(fileout);
+
 
     @Override
-    public void addCommand() {
+    public void addCommand(ICommand commandObject) throws JSONException, IOException {
 
+        System.out.println("I make it here before dying.");
     }
 
 	@Override

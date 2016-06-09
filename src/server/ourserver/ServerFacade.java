@@ -9,6 +9,7 @@ import client.model.TurnStatus;
 import client.model.TurnTracker;
 import client.points.IGameFinishedView;
 import server.ourserver.commands.*;
+import server.persistence.PersistanceManager;
 import shared.chat.GameHistoryLine;
 import shared.definitions.CatanColor;
 import shared.game.Card;
@@ -29,6 +30,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+import java.io.IOException;
 import java.rmi.ServerException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -855,10 +857,10 @@ public class ServerFacade
 	 * @param message: the chat message we are sending
      */
 
-	public void sendChat(String message, int playerindex,int gameid)
-	{
+	public void sendChat(String message, int playerindex,int gameid) throws IOException, JSONException {
 		SendChatCommand mychat=new SendChatCommand(message,playerindex,gameid);
 		mychat.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(mychat);
 	}
 
 	/**
@@ -866,10 +868,10 @@ public class ServerFacade
 	 * This number is randomized and is either computed here or on the model side.
 	 * @param number: randomized number between 2 and 12.
      */
-	public void rollNumber(int number, int gameID)
-	{
+	public void rollNumber(int number, int gameID) throws IOException, JSONException {
 		ICommand command = new RollNumberCommand(number, gameID);
 		command.execute();
+		PersistanceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -877,10 +879,10 @@ public class ServerFacade
 	 * @param location: Where the robber is at
      */
 
-	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid)
-	{
+	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid) throws IOException, JSONException {
 		RobPlayerCommand robbing=new RobPlayerCommand(location,playerRobbing,playerbeingrobbed, gameid);
 		robbing.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(robbing);
 	}
 
 	/**
@@ -888,10 +890,10 @@ public class ServerFacade
 	 * @param playerIndex: the player who is finishing the turn
 	 * @return: the index of the next player. who will become the current player.
      */
-	public void  finishTurn(int playerIndex, int gameid)
-	{
+	public void  finishTurn(int playerIndex, int gameid) throws IOException, JSONException {
 		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
 		endturn.execute();
+		PersistanceManager.getSingleton().addcommandinfo(endturn);
 	}
 
 	/**
@@ -1018,8 +1020,7 @@ public class ServerFacade
 	 * @param playerIndex: player who is playing card
      */
 	int roadscounter = 1;
-	public void playRoadBuilding(int playerid, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameid)
-	{
+	public void playRoadBuilding(int playerid, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameid) throws IOException, JSONException {
 		System.out.println("Starting road building facade");
 		//Setup
 		playerid -= 100;
@@ -1066,8 +1067,7 @@ public class ServerFacade
 	 * Plays a soldier card
 	 * @param playerRobbing: player who is playing card
      */
-	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid)
-	{
+	public void playSoldier(HexLocation location, int playerRobbing, int playerBeingRobbed, int gameid) throws IOException, JSONException {
 		System.out.println("Starting soldier facade");
 		//Setup
 		CatanGame currentgame = getGameByID(gameid);
@@ -1237,10 +1237,11 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param edge: the edge it is being built on
      */
-	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid)
-	{
+	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid) throws IOException, JSONException {
 		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
 		buildRoadCommand.execute();
+		PersistanceManager.getSingleton().addcommandinfo(buildRoadCommand);
+
 	}
 
 	/**
@@ -1249,10 +1250,11 @@ public class ServerFacade
 	 * @param location: where it is being built (which hex)
 	 * @param vertex: which vertex it is being built on
      */
-	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid)
-	{
+	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid) throws IOException, JSONException {
 		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
 		buildsettlement.execute();
+		PersistanceManager.getSingleton().addcommandinfo(buildsettlement);
+
 	}
 
 	/**
@@ -1261,20 +1263,20 @@ public class ServerFacade
 	 * @param location: where it is being built
 	 * @param vertex: needs to already have a settlement on it + required resources for player
      */
-	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid)
-	{
+	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid) throws IOException, JSONException {
 		BuildCityCommand buildCityCommand=new BuildCityCommand(playerIndex,location,vertex, gameid);
 		buildCityCommand.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(buildCityCommand);
 	}
 
 	/**
 	 * Function to offer trade to another player
 	 *
      */
-	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver)
-	{
+	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver) throws IOException, JSONException {
 		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
 		command.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -1283,10 +1285,10 @@ public class ServerFacade
 	 //* @param giveResource: resource
 	 * @param playerIndex: player who is playing card
      */
-	public void acceptTrade(int gameid, int playerIndex, boolean willAccept)
-	{
+	public void acceptTrade(int gameid, int playerIndex, boolean willAccept) throws IOException, JSONException {
 		ICommand command = new AcceptTradeCommand(gameid, playerIndex, willAccept);
 		command.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -1301,6 +1303,7 @@ public class ServerFacade
 	{
 		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
 		maritimeTradeCommand.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
 	}
 
 	/**
@@ -1309,10 +1312,10 @@ public class ServerFacade
 	 * @param cardsToDiscard: which cards player wants to get rid of
 	 *                      will probably change the data storage
      */
-	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid)
-	{
+	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid) throws IOException, JSONException {
 		DiscardCardsCommand mydiscard=new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid);
 		mydiscard.execute();
+		//PersistanceManager.getSingleton().addcommandinfo(mydiscard);
 	}
 
 	/**

@@ -74,8 +74,12 @@ public class MovesYearOfPlentyHandler implements HttpHandler
         }
 
         ICommand yopcommand = new PlayYearOfPlentyCommand(playerindex,resource1.toLowerCase(),resource2.toLowerCase(),gameID);
-        yopcommand.execute();
-        
+        try {
+            yopcommand.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String response = "Success";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

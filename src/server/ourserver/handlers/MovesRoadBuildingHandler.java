@@ -84,8 +84,12 @@ public class MovesRoadBuildingHandler implements HttpHandler
         }
         
         ICommand roadbuildingcommand = new PlayRoadBuildingCommand(playerindex,new HexLocation(x,y),getEdgeDirectionFromString(direction,new HexLocation(x,y)),freebe,gameID);
-        roadbuildingcommand.execute();
-        
+        try {
+            roadbuildingcommand.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         String response = "WHY DOES THIS EXIST!!!!!!!!!!";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

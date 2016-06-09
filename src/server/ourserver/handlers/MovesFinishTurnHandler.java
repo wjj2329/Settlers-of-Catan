@@ -62,7 +62,11 @@ public class MovesFinishTurnHandler implements HttpHandler
 			exchange.close();
         }
 
-        ServerFacade.getInstance().finishTurn(playerindex,gameID);
+        try {
+            ServerFacade.getInstance().finishTurn(playerindex,gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         String response = "You managed to finish the turn. Congrats.";
         exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         exchange.getResponseBody().write(response.getBytes());

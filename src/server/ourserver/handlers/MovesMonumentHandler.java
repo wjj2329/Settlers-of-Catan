@@ -69,9 +69,13 @@ public class MovesMonumentHandler implements HttpHandler
 	        }
 	        
 	        ICommand command = new PlayMonumentCommand(playerindex, gameID);
-	        command.execute();
-	        
-	        String response = "Success";
+			try {
+				command.execute();
+			} catch (JSONException e) {
+				e.printStackTrace();
+			}
+
+			String response = "Success";
 	        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
 	        exchange.getResponseBody().write(response.getBytes());
 	        exchange.close();

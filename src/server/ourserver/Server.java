@@ -196,12 +196,19 @@ public class Server
 		{
 			e.printStackTrace();
 		}
-		try {
+		try
+		{
 			JSONObject myobject=parsing.getJSONObject("json");
 			JSONObject therealdeal=myobject.getJSONObject(type);
+			System.out.println(therealdeal.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
+		//store jar file name in a file object.
+		//Url =jarfile.toURI().toURL().
+		//ClassLoader loader=new URLClassLoader(urls);
+		//CLass c =loader.loadClass(jar name);
+
 
 	}
 }
