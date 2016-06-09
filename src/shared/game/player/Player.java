@@ -180,6 +180,13 @@ public class Player implements Comparable<Player>
 		this.color = color;
 		this.playerID = playerID;}
 
+	public Player(int id, String username, String password)
+	{
+		playerID.setNumber(id);
+		name = username;
+		this.password = password;
+	}
+
 	/**
 	 * Function to determine whether or not a player can trade with another player.
 	 * @param other: the other player

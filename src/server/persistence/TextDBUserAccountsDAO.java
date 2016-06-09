@@ -1,5 +1,8 @@
 package server.persistence;
 
+import java.util.List;
+
+import server.database.DatabaseException;
 import shared.game.player.Player;
 
 
@@ -12,46 +15,40 @@ import shared.game.player.Player;
 public class TextDBUserAccountsDAO implements IUserAccount
 {
 
-    @Override
-    public void clearInfo() {
-        // TODO Auto-generated method stub
+	@Override
+	public Player validateUser(Player player)
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	@Override
+	public void addUser(Player user) throws DatabaseException
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void loadInfo() {
-        // TODO Auto-generated method stub
+	@Override
+	public List<Player> getAllUsers()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
 
-    }
+	@Override
+	public void setColor(Player user) throws DatabaseException
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
-    @Override
-    public void validateUser() {
+	@Override
+	public boolean isUserInGame(Player user)
+	{
+		// TODO Auto-generated method stub
+		return false;
+	}
 
-    }
-
-    @Override
-    public void addUser() {
-
-    }
-
-    @Override
-    public void getAllUsers() {
-
-    }
-
-    @Override
-    public void addPlayer() {
-
-    }
-
-    @Override
-    public void setColor() {
-
-    }
-
-    @Override
-    public boolean isUserInGame(Player user) {
-        return false;
-    }
-
+   
 }

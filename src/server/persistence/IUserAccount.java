@@ -1,5 +1,8 @@
 package server.persistence;
 
+import java.util.List;
+
+import server.database.DatabaseException;
 import shared.game.player.Player;
 
 
@@ -11,20 +14,13 @@ import shared.game.player.Player;
  */
 public interface IUserAccount
 {
-	
-	public void clearInfo();
-	
-	public void loadInfo();
+	Player validateUser(Player player);
 
-	void validateUser();
+	void addUser(Player user) throws DatabaseException;
 
-	void addUser();
+	List<Player> getAllUsers();
 
-	void getAllUsers();
-
-	void addPlayer();
-
-	void setColor();
+	void setColor(Player user) throws DatabaseException;
 
 	boolean isUserInGame(Player user);
 

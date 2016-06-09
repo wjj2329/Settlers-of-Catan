@@ -5,18 +5,23 @@ package server.persistence;
  */
 public class RelationalDBFactory implements IFactory
 {
-    RelationalDBGameManagerDAO relationalDBGameManagerDAO=new RelationalDBGameManagerDAO();
-    RelationalDBUserAccountsDAO relationalDBUserAccountsDAO=new RelationalDBUserAccountsDAO();
+    private RelationalDBGameManagerDAO relationalDBGameManagerDAO;
+    private RelationalDBUserAccountsDAO relationalDBUserAccountsDAO;
 	
+    public RelationalDBFactory()
+    {
+    	relationalDBGameManagerDAO = new RelationalDBGameManagerDAO();
+    	relationalDBUserAccountsDAO = new RelationalDBUserAccountsDAO(null);
+    }
     @Override
-	public IGameManager getGameManager() {
-		// TODO Auto-generated method stub
-		return null;
+	public IGameManager getGameManager() 
+    {
+		return relationalDBGameManagerDAO;
 	}
 	@Override
-	public IUserAccount getUserAccount() {
-		// TODO Auto-generated method stub
-		return null;
+	public IUserAccount getUserAccount() 
+	{
+		return relationalDBUserAccountsDAO;
 	}
 
 }

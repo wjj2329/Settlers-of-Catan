@@ -7,20 +7,31 @@ import java.io.IOException;
  */
 public class TextDBFactory implements IFactory
 {
-    TextDBGameManagerDAO mymanager=new TextDBGameManagerDAO();
-    TextDBUserAccountsDAO textDBUserAccountsDAO=new TextDBUserAccountsDAO();
+    private TextDBGameManagerDAO textDBGameManagerDAO;
+    private TextDBUserAccountsDAO textDBUserAccountsDAO;
 
-	public TextDBFactory() throws IOException {
+	public TextDBFactory()
+	{
+		try
+		{
+			textDBGameManagerDAO = new TextDBGameManagerDAO();
+			textDBUserAccountsDAO = new TextDBUserAccountsDAO();
+		} 
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public IGameManager getGameManager() {
-		// TODO Auto-generated method stub
-		return mymanager;
+	public IGameManager getGameManager() 
+	{
+		return textDBGameManagerDAO;
 	}
+	
 	@Override
-	public IUserAccount getUserAccount() {
-		// TODO Auto-generated method stub
+	public IUserAccount getUserAccount() 
+	{
 		return textDBUserAccountsDAO;
 	}
 
