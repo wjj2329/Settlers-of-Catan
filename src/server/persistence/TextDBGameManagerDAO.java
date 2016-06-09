@@ -20,16 +20,25 @@ import java.util.ArrayList;
  */
 public class TextDBGameManagerDAO implements IGameManager
 {
-    private File stuff=new File("textfortest.txt");
-    private FileWriter db=new FileWriter(stuff);
     private int gameid=-1000;
+    private File commands=new File("commands"+gameid+".txt");
+    private File game=new File("commands"+gameid+".txt");
+    private FileWriter db=new FileWriter(commands);
+    private FileWriter dbg=new FileWriter(game);
 
     public int getGameid() {
         return gameid;
     }
 
     public void setGameid(int gameid) {
+
         this.gameid = gameid;
+        commands=new File("commands"+gameid+".txt");
+        try {
+            db=new FileWriter(commands);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public TextDBGameManagerDAO() throws IOException
@@ -63,10 +72,12 @@ public class TextDBGameManagerDAO implements IGameManager
 
     @Override
     public void clearInfo() {
-        stuff=new File("textfortest.txt");
-        try {
-            db=new FileWriter(stuff);
-        } catch (IOException e) {
+        commands=new File("game"+gameid+".txt");
+        try
+        {
+            db=new FileWriter(commands);
+        } catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
@@ -75,8 +86,9 @@ public class TextDBGameManagerDAO implements IGameManager
     public void loadInfo()
     {
         if(gameid!=-1000) {
-            try {
-                db.write(ServerFacade.getInstance().getGameModel(gameid).toString());
+            try
+            {
+                dbg.write(ServerFacade.getInstance().getGameModel(gameid).toString());
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -3,16 +3,14 @@ package server.ourserver;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import server.ourserver.handlers.*;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.rmi.ServerException;
-import java.util.Scanner;
+
 import java.util.logging.*;
 
 public class Server
@@ -172,12 +170,14 @@ public class Server
 	{
 		//if(args.length == 0 || args[0].equals(""))
 		//{
-			new Server().run(8081);
+
+		new Server().run(8081);
 		//}
 		//else
 		//{
 		//	new Server().run(Integer.parseInt(args[0]));
 		//}
+		/*
 		String type=args[0];
 		JSONObject parsing=null;
 		try {
@@ -208,6 +208,7 @@ public class Server
 		//Url =jarfile.toURI().toURL().
 		//ClassLoader loader=new URLClassLoader(urls);
 		//CLass c =loader.loadClass(jar name);
+		*/
 
 
 	}
