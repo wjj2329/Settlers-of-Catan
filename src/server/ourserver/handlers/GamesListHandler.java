@@ -16,7 +16,8 @@ import org.json.JSONArray;
  *
  Returns information about all of the current games on the server.
  *
- *  None! :D
+ *
+ * None! :D
  *  If the operation succeeds, 1.The server returns an
  *                HTTP 200 success response. 2.The body contains a JSON
  *                array containing a list of objects that contain
