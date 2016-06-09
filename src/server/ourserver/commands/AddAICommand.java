@@ -15,4 +15,8 @@ public class AddAICommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "AddAICommand{}";
+	}
 }

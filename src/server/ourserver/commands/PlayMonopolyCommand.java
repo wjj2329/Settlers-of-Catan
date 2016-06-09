@@ -31,4 +31,12 @@ public class PlayMonopolyCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "PlayMonopolyCommand{" +
+				"playerindex=" + playerindex +
+				", resource='" + resource + '\'' +
+				", gameID=" + gameID +
+				'}';
+	}
 }

@@ -328,4 +328,12 @@ public class RollNumberCommand implements ICommand {
 			}
 		}	
 	}
+
+	@Override
+	public String toString() {
+		return "RollNumberCommand{" +
+				"rollNumber=" + rollNumber +
+				", gameid=" + gameid +
+				'}';
+	}
 }

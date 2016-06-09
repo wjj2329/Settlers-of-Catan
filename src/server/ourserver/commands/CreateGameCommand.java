@@ -15,4 +15,8 @@ public class CreateGameCommand implements ICommand {
 
 	}
 
+	@Override
+	public String toString() {
+		return "CreateGameCommand{}";
+	}
 }

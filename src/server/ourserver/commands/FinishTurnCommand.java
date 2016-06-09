@@ -145,4 +145,11 @@ public class FinishTurnCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "FinishTurnCommand{" +
+				"playerIndex=" + playerIndex +
+				", gameid=" + gameid +
+				'}';
+	}
 }

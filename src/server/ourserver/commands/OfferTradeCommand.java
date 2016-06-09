@@ -41,4 +41,13 @@ public class OfferTradeCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "OfferTradeCommand{" +
+				"gameid=" + gameid +
+				", playerIndex=" + playerIndex +
+				", offer=" + offer +
+				", receiver=" + receiver +
+				'}';
+	}
 }

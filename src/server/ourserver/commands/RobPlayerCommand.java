@@ -156,4 +156,13 @@ public class RobPlayerCommand implements ICommand {
 	}
 
 
+	@Override
+	public String toString() {
+		return "RobPlayerCommand{" +
+				"location=" + location +
+				", playerRobbing=" + playerRobbing +
+				", playerbeingrobbed=" + playerbeingrobbed +
+				", gameid=" + gameid +
+				'}';
+	}
 }

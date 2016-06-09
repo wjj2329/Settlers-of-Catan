@@ -68,4 +68,12 @@ public class DiscardCardsCommand implements ICommand {
 		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "DiscardCardsCommand{" +
+				"playerIndex=" + playerIndex +
+				", cardsToDiscard=" + cardsToDiscard +
+				", gameid=" + gameid +
+				'}';
+	}
 }

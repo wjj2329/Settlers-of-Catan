@@ -190,4 +190,14 @@ public class BuildRoadCommand implements ICommand {
 	}
 
 
+	@Override
+	public String toString() {
+		return "BuildRoadCommand{" +
+				"playerIndex=" + playerIndex +
+				", location=" + location +
+				", edge=" + edge +
+				", free=" + free +
+				", gameid=" + gameid +
+				'}';
+	}
 }

@@ -15,4 +15,6 @@ public interface ICommand {
 	 * Execute depending on the implementation of the interface it will execute the corresponding task
 	 */
 	public Object execute() throws IOException, JSONException;
+
+	public String toString();
 }

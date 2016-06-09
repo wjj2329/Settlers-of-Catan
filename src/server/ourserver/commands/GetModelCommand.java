@@ -17,4 +17,8 @@ public class GetModelCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "GetModelCommand{}";
+	}
 }

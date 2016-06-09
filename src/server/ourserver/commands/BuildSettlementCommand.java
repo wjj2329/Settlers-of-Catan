@@ -23,7 +23,18 @@ import java.util.ArrayList;
  */
 public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 
-	
+
+	@Override
+	public String toString() {
+		return "BuildSettlementCommand{" +
+				"playerIndex=" + playerIndex +
+				", location=" + location +
+				", vertex=" + vertex +
+				", free=" + free +
+				", gameid=" + gameid +
+				'}';
+	}
+
 	/**
 	 * Executes the task
 	 * 	player builds a settlement at the vertex location 

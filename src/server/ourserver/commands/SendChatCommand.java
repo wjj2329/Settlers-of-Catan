@@ -50,4 +50,12 @@ public class SendChatCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "SendChatCommand{" +
+				"message='" + message + '\'' +
+				", playerindex=" + playerindex +
+				", gameid=" + gameid +
+				'}';
+	}
 }

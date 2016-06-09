@@ -173,4 +173,15 @@ public class MaritimeTradeCommand implements ICommand {
 	private static final  String SHEEP = "sheep";
 	private static final String WHEAT = "wheat";
 	private static final String WOOD = "wood";
+
+	@Override
+	public String toString() {
+		return "MaritimeTradeCommand{" +
+				"getResource='" + getResource + '\'' +
+				", giveResource='" + giveResource + '\'' +
+				", playerIndex_NOT_ID=" + playerIndex_NOT_ID +
+				", ratio=" + ratio +
+				", gameID=" + gameID +
+				'}';
+	}
 }

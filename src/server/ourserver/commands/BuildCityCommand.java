@@ -84,4 +84,13 @@ public class BuildCityCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "BuildCityCommand{" +
+				"playerIndex=" + playerIndex +
+				", location=" + location +
+				", vertex=" + vertex +
+				", gameid=" + gameid +
+				'}';
+	}
 }

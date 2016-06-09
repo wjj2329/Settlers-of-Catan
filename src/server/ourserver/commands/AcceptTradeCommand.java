@@ -70,8 +70,14 @@ public class AcceptTradeCommand implements ICommand {
 	
 		return null;
 	}
-	
-	
-	
 
+
+	@Override
+	public String toString() {
+		return "AcceptTradeCommand{" +
+				"gameid=" + gameid +
+				", playerIndex=" + playerIndex +
+				", willAccept=" + willAccept +
+				'}';
+	}
 }

@@ -29,4 +29,11 @@ public class BuyDevCardCommand implements ICommand
 		this.gameid = gameid;
 	}
 
+	@Override
+	public String toString() {
+		return "BuyDevCardCommand{" +
+				"playerIndex=" + playerIndex +
+				", gameid=" + gameid +
+				'}';
+	}
 }

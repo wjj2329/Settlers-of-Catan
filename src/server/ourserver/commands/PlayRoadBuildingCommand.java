@@ -28,6 +28,17 @@ public class PlayRoadBuildingCommand implements ICommand
 		this.gameID = gameID;
 	}
 
+	@Override
+	public String toString() {
+		return "PlayRoadBuildingCommand{" +
+				"playerindex=" + playerindex +
+				", hexLocation=" + hexLocation +
+				", edgeDirectionFromString=" + edgeDirectionFromString +
+				", freebe=" + freebe +
+				", gameID=" + gameID +
+				'}';
+	}
+
 	/**
 	 * Executes the task:
 	 * 	when player plays roadbuilding card they build 2 free roads on the edgelocations specified

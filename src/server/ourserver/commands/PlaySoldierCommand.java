@@ -24,6 +24,16 @@ public class PlaySoldierCommand implements ICommand
 		this.gameid = gameid;
 	}
 
+	@Override
+	public String toString() {
+		return "PlaySoldierCommand{" +
+				"location=" + location +
+				", playerRobbing=" + playerRobbing +
+				", playerBeingRobbed=" + playerBeingRobbed +
+				", gameid=" + gameid +
+				'}';
+	}
+
 	/**
 	 * Executes the task:
 	 * 	player moves robber to given hexlocation, robs other player(if any) and they have

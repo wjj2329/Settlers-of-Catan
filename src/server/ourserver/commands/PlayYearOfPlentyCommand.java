@@ -34,4 +34,13 @@ public class PlayYearOfPlentyCommand implements ICommand {
 		return null;
 	}
 
+	@Override
+	public String toString() {
+		return "PlayYearOfPlentyCommand{" +
+				"gameID=" + gameID +
+				", resource2='" + resource2 + '\'' +
+				", resource1='" + resource1 + '\'' +
+				", playerindex=" + playerindex +
+				'}';
+	}
 }
