@@ -35,7 +35,6 @@ public class  PersistanceManager
     public  void addcommandinfo(ICommand commandObject) throws IOException, JSONException {
         mycommands.add(commandObject);
         myfactory.getGameManager().addCommand(commandObject);
-
         checkfor10();
     }
 
@@ -45,6 +44,8 @@ public class  PersistanceManager
         {
             //clear database serialize model to store in database and clear list.
             mycommands.clear();
+            myfactory.getGameManager().clearInfo();
+            myfactory.getGameManager().loadInfo();
         }
     }
 
