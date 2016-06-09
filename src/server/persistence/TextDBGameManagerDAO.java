@@ -2,6 +2,7 @@ package server.persistence;
 
 import com.google.gson.Gson;
 
+import server.ourserver.ServerFacade;
 import server.ourserver.commands.ICommand;
 import shared.game.CatanGame;
 
@@ -19,29 +20,21 @@ import java.util.ArrayList;
  */
 public class TextDBGameManagerDAO implements IGameManager
 {
-    private File db=new File("textfortest.txt");
-    private static int increment=0;
+    private File stuff=new File("textfortest.txt");
+    private FileWriter db=new FileWriter(stuff);
+    private int gameid=-1000;
+
+    public int getGameid() {
+        return gameid;
+    }
+
+    public void setGameid(int gameid) {
+        this.gameid = gameid;
+    }
 
     public TextDBGameManagerDAO() throws IOException
     {
 
-    }
-
-    void addcommandinfo(CommandObject commandObject) throws JSONException
-    {
-        Gson myobject=new Gson();
-        String jobj= (myobject.toJson(commandObject));
-        JSONObject my=new JSONObject(jobj);
-        //insert into db
-        if(increment==10)
-        {
-            increment=0;
-            // TODO clear database of everything then put in a model
-        }
-    }
-    void withdrawinfo()
-    {
-        // TODO take stuff out of the db to give to server facade model to load
     }
     
 	@Override
@@ -49,14 +42,11 @@ public class TextDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		
 	}
-    //private FileOutputStream fileout=new FileOutputStream("myfile.ser");
-   // ObjectOutputStream out=new ObjectOutputStream(fileout);
-
-
     @Override
-    public void addCommand(ICommand commandObject) throws JSONException, IOException {
-
-        System.out.println("I make it here before dying.");
+    public void addCommand(ICommand commandObject) throws JSONException, IOException
+    {
+        db.write((commandObject.toString()));
+        db.flush();
     }
 
 	@Override
@@ -70,18 +60,27 @@ public class TextDBGameManagerDAO implements IGameManager
 		return null;
 	}
 
-    public void storeGame() {
-
-    }
 
     @Override
     public void clearInfo() {
-
+        stuff=new File("textfortest.txt");
+        try {
+            db=new FileWriter(stuff);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void loadInfo() {
-
+    public void loadInfo()
+    {
+        if(gameid!=-1000) {
+            try {
+                db.write(ServerFacade.getInstance().getGameModel(gameid).toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
