@@ -30,10 +30,12 @@ import org.json.JSONArray;
 public class GamesListHandler implements HttpHandler
 {
     @Override
-    public void handle(HttpExchange httpExchange) throws IOException {
+    public void handle(HttpExchange httpExchange) throws IOException
+    {
        	JSONArray games = ServerFacade.getInstance().getGameList();
         
-        if(games == null){
+        if(games == null)
+        {
             String response = "Could not get game list";
             httpExchange.getResponseBody().write(response.getBytes());
             httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);

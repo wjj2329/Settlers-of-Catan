@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.DevCardList;
@@ -147,9 +148,11 @@ public class FinishTurnCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "FinishTurnCommand{" +
-				"playerIndex=" + playerIndex +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{"
+				+"type:FinishTurnCommand" +
+				"playerIndex:" + playerIndex +
+				", gameid:" + gameid +
+				"}}";
 	}
 }

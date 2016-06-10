@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import org.json.JSONException;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.locations.HexLocation;
 
 import java.io.IOException;
@@ -26,12 +27,15 @@ public class PlaySoldierCommand implements ICommand
 
 	@Override
 	public String toString() {
-		return "PlaySoldierCommand{" +
-				"location=" + location +
-				", playerRobbing=" + playerRobbing +
-				", playerBeingRobbed=" + playerBeingRobbed +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: PlaySoldierCommand" +
+				", x:" + location.getX() +
+				", y:"+location.getY()+
+				", playerRobbing:" + playerRobbing +
+				", playerBeingRobbed:" + playerBeingRobbed +
+				", gameid:" + gameid +
+				"}}";
 	}
 
 	/**

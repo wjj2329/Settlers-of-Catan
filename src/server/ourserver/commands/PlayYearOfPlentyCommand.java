@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 
 /**
  * The PlayYearOfPlentyCommand class
@@ -36,11 +37,13 @@ public class PlayYearOfPlentyCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "PlayYearOfPlentyCommand{" +
-				"gameID=" + gameID +
-				", resource2='" + resource2 + '\'' +
-				", resource1='" + resource1 + '\'' +
-				", playerindex=" + playerindex +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: PlayYearOfPlentyCommand" +
+				", gameID:" + gameID +
+				", resource2:'" + resource2 + '\'' +
+				", resource1:'" + resource1 + '\'' +
+				", playerindex:" + playerindex +
+				"}}";
 	}
 }

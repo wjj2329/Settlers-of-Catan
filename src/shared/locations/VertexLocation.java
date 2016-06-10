@@ -72,7 +72,7 @@ public class VertexLocation
 	@Override
 	public String toString()
 	{
-		return "VertexLocation [hexLoc=" + hexLoc + ", dir=" + dir + "]";
+		return "VertexLocation [hexLoc:" + hexLoc + ", dir:" + dir + "]";
 	}
 	
 	@Override

@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 
 /**
  * The PlayMonumentCommand class
@@ -28,9 +29,11 @@ public class PlayMonumentCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "PlayMonumentCommand{" +
-				"playerindex=" + playerindex +
-				", gameID=" + gameID +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," +  TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: PlayMonumentCommand" +
+				"playerindex:" + playerindex +
+				", gameID:" + gameID +
+				"}}";
 	}
 }

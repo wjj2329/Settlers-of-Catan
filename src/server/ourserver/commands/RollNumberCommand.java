@@ -10,6 +10,7 @@ import client.main.Catan;
 //import com.sun.medialib.mlib.mediaLibImageJPanel;
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.definitions.HexType;
 import shared.game.CatanGame;
 import shared.game.map.CatanMap;
@@ -331,9 +332,11 @@ public class RollNumberCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "RollNumberCommand{" +
-				"rollNumber=" + rollNumber +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type:RollNumberCommand" +
+				", rollNumber:" + rollNumber +
+				", gameid:" + gameid +
+				"}}";
 	}
 }

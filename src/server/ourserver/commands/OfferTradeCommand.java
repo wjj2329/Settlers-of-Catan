@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.TradeOffer;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 
@@ -43,11 +44,17 @@ public class OfferTradeCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "OfferTradeCommand{" +
-				"gameid=" + gameid +
-				", playerIndex=" + playerIndex +
-				", offer=" + offer +
-				", receiver=" + receiver +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: OfferTradeCommand" +
+				", gameid:" + gameid +
+				", playerIndex:" + playerIndex +
+				", ore:" + offer.getOre() +
+				", wheat:"+offer.getWheat()+
+				", brick:"+offer.getBrick()+
+				", wood:"+offer.getWheat()+
+				", sheep:"+offer.getSheep()+
+				", receiver:" + receiver +
+				"}}";
 	}
 }

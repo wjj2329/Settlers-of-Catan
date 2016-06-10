@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
@@ -158,11 +159,14 @@ public class RobPlayerCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "RobPlayerCommand{" +
-				"location=" + location +
-				", playerRobbing=" + playerRobbing +
-				", playerbeingrobbed=" + playerbeingrobbed +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: RobPlayerCommand" +
+				", x:" + location.getX() +
+				", y:"+location.getY()+
+				", playerRobbing:" + playerRobbing +
+				", playerbeingrobbed:" + playerbeingrobbed +
+				", gameid:" + gameid +
+				"}}";
 	}
 }

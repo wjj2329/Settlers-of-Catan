@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 
 import client.model.TradeOffer;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.player.Player;
@@ -74,10 +75,13 @@ public class AcceptTradeCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "AcceptTradeCommand{" +
-				"gameid=" + gameid +
-				", playerIndex=" + playerIndex +
-				", willAccept=" + willAccept +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return ","+TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type:"+"AcceptTradeCommand"+
+				",gameid:" + gameid +
+				", playerIndex:" + playerIndex +
+				", willAccept:" + willAccept +
+				"}}";
+
 	}
 }

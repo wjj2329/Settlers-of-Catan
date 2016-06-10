@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import org.json.JSONException;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
@@ -30,13 +31,16 @@ public class PlayRoadBuildingCommand implements ICommand
 
 	@Override
 	public String toString() {
-		return "PlayRoadBuildingCommand{" +
-				"playerindex=" + playerindex +
-				", hexLocation=" + hexLocation +
-				", edgeDirectionFromString=" + edgeDirectionFromString +
-				", freebe=" + freebe +
-				", gameID=" + gameID +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: PlayRoadBuildingCommand" +
+				"playerindex:" + playerindex +
+				", x:" + hexLocation.getX() +
+				", y:"+hexLocation.getY()+
+				", edgeDirectionFromString:" + edgeDirectionFromString.getDir() +
+				", freebe:" + freebe +
+				", gameID:" + gameID +
+				"}}";
 	}
 
 	/**

@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import client.model.ModelFacade;
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.definitions.HexType;
 import shared.definitions.ResourceType;
@@ -26,13 +27,16 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 
 	@Override
 	public String toString() {
-		return "BuildSettlementCommand{" +
-				"playerIndex=" + playerIndex +
-				", location=" + location +
-				", vertex=" + vertex +
-				", free=" + free +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return
+				"," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type:BuildSettlementCommand" +
+				", playerIndex:" + playerIndex +
+				", x:"+location.getX()+", y:"+location.getY()+
+				", dir:"+vertex.getDir() +
+				", free:" + free +
+				", gameid:" + gameid +
+				"}}";
 	}
 
 	/**

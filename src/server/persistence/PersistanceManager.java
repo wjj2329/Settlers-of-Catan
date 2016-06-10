@@ -16,6 +16,7 @@ public class  PersistanceManager
 
     private IFactory myfactory=new TextDBFactory();
 
+
     public PersistanceManager() throws IOException
     {
 
@@ -36,6 +37,7 @@ public class  PersistanceManager
         mycommands.add(commandObject);
         myfactory.getGameManager().addCommand(commandObject);
         checkfor10();
+        myfactory.getGameManager().getCommands();
     }
 
     private void checkfor10()
@@ -48,6 +50,7 @@ public class  PersistanceManager
             myfactory.getGameManager().loadInfo();
         }
     }
+
 
 
 }

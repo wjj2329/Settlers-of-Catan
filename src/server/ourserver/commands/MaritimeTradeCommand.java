@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.definitions.ResourceType;
 import shared.game.Bank;
 import shared.game.CatanGame;
@@ -176,12 +177,14 @@ public class MaritimeTradeCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "MaritimeTradeCommand{" +
-				"getResource='" + getResource + '\'' +
-				", giveResource='" + giveResource + '\'' +
-				", playerIndex_NOT_ID=" + playerIndex_NOT_ID +
-				", ratio=" + ratio +
-				", gameID=" + gameID +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return ","+ TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type: MaritimeTradeCommand" +
+				", getResource:'" + getResource + '\'' +
+				", giveResource:'" + giveResource + '\'' +
+				", playerIndex_NOT_ID:" + playerIndex_NOT_ID +
+				", ratio:" + ratio +
+				", gameID:" + gameID +
+				"}}";
 	}
 }

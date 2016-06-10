@@ -38,7 +38,7 @@ public class HexLocation
 	@Override
 	public String toString()
 	{
-		return "HexLocation [x=" + x + ", y=" + y + "]";
+		return "HexLocation [x:" + x + ", y:" + y + "]";
 	}
 	
 	@Override

@@ -2,6 +2,7 @@ package server.persistence;
 
 import com.google.gson.Gson;
 
+import com.sun.corba.se.impl.orbutil.ObjectWriter;
 import server.ourserver.ServerFacade;
 import server.ourserver.commands.ICommand;
 import shared.game.CatanGame;
@@ -14,6 +15,7 @@ import javax.activation.CommandObject;
 import java.io.*;
 import java.sql.SQLData;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * Created by williamjones on 6/7/16.
@@ -43,7 +45,7 @@ public class TextDBGameManagerDAO implements IGameManager
 
     public TextDBGameManagerDAO() throws IOException
     {
-
+            db.write("{");
     }
     
 	@Override
@@ -57,11 +59,35 @@ public class TextDBGameManagerDAO implements IGameManager
         db.write((commandObject.toString()));
         db.flush();
     }
-
+    public static int commandNumber=-1;
 	@Override
-	public ICommand getCommand() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ICommand> getCommands() {
+        ArrayList<ICommand> commandsloadedfromdb=new ArrayList<>();
+        Scanner myscanner=null;
+        try {
+             myscanner=new Scanner(commands);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        StringBuilder getting=new StringBuilder();
+        while(myscanner.hasNext())
+        {
+            getting.append(myscanner.next());
+        }
+        if(getting.charAt(1)==',')
+        {
+            getting.deleteCharAt(1);
+        }
+        getting.append("}");
+        System.out.println("MY NICE JSON FILE IS THIS "+getting.toString());
+        JSONObject mycommands=null;
+        try {
+             mycommands=new JSONObject(getting.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        System.out.println(mycommands.toString());
+        return commandsloadedfromdb;
 	}
 	@Override
 	public CatanGame getGameModel(int gameid) {
@@ -76,6 +102,7 @@ public class TextDBGameManagerDAO implements IGameManager
         try
         {
             db=new FileWriter(commands);
+            db.write("{");
         } catch (IOException e)
         {
             e.printStackTrace();

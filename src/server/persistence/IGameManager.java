@@ -35,6 +35,6 @@ public interface IGameManager
 
 	Object getGameList();
 
-	ICommand getCommand();
+	ArrayList<ICommand> getCommands();
 	CatanGame getGameModel(int gameid);
 }

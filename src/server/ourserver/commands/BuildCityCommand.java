@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -86,11 +87,14 @@ public class BuildCityCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "BuildCityCommand{" +
-				"playerIndex=" + playerIndex +
-				", location=" + location +
-				", vertex=" + vertex +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return ","+ TextDBGameManagerDAO.commandNumber+":"+"{"+
+				"type:BuildCityCommand" +
+				", playerIndex:" + playerIndex +
+				", x:" + location.getX() +
+				", y:"+location.getY()+
+				", vertex:" + vertex.getDir() +
+				", gameid:" + gameid +
+				"}}";
 	}
 }

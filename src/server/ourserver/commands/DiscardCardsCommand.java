@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.TurnStatus;
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
@@ -70,10 +71,16 @@ public class DiscardCardsCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "DiscardCardsCommand{" +
-				"playerIndex=" + playerIndex +
-				", cardsToDiscard=" + cardsToDiscard +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," +  TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"  type: DiscardCardsCommand" +
+				", playerIndex:" + playerIndex +
+				", brick:" + cardsToDiscard.getBrick() +
+				", wheat:"+cardsToDiscard.getWheat()+
+				", sheep:"+cardsToDiscard.getSheep()+
+				", ore:"+cardsToDiscard.getOre()+
+				", wood:"+cardsToDiscard.getWood()+
+				", gameid:" + gameid +
+				"}}";
 	}
 }

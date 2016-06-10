@@ -50,7 +50,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
     }
 
     @Override
-	public ICommand getCommand() {
+	public ArrayList<ICommand> getCommands() {
 		// TODO Auto-generated method stub
 		return null;
 	}

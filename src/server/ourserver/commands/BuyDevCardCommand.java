@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 
 /**
  * The BuyDevCardCommand class
@@ -31,9 +32,11 @@ public class BuyDevCardCommand implements ICommand
 
 	@Override
 	public String toString() {
-		return "BuyDevCardCommand{" +
-				"playerIndex=" + playerIndex +
-				", gameid=" + gameid +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				"type:BuyDevCardCommand" +
+				", playerIndex:" + playerIndex +
+				", gameid:" + gameid +
+				"}}";
 	}
 }

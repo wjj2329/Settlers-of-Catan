@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import server.ourserver.ServerFacade;
+import server.persistence.TextDBGameManagerDAO;
 
 
 /**
@@ -33,10 +34,12 @@ public class PlayMonopolyCommand implements ICommand {
 
 	@Override
 	public String toString() {
-		return "PlayMonopolyCommand{" +
-				"playerindex=" + playerindex +
-				", resource='" + resource + '\'' +
-				", gameID=" + gameID +
-				'}';
+		TextDBGameManagerDAO.commandNumber++;
+		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
+				", type:PlayMonopolyCommand" +
+				", playerindex:" + playerindex +
+				", resource:'" + resource + '\'' +
+				", gameID:" + gameID +
+				"}}";
 	}
 }
