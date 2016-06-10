@@ -1,17 +1,24 @@
 package server.ourserver;
 
+import com.oracle.javafx.jmx.json.JSONException;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 
+import org.json.JSONObject;
 import server.ourserver.handlers.*;
 
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.rmi.ServerException;
 
+import java.util.Scanner;
 import java.util.logging.*;
+
+import static java.lang.System.in;
 
 public class Server
 {
@@ -168,16 +175,15 @@ public class Server
 	
 	public static void main(String[] args)
 	{
-		//if(args.length == 0 || args[0].equals(""))
-		//{
+		if(args.length == 0 || args[0].equals(""))
+		{
 
 		new Server().run(8081);
-		//}
-		//else
-		//{
-		//	new Server().run(Integer.parseInt(args[0]));
-		//}
-		/*
+		}
+		else
+		{
+			new Server().run(Integer.parseInt(args[0]));
+		}
 		String type=args[0];
 		JSONObject parsing=null;
 		try {
@@ -195,6 +201,8 @@ public class Server
 		} catch (JSONException e)
 		{
 			e.printStackTrace();
+		} catch (org.json.JSONException e) {
+			e.printStackTrace();
 		}
 		try
 		{
@@ -203,13 +211,13 @@ public class Server
 			System.out.println(therealdeal.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
+		} catch (org.json.JSONException e) {
+			e.printStackTrace();
 		}
 		//store jar file name in a file object.
 		//Url =jarfile.toURI().toURL().
 		//ClassLoader loader=new URLClassLoader(urls);
 		//CLass c =loader.loadClass(jar name);
-		*/
-
 
 	}
 }
