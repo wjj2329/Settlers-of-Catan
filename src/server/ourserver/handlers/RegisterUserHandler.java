@@ -9,6 +9,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.json.JSONException;
 import org.json.JSONObject;
+import server.database.DatabaseException;
 import server.ourserver.ServerFacade;
 import server.param.user.LoginParam;
 import server.results.LoginUserResponse;
@@ -122,6 +123,9 @@ public class RegisterUserHandler implements HttpHandler
 			exchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);
 			exchange.getResponseBody().write(response.getBytes());
 			exchange.close();
+		} catch (DatabaseException e)
+		{
+			e.printStackTrace();
 		}
 	}
 
