@@ -10,13 +10,10 @@ import shared.game.CatanGame;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.locations.*;
 
-import javax.activation.CommandObject;
 import java.io.*;
-import java.sql.SQLData;
 import java.util.ArrayList;
 import java.util.Scanner;
 
