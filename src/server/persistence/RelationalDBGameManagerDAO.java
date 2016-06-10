@@ -1,18 +1,31 @@
 package server.persistence;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.sun.xml.internal.bind.v2.model.core.ID;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import server.database.Database;
+import server.database.DatabaseException;
 import server.ourserver.commands.ICommand;
 import server.ourserver.commands.PlayRoadBuildingCommand;
 import shared.game.CatanGame;
+import shared.game.map.Index;
+import shared.game.player.Player;
 
 import javax.activation.CommandObject;
 import java.io.IOException;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.SQLData;
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 //import android.database.sqlite.SQLiteDatabase;
+import java.util.logging.Logger;
 
 
 /**
@@ -20,8 +33,15 @@ import java.util.ArrayList;
  */
 public class RelationalDBGameManagerDAO implements IGameManager
 {
-    private SQLData db;
+	private Database db;	    
     private static int increment=0;
+    private Logger logger;
+    
+    public RelationalDBGameManagerDAO(Database database)
+	{
+		db = database;
+	}
+        
     void addcommandinfo(CommandObject commandObject) throws JSONException
     {
         Gson myobject=new Gson();
@@ -34,35 +54,187 @@ public class RelationalDBGameManagerDAO implements IGameManager
             // TODO clear database of everything then put in a model
         }
     }
+    
     void withdrawinfo()
     {
         // TODO take stuff out of the db to give to server facade model to load
     }
+    
 	@Override
-	public void storeGameModel() {
-		// TODO Auto-generated method stub
-		
+	public void storeGameModel(){
+		CatanGame game = new CatanGame();
+		PreparedStatement stmt = null;
+		ResultSet keyRS = null;
+		try
+		{
+			Gson gson = new Gson();
+			String gamedata = gson.toJson(game);
+			
+			String query = "insert into Game (id, title, gamedata) values (?, ?, ?)";
+			stmt = db.getConnection().prepareStatement(query);
+			stmt.setInt(1, game.getGameId());
+			stmt.setString(2, game.getTitle());
+			stmt.setString(3, gamedata); //Will change this later
+
+		} catch (SQLException e)
+		{
+				try {
+					throw new DatabaseException("Could not insert game", e);
+				} catch (DatabaseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}finally
+		{
+			Database.safeClose(stmt);
+			Database.safeClose(keyRS);
+		}
 	}
 
     @Override
     public void addCommand(ICommand commandObject) throws JSONException, IOException {
-
+    	CatanGame game = new CatanGame();
+		PreparedStatement stmt = null;
+		ResultSet keyRS = null;
+		try
+		{
+			String query = "insert into Commands (id, title, gamedata) values (?, ?, ?)";
+			stmt = db.getConnection().prepareStatement(query);
+			stmt.setInt(1, game.getGameId());
+			stmt.setString(2, game.getTitle());
+			stmt.setString(3, game.getModel().toString()); //Will change this later
+			
+			
+		} catch (SQLException e)
+		{
+				try {
+					throw new DatabaseException("Could not insert game", e);
+				} catch (DatabaseException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+		}finally
+		{
+			Database.safeClose(stmt);
+			Database.safeClose(keyRS);
+		}
     }
 
     @Override
-	public ArrayList<ICommand> getCommands() {
-		// TODO Auto-generated method stub
-		return null;
+	public ArrayList<ICommand> getCommands() {//needs a gameid;
+    	int gameid = 0;
+        logger.entering("server.database.Game", "getting commands from game with id " + gameid);
+		
+		ArrayList<ICommand> result = new ArrayList<ICommand>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			String query = "select id, command from Commands where id=" + gameid;
+			stmt = db.getConnection().prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+			while (rs.next())
+			{
+				int id = rs.getInt(1);
+				Gson gson = new Gson();
+				ICommand command = gson.fromJson(rs.getString(2), ICommand.class);
+				
+				result.add(command);
+			}
+		} catch (SQLException e)
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+			return null;
+		} finally
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+		}
+		
+		logger.exiting("server.database.Game", "getting commands from game with id " + gameid);
+		return result;
 	}
+    
+    
 	@Override
 	public CatanGame getGameModel(int gameid) {
-		// TODO Auto-generated method stub
-		return null;
+        logger.entering("server.database.Games", "getting game from " + gameid);
+		
+		CatanGame result = new CatanGame();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			String query = "select id, title, gamedata from Games where id=" + gameid;
+			stmt = db.getConnection().prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+			while (rs.next())
+			{
+				if(gameid == rs.getInt(1))
+				{
+					int id = rs.getInt(1);
+					String title = rs.getString(2);
+					Gson gson = new Gson();
+					result = gson.fromJson(rs.getString(3), CatanGame.class);				
+					result.setID(id);
+					result.setTitle(title);
+				}
+			}
+		} catch (SQLException e)
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+			return null;
+		} finally
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+		}
+		logger.exiting("server.database.Games", "getting game from " + gameid);
+		return result;
 	}
+	
 	@Override
 	public Object getGameList() {
-		// TODO Auto-generated method stub
-		return null;
+       logger.entering("server.database.Games", "getAll");
+		
+		ArrayList<CatanGame> result = new ArrayList<CatanGame>();
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		try
+		{
+			String query = "select id, title, gamedata from Games";
+			stmt = db.getConnection().prepareStatement(query);
+			
+			rs = stmt.executeQuery();
+			while (rs.next())
+			{
+				int id = rs.getInt(1);
+				String title = rs.getString(2);
+				String gamedata = rs.getString(3);//probably in a json format? 
+				
+				CatanGame game = new CatanGame();
+				game.setID(id);
+				game.setTitle(title);
+				
+				result.add(game);
+			}
+		} catch (SQLException e)
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+			return null;
+		} finally
+		{
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+		}
+		
+		logger.exiting("server.database.Games", "getAll");
+		return result;
 	}
 
 
