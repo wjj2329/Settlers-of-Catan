@@ -18,7 +18,6 @@ import java.rmi.ServerException;
 import java.util.Scanner;
 import java.util.logging.*;
 
-import static java.lang.System.in;
 
 public class Server
 {
@@ -175,15 +174,17 @@ public class Server
 	
 	public static void main(String[] args)
 	{
-		if(args.length == 0 || args[0].equals(""))
-		{
+		//if(args.length == 0 || args[0].equals(""))
+		//{
 
 		new Server().run(8081);
-		}
+//		}
+		/*
 		else
 		{
 			new Server().run(Integer.parseInt(args[0]));
 		}
+		*/
 		String type=args[0];
 		JSONObject parsing=null;
 		try {

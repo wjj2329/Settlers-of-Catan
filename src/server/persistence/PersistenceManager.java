@@ -18,7 +18,7 @@ public class PersistenceManager
 
     private ArrayList<ICommand> mycommands=new ArrayList<>();
 
-    private IFactory myfactory=new TextDBFactory();
+    private IFactory myfactory=new TextDBFactory();//needs to get loaded from
 
 
     public PersistenceManager() throws IOException
@@ -32,7 +32,7 @@ public class PersistenceManager
         }
         return singleton;
     }
-    public void getmyfactory (IFactory myfactory)
+    public void setmyfactory (IFactory myfactory)
     {
         this.myfactory=myfactory;
     }
