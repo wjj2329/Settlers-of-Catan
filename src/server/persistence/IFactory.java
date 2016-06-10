@@ -1,6 +1,5 @@
 package server.persistence;
 
-import shared.chat.GameHistoryLine;
 
 /**
  * Created by williamjones on 6/7/16.
