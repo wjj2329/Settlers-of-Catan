@@ -1,30 +1,34 @@
 package server.persistence;
 import org.json.JSONException;
+import server.database.DatabaseException;
 import server.ourserver.commands.ICommand;
+import shared.game.player.Player;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 /**
  * Created by williamjones on 6/8/16.
+ * It is now spelled correctly
+ * :)
  */
-public class  PersistanceManager
+public class PersistenceManager
 {
-    private  static PersistanceManager singleton;
+    private  static PersistenceManager singleton;
 
     private ArrayList<ICommand> mycommands=new ArrayList<>();
 
     private IFactory myfactory=new TextDBFactory();//needs to get loaded from
 
 
-    public PersistanceManager() throws IOException
+    public PersistenceManager() throws IOException
     {
 
     }
-    public static PersistanceManager getSingleton() throws IOException {
+    public static PersistenceManager getSingleton() throws IOException {
         if(singleton==null)
         {
-            singleton =new PersistanceManager();
+            singleton =new PersistenceManager();
         }
         return singleton;
     }
@@ -38,6 +42,12 @@ public class  PersistanceManager
         myfactory.getGameManager().addCommand(commandObject);
         checkfor10();
         myfactory.getGameManager().getCommands();
+    }
+
+    public void addPlayerInfo(Player user) throws DatabaseException, IOException
+    {
+        //System.out.println("I add the player info for " + user.getName());
+        myfactory.getUserAccount().addUser(user);
     }
 
     private void checkfor10()

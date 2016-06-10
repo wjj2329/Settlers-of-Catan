@@ -39,14 +39,14 @@ public class Database
 		}
 	}
 	
-	//private RelationalDBGameManagerDAO gameManagerDAO;   ZULEYKA WILL ADD THIS :)
+	private RelationalDBGameManagerDAO gameManagerDAO;  
 	private RelationalDBUserAccountsDAO UserAccountsDAO;
 	
 	private Connection connection;
 	
 	public Database()
 	{
-		//gameManagerDAO = new RelationalDBGameManagerDAO(this);  ZULEYKA WILL ADD THIS
+		gameManagerDAO = new RelationalDBGameManagerDAO(this);  
 		UserAccountsDAO = new RelationalDBUserAccountsDAO(this);
 		connection = null;
 	}

@@ -1,18 +1,15 @@
 package server.ourserver;
 
-import client.State.State;
-import client.main.Catan;
 import client.model.MessageLine;
 import client.model.Model;
 import client.model.TradeOffer;
 import client.model.TurnStatus;
 import client.model.TurnTracker;
-import client.points.IGameFinishedView;
+import server.database.DatabaseException;
 import server.ourserver.commands.*;
-import server.persistence.PersistanceManager;
+import server.persistence.PersistenceManager;
 import shared.chat.GameHistoryLine;
 import shared.definitions.CatanColor;
-import shared.game.Card;
 import shared.game.CatanGame;
 import shared.game.DevCardList;
 import shared.game.ResourceList;
@@ -33,7 +30,6 @@ import shared.locations.VertexLocation;
 import java.io.IOException;
 import java.rmi.ServerException;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -282,7 +278,7 @@ public class ServerFacade
 	 * @param username: name they will log in with
 	 * @param password: password that they will use
      */
-	public void register(String username, String password)
+	public void register(String username, String password) throws IOException, DatabaseException
 	{
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
 		for (Player p2 : allRegisteredUsers)
@@ -297,6 +293,7 @@ public class ServerFacade
 		p.setPassword(password);
 		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
+		PersistenceManager.getSingleton().addPlayerInfo(p);
 	}
 
 	/**
@@ -855,7 +852,7 @@ public class ServerFacade
 	public void sendChat(String message, int playerindex,int gameid) throws IOException, JSONException {
 		SendChatCommand mychat=new SendChatCommand(message,playerindex,gameid);
 		mychat.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(mychat);
+		//PersistenceManager.getSingleton().addcommandinfo(mychat);
 	}
 
 	/**
@@ -866,7 +863,7 @@ public class ServerFacade
 	public void rollNumber(int number, int gameID) throws IOException, JSONException {
 		ICommand command = new RollNumberCommand(number, gameID);
 		command.execute();
-		PersistanceManager.getSingleton().addcommandinfo(command);
+		PersistenceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -877,7 +874,7 @@ public class ServerFacade
 	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid) throws IOException, JSONException {
 		RobPlayerCommand robbing=new RobPlayerCommand(location,playerRobbing,playerbeingrobbed, gameid);
 		robbing.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(robbing);
+		//PersistenceManager.getSingleton().addcommandinfo(robbing);
 	}
 
 	/**
@@ -888,7 +885,7 @@ public class ServerFacade
 	public void  finishTurn(int playerIndex, int gameid) throws IOException, JSONException {
 		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
 		endturn.execute();
-		PersistanceManager.getSingleton().addcommandinfo(endturn);
+		PersistenceManager.getSingleton().addcommandinfo(endturn);
 	}
 
 	/**
@@ -1235,7 +1232,7 @@ public class ServerFacade
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid) throws IOException, JSONException {
 		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
 		buildRoadCommand.execute();
-		PersistanceManager.getSingleton().addcommandinfo(buildRoadCommand);
+		PersistenceManager.getSingleton().addcommandinfo(buildRoadCommand);
 
 	}
 
@@ -1248,7 +1245,7 @@ public class ServerFacade
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid) throws IOException, JSONException {
 		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
 		buildsettlement.execute();
-		PersistanceManager.getSingleton().addcommandinfo(buildsettlement);
+		PersistenceManager.getSingleton().addcommandinfo(buildsettlement);
 
 	}
 
@@ -1261,7 +1258,7 @@ public class ServerFacade
 	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid) throws IOException, JSONException {
 		BuildCityCommand buildCityCommand=new BuildCityCommand(playerIndex,location,vertex, gameid);
 		buildCityCommand.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(buildCityCommand);
+		//PersistenceManager.getSingleton().addcommandinfo(buildCityCommand);
 	}
 
 	/**
@@ -1271,7 +1268,7 @@ public class ServerFacade
 	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver) throws IOException, JSONException {
 		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
 		command.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(command);
+		//PersistenceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -1283,7 +1280,7 @@ public class ServerFacade
 	public void acceptTrade(int gameid, int playerIndex, boolean willAccept) throws IOException, JSONException {
 		ICommand command = new AcceptTradeCommand(gameid, playerIndex, willAccept);
 		command.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(command);
+		//PersistenceManager.getSingleton().addcommandinfo(command);
 	}
 
 	/**
@@ -1298,7 +1295,7 @@ public class ServerFacade
 	{
 		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
 		maritimeTradeCommand.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
+		//PersistenceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
 	}
 
 	/**
@@ -1310,7 +1307,7 @@ public class ServerFacade
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid) throws IOException, JSONException {
 		DiscardCardsCommand mydiscard=new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid);
 		mydiscard.execute();
-		//PersistanceManager.getSingleton().addcommandinfo(mydiscard);
+		//PersistenceManager.getSingleton().addcommandinfo(mydiscard);
 	}
 
 	/**

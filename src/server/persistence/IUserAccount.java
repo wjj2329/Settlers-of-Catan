@@ -1,5 +1,6 @@
 package server.persistence;
 
+import java.io.IOException;
 import java.util.List;
 
 import server.database.DatabaseException;
@@ -16,9 +17,9 @@ public interface IUserAccount
 {
 	Player validateUser(Player player);
 
-	void addUser(Player user) throws DatabaseException;
+	void addUser(Player user) throws DatabaseException, IOException;
 
-	List<Player> getAllUsers();
+	List<Player> getAllUsers() throws IOException;
 
 	void setColor(Player user) throws DatabaseException;
 
