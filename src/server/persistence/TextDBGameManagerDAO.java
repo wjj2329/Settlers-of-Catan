@@ -104,49 +104,95 @@ public class TextDBGameManagerDAO implements IGameManager
             {
                 case "SendChatCommand":
                 {
-
+                    String message=jsonObject.getString("message");
+                    int playerindex=jsonObject.getInt("playerindex");
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new SendChatCommand(message,playerindex,gameid));
                     break;
                 }
                 case "RollNumberCommand":
                 {
+                    int rollNumber=jsonObject.getInt("rollNumber");
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new RollNumberCommand(rollNumber,gameid));
                     break;
                 }
                 case "RobPlayerCommand":
                 {
+                    HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+                    int playerRobbing=jsonObject.getInt("playerRobbing");
+                    int playerbeingrobbed=jsonObject.getInt("playerbeingrobbed");
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new RobPlayerCommand(location,playerRobbing,playerbeingrobbed,gameid));
                     break;
                 }
                 case "PlayYearOfPlentyCommand":
                 {
+                    int gameID=jsonObject.getInt("gameid");
+                    String resource2=jsonObject.getString("resource2");
+                    String resource1=jsonObject.getString("resource1");
+                    int playerindex=jsonObject.getInt("playerindex");
+                    commandsloadedfromdb.add(new PlayYearOfPlentyCommand(gameID,resource1,resource2,playerindex));
                     break;
                 }
                 case "PlaySoldierCommand":
                 {
+                    HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+                    int playerRobbing=jsonObject.getInt("playerRobbing");
+                    int playerBeingRobbed=jsonObject.getInt("playerBeingRobbed");
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new PlaySoldierCommand(location,playerRobbing,playerBeingRobbed,gameid));
                     break;
                 }
                 case "PlayRoadBuildingCommand":
                 {
+                    int playerIndex=jsonObject.getInt("playerIndex");
+                    HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+                    EdgeLocation edge=new EdgeLocation(location,getDirectionFromString(jsonObject.getString("edge")));
+                    boolean free=jsonObject.getBoolean("free");
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new PlayRoadBuildingCommand(playerIndex,location,edge,free,gameid));
                     break;
                 }
                 case"PlayMonumentCommand":
                 {
+                    int playerindex=jsonObject.getInt("playerindex");
+                    int gameID=jsonObject.getInt("gameID");
+                    commandsloadedfromdb.add(new PlayMonumentCommand(playerindex,gameID));
                     break;
                 }
                 case "PlayMonopolyCommand":
                 {
+                    int playerindex=jsonObject.getInt("playerindex");
+                    String resource=jsonObject.getString("resource");
+                    int gameID=jsonObject.getInt("gameID");
+                    commandsloadedfromdb.add(new PlayMonopolyCommand(playerindex,resource,gameID));
                     break;
                 }
                 case "OfferTradeCommand":
                 {
+                    int gameid=jsonObject.getInt("gameid");
+                    int playerIndex=jsonObject.getInt("playerIndex");
+                    ResourceList offer=new ResourceList(jsonObject.getInt("brick"),jsonObject.getInt("ore"),jsonObject.getInt("sheep"),jsonObject.getInt("wheat"), jsonObject.getInt("wood"));
+                    int receiver=jsonObject.getInt("receiver");
+                    commandsloadedfromdb.add(new OfferTradeCommand(gameid,playerIndex,offer,receiver));
                     break;
                 }
                 case "MaritimeTradeCommand":
                 {
+                    String getResource=jsonObject.getString("getResource");
+                    String giveResource=jsonObject.getString("giveResource");
+                    int playerIndex_NOT_ID=jsonObject.getInt("playerIndex_NOT_ID");
+                    int ratio=jsonObject.getInt("ratio");
+                    int gameID=jsonObject.getInt("gameID");
+                    commandsloadedfromdb.add(new MaritimeTradeCommand(getResource,giveResource,playerIndex_NOT_ID,ratio,gameID));
                     break;
                 }
                 case "FinishTurnCommand":
                 {
                     int playerIndex=jsonObject.getInt("playerIndex");
-                    int gameid;
+                    int gameid=jsonObject.getInt("gameid");
+                    commandsloadedfromdb.add(new FinishTurnCommand(playerIndex,gameid));
                     break;
                 }
                 case "DiscardCardsCommand":
