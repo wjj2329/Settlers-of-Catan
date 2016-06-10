@@ -33,13 +33,13 @@ public class PlayRoadBuildingCommand implements ICommand
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: PlayRoadBuildingCommand" +
-				"playerindex:" + playerindex +
-				", x:" + hexLocation.getX() +
-				", y:"+hexLocation.getY()+
-				", edgeDirectionFromString:" + edgeDirectionFromString.getDir() +
-				", freebe:" + freebe +
-				", gameID:" + gameID +
+				"\"type\": \"playRoadBuildingCommand\"" +
+				"\"playerindex\":" + playerindex +
+				", \"x\":"+"\"" + hexLocation.getX() +"\""+
+				", \"y\":"+"\""+hexLocation.getY()+"\""+
+				", \"edgeDirectionFromString\":" +"\""+ edgeDirectionFromString.getDir()+"\"" +
+				", \"freebe\":" + freebe +
+				", \"gameID\":" + gameID +
 				"}}";
 	}
 

@@ -179,12 +179,12 @@ public class MaritimeTradeCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return ","+ TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: MaritimeTradeCommand" +
-				", getResource:'" + getResource + '\'' +
-				", giveResource:'" + giveResource + '\'' +
-				", playerIndex_NOT_ID:" + playerIndex_NOT_ID +
-				", ratio:" + ratio +
-				", gameID:" + gameID +
+				"\"type\": \"MaritimeTradeCommand\"" +
+				", \"getResource\":" + getResource + "\"" +
+				", \"giveResource\":" + giveResource + '\"' +
+				", \"playerIndex_NOT_ID\":" + playerIndex_NOT_ID +
+				", \"ratio\":" + ratio +
+				", \"gameID\":" + gameID +
 				"}}";
 	}
 }

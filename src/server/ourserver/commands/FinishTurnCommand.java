@@ -150,9 +150,9 @@ public class FinishTurnCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{"
-				+"type:FinishTurnCommand" +
-				"playerIndex:" + playerIndex +
-				", gameid:" + gameid +
+				+"\"type\":\"FinishTurnCommand\"" +
+				"\"playerIndex\":" + playerIndex +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

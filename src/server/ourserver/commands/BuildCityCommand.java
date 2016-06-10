@@ -89,12 +89,12 @@ public class BuildCityCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return ","+ TextDBGameManagerDAO.commandNumber+":"+"{"+
-				"type:BuildCityCommand" +
-				", playerIndex:" + playerIndex +
-				", x:" + location.getX() +
-				", y:"+location.getY()+
-				", vertex:" + vertex.getDir() +
-				", gameid:" + gameid +
+				"\"type\":\"BuildCityCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":"+"\"" + location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"vertex\":"+"\"" + vertex.getDir()+"\"" +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }
