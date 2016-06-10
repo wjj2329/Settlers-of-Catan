@@ -46,6 +46,7 @@ public class PersistenceManager
 
     public void addPlayerInfo(Player user) throws DatabaseException, IOException
     {
+        //System.out.println("I add the player info for " + user.getName());
         myfactory.getUserAccount().addUser(user);
     }
 

@@ -53,6 +53,8 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	@Override
 	public void addUser(Player user) throws DatabaseException, IOException
 	{
+		System.out.println("I'm adding the user " + user.getName() + " into the tawlet");
+		System.out.println("THE JSON: " + serializeUserToJson(user));
 		playerFileWriter.write(serializeUserToJson(user));
 		playerFileWriter.flush(); // like a toilet
 		// TOILET
@@ -82,24 +84,36 @@ public class TextDBUserAccountsDAO implements IUserAccount
 
 	/**
 	 * Will need to be programmed as though every command is the last one.
+	 * Problem: this is happening twice. -_-
+	 * problem 2: the file gets overwritten every time. -_-
+	 *
 	 * @param user: the player we are serializing
 	 * @return: player's basic info, serialized to JSON.
      */
 	private String serializeUserToJson(Player user)
 	{
+		System.out.println("I am serializing the user to JSON");
 		String singMeASongOfJson;
 		StringBuilder jsonBuilder = new StringBuilder();
 		jsonBuilder.append("\n\t\"player" + playerNumber + "\":\n");
-		jsonBuilder.append("{\n");
+		jsonBuilder.append("\t{\n");
 		jsonBuilder.append("\t\t\"username\": \"" + user.getName() + "\",\n");
 		jsonBuilder.append("\t\t\"password\": \"" + user.getPassword() + "\",\n");
-		jsonBuilder.append("\t\t\"color\": \"" + user.getColor().name().toLowerCase() + "\",\n");
+		// jsonBuilder.append("\t\t\"color\": \"" + user.getColor().name().toLowerCase() + "\",\n");
 		jsonBuilder.append("\t\t\"playerID\": \"" + user.getPlayerID().getNumber() + "\",\n");
-		jsonBuilder.append("\t\t\"playerIndex\": \"" + user.getPlayerIndex().getNumber() + "\"\n\t },\n");
+		jsonBuilder.append("\t },\n");
+		//jsonBuilder.append("\t\t\"playerIndex\": \"" + user.getPlayerIndex().getNumber() + "\"\n\t },\n");
 		//jsonBuilder.append("}");
 		singMeASongOfJson = jsonBuilder.toString();
 		playerNumber++;
+		//printResults(singMeASongOfJson);
 		return singMeASongOfJson;
+	}
+
+	private void printResults(String singMeASongOfJson)
+	{
+		System.out.println("I finished serializing the user to JSON, and this is it: ");
+		System.out.println(singMeASongOfJson);
 	}
    
 }
