@@ -7,6 +7,9 @@ import com.sun.net.httpserver.HttpServer;
 
 import org.json.JSONObject;
 import server.ourserver.handlers.*;
+import server.persistence.PersistenceManager;
+import server.persistence.RelationalDBFactory;
+import server.persistence.TextDBFactory;
 
 
 import java.io.FileNotFoundException;
@@ -220,6 +223,23 @@ public class Server
 		} catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
+		if(type.equals("txt"))
+		{
+			try {
+				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		//Ggson gson=new Gson();
 		// String response =gson.toJson();
 
