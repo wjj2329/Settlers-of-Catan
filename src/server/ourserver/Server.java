@@ -229,6 +229,8 @@ public class Server
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
 			} catch (IOException e) {
 				e.printStackTrace();
+			} catch (org.json.JSONException e) {
+				e.printStackTrace();
 			}
 		}
 		else
@@ -236,6 +238,8 @@ public class Server
 			try {
 				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (org.json.JSONException e) {
 				e.printStackTrace();
 			}
 		}
