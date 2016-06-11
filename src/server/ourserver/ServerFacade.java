@@ -1316,27 +1316,7 @@ public class ServerFacade
 		//PersistenceManager.getSingleton().addcommandinfo(mydiscard);
 	}
 
-	/**
-	 * Getters and setters:
-	 */
 
-	/*public ArrayList<CatanGame> getGamesInServer()
-	{
-		return gamesInServer;
-	}
 
-	public void setGamesInServer(ArrayList<CatanGame> gamesInServer)
-	{
-		this.gamesInServer = gamesInServer;
-	}*/
 
-	public ArrayList<Player> getAllRegisteredUsers()
-	{
-		return allRegisteredUsers;
-	}
-
-	public void setAllRegisteredUsers(ArrayList<Player> allRegisteredUsers)
-	{
-		this.allRegisteredUsers = allRegisteredUsers;
-	}
 }
