@@ -220,7 +220,8 @@ public class Server
 			System.out.println(therealdeal.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
-		} catch (org.json.JSONException e) {
+		}
+		catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
 		if(type.equals("txt"))
@@ -228,6 +229,8 @@ public class Server
 			try {
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (org.json.JSONException e) {
 				e.printStackTrace();
@@ -238,6 +241,8 @@ public class Server
 			try {
 				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
 			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (JSONException e) {
 				e.printStackTrace();
 			} catch (org.json.JSONException e) {
 				e.printStackTrace();
