@@ -27,10 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.rmi.ServerException;
 import java.util.*;
 
@@ -341,6 +338,7 @@ public class ServerFacade
      */
 	public void register(String username, String password) throws IOException, DatabaseException, JSONException {
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
+		adjustPlayerID(); //hmmmmmm
 		for (Player p2 : allRegisteredUsers)
 		{
 			if (p2.getPlayerID().getNumber() == NEXT_USER_ID)
@@ -354,6 +352,82 @@ public class ServerFacade
 		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
 		PersistenceManager.getSingleton().addPlayerInfo(p);
+	}
+
+	private void adjustGameID() throws JSONException, IOException
+	{
+		File theGames = new File("allGames.txt");
+		if (theGames.isFile())
+		{
+			FileReader fr = new FileReader(theGames);
+			Scanner scan = new Scanner(fr);
+			StringBuilder fileToString = new StringBuilder();
+			while (scan.hasNext())
+			{
+				fileToString.append(scan.next());
+			}
+			fr.close();
+			scan.close();
+			String testing = fileToString.toString();
+			if (testing.length() < 1)
+			{
+				return;
+			}
+			JSONObject jason = new JSONObject(testing);
+			ArrayList<Integer> allIntegersInFile = new ArrayList<>();
+			for (int i = 0; i < 150; i++)
+			{
+				String playerObj = "game" + i;
+				//System.out.println("the number: " + playerObj);
+				if (jason.has(playerObj))
+				{
+					//System.out.println("JSON does have " + playerObj);
+					JSONObject playerAttributes = jason.getJSONObject(playerObj);
+					allIntegersInFile.add(playerAttributes.getInt("id"));
+				}
+			}
+			Collections.sort(allIntegersInFile);
+			int res = allIntegersInFile.get(allIntegersInFile.size() - 1);
+			NEXT_GAME_ID = res + 1;
+		}
+	}
+
+	private void adjustPlayerID() throws IOException, JSONException
+	{
+		File thePlayers = new File("allPlayers.txt");
+		if (thePlayers.isFile())
+		{
+			FileReader fr = new FileReader(thePlayers);
+			Scanner scan = new Scanner(fr);
+			StringBuilder fileToString = new StringBuilder();
+			while (scan.hasNext())
+			{
+				fileToString.append(scan.next());
+			}
+			fr.close();
+			scan.close();
+			String testing = fileToString.toString();
+			if (testing.length() < 1)
+			{
+				return;
+			}
+			JSONObject jason = new JSONObject(testing);
+			ArrayList<Integer> allIntegersInFile = new ArrayList<>();
+			for (int i = 0; i < 150; i++)
+			{
+				String playerObj = "player" + i;
+				//System.out.println("the number: " + playerObj);
+				if (jason.has(playerObj))
+				{
+					//System.out.println("JSON does have " + playerObj);
+					JSONObject playerAttributes = jason.getJSONObject(playerObj);
+					allIntegersInFile.add(playerAttributes.getInt("playerID"));
+				}
+			}
+			Collections.sort(allIntegersInFile);
+			int res = allIntegersInFile.get(allIntegersInFile.size() - 1);
+			NEXT_USER_ID = res + 1;
+		}
 	}
 
 	/**
@@ -411,6 +485,7 @@ public class ServerFacade
 		mynewgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
 		mynewgame.myrobber=new Robber();
 		NEXT_GAME_ID++;
+		adjustGameID();
 		mynewgame.setID(NEXT_GAME_ID);
 		System.out.println("I add a new Catan Game with ID "+NEXT_GAME_ID);
 		mynewgame.setMymap(new CatanMap(10));

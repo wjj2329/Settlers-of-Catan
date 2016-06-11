@@ -123,7 +123,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			String query = "insert into Commands (id, command) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, game.getGameId());
-			stmt.setString(2, commandObject.toJSON()); //Will change this later
+			//stmt.setString(2, commandObject.toJSON()); //Will change this later
 			
 			
 		} catch (SQLException e)

@@ -35,7 +35,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		//System.out.println("I construct the TextDBUserAccountsDAO");
 		// file reader, scanner, stringBuilder
 		fixGameNumber();
-		FileReader iReadFiles = new FileReader(players); 
+		FileReader iReadFiles = new FileReader(players);
 		Scanner iScanThings = new Scanner(iReadFiles);
 		StringBuilder iBuildStrings = new StringBuilder();
 		while (iScanThings.hasNext())
@@ -304,6 +304,16 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	{
 		System.out.println("I finished serializing the user to JSON, and this is it: ");
 		System.out.println(singMeASongOfJson);
+	}
+
+	public File getPlayers()
+	{
+		return players;
+	}
+
+	public File getGames()
+	{
+		return games;
 	}
 
 	/**

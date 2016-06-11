@@ -57,6 +57,11 @@ public class PersistenceManager
         myfactory.getUserAccount().addGameToGameList(game);
     }
 
+    public IFactory getMyfactory()
+    {
+        return myfactory;
+    }
+
     private void checkfor10()
     {
         if(mycommands.size()==10)
