@@ -185,6 +185,10 @@ public class Server
 			new Server().run(Integer.parseInt(args[0]));
 		}
 		*/
+		if(args.length==0)
+		{
+			return;
+		}
 		String type=args[0];
 		JSONObject parsing=null;
 		try {
@@ -209,12 +213,16 @@ public class Server
 		{
 			JSONObject myobject=parsing.getJSONObject("json");
 			JSONObject therealdeal=myobject.getJSONObject(type);
+
 			System.out.println(therealdeal.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
+		//Ggson gson=new Gson();
+		// String response =gson.toJson();
+
 		//store jar file name in a file object.
 		//Url =jarfile.toURI().toURL().
 		//ClassLoader loader=new URLClassLoader(urls);

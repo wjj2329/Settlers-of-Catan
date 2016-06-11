@@ -247,6 +247,7 @@ public class TextDBGameManagerDAO implements IGameManager
                 }
             }
         }
+
         return commandsloadedfromdb;
 	}
 	@Override
