@@ -160,13 +160,13 @@ public class RobPlayerCommand implements ICommand {
 	@Override
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
-		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: RobPlayerCommand" +
-				", x:" + location.getX() +
-				", y:"+location.getY()+
-				", playerRobbing:" + playerRobbing +
-				", playerbeingrobbed:" + playerbeingrobbed +
-				", gameid:" + gameid +
+		return ","+"\"" + TextDBGameManagerDAO.commandNumber+"\""+":"+"{" +
+				"\"type\": \"RobPlayerCommand\"" +
+				", \"x\":" +"\""+ location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"playerRobbing\":" + playerRobbing +
+				", \"playerbeingrobbed\":" + playerbeingrobbed +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

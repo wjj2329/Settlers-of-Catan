@@ -46,15 +46,15 @@ public class OfferTradeCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: OfferTradeCommand" +
-				", gameid:" + gameid +
-				", playerIndex:" + playerIndex +
-				", ore:" + offer.getOre() +
-				", wheat:"+offer.getWheat()+
-				", brick:"+offer.getBrick()+
-				", wood:"+offer.getWheat()+
-				", sheep:"+offer.getSheep()+
-				", receiver:" + receiver +
+				"\"type\": \"OfferTradeCommand\"" +
+				", \"gameid\":" + gameid +
+				", \"playerIndex\":" + playerIndex +
+				", \"ore\":" +"\""+ offer.getOre()+"\"" +
+				", \"wheat\":"+"\""+offer.getWheat()+"\""+
+				", \"brick\":"+"\""+offer.getBrick()+"\""+
+				", \"wood\":"+"\""+offer.getWheat()+"\""+
+				", \"sheep\":"+"\""+offer.getSheep()+"\""+
+				", \"receiver\":" + receiver +
 				"}}";
 	}
 }

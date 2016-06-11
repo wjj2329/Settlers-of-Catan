@@ -29,12 +29,12 @@ public class PlaySoldierCommand implements ICommand
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: PlaySoldierCommand" +
-				", x:" + location.getX() +
-				", y:"+location.getY()+
-				", playerRobbing:" + playerRobbing +
-				", playerBeingRobbed:" + playerBeingRobbed +
-				", gameid:" + gameid +
+				"\"type\": \"PlaySoldierCommand\"" +
+				", \"x\":" +"\""+ location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"playerRobbing\":" + playerRobbing +
+				", \"playerBeingRobbed\":" + playerBeingRobbed +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 

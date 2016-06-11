@@ -31,9 +31,9 @@ public class PlayMonumentCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," +  TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: PlayMonumentCommand" +
-				"playerindex:" + playerindex +
-				", gameID:" + gameID +
+				"\"type\": \"PlayMonumentCommand\"" +
+				"\"playerindex\":" + playerindex +
+				", \"gameID\":" + gameID +
 				"}}";
 	}
 }

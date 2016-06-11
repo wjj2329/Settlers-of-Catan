@@ -38,12 +38,12 @@ public class PlayYearOfPlentyCommand implements ICommand {
 	@Override
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
-		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: PlayYearOfPlentyCommand" +
-				", gameID:" + gameID +
-				", resource2:'" + resource2 + '\'' +
-				", resource1:'" + resource1 + '\'' +
-				", playerindex:" + playerindex +
+		return "," +"\""+ TextDBGameManagerDAO.commandNumber+"\""+":"+"{" +
+				"\"type\": \"PlayYearOfPlentyCommand\"" +
+				", \"gameID\":" + gameID +
+				", \"resource2\":'" +"\""+ resource2 + '\"' +
+				", \"resource1\":" +"\""+ resource1 + '\"' +
+				", \"playerindex\":" + playerindex +
 				"}}";
 	}
 }

@@ -10,7 +10,7 @@ public class RelationalDBFactory implements IFactory
 	
     public RelationalDBFactory()
     {
-    	relationalDBGameManagerDAO = new RelationalDBGameManagerDAO();
+    	relationalDBGameManagerDAO = new RelationalDBGameManagerDAO(null);
     	relationalDBUserAccountsDAO = new RelationalDBUserAccountsDAO(null);
     }
     @Override

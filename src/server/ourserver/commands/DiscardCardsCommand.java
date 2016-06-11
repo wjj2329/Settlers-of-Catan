@@ -73,14 +73,14 @@ public class DiscardCardsCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," +  TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"  type: DiscardCardsCommand" +
-				", playerIndex:" + playerIndex +
-				", brick:" + cardsToDiscard.getBrick() +
-				", wheat:"+cardsToDiscard.getWheat()+
-				", sheep:"+cardsToDiscard.getSheep()+
-				", ore:"+cardsToDiscard.getOre()+
-				", wood:"+cardsToDiscard.getWood()+
-				", gameid:" + gameid +
+				"  \"type\": \"DiscardCardsCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"brick\":"+"\"" + cardsToDiscard.getBrick() +"\""+
+				", \"wheat\":"+"\""+cardsToDiscard.getWheat()+"\""+
+				", \"sheep\":"+"\""+cardsToDiscard.getSheep()+"\""+
+				", \"ore\":"+"\""+cardsToDiscard.getOre()+"\""+
+				", \"wood\":"+"\""+cardsToDiscard.getWood()+"\""+
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

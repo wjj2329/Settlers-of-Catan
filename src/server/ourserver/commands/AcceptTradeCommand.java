@@ -77,10 +77,10 @@ public class AcceptTradeCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return ","+TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type:"+"AcceptTradeCommand"+
-				",gameid:" + gameid +
-				", playerIndex:" + playerIndex +
-				", willAccept:" + willAccept +
+				"\"type\":"+"\"AcceptTradeCommand\""+
+				",\"gameid\":" + gameid +
+				", \"playerIndex\":" + playerIndex +
+				", \"willAccept\":" + willAccept +
 				"}}";
 
 	}

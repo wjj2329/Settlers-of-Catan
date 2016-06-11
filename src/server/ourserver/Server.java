@@ -7,6 +7,9 @@ import com.sun.net.httpserver.HttpServer;
 
 import org.json.JSONObject;
 import server.ourserver.handlers.*;
+import server.persistence.PersistenceManager;
+import server.persistence.RelationalDBFactory;
+import server.persistence.TextDBFactory;
 
 
 import java.io.FileNotFoundException;
@@ -185,6 +188,10 @@ public class Server
 			new Server().run(Integer.parseInt(args[0]));
 		}
 		*/
+		if(args.length==0)
+		{
+			return;
+		}
 		String type=args[0];
 		JSONObject parsing=null;
 		try {
@@ -209,17 +216,37 @@ public class Server
 		{
 			JSONObject myobject=parsing.getJSONObject("json");
 			JSONObject therealdeal=myobject.getJSONObject(type);
+
 			System.out.println(therealdeal.toString());
 		} catch (JSONException e) {
 			e.printStackTrace();
 		} catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
-		//store jar file name in a file object. probably the path to it?
+		if(type.equals("txt"))
+		{
+			try {
+				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		else
+		{
+			try {
+				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		//Ggson gson=new Gson();
+		// String response =gson.toJson();
+
+		//store jar file name in a file object.
 		//Url =jarfile.toURI().toURL().
-		// url[]
 		//ClassLoader loader=new URLClassLoader(urls);
-		//Class c =loader.loadClass(jar name);
+		//CLass c =loader.loadClass(jar name);
 
 	}
 }

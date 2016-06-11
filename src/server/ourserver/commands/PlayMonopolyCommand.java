@@ -36,10 +36,10 @@ public class PlayMonopolyCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				", type:PlayMonopolyCommand" +
-				", playerindex:" + playerindex +
-				", resource:'" + resource + '\'' +
-				", gameID:" + gameID +
+				", \"type\":\"PlayMonopolyCommand\"" +
+				", \"playerindex\":" + playerindex +
+				", \"resource\":" +"\""+ resource + '\"' +
+				", \"gameID\":" + gameID +
 				"}}";
 	}
 }

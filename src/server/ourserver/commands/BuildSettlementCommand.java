@@ -30,12 +30,12 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 		TextDBGameManagerDAO.commandNumber++;
 		return
 				"," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type:BuildSettlementCommand" +
-				", playerIndex:" + playerIndex +
-				", x:"+location.getX()+", y:"+location.getY()+
-				", dir:"+vertex.getDir() +
-				", free:" + free +
-				", gameid:" + gameid +
+				"\"type\":\"BuildSettlementCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":"+"\""+location.getX()+"\""+", \"y\":"+"\""+location.getY()+"\""+
+				", \"dir\":"+"\""+vertex.getDir() +"\""+
+				", \"free\":" + free +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 

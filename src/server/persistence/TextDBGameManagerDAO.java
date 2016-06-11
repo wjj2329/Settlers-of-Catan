@@ -63,7 +63,7 @@ public class TextDBGameManagerDAO implements IGameManager
         db.flush();
     }
 	@Override
-	public ArrayList<ICommand> getCommands() throws JSONException {
+	public ArrayList<ICommand> getCommands(int idgame) throws JSONException {
         ArrayList<ICommand> commandsloadedfromdb=new ArrayList<>();
         Scanner myscanner=null;
         try {
@@ -247,6 +247,7 @@ public class TextDBGameManagerDAO implements IGameManager
                 }
             }
         }
+
         return commandsloadedfromdb;
 	}
 	@Override

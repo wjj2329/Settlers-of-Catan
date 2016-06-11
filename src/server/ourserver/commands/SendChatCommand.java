@@ -54,11 +54,11 @@ public class SendChatCommand implements ICommand {
 	@Override
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
-		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type: SendChatCommand" +
-				"message:'" + message + '\'' +
-				", playerindex:" + playerindex +
-				", gameid:" + gameid +
+		return "," +"\""+ TextDBGameManagerDAO.commandNumber+"\""+":"+"{" +
+				"\"type\": \"SendChatCommand\"" +
+				"\"message\": " +"\"" +message + '\"' +
+				", \"playerindex\":" +playerindex +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

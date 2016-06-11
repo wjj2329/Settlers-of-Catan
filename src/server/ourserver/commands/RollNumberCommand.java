@@ -333,10 +333,10 @@ public class RollNumberCommand implements ICommand {
 	@Override
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
-		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type:RollNumberCommand" +
-				", rollNumber:" + rollNumber +
-				", gameid:" + gameid +
+		return "," +"\""+ TextDBGameManagerDAO.commandNumber+"\""+":"+"{" +
+				"\"type\":\"RollNumberCommand\"" +
+				", \"rollNumber\":" + rollNumber +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

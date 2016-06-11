@@ -345,7 +345,6 @@ public class ServerFacade
      */
 	public void createGame(String name, boolean randomHexes, boolean randomPorts, boolean randomHexValues)
 	{
-		//System.out.println("I add a new Catan Game");
 		CatanGame mynewgame=new CatanGame();
 		mynewgame.setTitle(name);
 		mynewgame.mybank.setResourceCardslist(19,19,19,19,19); //it has 95 resource cards right?
@@ -354,6 +353,7 @@ public class ServerFacade
 		mynewgame.myrobber=new Robber();
 		NEXT_GAME_ID++;
 		mynewgame.setID(NEXT_GAME_ID);
+		System.out.println("I add a new Catan Game with ID "+NEXT_GAME_ID);
 		mynewgame.setMymap(new CatanMap(10));
 		mynewgame.setMyplayers(new HashMap<Index, Player>());
 		if(randomHexes)
@@ -371,9 +371,15 @@ public class ServerFacade
 			//System.out.println("I randomize the values");
 			mynewgame.getMymap().shuffleNumbers();
 		}
+		for(Player player:mynewgame.getMyplayers().values())
+		{
+			System.out.println(player.toString());
+		}
 		mynewgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
 		mynewgame.setRobberlocation();
 		mynewgame.getModel().getTurntracker().setCurrentTurn(new Index(0), mynewgame.getMyplayers());
+		mynewgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
+		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
 		serverModel.addGame(mynewgame);
 	}
 
@@ -460,9 +466,9 @@ public class ServerFacade
 						copy.setColor(CatanColor.BROWN);
 						break;
 					}
-					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable);
+					System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable+" to game with "+gameID);
 					copy.setResources(new ResourceList(0,0,0,0,0));
-					copy.setPlayerIndex(new Index(playerindexforit));
+					copy.setPlayerIndex(new Index(serverModel.listGames().get(gameID).getMyplayers().size()));
 					copy.setPlayerID(new Index(playeridvariable));
 					playerindexforit++;
 					playeridvariable++;
@@ -750,7 +756,8 @@ public class ServerFacade
 				model.put("tradeOffer", tradeOffer);
 			}
 			//System.out.println("THE MODEL SO FAR WIT TRADEOFFER MAYBE " + model.toString());
-			
+
+
 			//THE TURN TRACKER
 			JSONObject turnTracker = new JSONObject();
 			TurnTracker turnos = game.getModel().getTurntracker();

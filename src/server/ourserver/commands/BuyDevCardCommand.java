@@ -34,9 +34,9 @@ public class BuyDevCardCommand implements ICommand
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{" +
-				"type:BuyDevCardCommand" +
-				", playerIndex:" + playerIndex +
-				", gameid:" + gameid +
+				"\"type\":\"BuyDevCardCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }

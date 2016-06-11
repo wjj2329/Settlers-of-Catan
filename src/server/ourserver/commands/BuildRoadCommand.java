@@ -196,13 +196,13 @@ public class BuildRoadCommand implements ICommand {
 		TextDBGameManagerDAO.commandNumber++;
 
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{"+
-				"type:BuildRoadCommand" +
-				", playerIndex:" + playerIndex +
-				", x:" + location.getX() +
-				", y:"+location.getY()+
-				", edge:" + edge.getDir() +
-				", free:" + free +
-				", gameid:" + gameid +
+				"\"type\":\"BuildRoadCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":" +"\""+ location.getX()+"\"" +
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"edge\":" +"\""+ edge.getDir() +"\""+
+				", \"free\":" + free +
+				", \"gameid\":" + gameid +
 				"}}";
 	}
 }
