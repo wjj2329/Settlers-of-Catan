@@ -40,6 +40,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		}
 		iReadFiles.close();
 		iScanThings.close();
+
 		String theString = iBuildStrings.toString();
 		System.out.println("What is the string? " + theString);
 		if (!theString.contains("{"))
@@ -93,20 +94,6 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		//playerFileWriter.write("{\"players\": [");
 		//playerFileWriter.write("{"); // only do this if it's the first time...
 		gameFileWriter.write("{");
-	}
-
-	private int getWhichNumberWeAreOn() throws FileNotFoundException
-	{
-		Scanner scanMyFileHomie = new Scanner(players);
-		int uniqueNumber;
-		StringBuilder sb = new StringBuilder();
-		while (scanMyFileHomie.hasNext())
-		{
-			String next = scanMyFileHomie.next();
-			sb.append(next);
-
-		}
-		return -1; // not sure what to do next here.
 	}
 
 	@Override
