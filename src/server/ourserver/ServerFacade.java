@@ -278,7 +278,7 @@ public class ServerFacade
 	 * @param username: name they will log in with
 	 * @param password: password that they will use
      */
-	public void register(String username, String password) throws IOException, DatabaseException
+	public void register(String username, String password) throws IOException, DatabaseException, JSONException
 	{
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
 		for (Player p2 : allRegisteredUsers)
@@ -293,6 +293,7 @@ public class ServerFacade
 		p.setPassword(password);
 		//System.out.println("I add a new player");
 		allRegisteredUsers.add(p);
+		System.out.println("Adding a new player in ServerFacade with the name " + p.getName());
 		PersistenceManager.getSingleton().addPlayerInfo(p);
 	}
 

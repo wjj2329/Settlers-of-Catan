@@ -215,10 +215,11 @@ public class Server
 		} catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
-		//store jar file name in a file object.
+		//store jar file name in a file object. probably the path to it?
 		//Url =jarfile.toURI().toURL().
+		// url[]
 		//ClassLoader loader=new URLClassLoader(urls);
-		//CLass c =loader.loadClass(jar name);
+		//Class c =loader.loadClass(jar name);
 
 	}
 }

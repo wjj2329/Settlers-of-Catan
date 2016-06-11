@@ -4,6 +4,7 @@ import javax.management.Descriptor;
 
 /**
  * Created by williamjones on 6/7/16.
+ * Do we need this class?
  */
 public class PluginRegistry implements IFactory
 {

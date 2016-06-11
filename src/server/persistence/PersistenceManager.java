@@ -21,11 +21,12 @@ public class PersistenceManager
     private IFactory myfactory=new TextDBFactory();//needs to get loaded from
 
 
-    public PersistenceManager() throws IOException
-    {
+    public PersistenceManager() throws IOException, JSONException {
+
 
     }
-    public static PersistenceManager getSingleton() throws IOException {
+    public static PersistenceManager getSingleton() throws IOException, JSONException
+    {
         if(singleton==null)
         {
             singleton =new PersistenceManager();
