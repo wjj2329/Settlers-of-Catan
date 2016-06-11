@@ -117,6 +117,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			// you will have to build one extra.
 		}*/
 		// if startup phase, return?
+		System.out.println("MY size is "+ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size());
 		if(ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4 /*&& haveAllPlayersJoined()*/) // before I test anything else.
 			{
 				Map<Index, Player> players = ModelFacade.facadeCurrentGame.currentgame.getMyplayers();
