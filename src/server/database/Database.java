@@ -15,6 +15,24 @@ public class Database
 	private static final String DATABASE_URL = "jdbc:sqlite:"
 			+ DATABASE_DIRECTORY + File.separator + DATABASE_FILE;
 	private static Logger logger;
+	private static final String CREATE_TABLE_USER="CREATE TABLE IF NOT EXISTS User("+ 
+												"id integer not null primary key,"+
+												"username text not null,"+
+												"password text not null)";
+	private static final String CREATE_TABLE_GAMES="CREATE TABLE IF NOT EXISTS Games(" +
+												"id integer not null primary key,"+
+												"gamemodel text not null)";
+	private static final String CREATE_TABLE_PLAYERS="CREATE TABLE IF NOT EXISTS Players("+
+	        									"userid integer not null,"+
+	        									"gameid integer not null,"+
+	        									"color text not null,"+
+	        									"foreign key(userid) references User(id),"+
+	        									"foreign key(gameid) references Games(id))";
+	private static final String CREATE_TABLE_COMMANDS="CREATE TABLE IF NOT EXISTS Commands(" +
+	        											"gameid integer not null,"+
+	        											"command text not null," + 
+	    	        									"foreign key(gameid) references Games(id))";
+	
 	
 	static
 	{
@@ -54,6 +72,24 @@ public class Database
 	public Connection getConnection()
 	{
 		return connection;
+	}
+	
+	public void createTables(){
+		Statement stmt = null;
+		try {
+			
+			stmt = DriverManager.getConnection(DATABASE_URL).createStatement();
+			stmt.executeUpdate(CREATE_TABLE_USER);
+			stmt = DriverManager.getConnection(DATABASE_URL).createStatement();
+			stmt.executeUpdate(CREATE_TABLE_GAMES);
+			stmt = DriverManager.getConnection(DATABASE_URL).createStatement();
+			stmt.executeUpdate(CREATE_TABLE_PLAYERS);
+			stmt = DriverManager.getConnection(DATABASE_URL).createStatement();
+			stmt.executeUpdate(CREATE_TABLE_COMMANDS);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	public void startTransaction() throws DatabaseException

@@ -70,11 +70,10 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			Gson gson = new Gson();
 			String gamedata = gson.toJson(game);
 			
-			String query = "insert into Game (id, title, gamedata) values (?, ?, ?)";
+			String query = "insert into Game (id, gamemodel) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, game.getGameId());
-			stmt.setString(2, game.getTitle());
-			stmt.setString(3, gamedata); //Will change this later
+			stmt.setString(2, gamedata); //Will change this later
 
 		} catch (SQLException e)
 		{
@@ -98,11 +97,10 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet keyRS = null;
 		try
 		{
-			String query = "insert into Commands (id, title, gamedata) values (?, ?, ?)";
+			String query = "insert into Commands (id, gamemodel) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, game.getGameId());
-			stmt.setString(2, game.getTitle());
-			stmt.setString(3, game.getModel().toString()); //Will change this later
+			stmt.setString(2, game.getModel().toString()); //Will change this later
 			
 			
 		} catch (SQLException e)
@@ -121,8 +119,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
     }
 
     @Override
-	public ArrayList<ICommand> getCommands() {//needs a gameid;
-    	int gameid = 0;
+	public ArrayList<ICommand> getCommands(int gameid) {//needs a gameid;
         logger.entering("server.database.Game", "getting commands from game with id " + gameid);
 		
 		ArrayList<ICommand> result = new ArrayList<ICommand>();
@@ -130,8 +127,9 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
-			String query = "select id, command from Commands where id=" + gameid;
+			String query = "select id, command from Commands where id=?";
 			stmt = db.getConnection().prepareStatement(query);
+			stmt.setInt(1, gameid);
 			
 			rs = stmt.executeQuery();
 			while (rs.next())
@@ -167,8 +165,9 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
-			String query = "select id, title, gamedata from Games where id=" + gameid;
+			String query = "select id, title, gamedata from Games where id=?";
 			stmt = db.getConnection().prepareStatement(query);
+			stmt.setInt(1, gameid);
 			
 			rs = stmt.executeQuery();
 			while (rs.next())
@@ -206,19 +205,17 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
-			String query = "select id, title, gamedata from Games";
+			String query = "select id, gamedata from Games";
 			stmt = db.getConnection().prepareStatement(query);
 			
 			rs = stmt.executeQuery();
 			while (rs.next())
 			{
 				int id = rs.getInt(1);
-				String title = rs.getString(2);
-				String gamedata = rs.getString(3);//probably in a json format? 
+				String gamedata = rs.getString(2);//probably in a json format? 
 				
 				CatanGame game = new CatanGame();
 				game.setID(id);
-				game.setTitle(title);
 				
 				result.add(game);
 			}
