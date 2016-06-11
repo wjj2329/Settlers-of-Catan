@@ -15,6 +15,20 @@ public class Database
 	private static final String DATABASE_URL = "jdbc:sqlite:"
 			+ DATABASE_DIRECTORY + File.separator + DATABASE_FILE;
 	private static Logger logger;
+	private static final String CREATE_TABLE_USER="CREATE TABLE IF NOT EXISTS User("+ 
+												"id integer not null primary key,"+
+												"username text not null,"+
+												"password text not null)";
+	private static final String CREATE_TABLE_GAMES="CREATE TABLE IF NOT EXISTS Games(" +
+												"id integer not null primary key,"+
+												"gamemodel text not null)";
+	private static final String CREATE_TABLE_PLAYERS="CREATE TABLE Players("+
+	        									"userid integer not null,"+
+	        									"gameid integer not null,"+
+	        									"color text not null,"+
+	        									"foreign key(userid) references User(id),"+
+	        									"foreign key(gameid) references Games(id))";
+	
 	
 	static
 	{
