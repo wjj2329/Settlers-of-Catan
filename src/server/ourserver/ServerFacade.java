@@ -27,11 +27,12 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.rmi.ServerException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -121,10 +122,70 @@ public class ServerFacade
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
 		
+		try {
+			loadallplayersfromtextdatabase();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		loadDefaultGame();
 		loadEmptyGame();
 	}
-	
+	private void loadallplayersfromtextdatabase() throws IOException, JSONException {
+		//System.out.println("I construct the TextDBUserAccountsDAO");
+		// file reader, scanner, stringBuilder
+
+		File players = new File("allPlayers.txt");
+		FileWriter playerFileWriter = new FileWriter(players, true);
+		FileReader iReadFiles = new FileReader(players);
+		Scanner iScanThings = new Scanner(iReadFiles);
+		StringBuilder iBuildStrings = new StringBuilder();
+		while (iScanThings.hasNext())
+		{
+			iBuildStrings.append(iScanThings.next());
+		}
+		iReadFiles.close();
+		iScanThings.close();
+
+		String theString = iBuildStrings.toString();
+		//System.out.println("What is the string? " + theString);
+		if (!theString.contains("{"))
+		{
+			//System.out.println("I am writing the first bracket");
+			playerFileWriter.write("{"); // why isn't this writing??
+			return;
+		}
+		//System.out.println("I made it here");
+		//System.out.println("What is th")
+		if (theString.length() > 1 && theString.charAt(theString.length() - 1) != '}')
+		{
+			//System.out.println("We need this");
+			playerFileWriter.write("}");
+			iBuildStrings.append("}");
+		} // it doesn't make it past this
+		//System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
+		JSONObject jason = new JSONObject(iBuildStrings.toString());
+
+		// this is gonna break something
+		for (int i = 0; i < 300; i++)
+		{
+			String playerObj = "player" + i;
+			//System.out.println("the number: " + playerObj);
+			if (jason.has(playerObj))
+			{
+				System.out.println("JSON does have " + playerObj);
+				JSONObject playerAttributes = jason.getJSONObject(playerObj);
+				Player myPlayer=new Player(playerAttributes.getString("username"),CatanColor.PUCE,new Index(10));
+				myPlayer.setPlayerID(new Index(playerAttributes.getInt("playerID")));
+				myPlayer.setPassword(playerAttributes.getString("password"));
+				System.out.println("I Add a player "+myPlayer.toString());
+				allRegisteredUsers.add(myPlayer);
+			}
+		}
+
+
+	}
 	public void loadDefaultGame(){
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
