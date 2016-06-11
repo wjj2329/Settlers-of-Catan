@@ -29,7 +29,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 
 	public TextDBUserAccountsDAO() throws IOException, JSONException
 	{
-		System.out.println("I construct the TextDBUserAccountsDAO");
+		//System.out.println("I construct the TextDBUserAccountsDAO");
 		// file reader, scanner, stringBuilder
 		FileReader iReadFiles = new FileReader(players);
 		Scanner iScanThings = new Scanner(iReadFiles);
@@ -42,22 +42,22 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		iScanThings.close();
 
 		String theString = iBuildStrings.toString();
-		System.out.println("What is the string? " + theString);
+		//System.out.println("What is the string? " + theString);
 		if (!theString.contains("{"))
 		{
-			System.out.println("I am writing the first bracket");
+			//System.out.println("I am writing the first bracket");
 			playerFileWriter.write("{"); // why isn't this writing??
 			return;
 		}
-		System.out.println("I made it here");
+		//System.out.println("I made it here");
 		//System.out.println("What is th")
 		if (theString.length() > 1 && theString.charAt(theString.length() - 1) != '}')
 		{
-			System.out.println("We need this");
+			//System.out.println("We need this");
 			playerFileWriter.write("}");
 			iBuildStrings.append("}");
 		} // it doesn't make it past this
-		System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
+		//System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
 		JSONObject jason = new JSONObject(iBuildStrings.toString());
 		ArrayList<Integer> numbersForPlayers = new ArrayList<>();
 
@@ -65,19 +65,15 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		for (int i = 0; i < MAX_NUM_PLAYERS; i++)
 		{
 			String playerObj = "player" + i;
-			System.out.println("the number: " + playerObj);
+			//System.out.println("the number: " + playerObj);
 			if (jason.has(playerObj))
 			{
-				System.out.println("JSON does have " + playerObj);
+				//System.out.println("JSON does have " + playerObj);
 				JSONObject playerAttributes = jason.getJSONObject(playerObj);
 				numbersForPlayers.add(playerAttributes.getInt("numberInFile"));
 			}
-			else
-			{
-				System.out.println("JSON does NOT have " + playerObj);
-			}
 		}
-		System.out.println("Here we go, the arrayList of magicalness: " + numbersForPlayers.toString());
+		//System.out.println("Here we go, the arrayList of magicalness: " + numbersForPlayers.toString());
 		if (numbersForPlayers.size() == 0)
 		{
 			playerFileWriter.write("{");
@@ -85,9 +81,9 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		else
 		{
 			Collections.sort(numbersForPlayers);
-			System.out.println("Here we go the sorted arrayList of the players: " + numbersForPlayers);
+			//System.out.println("Here we go the sorted arrayList of the players: " + numbersForPlayers);
 			int res = numbersForPlayers.get(numbersForPlayers.size() - 1);
-			System.out.println("The res is " + res);
+			//System.out.println("The res is " + res);
 			playerNumber = res + 1;
 		}
 
@@ -115,8 +111,8 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	@Override
 	public void addUser(Player user) throws DatabaseException, IOException
 	{
-		System.out.println("I'm adding the user " + user.getName() + " into the tawlet");
-		System.out.println("THE JSON: " + serializeUserToJson(user));
+		//System.out.println("I'm adding the user " + user.getName() + " into the tawlet");
+		//System.out.println("THE JSON: " + serializeUserToJson(user));
 		playerFileWriter.write(serializeUserToJson(user));
 		playerFileWriter.write("}");
 		playerFileWriter.flush(); // like a toilet
@@ -168,7 +164,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 			iBuildStrings.append(meScanner.nextLine());
 		}
 		String res = iBuildStrings.toString();
-		System.out.println("The result string is: " + res);
+		//System.out.println("The result string is: " + res);
 		if (res.length() > 1 && res.charAt(res.length() - 1) == '}')
 		{
 			String cut = res.substring(0, res.length() - 1);
@@ -176,12 +172,12 @@ public class TextDBUserAccountsDAO implements IUserAccount
 			PrintWriter clearMyFile = new PrintWriter(players);
 			clearMyFile.close();
 			playerFileWriter.write(cut);
-			System.out.println("This is the cut JSON: " + cut);
+			//System.out.println("This is the cut JSON: " + cut);
 		}
 		// it's stopping here for some reason
 
 		String singMeASongOfJson;
-		System.out.println("What is the player number? " + playerNumber);
+		//System.out.println("What is the player number? " + playerNumber);
 		StringBuilder jsonBuilder = new StringBuilder();
 		jsonBuilder.append("\n\t\"player" + playerNumber + "\":\n"); // while the iterator goes to playerNumber - highest poss.
 		jsonBuilder.append("\t{\n");
@@ -190,9 +186,9 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		jsonBuilder.append("\t\t\"playerID\": \"" + user.getPlayerID().getNumber() + "\",\n");
 		jsonBuilder.append("\t\t\"numberInFile\": \"" + playerNumber + "\"\n");
 		jsonBuilder.append("\t },\n");
-		System.out.println("What does the json builder have in it? " + jsonBuilder.toString());
+		//System.out.println("What does the json builder have in it? " + jsonBuilder.toString());
 		singMeASongOfJson = jsonBuilder.toString();
-		System.out.println("What is the player's number? " + playerNumber);
+		//System.out.println("What is the player's number? " + playerNumber);
 		playerNumber++;
 		//printResults(singMeASongOfJson);
 		return singMeASongOfJson;
