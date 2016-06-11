@@ -65,7 +65,11 @@ public class GameCreateHandler implements HttpHandler
 			exchange.getResponseBody().write(response.getBytes());
 			exchange.close();
         }
-        ServerFacade.getInstance().createGame(name,randomHexes,randomPorts,randomHexValues);
+        try {
+            ServerFacade.getInstance().createGame(name,randomHexes,randomPorts,randomHexValues);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         exchange.getResponseHeaders().add("Content-type", "text/html");
         String response = "Success! :D   YEA YEA YEA";

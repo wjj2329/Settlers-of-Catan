@@ -341,7 +341,7 @@ public class ServerFacade
 	 * @param randomPorts: whether or not it uses randomized ports
 	 * @param randomHexValues: whether or not it uses randomized numbers on the hexes
      */
-	public void createGame(String name, boolean randomHexes, boolean randomPorts, boolean randomHexValues)
+	public void createGame(String name, boolean randomHexes, boolean randomPorts, boolean randomHexValues) throws IOException, JSONException
 	{
 		CatanGame mynewgame=new CatanGame();
 		mynewgame.setTitle(name);
@@ -379,6 +379,7 @@ public class ServerFacade
 		mynewgame.getModel().getTurntracker().setLargestArmy(new Index(-1));
 		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
 		serverModel.addGame(mynewgame);
+		PersistenceManager.getSingleton().addGameInfo(mynewgame);
 	}
 
 	/**

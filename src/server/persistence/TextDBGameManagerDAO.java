@@ -52,7 +52,8 @@ public class TextDBGameManagerDAO implements IGameManager
     }
     
 	@Override
-	public void storeGameModel() {
+	public void storeGameModel()
+    {
 		// TODO Auto-generated method stub
 		
 	}

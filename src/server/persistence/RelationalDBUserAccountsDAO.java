@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 import server.database.Database;
 import server.database.DatabaseException;
 import shared.definitions.CatanColor;
+import shared.game.CatanGame;
 import shared.game.map.Index;
 import shared.game.player.Player;
 
@@ -15,6 +16,7 @@ import shared.game.player.Player;
 
 import javax.activation.CommandObject;
 
+import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLData;
@@ -168,4 +170,10 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     {
         return false;
     }
+
+	@Override
+	public void addGameToGameList(CatanGame game) throws IOException
+	{
+
+	}
 }

@@ -7,6 +7,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import server.database.DatabaseException;
 import shared.definitions.CatanColor;
+import shared.game.CatanGame;
+import shared.game.map.Index;
 import shared.game.player.Player;
 
 
@@ -26,11 +28,13 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	private FileWriter playerFileWriter = new FileWriter(players, true);
 	private FileWriter gameFileWriter = new FileWriter(games, true);
 	private static int playerNumber = 0;
+	private static int gameNumber = 0;
 
 	public TextDBUserAccountsDAO() throws IOException, JSONException
 	{
 		//System.out.println("I construct the TextDBUserAccountsDAO");
 		// file reader, scanner, stringBuilder
+		fixGameNumber();
 		FileReader iReadFiles = new FileReader(players);
 		Scanner iScanThings = new Scanner(iReadFiles);
 		StringBuilder iBuildStrings = new StringBuilder();
@@ -89,7 +93,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 
 		//playerFileWriter.write("{\"players\": [");
 		//playerFileWriter.write("{"); // only do this if it's the first time...
-		gameFileWriter.write("{");
+		//gameFileWriter.write("{");
 	}
 
 	@Override
@@ -146,6 +150,105 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		return false;
 	}
 
+	@Override
+	public void addGameToGameList(CatanGame game) throws IOException, JSONException
+	{
+		FileReader gameFileReader = new FileReader(games);
+		Scanner iLikeScanning = new Scanner(gameFileReader);
+		StringBuilder braceChecker = new StringBuilder();
+		while (iLikeScanning.hasNext())
+		{
+			braceChecker.append(iLikeScanning.next());
+		}
+		String doYouHaveAnyBraces = braceChecker.toString();
+		System.out.println("What is the string at the getgo? " + doYouHaveAnyBraces);
+		if (doYouHaveAnyBraces.length() < 2)
+		{
+			gameFileWriter.write("{");
+		}
+		gameFileWriter.write(serializeGameToJson(game));
+		//gameFileWriter.write("}");
+		gameFileWriter.flush();
+	}
+
+	private String playersToJson(CatanGame game)
+	{
+		StringBuilder toReturn = new StringBuilder();
+		toReturn.append("\t\t\"playersInGame\":\n\t\t[\n");
+		Map<Index, Player> players = game.getMyplayers();
+		for (Player p : players.values())
+		{
+			String name = p.getName();
+			int id = p.getPlayerID().getNumber();
+			toReturn.append("{\n\t\t\t\"name\": " + name + "\",\n");
+			toReturn.append("\t\t\t\"id\": " + id + "\"\n"); // this format won't be completely correct
+			toReturn.append("\t},");
+		}
+		toReturn.append("\n\t\t]\n\t");
+		toReturn.append("},");
+		return toReturn.toString();
+	}
+
+	private String serializeGameToJson(CatanGame game) throws IOException, JSONException
+	{
+		deleteTheStupidExtraBrace(games, gameFileWriter);
+		StringBuilder jsonBuilder = new StringBuilder();
+		//fixGameNumber();
+		jsonBuilder.append("\n\t\"game" + gameNumber + "\":\n");
+		jsonBuilder.append("\t{\n");
+		jsonBuilder.append("\t\t\"id\": \"" + game.getGameId() + "\",\n");
+		jsonBuilder.append("\t\t\"uniqueNumber\": \"" + gameNumber + "\",\n");
+		jsonBuilder.append("\t\t\"title\": \"" + game.getTitle() + "\",\n");
+		gameNumber++;
+		String players = playersToJson(game);
+		jsonBuilder.append(players);
+		jsonBuilder.append("\n}");
+		//jsonBuilder.append(",\n}");
+		return jsonBuilder.toString();
+	}
+
+	private void fixGameNumber() throws IOException, JSONException
+	{
+		FileReader iReadFiles = new FileReader(games);
+		Scanner iScanThings = new Scanner(iReadFiles);
+		StringBuilder iBuildStrings = new StringBuilder();
+		while (iScanThings.hasNext())
+		{
+			iBuildStrings.append(iScanThings.next());
+		}
+		iReadFiles.close();
+		iScanThings.close();
+		String testing = iBuildStrings.toString();
+		if (testing.length() < 1)
+		{
+			System.out.println("Testing is " + testing); // why the heck is this blank?
+			System.out.println("The length is too short");
+			return;
+		}
+		if (testing.length() > 1 && testing.charAt(testing.length() - 1) != '}')
+		{
+			iBuildStrings.append("}");
+		}
+		System.out.println("What is this right now? " + iBuildStrings.toString());
+		JSONObject jason = new JSONObject(iBuildStrings.toString());
+		ArrayList<Integer> allGamesInFile = new ArrayList<>();
+		for (int i = 0; i < MAX_NUM_GAMES; i++)
+		{
+			String gameObj = "game" + i;
+			if (jason.has(gameObj))
+			{
+				System.out.println("JSON does have " + gameObj);
+				JSONObject gameAttribute = jason.getJSONObject(gameObj);
+				allGamesInFile.add(gameAttribute.getInt("uniqueNumber"));
+			}
+		}
+		Collections.sort(allGamesInFile);
+		System.out.println("What the heck is in here? " + allGamesInFile.toString());
+		int res = allGamesInFile.get(allGamesInFile.size() - 1);
+		System.out.println("The res is " + res);
+		gameNumber = res + 1;
+	}
+
 	/**
 	 * Serialization function used to add the player to the text file DB.
 	 *
@@ -156,26 +259,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	{
 		//System.out.println("I am serializing the user to JSON");
 		// fixing the last brace:
-		FileReader bookworm = new FileReader(players);
-		Scanner meScanner = new Scanner(bookworm);
-		StringBuilder iBuildStrings = new StringBuilder();
-		while (meScanner.hasNextLine())
-		{
-			iBuildStrings.append(meScanner.nextLine());
-		}
-		String res = iBuildStrings.toString();
-		//System.out.println("The result string is: " + res);
-		if (res.length() > 1 && res.charAt(res.length() - 1) == '}')
-		{
-			String cut = res.substring(0, res.length() - 1);
-			System.out.println("Cut is " + cut);
-			PrintWriter clearMyFile = new PrintWriter(players);
-			clearMyFile.close();
-			playerFileWriter.write(cut);
-			//System.out.println("This is the cut JSON: " + cut);
-		}
-		// it's stopping here for some reason
-
+		deleteTheStupidExtraBrace(players, playerFileWriter);
 		String singMeASongOfJson;
 		//System.out.println("What is the player number? " + playerNumber);
 		StringBuilder jsonBuilder = new StringBuilder();
@@ -194,12 +278,40 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		return singMeASongOfJson;
 	}
 
+	private void deleteTheStupidExtraBrace(File playersOrGames, FileWriter chosenFileWriter) throws IOException
+	{
+		FileReader bookworm = new FileReader(playersOrGames);
+		Scanner meScanner = new Scanner(bookworm);
+		StringBuilder iBuildStrings = new StringBuilder();
+		while (meScanner.hasNextLine())
+		{
+			iBuildStrings.append(meScanner.nextLine());
+		}
+		String res = iBuildStrings.toString();
+		//System.out.println("The result string is: " + res); // Issue is NOT with this function.
+		if (res.length() > 1 && res.charAt(res.length() - 1) == '}')
+		{
+			String cut = res.substring(0, res.length() - 1);
+			//System.out.println("Cut is " + cut);
+			PrintWriter clearMyFile = new PrintWriter(playersOrGames);
+			clearMyFile.close();
+			chosenFileWriter.write(cut);
+			System.out.println("This is the cut JSON: " + cut);
+		}
+	}
+
 	private void printResults(String singMeASongOfJson)
 	{
 		System.out.println("I finished serializing the user to JSON, and this is it: ");
 		System.out.println(singMeASongOfJson);
 	}
 
-	public static final int MAX_NUM_PLAYERS = 150;
-   
+	/**
+	 * These variables can be adjusted as necessary.
+	 * However, the programmer should adjust them manually.
+	 * They are critical to the functioning of this class, so I
+	 * 	don't want anything else messing with them.
+	 */
+	private static final int MAX_NUM_PLAYERS = 150;
+	private static final int MAX_NUM_GAMES = 150;
 }

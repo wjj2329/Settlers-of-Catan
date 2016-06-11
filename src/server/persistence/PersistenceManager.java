@@ -2,6 +2,7 @@ package server.persistence;
 import org.json.JSONException;
 import server.database.DatabaseException;
 import server.ourserver.commands.ICommand;
+import shared.game.CatanGame;
 import shared.game.player.Player;
 
 import java.io.IOException;
@@ -49,6 +50,11 @@ public class PersistenceManager
     {
         //System.out.println("I add the player info for " + user.getName());
         myfactory.getUserAccount().addUser(user);
+    }
+
+    public void addGameInfo(CatanGame game) throws IOException, JSONException
+    {
+        myfactory.getUserAccount().addGameToGameList(game);
     }
 
     private void checkfor10()
