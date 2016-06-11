@@ -152,4 +152,32 @@ public class Database
 		}
 	}
 	
+	/*CREATE TABLE Model
+	(
+		blob model not null
+	)
+
+	CREATE TABLE Games
+	(
+	        id integer not null primary key,
+		blob gamemodel not null,
+		foreign key(gamemodel) references Model(model)
+	)
+
+	CREATE TABLE Players
+	(
+	        userid integer not null,
+	        gameid integer not null,
+		color text not null,
+		foreign key(userid) references User(id),
+		foreign key(gameid) references Games(id)
+	)
+
+	CREATE TABLE User
+	(
+		id integer not null primary key,
+		username text not null,
+		password text not null
+		//foreign key(currentBatch) references Batch(id)
+	)*/
 }
