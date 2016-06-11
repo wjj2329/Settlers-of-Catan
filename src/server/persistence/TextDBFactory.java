@@ -1,5 +1,7 @@
 package server.persistence;
 
+import org.json.JSONException;
+
 import java.io.IOException;
 
 /**
@@ -10,7 +12,7 @@ public class TextDBFactory implements IFactory
     private TextDBGameManagerDAO textDBGameManagerDAO;
     private TextDBUserAccountsDAO textDBUserAccountsDAO;
 
-	public TextDBFactory()
+	public TextDBFactory() throws JSONException
 	{
 		try
 		{
