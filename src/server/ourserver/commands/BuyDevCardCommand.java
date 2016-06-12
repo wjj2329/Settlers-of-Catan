@@ -39,4 +39,13 @@ public class BuyDevCardCommand implements ICommand
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\":\"BuyDevCardCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

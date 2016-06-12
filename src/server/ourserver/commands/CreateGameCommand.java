@@ -19,4 +19,10 @@ public class CreateGameCommand implements ICommand {
 	public String toString() {
 		return "CreateGameCommand{}";
 	}
+
+	@Override
+	public String toJSON() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
