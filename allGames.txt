@@ -3,62 +3,7 @@
 	{
 		"id": "2",
 		"uniqueNumber": "0",
-		"title": "They're selling CHOCOLATE",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game1":
-	{
-		"id": "3",
-		"uniqueNumber": "1",
-		"title": "Antihero",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game3":
-	{
-		"id": "5",
-		"uniqueNumber": "3",
-		"title": "bvgvgv",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game4":
-	{
-		"id": "6",
-		"uniqueNumber": "4",
-		"title": "fadsfd",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game5":
-	{
-		"id": "7",
-		"uniqueNumber": "5",
-		"title": "afdsfas",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game6":
-	{
-		"id": "8",
-		"uniqueNumber": "6",
-		"title": "fadsfas",
+		"title": "hjghjgj",
 		"playersInGame":
 		[
 
