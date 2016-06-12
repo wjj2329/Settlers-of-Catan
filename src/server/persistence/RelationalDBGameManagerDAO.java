@@ -81,7 +81,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
         }
     }
     
-    void withdrawinfo()
+    void withdrawinfo() 
     {
         // TODO take stuff out of the db to give to server facade model to load
     }

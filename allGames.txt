@@ -3,7 +3,40 @@
 	{
 		"id": "2",
 		"uniqueNumber": "0",
-		"title": "hjghjgj",
+		"title": "They're selling CHOCOLATE",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game1":
+	{
+		"id": "3",
+		"uniqueNumber": "1",
+		"title": "Antihero",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game2":
+	{
+		"id": "4",
+		"uniqueNumber": "2",
+		"title": "This little Jew boy",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game3":
+	{
+		"id": "5",
+		"uniqueNumber": "3",
+		"title": "My Lady Shakira",
 		"playersInGame":
 		[
 
