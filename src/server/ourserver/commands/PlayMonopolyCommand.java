@@ -1,7 +1,10 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
+
+import java.io.FileNotFoundException;
 
 
 /**
@@ -26,7 +29,7 @@ public class PlayMonopolyCommand implements ICommand {
 	 * 	of the specified type. 
 	 */
 	@Override
-	public Object execute() 
+	public Object execute() throws FileNotFoundException, JSONException
 	{
 		ServerFacade.getInstance().playMonopoly(playerindex, resource, gameID);
 		return null;

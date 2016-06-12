@@ -1,7 +1,10 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
+
+import java.io.FileNotFoundException;
 
 /**
  * The BuyDevCardCommand class
@@ -18,7 +21,13 @@ public class BuyDevCardCommand implements ICommand
 	public Object execute() {
 		// TODO Auto-generated method stub
 		System.out.println("NOW BUYING DEV CARD IN COMMAND");
-		ServerFacade.getInstance().buyDevCard(playerIndex, gameid);
+		try {
+			ServerFacade.getInstance().buyDevCard(playerIndex, gameid);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		System.out.println("Card was bought");
 
 		return null;

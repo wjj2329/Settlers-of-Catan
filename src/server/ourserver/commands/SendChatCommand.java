@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import client.model.TurnStatus;
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.chat.Chat;
@@ -8,6 +9,8 @@ import shared.chat.ChatLine;
 import shared.game.CatanGame;
 import shared.game.map.Index;
 import shared.game.player.Player;
+
+import java.io.FileNotFoundException;
 
 /**
  * The SendChatCommand
@@ -30,7 +33,7 @@ public class SendChatCommand implements ICommand {
 		this.gameid=gameid;
 	}
 	@Override
-	public Object execute()
+	public Object execute() throws FileNotFoundException, JSONException
 	{
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);

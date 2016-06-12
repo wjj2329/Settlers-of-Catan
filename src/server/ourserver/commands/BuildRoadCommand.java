@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import client.model.TurnStatus;
+import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
@@ -14,6 +15,7 @@ import shared.game.player.Player;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
+import java.io.FileNotFoundException;
 import java.util.Set;
 
 import static client.model.ModelFacade.facadeCurrentGame;
@@ -47,7 +49,14 @@ public class BuildRoadCommand implements ICommand {
 	@Override
 	public Object execute() {
 //System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
-		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
+		CatanGame currentgame= null;
+		try {
+			currentgame = ServerFacade.getInstance().getGameByID(gameid);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Index playerID = null;
 		for (Player p : currentgame.getMyplayers().values())

@@ -4,6 +4,7 @@ import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 
 import java.io.IOException;
@@ -39,9 +40,14 @@ public class GameModelHandler implements HttpHandler {
     	String cookie = httpExchange.getRequestHeaders().getFirst("Cookie");
     	int gameID = getGameIDfromCookie(cookie);
 		//System.out.println("TIS THE GAME ID FROM COOKIE " + gameID);
-		
-    	JSONObject model = ServerFacade.getInstance().getGameModel(gameID);
-        
+
+        JSONObject model = null;
+        try {
+            model = ServerFacade.getInstance().getGameModel(gameID);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         if(model == null){
             String response = "Could not get Game model.";
             httpExchange.getResponseBody().write(response.getBytes());

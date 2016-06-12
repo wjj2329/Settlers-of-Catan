@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import client.model.TurnStatus;
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
@@ -8,6 +9,8 @@ import shared.game.CatanGame;
 import shared.game.DevCardList;
 import shared.game.map.Index;
 import shared.game.player.Player;
+
+import java.io.FileNotFoundException;
 
 /**
  * The FinishTurnCommand
@@ -26,7 +29,8 @@ public class FinishTurnCommand implements ICommand {
 		this.gameid=gameid;
 	}
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException
+	{
 //System.out.println("I call the end turn command for player with player index"+playerIndex);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);

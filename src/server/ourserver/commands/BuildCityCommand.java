@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
@@ -13,6 +14,8 @@ import shared.game.player.Player;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+
+import java.io.FileNotFoundException;
 
 /**
  * The BuildCityCommand class
@@ -35,7 +38,7 @@ public class BuildCityCommand implements ICommand {
 		this.gameid=gameid;
 	}
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 		// TODO Auto-generated method stub
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		Index owner = new Index(playerIndex);

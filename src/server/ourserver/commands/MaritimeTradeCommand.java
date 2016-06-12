@@ -1,5 +1,6 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.definitions.ResourceType;
@@ -7,6 +8,8 @@ import shared.game.Bank;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
 import shared.game.player.Player;
+
+import java.io.FileNotFoundException;
 
 /**
  * The MaritimeTradeCommand!
@@ -32,8 +35,7 @@ public class MaritimeTradeCommand implements ICommand {
 		this.gameID=gameID;
 	}
 	@Override
-	public Object execute()
-	{
+	public Object execute() throws FileNotFoundException, JSONException {
 		CatanGame currentCatan = ServerFacade.getInstance().getGameByID(gameID);
 		incrementVersion(currentCatan);
 		Player playerWhoIsTrading = getPlayerFromPlayerIndex(playerIndex_NOT_ID, currentCatan);

@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 
 
+import org.json.JSONException;
 import org.omg.CORBA.PUBLIC_MEMBER;
 import org.omg.PortableInterceptor.DISCARDING;
 import com.sun.corba.se.spi.activation.Server;
@@ -22,6 +23,8 @@ import shared.locations.EdgeDirection;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+
+import java.io.FileNotFoundException;
 
 
 /**
@@ -48,7 +51,8 @@ public class RollNumberCommand implements ICommand {
 	* model's status to 'Discarding' or 'Robbing' or 'Playing'
 	*/
 	@Override
-	public Object execute() {	
+	public Object execute() throws FileNotFoundException, JSONException
+	{
 		CatanGame game = ServerFacade.getInstance().getGameByID(gameid);		
 		CatanMap map = game.getMymap();
 		

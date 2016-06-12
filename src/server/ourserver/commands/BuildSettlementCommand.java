@@ -2,6 +2,7 @@ package server.ourserver.commands;
 
 import client.model.ModelFacade;
 import client.model.TurnStatus;
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
@@ -17,6 +18,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 /**
@@ -58,7 +60,7 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 	}
 
 	@Override
-	public Object execute()
+	public Object execute() throws FileNotFoundException, JSONException
 	{
 
 //System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
