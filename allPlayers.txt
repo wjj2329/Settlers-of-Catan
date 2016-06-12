@@ -118,4 +118,36 @@
 		"playerID": "19",
 		"numberInFile": "14"
 	 },
+
+	"player15":
+	{
+		"username": "MamaG",
+		"password": "mamag",
+		"playerID": "20",
+		"numberInFile": "15"
+	 },
+
+	"player16":
+	{
+		"username": "Rose",
+		"password": "lovemartin",
+		"playerID": "21",
+		"numberInFile": "16"
+	 },
+
+	"player17":
+	{
+		"username": "Martin",
+		"password": "loverose",
+		"playerID": "22",
+		"numberInFile": "17"
+	 },
+
+	"player18":
+	{
+		"username": "Song",
+		"password": "janglur",
+		"playerID": "23",
+		"numberInFile": "18"
+	 },
 }

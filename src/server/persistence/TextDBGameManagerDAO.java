@@ -298,7 +298,7 @@ public class TextDBGameManagerDAO implements IGameManager
         CatanGame gametowrite=ServerFacade.getInstance().getGameByID(gameid);
         File newfile=new File("game"+gameid+".txt");
         FileWriter mywriter=new FileWriter(newfile,true);
-        System.out.println("I LOAD THIS GAME WHIHC IS THIS who has an id of this "+gameid+gametowrite.getGameModel(gameid).toString());
+        System.out.println("I LOAD THIS GAME WHIHC IS THIS who has an id of this "+gameid + " and the toString is " +gametowrite.getGameModel(gameid).toString());
         mywriter.write(gametowrite.getGameModel(gameid).toString());
     }
 
