@@ -58,7 +58,7 @@ public class TextDBGameManagerDAO implements IGameManager
 		
 	}
     @Override
-    public void addCommand(ICommand commandObject) throws JSONException, IOException
+    public void addCommand(ICommand commandObject, int gameId) throws JSONException, IOException
     {
         db.write((commandObject.toString()));
         db.flush();
