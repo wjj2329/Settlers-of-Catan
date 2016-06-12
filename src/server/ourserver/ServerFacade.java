@@ -490,7 +490,7 @@ public class ServerFacade
 		String res = fileToStringToJson.toString();
 		JSONObject jason = new JSONObject(res);
 
-		for (int j = 0; j < 150; j++)
+		for (int j = 0; j < 150; j++) 
 		{
 			String possible = "game" + j;
 			if (jason.has(possible))
