@@ -1,0 +1,65 @@
+{
+	"player0":
+	{
+		"username": "Alex",
+		"password": "party",
+		"playerID": "5",
+		"numberInFile": "0"
+	 },
+
+	"player1":
+	{
+		"username": "Tess",
+		"password": "tessa",
+		"playerID": "6",
+		"numberInFile": "1"
+	 },
+
+	"player2":
+	{
+		"username": "Belinda",
+		"password": "belinda",
+		"playerID": "7",
+		"numberInFile": "2"
+	 },
+
+	"player3":
+	{
+		"username": "Auron",
+		"password": "auron",
+		"playerID": "8",
+		"numberInFile": "3"
+	 },
+
+	"player4":
+	{
+		"username": "Gaylord",
+		"password": "gaylord",
+		"playerID": "9",
+		"numberInFile": "4"
+	 },
+
+	"player5":
+	{
+		"username": "Flame",
+		"password": "flame",
+		"playerID": "10",
+		"numberInFile": "5"
+	 },
+
+	"player6":
+	{
+		"username": "OldGreg",
+		"password": "oldgreg",
+		"playerID": "11",
+		"numberInFile": "6"
+	 },
+
+	"player7":
+	{
+		"username": "Crystal",
+		"password": "crystal",
+		"playerID": "12",
+		"numberInFile": "7"
+	 },
+}

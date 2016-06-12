@@ -1,0 +1,34 @@
+{
+	"game0":
+	{
+		"id": "2",
+		"uniqueNumber": "0",
+		"title": "Wonky!",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game1":
+	{
+		"id": "3",
+		"uniqueNumber": "1",
+		"title": "I'M OLD GREGG!!!!!!!!!!!!!!",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game2":
+	{
+		"id": "4",
+		"uniqueNumber": "2",
+		"title": "Crystal's Romance",
+		"playersInGame":
+		[
+
+		]
+	},
+}
