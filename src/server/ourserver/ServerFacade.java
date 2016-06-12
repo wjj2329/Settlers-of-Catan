@@ -121,6 +121,8 @@ public class ServerFacade
 		allRegisteredUsers.add(mark);
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
+
+
 		
 		try {
 			loadallplayersfromtextdatabase();
