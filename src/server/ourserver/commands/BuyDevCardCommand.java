@@ -18,16 +18,16 @@ public class BuyDevCardCommand implements ICommand
 	 * player buys a devcard if they have required resources
 	 */
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 		// TODO Auto-generated method stub
 		System.out.println("NOW BUYING DEV CARD IN COMMAND");
-		try {
+		//try {
 			ServerFacade.getInstance().buyDevCard(playerIndex, gameid);
-		} catch (FileNotFoundException e) {
+		/*} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		}*/
 		System.out.println("Card was bought");
 
 		return null;

@@ -42,11 +42,15 @@ public class GameModelHandler implements HttpHandler {
 		//System.out.println("TIS THE GAME ID FROM COOKIE " + gameID);
 
         JSONObject model = null;
+        //try {
         try {
             model = ServerFacade.getInstance().getGameModel(gameID);
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        /*} catch (JSONException e) {
+            e.printStackTrace();
+        }*/
 
         if(model == null){
             String response = "Could not get Game model.";

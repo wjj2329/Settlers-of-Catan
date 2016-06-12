@@ -64,4 +64,26 @@
 
 		]
 	},
+
+	"game6":
+	{
+		"id": "8",
+		"uniqueNumber": "6",
+		"title": "The party",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game7":
+	{
+		"id": "9",
+		"uniqueNumber": "7",
+		"title": "POOP",
+		"playersInGame":
+		[
+
+		]
+	},
 }

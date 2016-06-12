@@ -36,7 +36,7 @@ public class GamesListHandler implements HttpHandler
         JSONArray games = null;
         try {
             games = ServerFacade.getInstance().getGameList();
-        } catch (JSONException e) {
+        } catch (/*JSONException*/ Exception e) {
             e.printStackTrace();
         }
 

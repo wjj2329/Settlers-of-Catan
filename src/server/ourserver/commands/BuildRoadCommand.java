@@ -47,16 +47,16 @@ public class BuildRoadCommand implements ICommand {
 
 
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 //System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
 		CatanGame currentgame= null;
-		try {
+		//try {
 			currentgame = ServerFacade.getInstance().getGameByID(gameid);
-		} catch (FileNotFoundException e) {
+		/*} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (JSONException e) {
 			e.printStackTrace();
-		}
+		}*/
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
 		Index playerID = null;
 		for (Player p : currentgame.getMyplayers().values())

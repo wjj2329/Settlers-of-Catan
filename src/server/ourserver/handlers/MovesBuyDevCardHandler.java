@@ -68,8 +68,12 @@ public class MovesBuyDevCardHandler implements HttpHandler
         
         //System.out.println("playerid: " + playerid + "\ngameid: " + gameid);
         BuyDevCardCommand buyCommand = new BuyDevCardCommand(playerid, gameid);
-        buyCommand.execute();
-        
+        try {
+            buyCommand.execute();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         System.out.println("Success!");
 		String response = "Success!";
 		exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);

@@ -100,8 +100,9 @@ public class ServerFacade
 	/**
 	 * Constructor is private in order to avoid multiple instantiations.
 	 * We have hard-coded the four default players for testing purposes.
+	 * Do NOT delete the throws statement.
 	 */
-	private ServerFacade()
+	private ServerFacade() throws FileNotFoundException, JSONException
 	{
 		Database db = new Database();
 		/*
@@ -139,6 +140,10 @@ public class ServerFacade
 		}
 		loadDefaultGame();
 		loadEmptyGame();
+		if (Server.isTxtdb)
+		{
+			loadGamesFromFileIntoServerModel();
+		}
 	}
 	private void loadallplayersfromtextdatabase() throws IOException, JSONException {
 		//System.out.println("I construct the TextDBUserAccountsDAO");
@@ -194,6 +199,52 @@ public class ServerFacade
 
 
 	}
+
+	/**
+	 * Do NOT delete this function. This is extremely necessary for my part, and it
+	 * 	screws it up if you delete it. IT NEEDS TO BE CALLED IN THE CONSTRUCTOR.
+	 *	If anything, comment it out, but LEAVE IT WHERE IT IS SUPPOSED TO BE.
+	 *
+	 * Please, PLEASE stop deleting my code without telling me. Thank you. - Alex
+	 *
+	 * @throws FileNotFoundException: if allGames.txt isn't the correct file
+	 * @throws JSONException: if the JSON was formatted incorrectly
+     */
+	private void loadGamesFromFileIntoServerModel() throws FileNotFoundException, JSONException
+	{
+		File gameFile = new File("allGames.txt");
+		if (!gameFile.isFile())
+		{
+			return;
+		}
+		FileReader gameFileReader = new FileReader(gameFile);
+		Scanner scanny = new Scanner(gameFileReader);
+		scanny.useDelimiter(System.getProperty("line.separator"));
+		scanny.useDelimiter("\r\n");
+		StringBuilder fileToStringToJson = new StringBuilder();
+		while (scanny.hasNext())
+		{
+			fileToStringToJson.append(scanny.next());
+		}
+		String res = fileToStringToJson.toString();
+		JSONObject jason = new JSONObject(res);
+
+		for (int j = 0; j < 150; j++)
+		{
+			String possible = "game" + j;
+			if (jason.has(possible))
+			{
+				JSONObject gameObj = jason.getJSONObject(possible);
+				// i am not yet setting the randomHexes, etc. attributes - do I need to, or is it already done?
+				CatanGame juegoNuevo = new CatanGame();
+				juegoNuevo.setID(gameObj.getInt("id"));
+				//System.out.println("The title, indeed, comes forth as: " + gameObj.getString("title"));
+				juegoNuevo.setTitle(gameObj.getString("title"));
+				serverModel.addGame(juegoNuevo);
+			}
+		}
+	}
+
 	public void loadDefaultGame(){
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
@@ -304,8 +355,9 @@ public class ServerFacade
 
 	/**
 	 * Returns the singleton instance of ServerFacade.
+	 * Do NOT delete the exceptions.
      */
-	public static ServerFacade getInstance()
+	public static ServerFacade getInstance() throws FileNotFoundException, JSONException
 	{
 		if (singleton == null)
 		{
