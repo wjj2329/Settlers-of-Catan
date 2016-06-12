@@ -1,0 +1,12 @@
+{
+	"game0":
+	{
+		"id": "2",
+		"uniqueNumber": "0",
+		"title": "They're selling CHOCOLATE",
+		"playersInGame":
+		[
+
+		]
+	},
+}
