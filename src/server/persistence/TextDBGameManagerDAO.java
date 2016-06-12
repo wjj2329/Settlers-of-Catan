@@ -23,32 +23,12 @@ import java.util.Scanner;
  */
 public class TextDBGameManagerDAO implements IGameManager
 {
-    private int gameid=-1000;
-    private File commands=new File("commands"+gameid+".txt");
-    private File game=new File("game"+gameid+".txt");
-    private FileWriter db=new FileWriter(commands);
-    private FileWriter dbg=new FileWriter(game);
-    public static int commandNumber=-1;
 
 
-    public int getGameid() {
-        return gameid;
-    }
-
-    public void setGameid(int gameid) {
-
-        this.gameid = gameid;
-        commands=new File("commands"+gameid+".txt");
-        try {
-            db=new FileWriter(commands);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
+    public static int commandNumber=0;
     public TextDBGameManagerDAO() throws IOException
     {
-            db.write("{");
+           // db.write("{");
     }
     
 	@Override
@@ -60,19 +40,17 @@ public class TextDBGameManagerDAO implements IGameManager
     @Override
     public void addCommand(ICommand commandObject, int gameId) throws JSONException, IOException
     {
+        FileWriter db=new FileWriter("commands"+gameId+".txt",true);
         db.write((commandObject.toString()));
         db.flush();
     }
 	@Override
-	public ArrayList<ICommand> getCommands(int idgame) throws JSONException {
+	public ArrayList<ICommand> getCommands(int idgame) throws JSONException, IOException {
         ArrayList<ICommand> commandsloadedfromdb=new ArrayList<>();
-        
+
+        FileReader db=new FileReader("commands"+idgame+".txt");
         Scanner myscanner=null;
-        try {
-             myscanner=new Scanner(commands);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+        myscanner=new Scanner(db);
         StringBuilder getting=new StringBuilder();
         while(myscanner.hasNext())
         {
@@ -258,9 +236,30 @@ public class TextDBGameManagerDAO implements IGameManager
 		return null;
 	}
 
+    @Override
+    public void createnewGameFile(int gameid)
+    {
+        System.out.println("I create a new file with id "+gameid);
+      File newfile=new File("game"+gameid+".txt");
+        try {
+            FileWriter db=new FileWriter(newfile);
+            db.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        File commandfile=new File("commands"+gameid+".txt");
+        try {
+            FileWriter db=new FileWriter(commandfile);
+            db.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     @Override
     public void clearInfo() {
+        /*
         commands=new File("game"+gameid+".txt");
         try
         {
@@ -270,6 +269,7 @@ public class TextDBGameManagerDAO implements IGameManager
         {
             e.printStackTrace();
         }
+        */
     }
     private VertexDirection convertToVertexDirection(String direction)
     {
@@ -296,6 +296,7 @@ public class TextDBGameManagerDAO implements IGameManager
     @Override
     public void loadInfo()
     {
+        /*
         if(gameid!=-1000) {
             try
             {
@@ -306,6 +307,7 @@ public class TextDBGameManagerDAO implements IGameManager
                 e.printStackTrace();
             }
         }
+        */
     }
 
     @Override

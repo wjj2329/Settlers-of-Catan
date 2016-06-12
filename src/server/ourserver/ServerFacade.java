@@ -227,6 +227,10 @@ public class ServerFacade
 			fileToStringToJson.append(scanny.next());
 		}
 		String res = fileToStringToJson.toString();
+		if(res.equals(""))
+		{
+			return;
+		}
 		JSONObject jason = new JSONObject(res);
 
 		for (int j = 0; j < 150; j++)
@@ -589,6 +593,10 @@ public class ServerFacade
 		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
 		serverModel.addGame(mynewgame);
 		PersistenceManager.getSingleton().addGameInfo(mynewgame);
+		if(Server.isTxtdb)
+		{
+			PersistenceManager.getSingleton().getMyfactory().getGameManager().createnewGameFile(mynewgame.getGameId());
+		}
 	}
 
 	/**
