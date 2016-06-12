@@ -34,7 +34,7 @@ public interface IGameManager {
 
 	Object getGameList();
 
-	ArrayList<ICommand> getCommands(int gameId) throws JSONException;
+	ArrayList<ICommand> getCommands(int gameId) throws JSONException, IOException;
 
 	CatanGame getGameModel(int gameId);
 
