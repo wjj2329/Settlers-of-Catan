@@ -490,7 +490,7 @@ public class ServerFacade
 		String res = fileToStringToJson.toString();
 		JSONObject jason = new JSONObject(res);
 
-		for (int j = 0; j < 150; j++) 
+		for (int j = 0; j < 150; j++)
 		{
 			String possible = "game" + j;
 			if (jason.has(possible))
@@ -499,7 +499,7 @@ public class ServerFacade
 				// i am not yet setting the randomHexes, etc. attributes - do I need to, or is it already done?
 				CatanGame juegoNuevo = new CatanGame();
 				juegoNuevo.setID(gameObj.getInt("id"));
-				System.out.println("The title, indeed, comes forth as: " + gameObj.getString("title"));
+				//System.out.println("The title, indeed, comes forth as: " + gameObj.getString("title"));
 				juegoNuevo.setTitle(gameObj.getString("title"));
 				serverModel.addGame(juegoNuevo);
 			}
