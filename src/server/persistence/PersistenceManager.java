@@ -100,6 +100,7 @@ public class PersistenceManager
             }
         }
 
+        TextDBGameManagerDAO.commandNumber=0;
             System.out.println("I SHOULD CLEAR IT NOW");
             myfactory.getGameManager().clearInfo(gameid);
             myfactory.getGameManager().loadInfo();

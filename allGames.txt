@@ -9,4 +9,26 @@
 
 		]
 	},
+
+	"game1":
+	{
+		"id": "3",
+		"uniqueNumber": "1",
+		"title": "fdasfdas",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game2":
+	{
+		"id": "4",
+		"uniqueNumber": "2",
+		"title": "fassd",
+		"playersInGame":
+		[
+
+		]
+	},
 }
