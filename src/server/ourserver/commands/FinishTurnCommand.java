@@ -154,16 +154,15 @@ public class FinishTurnCommand implements ICommand {
 	public String toString() {
 		TextDBGameManagerDAO.commandNumber++;
 		return "," + TextDBGameManagerDAO.commandNumber+":"+"{"
-				+"\"type\":\"FinishTurnCommand\"" +
+				+"\"type\":\"FinishTurnCommand\"," +
 				"\"playerIndex\":" + playerIndex +
 				", \"gameid\":" + gameid +
 				"}";
 	}
 	@Override
 	public String toJSON() {
-		return
-				"{"
-				+"\"type\":\"FinishTurnCommand\"," +
+		return "{"
+				+"\"type\":\"FinishTurnCommand\"" +
 				"\"playerIndex\":" + playerIndex +
 				", \"gameid\":" + gameid +
 				"}";
