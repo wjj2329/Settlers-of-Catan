@@ -64,6 +64,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
     public RelationalDBGameManagerDAO(Database database)
 	{
 		db = database;
+		System.out.println("Created a Game Manager Yo.");
 	}
         
     void addcommandinfo(CommandObject commandObject) throws JSONException
@@ -93,12 +94,29 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		{
 //			Gson gson = new Gson();
 //			String gamedata = gson.toJson(game);
-			
-			String query = "insert into Games (id, gamemodel) values (?, ?)";
+			db.startTransaction();
+			String query = "select id, gamedata from Games where id=?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
-			stmt.setString(2, ServerFacade.getInstance().getGameModel(gameid).toString()); //Will change this later
+			
+			keyRS = stmt.executeQuery();
+			
+			if(keyRS.next()){
+				String updateQuery = "update Games set gamedata = ? where id = ?";
+				stmt = db.getConnection().prepareStatement(updateQuery);
+				stmt.setString(1, ServerFacade.getInstance().getGameModel(gameid).toString());
+				stmt.setInt(2, gameid);
+				stmt.executeQuery();
+			}
+			else{
+				String insertQuery = "insert into Games (id, gamemodel) values (?, ?)";
+				stmt = db.getConnection().prepareStatement(insertQuery);
+				stmt.setInt(1,gameid);
+				stmt.setString(2, ServerFacade.getInstance().getGameModel(gameid).toString());
+				stmt.executeQuery();
+			}
 
+			
 		} catch (SQLException e)
 		{
 				try {
@@ -107,25 +125,29 @@ public class RelationalDBGameManagerDAO implements IGameManager
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}finally
 		{
 			Database.safeClose(stmt);
 			Database.safeClose(keyRS);
 		}
+		db.endTransaction(true);
 	}
 
     @Override
-    public void addCommand(ICommand commandObject) throws JSONException, IOException {
-    	CatanGame game = new CatanGame();
+    public void addCommand(ICommand commandObject, int gameId) throws JSONException, IOException {
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;
 		try
 		{
+			db.startTransaction();
 			String query = "insert into Commands (id, command) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
-			stmt.setInt(1, game.getGameId());
-			//stmt.setString(2, commandObject.toJSON()); //Will change this later
-			
+			stmt.setInt(1, gameId);
+			stmt.setString(2, commandObject.toJSON()); //Will change this later
+			stmt.executeQuery();
 			
 		} catch (SQLException e)
 		{
@@ -135,11 +157,15 @@ public class RelationalDBGameManagerDAO implements IGameManager
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}finally
 		{
 			Database.safeClose(stmt);
 			Database.safeClose(keyRS);
 		}
+		db.endTransaction(true);
     }
 
     @Override
@@ -151,6 +177,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
+			db.startTransaction();
 			String query = "select id, command from Commands where id = ?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
@@ -160,8 +187,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			{
 				int id = rs.getInt(1);
 				String commandData = rs.getString(2);
-				JSONObject command=null;
-				command = new JSONObject(commandData);
+				JSONObject command = new JSONObject(commandData);
 				
 				result.add(getCommand(command));
 			}
@@ -173,6 +199,9 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} finally
 		{
 			Database.safeClose(rs);
@@ -180,6 +209,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		}
 		
 		logger.exiting("server.database.Game", "getting commands from game with id " + gameid);
+		db.endTransaction(true);
 		return result;
 	}
     
@@ -376,6 +406,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
+			db.startTransaction();
 			String query = "select id, gamedata from Games where id=?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
@@ -383,12 +414,12 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			rs = stmt.executeQuery();
 			while (rs.next())
 			{
-				if(gameid == rs.getInt(1))
+				int id = rs.getInt(1);
+				if(gameid == id)
 				{
-					int id = rs.getInt(1);
-					Gson gson = new Gson();
-					result = gson.fromJson(rs.getString(2), CatanGame.class);				
+					String gamedata = rs.getString(2);				
 					result.setID(id);
+					result.updateFromJSON(new JSONObject(gamedata));
 				}
 			}
 		} catch (SQLException e)
@@ -396,12 +427,22 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			Database.safeClose(rs);
 			Database.safeClose(stmt);
 			return null;
-		} finally
+		} catch(JSONException e){ 
+			e.printStackTrace();
+			Database.safeClose(rs);
+			Database.safeClose(stmt);
+			return null;
+		} catch (DatabaseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally
 		{
 			Database.safeClose(rs);
 			Database.safeClose(stmt);
 		}
 		logger.exiting("server.database.Games", "getting game from " + gameid);
+		db.endTransaction(true);
 		return result;
 	}
 	
@@ -414,6 +455,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
+			db.startTransaction();
 			String query = "select id, gamedata from Games";
 			stmt = db.getConnection().prepareStatement(query);
 			
@@ -424,6 +466,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 				String gamedata = rs.getString(2);//probably in a json format? 
 				
 				CatanGame game = new CatanGame();
+				game.updateFromJSON(new JSONObject(gamedata));
 				game.setID(id);
 				
 				result.add(game);
@@ -433,6 +476,10 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			Database.safeClose(rs);
 			Database.safeClose(stmt);
 			return null;
+		} catch (DatabaseException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
 		} finally
 		{
 			Database.safeClose(rs);
@@ -440,6 +487,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		}
 		
 		logger.exiting("server.database.Games", "getAll");
+		db.endTransaction(true);
 		return result;
 	}
 
