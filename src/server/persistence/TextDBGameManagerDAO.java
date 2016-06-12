@@ -302,8 +302,6 @@ public class TextDBGameManagerDAO implements IGameManager
                 dbg.write(ServerFacade.getInstance().getGameModel(gameid).toString());
             } catch (IOException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
             }
         }
     }
