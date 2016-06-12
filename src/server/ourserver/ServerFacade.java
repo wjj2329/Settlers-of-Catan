@@ -1251,7 +1251,7 @@ public class ServerFacade
 	public void playRoadBuilding(int playerid, HexLocation hexLocation, EdgeLocation edgeDirectionFromString, boolean freebe, int gameid) throws IOException, JSONException {
 		System.out.println("Starting road building facade");
 		//Setup
-		playerid -= 100;
+		playerid -= 100; // this is an incorrect method of obtaining the ID. this is probably what is breaking this.
 		CatanGame currentgame = getGameByID(gameid);
 		String buyresult = currentgame.mybank.buyDevCard();		
 		Player player = null;

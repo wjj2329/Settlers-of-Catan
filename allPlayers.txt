@@ -94,4 +94,20 @@
 		"playerID": "16",
 		"numberInFile": "11"
 	 },
+
+	"player12":
+	{
+		"username": "Teisha",
+		"password": "teisha",
+		"playerID": "17",
+		"numberInFile": "12"
+	 },
+
+	"player13":
+	{
+		"username": "MamaC",
+		"password": "mamac",
+		"playerID": "18",
+		"numberInFile": "13"
+	 },
 }
