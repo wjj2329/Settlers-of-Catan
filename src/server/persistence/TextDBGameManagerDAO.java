@@ -25,6 +25,7 @@ public class TextDBGameManagerDAO implements IGameManager
 {
 
 
+    public static int commandNumber=0;
     public TextDBGameManagerDAO() throws IOException
     {
            // db.write("{");

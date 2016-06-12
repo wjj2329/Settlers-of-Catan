@@ -227,6 +227,10 @@ public class ServerFacade
 			fileToStringToJson.append(scanny.next());
 		}
 		String res = fileToStringToJson.toString();
+		if(res.equals(""))
+		{
+			return;
+		}
 		JSONObject jason = new JSONObject(res);
 
 		for (int j = 0; j < 150; j++)
