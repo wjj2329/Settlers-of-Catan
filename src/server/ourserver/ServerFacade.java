@@ -719,6 +719,19 @@ public class ServerFacade
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
+					if(Server.isTxtdb)
+					{
+						try
+						{
+							PersistenceManager.getSingleton().getMyfactory().getGameManager().loadInfo(gameID);
+						} catch (IOException e)
+						{
+							e.printStackTrace();
+						} catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+					}
 					return true;
 				}
 			}
