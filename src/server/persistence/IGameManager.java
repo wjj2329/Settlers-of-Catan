@@ -25,7 +25,7 @@ public interface IGameManager
 	
 	public void loadInfo();
 
-	void storeGameModel();
+	void storeGameModel(int gameid);
 
 	void addCommand(ICommand commandObject) throws JSONException, IOException;
 

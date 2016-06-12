@@ -53,4 +53,17 @@ public class PlayRoadBuildingCommand implements ICommand
 		return null;
 	}
 
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"playRoadBuildingCommand\"" +
+				"\"playerindex\":" + playerindex +
+				", \"x\":"+"\"" + hexLocation.getX() +"\""+
+				", \"y\":"+"\""+hexLocation.getY()+"\""+
+				", \"edgeDirectionFromString\":" +"\""+ edgeDirectionFromString.getDir()+"\"" +
+				", \"freebe\":" + freebe +
+				", \"gameID\":" + gameID +
+				"}";
+	}
+
 }

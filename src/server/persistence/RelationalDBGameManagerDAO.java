@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import server.database.Database;
 import server.database.DatabaseException;
+import server.ourserver.ServerFacade;
 import server.ourserver.commands.AcceptTradeCommand;
 import server.ourserver.commands.BuildCityCommand;
 import server.ourserver.commands.BuildRoadCommand;
@@ -84,19 +85,19 @@ public class RelationalDBGameManagerDAO implements IGameManager
     }
     
 	@Override
-	public void storeGameModel(){
+	public void storeGameModel(int gameid){
 		CatanGame game = new CatanGame();
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;
 		try
 		{
-			Gson gson = new Gson();
-			String gamedata = gson.toJson(game);
+//			Gson gson = new Gson();
+//			String gamedata = gson.toJson(game);
 			
 			String query = "insert into Games (id, gamemodel) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
-			stmt.setInt(1, game.getGameId());
-			stmt.setString(2, gamedata); //Will change this later
+			stmt.setInt(1, gameid);
+			stmt.setString(2, ServerFacade.getInstance().getGameModel(gameid).toString()); //Will change this later
 
 		} catch (SQLException e)
 		{
@@ -123,7 +124,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			String query = "insert into Commands (id, command) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, game.getGameId());
-			stmt.setString(2, commandObject.toJSON()); //Will change this later
+			//stmt.setString(2, commandObject.toJSON()); //Will change this later
 			
 			
 		} catch (SQLException e)
@@ -150,7 +151,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		ResultSet rs = null;
 		try
 		{
-			String query = "select id, command from Commands where id=?";
+			String query = "select id, command from Commands where id = ?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
 			

@@ -46,4 +46,15 @@ public class PlayYearOfPlentyCommand implements ICommand {
 				", \"playerindex\":" + playerindex +
 				"}}";
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"PlayYearOfPlentyCommand\"" +
+				", \"gameID\":" + gameID +
+				", \"resource2\":'" +"\""+ resource2 + '\"' +
+				", \"resource1\":" +"\""+ resource1 + '\"' +
+				", \"playerindex\":" + playerindex +
+				"}";
+	}
 }

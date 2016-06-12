@@ -17,4 +17,6 @@ public interface ICommand {
 	public Object execute() throws IOException, JSONException;
 
 	public String toString();
+
+	public String toJSON();
 }
