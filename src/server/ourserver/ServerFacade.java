@@ -136,18 +136,43 @@ public class ServerFacade
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
 
-		try {
-			loadallplayersfromtextdatabase();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+
 		loadDefaultGame();
 		loadEmptyGame();
 		if (Server.isTxtdb)
 		{
+			try {
+				loadallplayersfromtextdatabase();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			loadGamesFromFileIntoServerModel();
+			updateallgameswithtext();
+		}
+	}
+
+	private void updateallgameswithtext() throws FileNotFoundException, JSONException {
+		System.out.println("I have my games "+serverModel.listGames().size());
+		for(int i=0; i<serverModel.listGames().size(); i++)
+		{
+			System.out.println("I check this game with file "+"game"+serverModel.listGames().get(i).getGameId()+".txt");
+			File myfile=new File("game"+serverModel.listGames().get(i).getGameId()+".txt");
+			if(!myfile.exists())
+			{
+				continue;
+			}
+			FileReader myreader=new FileReader(myfile);
+			Scanner scan=new Scanner(myreader);
+			StringBuilder json=new StringBuilder();
+			while(scan.hasNext())
+			{
+				json.append(scan.next());
+			}
+			if(json.toString().equals(""))
+			{
+				continue;
+			}
+			serverModel.listGames().get(i).updateFromJSON(new JSONObject(json.toString()));
 		}
 	}
 	private void loadallplayersfromtextdatabase() throws IOException, JSONException {
@@ -694,6 +719,19 @@ public class ServerFacade
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
+					if(Server.isTxtdb)
+					{
+						try
+						{
+							PersistenceManager.getSingleton().getMyfactory().getGameManager().loadInfo(gameID);
+						} catch (IOException e)
+						{
+							e.printStackTrace();
+						} catch (JSONException e)
+						{
+							e.printStackTrace();
+						}
+					}
 					return true;
 				}
 			}
