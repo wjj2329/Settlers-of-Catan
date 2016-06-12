@@ -259,7 +259,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		/*while (meScanner.hasNextLine())
 		{
 			iBuildStrings.append(meScanner.nextLine());
-		}*/
+		}*/  
 		String res = iBuildStrings.toString();
 		//System.out.println("resulting string is: " + res);
 		if (res.length() > 1 && res.charAt(res.length() - 1) == '}')
