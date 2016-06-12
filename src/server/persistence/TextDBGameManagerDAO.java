@@ -66,6 +66,7 @@ public class TextDBGameManagerDAO implements IGameManager
 	@Override
 	public ArrayList<ICommand> getCommands(int idgame) throws JSONException {
         ArrayList<ICommand> commandsloadedfromdb=new ArrayList<>();
+        
         Scanner myscanner=null;
         try {
              myscanner=new Scanner(commands);
