@@ -60,4 +60,18 @@ public class OfferTradeCommand implements ICommand {
 				", \"receiver\":" + receiver +
 				"}}";
 	}
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"OfferTradeCommand\"" +
+				", \"gameid\":" + gameid +
+				", \"playerIndex\":" + playerIndex +
+				", \"ore\":" +"\""+ offer.getOre()+"\"" +
+				", \"wheat\":"+"\""+offer.getWheat()+"\""+
+				", \"brick\":"+"\""+offer.getBrick()+"\""+
+				", \"wood\":"+"\""+offer.getWheat()+"\""+
+				", \"sheep\":"+"\""+offer.getSheep()+"\""+
+				", \"receiver\":" + receiver +
+				"}";
+	}
 }

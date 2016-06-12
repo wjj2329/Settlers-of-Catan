@@ -100,4 +100,15 @@ public class BuildCityCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+	@Override
+	public String toJSON() {
+		return "{"+
+				"\"type\":\"BuildCityCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":"+"\"" + location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"vertex\":"+"\"" + vertex.getDir()+"\"" +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

@@ -1,6 +1,5 @@
 package server.ourserver;
 
-import com.oracle.javafx.jmx.json.JSONException;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
@@ -206,10 +205,8 @@ public class Server
 			parsing=new JSONObject(mybuilder.toString());
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		} catch (JSONException e)
+		} catch (Exception e)
 		{
-			e.printStackTrace();
-		} catch (org.json.JSONException e) {
 			e.printStackTrace();
 		}
 		try
@@ -218,33 +215,25 @@ public class Server
 			JSONObject therealdeal=myobject.getJSONObject(type);
 
 			System.out.println(therealdeal.toString());
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
-		catch (org.json.JSONException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		if(type.equals("txt"))
 		{
 			try {
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (org.json.JSONException e) {
+			} catch (Exception e) 
+			{
 				e.printStackTrace();
 			}
 		}
 		else
 		{
-			try {
+			try 
+			{
 				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (JSONException e) {
-				e.printStackTrace();
-			} catch (org.json.JSONException e) {
+			} catch (Exception e)
+			{
 				e.printStackTrace();
 			}
 		}

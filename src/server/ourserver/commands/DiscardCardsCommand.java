@@ -85,4 +85,18 @@ public class DiscardCardsCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"  \"type\": \"DiscardCardsCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"brick\":"+"\"" + cardsToDiscard.getBrick() +"\""+
+				", \"wheat\":"+"\""+cardsToDiscard.getWheat()+"\""+
+				", \"sheep\":"+"\""+cardsToDiscard.getSheep()+"\""+
+				", \"ore\":"+"\""+cardsToDiscard.getOre()+"\""+
+				", \"wood\":"+"\""+cardsToDiscard.getWood()+"\""+
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

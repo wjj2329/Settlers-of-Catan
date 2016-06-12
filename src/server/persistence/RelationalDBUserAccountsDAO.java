@@ -32,7 +32,7 @@ import java.util.logging.Logger;
 public class RelationalDBUserAccountsDAO implements IUserAccount
 {
     private Database db;
-	private Logger logger;
+	//private Logger logger;
     
     public RelationalDBUserAccountsDAO(Database database)
 	{
@@ -50,11 +50,24 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     @Override
     public Player validateUser(Player user) 
     {
+    	try
+		{
+			db.startTransaction();
+		} catch (DatabaseException e)
+		{
+			e.printStackTrace();
+		}
     	Player validated = null;
 		
 		List<Player> allUsers = null;
 		
 		allUsers = getAllUsers();
+		
+		System.out.println("allUsers.size() = " + allUsers.size());
+		for (Player player : allUsers)
+		{
+			System.out.println(player.getName() + "\n" + player.getPassword() + "\n\n");
+		}
 		
 		for (Player candidate : allUsers)
 		{
@@ -64,22 +77,23 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 			}
 		}
 		
+		db.endTransaction(true);
 		return validated;
     }
     
     @Override
     public List<Player> getAllUsers() 
     {
-		logger.entering("server.database.User", "getAll");
+		//logger.entering("server.database.User", "getAll");
 		
 		ArrayList<Player> result = new ArrayList<Player>();
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
+		
 		try
 		{
-			String query = "select id, username, password from user";
+			String query = "select id, username, password from User";
 			stmt = db.getConnection().prepareStatement(query);
-			
 			rs = stmt.executeQuery();
 			while (rs.next())
 			{
@@ -100,7 +114,7 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 			Database.safeClose(stmt);
 		}
 		
-		logger.exiting("server.database.User", "getAll");
+		//logger.exiting("server.database.User", "getAll");
 		return result;
     }
 
@@ -108,6 +122,7 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     @Override
 	public void addUser(Player user) throws DatabaseException
     {
+    	db.startTransaction();
     	PreparedStatement stmt = null;
 		ResultSet keyRS = null;
 		try
@@ -116,6 +131,7 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setString(1, user.getName());
 			stmt.setString(2, user.getPassword());
+			
 			
 			if (stmt.executeUpdate() == 1)
 			{
@@ -137,6 +153,7 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 			Database.safeClose(stmt);
 			Database.safeClose(keyRS);
 		}
+		db.endTransaction(true);
 		
 	}
 

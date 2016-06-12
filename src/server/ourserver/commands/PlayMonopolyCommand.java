@@ -45,4 +45,14 @@ public class PlayMonopolyCommand implements ICommand {
 				", \"gameID\":" + gameID +
 				"}}";
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				", \"type\":\"PlayMonopolyCommand\"" +
+				", \"playerindex\":" + playerindex +
+				", \"resource\":" +"\""+ resource + '\"' +
+				", \"gameID\":" + gameID +
+				"}";
+	}
 }

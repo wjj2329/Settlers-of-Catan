@@ -39,4 +39,13 @@ public class PlayMonumentCommand implements ICommand {
 				", \"gameID\":" + gameID +
 				"}}";
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"PlayMonumentCommand\"" +
+				"\"playerindex\":" + playerindex +
+				", \"gameID\":" + gameID +
+				"}";
+	}
 }

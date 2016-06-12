@@ -159,4 +159,12 @@ public class FinishTurnCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+	@Override
+	public String toJSON() {
+		return "{"
+				+"\"type\":\"FinishTurnCommand\"" +
+				"\"playerIndex\":" + playerIndex +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

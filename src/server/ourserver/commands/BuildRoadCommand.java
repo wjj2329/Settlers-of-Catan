@@ -214,4 +214,18 @@ public class BuildRoadCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+
+
+	@Override
+	public String toJSON() {
+		return "{"+
+				"\"type\":\"BuildRoadCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":" +"\""+ location.getX()+"\"" +
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"edge\":" +"\""+ edge.getDir() +"\""+
+				", \"free\":" + free +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

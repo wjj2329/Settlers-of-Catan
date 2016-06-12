@@ -246,4 +246,16 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 		return null;
 	}
 
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\":\"BuildSettlementCommand\"" +
+				", \"playerIndex\":" + playerIndex +
+				", \"x\":"+"\""+location.getX()+"\""+", \"y\":"+"\""+location.getY()+"\""+
+				", \"dir\":"+"\""+vertex.getDir() +"\""+
+				", \"free\":" + free +
+				", \"gameid\":" + gameid +
+				"}";
+	}
+
 }

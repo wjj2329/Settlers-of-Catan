@@ -343,4 +343,15 @@ public class RollNumberCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+
+
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\":\"RollNumberCommand\"" +
+				", \"rollNumber\":" + rollNumber +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

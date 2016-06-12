@@ -64,4 +64,13 @@ public class SendChatCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"SendChatCommand\"" +
+				"\"message\": " +"\"" +message + '\"' +
+				", \"playerindex\":" +playerindex +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }

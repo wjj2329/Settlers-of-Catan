@@ -19,7 +19,7 @@ public class PersistenceManager
 
     private ArrayList<ICommand> mycommands=new ArrayList<>();
 
-    private IFactory myfactory=new TextDBFactory();//needs to get loaded from
+    private IFactory myfactory=new RelationalDBFactory();//needs to get loaded from
 
 
     public PersistenceManager() throws IOException, JSONException {
@@ -41,7 +41,7 @@ public class PersistenceManager
 
     public  void addcommandinfo(ICommand commandObject) throws IOException, JSONException {
         mycommands.add(commandObject);
-       // myfactory.getGameManager().addCommand(commandObject);
+        // myfactory.getGameManager().addCommand(commandObject);
         //checkfor10();
         //myfactory.getGameManager().getCommands();
     }

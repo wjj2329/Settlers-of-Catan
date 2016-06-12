@@ -5,6 +5,7 @@ import java.util.*;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import server.database.DatabaseException;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
@@ -13,7 +14,6 @@ import shared.game.player.Player;
 
 
 import shared.game.player.Player;
-
 import static shared.definitions.CatanColor.RED;
 
 /**
@@ -82,6 +82,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	public Player validateUser(Player player)
 	{
 		// TODO Auto-generated method stub
+		System.out.println("Wrong DAO");
 		return null;
 	}
 

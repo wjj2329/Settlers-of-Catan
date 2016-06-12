@@ -87,4 +87,14 @@ public class AcceptTradeCommand implements ICommand {
 				"}}";
 
 	}
+
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\":"+"\"AcceptTradeCommand\""+
+				",\"gameid\":" + gameid +
+				", \"playerIndex\":" + playerIndex +
+				", \"willAccept\":" + willAccept +
+				"}";
+	}
 }

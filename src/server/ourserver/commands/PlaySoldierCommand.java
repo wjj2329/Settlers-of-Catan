@@ -50,4 +50,16 @@ public class PlaySoldierCommand implements ICommand
 		return null;
 	}
 
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"PlaySoldierCommand\"" +
+				", \"x\":" +"\""+ location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"playerRobbing\":" + playerRobbing +
+				", \"playerBeingRobbed\":" + playerBeingRobbed +
+				", \"gameid\":" + gameid +
+				"}";
+	}
+
 }
