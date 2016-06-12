@@ -19,4 +19,10 @@ public class AddAICommand implements ICommand {
 	public String toString() {
 		return "AddAICommand{}";
 	}
+
+	@Override
+	public String toJSON() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

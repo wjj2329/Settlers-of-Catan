@@ -18,5 +18,5 @@ public interface ICommand {
 
 	public String toString();
 
-	//String toJSON();
+	public String toJSON();
 }

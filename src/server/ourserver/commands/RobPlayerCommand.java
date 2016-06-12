@@ -169,4 +169,15 @@ public class RobPlayerCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}}";
 	}
+	@Override
+	public String toJSON() {
+		return "{" +
+				"\"type\": \"RobPlayerCommand\"" +
+				", \"x\":" +"\""+ location.getX() +"\""+
+				", \"y\":"+"\""+location.getY()+"\""+
+				", \"playerRobbing\":" + playerRobbing +
+				", \"playerbeingrobbed\":" + playerbeingrobbed +
+				", \"gameid\":" + gameid +
+				"}";
+	}
 }
