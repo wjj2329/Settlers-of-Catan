@@ -57,20 +57,22 @@ public class Database
 		}
 	}
 	
-	private RelationalDBGameManagerDAO gameManagerDAO;  
-	private RelationalDBUserAccountsDAO UserAccountsDAO;
+//	private RelationalDBGameManagerDAO gameManagerDAO;  
+//	private RelationalDBUserAccountsDAO UserAccountsDAO;
 	
 	private Connection connection;
 	
 	public Database()
 	{
-		gameManagerDAO = new RelationalDBGameManagerDAO(this);  
-		UserAccountsDAO = new RelationalDBUserAccountsDAO(this);
+//		gameManagerDAO = new RelationalDBGameManagerDAO(this);  
+//		UserAccountsDAO = new RelationalDBUserAccountsDAO(this);
 		connection = null;
 	}
 	
 	public Connection getConnection()
 	{
+		if(connection == null)
+			System.out.println("DEDD");
 		return connection;
 	}
 	

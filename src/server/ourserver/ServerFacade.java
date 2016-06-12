@@ -5,6 +5,7 @@ import client.model.Model;
 import client.model.TradeOffer;
 import client.model.TurnStatus;
 import client.model.TurnTracker;
+import server.database.Database;
 import server.database.DatabaseException;
 import server.ourserver.commands.*;
 import server.persistence.PersistenceManager;
@@ -102,6 +103,14 @@ public class ServerFacade
 	 */
 	private ServerFacade()
 	{
+		Database db = new Database();
+		try
+		{
+			db.initialize();
+		} catch (DatabaseException e1)
+		{
+			e1.printStackTrace();
+		}
 		Player sam = new Player("Sam", CatanColor.ORANGE, new Index(0));
 		sam.setPlayerIndex(new Index(10));
 		sam.setPassword("sam");
@@ -321,14 +330,23 @@ public class ServerFacade
 	 */
 	public Player logIn(String username, String password)
 	{
-		for (Player p : allRegisteredUsers)
+//		for (Player p : allRegisteredUsers)
+//		{
+//			if (p.getName().equals(username) && p.getPassword().equals(password))
+//			{				
+//				return p;
+//			}
+//		}
+		Player validated = null;
+		try
 		{
-			if (p.getName().equals(username) && p.getPassword().equals(password))
-			{
-				return p;
-			}
+			validated = PersistenceManager.getSingleton().getMyfactory().getUserAccount().validateUser(new Player(username, password));
+		} catch (IOException | JSONException e)
+		{
+			e.printStackTrace();
 		}
-		return null;
+		
+		return validated;
 	}
 
 	/**

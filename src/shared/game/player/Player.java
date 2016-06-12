@@ -187,6 +187,12 @@ public class Player implements Comparable<Player>
 		this.password = password;
 	}
 
+	public Player(String username, String password)
+	{
+		name = username;
+		this.password = password;
+	}
+
 	/**
 	 * Function to determine whether or not a player can trade with another player.
 	 * @param other: the other player
