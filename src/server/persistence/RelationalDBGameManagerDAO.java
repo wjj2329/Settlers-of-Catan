@@ -40,6 +40,7 @@ import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 import javax.activation.CommandObject;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -107,7 +108,11 @@ public class RelationalDBGameManagerDAO implements IGameManager
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-		}finally
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} finally
 		{
 			Database.safeClose(stmt);
 			Database.safeClose(keyRS);
