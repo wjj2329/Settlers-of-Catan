@@ -40,7 +40,7 @@ public class PlayRoadBuildingCommand implements ICommand
 				", \"edgeDirectionFromString\":" +"\""+ edgeDirectionFromString.getDir()+"\"" +
 				", \"freebe\":" + freebe +
 				", \"gameID\":" + gameID +
-				"}}";
+				"}";
 	}
 
 	/**

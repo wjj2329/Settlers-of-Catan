@@ -258,18 +258,17 @@ public class TextDBGameManagerDAO implements IGameManager
 
 
     @Override
-    public void clearInfo() {
-        /*
-        commands=new File("game"+gameid+".txt");
+    public void clearInfo(int gameid) {
+
+        File newreplacement=new File("commands"+gameid+".txt");
         try
         {
-            db=new FileWriter(commands);
-            db.write("{");
+           FileWriter db=new FileWriter(newreplacement);
+           // db.write("{");
         } catch (IOException e)
         {
             e.printStackTrace();
         }
-        */
     }
     private VertexDirection convertToVertexDirection(String direction)
     {

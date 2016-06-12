@@ -212,7 +212,7 @@ public class BuildRoadCommand implements ICommand {
 				", \"edge\":" +"\""+ edge.getDir() +"\""+
 				", \"free\":" + free +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 

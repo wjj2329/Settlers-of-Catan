@@ -47,7 +47,7 @@ public class PlayYearOfPlentyCommand implements ICommand {
 				", \"resource2\":'" +"\""+ resource2 + '\"' +
 				", \"resource1\":" +"\""+ resource1 + '\"' +
 				", \"playerindex\":" + playerindex +
-				"}}";
+				"}";
 	}
 
 	@Override

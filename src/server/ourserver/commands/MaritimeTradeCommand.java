@@ -187,7 +187,7 @@ public class MaritimeTradeCommand implements ICommand {
 				", \"playerIndex_NOT_ID\":" + playerIndex_NOT_ID +
 				", \"ratio\":" + ratio +
 				", \"gameID\":" + gameID +
-				"}}";
+				"}";
 	}
 	@Override
 	public String toJSON() {

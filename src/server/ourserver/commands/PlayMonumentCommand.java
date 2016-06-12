@@ -37,7 +37,7 @@ public class PlayMonumentCommand implements ICommand {
 				"\"type\": \"PlayMonumentCommand\"" +
 				"\"playerindex\":" + playerindex +
 				", \"gameID\":" + gameID +
-				"}}";
+				"}";
 	}
 
 	@Override

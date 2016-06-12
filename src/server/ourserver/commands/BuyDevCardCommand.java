@@ -46,7 +46,7 @@ public class BuyDevCardCommand implements ICommand
 				"\"type\":\"BuyDevCardCommand\"" +
 				", \"playerIndex\":" + playerIndex +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 	@Override

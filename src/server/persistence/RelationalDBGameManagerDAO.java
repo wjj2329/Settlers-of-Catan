@@ -516,13 +516,13 @@ public class RelationalDBGameManagerDAO implements IGameManager
 
     }
 
-    @Override
-    public void clearInfo() {
-    	db.getConnection();
 
-    }
+	@Override
+	public void clearInfo(int gameid) {
 
-    @Override
+	}
+
+	@Override
     public void loadInfo() {
 
     }

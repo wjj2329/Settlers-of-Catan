@@ -38,7 +38,7 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 				", \"dir\":"+"\""+vertex.getDir() +"\""+
 				", \"free\":" + free +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 	/**

@@ -20,7 +20,7 @@ import javax.activation.CommandObject;
  */
 public interface IGameManager {
 
-	public void clearInfo();
+	public void clearInfo(int gameid);
 
 	public void loadInfo();
 

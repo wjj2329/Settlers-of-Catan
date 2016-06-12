@@ -98,7 +98,7 @@ public class BuildCityCommand implements ICommand {
 				", \"y\":"+"\""+location.getY()+"\""+
 				", \"vertex\":"+"\"" + vertex.getDir()+"\"" +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 	@Override
 	public String toJSON() {

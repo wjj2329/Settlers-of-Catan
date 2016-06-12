@@ -84,7 +84,7 @@ public class AcceptTradeCommand implements ICommand {
 				",\"gameid\":" + gameid +
 				", \"playerIndex\":" + playerIndex +
 				", \"willAccept\":" + willAccept +
-				"}}";
+				"}";
 
 	}
 

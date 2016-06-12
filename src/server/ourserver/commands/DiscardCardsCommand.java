@@ -83,7 +83,7 @@ public class DiscardCardsCommand implements ICommand {
 				", \"ore\":"+"\""+cardsToDiscard.getOre()+"\""+
 				", \"wood\":"+"\""+cardsToDiscard.getWood()+"\""+
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 	@Override

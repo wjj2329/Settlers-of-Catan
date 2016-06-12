@@ -341,7 +341,7 @@ public class RollNumberCommand implements ICommand {
 				"\"type\":\"RollNumberCommand\"" +
 				", \"rollNumber\":" + rollNumber +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 

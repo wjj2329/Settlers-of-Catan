@@ -169,7 +169,7 @@ public class RobPlayerCommand implements ICommand {
 				", \"playerRobbing\":" + playerRobbing +
 				", \"playerbeingrobbed\":" + playerbeingrobbed +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 	@Override
 	public String toJSON() {

@@ -58,7 +58,7 @@ public class OfferTradeCommand implements ICommand {
 				", \"wood\":"+"\""+offer.getWheat()+"\""+
 				", \"sheep\":"+"\""+offer.getSheep()+"\""+
 				", \"receiver\":" + receiver +
-				"}}";
+				"}";
 	}
 	@Override
 	public String toJSON() {

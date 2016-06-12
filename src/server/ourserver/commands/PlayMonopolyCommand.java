@@ -43,7 +43,7 @@ public class PlayMonopolyCommand implements ICommand {
 				", \"playerindex\":" + playerindex +
 				", \"resource\":" +"\""+ resource + '\"' +
 				", \"gameID\":" + gameID +
-				"}}";
+				"}";
 	}
 
 	@Override

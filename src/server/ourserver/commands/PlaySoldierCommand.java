@@ -35,7 +35,7 @@ public class PlaySoldierCommand implements ICommand
 				", \"playerRobbing\":" + playerRobbing +
 				", \"playerBeingRobbed\":" + playerBeingRobbed +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 
 	/**

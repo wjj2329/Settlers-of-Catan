@@ -62,7 +62,7 @@ public class SendChatCommand implements ICommand {
 				"\"message\": " +"\"" +message + '\"' +
 				", \"playerindex\":" +playerindex +
 				", \"gameid\":" + gameid +
-				"}}";
+				"}";
 	}
 	@Override
 	public String toJSON() {
