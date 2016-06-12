@@ -65,8 +65,7 @@ public class PersistenceManager
         return myfactory;
     }
 
-    private void checkfor10(int gameid) throws FileNotFoundException
-    {
+    private void checkfor10(int gameid) throws IOException, JSONException {
         FileReader db=new FileReader("commands"+gameid+".txt");
         Scanner myscanner=null;
         myscanner=new Scanner(db);
@@ -103,7 +102,7 @@ public class PersistenceManager
         TextDBGameManagerDAO.commandNumber=0;
         System.out.println("I SHOULD CLEAR IT NOW");
         myfactory.getGameManager().clearInfo(gameid);
-        myfactory.getGameManager().loadInfo();
+        myfactory.getGameManager().loadInfo(gameid);
     }
 
 

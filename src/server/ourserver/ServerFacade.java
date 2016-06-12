@@ -65,6 +65,11 @@ public class ServerFacade
 	 */
 	private Model serverModel = new Model();
 
+	public Model getServerModel()
+	{
+		return serverModel;
+	}
+
 	/**
 	 * The singleton instance of ServerFacade.
 	 */

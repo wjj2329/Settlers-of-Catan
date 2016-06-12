@@ -523,7 +523,9 @@ public class RelationalDBGameManagerDAO implements IGameManager
 	}
 
 	@Override
-    public void loadInfo() {
+	public void loadInfo(int gameid) throws IOException, JSONException {
 
-    }
+	}
+
+
 }

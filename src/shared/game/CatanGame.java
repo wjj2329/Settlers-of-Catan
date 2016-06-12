@@ -1,5 +1,6 @@
 package shared.game;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import client.State.State;
@@ -9,6 +10,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import server.ourserver.ServerFacade;
 import server.proxies.IServer;
 import server.proxies.ServerProxy;
 import shared.chat.Chat;
@@ -962,7 +964,353 @@ public class CatanGame
 		}
 		return null;
 	}
+	public CatanGame getGameByID(int id) throws FileNotFoundException, JSONException {
+		for(CatanGame game : ServerFacade.getInstance().getServerModel().listGames()){
+			if(game.getGameId() == id){
+				return game;
+			}
+		}
+		return null;
+	}
+	public JSONObject getGameModel(int gameID) throws FileNotFoundException, JSONException {
+		JSONObject model = new JSONObject();
+		CatanGame game = getGameByID(gameID);
+		//System.out.println("this is the pointer to the game object" +game);
+		//System.out.println("THE GAME GETS LOADED");
+		//System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
+
+		try {
+			//THE BANK
+			JSONObject bank = new JSONObject();
+			bank.put("brick", game.mybank.getCardslist().getBrick());
+			bank.put("ore", game.mybank.getCardslist().getOre());
+			bank.put("sheep", game.mybank.getCardslist().getSheep());
+			bank.put("wheat", game.mybank.getCardslist().getWheat());
+			bank.put("wood", game.mybank.getCardslist().getWood());
+			model.put("bank", bank);
+			//System.out.println("THE MODEL SO FAR WIT BANK " + model.toString());
+
+			//THE CHAT
+			JSONObject chat = new JSONObject();
+			JSONArray chatlines = new JSONArray();
+			for(MessageLine mensaje : game.getMychat().getChatMessages().getMessages())
+			{
+				System.out.println("I Export the name  and source which are "+mensaje.getMessage()+" and "+mensaje.getSource());
+				JSONObject chatline = new JSONObject();
+				chatline.put("message", mensaje.getMessage());
+				chatline.put("source", mensaje.getSource());
+				chatlines.put(chatline);
+			}
+			chat.put("lines", chatlines);
+			model.put("chat", chat);
+			//System.out.println("THE MODEL SO FAR WIT CHAT " + model.toString());
+
+			//THE LOG
+			JSONObject log = new JSONObject();
+			JSONArray loglines = new JSONArray();
+			for(GameHistoryLine mensaje : game.getMyGameHistory().getLines())
+			{
+				JSONObject logline = new JSONObject();
+				logline.put("message", mensaje.getLine());
+				logline.put("source", mensaje.getSource());
+				loglines.put(logline);
+			}
+			log.put("lines", loglines);
+			model.put("log", log);
+			//System.out.println("THE MODEL SO FAR WIT LOG " + model.toString());
+
+			//THE MAP
+			//THE HEXES
+			JSONObject map = new JSONObject();
+			JSONArray hexes = new JSONArray();
+			Map<HexLocation, Hex> mapa = game.getMymap().getHexes();
+			for(HexLocation elHex : mapa.keySet())
+			{
+				JSONObject hex = new JSONObject();
+				JSONObject location = new JSONObject();
+				location.put("x", elHex.getX());
+				location.put("y", elHex.getY());
+				hex.put("location", location);
+
+				hex.put("resource", mapa.get(elHex).getResourcetype().name().toLowerCase());
+				hex.put("number", mapa.get(elHex).getResourcenumber());
+				hexes.put(hex);
+			}
+			map.put("hexes", hexes);
+			//System.out.println("THE MAP SO FAR WIT HEXES " + map.toString());
+
+			//THE PORTS
+			JSONArray ports = new JSONArray();
+			for(HexLocation elHex : mapa.keySet())
+			{
+				if(mapa.get(elHex).getPortType() != null)
+				{
+					JSONObject port = new JSONObject();
+					//System.out.println("What is the resource type of the port? " + mapa.get(elHex).getPortType().name().toLowerCase());
+					port.put("resource", mapa.get(elHex).getPortType().name().toLowerCase());
+
+					JSONObject location = new JSONObject();
+					location.put("x", elHex.getX());
+					location.put("y", elHex.getY());
+					port.put("location", location);
+					port.put("direction", getDirFromEdgeDir(mapa.get(elHex).getPort().getDirection()));
+					port.put("ratio", mapa.get(elHex).getPort().getRatio());
+					ports.put(port);
+				}
+			}
+			map.put("ports", ports);
+			//System.out.println("THE MAP SO FAR WIT PORTS " + map.toString());
+
+			//THE ROADS
+			JSONArray roads = new JSONArray();
+			for(HexLocation elHex : mapa.keySet())
+			{
+				for(RoadPiece calle : mapa.get(elHex).getRoads())
+				{
+					if(calle.getPlayerWhoOwnsRoad() != null)
+					{
+						JSONObject road = new JSONObject();
+						road.put("owner", calle.getPlayerWhoOwnsRoad().getNumber());
+
+						JSONObject location = new JSONObject();
+						location.put("x", elHex.getX());
+						location.put("y", elHex.getY());
+
+						location.put("direction", getDirFromEdgeDir(calle.getLocation().getDir()));
+						road.put("location", location);
+
+						roads.put(road);
+					}
+				}
+			}
+			map.put("roads", roads);
+			//System.out.println("THE MAP SO FAR WIT ROADS " + map.toString());
+
+			//THE SETTLEMENTS
+			JSONArray settlements = new JSONArray();
+			for(HexLocation elHex : mapa.keySet())
+			{
+				for(Settlement colonia : mapa.get(elHex).getSettlementlist())
+				{
+					//System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
+					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
+					{
+						//System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
+						//System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
+						//System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
+						JSONObject settlement = new JSONObject();
+						//System.out.println("The owner's playerIndex (or is it playerID?) is " + colonia.getOwner().getNumber());
+						settlement.put("owner", colonia.getOwner().getNumber());
+						JSONObject location = new JSONObject();
+						location.put("x", elHex.getX());
+						location.put("y", elHex.getY());
+						location.put("direction", getDirFromVertexDir(colonia.getVertexLocation().getDir()));
+						settlement.put("location", location);
+
+						settlements.put(settlement);
+					}
+				}
+			}
+			map.put("settlements", settlements);
+			//System.out.println("THE MAP SO FAR WIT SETTLEMENTS " + map.toString());
+
+			//THE CITIES
+			JSONArray cities = new JSONArray();
+			for(HexLocation elHex : mapa.keySet())
+			{
+				for(City cuidad : mapa.get(elHex).getCities())
+				{
+					if(cuidad.getOwner() != null)
+					{
+						JSONObject city = new JSONObject();
+						//System.out.println("I INSERT IN THE SERVER FACADE A CITY WITH OWNER "+cuidad.getOwner().getNumber());
+						city.put("owner", cuidad.getOwner().getNumber());
+
+						JSONObject location = new JSONObject();
+						location.put("x", elHex.getX());
+						location.put("y", elHex.getY());
+						location.put("direction", getDirFromVertexDir(cuidad.getVertexLocation().getDir()));
+						city.put("location", location);
+
+						cities.put(city);
+					}
+				}
+			}
+			map.put("cities", cities);
+			map.put("radius", game.getMymap().getRadius());
+			//System.out.println("THE MAP SO FAR WIT CITIES " + map.toString());
+
+			//THE ROBBER
+			JSONObject robber = new JSONObject();
+			robber.put("x", game.myrobber.getLocation().getX());
+			robber.put("y", game.myrobber.getLocation().getY());
+			map.put("robber", robber);
+			//System.out.println("THE MAP SO FAR WIT ROBBER " + map.toString());
+
+			model.put("map", map);
+			//System.out.println("THE MODEL SO FAR WIT MAP " + model.toString());
+
+			//THE PLAYERS
+			Map<Index, Player> jugadores = game.getMyplayers();
+			JSONArray players = new JSONArray();
+			int numPlayahs = 0;
+			for(Player jugador : jugadores.values())
+			{
+				JSONObject player = new JSONObject();
+				player.put("cities", jugador.getNumCitiesRemaining());
+				player.put("color", jugador.getColor().name().toLowerCase());
+				player.put("discarded", jugador.getIsDiscarded());
+				player.put("monuments", jugador.getNumMonuments());
+				player.put("name", jugador.getName());
+				//System.out.println("THE PLAYER SO FAR WIT INFO  " + player.toString());
+
+				//THE NEW DEVCARDS
+				JSONObject newDevCards = new JSONObject();
+				DevCardList cartasNuevas = jugador.getNewDevCards();
+				newDevCards.put("monopoly", cartasNuevas.getMonopoly());
+				newDevCards.put("monument", cartasNuevas.getMonument());
+				newDevCards.put("roadBuilding", cartasNuevas.getRoadBuilding());
+				newDevCards.put("soldier", cartasNuevas.getSoldier());
+				newDevCards.put("yearOfPlenty", cartasNuevas.getYearOfPlenty());
+				player.put("newDevCards", newDevCards);
+				//System.out.println("THE PLAYER SO FAR WIT NEW DEV CARDS " + player.toString());
 
 
+				//THE OLD DEVCARDS
+				JSONObject oldDevCards = new JSONObject();
+				DevCardList cartasViejas = jugador.getOldDevCards();
+				oldDevCards.put("monopoly", cartasViejas.getMonopoly());
+				oldDevCards.put("monument", cartasViejas.getMonument());
+				oldDevCards.put("roadBuilding", cartasViejas.getRoadBuilding());
+				oldDevCards.put("soldier", cartasViejas.getSoldier());
+				oldDevCards.put("yearOfPlenty", cartasViejas.getYearOfPlenty());
+				player.put("oldDevCards", oldDevCards);
+				//System.out.println("THE PLAYER SO FAR WIT OLD DEV CARDS " + player.toString());
+
+				player.put("playerIndex", jugador.getPlayerIndex().getNumber());
+				//System.out.println("THE PLAYER SO FAR WIT MORE INFO INDEX " + player.toString());
+				player.put("playedDevCard", jugador.getplayedDevCard());
+				//System.out.println("THE PLAYER SO FAR WIT MORE INFO PLAYED DEVCARD " + player.toString());
+				player.put("playerID", jugador.getPlayerID().getNumber());
+				//System.out.println("THE PLAYER SO FAR WIT MORE INFO ID " + player.toString());
+
+				JSONObject resources = new JSONObject();
+				ResourceList recursos = jugador.getResources();
+
+				resources.put("brick", recursos.getBrick());
+				resources.put("ore", recursos.getOre());
+				resources.put("sheep", recursos.getSheep());
+				resources.put("wheat", recursos.getWheat());
+				resources.put("wood", recursos.getWood());
+				player.put("resources", resources);
+				//System.out.println("THE PLAYER SO FAR WIT RESOURCES " + player.toString());
+
+				player.put("roads", jugador.getNumRoadPiecesRemaining());
+				player.put("settlements", jugador.getNumSettlementsRemaining());
+				player.put("soldiers", jugador.getArmySize());
+				player.put("victoryPoints", jugador.getNumVictoryPoints());
+
+				//System.out.println("THE PLAYER SO FAR WIT MORE RESOURCES " + player.toString());
+				players.put(player);
+				//System.out.println("THE PLAYERS SO FAR WIT ANOTHER PLAYAH  " + players.toString());
+				numPlayahs++;
+			}
+			while(numPlayahs < 4)
+			{
+				JSONObject player = new JSONObject();
+				players.put(player);
+				//System.out.println("THE PLAYERS SO FAR WIT NULL PLAYAH  " + players.toString());
+				numPlayahs++;
+			}
+			model.put("players", players);
+			//System.out.println("THE MODEL SO FAR WIT PLAYAHS " + model.toString());
+
+			//THE TRADEOFFER
+			if(game.getMytradeoffer() != null)
+			{
+				JSONObject tradeOffer = new JSONObject();
+				TradeOffer negocio = game.getMytradeoffer();
+				tradeOffer.put("sender", negocio.getSender());
+				tradeOffer.put("receiver", negocio.getReceiver());
+
+				JSONObject offer = new JSONObject();
+				ResourceList ofrecimiento = negocio.getMylist();
+				offer.put("brick", ofrecimiento.getBrick());
+				offer.put("ore", ofrecimiento.getOre());
+				offer.put("sheep", ofrecimiento.getSheep());
+				offer.put("wheat", ofrecimiento.getWheat());
+				offer.put("wood", ofrecimiento.getWood());
+				tradeOffer.put("offer", offer);
+				model.put("tradeOffer", tradeOffer);
+			}
+			//System.out.println("THE MODEL SO FAR WIT TRADEOFFER MAYBE " + model.toString());
+
+
+			//THE TURN TRACKER
+			JSONObject turnTracker = new JSONObject();
+			TurnTracker turnos = game.getModel().getTurntracker();
+			turnTracker.put("currentTurn", turnos.getCurrentTurn().getNumber());
+			turnTracker.put("status", turnos.getStatus());
+			turnTracker.put("longestRoad", turnos.getLongestRoad().getNumber());
+			turnTracker.put("largestArmy", turnos.getLargestArmy().getNumber());
+			model.put("turnTracker", turnTracker);
+			//System.out.println("THE MODEL SO FAR WIT TURNTRACKER " + model.toString());
+
+
+			model.put("version", game.getModel().getVersion());
+			model.put("winner", game.getWinner().getNumber());
+
+			//System.out.println("THE MODEL SO FAR WIT EVERYTHANG " + model.toString());
+			//System.out.println("GAME TITLE" + game.getTitle());
+			return model;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			//System.out.println(e.toString());
+		}
+		return null;
+	}
+
+	public String getDirFromVertexDir(VertexDirection direction){
+		switch (direction)
+		{
+			case East:
+				return "E";
+			case NorthWest:
+				return "NW";
+			case NorthEast:
+				return "NE";
+			case SouthWest:
+				return "SW";
+			case West:
+				return "W";
+			case SouthEast:
+				return "SE";
+			default:
+				break;
+		}
+		//System.out.println(" I RETURN A NULL LOCATION!");
+		return null;
+	}
+	public String getDirFromEdgeDir(EdgeDirection direction){
+		switch (direction)
+		{
+			case NorthWest:
+				return "NW";
+			case North:
+				return "N";
+			case NorthEast:
+				return "NE";
+			case SouthWest:
+				return "SW";
+			case South:
+				return "S";
+			case SouthEast:
+				return "SE";
+			default:
+				break;
+		}
+		return null;
+	}
 
 }
