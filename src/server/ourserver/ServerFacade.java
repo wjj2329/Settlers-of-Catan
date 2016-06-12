@@ -589,6 +589,10 @@ public class ServerFacade
 		mynewgame.getModel().getTurntracker().setLongestRoad(new Index(-1));
 		serverModel.addGame(mynewgame);
 		PersistenceManager.getSingleton().addGameInfo(mynewgame);
+		if(Server.isTxtdb)
+		{
+			PersistenceManager.getSingleton().getMyfactory().getGameManager().createnewGameFile(mynewgame.getGameId());
+		}
 	}
 
 	/**

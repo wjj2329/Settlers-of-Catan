@@ -18,11 +18,10 @@ import javax.activation.CommandObject;
  * IGameManager class
  * The functions that are currently void will probably be changed.
  */
-public interface IGameManager
-{
-	
+public interface IGameManager {
+
 	public void clearInfo();
-	
+
 	public void loadInfo();
 
 	void storeGameModel(int gameid);
@@ -36,5 +35,8 @@ public interface IGameManager
 	Object getGameList();
 
 	ArrayList<ICommand> getCommands(int gameId) throws JSONException;
+
 	CatanGame getGameModel(int gameId);
+
+	void createnewGameFile(int gameid);
 }

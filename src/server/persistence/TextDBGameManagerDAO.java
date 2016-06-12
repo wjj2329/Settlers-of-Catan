@@ -31,6 +31,7 @@ public class TextDBGameManagerDAO implements IGameManager
     public static int commandNumber=-1;
 
 
+
     public int getGameid() {
         return gameid;
     }
@@ -257,6 +258,19 @@ public class TextDBGameManagerDAO implements IGameManager
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+    @Override
+    public void createnewGameFile(int gameid)
+    {
+        System.out.println("I create a new file with id "+gameid);
+      File newfile=new File("game"+gameid+".txt");
+        try {
+            FileWriter db=new FileWriter(newfile);
+            db.write("");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
 
     @Override

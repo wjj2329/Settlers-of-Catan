@@ -454,7 +454,12 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		db.endTransaction(true);
 		return result;
 	}
-	
+
+	@Override
+	public void createnewGameFile(int gameid) {
+		
+	}
+
 	@Override
 	public Object getGameList() {
        logger.entering("server.database.Games", "getAll");
