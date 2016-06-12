@@ -228,4 +228,10 @@ public class BuildRoadCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
 }

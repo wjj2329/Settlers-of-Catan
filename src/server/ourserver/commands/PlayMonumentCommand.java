@@ -48,4 +48,10 @@ public class PlayMonumentCommand implements ICommand {
 				", \"gameID\":" + gameID +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameID;
+
+	}
 }

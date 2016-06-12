@@ -55,4 +55,10 @@ public class PlayMonopolyCommand implements ICommand {
 				", \"gameID\":" + gameID +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameID;
+
+	}
 }

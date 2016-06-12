@@ -25,4 +25,11 @@ public class CreateGameCommand implements ICommand {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public int getGameid()
+	{
+	return -1;
+
+	}
 }
