@@ -1076,7 +1076,10 @@ public class ServerFacade
 	public void sendChat(String message, int playerindex,int gameid) throws IOException, JSONException {
 		SendChatCommand mychat=new SendChatCommand(message,playerindex,gameid);
 		mychat.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(mychat);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(mychat);
+		}
 	}
 
 	/**
@@ -1087,7 +1090,10 @@ public class ServerFacade
 	public void rollNumber(int number, int gameID) throws IOException, JSONException {
 		ICommand command = new RollNumberCommand(number, gameID);
 		command.execute();
-		PersistenceManager.getSingleton().addcommandinfo(command);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
 	}
 
 	/**
@@ -1098,7 +1104,10 @@ public class ServerFacade
 	public void robPlayer(HexLocation location, int playerRobbing, int playerbeingrobbed, int gameid) throws IOException, JSONException {
 		RobPlayerCommand robbing=new RobPlayerCommand(location,playerRobbing,playerbeingrobbed, gameid);
 		robbing.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(robbing);
+		if(Server.isTxtdb) {
+
+			//PersistenceManager.getSingleton().addcommandinfo(robbing);
+		}
 	}
 
 	/**
@@ -1109,7 +1118,10 @@ public class ServerFacade
 	public void  finishTurn(int playerIndex, int gameid) throws IOException, JSONException {
 		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
 		endturn.execute();
-		PersistenceManager.getSingleton().addcommandinfo(endturn);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(endturn);
+		}
 	}
 
 	/**
@@ -1456,7 +1468,10 @@ public class ServerFacade
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid) throws IOException, JSONException {
 		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
 		buildRoadCommand.execute();
-		PersistenceManager.getSingleton().addcommandinfo(buildRoadCommand);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(buildRoadCommand);
+		}
 
 	}
 
@@ -1469,7 +1484,10 @@ public class ServerFacade
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid) throws IOException, JSONException {
 		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
 		buildsettlement.execute();
-		PersistenceManager.getSingleton().addcommandinfo(buildsettlement);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(buildsettlement);
+		}
 
 	}
 
@@ -1482,7 +1500,10 @@ public class ServerFacade
 	public void buildCity(int playerIndex, HexLocation location, VertexLocation vertex, int gameid) throws IOException, JSONException {
 		BuildCityCommand buildCityCommand=new BuildCityCommand(playerIndex,location,vertex, gameid);
 		buildCityCommand.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(buildCityCommand);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(buildCityCommand);
+		}
 	}
 
 	/**
@@ -1492,7 +1513,10 @@ public class ServerFacade
 	public void offerTrade(int gameid, int playerIndex, ResourceList offer,int receiver) throws IOException, JSONException {
 		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
 		command.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(command);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
 	}
 
 	/**
@@ -1504,7 +1528,9 @@ public class ServerFacade
 	public void acceptTrade(int gameid, int playerIndex, boolean willAccept) throws IOException, JSONException {
 		ICommand command = new AcceptTradeCommand(gameid, playerIndex, willAccept);
 		command.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(command);
+		if(Server.isTxtdb) {
+			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
 	}
 
 	/**
@@ -1519,7 +1545,10 @@ public class ServerFacade
 	{
 		MaritimeTradeCommand maritimeTradeCommand = new MaritimeTradeCommand(getResource, giveResource, playerIndex, ratio, gameID);
 		maritimeTradeCommand.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
+		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
+		}
 	}
 
 	/**
@@ -1531,7 +1560,9 @@ public class ServerFacade
 	public void discardCards(int playerIndex, ResourceList cardsToDiscard, int gameid) throws IOException, JSONException {
 		DiscardCardsCommand mydiscard=new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid);
 		mydiscard.execute();
-		//PersistenceManager.getSingleton().addcommandinfo(mydiscard);
+		if(Server.isTxtdb) {
+			PersistenceManager.getSingleton().addcommandinfo(mydiscard);
+		}
 	}
 
 
