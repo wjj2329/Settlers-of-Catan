@@ -100,7 +100,7 @@ public class ServerFacade
 	 * Constructor is private in order to avoid multiple instantiations.
 	 * We have hard-coded the four default players for testing purposes.
 	 */
-	private ServerFacade()
+	private ServerFacade() throws FileNotFoundException, JSONException
 	{
 		Player sam = new Player("Sam", CatanColor.ORANGE, new Index(0));
 		sam.setPlayerIndex(new Index(10));
@@ -118,6 +118,7 @@ public class ServerFacade
 		allRegisteredUsers.add(mark);
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
+		//loadGamesFromFileIntoServerModel();
 		
 		try {
 			loadallplayersfromtextdatabase();
@@ -128,6 +129,7 @@ public class ServerFacade
 		}
 		loadDefaultGame();
 		loadEmptyGame();
+		loadGamesFromFileIntoServerModel();
 	}
 	private void loadallplayersfromtextdatabase() throws IOException, JSONException {
 		//System.out.println("I construct the TextDBUserAccountsDAO");
@@ -153,8 +155,7 @@ public class ServerFacade
 			playerFileWriter.write("{"); // why isn't this writing??
 			return;
 		}
-		//System.out.println("I made it here");
-		//System.out.println("What is th")
+
 		if (theString.length() > 1 && theString.charAt(theString.length() - 1) != '}')
 		{
 			//System.out.println("We need this");
@@ -164,7 +165,6 @@ public class ServerFacade
 		//System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
 		JSONObject jason = new JSONObject(iBuildStrings.toString());
 
-		// this is gonna break something
 		for (int i = 0; i < 300; i++)
 		{
 			String playerObj = "player" + i;
@@ -294,7 +294,7 @@ public class ServerFacade
 	/**
 	 * Returns the singleton instance of ServerFacade.
      */
-	public static ServerFacade getInstance()
+	public static ServerFacade getInstance() throws FileNotFoundException, JSONException
 	{
 		if (singleton == null)
 		{
@@ -336,9 +336,10 @@ public class ServerFacade
 	 * @param username: name they will log in with
 	 * @param password: password that they will use
      */
-	public void register(String username, String password) throws IOException, DatabaseException, JSONException {
+	public void register(String username, String password) throws IOException, DatabaseException, JSONException
+	{
 		Player p=new Player(username,CatanColor.PUCE,new Index(-10));
-		adjustPlayerID(); //hmmmmmm
+		adjustPlayerID(); // boop!~
 		for (Player p2 : allRegisteredUsers)
 		{
 			if (p2.getPlayerID().getNumber() == NEXT_USER_ID)
@@ -434,9 +435,10 @@ public class ServerFacade
 	 * Gets the list of all the games in the server.
 	 * GET request so I made it return something...
 	 */
-	public JSONArray getGameList()
+	public JSONArray getGameList() throws FileNotFoundException, JSONException
 	{
-
+		// put games from file into serverModels
+		//loadGamesFromFileIntoServerModel();
 		JSONArray games = new JSONArray();
 		try {
 			for(CatanGame juego : serverModel.listGames())
@@ -467,6 +469,41 @@ public class ServerFacade
 		//System.out.println(games);
 		return games;
 
+	}
+
+	private void loadGamesFromFileIntoServerModel() throws FileNotFoundException, JSONException
+	{
+		File gameFile = new File("allGames.txt");
+		if (!gameFile.isFile())
+		{
+			return;
+		}
+		FileReader gameFileReader = new FileReader(gameFile);
+		Scanner scanny = new Scanner(gameFileReader);
+		scanny.useDelimiter(System.getProperty("line.separator"));
+		scanny.useDelimiter("\r\n");
+		StringBuilder fileToStringToJson = new StringBuilder();
+		while (scanny.hasNext())
+		{
+			fileToStringToJson.append(scanny.next());
+		}
+		String res = fileToStringToJson.toString();
+		JSONObject jason = new JSONObject(res);
+
+		for (int j = 0; j < 150; j++)
+		{
+			String possible = "game" + j;
+			if (jason.has(possible))
+			{
+				JSONObject gameObj = jason.getJSONObject(possible);
+				// i am not yet setting the randomHexes, etc. attributes - do I need to, or is it already done?
+				CatanGame juegoNuevo = new CatanGame();
+				juegoNuevo.setID(gameObj.getInt("id"));
+				System.out.println("The title, indeed, comes forth as: " + gameObj.getString("title"));
+				juegoNuevo.setTitle(gameObj.getString("title"));
+				serverModel.addGame(juegoNuevo);
+			}
+		}
 	}
 
 	/**

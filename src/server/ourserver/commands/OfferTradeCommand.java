@@ -1,10 +1,13 @@
 package server.ourserver.commands;
 
 import client.model.TradeOffer;
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.game.CatanGame;
 import shared.game.ResourceList;
+
+import java.io.FileNotFoundException;
 
 /**
  * The OfferTradeCommand class
@@ -27,7 +30,7 @@ public class OfferTradeCommand implements ICommand {
 	 * 	player offering their trade offer to specified player
 	 */
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 		
 		CatanGame game = ServerFacade.getInstance().getGameByID(gameid);
 		

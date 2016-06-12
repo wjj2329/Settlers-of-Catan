@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import client.model.TurnStatus;
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
@@ -12,6 +13,7 @@ import shared.game.map.Index;
 import shared.game.player.Player;
 import shared.locations.HexLocation;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,7 +38,7 @@ public class RobPlayerCommand implements ICommand {
 		this.gameid=gameid;
 	}
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 //System.out.println("I ROB! in that player with index "+playerRobbing+" Robs player with index "+playerbeingrobbed);
 		CatanGame currentgame= ServerFacade.getInstance().getGameByID(gameid);
 		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);

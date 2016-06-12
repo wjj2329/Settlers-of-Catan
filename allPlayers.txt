@@ -62,4 +62,36 @@
 		"playerID": "12",
 		"numberInFile": "7"
 	 },
+
+	"player8":
+	{
+		"username": "Flubber",
+		"password": "robinwilliams",
+		"playerID": "13",
+		"numberInFile": "8"
+	 },
+
+	"player9":
+	{
+		"username": "Karmen",
+		"password": "karmen",
+		"playerID": "14",
+		"numberInFile": "9"
+	 },
+
+	"player10":
+	{
+		"username": "Charlie",
+		"password": "bucket",
+		"playerID": "15",
+		"numberInFile": "10"
+	 },
+
+	"player11":
+	{
+		"username": "Alvin",
+		"password": "alvin",
+		"playerID": "16",
+		"numberInFile": "11"
+	 },
 }

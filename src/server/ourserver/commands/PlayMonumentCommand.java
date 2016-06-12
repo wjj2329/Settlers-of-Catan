@@ -1,7 +1,10 @@
 package server.ourserver.commands;
 
+import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
+
+import java.io.FileNotFoundException;
 
 /**
  * The PlayMonumentCommand class
@@ -22,7 +25,7 @@ public class PlayMonumentCommand implements ICommand {
 	 * 	player plays monument card have enough to reach 10 victory points to win the game.
 	 */
 	@Override
-	public Object execute() {
+	public Object execute() throws FileNotFoundException, JSONException {
 		ServerFacade.getInstance().playMonument(playerindex, gameID);
 		return null;
 	}
