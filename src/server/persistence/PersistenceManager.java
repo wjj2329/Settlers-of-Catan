@@ -41,9 +41,9 @@ public class PersistenceManager
 
     public  void addcommandinfo(ICommand commandObject) throws IOException, JSONException {
         mycommands.add(commandObject);
-        // myfactory.getGameManager().addCommand(commandObject);
-        //checkfor10();
-        //myfactory.getGameManager().getCommands();
+         myfactory.getGameManager().addCommand(commandObject,commandObject.getGameid());
+        checkfor10();
+        myfactory.getGameManager().getCommands(commandObject.getGameid());
     }
 
     public void addPlayerInfo(Player user) throws DatabaseException, IOException

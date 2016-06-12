@@ -19,4 +19,6 @@ public interface ICommand {
 	public String toString();
 
 	public String toJSON();
+
+	public int getGameid();
 }

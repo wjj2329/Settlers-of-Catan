@@ -1078,7 +1078,7 @@ public class ServerFacade
 		mychat.execute();
 		if(Server.isTxtdb) {
 
-			PersistenceManager.getSingleton().addcommandinfo(mychat);
+			//PersistenceManager.getSingleton().addcommandinfo(mychat);
 		}
 	}
 
@@ -1106,7 +1106,7 @@ public class ServerFacade
 		robbing.execute();
 		if(Server.isTxtdb) {
 
-			//PersistenceManager.getSingleton().addcommandinfo(robbing);
+			PersistenceManager.getSingleton().addcommandinfo(robbing);
 		}
 	}
 
