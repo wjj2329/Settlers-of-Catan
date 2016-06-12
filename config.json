@@ -4,12 +4,12 @@
     "txt":
     {
       "file": "persitance/RelationalDBFactory.java",
-      "jar": "jarthing"
+      "jar": "sql.jar"
     },
     "sql":
     {
       "file": "persitance/TextDBFactory.java",
-      "jar": "harthing"
+      "jar": "txt.jar"
     }
   }
 }

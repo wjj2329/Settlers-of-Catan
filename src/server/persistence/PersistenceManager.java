@@ -19,7 +19,7 @@ public class PersistenceManager
 
     private ArrayList<ICommand> mycommands=new ArrayList<>();
 
-    private IFactory myfactory=new RelationalDBFactory();//needs to get loaded from
+    private IFactory myfactory=null;//needs to get loaded from
 
 
     public PersistenceManager() throws IOException, JSONException {

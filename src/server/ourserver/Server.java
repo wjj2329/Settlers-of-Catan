@@ -173,7 +173,8 @@ public class Server
 	 * private HttpHandler getCommandsHandler = new ListAIHandler();
 	 * private HttpHandler changelogLevelHandler = new ListAIHandler();
 	 */
-	
+
+	public static boolean isTxtdb=false;
 	public static void main(String[] args)
 	{
 		//if(args.length == 0 || args[0].equals(""))
@@ -221,6 +222,8 @@ public class Server
 		if(type.equals("txt"))
 		{
 			try {
+				System.out.println("it is a txt factory now");
+				isTxtdb=true;
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
 			} catch (Exception e) 
 			{
@@ -231,6 +234,7 @@ public class Server
 		{
 			try 
 			{
+				isTxtdb=false;
 				PersistenceManager.getSingleton().setmyfactory(new RelationalDBFactory());
 			} catch (Exception e)
 			{

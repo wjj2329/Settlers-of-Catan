@@ -104,6 +104,7 @@ public class ServerFacade
 	private ServerFacade()
 	{
 		Database db = new Database();
+		/*
 		try
 		{
 			db.initialize();
@@ -111,6 +112,7 @@ public class ServerFacade
 		{
 			e1.printStackTrace();
 		}
+		*/
 		Player sam = new Player("Sam", CatanColor.ORANGE, new Index(0));
 		sam.setPlayerIndex(new Index(10));
 		sam.setPassword("sam");
@@ -185,7 +187,7 @@ public class ServerFacade
 				Player myPlayer=new Player(playerAttributes.getString("username"),CatanColor.PUCE,new Index(10));
 				myPlayer.setPlayerID(new Index(playerAttributes.getInt("playerID")));
 				myPlayer.setPassword(playerAttributes.getString("password"));
-				System.out.println("I Add a player "+myPlayer.toString());
+				System.out.println("I Add a player "+myPlayer.getName());
 				allRegisteredUsers.add(myPlayer);
 			}
 		}
@@ -330,23 +332,24 @@ public class ServerFacade
 	 */
 	public Player logIn(String username, String password)
 	{
-//		for (Player p : allRegisteredUsers)
-//		{
-//			if (p.getName().equals(username) && p.getPassword().equals(password))
-//			{				
-//				return p;
-//			}
-//		}
-		Player validated = null;
-		try
-		{
-			validated = PersistenceManager.getSingleton().getMyfactory().getUserAccount().validateUser(new Player(username, password));
-		} catch (IOException | JSONException e)
-		{
-			e.printStackTrace();
+		if(Server.isTxtdb) {
+			for (Player p : allRegisteredUsers) {
+				if (p.getName().equals(username) && p.getPassword().equals(password)) {
+					return p;
+				}
+			}
 		}
-		
-		return validated;
+		else {
+			Player validated = null;
+			try {
+				validated = PersistenceManager.getSingleton().getMyfactory().getUserAccount().validateUser(new Player(username, password));
+			} catch (IOException | JSONException e) {
+				e.printStackTrace();
+			}
+
+			return validated;
+		}
+		return null;
 	}
 
 	/**
