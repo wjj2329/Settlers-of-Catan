@@ -292,21 +292,14 @@ public class TextDBGameManagerDAO implements IGameManager
         }
         return null;
     }
+
     @Override
-    public void loadInfo()
-    {
-        /*
-        if(gameid!=-1000) {
-            try
-            {
-                dbg.write(ServerFacade.getInstance().getGameModel(gameid).toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }
-        */
+    public void loadInfo(int gameid) throws IOException, JSONException {
+        CatanGame gametowrite=ServerFacade.getInstance().getGameByID(gameid);
+        File newfile=new File("game"+gameid+".txt");
+        FileWriter mywriter=new FileWriter(newfile,true);
+        System.out.println("I LOAD THIS GAME WHIHC IS THIS who has an id of this "+gameid+gametowrite.getGameModel(gameid).toString());
+        mywriter.write(gametowrite.getGameModel(gameid).toString());
     }
 
     @Override

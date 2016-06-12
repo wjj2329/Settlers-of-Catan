@@ -5,6 +5,7 @@ import shared.game.CatanGame;
 
 import shared.game.CatanGame;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -22,7 +23,7 @@ public interface IGameManager {
 
 	public void clearInfo(int gameid);
 
-	public void loadInfo();
+	public void loadInfo(int gameid) throws IOException, JSONException;
 
 	void storeGameModel(int gameid);
 
