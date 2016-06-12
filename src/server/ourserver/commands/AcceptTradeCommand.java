@@ -97,4 +97,10 @@ public class AcceptTradeCommand implements ICommand {
 				", \"willAccept\":" + willAccept +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
 }

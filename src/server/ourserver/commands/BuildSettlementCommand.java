@@ -258,4 +258,10 @@ public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
 				"}";
 	}
 
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
+
 }

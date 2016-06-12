@@ -182,4 +182,10 @@ public class RobPlayerCommand implements ICommand {
 				", \"gameid\":" + gameid +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
 }

@@ -62,4 +62,10 @@ public class PlaySoldierCommand implements ICommand
 				"}";
 	}
 
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
+
 }

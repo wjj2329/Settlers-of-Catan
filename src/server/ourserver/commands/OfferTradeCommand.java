@@ -74,4 +74,10 @@ public class OfferTradeCommand implements ICommand {
 				", \"receiver\":" + receiver +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameid;
+
+	}
 }

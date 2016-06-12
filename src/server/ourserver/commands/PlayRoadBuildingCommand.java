@@ -66,4 +66,10 @@ public class PlayRoadBuildingCommand implements ICommand
 				"}";
 	}
 
+	@Override
+	public int getGameid() {
+		return gameID;
+
+	}
+
 }

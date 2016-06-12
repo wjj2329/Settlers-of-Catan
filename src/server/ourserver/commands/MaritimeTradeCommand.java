@@ -200,4 +200,10 @@ public class MaritimeTradeCommand implements ICommand {
 				", \"gameID\":" + gameID +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameID;
+
+	}
 }

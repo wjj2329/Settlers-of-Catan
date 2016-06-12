@@ -60,4 +60,10 @@ public class PlayYearOfPlentyCommand implements ICommand {
 				", \"playerindex\":" + playerindex +
 				"}";
 	}
+
+	@Override
+	public int getGameid() {
+		return gameID;
+
+	}
 }
