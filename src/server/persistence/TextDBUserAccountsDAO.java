@@ -22,7 +22,6 @@ import static shared.definitions.CatanColor.RED;
  */
 public class TextDBUserAccountsDAO implements IUserAccount
 {
-	private int gameID = -1;
 	private File players = new File("allPlayers.txt");
 	private File games = new File("allGames.txt");
 	private FileWriter playerFileWriter = new FileWriter(players, true);
@@ -32,7 +31,6 @@ public class TextDBUserAccountsDAO implements IUserAccount
 
 	public TextDBUserAccountsDAO() throws IOException, JSONException
 	{
-		//System.out.println("I construct the TextDBUserAccountsDAO");
 		// file reader, scanner, stringBuilder
 		fixGameNumber();
 		FileReader iReadFiles = new FileReader(players);
@@ -46,38 +44,28 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		iScanThings.close();
 
 		String theString = iBuildStrings.toString();
-		//System.out.println("What is the string? " + theString);
 		if (!theString.contains("{"))
 		{
-			//System.out.println("I am writing the first bracket");
-			playerFileWriter.write("{"); // why isn't this writing??
+			playerFileWriter.write("{");
 			return;
 		}
-		//System.out.println("I made it here");
-		//System.out.println("What is th")
 		if (theString.length() > 1 && theString.charAt(theString.length() - 1) != '}')
 		{
-			//System.out.println("We need this");
 			playerFileWriter.write("}");
 			iBuildStrings.append("}");
-		} // it doesn't make it past this
-		//System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
+		}
 		JSONObject jason = new JSONObject(iBuildStrings.toString());
 		ArrayList<Integer> numbersForPlayers = new ArrayList<>();
 
-		// this is gonna break something
 		for (int i = 0; i < MAX_NUM_PLAYERS; i++)
 		{
 			String playerObj = "player" + i;
-			//System.out.println("the number: " + playerObj);
 			if (jason.has(playerObj))
 			{
-				//System.out.println("JSON does have " + playerObj);
 				JSONObject playerAttributes = jason.getJSONObject(playerObj);
 				numbersForPlayers.add(playerAttributes.getInt("numberInFile"));
 			}
 		}
-		//System.out.println("Here we go, the arrayList of magicalness: " + numbersForPlayers.toString());
 		if (numbersForPlayers.size() == 0)
 		{
 			playerFileWriter.write("{");
@@ -85,15 +73,9 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		else
 		{
 			Collections.sort(numbersForPlayers);
-			//System.out.println("Here we go the sorted arrayList of the players: " + numbersForPlayers);
 			int res = numbersForPlayers.get(numbersForPlayers.size() - 1);
-			//System.out.println("The res is " + res);
 			playerNumber = res + 1;
 		}
-
-		//playerFileWriter.write("{\"players\": [");
-		//playerFileWriter.write("{"); // only do this if it's the first time...
-		//gameFileWriter.write("{");
 	}
 
 	@Override
@@ -115,8 +97,6 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	@Override
 	public void addUser(Player user) throws DatabaseException, IOException
 	{
-		//System.out.println("I'm adding the user " + user.getName() + " into the tawlet");
-		//System.out.println("THE JSON: " + serializeUserToJson(user));
 		playerFileWriter.write(serializeUserToJson(user));
 		playerFileWriter.write("}");
 		playerFileWriter.flush(); // like a toilet
@@ -131,8 +111,6 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	@Override
 	public List<Player> getAllUsers() throws IOException
 	{
-		//playerFileWriter.write("}");
-
 		return null;
 	}
 
@@ -161,13 +139,11 @@ public class TextDBUserAccountsDAO implements IUserAccount
 			braceChecker.append(iLikeScanning.next());
 		}
 		String doYouHaveAnyBraces = braceChecker.toString();
-		System.out.println("What is the string at the getgo? " + doYouHaveAnyBraces);
 		if (doYouHaveAnyBraces.length() < 2)
 		{
 			gameFileWriter.write("{");
 		}
 		gameFileWriter.write(serializeGameToJson(game));
-		//gameFileWriter.write("}");
 		gameFileWriter.flush();
 	}
 
@@ -221,15 +197,12 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		String testing = iBuildStrings.toString();
 		if (testing.length() < 1)
 		{
-			System.out.println("Testing is " + testing); // why the heck is this blank?
-			System.out.println("The length is too short");
 			return;
 		}
 		if (testing.length() > 1 && testing.charAt(testing.length() - 1) != '}')
 		{
 			iBuildStrings.append("}");
 		}
-		System.out.println("What is this right now? " + iBuildStrings.toString());
 		JSONObject jason = new JSONObject(iBuildStrings.toString());
 		ArrayList<Integer> allGamesInFile = new ArrayList<>();
 		for (int i = 0; i < MAX_NUM_GAMES; i++)
@@ -237,15 +210,12 @@ public class TextDBUserAccountsDAO implements IUserAccount
 			String gameObj = "game" + i;
 			if (jason.has(gameObj))
 			{
-				System.out.println("JSON does have " + gameObj);
 				JSONObject gameAttribute = jason.getJSONObject(gameObj);
 				allGamesInFile.add(gameAttribute.getInt("uniqueNumber"));
 			}
 		}
 		Collections.sort(allGamesInFile);
-		System.out.println("What the heck is in here? " + allGamesInFile.toString());
 		int res = allGamesInFile.get(allGamesInFile.size() - 1);
-		System.out.println("The res is " + res);
 		gameNumber = res + 1;
 	}
 
@@ -257,11 +227,8 @@ public class TextDBUserAccountsDAO implements IUserAccount
      */
 	private String serializeUserToJson(Player user) throws IOException
 	{
-		//System.out.println("I am serializing the user to JSON");
-		// fixing the last brace:
 		deleteTheStupidExtraBrace(players, playerFileWriter);
 		String singMeASongOfJson;
-		//System.out.println("What is the player number? " + playerNumber);
 		StringBuilder jsonBuilder = new StringBuilder();
 		jsonBuilder.append("\n\t\"player" + playerNumber + "\":\n"); // while the iterator goes to playerNumber - highest poss.
 		jsonBuilder.append("\t{\n");
@@ -270,9 +237,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		jsonBuilder.append("\t\t\"playerID\": \"" + user.getPlayerID().getNumber() + "\",\n");
 		jsonBuilder.append("\t\t\"numberInFile\": \"" + playerNumber + "\"\n");
 		jsonBuilder.append("\t },\n");
-		//System.out.println("What does the json builder have in it? " + jsonBuilder.toString());
 		singMeASongOfJson = jsonBuilder.toString();
-		//System.out.println("What is the player's number? " + playerNumber);
 		playerNumber++;
 		//printResults(singMeASongOfJson);
 		return singMeASongOfJson;
@@ -282,21 +247,27 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	{
 		FileReader bookworm = new FileReader(playersOrGames);
 		Scanner meScanner = new Scanner(bookworm);
+		meScanner.useDelimiter(System.getProperty("line.separator"));
+		// Delimiter is ESSENTIAL for preserving formatting!
+		meScanner.useDelimiter("\r\n");
 		StringBuilder iBuildStrings = new StringBuilder();
-		while (meScanner.hasNextLine())
+		while(meScanner.hasNext())
+		{
+			iBuildStrings.append(meScanner.next());
+		}
+
+		/*while (meScanner.hasNextLine())
 		{
 			iBuildStrings.append(meScanner.nextLine());
-		}
+		}*/
 		String res = iBuildStrings.toString();
-		//System.out.println("The result string is: " + res); // Issue is NOT with this function.
+		//System.out.println("resulting string is: " + res);
 		if (res.length() > 1 && res.charAt(res.length() - 1) == '}')
 		{
 			String cut = res.substring(0, res.length() - 1);
-			//System.out.println("Cut is " + cut);
 			PrintWriter clearMyFile = new PrintWriter(playersOrGames);
 			clearMyFile.close();
 			chosenFileWriter.write(cut);
-			System.out.println("This is the cut JSON: " + cut);
 		}
 	}
 
