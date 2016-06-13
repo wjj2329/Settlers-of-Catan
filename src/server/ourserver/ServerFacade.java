@@ -197,7 +197,7 @@ public class ServerFacade
 					continue;
 				}
 				jsonstuff.replace(0,1,"{");
-				jsonstuff.append(",}"); // tried: adding the comma
+				jsonstuff.append(",}"); // tried: adding the comma AND IT WORKED
 				System.out.println("Let's check the JSON. " + jsonstuff.toString());
 				JSONObject mycommandinjson=new JSONObject(jsonstuff.toString());
 				if(!mycommandinjson.has(Integer.toString(x)))
