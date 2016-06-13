@@ -2,6 +2,7 @@ package server.persistence;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.database.DatabaseException;
+import server.ourserver.Server;
 import server.ourserver.commands.ICommand;
 import shared.game.CatanGame;
 import shared.game.player.Player;
@@ -89,7 +90,7 @@ public class PersistenceManager
         {
             e.printStackTrace();
         }
-        for(int i=1; i<10;i++)
+        for(int i = 1; i< Server.numberofcommands; i++)
         {
             JSONObject jsonObject=mycommands1;
             if(!jsonObject.has(Integer.toString(i)))

@@ -179,6 +179,7 @@ public class Server
 	 */
 
 	public static boolean isTxtdb=false;
+	public static int numberofcommands=10;
 	public static void main(String[] args)
 	{
 		//if(args.length == 0 || args[0].equals(""))
@@ -206,6 +207,8 @@ public class Server
 			return;
 		}
 		String type=args[0];
+		String arguments=args[1];
+		numberofcommands= Integer.parseInt(arguments);
 		JSONObject parsing=null;
 		try {
 			FileReader fr=new FileReader("config.json");
