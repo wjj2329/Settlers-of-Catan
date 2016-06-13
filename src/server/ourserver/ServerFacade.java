@@ -428,10 +428,10 @@ public class ServerFacade
 
 	/**
 	 * Do NOT delete this function. This is extremely necessary for my part, and it
-	 * 	screws it up if you delete it. IT NEEDS TO BE CALLED IN THE CONSTRUCTOR.
-	 *	If anything, comment it out, but LEAVE IT WHERE IT IS SUPPOSED TO BE.
+	 * 	screws it up if you delete it. Please also do not delete any throws statements.
+	 * 	Thanks!
 	 *
-	 * Please, PLEASE stop deleting my code without telling me. Thank you. - Alex
+	 *  This function loads the games into the server model.
 	 *
 	 * @throws FileNotFoundException: if allGames.txt isn't the correct file
 	 * @throws JSONException: if the JSON was formatted incorrectly
