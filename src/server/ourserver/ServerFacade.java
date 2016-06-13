@@ -916,7 +916,7 @@ public class ServerFacade
 					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable+" to game with "+gameID);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(serverModel.listGames().get(gameID).getMyplayers().size()));
-					copy.setPlayerID(new Index(playeridvariable));
+					//copy.setPlayerID(new Index(playeridvariable));
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
