@@ -93,25 +93,26 @@ public class RelationalDBGameManagerDAO implements IGameManager
 //			Gson gson = new Gson();
 //			String gamedata = gson.toJson(game);
 			db.startTransaction();
-			String query = "select id, gamedata from Games where id=?";
+			String query = "select id, gamemodel from Games where id=?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
 			
 			keyRS = stmt.executeQuery();
 			
 			if(keyRS.next()){
-				String updateQuery = "update Games set gamedata = ? where id = ?";
+				String updateQuery = "update Games set gamemodel = ? where id = ?";
 				stmt = db.getConnection().prepareStatement(updateQuery);
 				stmt.setString(1, ServerFacade.getInstance().getGameModel(gameid).toString());
 				stmt.setInt(2, gameid);
-				stmt.executeQuery();
+				stmt.executeUpdate();
 			}
 			else{
 				String insertQuery = "insert into Games (id, gamemodel) values (?, ?)";
 				stmt = db.getConnection().prepareStatement(insertQuery);
 				stmt.setInt(1,gameid);
 				stmt.setString(2, ServerFacade.getInstance().getGameModel(gameid).toString());
-				stmt.executeQuery();
+				System.out.println("TRYING TO STORE THE GAME!" + ServerFacade.getInstance().getGameModel(gameid).toString());
+				stmt.executeUpdate();
 			}
 
 			
@@ -413,7 +414,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		try
 		{
 			db.startTransaction();
-			String query = "select id, gamedata from Games where id=?";
+			String query = "select id, gamemodel from Games where id=?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
 			
@@ -467,7 +468,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		try
 		{
 			db.startTransaction();
-			String query = "select id, gamedata from Games";
+			String query = "select id, gamemodel from Games";
 			stmt = db.getConnection().prepareStatement(query);
 			
 			rs = stmt.executeQuery();
@@ -516,12 +517,40 @@ public class RelationalDBGameManagerDAO implements IGameManager
 
 	@Override
 	public void clearInfo(int gameid) {
+		 logger.entering("server.database.Games", "erasing commands in " + gameid);
+			
+			CatanGame result = new CatanGame();
+			PreparedStatement stmt = null;
+			ResultSet rs = null;
+			try
+			{
+				db.startTransaction();
+				String query = "delete from Commands where id = ?";
+				stmt = db.getConnection().prepareStatement(query);
+				stmt.setInt(1, gameid);
+				
+				stmt.executeQuery();
+			} catch (SQLException e)
+			{
+				Database.safeClose(rs);
+				Database.safeClose(stmt);
+			}catch (DatabaseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			finally
+			{
+				Database.safeClose(rs);
+				Database.safeClose(stmt);
+			}
+			logger.exiting("server.database.Games", "erasing commands in " + gameid);
+			db.endTransaction(true);
 
 	}
 
 	@Override
 	public void loadInfo(int gameid) throws IOException, JSONException {
-
+         storeGameModel(gameid);
 	}
 
 

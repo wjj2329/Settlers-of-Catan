@@ -827,6 +827,8 @@ public class ServerFacade
 		if(Server.isTxtdb)
 		{
 			PersistenceManager.getSingleton().getMyfactory().getGameManager().createnewGameFile(mynewgame.getGameId());
+		}else{
+			PersistenceManager.getSingleton().getMyfactory().getGameManager().storeGameModel(mynewgame.getGameId());
 		}
 	}
 
