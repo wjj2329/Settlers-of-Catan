@@ -178,7 +178,7 @@ public class ServerFacade
 				continue;
 			}
 			serverModel.listGames().get(i).updateFromJSON(new JSONObject(json.toString()));
-			for(int x=1; x<10; x++)
+			for(int x=1; x<Server.numberofcommands; x++)
 			{
 				File commandfile=new File("commands"+i+".txt");
 				if(!commandfile.exists())

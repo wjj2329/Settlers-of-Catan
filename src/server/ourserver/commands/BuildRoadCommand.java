@@ -109,7 +109,7 @@ public class BuildRoadCommand implements ICommand {
 			turnstogo++;
 			//System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
 		}
-		if(turnstogo==5)
+		if(playerIndex==3&&currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
 			turnstogo++;
@@ -300,7 +300,7 @@ public class BuildRoadCommand implements ICommand {
 			turnstogo++;
 			//System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
 		}
-		if(turnstogo==5)
+		if(playerIndex==3&&currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
 		{
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
 			turnstogo++;
