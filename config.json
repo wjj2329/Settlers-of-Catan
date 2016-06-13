@@ -1,14 +1,14 @@
 {
   "json":
   {
-    "txt":
-    {
-      "file": "persitance/RelationalDBFactory.java",
-      "jar": "sql.jar"
-    },
     "sql":
     {
-      "file": "persitance/TextDBFactory.java",
+      "file": "/src/server/ourserver/persistence/RelationalDBFactory.java",
+      "jar": "sql.jar"
+    },
+    "txt":
+    {
+      "file": "/src/server/ourserver/persistence/TextDBFactory.java",
       "jar": "txt.jar"
     }
   }

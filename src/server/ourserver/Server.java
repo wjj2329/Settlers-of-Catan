@@ -7,15 +7,18 @@ import com.sun.net.httpserver.HttpServer;
 import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.handlers.*;
+import server.persistence.IFactory;
 import server.persistence.PersistenceManager;
 import server.persistence.RelationalDBFactory;
 import server.persistence.TextDBFactory;
 
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.net.URL;
 import java.rmi.ServerException;
 
 import java.util.Scanner;
@@ -222,10 +225,26 @@ public class Server
 		}
 		try
 		{
+			System.out.println(type);
 			JSONObject myobject=parsing.getJSONObject("json");
 			JSONObject therealdeal=myobject.getJSONObject(type);
-
 			System.out.println(therealdeal.toString());
+			System.out.println(therealdeal.getString("file"));
+			Class c=null;
+			try
+			{
+				 c = Class.forName(therealdeal.getString("file"));
+			}
+			catch (ClassNotFoundException e)
+			{
+
+			}
+			if(c!=null) {
+				Object myobject1 = c.newInstance();
+				IFactory thefactory = (IFactory) myobject1;
+				PersistenceManager.getSingleton().setmyfactory(thefactory);
+			}
+			//System.out.println(therealdeal.toString());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
