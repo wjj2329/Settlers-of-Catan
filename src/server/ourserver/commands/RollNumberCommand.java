@@ -360,4 +360,49 @@ public class RollNumberCommand implements ICommand {
 		return gameid;
 
 	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+		CatanMap map = game.getMymap();
+
+		for(HexLocation hexLocation : map.getHexes().keySet())
+		{
+			Hex estamera = map.getHexes().get(hexLocation);
+			if(map.getHexes().get(hexLocation).getResourcenumber() == rollNumber)
+			{
+
+				checkNorthWestVertex(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED NORTHWEST");
+
+				checkNorthEastVertex(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED NORTHEAST");
+
+				checkWestVertex(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED WEST");
+
+				checkEastVertex(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED East");
+
+				checkSouthWestVertext(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED SouthWest");
+
+				checkSouthEastVertext(estamera, map, hexLocation, game);
+				//System.out.println("CHECKED SouthEast");
+
+
+			}
+		}
+		if (rollNumber == 7)
+		{
+			//System.out.println("ROLLED A 7 YO.");
+			game.getModel().getTurntracker().setStatus(TurnStatus.DISCARDING);
+		}
+
+		else
+		{
+			game.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+		}
+		game.getModel().setVersion(game.getModel().getVersion()+1);
+		return null;
+	}
 }

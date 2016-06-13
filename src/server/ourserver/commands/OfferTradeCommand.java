@@ -80,4 +80,18 @@ public class OfferTradeCommand implements ICommand {
 		return gameid;
 
 	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+
+		TradeOffer mytradeoffer = new TradeOffer();
+		mytradeoffer.setMylist(offer);
+		mytradeoffer.setReceiver(receiver);
+		mytradeoffer.setSender(playerIndex);
+		//System.out.println(offer.toString());
+		game.setMytradeoffer(mytradeoffer);
+		game.getModel().setVersion(game.getModel().getVersion()+1);
+
+		return null;
+	}
 }

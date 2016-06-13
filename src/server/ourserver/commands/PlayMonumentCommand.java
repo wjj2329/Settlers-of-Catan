@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
+import shared.game.CatanGame;
 
 import java.io.FileNotFoundException;
 
@@ -53,5 +54,10 @@ public class PlayMonumentCommand implements ICommand {
 	public int getGameid() {
 		return gameID;
 
+	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+		return null;
 	}
 }

@@ -234,4 +234,100 @@ public class BuildRoadCommand implements ICommand {
 		return gameid;
 
 	}
+
+	@Override
+	public Object executeversion2(CatanGame game)
+	{
+
+//System.out.println("I CALL THE BUILD ROAD COMMAND RIGHT NOW THIS SECOND");
+		CatanGame currentgame= null;
+		//try {
+		currentgame = game;
+		/*} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}*/
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
+		Index playerID = null;
+		for (Player p : currentgame.getMyplayers().values())
+		{
+			if (p.getPlayerIndex().equals(new Index(playerIndex)))
+			{
+				playerID = p.getPlayerID();
+			}
+		}
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerIndex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		if(!free)
+		{
+			//System.out.println("THIS ISN'T FREE");
+			ResourceList newlist = playertoupdate.getResources();
+			newlist.setBrick(newlist.getBrick() - 1);
+			newlist.setWood(newlist.getWood() - 1);
+			playertoupdate.setResources(newlist);//not sure if this is necessary or not.
+			//updates banks crap now
+
+			ResourceList mybankslist=currentgame.mybank.getCardslist();
+			mybankslist.setBrick(mybankslist.getBrick()+1);
+			mybankslist.setWood(mybankslist.getWood()+1);
+			currentgame.mybank.setResourceCardslist(mybankslist);
+		}
+		edge.setHasRoad(true);
+		Hex hex = currentgame.getMymap().getHexes().get(location);
+		Hex adjacent = computeAdjacentHex(hex, edge,currentgame);
+		EdgeLocation adjLoc = computeOppositeEdge(edge, adjacent);
+		RoadPiece r1 = hex.buildRoad(edge, playertoupdate.getPlayerIndex());
+		RoadPiece r2 = adjacent.buildRoad(adjLoc, playertoupdate.getPlayerIndex());
+		edge.setRoadPiece(r1);
+		edge.setHasRoad(true);
+		adjLoc.setRoadPiece(r2);
+		adjLoc.setHasRoad(true);
+		//System.out.println(" I SET MY PLAYER "+currentgame.getMyplayers().get(playerID).getName());
+		playertoupdate.addToRoadPieces(r1);
+		//System.out.println("MY PLAYER NOW HAS "+playertoupdate.getRoadPieces().size()+"Number of roads");
+		playertoupdate.setNumRoadPiecesRemaining(currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining()-1);
+		//System.out.println(" HIS ROAD PEACES ARE NOW "+currentgame.getMyplayers().get(playerID).getNumRoadPiecesRemaining());
+		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Road",playertoupdate.getName()));
+		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.FIRSTROUND))
+		{
+			turnstogo++;
+			//System.out.println("I INCREASE THE TURNS TO GO STATIC MEMBER to "+turnstogo);
+		}
+		if(turnstogo==5)
+		{
+			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
+			turnstogo++;
+		}
+		if(playertoupdate.getRoadPieces().size()>=5)
+		{
+			Index playerindexcurrentlywithlongestroad=currentgame.getModel().getTurntracker().getLongestRoad();
+			if(playerindexcurrentlywithlongestroad.getNumber()==-1)
+			{
+				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
+				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+				return null;
+			}
+			Player playerwithlongestroad=null;
+			for(Player player:currentgame.getMyplayers().values())
+			{
+				if(playerindexcurrentlywithlongestroad.getNumber()==player.getPlayerIndex().getNumber()) {
+					playerwithlongestroad = player;
+				}
+			}
+			if(playertoupdate.getRoadPieces().size()>playerwithlongestroad.getRoadPieces().size())
+			{
+				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
+				playerwithlongestroad.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()-2);
+				currentgame.getModel().getTurntracker().setLongestRoad(playertoupdate.getPlayerIndex());
+			}
+
+		}		return null;
+	}
 }

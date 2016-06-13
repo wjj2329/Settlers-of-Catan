@@ -1,5 +1,7 @@
 package server.ourserver.commands;
 
+import shared.game.CatanGame;
+
 /**
  * The AddAICommand class
  */
@@ -29,5 +31,11 @@ public class AddAICommand implements ICommand {
 	@Override
 	public int getGameid() {
 		return -1;
+	}
+
+	@Override
+	public Object executeversion2(CatanGame game)
+	{
+		return null;
 	}
 }

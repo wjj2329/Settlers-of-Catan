@@ -4,6 +4,7 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 
+import org.json.JSONException;
 import org.json.JSONObject;
 import server.ourserver.handlers.*;
 import server.persistence.PersistenceManager;
@@ -179,6 +180,15 @@ public class Server
 	{
 		//if(args.length == 0 || args[0].equals(""))
 		//{
+		/*
+		try {
+			ServerFacade.getInstance();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		*/
 
 		new Server().run(8081);
 //		}
@@ -225,7 +235,7 @@ public class Server
 				System.out.println("it is a txt factory now");
 				isTxtdb=true;
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
-			} catch (Exception e) 
+			} catch (Exception e)
 			{
 				e.printStackTrace();
 			}

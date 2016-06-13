@@ -70,6 +70,8 @@ public class ServerFacade
 		return serverModel;
 	}
 
+	//public static boolean alreadygone=false;
+
 	/**
 	 * The singleton instance of ServerFacade.
 	 */
@@ -147,7 +149,9 @@ public class ServerFacade
 				e.printStackTrace();
 			}
 			loadGamesFromFileIntoServerModel();
-			updateallgameswithtext();
+			//if(!alreadygone) {
+				updateallgameswithtext();
+			//}
 		}
 	}
 
@@ -353,14 +357,18 @@ public class ServerFacade
 			}
 			System.out.println("the number of commands in my array is "+commandsloadedfromdb.size());
 
-			/*for (int j=0; j<commandsloadedfromdb.size(); j++)
-			{
-				try {
-					commandsloadedfromdb.get(i).execute();
-				} catch (IOException e) {
-					e.printStackTrace();
+			//if(commandsloadedfromdb.size()!=0) {
+				for (int j = 0; j < commandsloadedfromdb.size(); j++)
+				{
+					System.out.println("I try to execute ");
+					//System.out.println(commandsloadedfromdb.get(j).toString());
+					commandsloadedfromdb.get(j).executeversion2(getGameByID(commandsloadedfromdb.get(j).getGameid()));
 				}
-			}*/
+			//alreadygone=true;
+
+			//}
+
+
 		}
 
 	}
@@ -579,6 +587,11 @@ public class ServerFacade
 	 * Returns the singleton instance of ServerFacade.
 	 * Do NOT delete the exceptions.
      */
+	public void updategameswithcommands()
+	{
+
+	}
+
 	public static ServerFacade getInstance() throws FileNotFoundException, JSONException
 	{
 		if (singleton == null)
@@ -903,7 +916,7 @@ public class ServerFacade
 					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable+" to game with "+gameID);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(serverModel.listGames().get(gameID).getMyplayers().size()));
-					//copy.setPlayerID(new Index(playeridvariable));
+					copy.setPlayerID(new Index(playeridvariable));
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
