@@ -432,9 +432,9 @@ public class MapController extends Controller implements IMapController, Observe
 				//System.out.println("DUDE DUDE ALEX THIS IS THE SIZE MAN DUDE BRO "+current.getRoadPieces().size()+current.getName());
 				//System.out.println("DUDE DUDE WILLIAM THIS IS THE SIZE MAN DUDE BRO "+current.getSettlements().size()+current.getName());
 				//System.out.println("MY CURRENT STATS IS THIS"+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
+				if((current.getSettlements().size()==1&&current.getNumRoadPiecesRemaining()==14
 					&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
-						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())))
 					/*&&!hasdonefirstturn*/ //ends first turn
 				{
 					//System.out.println("I COME HERE TO END THE TURN");
@@ -445,9 +445,10 @@ public class MapController extends Controller implements IMapController, Observe
 					//hasdonefirstturn=true;
 					return;
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()/2==1
+				System.out.println("I COME HERE AND MY  Size is "+current.getSettlements().size()+"  and "+current.getRoadPieces().size()+" my turn status is "+ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus());
+				if((current.getSettlements().size()==1&&current.getNumRoadPiecesRemaining()==14
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
-						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
+						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())))
 					/*&&hasdonefirstturn*///starts part 1 of second set up turn
 				{
 					//System.out.println("I COME INTO THE SECOND BUILD SETTLMENTS "+current.getName());
