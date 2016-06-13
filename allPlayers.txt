@@ -1,225 +1,41 @@
 {
 	"player0":
 	{
-		"username": "Alex",
-		"password": "party",
+		"username": "Sharky",
+		"password": "sharky",
 		"playerID": "5",
 		"numberInFile": "0"
 	 },
 
 	"player1":
 	{
-		"username": "Tess",
-		"password": "tessa",
+		"username": "Crystal",
+		"password": "crystal",
 		"playerID": "6",
 		"numberInFile": "1"
 	 },
 
 	"player2":
 	{
-		"username": "Belinda",
-		"password": "belinda",
+		"username": "Korana",
+		"password": "korana",
 		"playerID": "7",
 		"numberInFile": "2"
 	 },
 
 	"player3":
 	{
-		"username": "Auron",
-		"password": "auron",
+		"username": "Monique",
+		"password": "monique",
 		"playerID": "8",
 		"numberInFile": "3"
 	 },
 
 	"player4":
 	{
-		"username": "Gaylord",
-		"password": "gaylord",
+		"username": "Slate",
+		"password": "slate",
 		"playerID": "9",
 		"numberInFile": "4"
-	 },
-
-	"player5":
-	{
-		"username": "Flame",
-		"password": "flame",
-		"playerID": "10",
-		"numberInFile": "5"
-	 },
-
-	"player6":
-	{
-		"username": "OldGreg",
-		"password": "oldgreg",
-		"playerID": "11",
-		"numberInFile": "6"
-	 },
-
-	"player7":
-	{
-		"username": "Crystal",
-		"password": "crystal",
-		"playerID": "12",
-		"numberInFile": "7"
-	 },
-
-	"player8":
-	{
-		"username": "Flubber",
-		"password": "robinwilliams",
-		"playerID": "13",
-		"numberInFile": "8"
-	 },
-
-	"player9":
-	{
-		"username": "Karmen",
-		"password": "karmen",
-		"playerID": "14",
-		"numberInFile": "9"
-	 },
-
-	"player10":
-	{
-		"username": "Charlie",
-		"password": "bucket",
-		"playerID": "15",
-		"numberInFile": "10"
-	 },
-
-	"player11":
-	{
-		"username": "Alvin",
-		"password": "alvin",
-		"playerID": "16",
-		"numberInFile": "11"
-	 },
-
-	"player12":
-	{
-		"username": "Teisha",
-		"password": "teisha",
-		"playerID": "17",
-		"numberInFile": "12"
-	 },
-
-	"player13":
-	{
-		"username": "MamaC",
-		"password": "mamac",
-		"playerID": "18",
-		"numberInFile": "13"
-	 },
-
-	"player14":
-	{
-		"username": "Angel",
-		"password": "angel",
-		"playerID": "19",
-		"numberInFile": "14"
-	 },
-
-	"player15":
-	{
-		"username": "MamaG",
-		"password": "mamag",
-		"playerID": "20",
-		"numberInFile": "15"
-	 },
-
-	"player16":
-	{
-		"username": "Rose",
-		"password": "lovemartin",
-		"playerID": "21",
-		"numberInFile": "16"
-	 },
-
-	"player17":
-	{
-		"username": "Martin",
-		"password": "loverose",
-		"playerID": "22",
-		"numberInFile": "17"
-	 },
-
-	"player18":
-	{
-		"username": "Song",
-		"password": "janglur",
-		"playerID": "23",
-		"numberInFile": "18"
-	 },
-
-	"player19":
-	{
-		"username": "Gengar",
-		"password": "gengar",
-		"playerID": "24",
-		"numberInFile": "19"
-	 },
-
-	"player20":
-	{
-		"username": "Suicune",
-		"password": "suicune",
-		"playerID": "25",
-		"numberInFile": "20"
-	 },
-
-	"player21":
-	{
-		"username": "Moltres",
-		"password": "moltres",
-		"playerID": "26",
-		"numberInFile": "21"
-	 },
-
-	"player22":
-	{
-		"username": "Rotom",
-		"password": "rotom",
-		"playerID": "27",
-		"numberInFile": "22"
-	 },
-
-	"player23":
-	{
-		"username": "Raikou",
-		"password": "raikou",
-		"playerID": "28",
-		"numberInFile": "23"
-	 },
-
-	"player24":
-	{
-		"username": "Panda",
-		"password": "pandaexpress",
-		"playerID": "29",
-		"numberInFile": "24"
-	 },
-
-	"player25":
-	{
-		"username": "Davis",
-		"password": "davis",
-		"playerID": "30",
-		"numberInFile": "25"
-	 },
-
-	"player26":
-	{
-		"username": "Mhera",
-		"password": "mhera",
-		"playerID": "31",
-		"numberInFile": "26"
-	 },
-
-	"player27":
-	{
-		"username": "Deyna",
-		"password": "deyna",
-		"playerID": "32",
-		"numberInFile": "27"
 	 },
 }

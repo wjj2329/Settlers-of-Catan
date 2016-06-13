@@ -3,7 +3,7 @@
 	{
 		"id": "2",
 		"uniqueNumber": "0",
-		"title": "I Dream of JSON",
+		"title": "I Am Shark",
 		"playersInGame":
 		[
 
@@ -14,18 +14,7 @@
 	{
 		"id": "3",
 		"uniqueNumber": "1",
-		"title": "My name is Peggy",
-		"playersInGame":
-		[
-
-		]
-	},
-
-	"game2":
-	{
-		"id": "4",
-		"uniqueNumber": "2",
-		"title": "El Desastre",
+		"title": "I am Denmark",
 		"playersInGame":
 		[
 
