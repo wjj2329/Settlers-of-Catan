@@ -274,7 +274,13 @@ System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 	{
 		System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 		System.out.println("THIS IS THE GAME ID FOR THE GAME I NEED TO UPDATE "+gameid);
-		System.out.println("THE GAME HAS THIS MODEL"+game.getModel().toString());
+		try {
+			System.out.println("THE GAME HAS THIS MODEL"+game.getGameModel(gameid).toString());
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
 		CatanGame currentgame=game;
 		if(currentgame==null)
 		{
@@ -328,19 +334,25 @@ System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 		vertex.setHassettlement(true);
 		Settlement settle1 = new Settlement(location, vertex, playertoupdate.getPlayerIndex());
 		Hex h = currentgame.getMymap().getHexes().get(location);
+		if(vertex.getDir()==null)
+		{
+			System.out.println("FAILURE");
+			return null;
+		}
 		//System.out.println("I BUILD A SETTLEMENT AT VERTEX LOCATION "+vertex.toString());
 		//System.out.println("THE HEX I HAPPEN TO UPDATE IS A "+h.getResourcetype().toString()+" HIS Number token is "+h.getResourcenumber()+" his location is "+h.getLocation().toString());
 		if(h==null)
 		{
-			//System.out.println("FAILURE");
+			System.out.println("FAILURE");
+			return null;
 		}
 		try {
-			//System.out.println(" I COME HERE TO TRY TO DO THIS");
+			System.out.println(" I COME HERE TO TRY TO DO THIS");
 			h.buildSettlement(vertex, playertoupdate.getPlayerIndex());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//System.out.println("THE HEX HAS A SETTLEMENT with this" +h.getSettlementlist().get(0).getVertexLocation().getDir().toString());
+		System.out.println("THE HEX HAS A SETTLEMENT with this" +h.getSettlementlist().get(0).getVertexLocation().getDir().toString());
 		currentgame.getMymap().getSettlements().add(settle1);
 		//System.out.println("I GIVE THE  SETTLEMENT THE INDEX WHICH IS THIS "+playertoupdate.getPlayerID().getNumber());
 		settle1.setOwner(playertoupdate.getPlayerIndex());
@@ -350,7 +362,7 @@ System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 		playertoupdate.setNumSettlementsRemaining(playertoupdate.getNumSettlementsRemaining()-1);
 		playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+1);
 		//System.out.println(" The Settlement I happen to have created has location "+settle1.getVertexLocation().toString());
-		//System.out.println(" The Settlement I happen to have created has location after using getter "+settle1.getVertexLocation().getDir().toString());
+		System.out.println(" The Settlement I happen to have created has location after using getter "+settle1.getVertexLocation().getDir().toString());
 		currentgame.getMyGameHistory().addtolines(new GameHistoryLine(playertoupdate.getName()+ " builds a Settlement",playertoupdate.getName()));
 		if(currentgame.getModel().getTurntracker().getStatus().equals(TurnStatus.SECONDROUND))
 		{
@@ -458,6 +470,8 @@ System.out.println("I BUILD A SETTLEMENT FOR THIS GAME");
 			}
 			playertoupdate.setResources(updating);
 		}
+		System.out.println(" I END THE COMMAND");
+
 		return null;
 	}
 

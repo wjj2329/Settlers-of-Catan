@@ -253,7 +253,8 @@ public class ServerFacade
 					{
 						int playerIndex=jsonObject.getInt("playerIndex");
 						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
-						EdgeLocation edge=new EdgeLocation(location,getDirectionFromString(jsonObject.getString("edge")));
+						System.out.println("I MAKE A BUILD A ROAD "+jsonObject.get("edge"));
+						EdgeLocation edge=new EdgeLocation(location,getDirectionfromStringspecial(jsonObject.getString("edge")));
 						boolean free=jsonObject.getBoolean("free");
 						int gameid=jsonObject.getInt("gameid");
 						commandsloadedfromdb.add(new PlayRoadBuildingCommand(playerIndex,location,edge,free,gameid));
@@ -319,7 +320,7 @@ public class ServerFacade
 					{
 						int playerIndex=jsonObject.getInt("playerIndex");
 						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
-						VertexLocation vertex=new VertexLocation(location,convertToVertexDirection(jsonObject.getString("dir")));
+						VertexLocation vertex=new VertexLocation(location,convertToVertexDirectionspecial(jsonObject.getString("dir")));
 						boolean free=jsonObject.getBoolean("free");
 						int gameid=jsonObject.getInt("gameid");
 						commandsloadedfromdb.add(new BuildSettlementCommand(playerIndex,location,vertex,free,gameid));
@@ -329,7 +330,7 @@ public class ServerFacade
 					{
 						int playerIndex=jsonObject.getInt("playerIndex");
 						HexLocation location=new HexLocation(jsonObject.getInt("x"), jsonObject.getInt("y"));
-						EdgeLocation edge=new EdgeLocation(location, getDirectionFromString(jsonObject.getString("edge")));
+						EdgeLocation edge=new EdgeLocation(location, getDirectionfromStringspecial(jsonObject.getString("edge")));
 						boolean free=jsonObject.getBoolean("free");
 						int gameid=jsonObject.getInt("gameid");
 						commandsloadedfromdb.add(new BuildRoadCommand(playerIndex,location,edge,free,gameid));
@@ -339,7 +340,7 @@ public class ServerFacade
 					{
 						int playerIndex=jsonObject.getInt("playerIndex");
 						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
-						VertexLocation vertex=new VertexLocation(location,convertToVertexDirection(jsonObject.getString("vertex")));
+						VertexLocation vertex=new VertexLocation(location,convertToVertexDirectionspecial(jsonObject.getString("vertex")));
 						int gameid=jsonObject.getInt("gameid");
 						commandsloadedfromdb.add(new BuildCityCommand(playerIndex,location,vertex,gameid));
 						break;
@@ -361,7 +362,7 @@ public class ServerFacade
 				for (int j = 0; j < commandsloadedfromdb.size(); j++)
 				{
 					System.out.println("I try to execute ");
-					//System.out.println(commandsloadedfromdb.get(j).toString());
+					System.out.println(commandsloadedfromdb.get(j).toString());
 					commandsloadedfromdb.get(j).executeversion2(getGameByID(commandsloadedfromdb.get(j).getGameid()));
 				}
 			//alreadygone=true;
@@ -1810,9 +1811,34 @@ public class ServerFacade
 	}
 
 
+	private EdgeDirection getDirectionfromStringspecial(String direction)
+	{
+		System.out.println("the direction is: " + direction);
+		switch (direction)
+		{
+			case "NorthWest":
+				return EdgeDirection.NorthWest;
+			case "North":
+				return EdgeDirection.North;
+			case "NorthEast":
+				return EdgeDirection.NorthEast;
+			case "SouthWest":
+				return EdgeDirection.SouthWest;
+			case "South":
+				return EdgeDirection.South;
+			case "SouthEast":
+				return EdgeDirection.SouthEast;
+			default:
+				//System.out.println("Something is screwed up with the direction");
+				//assert false;
+				break;
+		}
+		return null;
+	}
+
 	private EdgeDirection getDirectionFromString(String direction)
 	{
-		//System.out.println("the direction is: " + direction);
+		System.out.println("the direction is: " + direction);
 		switch (direction)
 		{
 			case "NW":
@@ -1834,8 +1860,34 @@ public class ServerFacade
 		}
 		return null;
 	}
+
+	private VertexDirection convertToVertexDirectionspecial(String direction)
+	{
+		System.out.println("MY DIRECTION IS "+direction);
+		switch (direction)
+		{
+			case "West":
+				return VertexDirection.West;
+			case "NorthWest":
+				return VertexDirection.NorthWest;
+			case "NorthEast":
+				return VertexDirection.NorthEast;
+			case "East":
+				return VertexDirection.East;
+			case "SouthEast":
+				return VertexDirection.SouthEast;
+			case "SouthWest":
+				return VertexDirection.SouthWest;
+			default:
+				break;
+			//assert false;
+		}
+		return null;
+	}
+
 	private VertexDirection convertToVertexDirection(String direction)
 	{
+		System.out.println("MY DIRECTION IS "+direction);
 		switch (direction)
 		{
 			case "W":

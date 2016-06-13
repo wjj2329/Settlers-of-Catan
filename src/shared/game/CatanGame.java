@@ -964,6 +964,7 @@ public class CatanGame
 		}
 		return null;
 	}
+	/*
 	public CatanGame getGameByID(int id) throws FileNotFoundException, JSONException {
 		for(CatanGame game : ServerFacade.getInstance().getServerModel().listGames()){
 			if(game.getGameId() == id){
@@ -972,9 +973,11 @@ public class CatanGame
 		}
 		return null;
 	}
+			*/
+
 	public JSONObject getGameModel(int gameID) throws FileNotFoundException, JSONException {
 		JSONObject model = new JSONObject();
-		CatanGame game = getGameByID(gameID);
+		CatanGame game = this;
 		//System.out.println("this is the pointer to the game object" +game);
 		//System.out.println("THE GAME GETS LOADED");
 		//System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
