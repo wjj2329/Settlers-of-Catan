@@ -200,13 +200,12 @@ public class ServerFacade
 			return;
 		}
 		//System.out.println("I made it here");
-		//System.out.println("What is th")
 		if (theString.length() > 1 && theString.charAt(theString.length() - 1) != '}')
 		{
 			//System.out.println("We need this");
 			playerFileWriter.write("}");
 			iBuildStrings.append("}");
-		} // it doesn't make it past this
+		}
 		//System.out.println("What does the string for JSON look like? " + iBuildStrings.toString());
 		JSONObject jason = new JSONObject(iBuildStrings.toString());
 
