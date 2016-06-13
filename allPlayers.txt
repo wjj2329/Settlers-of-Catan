@@ -206,4 +206,20 @@
 		"playerID": "30",
 		"numberInFile": "25"
 	 },
+
+	"player26":
+	{
+		"username": "Mhera",
+		"password": "mhera",
+		"playerID": "31",
+		"numberInFile": "26"
+	 },
+
+	"player27":
+	{
+		"username": "Deyna",
+		"password": "deyna",
+		"playerID": "32",
+		"numberInFile": "27"
+	 },
 }

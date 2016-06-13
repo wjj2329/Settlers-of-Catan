@@ -125,7 +125,6 @@ public class TextDBUserAccountsDAO implements IUserAccount
 	@Override
 	public boolean isUserInGame(Player user)
 	{
-		// TODO Auto-generated method stub
 		return false;
 	}
 
@@ -184,6 +183,11 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		return jsonBuilder.toString();
 	}
 
+	/**
+	 * Updates the game number in the file so no numbers are duplicate.
+	 * This is not the same thing as the ID, but we do have a similar
+	 * algorithm for the ID.
+     */
 	private void fixGameNumber() throws IOException, JSONException
 	{
 		FileReader iReadFiles = new FileReader(games);
