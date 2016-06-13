@@ -437,6 +437,7 @@ public class MapController extends Controller implements IMapController, Observe
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())))
 					/*&&!hasdonefirstturn*/ //ends first turn
 				{
+					
 					//System.out.println("I COME HERE TO END THE TURN");
 
 					//System.out.println("I have finished my turn");
