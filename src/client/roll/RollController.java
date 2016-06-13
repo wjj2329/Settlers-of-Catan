@@ -123,7 +123,7 @@ public class RollController extends Controller implements IRollController,Observ
 					ModelFacade.facadeCurrentGame.getModel().getTurntracker().getCurrentTurn().getNumber() == ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber()) {
 				getRollView().showModal();
 				ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
-//				//System.out.println("I ROLL MY DICE");
+				//System.out.println("I ROLL MY DICE");
 //				if(!getRollView().isModalShowing()){
 //					rollDice();
 //				}
