@@ -155,6 +155,7 @@ public class ServerFacade
 		System.out.println("I have my games "+serverModel.listGames().size());
 		for(int i=0; i<serverModel.listGames().size(); i++)
 		{
+			ArrayList<ICommand>commandsloadedfromdb=new ArrayList<>();
 			System.out.println("I check this game with file "+"game"+serverModel.listGames().get(i).getGameId()+".txt");
 			File myfile=new File("game"+serverModel.listGames().get(i).getGameId()+".txt");
 			if(!myfile.exists())
@@ -173,7 +174,195 @@ public class ServerFacade
 				continue;
 			}
 			serverModel.listGames().get(i).updateFromJSON(new JSONObject(json.toString()));
+			for(int x=1; x<10; x++)
+			{
+				File commandfile=new File("commands"+i+".txt");
+				if(!commandfile.exists())
+				{
+					continue;
+				}
+				FileReader reading=new FileReader(commandfile);
+				Scanner scanner=new Scanner(reading);
+				StringBuilder jsonstuff=new StringBuilder();
+				while(scanner.hasNext())
+				{
+					jsonstuff.append(scanner.next());
+				}
+				if(jsonstuff.toString().equals(""))
+				{
+					continue;
+				}
+				jsonstuff.replace(0,1,"{");
+				jsonstuff.append("}");
+				JSONObject mycommandinjson=new JSONObject(jsonstuff.toString());
+				if(!mycommandinjson.has(Integer.toString(x)))
+				{
+					continue;
+				}
+				JSONObject jsonObject=mycommandinjson.getJSONObject(Integer.toString(x));
+				String type= jsonObject.getString("type");
+				switch(type)
+				{
+					case "SendChatCommand":
+					{
+						String message=jsonObject.getString("message");
+						int playerindex=jsonObject.getInt("playerindex");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new SendChatCommand(message,playerindex,gameid));
+						break;
+					}
+					case "RollNumberCommand":
+					{
+						int rollNumber=jsonObject.getInt("rollNumber");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new RollNumberCommand(rollNumber,gameid));
+						break;
+					}
+					case "RobPlayerCommand":
+					{
+						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+						int playerRobbing=jsonObject.getInt("playerRobbing");
+						int playerbeingrobbed=jsonObject.getInt("playerbeingrobbed");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new RobPlayerCommand(location,playerRobbing,playerbeingrobbed,gameid));
+						break;
+					}
+					case "PlayYearOfPlentyCommand":
+					{
+						int gameID=jsonObject.getInt("gameid");
+						String resource2=jsonObject.getString("resource2");
+						String resource1=jsonObject.getString("resource1");
+						int playerindex=jsonObject.getInt("playerindex");
+						commandsloadedfromdb.add(new PlayYearOfPlentyCommand(gameID,resource1,resource2,playerindex));
+						break;
+					}
+					case "PlaySoldierCommand":
+					{
+						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+						int playerRobbing=jsonObject.getInt("playerRobbing");
+						int playerBeingRobbed=jsonObject.getInt("playerBeingRobbed");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new PlaySoldierCommand(location,playerRobbing,playerBeingRobbed,gameid));
+						break;
+					}
+					case "PlayRoadBuildingCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+						EdgeLocation edge=new EdgeLocation(location,getDirectionFromString(jsonObject.getString("edge")));
+						boolean free=jsonObject.getBoolean("free");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new PlayRoadBuildingCommand(playerIndex,location,edge,free,gameid));
+						break;
+					}
+					case"PlayMonumentCommand":
+					{
+						int playerindex=jsonObject.getInt("playerindex");
+						int gameID=jsonObject.getInt("gameID");
+						commandsloadedfromdb.add(new PlayMonumentCommand(playerindex,gameID));
+						break;
+					}
+					case "PlayMonopolyCommand":
+					{
+						int playerindex=jsonObject.getInt("playerindex");
+						String resource=jsonObject.getString("resource");
+						int gameID=jsonObject.getInt("gameID");
+						commandsloadedfromdb.add(new PlayMonopolyCommand(playerindex,resource,gameID));
+						break;
+					}
+					case "OfferTradeCommand":
+					{
+						int gameid=jsonObject.getInt("gameid");
+						int playerIndex=jsonObject.getInt("playerIndex");
+						ResourceList offer=new ResourceList(jsonObject.getInt("brick"),jsonObject.getInt("ore"),jsonObject.getInt("sheep"),jsonObject.getInt("wheat"), jsonObject.getInt("wood"));
+						int receiver=jsonObject.getInt("receiver");
+						commandsloadedfromdb.add(new OfferTradeCommand(gameid,playerIndex,offer,receiver));
+						break;
+					}
+					case "MaritimeTradeCommand":
+					{
+						String getResource=jsonObject.getString("getResource");
+						String giveResource=jsonObject.getString("giveResource");
+						int playerIndex_NOT_ID=jsonObject.getInt("playerIndex_NOT_ID");
+						int ratio=jsonObject.getInt("ratio");
+						int gameID=jsonObject.getInt("gameID");
+						commandsloadedfromdb.add(new MaritimeTradeCommand(getResource,giveResource,playerIndex_NOT_ID,ratio,gameID));
+						break;
+					}
+					case "FinishTurnCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new FinishTurnCommand(playerIndex,gameid));
+						break;
+					}
+					case "DiscardCardsCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						ResourceList cardsToDiscard=new ResourceList(jsonObject.getInt("brick"),jsonObject.getInt("ore"),jsonObject.getInt("sheep"),jsonObject.getInt("wheat"), jsonObject.getInt("wood"));
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new DiscardCardsCommand(playerIndex,cardsToDiscard,gameid));
+						break;
+					}
+					case "BuyDevCardCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new BuyDevCardCommand(playerIndex,gameid));
+						break;
+					}
+					case"BuildSettlementCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+						VertexLocation vertex=new VertexLocation(location,convertToVertexDirection(jsonObject.getString("dir")));
+						boolean free=jsonObject.getBoolean("free");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new BuildSettlementCommand(playerIndex,location,vertex,free,gameid));
+						break;
+					}
+					case "BuildRoadCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						HexLocation location=new HexLocation(jsonObject.getInt("x"), jsonObject.getInt("y"));
+						EdgeLocation edge=new EdgeLocation(location, getDirectionFromString(jsonObject.getString("edge")));
+						boolean free=jsonObject.getBoolean("free");
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new BuildRoadCommand(playerIndex,location,edge,free,gameid));
+						break;
+					}
+					case"BuildCityCommand":
+					{
+						int playerIndex=jsonObject.getInt("playerIndex");
+						HexLocation location=new HexLocation(jsonObject.getInt("x"),jsonObject.getInt("y"));
+						VertexLocation vertex=new VertexLocation(location,convertToVertexDirection(jsonObject.getString("vertex")));
+						int gameid=jsonObject.getInt("gameid");
+						commandsloadedfromdb.add(new BuildCityCommand(playerIndex,location,vertex,gameid));
+						break;
+					}
+					case"AcceptTradeCommand":
+					{
+						int gameid=jsonObject.getInt("gameid");
+						int playerindex=jsonObject.getInt("playerIndex");
+						boolean willaccept=jsonObject.getBoolean("willAccept");
+						commandsloadedfromdb.add(new AcceptTradeCommand(gameid,playerindex,willaccept));
+						break;
+					}
+				}
+
+			}
+			System.out.println("the number of commands in my array is "+commandsloadedfromdb.size());
+
+			for (int j=0; j<commandsloadedfromdb.size(); j++)
+			{
+				try {
+					commandsloadedfromdb.get(i).execute();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
+
 	}
 	private void loadallplayersfromtextdatabase() throws IOException, JSONException {
 		//System.out.println("I construct the TextDBUserAccountsDAO");
@@ -1608,6 +1797,51 @@ public class ServerFacade
 	}
 
 
-
+	private EdgeDirection getDirectionFromString(String direction)
+	{
+		//System.out.println("the direction is: " + direction);
+		switch (direction)
+		{
+			case "NW":
+				return EdgeDirection.NorthWest;
+			case "N":
+				return EdgeDirection.North;
+			case "NE":
+				return EdgeDirection.NorthEast;
+			case "SW":
+				return EdgeDirection.SouthWest;
+			case "S":
+				return EdgeDirection.South;
+			case "SE":
+				return EdgeDirection.SouthEast;
+			default:
+				//System.out.println("Something is screwed up with the direction");
+				//assert false;
+				break;
+		}
+		return null;
+	}
+	private VertexDirection convertToVertexDirection(String direction)
+	{
+		switch (direction)
+		{
+			case "W":
+				return VertexDirection.West;
+			case "NW":
+				return VertexDirection.NorthWest;
+			case "NE":
+				return VertexDirection.NorthEast;
+			case "E":
+				return VertexDirection.East;
+			case "SE":
+				return VertexDirection.SouthEast;
+			case "SW":
+				return VertexDirection.SouthWest;
+			default:
+				break;
+			//assert false;
+		}
+		return null;
+	}
 
 }
