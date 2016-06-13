@@ -63,12 +63,6 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
 		
 		allUsers = getAllUsers();
 		
-		System.out.println("allUsers.size() = " + allUsers.size());
-		for (Player player : allUsers)
-		{
-			System.out.println(player.getName() + "\n" + player.getPassword() + "\n\n");
-		}
-		
 		for (Player candidate : allUsers)
 		{
 			if (candidate.equals(user))
@@ -122,15 +116,29 @@ public class RelationalDBUserAccountsDAO implements IUserAccount
     @Override
 	public void addUser(Player user) throws DatabaseException
     {
+    	System.out.println("Here we go");
     	db.startTransaction();
+    	
+    	ArrayList<Player> allUsers = (ArrayList<Player>) getAllUsers();
+    	
+    	for (Player candidate : allUsers)
+		{
+			if (candidate.equals(user))
+			{
+				db.endTransaction(true);
+				return;
+			}
+		}
+    	
     	PreparedStatement stmt = null;
 		ResultSet keyRS = null;
 		try
 		{
-			String query = "insert into User (username, password) values (?, ?)";
+			String query = "insert into User (id, username, password) values (?, ?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
-			stmt.setString(1, user.getName());
-			stmt.setString(2, user.getPassword());
+			stmt.setInt(1, user.getPlayerID().getNumber());
+			stmt.setString(2, user.getName());
+			stmt.setString(3, user.getPassword());
 			
 			
 			if (stmt.executeUpdate() == 1)

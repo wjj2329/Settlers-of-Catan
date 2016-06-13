@@ -166,7 +166,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
        // System.out.println("I come here and I DIE "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName());
         if(ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID()==null)
         {
-            //System.out.println("IT'S NULL NOOB");
+            System.out.println("the player id is null noob");
             return;
         }
         //System.out.println("This is the player ID: " + ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());

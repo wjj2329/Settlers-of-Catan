@@ -24,7 +24,7 @@ import java.util.ArrayList;
 /**
  * The BuildSettlementCommand class
  */
-public class BuildSettlementCommand implements ICommand ,java.io.Serializable{
+public class BuildSettlementCommand implements ICommand, java.io.Serializable{
 
 
 	@Override

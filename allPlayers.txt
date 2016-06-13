@@ -150,4 +150,60 @@
 		"playerID": "23",
 		"numberInFile": "18"
 	 },
+
+	"player19":
+	{
+		"username": "Gengar",
+		"password": "gengar",
+		"playerID": "24",
+		"numberInFile": "19"
+	 },
+
+	"player20":
+	{
+		"username": "Suicune",
+		"password": "suicune",
+		"playerID": "25",
+		"numberInFile": "20"
+	 },
+
+	"player21":
+	{
+		"username": "Moltres",
+		"password": "moltres",
+		"playerID": "26",
+		"numberInFile": "21"
+	 },
+
+	"player22":
+	{
+		"username": "Rotom",
+		"password": "rotom",
+		"playerID": "27",
+		"numberInFile": "22"
+	 },
+
+	"player23":
+	{
+		"username": "Raikou",
+		"password": "raikou",
+		"playerID": "28",
+		"numberInFile": "23"
+	 },
+
+	"player24":
+	{
+		"username": "Panda",
+		"password": "pandaexpress",
+		"playerID": "29",
+		"numberInFile": "24"
+	 },
+
+	"player25":
+	{
+		"username": "Davis",
+		"password": "davis",
+		"playerID": "30",
+		"numberInFile": "25"
+	 },
 }

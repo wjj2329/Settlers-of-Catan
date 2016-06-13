@@ -3,7 +3,29 @@
 	{
 		"id": "2",
 		"uniqueNumber": "0",
-		"title": "sadfsadf",
+		"title": "Maybe he is not as Jewish as I thought",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game1":
+	{
+		"id": "3",
+		"uniqueNumber": "1",
+		"title": "scared white boy in a black neighborhood",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game2":
+	{
+		"id": "4",
+		"uniqueNumber": "2",
+		"title": "he would've been stoned to death for his insolence",
 		"playersInGame":
 		[
 

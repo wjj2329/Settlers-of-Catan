@@ -429,10 +429,10 @@ public class ServerFacade
 
 	/**
 	 * Do NOT delete this function. This is extremely necessary for my part, and it
-	 * 	screws it up if you delete it. IT NEEDS TO BE CALLED IN THE CONSTRUCTOR.
-	 *	If anything, comment it out, but LEAVE IT WHERE IT IS SUPPOSED TO BE.
+	 * 	screws it up if you delete it. Please also do not delete any throws statements.
+	 * 	Thanks!
 	 *
-	 * Please, PLEASE stop deleting my code without telling me. Thank you. - Alex
+	 *  This function loads the games into the server model.
 	 *
 	 * @throws FileNotFoundException: if allGames.txt isn't the correct file
 	 * @throws JSONException: if the JSON was formatted incorrectly
@@ -828,6 +828,8 @@ public class ServerFacade
 		if(Server.isTxtdb)
 		{
 			PersistenceManager.getSingleton().getMyfactory().getGameManager().createnewGameFile(mynewgame.getGameId());
+		}else{
+			PersistenceManager.getSingleton().getMyfactory().getGameManager().storeGameModel(mynewgame.getGameId());
 		}
 	}
 
@@ -917,7 +919,7 @@ public class ServerFacade
 					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable+" to game with "+gameID);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(serverModel.listGames().get(gameID).getMyplayers().size()));
-					copy.setPlayerID(new Index(playeridvariable));
+					//copy.setPlayerID(new Index(playeridvariable));
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
