@@ -353,14 +353,14 @@ public class ServerFacade
 			}
 			System.out.println("the number of commands in my array is "+commandsloadedfromdb.size());
 
-			for (int j=0; j<commandsloadedfromdb.size(); j++)
+			/*for (int j=0; j<commandsloadedfromdb.size(); j++)
 			{
 				try {
 					commandsloadedfromdb.get(i).execute();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
+			}*/
 		}
 
 	}
@@ -903,7 +903,7 @@ public class ServerFacade
 					//System.out.println("I ADD THIS PLAYER"+copy.getName()+" WITH PLAYER INDEX"+playerindexforit+"and PLAYER ID"+playeridvariable+" to game with "+gameID);
 					copy.setResources(new ResourceList(0,0,0,0,0));
 					copy.setPlayerIndex(new Index(serverModel.listGames().get(gameID).getMyplayers().size()));
-					copy.setPlayerID(new Index(playeridvariable));
+					//copy.setPlayerID(new Index(playeridvariable));
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
