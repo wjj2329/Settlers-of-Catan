@@ -3,6 +3,7 @@ package server.ourserver.commands;
 import org.json.JSONException;
 import server.ourserver.ServerFacade;
 import server.persistence.TextDBGameManagerDAO;
+import shared.game.CatanGame;
 
 import java.io.FileNotFoundException;
 
@@ -61,5 +62,22 @@ public class BuyDevCardCommand implements ICommand
 	@Override
 	public int getGameid() {
 		return gameid;
+	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+		/*
+		// TODO Auto-generated method stub
+		System.out.println("NOW BUYING DEV CARD IN COMMAND");
+		//try {
+		game.buyDevCard(playerIndex, gameid);
+		/*} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}*/
+		System.out.println("Card was bought");
+
+		return null;
 	}
 }

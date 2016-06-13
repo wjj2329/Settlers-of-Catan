@@ -79,4 +79,24 @@ public class SendChatCommand implements ICommand {
 		return gameid;
 
 	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+		CatanGame currentgame= game;
+		currentgame.getModel().setVersion(currentgame.getModel().getVersion()+1);
+		Player playertoupdate=null;
+		for(Index myind:currentgame.getMyplayers().keySet())
+		{
+			if(currentgame.getMyplayers().get(myind).getPlayerIndex().getNumber()==playerindex)
+			{
+				playertoupdate=currentgame.getMyplayers().get(myind);
+			}
+		}
+		//System.out.println("MY message is this "+message);
+		//System.out.println("The player who sent this message is this "+playertoupdate.getName());
+		currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+		currentgame.getMychat().getChatMessages().getMessages().add(playerindex,new ChatLine(playertoupdate.getName()+": "+message+"#$%"+pos,playertoupdate.getName()));//not sure if this is correct. lol
+		//System.out.println("I ADD TO SERVER");
+		pos++;
+		return null;	}
 }

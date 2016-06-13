@@ -1,5 +1,7 @@
 package server.ourserver.commands;
 
+import shared.game.CatanGame;
+
 /**
  * The CreateGameCommand class
  */
@@ -31,5 +33,10 @@ public class CreateGameCommand implements ICommand {
 	{
 	return -1;
 
+	}
+
+	@Override
+	public Object executeversion2(CatanGame game) {
+		return null;
 	}
 }

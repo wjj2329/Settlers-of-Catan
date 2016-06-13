@@ -206,4 +206,46 @@ public class MaritimeTradeCommand implements ICommand {
 		return gameID;
 
 	}
-}
+
+	@Override
+	public Object executeversion2(CatanGame game)
+	{
+		CatanGame currentCatan = game;
+		incrementVersion(currentCatan);
+		Player playerWhoIsTrading = getPlayerFromPlayerIndex(playerIndex_NOT_ID, currentCatan);
+		if (playerWhoIsTrading == null)
+		{
+			// Exception thrown if no player with given playerIndex exists in the map.
+			try {
+				throw new Exception(NOT_FOUND_MSG);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		ResourceList playerResources = playerWhoIsTrading.getResources();
+		Bank myBank = currentCatan.mybank;
+		ResourceList bankResources = myBank.getCardslist();
+		ResourceType resType = stringToResourceType(getResource);
+		if (resType == null)
+		{
+			try {
+				throw new Exception(INVALID_RES);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		// Only execute the actions if the bank can actually give the card.
+		// Ideally, we would gray out the options, but we don't have a client-side
+		if (myBank.CanBankGiveResourceCard(resType))
+		{
+			//System.out.println("Here are the player resources before: " + playerResources.toString());
+			updateResourceList(playerResources, -ratio, giveResource);
+			updateResourceList(playerResources, PLAYER_INCREMENT, getResource);
+			updateResourceList(bankResources, BANK_DECREMENT, getResource);
+			updateResourceList(bankResources, ratio, giveResource);
+			//System.out.println("Here are the player resources after: " + playerResources.toString());
+		}		return null;
+	}
+
+	}

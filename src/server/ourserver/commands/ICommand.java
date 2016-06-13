@@ -1,6 +1,7 @@
 package server.ourserver.commands;
 
 import org.json.JSONException;
+import shared.game.CatanGame;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -21,4 +22,6 @@ public interface ICommand {
 	public String toJSON();
 
 	public int getGameid();
+
+	public Object executeversion2(CatanGame game);
 }
