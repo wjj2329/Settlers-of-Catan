@@ -38,4 +38,52 @@
 		"playerID": "9",
 		"numberInFile": "4"
 	 },
+
+	"player5":
+	{
+		"username": "Song",
+		"password": "janglur",
+		"playerID": "10",
+		"numberInFile": "5"
+	 },
+
+	"player6":
+	{
+		"username": "Janglur",
+		"password": "janglur",
+		"playerID": "11",
+		"numberInFile": "6"
+	 },
+
+	"player7":
+	{
+		"username": "Warbeak",
+		"password": "warbeak",
+		"playerID": "12",
+		"numberInFile": "7"
+	 },
+
+	"player8":
+	{
+		"username": "Veil",
+		"password": "swartt",
+		"playerID": "13",
+		"numberInFile": "8"
+	 },
+
+	"player9":
+	{
+		"username": "Mark",
+		"password": "marco",
+		"playerID": "14",
+		"numberInFile": "9"
+	 },
+
+	"player10":
+	{
+		"username": "Moltres",
+		"password": "moltres",
+		"playerID": "15",
+		"numberInFile": "10"
+	 },
 }

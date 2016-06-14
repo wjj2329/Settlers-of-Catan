@@ -20,4 +20,81 @@
 
 		]
 	},
+
+	"game2":
+	{
+		"id": "4",
+		"uniqueNumber": "2",
+		"title": "I hate everyone",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game3":
+	{
+		"id": "5",
+		"uniqueNumber": "3",
+		"title": "Asmodeus",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game4":
+	{
+		"id": "6",
+		"uniqueNumber": "4",
+		"title": "Game1",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game5":
+	{
+		"id": "7",
+		"uniqueNumber": "5",
+		"title": "Game2",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game6":
+	{
+		"id": "8",
+		"uniqueNumber": "6",
+		"title": "TheGAME",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game7":
+	{
+		"id": "9",
+		"uniqueNumber": "7",
+		"title": "Juego",
+		"playersInGame":
+		[
+
+		]
+	},
+
+	"game8":
+	{
+		"id": "10",
+		"uniqueNumber": "8",
+		"title": "I'm OK",
+		"playersInGame":
+		[
+
+		]
+	},
 }
