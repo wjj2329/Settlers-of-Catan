@@ -335,6 +335,7 @@ public class CatanGame
 	//THIS SHOULD WORK
 
 
+
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
 		//System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
@@ -354,6 +355,8 @@ public class CatanGame
 
 		JSONObject map = myObject.getJSONObject("map");
 		loadMap(map);
+
+
 
 
 		try
@@ -1262,6 +1265,8 @@ public class CatanGame
 
 			model.put("version", game.getModel().getVersion());
 			model.put("winner", game.getWinner().getNumber());
+
+			//model.put("state", game.getCurrentState());
 
 			//System.out.println("THE MODEL SO FAR WIT EVERYTHANG " + model.toString());
 			//System.out.println("GAME TITLE" + game.getTitle());

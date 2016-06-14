@@ -459,7 +459,7 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 // it doesn't get to this one with Pete
-				if(current.getSettlements().size()==2&&current.getNumRoadPiecesRemaining()==13&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+				if(current.getSettlements().size()==2&&current.getNumRoadPiecesRemaining()==14&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
 					//System.out.println("I come into the second build roads with " + current.getName());

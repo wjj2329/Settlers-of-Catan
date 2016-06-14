@@ -324,8 +324,30 @@ public class ModelFacade extends Observable
 		int winner_convertToIndex = myObject.getInt("winner");
 		currentgame.setWinner(new Index(winner_convertToIndex));
 		this.setChanged();
+		System.out.println("The Version of the game mode is now" +version);
+		if(initialstateafterloadingtest)
+		{
+			initialstateafterloadingtest=false;
+			if(version<=11) {
+				ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().setStatus(TurnStatus.FIRSTROUND);
+			}
+			else  if(version<23)
+			{
+				ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
+			}
+			else
+			{
+				ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().setStatus(TurnStatus.PLAYING);
+				ModelFacade.facadeCurrentGame.currentgame.setCurrentState(State.GamePlayingState);
+			}
+			//if(version)
+
+		}
 		notifyObservers();
+
 	}
+
+	private static boolean initialstateafterloadingtest=true;
 
 	private void loadBank(JSONObject bank) throws JSONException
 	{
