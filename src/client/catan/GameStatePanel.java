@@ -85,10 +85,18 @@ public class GameStatePanel extends JPanel implements Observer
 			return;
 		}
 		final Player player = ModelFacade.facadeCurrentGame.currentgame.getMyplayers().get(playerWhoseTurnItIs);
+		System.out.println("I COME AND CHEKC THE GAME STATE PANNEL "+ModelFacade.facadeCurrentGame.currentgame.getCurrentState());
+		if(player==null)
+		{
+			System.out.println("SADLY THE PLAYER IS NULL");
+		}
 		if(player!=null && ModelFacade.facadeCurrentGame.currentgame.getCurrentState() == State.GamePlayingState)
 		{
+			System.out.println("I COME HERE AND MAKE THE BUTTON GO GOOD");
 			if (ModelFacade.facadeCurrentGame.getLocalPlayer().getName().equals(player.getName()))
 			{
+				System.out.println("I SET THE STATUS TO BE GOOD TO GO");
+
 				updateGameState("End Turn", true);
 				setButtonAction(new IAction()
 				{

@@ -401,10 +401,10 @@ public class MapController extends Controller implements IMapController, Observe
 
 		if (ModelFacade.facadeCurrentGame.currentgame.getMyplayers().size() == 4)//if size isn't four don't start
 		{
-			//System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
-			//System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
-			//System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
-			//System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
+			System.out.println("In the set up turns thing I compare "+ModelFacade.facadeCurrentGame.getLocalPlayer().getName()+" "+current.getName());
+			System.out.println("HIS ID IS THIS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerID().getNumber());
+			System.out.println("HIS INDEX IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getPlayerIndex().getNumber());
+			System.out.println("HIS SETTLEMENTS SIZE IS "+ModelFacade.facadeCurrentGame.getLocalPlayer().getSettlements().size());
 			if(current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//if the current player is the local one
 			{
 				if (current.getSettlements().size() == 0
@@ -418,7 +418,7 @@ public class MapController extends Controller implements IMapController, Observe
 					//System.out.println("I place a settlement");
 					return;
 				}
-				if(current.getSettlements().size()==1&&current.getRoadPieces().size()==0
+				if(current.getSettlements().size()==1&&current.getNumRoadPiecesRemaining()==15
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.FIRSTROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())) //second part of turn two
 				{
@@ -437,7 +437,7 @@ public class MapController extends Controller implements IMapController, Observe
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName())))
 					/*&&!hasdonefirstturn*/ //ends first turn
 				{
-					
+
 					//System.out.println("I COME HERE TO END THE TURN");
 
 					//System.out.println("I have finished my turn");
@@ -459,8 +459,7 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 // it doesn't get to this one with Pete
-				if(current.getSettlements().size()==2&&current.getRoadPieces().size()/2==1
-						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
+				if(current.getSettlements().size()==2&&current.getNumRoadPiecesRemaining()==14&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))//starts part 2 of second set up turn and then changes game playing state
 				{
 					//System.out.println("I come into the second build roads with " + current.getName());
@@ -479,7 +478,7 @@ public class MapController extends Controller implements IMapController, Observe
 					return;
 				}
 
-				if (current.getSettlements().size() == 2 && current.getRoadPieces().size()/2 == 2
+				if (current.getSettlements().size() == 2 && current.getNumRoadPiecesRemaining()==13
 						&& ModelFacade.facadeCurrentGame.currentgame.getModel().getTurntracker().getStatus() == TurnStatus.SECONDROUND
 						&& current.getName().equals(ModelFacade.facadeCurrentGame.getLocalPlayer().getName()))
 				{

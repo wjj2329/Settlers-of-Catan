@@ -21,6 +21,7 @@ public class Database
 												"password text not null)";
 	private static final String CREATE_TABLE_GAMES="CREATE TABLE IF NOT EXISTS Games(" +
 												"id integer not null primary key,"+
+												"title text not null,"+
 												"gamemodel text not null)";
 	private static final String CREATE_TABLE_PLAYERS="CREATE TABLE IF NOT EXISTS Players("+
 	        									"userid integer not null,"+
