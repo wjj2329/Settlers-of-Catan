@@ -446,11 +446,16 @@ public class ModelFacade extends Observable
 		for (int i = 0; i < roads.length(); i++)
 		{
 			JSONObject obj = roads.getJSONObject(i);
+			//int theOwner = obj.getInt("owner");
+
 			Index playerIndex = new Index(obj.getInt("owner"));
+			//System.out.println("What is the int of the index FROM JSON? " + theOwner);
 			Index playerID = null;
 			System.out.println(playerIndex.getNumber());
+			// index may not be getting set correctly
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
+				//System.out.println("For the player " + p.getName() + ", the index IS " + p.getPlayerIndex().getNumber());
 				if (p.getPlayerIndex().equals(playerIndex))
 				{
 					playerID = p.getPlayerID();
@@ -470,6 +475,15 @@ public class ModelFacade extends Observable
 			edgeLocation.setHasRoad(true);
 			adjLoc.setRoadPiece(r2);
 			adjLoc.setHasRoad(true);
+			/*System.out.println("THESE ARE ALL THE PLAYERS NOW: ");
+			System.out.println("What is the Player ID we are getting from the JSON? " + playerID.getNumber());
+			System.out.println("What is the player INDEX that we are getting from the JSON? " + playerIndex.getNumber());*/
+			/*for (Player p : currentgame.getMyplayers().values())
+			{
+				System.out.println("Name: " + p.getName());
+				System.out.println("ID: " + p.getPlayerID());
+				System.out.println("Player Index: " + p.getPlayerIndex());
+			}*/
 			currentgame.getMyplayers().get(playerID).addToRoadPieces(r1);
 		}
 		JSONArray settlements = map.getJSONArray("settlements");
@@ -496,7 +510,7 @@ public class ModelFacade extends Observable
 					mylocation, playerid);
 			Hex h = currentgame.getMymap().getHexes().get(settle1.getHexLocation());
 			try {
-				h.buildSettlement(mylocation,playerid);
+				h.buildSettlement(mylocation, playerid);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}

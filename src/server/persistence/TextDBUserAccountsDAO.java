@@ -43,7 +43,7 @@ public class TextDBUserAccountsDAO implements IUserAccount
 		iReadFiles.close();
 		iScanThings.close();
 
-		String theString = iBuildStrings.toString(); 
+		String theString = iBuildStrings.toString();
 		if (!theString.contains("{"))
 		{
 			playerFileWriter.write("{");
