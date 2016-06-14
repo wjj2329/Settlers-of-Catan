@@ -1,33 +1,81 @@
 {
 	"player0":
 	{
-		"username": "will",
-		"password": "dudes",
+		"username": "Colby",
+		"password": "colby",
 		"playerID": "5",
 		"numberInFile": "0"
 	 },
 
 	"player1":
 	{
-		"username": "dude",
-		"password": "dudes1",
+		"username": "Rory",
+		"password": "junction",
 		"playerID": "6",
 		"numberInFile": "1"
 	 },
 
 	"player2":
 	{
-		"username": "trump",
-		"password": "evils",
+		"username": "Karen",
+		"password": "karen",
 		"playerID": "7",
 		"numberInFile": "2"
 	 },
 
 	"player3":
 	{
-		"username": "obama",
-		"password": "obama",
+		"username": "Aea",
+		"password": "alenjah",
 		"playerID": "8",
 		"numberInFile": "3"
+	 },
+
+	"player4":
+	{
+		"username": "Beyonce",
+		"password": "beyonce",
+		"playerID": "9",
+		"numberInFile": "4"
+	 },
+
+	"player5":
+	{
+		"username": "Judy",
+		"password": "judyhopps",
+		"playerID": "10",
+		"numberInFile": "5"
+	 },
+
+	"player6":
+	{
+		"username": "Booty",
+		"password": "booty",
+		"playerID": "11",
+		"numberInFile": "6"
+	 },
+
+	"player7":
+	{
+		"username": "Kesha",
+		"password": "kesha",
+		"playerID": "12",
+		"numberInFile": "7"
+	 },
+
+	"player8":
+	{
+		"username": "JewBoy",
+		"password": "jewboy",
+		"playerID": "13",
+		"numberInFile": "8"
+	 },
+
+	"player9":
+	{
+		"username": "Moltres",
+		"password": "moltres",
+		"playerID": "14",
+		"numberInFile": "9"
 	 },
 }
