@@ -290,6 +290,7 @@ public class ModelFacade extends Observable
 		//System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
 		currentgame.clear();
 		//currentgame=new CatanGame();
+		System.out.println(myObject.toString());
 		JSONObject bank = myObject.getJSONObject("bank");
 		loadBank(bank);
 
@@ -447,6 +448,7 @@ public class ModelFacade extends Observable
 			JSONObject obj = roads.getJSONObject(i);
 			Index playerIndex = new Index(obj.getInt("owner"));
 			Index playerID = null;
+			System.out.println(playerIndex.getNumber());
 			for (Player p : facadeCurrentGame.currentgame.getMyplayers().values())
 			{
 				if (p.getPlayerIndex().equals(playerIndex))

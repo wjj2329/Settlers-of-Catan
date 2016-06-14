@@ -961,11 +961,13 @@ public class CatanGame
 		//System.out.println("THE GAME GETS LOADED");
 		//System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
 
+		/*
 		for(Player player:this.getMyplayers().values())
 		{
 			System.out.println(player.getName()+" index "+player.getPlayerIndex().getNumber()+" id "+player.getPlayerID().getNumber());
 			player.setPlayerID(player.getPlayerIndex());
 		}
+		*/
 
 		try {
 			//THE BANK
@@ -1059,6 +1061,7 @@ public class CatanGame
 					{
 						JSONObject road = new JSONObject();
 						road.put("owner", calle.getPlayerWhoOwnsRoad().getNumber());
+						System.out.println("I MAKE A ROAD" +calle.getPlayerWhoOwnsRoad().getNumber());
 
 						JSONObject location = new JSONObject();
 						location.put("x", elHex.getX());

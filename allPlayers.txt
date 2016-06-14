@@ -1,0 +1,33 @@
+{
+	"player0":
+	{
+		"username": "will",
+		"password": "dudes",
+		"playerID": "5",
+		"numberInFile": "0"
+	 },
+
+	"player1":
+	{
+		"username": "dude",
+		"password": "dudes1",
+		"playerID": "6",
+		"numberInFile": "1"
+	 },
+
+	"player2":
+	{
+		"username": "trump",
+		"password": "evils",
+		"playerID": "7",
+		"numberInFile": "2"
+	 },
+
+	"player3":
+	{
+		"username": "obama",
+		"password": "obama",
+		"playerID": "8",
+		"numberInFile": "3"
+	 },
+}
