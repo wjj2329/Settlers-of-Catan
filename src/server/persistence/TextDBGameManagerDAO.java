@@ -1,9 +1,5 @@
 package server.persistence;
 
-import client.join.JoinGameController;
-import com.google.gson.Gson;
-
-import com.sun.corba.se.impl.orbutil.ObjectWriter;
 import server.ourserver.ServerFacade;
 import server.ourserver.commands.*;
 import shared.game.CatanGame;
@@ -42,6 +38,8 @@ public class TextDBGameManagerDAO implements IGameManager
     {
         FileWriter db=new FileWriter("commands"+gameId+".txt",true);
         db.write((commandObject.toString()));
+        //db.write("{\"currentvalue\":"+commandNumber+"}");
+
         db.flush();
     }
 	@Override

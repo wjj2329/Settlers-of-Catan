@@ -9,6 +9,7 @@ import server.database.Database;
 import server.database.DatabaseException;
 import server.ourserver.commands.*;
 import server.persistence.PersistenceManager;
+import server.persistence.TextDBGameManagerDAO;
 import shared.chat.GameHistoryLine;
 import shared.definitions.CatanColor;
 import shared.game.CatanGame;
@@ -392,6 +393,7 @@ public class ServerFacade
 			System.out.println("the number of commands in my array is "+commandsloadedfromdb.size());
 
 			//if(commandsloadedfromdb.size()!=0) {
+			TextDBGameManagerDAO.commandNumber=commandsloadedfromdb.size();
 				for (int j = 0; j < commandsloadedfromdb.size(); j++)
 				{
 					System.out.println("I try to execute ");

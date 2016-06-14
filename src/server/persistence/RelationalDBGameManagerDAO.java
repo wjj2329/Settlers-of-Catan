@@ -1,7 +1,6 @@
 package server.persistence;
 
 import com.google.gson.Gson;
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
 
 import org.json.JSONException;
 import org.json.JSONObject;
