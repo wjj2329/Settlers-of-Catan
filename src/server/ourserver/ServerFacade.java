@@ -138,6 +138,7 @@ public class ServerFacade
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
 
+		
 		loadDefaultGame();
 		loadEmptyGame();
 		if (Server.isTxtdb)
@@ -167,10 +168,9 @@ public class ServerFacade
 			{
 				for(CatanGame game : catanGames){
 					//System.out.println("ADDING A GAME WITH ID " + game.getGameId());
-					getInstance().serverModel.addGame(game);
+					serverModel.addGame(game);
 				}
 			}
-			return;
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -501,7 +501,6 @@ public class ServerFacade
 	}
 
 	public void loadDefaultGame(){
-		System.out.println("LOADING DEFAULT GAME");
 		CatanGame defaultgame = new CatanGame();
 		defaultgame.setTitle("Default Game");
 		defaultgame.setID(0);
