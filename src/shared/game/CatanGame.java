@@ -1177,9 +1177,7 @@ public class CatanGame
 				oldDevCards.put("yearOfPlenty", cartasViejas.getYearOfPlenty());
 				player.put("oldDevCards", oldDevCards);
 				//System.out.println("THE PLAYER SO FAR WIT OLD DEV CARDS " + player.toString());
-				//System.out.println("The player index for the player " + jugador.getName() + " is " + jugador.getPlayerIndex().getNumber());
-				//System.out.println("The player ID is " + jugador.getPlayerID().getNumber());
-			// and then make sure it's grabbing playerINDEX in the reverse, NOT playerID.
+
 				player.put("playerIndex", jugador.getPlayerIndex().getNumber());
 				//System.out.println("THE PLAYER SO FAR WIT MORE INFO INDEX " + player.toString());
 				player.put("playedDevCard", jugador.getplayedDevCard());

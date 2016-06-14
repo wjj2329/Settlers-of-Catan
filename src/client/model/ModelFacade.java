@@ -461,7 +461,10 @@ public class ModelFacade extends Observable
 					playerID = p.getPlayerID();
 				}
 			}
-			assert (playerID != null);
+			if (playerID==null)
+			{
+			playerID=playerIndex;
+			}
 			JSONObject location = obj.getJSONObject("location");
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
@@ -505,6 +508,10 @@ public class ModelFacade extends Observable
 				{
 					playerid = p.getPlayerID();
 				}
+			}
+			if (playerid==null)
+			{
+				playerid=playerindex;
 			}
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, playerid);
@@ -555,7 +562,10 @@ public class ModelFacade extends Observable
 					owner2 = p.getPlayerID();
 				}
 			}
-			assert (owner2 != null);
+			if (owner2==null)
+			{
+				owner2=playerIndex;
+			}
 			city1.setOwner(owner2);
 			vertexLoc.setCity(city1);
 			//System.out.println("I AM THE OWNER "+owner2.getNumber());
