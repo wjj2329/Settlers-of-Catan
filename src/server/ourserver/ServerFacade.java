@@ -138,7 +138,7 @@ public class ServerFacade
 		allRegisteredUsers.add(brooke);
 		allRegisteredUsers.add(pete);
 
-
+		
 		loadDefaultGame();
 		loadEmptyGame();
 		if (Server.isTxtdb)
@@ -153,8 +153,31 @@ public class ServerFacade
 				updateallgameswithtext();
 			//}
 		}
+		else{
+			loadGamesFromDatabase();
+		}
 	}
-
+	public void loadGamesFromDatabase(){
+		//System.out.println("GOING TO CALL THE DAO!");
+		try {
+			ArrayList<CatanGame> catanGames = null;
+			//System.out.println("BEFORE I CALL THE DB");
+			catanGames = (ArrayList<CatanGame>) PersistenceManager.getSingleton().getMyfactory().getGameManager().getGameList();
+			//System.out.println("AFTER I CALL THE DB STARTING TO ADD WONDERFUL GAMES");
+			if(catanGames != null)
+			{
+				for(CatanGame game : catanGames){
+					//System.out.println("ADDING A GAME WITH ID " + game.getGameId());
+					serverModel.addGame(game);
+				}
+			}
+		} catch (IOException | JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
+	}
+	
 	private void updateallgameswithtext() throws FileNotFoundException, JSONException {
 		System.out.println("I have my games "+serverModel.listGames().size());
 		for(int i=0; i<serverModel.listGames().size(); i++)
