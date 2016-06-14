@@ -947,8 +947,6 @@ public class ServerFacade
 					playerindexforit++;
 					playeridvariable++;
 					serverModel.listGames().get(gameID).addPlayer(copy);
-					if(Server.isTxtdb)
-					{
 						try
 						{
 							PersistenceManager.getSingleton().getMyfactory().getGameManager().loadInfo(gameID);
@@ -959,7 +957,6 @@ public class ServerFacade
 						{
 							e.printStackTrace();
 						}
-					}
 					return true;
 				}
 			}
