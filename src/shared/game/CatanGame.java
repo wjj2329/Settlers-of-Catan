@@ -338,7 +338,8 @@ public class CatanGame
 
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
-		//System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
+		System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
+		System.out.println(myObject.toString());
 		//this.clear();
 		//this=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
@@ -483,7 +484,10 @@ public class CatanGame
 					playerID = p.getPlayerID();
 				}
 			}
-			assert (playerID != null);
+			if (playerID==null)
+			{
+				playerID=playerIndex;
+			}
 			JSONObject location = obj.getJSONObject("location");
 			HexLocation loc = new HexLocation(location.getInt("x"), location.getInt("y"));
 			EdgeLocation edgeLocation = new EdgeLocation(loc, getDirectionFromString(location.getString("direction")));
@@ -502,6 +506,7 @@ public class CatanGame
 		JSONArray settlements = map.getJSONArray("settlements");
 		for (int i = 0; i < settlements.length(); i++)
 		{
+			System.out.println("I DO SURVIVE IN HERE ");
 			JSONObject obj = settlements.getJSONObject(i);
 			JSONObject location = obj.getJSONObject("location");
 			VertexDirection dir = convertToVertexDirection(location.getString("direction"));
@@ -518,6 +523,10 @@ public class CatanGame
 				{
 					playerid = p.getPlayerID();
 				}
+			}
+			if (playerid==null)
+			{
+				playerid=playerindex;
 			}
 			Settlement settle1 = new Settlement(new HexLocation(location.getInt("x"), location.getInt("y")),
 					mylocation, playerid);
@@ -567,6 +576,10 @@ public class CatanGame
 				{
 					owner2 = p.getPlayerID();
 				}
+			}
+			if (owner2==null)
+			{
+				owner2=playerIndex;
 			}
 			assert (owner2 != null);
 			city1.setOwner(owner2);
