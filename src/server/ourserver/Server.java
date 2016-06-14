@@ -257,7 +257,7 @@ public class Server
 				System.out.println("it is a txt factory now");
 				isTxtdb=true;
 				PersistenceManager.getSingleton().setmyfactory(new TextDBFactory());
-				numberofcommands=500;
+				//numberofcommands=500;
 			} catch (Exception e)
 			{
 				e.printStackTrace();
