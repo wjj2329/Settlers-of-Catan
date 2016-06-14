@@ -339,7 +339,7 @@ public class CatanGame
 	public void updateFromJSON(JSONObject myObject) throws JSONException
 	{
 		//System.out.println("THIS UPDATE FROM JSON IS CALLED AND WILL UPDATE THE MODEL FROM THE SERVER");
-		this.clear();
+		//this.clear();
 		//this=new CatanGame();
 		JSONObject bank = myObject.getJSONObject("bank");
 		loadBank(bank);
@@ -580,30 +580,6 @@ public class CatanGame
 		this.myrobber.setLocation(new HexLocation(robber.getInt("x"), robber.getInt("y")));
 	}
 
-	private void vertexLocationOnHex(VertexLocation vertexLocation, Hex h)
-	{
-		switch (vertexLocation.getDir())
-		{
-			case NorthEast:
-				h.setNortheast(vertexLocation);
-				break;
-			case NorthWest:
-				h.setNorthwest(vertexLocation);
-				break;
-			case East:
-				h.setEast(vertexLocation);
-				break;
-			case West:
-				h.setWest(vertexLocation);
-				break;
-			case SouthEast:
-				h.setSoutheast(vertexLocation);
-				break;
-			case SouthWest:
-				h.setSouthwest(vertexLocation);
-				break;
-		}
-	}
 
 	private void loadPlayers(JSONArray players) throws JSONException
 	{
@@ -630,9 +606,9 @@ public class CatanGame
 				// ATTENTION: I may be setting the wrong variable here. Will double check when testing.
 				// although this makes the most sense to me, y'know?
 				newPlayer.setNumRoadPiecesRemaining(obj.getInt("roads"));
-				//System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumRoadPiecesRemaining());
+				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumRoadPiecesRemaining());
 				newPlayer.setNumSettlementsRemaining(obj.getInt("settlements"));
-				//System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumSettlementsRemaining());
+				System.out.println("THE PLAYER I'M LOading is"+newPlayer.getName()+" "+newPlayer.getNumSettlementsRemaining());
 				newPlayer.setNumSoldierCards(obj.getInt("soldiers"));
 				newPlayer.setNumVictoryPoints(obj.getInt("victoryPoints"));
 
@@ -985,6 +961,12 @@ public class CatanGame
 		//System.out.println("THE GAME GETS LOADED");
 		//System.out.println("THIS IS MY GAME ID THAT I GET for exporting"+gameID);
 
+		for(Player player:this.getMyplayers().values())
+		{
+			System.out.println(player.getName()+" index "+player.getPlayerIndex().getNumber()+" id "+player.getPlayerID().getNumber());
+			player.setPlayerID(player.getPlayerIndex());
+		}
+
 		try {
 			//THE BANK
 			JSONObject bank = new JSONObject();
@@ -1098,14 +1080,14 @@ public class CatanGame
 			{
 				for(Settlement colonia : mapa.get(elHex).getSettlementlist())
 				{
-					//System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
+					System.out.println(" I DO INDEED HAVE A SETTLEMENT ");
 					//if(colonia.getOwner().getNumber() >= 0 && colonia.getOwner().getNumber() <= 4)
 					{
-						//System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
+						System.out.println("I DO INDEED INSERT SETTLMENT at location "+elHex.getX()+" "+elHex.getY());
 						//System.out.println("THE LOCATION OF SAID DIRECTION BEFORE FUNCTION IS THIS "+colonia.getVertexLocation().getDir());
 						//System.out.println( "THAT SETTLEMENT IS ALSO AT DIRECTION "+getDirFromVertexDir(colonia.getVertexLocation().getDir()));
 						JSONObject settlement = new JSONObject();
-						//System.out.println("The owner's playerIndex (or is it playerID?) is " + colonia.getOwner().getNumber());
+						System.out.println("The owner's playerIndex (or is it playerID?) is " + colonia.getOwner().getNumber());
 						settlement.put("owner", colonia.getOwner().getNumber());
 						JSONObject location = new JSONObject();
 						location.put("x", elHex.getX());
@@ -1129,7 +1111,7 @@ public class CatanGame
 					if(cuidad.getOwner() != null)
 					{
 						JSONObject city = new JSONObject();
-						//System.out.println("I INSERT IN THE SERVER FACADE A CITY WITH OWNER "+cuidad.getOwner().getNumber());
+						//System.out.println("I INSERT IN THE Mode of storay "+cuidad.getOwner().getNumber());
 						city.put("owner", cuidad.getOwner().getNumber());
 
 						JSONObject location = new JSONObject();

@@ -114,7 +114,8 @@ public class BuildRoadCommand implements ICommand {
 			currentgame.getModel().getTurntracker().setStatus(TurnStatus.SECONDROUND);
 			turnstogo++;
 		}
-		if(playertoupdate.getRoadPieces().size()>=5)
+		//Player with largest road might be causing some issues caution is required.
+		if(playertoupdate.getNumRoadPiecesRemaining()<=10)
 		{
 			Index playerindexcurrentlywithlongestroad=currentgame.getModel().getTurntracker().getLongestRoad();
 			if(playerindexcurrentlywithlongestroad.getNumber()==-1)
@@ -130,7 +131,7 @@ public class BuildRoadCommand implements ICommand {
 					playerwithlongestroad = player;
 				}
 			}
-			if(playertoupdate.getRoadPieces().size()>playerwithlongestroad.getRoadPieces().size())
+			if(playertoupdate.getNumRoadPiecesRemaining()<playerwithlongestroad.getNumRoadPiecesRemaining())
 			{
 				playertoupdate.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()+2);
 				playerwithlongestroad.setNumVictoryPoints(playertoupdate.getNumVictoryPoints()-2);
