@@ -147,17 +147,18 @@ public class RelationalDBGameManagerDAO implements IGameManager
 
     @Override
     public void addCommand(ICommand commandObject, int gameId) throws JSONException, IOException {
+    	boolean clearCommands = false;
 		PreparedStatement stmt = null;
 		ResultSet keyRS = null;
 		try
 		{
 			db.startTransaction();
-			String query = "insert into Commands (id, command) values (?, ?)";
+			String query = "insert into Commands (gameid, command) values (?, ?)";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameId);
 			stmt.setString(2, commandObject.toJSON()); //Will change this later
-			stmt.executeQuery();
-			
+			stmt.executeUpdate();
+			System.out.println("ADDED A COMMAND!");
 		} catch (SQLException e)
 		{
 				try {
@@ -175,6 +176,7 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			Database.safeClose(keyRS);
 		}
 		db.endTransaction(true);
+		
     }
 
     @Override
@@ -187,10 +189,9 @@ public class RelationalDBGameManagerDAO implements IGameManager
 		try
 		{
 			db.startTransaction();
-			String query = "select id, command from Commands where id = ?";
+			String query = "select gameid, command from Commands where id = ?";
 			stmt = db.getConnection().prepareStatement(query);
 			stmt.setInt(1, gameid);
-			
 			rs = stmt.executeQuery();
 			while (rs.next())
 			{
@@ -532,11 +533,11 @@ public class RelationalDBGameManagerDAO implements IGameManager
 			try
 			{
 				db.startTransaction();
-				String query = "delete from Commands where id = ?";
+				String query = "delete from Commands where gameid = ?";
 				stmt = db.getConnection().prepareStatement(query);
 				stmt.setInt(1, gameid);
 				
-				stmt.executeQuery();
+				stmt.executeUpdate();
 			} catch (SQLException e)
 			{
 				Database.safeClose(rs);

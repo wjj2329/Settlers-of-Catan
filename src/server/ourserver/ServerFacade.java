@@ -1362,6 +1362,10 @@ public class ServerFacade
 
 			PersistenceManager.getSingleton().addcommandinfo(command);
 		}
+		else{
+
+			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
 	}
 
 	/**
@@ -1376,6 +1380,10 @@ public class ServerFacade
 
 			PersistenceManager.getSingleton().addcommandinfo(robbing);
 		}
+		else{
+			PersistenceManager.getSingleton().addcommandinfo(robbing);
+			
+		}
 	}
 
 	/**
@@ -1387,6 +1395,10 @@ public class ServerFacade
 		FinishTurnCommand endturn=new FinishTurnCommand(playerIndex,gameid);
 		endturn.execute();
 		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(endturn);
+		}
+		else{
 
 			PersistenceManager.getSingleton().addcommandinfo(endturn);
 		}
@@ -1734,9 +1746,14 @@ public class ServerFacade
 	 * @param edge: the edge it is being built on
      */
 	public void buildRoad(int playerIndex, HexLocation location, EdgeLocation edge, boolean free, int gameid) throws IOException, JSONException {
+		System.out.println("I AM IN BUILD ROAD!");
 		BuildRoadCommand buildRoadCommand=new BuildRoadCommand(playerIndex,location,edge,free, gameid);
 		buildRoadCommand.execute();
 		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(buildRoadCommand);
+		}
+		else{
 
 			PersistenceManager.getSingleton().addcommandinfo(buildRoadCommand);
 		}
@@ -1750,9 +1767,14 @@ public class ServerFacade
 	 * @param vertex: which vertex it is being built on
      */
 	public void buildSettlement(int playerIndex, HexLocation location, VertexLocation vertex, boolean free, int gameid) throws IOException, JSONException {
+		System.out.println("YE HAVE CALLED TO BUILD!");
 		BuildSettlementCommand buildsettlement=new BuildSettlementCommand(playerIndex,location,vertex,free,gameid);
 		buildsettlement.execute();
 		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(buildsettlement);
+		}
+		else{
 
 			PersistenceManager.getSingleton().addcommandinfo(buildsettlement);
 		}
@@ -1772,6 +1794,10 @@ public class ServerFacade
 
 			PersistenceManager.getSingleton().addcommandinfo(buildCityCommand);
 		}
+		else{
+
+			PersistenceManager.getSingleton().addcommandinfo(buildCityCommand);
+		}
 	}
 
 	/**
@@ -1782,6 +1808,10 @@ public class ServerFacade
 		ICommand command = new OfferTradeCommand(gameid, playerIndex, offer, receiver);
 		command.execute();
 		if(Server.isTxtdb) {
+
+			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
+		else{
 
 			PersistenceManager.getSingleton().addcommandinfo(command);
 		}
@@ -1798,6 +1828,10 @@ public class ServerFacade
 		command.execute();
 		if(Server.isTxtdb) {
 			PersistenceManager.getSingleton().addcommandinfo(command);
+		}
+		else{
+			PersistenceManager.getSingleton().addcommandinfo(command);
+			
 		}
 	}
 
@@ -1817,6 +1851,10 @@ public class ServerFacade
 
 			PersistenceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
 		}
+		else{
+
+			PersistenceManager.getSingleton().addcommandinfo(maritimeTradeCommand);
+		}
 	}
 
 	/**
@@ -1830,6 +1868,10 @@ public class ServerFacade
 		mydiscard.execute();
 		if(Server.isTxtdb) {
 			PersistenceManager.getSingleton().addcommandinfo(mydiscard);
+		}
+		else{
+			PersistenceManager.getSingleton().addcommandinfo(mydiscard);
+			
 		}
 	}
 
