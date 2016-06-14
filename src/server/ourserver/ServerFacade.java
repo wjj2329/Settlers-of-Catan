@@ -169,8 +169,17 @@ public class ServerFacade
 				for(CatanGame game : catanGames){
 					//System.out.println("ADDING A GAME WITH ID " + game.getGameId());
 					serverModel.addGame(game);
+					ArrayList<ICommand> commands = null;
+					commands = PersistenceManager.getSingleton().getMyfactory().getGameManager().getCommands(game.getGameId());
+					for(ICommand command : commands){
+						command.executeversion2(game);
+					}
+				
 				}
+				
 			}
+			
+			
 		} catch (IOException | JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
