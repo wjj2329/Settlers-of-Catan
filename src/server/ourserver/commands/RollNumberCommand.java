@@ -316,7 +316,7 @@ public class RollNumberCommand implements ICommand {
 	{	
 		for(Player player : game.getMyplayers().values())		
 		{		
-			if(player.getPlayerIndex().getNumber() == index)	
+			if(player.getPlayerIndex().getNumber() == index||player.getPlayerID().getNumber()==index)
 			{
 				//System.out.println(player.getName() + " GETS A " + hexType.name());		
 				if(game.mybank.getResourceCard(hexType))
