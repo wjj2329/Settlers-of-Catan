@@ -1,4 +1,4 @@
-
+Settlers of Catan board game playable over a network with multiple players.
 
 Run the demo server using "ant server".  Then navigate to localhost:8081/ in 
 order to read the documentation.  The "Java docs" link takes you to documentation
